@@ -1,0 +1,24 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Title:</strong>
+  <%= @spotlight.title %>
+</p>
+
+<p>
+  <strong>Body:</strong>
+  <%= @spotlight.body %>
+</p>
+
+<p>
+  <strong>Type:</strong>
+  <%= @spotlight.type %>
+</p>
+
+<p>
+  <strong>Records:</strong>
+  <%= @spotlight.records %>
+</p>
+
+<%= link_to 'Edit', edit_spotlight_path(@spotlight) %> |
+<%= link_to 'Back', spotlights_path %>

@@ -1,0 +1,35 @@
+<h1>Listing collections</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Key</th>
+      <th>Description</th>
+      <th>Approved</th>
+      <th>Configuration</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @collections.each do |collection| %>
+      <tr>
+        <td><%= collection.name %></td>
+        <td><%= collection.key %></td>
+        <td><%= collection.description %></td>
+        <td><%= collection.approved %></td>
+        <td><%= collection.configuration %></td>
+        <td><%= link_to 'Show', collection %></td>
+        <td><%= link_to 'Edit', edit_collection_path(collection) %></td>
+        <td><%= link_to 'Destroy', collection, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Collection', new_collection_path %>

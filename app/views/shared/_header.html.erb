@@ -1,0 +1,23 @@
+<header>
+	<nav id='main-nav'>
+		<h1>CURARIUM</h1>
+		<%= session[:user_id] %>
+		<ul>
+			<li>
+				<%= link_to 'Collections', collections_path %>
+			</li>
+			<li>
+				<%= link_to 'Spotlights', spotlights_path %>
+			</li>
+			<% if session[:user_id]==nil%>
+			<li>
+				<%= link_to 'Sign In', login_path %>
+			</li>
+			<% else %>
+			<li>
+				<%= link_to 'Sign Out', logout_path, method: 'delete' %>
+			</li>
+			<% end %>
+		</ul>
+	</nav>
+</header>

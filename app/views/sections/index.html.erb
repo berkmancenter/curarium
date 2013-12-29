@@ -1,0 +1,33 @@
+<h1>Listing sections</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Users</th>
+      <th>Admins</th>
+      <th>Spotlights</th>
+      <th>Trays</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @sections.each do |section| %>
+      <tr>
+        <td><%= section.users %></td>
+        <td><%= section.admins %></td>
+        <td><%= section.spotlights %></td>
+        <td><%= section.trays %></td>
+        <td><%= link_to 'Show', section %></td>
+        <td><%= link_to 'Edit', edit_section_path(section) %></td>
+        <td><%= link_to 'Destroy', section, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Section', new_section_path %>

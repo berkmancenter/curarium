@@ -1,3 +1,13 @@
 // Place all the styles related to the collections controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+section.configure_collection {
+  display: inline-block;
+  width: 33.33%;
+  height: calc(100% - 25px);
+  height: 100%;
+  background: red;
+  float: left;
+  border: 1px solid black;
+}

@@ -1,37 +1,57 @@
-<%= form_for(@collection) do |f| %>
-  <% if @collection.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@collection.errors.count, "error") %> prohibited this collection from being saved:</h2>
+<section id='input' class='configure_collection'>
+	<%= form_for(@collection) do |f| %>
+	<% if @collection.errors.any? %>
+	<div id="error_explanation">
+		<h2><%= pluralize(@collection.errors.count, "error") %> prohibited this collection from being saved:</h2>
 
-      <ul>
-      <% @collection.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
+		<ul>
+			<% @collection.errors.full_messages.each do |msg| %>
+			<li>
+				<%= msg %>
+			</li>
+			<% end %>
+		</ul>
+	</div>
+	<% end %>
 
-  <div class="field">
-    <%= f.label :name %><br>
-    <%= f.text_field :name %>
-  </div>
-  <div class="field">
-    <%= f.label :key %><br>
-    <%= f.text_field :key %>
-  </div>
-  <div class="field">
-    <%= f.label :description %><br>
-    <%= f.text_area :description %>
-  </div>
-  <div class="field">
-    <%= f.label :approved %><br>
-    <%= f.check_box :approved %>
-  </div>
-  <div class="field">
-    <%= f.label :configuration %><br>
-    <%= f.text_field :configuration %>
-  </div>
-  <div class="actions">
-    <%= f.submit %>
-  </div>
-<% end %>
+	<div class="field">
+		<%= f.label :name %>
+		<br>
+		<%= f.text_field :name, placeholder: "the title of your collection" %>
+	</div>
+	<div class="field">
+		<%= f.label :description %>
+		<br>
+		<%= f.text_area :description, placeholder: "A description of your collection. It can be a long text." %>
+	</div>
+	<div class="field">
+		<%= f.hidden_field :configuration %>
+	</div>
+	
+	<div class="actions">
+		<%= f.submit %>
+	</div>
+	<% end %>
+	<form id='parse'>
+		<textarea id='json' placeholder='copy and paste your sample json record here'></textarea>
+		<br >
+		<!----><input type='submit' value='parse'>-->
+	</form>
+	
+	<%= link_to 'Back', collections_path %>
+</section>
+<section id='parsed' class='configure_collection'></section>
+<section id='output' class='configure_collection'>
+	<div id='output'>
+	<div id='title' class='field_wrapper'><p>title</p></div>
+	<div id='image' class='field_wrapper'><p>image</p></div>
+	<div id='thumbnail' class='field_wrapper'><p>thumbnail</p></div>
+	<form id='add_field'>
+		<input id='field_name' name='field_name' type='text' placeholder='custom field name'><br>
+		<input type='submit' value='Add field'>
+	</form>
+	<form id='submit_configuration'>
+		<input type='submit' value='Submit Configuration'>
+	</form>
+</div>
+</section>

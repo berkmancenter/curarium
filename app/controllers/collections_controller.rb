@@ -26,7 +26,8 @@ class CollectionsController < ApplicationController
   # POST /collections.json
   def create
     @collection = Collection.new(collection_params)
-
+    @collection.approved = false
+    @collection.admin = [session[:user_id]]
     respond_to do |format|
       if @collection.save
         format.html { redirect_to @collection, notice: 'Collection was successfully created.' }
@@ -70,6 +71,6 @@ class CollectionsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def collection_params
-      params.require(:collection).permit(:name, :key, :description, :approved, :configuration)
+      params.require(:collection).permit(:name, :description, :configuration)
     end
 end

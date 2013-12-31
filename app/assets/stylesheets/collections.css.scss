@@ -7,7 +7,82 @@ section.configure_collection {
   width: 33.33%;
   height: calc(100% - 25px);
   height: 100%;
-  background: red;
   float: left;
-  border: 1px solid black;
+}
+
+/**/
+
+
+input[type=submit] {
+  margin: 5px;
+}
+
+#input input[type=text]{
+  width: 90%;
+  font-size: 1.25em
+}
+
+#input #parse {
+  height: 15em;
+}
+
+#input textarea {
+  width: 90%;
+  height: 10em;
+}
+
+textarea#json{
+  height:100%;
+}
+
+#parsed{
+  display: inline-block;
+  overflow: auto;
+  border-right: 1px solid darkgray;
+  border-left: 1px solid darkgray;
+}
+
+#output .field_wrapper {
+  width: 90%;
+  min-height:30px;
+  border: 1px solid darkgray;
+  border-radius: 10px;
+  padding: 0;
+  margin: 5px;
+  position: relative;
+  padding: 0 0 0 10px;
+}
+#output .field_wrapper p{
+  margin: 0;
+}
+
+#output .field_wrapper .close{
+  width: 30px;
+  height: 100%;
+  background-color: darkgray;
+  position: absolute;
+  color: white;
+  top:0;
+  right:0;
+  cursor: pointer;
+  text-align: center;
+  border-radius: 0 10px 10px 0;
+  font-size: 20px;
+}
+
+span.part {
+  margin: 2px;
+}
+
+section#parsed dl, section#parsed dt, section#parsed dd {
+  margin-left:20px;
+}
+section#parsed dt:hover {
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+section#parsed dd {
+  color: #FF2626;
+  cursor: crosshair;
 }

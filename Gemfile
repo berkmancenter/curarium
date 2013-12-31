@@ -22,7 +22,11 @@ gem 'coffee-rails', '~> 4.0.0'
 
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
+# Use jquery-ui
 gem 'jquery-ui-rails'
+
+#Use d3 for visualizations
+gem "d3-rails"
 
 # Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
 gem 'turbolinks'

@@ -17,7 +17,11 @@ Curarium::Application.routes.draw do
 
   resources :records
 
-  resources :collections
+  resources :collections do
+    get "tag" => "collections#tag", as: "tag"
+    post "check_key" => "collections#check_key", as: "check_key"
+    post "ingest" => "collections#ingest", as: "ingest"
+  end
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

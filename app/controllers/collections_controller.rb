@@ -1,6 +1,7 @@
 class CollectionsController < ApplicationController
   before_action :set_collection, only: [:show, :edit, :update, :destroy]
-  skip_before_action :authorize, only: [:index, :show]
+  skip_before_action :authorize, only: [:index, :show, :check_key, :ingest]
+  skip_before_filter :verify_authenticity_token, only: [:check_key, :ingest]
 
   # GET /collections
   # GET /collections.json
@@ -62,6 +63,58 @@ class CollectionsController < ApplicationController
       format.json { head :no_content }
     end
   end
+
+  def check_key
+      collection = Collection.find_by(key: params[:collection_id])
+      if collection.nil?
+        render json: {collection: false }
+      else
+        render json: {collection: true }
+      end
+  end
+
+  def ingest
+    collection = Collection.find_by_key(params[:collection_id])
+    configuration = collection.configuration
+    r = collection.records.new
+    r.original = params["j"]
+    r.save
+    pr = {}
+    pr['curarium'] = [r.id]
+    configuration.each do |field|
+      pr[field[0]] = collection.follow_json(r.original, field[1])
+    end
+    r.parsed = pr
+    r.save
+    render json: pr
+  end
+  
+  #VISUALIZATIONS
+  
+  def tag
+    @collection = Collection.find(params[:collection_id])
+    jason = @collection.properties(params[:include],params[:property])
+    #jason = properties(jason, params[:property])
+    render json: jason
+  end
+  
+  def collection_data
+    collection = Collection.find(params[:collection_id])
+    @data = {}
+    @data[:configuration] = collection.recordconfig.configuration
+    @data[:spotlights] = collection.spotlights
+    @data[:spotlights].each do |s|
+      s['url'] = spotlight_url(s['id'])
+    end
+    @data[:description] = collection.desc
+    @data[:id] = collection.id
+    @data[:name] = collection.name
+    render json: @data
+  end
+  
+   
+  
+  #functions taken from frontend js scripts to enable d3 visualization
 
   private
     # Use callbacks to share common setup or constraints between actions.

@@ -1,3 +1,7 @@
+record = {}
+include = []
+property = 'topics'
+
 window.confCollection = ->
   $('#output .field_wrapper').droppable
     drop : field_drop
@@ -47,26 +51,26 @@ field_drop = (e, d) -> #specifies the "droppable" behavior when dragging fields 
   field = $('<form>')
   for p in path
     do (p) ->
-    if typeof p is 'string'
-      part = $("<input readonly>").attr('class', 'part').attr('type', 'hidden').attr('value', p)
-      label = $("<span>").append(p)
-      $(field).append(label)
-    else
-      part = $("<select>").attr('class', 'part').change (e) ->
-        path = []
-        $(this).parent().children('select, input').each ->
-          val = $(this).val()
-          if isNaN(val)
-            path.push(val)
-          else
-            path.push(parseInt(val, 10))
+      if typeof p is 'string'
+        part = $("<input readonly>").attr('class', 'part').attr('type', 'hidden').attr('value', p)
+        label = $("<span>").append(p)
+        $(field).append(label)
+      else
+        part = $("<select>").attr('class', 'part').change (e) ->
+          path = []
+          $(this).parent().children('select, input').each ->
+            val = $(this).val()
+            if isNaN(val)
+              path.push(val)
+            else
+              path.push(parseInt(val, 10))
           $(this).parent().parent().find('.value').html(traceField(record, path))
           $(this).parent().parent().data('path', path)
-      option01 = $('<option>').attr('value', p).append(p)
-      option02 = $('<option>').attr('value', "*").append("*")
-      part.append(option01).append(option02)        
-    $(field).append(part)
-    $(this).data('path', path)
+        option01 = $('<option>').attr('value', p).append(p)
+        option02 = $('<option>').attr('value', "*").append("*")
+        part.append(option01).append(option02)        
+      $(field).append(part)
+      $(this).data('path', path)
   $(this).append(field)
   value = $("<div class='value'>").append(traceField(record, path))
   $(this).append(value)
@@ -80,11 +84,14 @@ traceField = (object, path) ->
     else
       if path[1] is "*" #if, instead of being given a numeric index, an Array is given a "*" as a key, it will iterate through all the items in the Array.
         field = []
-        npath = path.slice(2)
-        field.push(traceField(current, [i].concat(npath))) for i in [0 .. current.length]
+        for i in current
+          do (i)->
+            npath = path.slice(1)
+            npath[0] = current.indexOf(i)
+            field.push(traceField(current, npath))
       else
         field = traceField(current, path.slice(1))
-        return field
+      return field
   else
     return null
 
@@ -99,7 +106,6 @@ printRecord = (json, path=[]) ->
         item.attr('class', 'object')
       for i of json
         do (i) ->
-          console.log i
           term = $('<dt>').append(i + ":")
           item.append(term)
           if (isNaN(i))
@@ -116,3 +122,113 @@ printRecord = (json, path=[]) ->
       item = $('<dd>').data('path', localpath)
       item.append(json)
       return item
+      
+window.treemap = ->
+  selected = []
+  $.getJSON(
+    document.URL + '/treemap?property=' + property + '&include='
+    (items) ->
+      tree(items)
+      undefined
+    )
+
+  tree = (root) ->
+    max_value = 0
+    for n in root.children
+      do (n) ->
+        if(max_value < n.size)
+          max_value = n.size
+    
+    
+    d3.selectAll('section#collection_canvas *').remove()
+    
+    
+    
+    margin =
+      top : 0
+      right : 0
+      bottom : 0
+      left : 0
+    
+    
+    width = $("section#collection_canvas").width() - margin.left - margin.right 
+    height = $("section#collection_canvas").height() - margin.top - margin.bottom
+
+    color = d3.scale.linear().domain([0, max_value/8, max_value/4, max_value/2, max_value]).range(['#c83737', '#ff9955', '#5aa02c', '#2a7fff'])
+    
+    
+    
+    treemap = d3.layout.treemap().size([width, height]).value (d) ->
+      if selected.indexOf(d.name) < 0
+        return d.size
+      else
+        return null
+    
+    
+    
+    div = d3.select("section#collection_canvas").append("div").attr('id', 'chart-container').style("position", "relative").style("width", (width + margin.left + margin.right) + "px").style("height", (height + margin.top + margin.bottom) + "px").style("left", margin.left + "px").style("top", margin.top + "px")
+    
+    
+    
+    position = ->
+      this.style(
+        "left"
+        (d) ->
+          return d.x + "px"
+      ).style(
+        "top" 
+        (d) ->
+          return d.y + "px"
+      ).style(
+        "width" 
+        (d) ->
+          return Math.max(0, d.dx - 1) + "px"
+      ).style(
+        "height"
+        (d) ->
+          return Math.max(0, d.dy - 1) + "px"
+      )
+      undefined
+    
+
+    
+    
+    node = div.datum(root).selectAll(".node").data(treemap.nodes).enter().append("div").attr("class", "node").call(position).style(
+      "background"
+      (d) ->
+        if d.size?
+          return color(d.size)
+    ).text( 
+      (d) ->
+        return d.name
+    ).on('click', click)
+    
+    undefined
+    
+
+
+  click = (e) -> 
+    name = property+":"+d3.select(this).data()[0].name
+    if include.indexOf(name) is -1
+      include.push(name)
+    #placeholder()
+
+    #populate_path()
+    $.getJSON(
+      document.URL + '/treemap?property=' + property + window.terms()
+      (data) -> 
+        tree(data)
+        undefined
+      )
+
+  undefined
+
+window.terms = ->
+  terms = ""
+  for term in include
+    do (term)->
+      terms = terms + "&include[]=" + term
+      undefined
+  if terms is ""
+    terms = "&include[]="
+  return terms

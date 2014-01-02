@@ -3,7 +3,22 @@ class ApplicationController < ActionController::Base
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
   before_action :authorize
-
+  
+  def treemapify(data,name='main')
+    branch = {}
+    branch['name'] = name
+    if(data.class == Array || data.class == Hash)
+      branch['children'] = []
+      data.each do |child|
+        branch['children'].push(treemapify(child[1],child[0]))
+      end
+    else
+      branch['size'] = data
+      return branch
+    end
+    return branch
+  end
+  
   private
   def authorize
     unless User.find_by(id: session[:user_id])

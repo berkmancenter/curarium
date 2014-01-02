@@ -19,6 +19,7 @@ Curarium::Application.routes.draw do
 
   resources :collections do
     get "tag" => "collections#tag", as: "tag"
+    get "treemap" => "collections#treemap", as: "treemap"
     post "check_key" => "collections#check_key", as: "check_key"
     post "ingest" => "collections#ingest", as: "ingest"
   end

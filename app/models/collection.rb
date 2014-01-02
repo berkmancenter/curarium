@@ -64,6 +64,7 @@ class Collection < ActiveRecord::Base
     return properties
   end
   
+  
   private
   def generate_key
     self[:key] = SecureRandom.base64

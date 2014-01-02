@@ -94,7 +94,12 @@ class CollectionsController < ApplicationController
   def tag
     @collection = Collection.find(params[:collection_id])
     jason = @collection.properties(params[:include],params[:property])
-    #jason = properties(jason, params[:property])
+    render json: jason
+  end
+  
+  def treemap
+    @collection = Collection.find(params[:collection_id])
+    jason = treemapify(@collection.properties(params[:include],params[:property]))
     render json: jason
   end
   

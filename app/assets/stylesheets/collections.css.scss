@@ -2,6 +2,27 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
+//COLLECTION DISPLAY
+
+section#collection_canvas {
+  width:100%;
+  height:100%;
+  background-color: white;
+}
+
+.node {
+  box-sizing: border-box;
+  
+  font: 10px sans-serif;
+  color: black;
+  line-height: 12px;
+  overflow: hidden;
+  position: absolute;
+  text-indent: 2px;
+}
+
+//COLLECTION CONFIGURATION
+
 section.configure_collection {
   display: inline-block;
   width: 33.33%;
@@ -9,9 +30,6 @@ section.configure_collection {
   height: 100%;
   float: left;
 }
-
-/**/
-
 
 input[type=submit] {
   margin: 5px;

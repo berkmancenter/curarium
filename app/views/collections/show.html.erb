@@ -1,10 +1,29 @@
 <script>
 	$(document).ready(function(){
-		window.treemap();
+		//visualizations.treemap();
 	})
 </script>
 
-<section id='collection_canvas'></section>
+<section id='collection_canvas'>
+	<h1><%= @collection.name %></h1>
+	<p><%= @collection.description %></p>
+	<div id='collection_properties'>
+	<% @collection.properties.each do |property, values| %>
+		<% if ['thumbnail','image'].include? property
+			next
+		end%>
+		<ul id=<%=property%> class='property_list'>
+			<li class='header'><%= property %></li>
+		<% values.each do |value, count| %>
+			<li class='property'><%= value %>, <%=count%></li>
+		<% end %>
+		</ul>
+	<% end %>
+	</div>	
+	
+</section>
+
+
 <!--<p id="notice"><%= notice %></p>
 
 <p>

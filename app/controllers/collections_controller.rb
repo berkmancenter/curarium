@@ -29,6 +29,10 @@ class CollectionsController < ApplicationController
     @collection = Collection.new(collection_params)
     @collection.approved = false
     @collection.admin = [session[:user_id]]
+    @collection.properties = {}
+    @collection.configuration.each do |field|
+      @collection.properties[field[0]] = {}
+    end
     respond_to do |format|
       if @collection.save
         format.html { redirect_to @collection, notice: 'Collection was successfully created.' }
@@ -76,6 +80,8 @@ class CollectionsController < ApplicationController
   def ingest
     collection = Collection.find_by_key(params[:collection_id])
     configuration = collection.configuration
+    properties = collection.properties.to_json
+    properties = JSON.parse(properties)
     r = collection.records.new
     r.original = params["j"]
     r.save
@@ -83,23 +89,41 @@ class CollectionsController < ApplicationController
     pr['curarium'] = [r.id]
     configuration.each do |field|
       pr[field[0]] = collection.follow_json(r.original, field[1])
+      if pr[field[0]] == nil or ['thumbnail','image'].include?(field[0])
+        next
+      end
+      pr[field[0]].each do |p|
+        if(properties[field[0]][p] == nil)
+          properties[field[0]][p] = 1
+        else
+          properties[field[0]][p] = properties[field[0]][p] + 1
+         end
+       end
     end
+    collection.update(properties: properties)
     r.parsed = pr
     r.save
     render json: pr
   end
   
+      
+      
+  
   #VISUALIZATIONS
   
   def tag
     @collection = Collection.find(params[:collection_id])
-    jason = @collection.properties(params[:include],params[:property])
+    jason = @collection.sort_properties(params[:include],params[:property])
     render json: jason
   end
   
   def treemap
     @collection = Collection.find(params[:collection_id])
-    jason = treemapify(@collection.properties(params[:include],params[:property]))
+    if(params[:include].length > 0 and params[:include][0] != "")
+      jason = treemapify(@collection.sort_properties(params[:include],params[:property]))
+    else
+       jason = treemapify(@collection.properties[params[:property]])
+    end
     render json: jason
   end
   

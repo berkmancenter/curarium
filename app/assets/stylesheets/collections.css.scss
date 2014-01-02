@@ -10,9 +10,31 @@ section#collection_canvas {
   background-color: white;
 }
 
+div#collection_properties {
+  width: 100%;
+  height: 75%;
+}
+
+#collection_properties .header{
+  display: block;
+  width: 100%;
+  position: fixed;
+  background-color: black;
+  color: white;
+  font-size: 14px;
+}
+
+ul.property_list {
+  width: 250px;
+  height: 100%;
+  overflow: auto;
+  background: slategray;
+  display: inline-block;
+  float: left;
+}
+
 .node {
   box-sizing: border-box;
-  
   font: 10px sans-serif;
   color: black;
   line-height: 12px;

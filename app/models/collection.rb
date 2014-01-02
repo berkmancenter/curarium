@@ -1,9 +1,9 @@
 class Collection < ActiveRecord::Base
   before_create :generate_key
   has_many :records, dependent: :destroy
-  validates :name, presence: true, uniqueness: true
-  validates :description, presence: true
-  validates :configuration, presence: true
+  #validates :name, presence: true, uniqueness: true
+  #validates :description, presence: true
+  #validates :configuration, presence: true
   
   def follow_json(structure, path)
     if structure[path[0]] != nil
@@ -44,7 +44,7 @@ class Collection < ActiveRecord::Base
     return records
   end
   
-  def properties(include, property)
+  def sort_properties(include, property)
     query = self.query_records(include)
     properties = {}
     query.find_each(batch_size: 10000) do |record|

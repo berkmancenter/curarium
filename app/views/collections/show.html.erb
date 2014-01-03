@@ -7,20 +7,47 @@
 <section id='collection_canvas'>
 	<h1><%= @collection.name %></h1>
 	<p><%= @collection.description %></p>
-	<div id='collection_properties'>
-	<% @collection.properties.each do |property, values| %>
-		<% if ['thumbnail','image'].include? property
-			next
-		end%>
-		<ul id=<%=property%> class='property_list'>
-			<li class='header'><%= property %></li>
-		<% values.each do |value, count| %>
-			<li class='property'><%= value %>, <%=count%></li>
-		<% end %>
-		</ul>
-	<% end %>
-	</div>	
+	<p><%= @collection.records.length %></p>
 	
+	<div class='query_builder'>
+		<div class='dropper_wrapper'>
+			<div class='query_wrapper'>
+				<h2 class='query_title'>include</h2>
+				<div id='query_include'></div>
+			</div>
+			<div class='query_wrapper'>
+				<h2 class='query_title'>exclude</h2>
+				<div id='query_exclude'></div>
+			</div>
+		</div>
+		<div id='properties_menu'>
+			<div id='properties_header'>
+					<% @collection.properties.each do |property, values| %>
+					<% if ['thumbnail','image'].include? property
+						next
+					end%>
+					<a href='#<%=property%>_list'><%=property%></a>
+					<% end %>
+					<br>
+					<label for='filter'>filter</label>
+					<input id='filter'>
+				</div>
+			<div id='collection_properties'>
+			<% @collection.properties.each do |property, values| %>
+				<% if ['thumbnail','image'].include? property
+					next
+				end%>
+				<div id='<%=property%>_list' class='property_wrapper' data-property='<%property%>'>
+					<ul  class='property_list'>
+					<% values.each do |value, count| %>
+						<li><%= value %> (<%=count%>)</li>
+					<% end %>
+					</ul>
+				</div>
+			<% end %>
+			</div>
+		</div>
+	</div>
 </section>
 
 

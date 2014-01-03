@@ -56,6 +56,14 @@ div#properties_menu{
   width: 25%;
   float: left;
   display: inline-block;
+  a {
+    color: black;
+    text-decoration: none;
+  }
+  a:hover {
+    background: black;
+    color:white;
+  }
 }
 
 div#properties_header {

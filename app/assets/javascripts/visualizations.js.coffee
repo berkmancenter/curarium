@@ -1,12 +1,12 @@
-`window.visualizations = {}`
+window.visualization = {}
 include = []
 exclude = []
-property = 'topics'
+property = ''
 
-window.visualizations.treemap = ->
+window.visualization.treemap = ->
   selected = []
   $.getJSON(
-    document.URL + '/treemap?property=' + property + '&include='
+    window.location.pathname + '/treemap'+ window.collection.query_terms()
     (items) ->
       tree(items)
       undefined
@@ -95,7 +95,7 @@ window.visualizations.treemap = ->
 
     #populate_path()
     $.getJSON(
-      document.URL + '/treemap?property=' + property + window.terms()
+      window.location.pathname + '/treemap'+ window.collection.query_terms()
       (data) -> 
         tree(data)
         undefined

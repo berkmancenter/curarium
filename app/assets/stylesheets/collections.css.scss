@@ -18,7 +18,7 @@ div.query_builder {
 }
 
 div.dropper_wrapper {
-  width: 75%;
+  width: 50%;
   height: 100%;
   float:left;
   display: inline-block;
@@ -116,6 +116,29 @@ ul.property_list {
   }
 }
 
+div#visualization_options {
+  width: 25%;
+  height: 100%;
+  display: inline-block;
+  float: left;
+  background:gray;
+}
+
+.query_element {
+  display: inline-block;
+  background: gray;
+  padding: 3px;
+  margin: 2px;
+  border-radius: 5px;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+//treemap
 .node {
   box-sizing: border-box;
   font: 10px sans-serif;

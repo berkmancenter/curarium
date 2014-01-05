@@ -1,8 +1,7 @@
 record = {}
-include = []
-property = 'topics'
+window.collection = {}
 
-window.confCollection = ->
+window.collection.configure = ->
   $('#output .field_wrapper').droppable
     drop : field_drop
   
@@ -122,113 +121,51 @@ printRecord = (json, path=[]) ->
       item = $('<dd>').data('path', localpath)
       item.append(json)
       return item
+
+property = 'names'
+window.collection.query =
+  include : []
+  exclude : []
       
-window.treemap = ->
-  selected = []
-  $.getJSON(
-    document.URL + '/treemap?property=' + property + '&include='
-    (items) ->
-      tree(items)
-      undefined
-    )
-
-  tree = (root) ->
-    max_value = 0
-    for n in root.children
-      do (n) ->
-        if(max_value < n.size)
-          max_value = n.size
-    
-    
-    d3.selectAll('section#collection_canvas *').remove()
-    
-    
-    
-    margin =
-      top : 0
-      right : 0
-      bottom : 0
-      left : 0
-    
-    
-    width = $("section#collection_canvas").width() - margin.left - margin.right 
-    height = $("section#collection_canvas").height() - margin.top - margin.bottom
-
-    color = d3.scale.linear().domain([0, max_value/8, max_value/4, max_value/2, max_value]).range(['#c83737', '#ff9955', '#5aa02c', '#2a7fff'])
-    
-    
-    
-    treemap = d3.layout.treemap().size([width, height]).value (d) ->
-      if selected.indexOf(d.name) < 0
-        return d.size
-      else
-        return null
-    
-    
-    
-    div = d3.select("section#collection_canvas").append("div").attr('id', 'chart-container').style("position", "relative").style("width", (width + margin.left + margin.right) + "px").style("height", (height + margin.top + margin.bottom) + "px").style("left", margin.left + "px").style("top", margin.top + "px")
-    
-    
-    
-    position = ->
-      this.style(
-        "left"
-        (d) ->
-          return d.x + "px"
-      ).style(
-        "top" 
-        (d) ->
-          return d.y + "px"
-      ).style(
-        "width" 
-        (d) ->
-          return Math.max(0, d.dx - 1) + "px"
-      ).style(
-        "height"
-        (d) ->
-          return Math.max(0, d.dy - 1) + "px"
-      )
-      undefined
-    
-
-    
-    
-    node = div.datum(root).selectAll(".node").data(treemap.nodes).enter().append("div").attr("class", "node").call(position).style(
-      "background"
-      (d) ->
-        if d.size?
-          return color(d.size)
-    ).text( 
-      (d) ->
-        return d.name
-    ).on('click', click)
-    
-    undefined
-    
+window.collection.query_builder = ->
+  $('#query_include, #query_exclude').droppable
+    drop: (event, element)->
+      query = window.collection.query
+      value = element.draggable.context.dataset.value
+      property = element.draggable.context.parentNode.dataset.property
+      query_string = property+":"+value
+      dropped = $("<span class='query_element'>").append(query_string)
+      $(element.draggable).hide()
+      type = $(this).attr('id').slice(6)
+      query[type].push(query_string)
+      $(this).append dropped
+      console.log 
+      $.getJSON(
+        window.location.pathname + '/tag'+ window.collection.query_terms()
+        (data) ->
+          console.log(data)
+          console.log(Object.keys(data).length)
+        )
+  $('.property_list li').draggable
+    helper : "clone"
 
 
-  click = (e) -> 
-    name = property+":"+d3.select(this).data()[0].name
-    if include.indexOf(name) is -1
-      include.push(name)
-    #placeholder()
-
-    #populate_path()
-    $.getJSON(
-      document.URL + '/treemap?property=' + property + window.terms()
-      (data) -> 
-        tree(data)
-        undefined
-      )
-
-  undefined
-
-window.terms = ->
-  terms = ""
-  for term in include
+window.collection.query_terms = ->
+  query = window.collection.query
+  property = "?property="+property
+  include = ""
+  exclude = ""
+  for term in query.include
     do (term)->
-      terms = terms + "&include[]=" + term
+      include = include + "&include[]=" + term
       undefined
-  if terms is ""
-    terms = "&include[]="
+  if include is ""
+    include = "&include[]="
+  for term in query.exclude
+    do (term)->
+      exclude = exclude + "&exclude[]=" + term
+      undefined
+  if exclude is ""
+    exclude = "&exclude[]="
+  terms = property+include+exclude
   return terms

@@ -1,14 +1,15 @@
 <script>
 	$(document).ready(function(){
-		//visualizations.treemap();
+		window.collection.query_builder();
+		$('form').submit(function(){
+			window.visualization.treemap();
+		});
 	})
 </script>
 
 <section id='collection_canvas'>
 	<h1><%= @collection.name %></h1>
 	<p><%= @collection.description %></p>
-	<p><%= @collection.records.length %></p>
-	
 	<div class='query_builder'>
 		<div class='dropper_wrapper'>
 			<div class='query_wrapper'>
@@ -37,15 +38,26 @@
 				<% if ['thumbnail','image'].include? property
 					next
 				end%>
-				<div id='<%=property%>_list' class='property_wrapper' data-property='<%property%>'>
-					<ul  class='property_list'>
+				<div id='<%=property%>_list' class='property_wrapper'>
+					<ul  class='property_list' data-property='<%=property%>'>
 					<% values.each do |value, count| %>
-						<li><%= value %> (<%=count%>)</li>
+						<li data-value='<%=value%>'><%= value %> (<%=count%>)</li>
 					<% end %>
 					</ul>
 				</div>
 			<% end %>
 			</div>
+		</div>
+		<div id='visualization_options'>
+			<form>
+				<label for='record_count'>Records:</label>
+				<input id='record_count' type="number" value='<%= @collection.records.length %>' readonly>
+				<select id='vizualization_mode'>
+					<option selected disabled>Choose Vizualization</option>
+					<option value='treemap'>Treemap</option>
+				</select>
+				<input type='submit' value='generate visualization'>
+			</form>
 		</div>
 	</div>
 </section>

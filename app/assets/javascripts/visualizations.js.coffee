@@ -1,7 +1,7 @@
 window.visualization = {}
 
 
-window.visualization.treemap = ->
+window.visualization.treemap = (container)->
   selected = []
   $.getJSON(
     window.location.pathname + '/treemap'+ window.collection.query_terms()
@@ -9,18 +9,14 @@ window.visualization.treemap = ->
       tree(items)
       undefined
     )
-
+  
   tree = (root) ->
+    d3.selectAll('#'+container+' *').remove()
     max_value = 0
     for n in root.children
       do (n) ->
         if(max_value < n.size)
           max_value = n.size
-    
-    
-    d3.selectAll('section#collection_canvas *').remove()
-    
-    
     
     margin =
       top : 0
@@ -29,8 +25,8 @@ window.visualization.treemap = ->
       left : 0
     
     
-    width = $("section#collection_canvas").width() - margin.left - margin.right 
-    height = $("section#collection_canvas").height() - margin.top - margin.bottom
+    width = $('#'+container).width() - margin.left - margin.right 
+    height = $('#'+container).height() - margin.top - margin.bottom
 
     color = d3.scale.linear().domain([0, max_value/8, max_value/4, max_value/2, max_value]).range(['#c83737', '#ff9955', '#5aa02c', '#2a7fff'])
     
@@ -44,7 +40,7 @@ window.visualization.treemap = ->
     
     
     
-    div = d3.select("section#collection_canvas").append("div").attr('id', 'chart-container').style("position", "relative").style("width", (width + margin.left + margin.right) + "px").style("height", (height + margin.top + margin.bottom) + "px").style("left", margin.left + "px").style("top", margin.top + "px")
+    div = d3.select('#'+container).append("div").attr('id', 'chart-container').style("position", "relative").style("width", (width + margin.left + margin.right) + "px").style("height", (height + margin.top + margin.bottom) + "px").style("left", margin.left + "px").style("top", margin.top + "px")
     
     
     
@@ -97,4 +93,33 @@ window.visualization.treemap = ->
         undefined
       )
   
+  undefined
+
+window.visualization.thumbnail = (container) ->
+  $.getJSON(
+    window.location.pathname + '/thumbnail'+ window.collection.query_terms()
+    (items) ->
+      thumbs(items)    
+      undefined
+    )
+    
+  thumbs = (items) ->
+    d3.select("#"+container).selectAll('div').data(items).enter().append('div').attr('class', 'picture-container').append('div').attr('class', 'pixel').attr(
+      'title'
+      (d) -> 
+        return d.id + ":" + d['title'].toString()
+    ).style(
+      'background-image'
+      (d) -> 
+        if d.thumbnail
+          image_url = d.thumbnail
+          return 'url(' + image_url + '?width=150&height=150)'
+    ).on(
+      'click'
+      (e) ->
+        id = d3.select(this).data()[0].id
+        window.open('http://' + window.location.host + '/records/' + id, '_blank')
+    )
+    undefined
+    
   undefined

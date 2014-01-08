@@ -1,20 +1,38 @@
 <script>
 	$(document).ready(function(){
 		window.collection.query_builder();
+		
+		$('#query_builder form select').change(function(e){
+			e.preventDefault();
+			window.collection.query.visualization = $(this).val();
+		});
+		
 		$('.property_link').click(function(e){
 			window.collection.query.property = $(this).html();
 		});
-		$('form').submit(function(e){
+		
+		$('#collection_header select').change(function(e){
+			location = $(this).val();
+		});
+		
+		$('#query_builder form').submit(function(e){
 			e.preventDefault();
-			window.visualization.treemap();
+			window.collection.generate_visualization();
 		});
 	})
 </script>
-
-<section id='collection_canvas'>
+<div id='collection_header'>
 	<h1><%= @collection.name %></h1>
-	<p><%= @collection.description %></p>
-	<div class='query_builder'>
+	<select>
+		<option value='#collection_info'>ABOUT</option>
+		<option value='#query_builder'>EXPLORE</option>
+	</select>
+</div>
+<section id='collection_pages'>
+	<div id='collection_info'>
+		<p><%= @collection.description %></p>
+	</div>
+	<div id='query_builder'>
 		<div class='dropper_wrapper'>
 			<div class='query_wrapper'>
 				<h2 class='query_title'>include</h2>
@@ -59,40 +77,10 @@
 				<select id='vizualization_mode'>
 					<option selected disabled>Choose Vizualization</option>
 					<option value='treemap'>Treemap</option>
+					<option value='thumbnail'>Thumbnail</option>
 				</select>
 				<input type='submit' value='generate visualization'>
 			</form>
 		</div>
 	</div>
 </section>
-
-
-<!--<p id="notice"><%= notice %></p>
-
-<p>
-  <strong>Name:</strong>
-  <%= @collection.name %>
-</p>
-
-<p>
-  <strong>Key:</strong>
-  <%= @collection.key %>
-</p>
-
-<p>
-  <strong>Description:</strong>
-  <%= @collection.description %>
-</p>
-
-<p>
-  <strong>Approved:</strong>
-  <%= @collection.approved %>
-</p>
-
-<p>
-  <strong>Configuration:</strong>
-  <%= @collection.configuration %>
-</p>
-
-<%= link_to 'Edit', edit_collection_path(@collection) %> |
-<%= link_to 'Back', collections_path %>-->

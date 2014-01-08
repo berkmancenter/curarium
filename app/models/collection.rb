@@ -67,7 +67,7 @@ class Collection < ActiveRecord::Base
        end
       end
     end
-    return properties
+    return {length: query.length, properties: properties}
   end
   
   

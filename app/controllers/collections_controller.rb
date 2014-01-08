@@ -113,14 +113,29 @@ class CollectionsController < ApplicationController
   
   def tag
     @collection = Collection.find(params[:collection_id])
-    jason = @collection.sort_properties(params[:include],params[:exclude],params[:property])
-    render json: jason
+    tags = @collection.sort_properties(params[:include],params[:exclude],params[:property])
+    render json: tags
   end
   
   def treemap
     @collection = Collection.find(params[:collection_id])
-    jason = treemapify(@collection.sort_properties(params[:include],params[:exclude],params[:property]))
-    render json: jason
+    treemap = treemapify(@collection.sort_properties(params[:include],params[:exclude],params[:property])[:properties])
+    render json: treemap
+  end
+  
+  def thumbnail
+    @collection = Collection.find(params[:collection_id])
+    records = @collection.query_records(params[:include],params[:exclude])
+    records = records.select('parsed')
+    thumbnails = []
+    records.each do |thumb|
+      thumbnails.push({
+          thumbnail: eval(thumb.parsed['thumbnail'])[0],
+          title: eval(thumb.parsed['title'])[0],
+          id: eval(thumb.parsed['curarium'])[0]
+        })
+    end
+    render json: thumbnails
   end
   
   def collection_data

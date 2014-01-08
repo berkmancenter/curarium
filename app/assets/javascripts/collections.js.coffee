@@ -123,6 +123,7 @@ printRecord = (json, path=[]) ->
       return item
 
 window.collection.query =
+  visualization: 'treemap'
   property: 'names'
   include : []
   exclude : []
@@ -143,8 +144,7 @@ window.collection.query_builder = ->
       $.getJSON(
         window.location.pathname + '/tag'+ window.collection.query_terms()
         (data) ->
-          console.log(data)
-          console.log(Object.keys(data).length)
+          $('#record_count').val(data.length)
         )
   $('.property_list li').draggable
     helper : "clone"
@@ -169,3 +169,13 @@ window.collection.query_terms = ->
     exclude = "&exclude[]="
   terms = property+include+exclude
   return terms
+
+window.collection.generate_visualization = ->
+  id = 'viz'+Math.random().toString(36).substring(5)
+  option = $('<option>').val('#'+id).append('visualization')
+  $('#collection_header select').append(option)
+  canvas = $('<div>').attr('id',id)
+  $('section#collection_pages').append(canvas)
+  window.visualization[window.collection.query.visualization](id)
+  window.location = '#'+id
+  undefined

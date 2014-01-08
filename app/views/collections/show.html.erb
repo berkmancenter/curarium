@@ -1,6 +1,9 @@
 <script>
 	$(document).ready(function(){
 		window.collection.query_builder();
+		$('.property_link').click(function(e){
+			window.collection.query.property = $(this).html();
+		});
 		$('form').submit(function(e){
 			e.preventDefault();
 			window.visualization.treemap();
@@ -28,7 +31,7 @@
 					<% if ['thumbnail','image'].include? property
 						next
 					end%>
-					<a href='#<%=property%>_list'><%=property%></a>
+					<a href='#<%=property%>_list' class='property_link'><%=property%></a>
 					<% end %>
 					<br>
 					<label for='filter'>filter</label>

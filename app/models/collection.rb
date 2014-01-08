@@ -33,7 +33,7 @@ class Collection < ActiveRecord::Base
     end
   end
   
-  def query_records(include)
+  def query_records(include, exclude)
     records = self.records
     if(include.length > 0 and include[0]!= "")
       include.each do |term|
@@ -41,11 +41,17 @@ class Collection < ActiveRecord::Base
         records = records.where("parsed->:field LIKE :tag",{field: parameters[0], tag: '%\"'+parameters[1]+'\"%'})
       end
     end
+    if(exclude.length > 0 and exclude[0]!= "")
+      exclude.each do |term|
+        parameters = term.split(':')
+        records = records.where.not("parsed->:field LIKE :tag",{field: parameters[0], tag: '%\"'+parameters[1]+'\"%'})
+      end
+    end
     return records
   end
   
-  def sort_properties(include, property)
-    query = self.query_records(include)
+  def sort_properties(include, exclude, property)
+    query = self.query_records(include, exclude)
     properties = {}
     query.find_each(batch_size: 10000) do |record|
       parsed = record.parsed[property]

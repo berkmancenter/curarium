@@ -113,17 +113,13 @@ class CollectionsController < ApplicationController
   
   def tag
     @collection = Collection.find(params[:collection_id])
-    jason = @collection.sort_properties(params[:include],params[:property])
+    jason = @collection.sort_properties(params[:include],params[:exclude],params[:property])
     render json: jason
   end
   
   def treemap
     @collection = Collection.find(params[:collection_id])
-    if(params[:include].length > 0 and params[:include][0] != "")
-      jason = treemapify(@collection.sort_properties(params[:include],params[:property]))
-    else
-       jason = treemapify(@collection.properties[params[:property]])
-    end
+    jason = treemapify(@collection.sort_properties(params[:include],params[:exclude],params[:property]))
     render json: jason
   end
   

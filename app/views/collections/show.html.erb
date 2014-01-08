@@ -1,7 +1,8 @@
 <script>
 	$(document).ready(function(){
 		window.collection.query_builder();
-		$('form').submit(function(){
+		$('form').submit(function(e){
+			e.preventDefault();
 			window.visualization.treemap();
 		});
 	})

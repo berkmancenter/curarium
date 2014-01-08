@@ -122,8 +122,8 @@ printRecord = (json, path=[]) ->
       item.append(json)
       return item
 
-property = 'names'
 window.collection.query =
+  property: 'names'
   include : []
   exclude : []
       
@@ -152,7 +152,7 @@ window.collection.query_builder = ->
 
 window.collection.query_terms = ->
   query = window.collection.query
-  property = "?property="+property
+  property = "?property="+query.property
   include = ""
   exclude = ""
   for term in query.include

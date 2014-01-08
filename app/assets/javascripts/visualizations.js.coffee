@@ -1,7 +1,5 @@
 window.visualization = {}
-include = []
-exclude = []
-property = ''
+
 
 window.visualization.treemap = ->
   selected = []
@@ -80,7 +78,7 @@ window.visualization.treemap = ->
           return color(d.size)
     ).text( 
       (d) ->
-        return d.name
+        return d.name + '(' + d.size + ')'
     ).on('click', click)
     
     undefined
@@ -88,27 +86,15 @@ window.visualization.treemap = ->
 
 
   click = (e) -> 
-    name = property+":"+d3.select(this).data()[0].name
-    if include.indexOf(name) is -1
-      include.push(name)
-    #placeholder()
-
-    #populate_path()
+    query = window.collection.query
+    name = query.property+":"+d3.select(this).data()[0].name
+    if query.include.indexOf(name) is -1
+      query.include.push(name)
     $.getJSON(
       window.location.pathname + '/treemap'+ window.collection.query_terms()
       (data) -> 
         tree(data)
         undefined
       )
-
+  
   undefined
-
-window.terms = ->
-  terms = ""
-  for term in include
-    do (term)->
-      terms = terms + "&include[]=" + term
-      undefined
-  if terms is ""
-    terms = "&include[]="
-  return terms

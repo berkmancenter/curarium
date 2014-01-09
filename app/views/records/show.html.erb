@@ -1,19 +1,21 @@
+<script>
+	$(document).ready(function(){
+		window.record.display( '<%=eval(@record.parsed['image'])[0]%>' );
+	});
+</script>
+
 <p id="notice"><%= notice %></p>
 
-<p>
-  <strong>Image:</strong>
-  <img src='<%= eval(@record.parsed['image'])[0] %>'>
-</p>
+<div id='main-canvas'>
+</div>
 
+<div id='record-data'>
 <p>
-  <strong>Original:</strong>
   <%= @record.original %>
 </p>
-
 <p>
-  <strong>Parsed:</strong>
   <%= @record.parsed %>
 </p>
-
-<%= link_to 'Edit', edit_record_path(@record) %> |
-<%= link_to 'Back', records_path %>
+</div>
+<div id='annotations'>
+</div>

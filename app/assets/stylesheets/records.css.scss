@@ -1,3 +1,30 @@
 // Place all the styles related to the records controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+div#main-canvas {
+  display: inline-block;
+  width:100%;
+  height:100%;
+  float:left;
+  position:relative;
+}
+
+div#record-data{
+  border: 2px solid red;
+  display: block;
+  width: 20%;
+  height: calc(100% - 25px);
+  position: absolute;
+  overflow: auto;
+}
+
+div#annotations{
+  border: 2px solid red;
+  display: block;
+  right: 0;
+  width: 20%;
+  height: calc(100% - 25px);
+  position: absolute;
+  overflow: auto;
+}

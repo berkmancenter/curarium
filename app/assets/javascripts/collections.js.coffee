@@ -47,6 +47,7 @@ window.collection.configure = ->
 
 field_drop = (e, d) -> #specifies the "droppable" behavior when dragging fields from the original records into the custom curarium fields. Reads the path, generates a form for modifying numeric values and gives a sample output.
   path = $(d.draggable).data('path')
+  $(this).data('path', path)
   field = $('<form>')
   for p in path
     do (p) ->

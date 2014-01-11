@@ -129,8 +129,10 @@ class CollectionsController < ApplicationController
     records = records.select('parsed')
     thumbnails = []
     records.each do |thumb|
+      placeholder = thumb.parsed['thumbnail']
+      placeholder ||= "[]"
       thumbnails.push({
-          thumbnail: eval(thumb.parsed['thumbnail'])[0],
+          thumbnail: eval(placeholder)[0],
           title: eval(thumb.parsed['title'])[0],
           id: eval(thumb.parsed['curarium'])[0]
         })

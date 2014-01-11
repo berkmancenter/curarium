@@ -24,7 +24,6 @@ window.record.display = (image_url)->
   #surrogate.src = 'http://www.thepencilmademedoit.com/wp-content/uploads/2012/08/Day-05-Something-Green.jpg' #square image
   surrogate.src = image_url+'?width=10000&height=10000'  #homeless paintings
   
-  
   surrogate.onload = ->
     w = surrogate.width
     h = surrogate.height
@@ -35,15 +34,15 @@ window.record.display = (image_url)->
     stage.setAttrs(
       scale: 
         x: min_scale 
-        y: min_scale
-      x: (main.offsetWidth - (surrogate.width*min_scale))/2
-      y: (main.offsetHeight - (surrogate.height*min_scale))/2 
+        y: min_scale 
     )
     
     image = new Kinetic.Image(
       image: surrogate
       width: w
       height: h
+      x: (main.offsetWidth/min_scale - surrogate.width)/2
+      y: (main.offsetHeight/min_scale - surrogate.height)/2
     )
     
     layer.add(image)
@@ -60,7 +59,6 @@ window.record.display = (image_url)->
     e.preventDefault()
     stage_scale = stage.getAttr('scale').x
     delta = Math.max(-1, Math.min(1, (e.wheelDelta || -e.detail)))/20
-    console.log stage_scale
     if (stage_scale >= 1 and delta > 0) or (stage_scale <= min_scale and delta < 0)
       delta = 0
     stage.setAttrs(
@@ -69,13 +67,105 @@ window.record.display = (image_url)->
         y: stage.getAttr('scale').y+delta
     )
     stage.setAttrs(
-      x: (main.offsetWidth - (surrogate.width*stage_scale))/2
-      y: (main.offsetHeight - (surrogate.height*stage_scale))/2
+      x: (main.offsetWidth - main.offsetWidth/(min_scale/stage.getAttr('scale').x))/2
+      y: (main.offsetHeight - main.offsetHeight/(min_scale/stage.getAttr('scale').y))/2
     )
     stage.draw()
     undefined
-  
+
   main.addEventListener('mousewheel', scroll, true);
   main.addEventListener('DOMMouseScroll', scroll, true);
+  
+  crop = new Kinetic.Rect(
+    fill: 'lightblue'
+    opacity: 0.25
+  )
+  
+  $('#main-canvas').on(
+    'mousedown'
+    (event) ->
+      if(event.which==1)
+        event.preventDefault()
+        stage.setAttr('draggable', false)
+        canvas_x = (event.clientX - $(this).offset().left)-stage.getAttr('x')
+        canvas_y = (event.clientY - $(this).offset().top)-stage.getAttr('y')
+        crop.setAttrs(
+          x: canvas_x/stage.getAttr('scale').x
+          y: canvas_y/stage.getAttr('scale').y
+        )
+        layer.add(crop)
+        $(this).on(
+          'mousemove'
+          (event) ->
+            canvas_x = event.clientX - $(this).offset().left - stage.getAttr('x')
+            canvas_y = event.clientY - $(this).offset().top - stage.getAttr('y')
+            crop.setAttrs(
+              width:  (canvas_x - crop.getAttr('x')*stage.getAttr('scale').x)/stage.getAttr('scale').x
+              height: (canvas_y - crop.getAttr('y')*stage.getAttr('scale').y)/stage.getAttr('scale').y
+            )
+            stage.draw()
+          )
+    )
+    
+  $('#main-canvas').on(
+    'mouseup'
+    (event) ->
+      if(event.which==1)
+        
+        clipping =
+          x: Math.floor(crop.getAttr('x')) - (main.offsetWidth/min_scale - surrogate.width)/2 #add picture offset for clipping purposes
+          y: Math.floor(crop.getAttr('y')) - (main.offsetHeight/min_scale - surrogate.height)/2 #add picture offset for clipping purposes
+          width: Math.floor(crop.getAttr('width'))
+          height: Math.floor(crop.getAttr('height'))
+        
+        clipping =
+          x: if clipping.width > 0 then clipping.x else clipping.x+clipping.width
+          y: if clipping.height > 0 then clipping.y else clipping.y+clipping.height
+          width: Math.abs(clipping.width)
+          height: Math.abs(clipping.height)
+        
+        
+        $(this).unbind('mousemove')
+        
+        $("input[name='content[x]']").val(clipping.x + (main.offsetWidth/min_scale - surrogate.width)/2) #remove picture offset for storing purposes
+        $("input[name='content[y]']").val(clipping.y + (main.offsetHeight/min_scale - surrogate.height)/2) #remove picture offset for storing purposes
+        $("input[name='content[width]']").val(clipping.width)
+        $("input[name='content[height]']").val(clipping.height)
+        
+        preview = new Kinetic.Stage(
+          container: 'preview_window'
+          width: if clipping.width > clipping.height then 300 else clipping.width * 300 / clipping.height
+          height: if clipping.width > clipping.height then clipping.height * 300 / clipping.width else 300
+        )
+        
+        preview_layer = new Kinetic.Layer()
+        
+        preview_image = new Kinetic.Image(
+          image: surrogate
+          crop: clipping
+          scale:
+            x: preview.getAttr('width')/surrogate.width
+            y: preview.getAttr('height')/surrogate.height
+        )
+        
+        preview_layer.add(preview_image)
+        preview.add(preview_layer)
+        
+        crop.destroy()
+    )
+  
+  $.getJSON(
+    document.location+'/annotations'
+    (notes) ->
+      notes_layer = new Kinetic.Layer()
+      stage.add(notes_layer)
+      for n in notes
+        rect = new Kinetic.Rect(n.content)
+        rect.setAttrs(
+          stroke: 'blue'
+        )
+        notes_layer.add(rect)
+        stage.draw()
+  )
   
   undefined

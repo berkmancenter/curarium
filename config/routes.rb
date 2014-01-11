@@ -1,5 +1,6 @@
 Curarium::Application.routes.draw do
 
+  
   controller :sessions do
     get  'login' => :new
     post 'login' => :create
@@ -15,7 +16,9 @@ Curarium::Application.routes.draw do
 
   resources :spotlights
 
-  resources :records
+  resources :records do
+    resources :annotations
+  end
 
   resources :collections do
     get "tag" => "collections#tag", as: "tag"

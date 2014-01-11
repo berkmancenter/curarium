@@ -149,7 +149,6 @@ window.collection.query_builder = ->
   $('.property_list li').draggable
     helper : "clone"
 
-
 window.collection.query_terms = ->
   query = window.collection.query
   property = "?property="+query.property

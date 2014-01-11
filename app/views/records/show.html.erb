@@ -4,7 +4,6 @@
 	});
 </script>
 
-<p id="notice"><%= notice %></p>
 
 <div id='main-canvas'>
 </div>
@@ -18,4 +17,16 @@
 </p>
 </div>
 <div id='annotations'>
+	<div id='preview_window'></div>
+	<%= form_for([@record, @record.annotations.build]) do |f| %>
+	  <input name='content[title]'>
+	  <textarea name='content[body]'></textarea>
+	  <input type='hidden' name='content[x]'>
+	  <input type='hidden' name='content[y]'>
+	  <input type='hidden' name='content[width]'>
+	  <input type='hidden' name='content[height]'>
+	  <p>
+	    <%= f.submit %>
+	  </p>
+	<% end %>
 </div>

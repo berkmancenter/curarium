@@ -12,21 +12,31 @@
   <% end %>
 
   <div class="field">
+    <%= f.label :title %><br>
+    <input id='section_users' name='section[users][0]'>
+    <select>
+    	<% User.all.each do |user| %>
+    		<option value="<%= user.email %>"><%= user.name %></option>
+    	<% end %>
+    </select>
+  </div>
+
+  <div class="field">
     <%= f.label :users %><br>
     <%= f.text_field :users %>
   </div>
   <div class="field">
-    <%= f.label :admins %><br>
-    <%= f.text_field :admins %>
+  	<% @section.resources.each do |key,value|%>
+  		<% if ['Collection','Spotlight'].include? key%>
+	  		<label for='resources_<%=key%>'><%=key.pluralize%></label>
+  			<% key.constantize.all.each do |item| %>
+  				<input type='checkbox' value="<%=item.id%>"><%=item.id%></option>
+  			<% end %>
+	  	<% end %>
+  	<%end%>
+    <%= f.hidden_field :resources %>
   </div>
-  <div class="field">
-    <%= f.label :spotlights %><br>
-    <%= f.number_field :spotlights %>
-  </div>
-  <div class="field">
-    <%= f.label :trays %><br>
-    <%= f.number_field :trays %>
-  </div>
+
   <div class="actions">
     <%= f.submit %>
   </div>

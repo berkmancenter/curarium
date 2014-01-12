@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140110210648) do
+ActiveRecord::Schema.define(version: 20140111230501) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -38,6 +38,25 @@ ActiveRecord::Schema.define(version: 20140110210648) do
     t.json     "associations"
   end
 
+  create_table "comments", force: true do |t|
+    t.text     "body"
+    t.integer  "user_id"
+    t.integer  "message_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "messages", force: true do |t|
+    t.string   "title"
+    t.text     "body"
+    t.string   "type"
+    t.integer  "resource"
+    t.integer  "section_id"
+    t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
   create_table "records", force: true do |t|
     t.json     "original"
     t.hstore   "parsed"
@@ -47,12 +66,12 @@ ActiveRecord::Schema.define(version: 20140110210648) do
   end
 
   create_table "sections", force: true do |t|
-    t.string   "users",      default: [], array: true
-    t.string   "admins",     default: [], array: true
-    t.integer  "spotlights", default: [], array: true
-    t.integer  "trays",      default: [], array: true
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.json     "resources",  default: {"Collection"=>[], "Spotlight"=>[], "Tray"=>[], "Visualization"=>[], "Record"=>[]}
+    t.string   "title"
+    t.integer  "users",                                                                                                   array: true
+    t.integer  "admins",                                                                                                  array: true
   end
 
   create_table "spotlights", force: true do |t|

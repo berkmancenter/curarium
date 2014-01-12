@@ -15,6 +15,7 @@ class SectionsController < ApplicationController
   # GET /sections/new
   def new
     @section = Section.new
+    @user = User.find(session[:user_id])
   end
 
   # GET /sections/1/edit
@@ -25,7 +26,9 @@ class SectionsController < ApplicationController
   # POST /sections.json
   def create
     @section = Section.new(section_params)
-
+    @user = User.find(session[:user_id])
+    @section.admins = [@user.id]
+    @section.users = [@user.id]
     respond_to do |format|
       if @section.save
         format.html { redirect_to @section, notice: 'Section was successfully created.' }

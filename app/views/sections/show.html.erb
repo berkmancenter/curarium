@@ -1,24 +1,52 @@
 <p id="notice"><%= notice %></p>
 
 <p>
+  <strong>Title:</strong>
+  <%= @section.title %>
+</p>
+
+<p>
   <strong>Users:</strong>
-  <%= @section.users %>
+  <% @section.users.each do |user_id| %>
+  	<%user = User.find(user_id)%>
+  	<p><%= user.name %></p>
+  <% end %>
 </p>
 
-<p>
-  <strong>Admins:</strong>
-  <%= @section.admins %>
-</p>
 
-<p>
-  <strong>Spotlights:</strong>
-  <%= @section.spotlights %>
-</p>
 
-<p>
-  <strong>Trays:</strong>
-  <%= @section.trays %>
-</p>
+<% @section.messages.each do |message| %>
+	<p><%= message.title%></p>
+	<p><%= message.user.name %></p>
+	<p><%= message.body%></p>
+	<% message.comments.each do |comment|%>
+		<p><%= comment.user.name %></p>
+		<p><%= comment.body %></p>
+	<% end %>
+<% end %>
 
-<%= link_to 'Edit', edit_section_path(@section) %> |
+
+
+<% if @section.admins.include? session[:user_id] %>
+	<div>
+	<h3>NEW MESSAGE:</h3>
+	<%= form_for([@section, @section.messages.build]) do |f| %>
+	    <div class="field">
+    <%= f.label :title %><br>
+    <%= f.text_field :title %>
+  </div>
+  <div class="field">
+    <%= f.label :body %><br>
+    <%= f.text_field :body %>
+  </div>
+  <div class="actions">
+    <%= f.submit %>
+  </div>
+	<% end %>
+	</div>
+<% end %>
+
+<% if @section.admins.include? session[:user_id] %>
+	<%= link_to 'Edit', edit_section_path(@section) %> |
+<% end %>
 <%= link_to 'Back', sections_path %>

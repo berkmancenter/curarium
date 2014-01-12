@@ -3,10 +3,7 @@
 <table>
   <thead>
     <tr>
-      <th>Users</th>
-      <th>Admins</th>
-      <th>Spotlights</th>
-      <th>Trays</th>
+      <th>Name</th>
       <th></th>
       <th></th>
       <th></th>
@@ -16,10 +13,7 @@
   <tbody>
     <% @sections.each do |section| %>
       <tr>
-        <td><%= section.users %></td>
-        <td><%= section.admins %></td>
-        <td><%= section.spotlights %></td>
-        <td><%= section.trays %></td>
+        <td><%= section.title %></td>
         <td><%= link_to 'Show', section %></td>
         <td><%= link_to 'Edit', edit_section_path(section) %></td>
         <td><%= link_to 'Destroy', section, method: :delete, data: { confirm: 'Are you sure?' } %></td>

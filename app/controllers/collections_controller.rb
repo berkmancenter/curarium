@@ -119,7 +119,11 @@ class CollectionsController < ApplicationController
   
   def treemap
     @collection = Collection.find(params[:collection_id])
-    treemap = treemapify(@collection.sort_properties(params[:include],params[:exclude],params[:property])[:properties])
+    if((params[:include].length > 0 and params[:include][0]!= "") and (params[:exclude].length > 0 and params[:exclude][0]!= ""))
+      treemap = treemapify(@collection.properties[params[:property]])
+    else
+      treemap = treemapify(@collection.sort_properties(params[:include],params[:exclude],params[:property])[:properties])
+    end
     render json: treemap
   end
   

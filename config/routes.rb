@@ -12,7 +12,11 @@ Curarium::Application.routes.draw do
 
   resources :users
 
-  resources :sections
+  resources :sections do
+    resources :messages do
+      resources :comments
+    end
+  end
 
   resources :spotlights
 

@@ -10,5 +10,7 @@
   <%= @user.email %>
 </p>
 
-<%= link_to 'Edit', edit_user_path(@user) %> |
+<% if owner?%>
+	<%= link_to 'Edit', edit_user_path(@user) %> |
+<% end %>
 <%= link_to 'Back', :back %>

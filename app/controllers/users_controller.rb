@@ -73,4 +73,9 @@ class UsersController < ApplicationController
   def user_params
     params.require(:user).permit(:name, :email, :password, :password_confirmation)
   end
+  
+  def identify?
+    return @user.id == session[:user_id] || User.find(session[:user_id]).super
+  end
+  
 end

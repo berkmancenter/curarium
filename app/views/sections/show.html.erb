@@ -76,7 +76,7 @@
 	<% @section.users.each do |user_id| %>
 	<% user = User.find(user_id)%>
 	<p>
-		<%= user.name %>
+		<%= link_to user.name, user%>
 	</p>
 	<% end %>
 </section>

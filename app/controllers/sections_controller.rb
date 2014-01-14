@@ -28,8 +28,15 @@ class SectionsController < ApplicationController
   def create
     @section = Section.new(section_params)
     @user = User.find(session[:user_id])
+    users = []
+    params[:users].each do |key, value|
+      users.push(value.to_i)
+    end
     @section.admins = [@user.id]
-    @section.users = [@user.id]
+    if not users.include? session[:user_id]
+      users.push(@user.id)
+    end
+    @section.users = users
     respond_to do |format|
       if @section.save
         format.html { redirect_to @section, notice: 'Section was successfully created.' }
@@ -73,6 +80,6 @@ class SectionsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def section_params
-      params.require(:section).permit(:users, :admins, :spotlights, :trays)
+      params.require(:section).permit(:admins, :title)
     end
 end

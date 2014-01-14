@@ -1,6 +1,7 @@
 class MessagesController < ApplicationController
+  before_action :set_message, only: [:show,:edit,:update,:destroy]
+  
   def show
-    @message = Message.find(params[:id])
     render json: @message
   end
   
@@ -26,7 +27,6 @@ class MessagesController < ApplicationController
   
   def destroy
     @section = Section.find(params[:section_id])
-    @message = Message.find(params[:id])
     @message.destroy
     respond_to do |format|
       format.html { redirect_to @section }

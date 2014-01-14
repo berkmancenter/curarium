@@ -13,17 +13,16 @@
 
   <div class="field">
     <%= f.label :title %><br>
-    <input id='section_users' name='section[users][0]'>
-    <select>
-    	<% User.all.each do |user| %>
-    		<option value="<%= user.email %>"><%= user.name %></option>
-    	<% end %>
-    </select>
+    <%= f.text_field :title %>
   </div>
 
   <div class="field">
+  	<div id='selected_users'>
+	</div>
     <%= f.label :users %><br>
-    <%= f.text_field :users %>
+    <input id='section_users'>
+    <ul id='user_list'>
+    </ul>
   </div>
   <div class="field">
   	<% @section.resources.each do |key,value|%>

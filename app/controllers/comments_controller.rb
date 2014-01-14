@@ -1,4 +1,5 @@
 class CommentsController < ApplicationController
+  before_action :set_comment, only: [:show,:edit,:update,:destroy]
   
   def create
     @comment = Comment.new(comment_params)
@@ -17,7 +18,6 @@ class CommentsController < ApplicationController
   
   def destroy
     @section = Section.find(params[:section_id])
-    @comment = Comment.find(params[:id])
     @comment.destroy
     respond_to do |format|
       format.html { redirect_to @section }

@@ -1,52 +1,83 @@
-<p id="notice"><%= notice %></p>
+<h2 id='section_title'> <%= @section.title %> </h2>
 
-<p>
-  <strong>Title:</strong>
-  <%= @section.title %>
-</p>
-
-<p>
-  <strong>Users:</strong>
-  <% @section.users.each do |user_id| %>
-  	<%user = User.find(user_id)%>
-  	<p><%= user.name %></p>
-  <% end %>
-</p>
-
-
-
-<% @section.messages.each do |message| %>
-	<p><%= message.title%></p>
-	<p><%= message.user.name %></p>
-	<p><%= message.body%></p>
-	<% message.comments.each do |comment|%>
-		<p><%= comment.user.name %></p>
-		<p><%= comment.body %></p>
+<section id='section_resources'>
+	<h3>Resources</h3>
+	<% @section.resources.each do |resource, content|%>
+	<p>
+		<%= resource.pluralize %>
+	</p>
+	<p>
+		<%= content %>
+	</p>
 	<% end %>
-<% end %>
+</section>
 
-
-
-<% if @section.admins.include? session[:user_id] %>
-	<div>
-	<h3>NEW MESSAGE:</h3>
-	<%= form_for([@section, @section.messages.build]) do |f| %>
-	    <div class="field">
-    <%= f.label :title %><br>
-    <%= f.text_field :title %>
-  </div>
-  <div class="field">
-    <%= f.label :body %><br>
-    <%= f.text_field :body %>
-  </div>
-  <div class="actions">
-    <%= f.submit %>
-  </div>
-	<% end %>
+<section id='section_feed'>
+	<% if @s.admins.include? session[:user_id] %>
+	<div id='new_message'>
+		<h3>NEW MESSAGE:</h3>
+		<%= form_for([@s, @s.messages.build]) do |f| %>
+		<%= f.text_field :title, placeholder: 'Message Title' %>
+		<%= f.text_area :body, placeholder: 'Message Body' %>
+		<%= f.submit %>
+		<% end %>
 	</div>
-<% end %>
+	<% end %>
 
-<% if @section.admins.include? session[:user_id] %>
-	<%= link_to 'Edit', edit_section_path(@section) %> |
-<% end %>
-<%= link_to 'Back', sections_path %>
+	<% @section.messages.reverse.each do |message| %>
+	<div class='section_message_wrapper'>
+		<div class='section_message'>
+
+			<h4><%= link_to(message.title, section_message_path(@section.id, message.id)) %></h4>
+			<p class='message_author'>
+				<%= message.user.name %>
+			</p>
+			<p class='message_body'>
+				<%= message.body%>
+			</p>
+			<% if message.user_id == session[:user_id]%>
+			<a class='edit_link'>edit</a><%= link_to 'delete', section_message_path(@section.id, message.id), method: :delete, data: { confirm: 'Are you sure?' }, class: 'edit_link' %>
+			<% end %>
+		</div>
+		<% message.comments.each do |comment|%>
+		<div class='section_message_comment'>
+			<p class='comment_author'>
+				<%= comment.user.name %>
+			</p>
+			<% if session[:user_id]==comment.user_id%>
+			<%= link_to 'delete', section_message_comment_path(@section.id, message.id, comment.id), method: :delete, data: { confirm: 'Are you sure?' }, class: 'edit_link' %>
+			<% end %>
+			<p class='comment_body'>
+				<%= comment.body %>
+			</p>
+		</div>
+		<% end %>
+		<div class='section_message_comment'>
+			<h3>Comment:</h3>
+			<%= form_for([@section, message, message.comments.build]) do |f| %>
+			<div class="field">
+				<%= f.text_area :body %>
+			</div>
+			<div class="field">
+				<%= f.hidden_field :message_id, value: message.id %>
+			</div>
+			<div class="actions">
+				<%= f.submit %>
+			</div>
+			<% end %>
+		</div>
+	</div>
+	<% end %>
+
+</section>
+
+<section id='section_users'>
+	<h3>Members:</h3>
+	<% @section.users.each do |user_id| %>
+	<% user = User.find(user_id)%>
+	<p>
+		<%= user.name %>
+	</p>
+	<% end %>
+</section>
+

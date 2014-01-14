@@ -1,6 +1,7 @@
 class MessagesController < ApplicationController
   def show
-    
+    @message = Message.find(params[:id])
+    render json: @message
   end
   
   def new
@@ -8,16 +9,28 @@ class MessagesController < ApplicationController
   end
   
   def create
+    @section = Section.find(params[:section_id])
     @message = Message.new(message_params)
-
+    @message.user_id = session[:user_id]
+    @message.section_id = @section.id
     respond_to do |format|
       if @message.save
-        format.html { redirect_to @message, notice: 'Message was successfully created.' }
+        format.html { redirect_to @section, notice: 'Message was successfully created.' }
         format.json { render action: 'show', status: :created, location: @message }
       else
         format.html { render action: 'new' }
         format.json { render json: @message.errors, status: :unprocessable_entity }
       end
+    end
+  end
+  
+  def destroy
+    @section = Section.find(params[:section_id])
+    @message = Message.find(params[:id])
+    @message.destroy
+    respond_to do |format|
+      format.html { redirect_to @section }
+      format.json { head :no_content }
     end
   end
   

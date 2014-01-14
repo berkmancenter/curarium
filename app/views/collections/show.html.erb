@@ -56,18 +56,18 @@
 					<input id='filter'>
 				</div>
 			<div id='collection_properties'>
-			<% @collection.properties.each do |property, values| %>
-				<% if ['thumbnail','image'].include? property
-					next
-				end%>
-				<div id='<%=property%>_list' class='property_wrapper'>
-					<ul  class='property_list' data-property='<%=property%>'>
-					<% values.each do |value, count| %>
-						<li data-value='<%=value%>'><%= value %> (<%=count%>)</li>
-					<% end %>
+			<%# @collection.properties.each do |property, values| %>
+				<%# if ['thumbnail','image'].include? property
+					#next
+				#end%>
+				<div id='<%# property %>_list' class='property_wrapper'>
+					<ul  class='property_list' data-property='<%# property%>'>
+					<%# values.each do |value, count| %>
+						<li data-value='<%# value%>'><%# value %> (<%# count%>)</li>
+					<%# end %>
 					</ul>
 				</div>
-			<% end %>
+			<%# end %>
 			</div>
 		</div>
 		<div id='visualization_options'>

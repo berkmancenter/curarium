@@ -3,10 +3,14 @@ ruby '2.0.0'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.0.2'
 
-# Use sqlite3 as the database for Active Record
-#gem 'sqlite3'
+#use postgresql
 gem 'pg'
+
+#required for Heroku
 gem 'rails_12factor'
+
+#use Devise for authentication (not implemented yet)
+#gem 'devise'
 
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 4.0.0'

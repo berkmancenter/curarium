@@ -28,7 +28,11 @@ window.section.create = (user_form) ->
               () ->
                 data = d3.select(this).data()[0]
                 size = d3.select(user_form.user_target).selectAll('input').size()
-                d3.select(user_form.user_target).append('input').attr("class", "user").attr(
+                d3.select(user_form.user_target).append('div').attr("class", "user").text(
+                  () ->
+                    return data.name
+                )
+                d3.select(user_form.user_target).append('input').attr('type','hidden').attr(
                   "value"
                   () ->
                     return data.id
@@ -37,6 +41,9 @@ window.section.create = (user_form) ->
                   () ->
                     return "users["+parseInt(size)+"]"
                 )
+                d3.select(this).remove()
+                users = users.filter (user)-> user.id != data.id
+                 
                 undefined
             )
            undefined

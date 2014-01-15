@@ -22,13 +22,13 @@ h2#section_title {
 section#section_resources { 
   @include section-subsection(20%);
   border: 1px solid black;
-  }
+}
   
 section#section_feed { 
   @include section-subsection(60%);
   overflow:auto;
   border: 1px solid black;
-  }
+}
   
 section#section_users { 
   @include section-subsection(20%);

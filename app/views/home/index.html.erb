@@ -1,0 +1,25 @@
+<div id='curarium_about' class="home_section">
+	<p id='curarium_description'>Curarium leverages the power of the crowd to annotate, curate, & augment works with the aim of constructing shareable, media-rich stories & elaborate arguments about individual items as well as groups of items.</p>
+	<p id='curarium_sponsors'>Development of the Curarium is generously supported by the De Bosis Endowment and the Kress Foundation.</p>
+</div>
+
+<div id='curarium_feed' class="home_section">
+	<% Collection.where(approved: true).each do |c|%>
+		<div class='curarium_collection'>
+			<h3><%= link_to c.name, c %></h3>
+			<p><%= truncate(c.description, length: 256) %></p>	
+		</div>
+	<% end %>
+</div>
+
+<div id='curarium_dashboard' class="home_section">
+<% unless session[:user_id].nil? %>
+	<h3>Sections</h3>
+	<% Section.where(":id = ANY (users)", {id: session[:user_id]}).each do |c|%>
+		<div class='curarium_collection'>
+			<h4><%= link_to c.title, c %></h4>				
+		</div>
+	<% end %>
+	<%= link_to 'New Section', new_section_url %>
+<% end %>
+</div>

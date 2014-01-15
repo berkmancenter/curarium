@@ -7,7 +7,10 @@
 		<%= resource.pluralize %>
 	</p>
 	<p>
-		<%= content %>
+		<% content.each do |c| %>
+			<%= link_to resource.constantize.find(c).name, resource.constantize.find(c) %>
+			<br>
+		<% end %>
 	</p>
 	<% end %>
 </section>

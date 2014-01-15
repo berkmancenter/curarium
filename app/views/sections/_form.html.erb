@@ -28,12 +28,13 @@
   	<% @section.resources.each do |key,value|%>
   		<% if ['Collection','Spotlight'].include? key%>
 	  		<label for='resources_<%=key%>'><%=key.pluralize%></label>
-  			<% key.constantize.all.each do |item| %>
-  				<input type='checkbox' value="<%=item.id%>"><%=item.id%></option>
+  			<% key.constantize.all.each_with_index do |item, i| %>
+  				<input type='checkbox' name="resources[<%= key %>][<%= i %>]" value='<%= item.id %>'><%= item.name %></input>
+  				<br>
   			<% end %>
 	  	<% end %>
   	<%end%>
-    <%= f.hidden_field :resources %>
+  	<%# f.text_field :resources %>
   </div>
 
   <div class="actions">

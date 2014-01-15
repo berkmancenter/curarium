@@ -12,12 +12,16 @@
 
   <tbody>
     <% @sections.each do |section| %>
+      <%if section.users.include? session[:user_id]%>
       <tr>
         <td><%= section.title %></td>
         <td><%= link_to 'Show', section %></td>
+        <%if section.admins.include? session[:user_id]%>
         <td><%= link_to 'Edit', edit_section_path(section) %></td>
         <td><%= link_to 'Destroy', section, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <% end %>
       </tr>
+      <% end %>
     <% end %>
   </tbody>
 </table>

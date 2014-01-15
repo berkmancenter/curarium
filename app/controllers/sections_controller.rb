@@ -27,16 +27,25 @@ class SectionsController < ApplicationController
   # POST /sections.json
   def create
     @section = Section.new(section_params)
-    @user = User.find(session[:user_id])
-    users = []
+    #populate users array
+    users = []   #create placeholder array
     params[:users].each do |key, value|
-      users.push(value.to_i)
-    end
-    @section.admins = [@user.id]
+      unless users.include? value.to_i
+        users.push(value.to_i) #populate placeholder array with the value of the :users parameter, which is sadly a Hash.
+      end
+    end    
+    @user = User.find(session[:user_id]) #find the current user, who will be the administrator of the section
+    @section.admins = [@user.id] #admins is an array, hence the brackets
     if not users.include? session[:user_id]
-      users.push(@user.id)
+      users.push(@user.id) #add the admin to the users array if it is not already in it
     end
-    @section.users = users
+    @section.users = users #assign the users array to @section.users
+    resources = params[:resources] #retrieve the :resources param, which is a bunch of nested hashes
+    resources.each do |key, value|
+      resources[key] = value.values #parse :resources so that it becomes one hash with many arrays
+    end
+    @section.resources = resources #assigned parsed :resources to @section.resources
+    
     respond_to do |format|
       if @section.save
         format.html { redirect_to @section, notice: 'Section was successfully created.' }

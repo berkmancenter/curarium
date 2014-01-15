@@ -19,3 +19,44 @@ header>nav *{
 header nav {
   background-color: $header;
 }
+
+section#main {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  padding: 25px 0 0 0;
+  background-color: lightgray;
+  .home_section{
+    height: 100%;
+    float: left;
+    padding: 1em;
+  }
+  #curarium_about{
+    width: 20%;
+    #curarium_description {
+      font-size: 14pt;
+    }
+    #curarium_sponsors {
+      font-size: 8pt;
+    }
+  }
+  #curarium_feed{
+    width: 60%;
+    .curarium_collection{
+      width: 15em;
+      height: 15em;
+      background: darkgray;
+      padding: 0.25em;
+      h3{
+        font-size: 10pt;
+        font-weight: bold;
+      }
+      p{
+        font-size: 8pt;
+      }
+    }
+  }
+  #curarium_dashboard{
+    width: 20%;
+  }
+}

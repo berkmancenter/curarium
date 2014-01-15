@@ -1,34 +1,19 @@
 <h1>Listing collections</h1>
 
-<table>
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Key</th>
-      <th>Description</th>
-      <th>Configuration</th>
-      <th></th>
-      <th></th>
-      <th></th>
-    </tr>
-  </thead>
-
   <tbody>
     <% @collections.each do |collection| %>
      <%	if collection.approved || collection.admin.include?(session[:user_id]) %>
-      <tr>
-        <td><%= collection.name %></td>
-        <td><%= collection.key %></td>
-        <td><%= collection.description %></td>
-        <td><%= collection.configuration %></td>
-        <td><%= link_to 'Show', collection %></td>
-        <td><%= link_to 'Edit', edit_collection_path(collection) %></td>
-        <td><%= link_to 'Destroy', collection, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
+      <div class='curarium_collection'>
+        <h3><%= link_to collection.name, collection %></h3>
+        <p><%= truncate(collection.description, length: 256) %></p>
+        <% if collection.admin.include?(session[:user_id])%>
+        	<p><%= collection.key %></p>
+        <p><%= link_to 'Edit', edit_collection_path(collection) %></p>
+        <p><%= link_to 'Destroy', collection, method: :delete, data: { confirm: 'Are you sure?' } %></p>
+        <%end%>
+      </div>
     <% end%>
     <% end %>
-  </tbody>
-</table>
 
 <br>
 

@@ -16,7 +16,7 @@
 <% unless session[:user_id].nil? %>
 	<h3>Sections</h3>
 	<% Section.where(":id = ANY (users)", {id: session[:user_id].to_s}).each do |c|%>
-		<div class='curarium_collection'>
+		<div class='curarium_section'>
 			<h4><%= link_to c.title, c %></h4>				
 		</div>
 	<% end %>

@@ -15,6 +15,10 @@
 	<% end %>
 </section>
 
+<% if User.find(session[:user_id]).super %>
+ <H1><%=session[:user_id]%></H1>
+<%end%>
+
 <section id='section_feed'>
 	<% if @s.admins.include? session[:user_id] %>
 	<div id='new_message'>

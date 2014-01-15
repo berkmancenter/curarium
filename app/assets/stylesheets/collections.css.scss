@@ -2,6 +2,24 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
+.curarium_collection{
+  width: 15em;
+  height: 15em;
+  background: darkgray;
+  padding: 0.25em;
+  float: left;
+  position: relative;
+  margin: 2px;
+  display: inline-block;
+  h3{
+    font-size: 10pt;
+    font-weight: bold;
+  }
+  p{
+    font-size: 8pt;
+  }
+}
+
 //COLLECTION DISPLAY
 
 section#collection_pages {

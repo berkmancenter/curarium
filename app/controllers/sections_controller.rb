@@ -1,5 +1,6 @@
 class SectionsController < ApplicationController
   before_action :set_section, only: [:show, :edit, :update, :destroy]
+  before_action :is_member, only: [:show]
 
   # GET /sections
   # GET /sections.json
@@ -87,6 +88,12 @@ class SectionsController < ApplicationController
       @section = Section.find(params[:id])
     end
 
+    def is_member
+      unless @section.users.include? session[:user_id]
+        redirect_to root_url, notice: 'you are not part of this group'
+      end
+    end
+    
     # Never trust parameters from the scary internet, only allow the white list through.
     def section_params
       params.require(:section).permit(:admins, :title)

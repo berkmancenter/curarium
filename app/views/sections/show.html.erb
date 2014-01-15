@@ -16,7 +16,9 @@
 </section>
 
 <% if User.find(session[:user_id]).super %>
- <H1><%=session[:user_id]%></H1>
+ <H1><%= session[:user_id]%></H1>
+ <H1><%= @s.admins%></H1>
+ <H1><%= @s.admins.include? session[:user_id] %></H1>
 <%end%>
 
 <section id='section_feed'>

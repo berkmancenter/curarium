@@ -89,7 +89,7 @@ class SectionsController < ApplicationController
     end
 
     def is_member
-      unless @section.users.include? session[:user_id]
+      unless @section.users.include?(session[:user_id].to_i) || @section.users.include?(session[:user_id].to_s)
         redirect_to root_url, notice: 'you are not part of this group'
       end
     end

@@ -11,7 +11,7 @@
 </p>
 
 <form method='post' action='message'>
-	<input name="authenticity_token" type="hidden" value="<%= csrf_meta_tags %>">
+	<input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>">
 	<input type='hidden' name='message[sender]' value='<%= session[:user_id] %>'>
 	<input type='hidden' name='message[receiver]' value='<%= @user.id %>'>
 	<input name='message[subject]' placeholder="message subject"></input>

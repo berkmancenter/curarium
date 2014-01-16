@@ -28,7 +28,7 @@ window.section.create = (user_form) ->
               () ->
                 data = d3.select(this).data()[0]
                 size = d3.select(user_form.user_target).selectAll('input').size()
-                d3.select(user_form.user_target).append('div').attr("class", "user").text(
+                d3.select(user_form.user_target).append('div').attr("class", "selected_user").text(
                   () ->
                     return data.name
                 )

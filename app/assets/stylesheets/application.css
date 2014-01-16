@@ -36,3 +36,18 @@ html, body {
 .main_title:visited {
 	color: white;
 }
+
+input[type=submit], .fake_button {
+	display: inline-block;
+	background: black;
+	border: 1px solid white;
+	font-size: 10pt;
+	color: white;
+	padding: 0.25em;
+	border-radius: 4px;
+	width: auto;
+	cursor: pointer;
+	&:hover {
+		font-weight: bold;
+	}
+}

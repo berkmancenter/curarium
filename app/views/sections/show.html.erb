@@ -15,7 +15,6 @@
 	<% end %>
 </section>
 
-
 <section id='section_feed'>
 	<!-- TEMPORARY FIX FOR A BUG. IN HEROKU THE ADMIN # IS RETURNED AS A STRING AND IN LOCALHOST AS AN INT -->
 	<% if @s.admins.include?(session[:user_id]) || @s.admins.include?(session[:user_id].to_s) %>
@@ -32,7 +31,6 @@
 	<% @section.messages.reverse.each do |message| %>
 	<div class='section_message_wrapper'>
 		<div class='section_message'>
-
 			<h4><%= link_to(message.title, section_message_path(@section.id, message.id)) %></h4>
 			<p class='message_author'>
 				<%= message.user.name %>
@@ -73,7 +71,6 @@
 		</div>
 	</div>
 	<% end %>
-
 </section>
 
 <section id='section_users'>

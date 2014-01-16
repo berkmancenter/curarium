@@ -75,20 +75,61 @@ div#new_message {
   }
 }
 
-#user_list {
+#section_title {
+   background: transparent;
+   border: 1px solid black;
+   border-radius: 2px;
+   margin: 2px;
+   font-size: 12pt;
+}
+
+#section_user_selector {
   border: 1px solid black;
   border-radius: 5px;
   width: 20em;
   height: 20em;
   padding: 0.5em;
+  #user_list, #selected_users {
+    display: inline-block;
+    min-height: 1em;
+    width: 100%;
+    border: 1px solid black;
+    border-radius: 3px;
+    margin: 3px;
+  }
+  #section_users {
+    background: transparent;
+    border: 1px solid black;
+    border-radius: 2px;
+    margin: 2px;
+  }
 }
 
 .user{
   font-weight: bold;
   display: inline-block;
-  float: left;
   background: lightblue;
   border-radius: 5px;
   margin: 1px;
   padding: 2px;
+  cursor: pointer;
+  float: left;
 }
+
+.selected_user{
+  color: black;
+  font-weight: bold;
+  float: left;
+  display: inline-block;
+  background: slategray;
+  border-radius: 5px;
+  margin: 1px;
+  padding: 2px;
+  cursor: pointer;
+}
+
+.users_selection_label {
+  float: left;
+  font-size: 8pt;
+}
+

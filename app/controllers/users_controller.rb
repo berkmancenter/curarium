@@ -1,5 +1,6 @@
 class UsersController < ApplicationController
   before_action :set_user, only: [:show, :edit, :update, :destroy]
+  before_action :super?, only: [:index]
   skip_before_action :authorize, only: [:new, :create]
 
   # GET /users
@@ -74,8 +75,10 @@ class UsersController < ApplicationController
     params.require(:user).permit(:name, :email, :password, :password_confirmation)
   end
   
-  def identify?
-    return @user.id == session[:user_id] || User.find(session[:user_id]).super
+  def super?
+    unless User.find(session[:user_id]).super
+      redirect_to root_url
+    end
   end
   
 end

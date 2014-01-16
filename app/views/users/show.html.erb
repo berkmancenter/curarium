@@ -10,6 +10,17 @@
   <%= @user.email %>
 </p>
 
+<form method='post' action='message'>
+	<input name="authenticity_token" type="hidden" value="<%= csrf_meta_tags %>">
+	<input type='hidden' name='message[sender]' value='<%= session[:user_id] %>'>
+	<input type='hidden' name='message[receiver]' value='<%= @user.id %>'>
+	<input name='message[subject]' placeholder="message subject"></input>
+	<br>
+	<textarea name='message[content]' placeholder="message body"></textarea>
+	<br>
+	<input type="submit">	
+</form>
+
 <% if owner?%>
 	<%= link_to 'Edit', edit_user_path(@user) %> |
 <% end %>

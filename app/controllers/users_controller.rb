@@ -63,6 +63,16 @@ class UsersController < ApplicationController
     end
   end
 
+  def message
+    @message = {}
+    @message[:sender] = User.find(params[:message][:sender])
+    @message[:receiver] = User.find(params[:message][:receiver])
+    @message[:subject] = params[:message][:subject]
+    @message[:content] = params[:message][:content]
+    UserMailer.personal_message(@message).deliver
+    redirect_to @message[:receiver]
+  end
+  
   private
 
   # Use callbacks to share common setup or constraints between actions.

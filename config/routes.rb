@@ -1,6 +1,10 @@
 Curarium::Application.routes.draw do
 
   
+  concern :tray_owner do
+    resources :trays
+  end
+  
   controller :sessions do
     get  'login' => :new
     post 'login' => :create
@@ -10,9 +14,14 @@ Curarium::Application.routes.draw do
   get "sessions/create"
   get "sessions/destroy"
 
-  resources :users
+  post 'users/message' => 'users#message', as: 'message'
+
+  resources :users do
+    concerns :tray_owner
+  end
 
   resources :sections do
+    concerns :tray_owner
     resources :messages do
       resources :comments
     end

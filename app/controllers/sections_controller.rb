@@ -1,5 +1,5 @@
 class SectionsController < ApplicationController
-  before_action :set_section, only: [:show, :edit, :update, :destroy]
+  before_action :set_section, only: [:show, :edit, :update, :destroy, :message]
   before_action :is_member, only: [:show]
 
   # GET /sections
@@ -81,7 +81,22 @@ class SectionsController < ApplicationController
       format.json { head :no_content }
     end
   end
-
+  
+  def message
+    @message = {}
+    @message[:sender] = User.find(params[:message][:sender])
+    @message[:members] = []
+    @section.users.each do |member_id|
+      if member_id != session[:user_id]
+        @message[:members].push(User.find(member_id))
+      end
+    end
+    @message[:subject] = params[:message][:subject]
+    @message[:content] = params[:message][:content]
+    UserMailer.section_message(@message).deliver
+    redirect_to @section
+  end
+  
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_section

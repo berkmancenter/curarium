@@ -81,5 +81,20 @@
 		<%= link_to user.name, user%>
 	</p>
 	<% end %>
+	
+	<% if @s.admins.include?(session[:user_id]) || @s.admins.include?(session[:user_id].to_s) %>
+	<h4>Send message to the section</h4>>
+	<form method='post' action='message'>
+		<input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>">
+		<input type='hidden' name='message[sender]' value='<%= session[:user_id] %>'>
+		<input type='hidden' name='message[members]' value='<%= @section.users %>'>
+		<input name='message[subject]' placeholder="message subject"></input>
+		<br>
+			<textarea name='message[content]' placeholder="message body"></textarea>
+		<br>
+		<input type="submit">	
+	</form>
+	<%end%>
+	
 </section>
 

@@ -43,6 +43,7 @@ window.collection.configure = ->
         value = $(this).data('path')
         record[field] = value
       $("#collection_configuration").val(JSON.stringify(record))
+      
    
 
 field_drop = (e, d) -> #specifies the "droppable" behavior when dragging fields from the original records into the custom curarium fields. Reads the path, generates a form for modifying numeric values and gives a sample output.
@@ -131,22 +132,7 @@ window.collection.query =
       
 window.collection.query_builder = ->
   $('#query_include, #query_exclude').droppable
-    drop: (event, element)->
-      query = window.collection.query
-      value = element.draggable.context.dataset.value
-      property = element.draggable.context.parentNode.dataset.property
-      query_string = property+":"+value
-      dropped = $("<span class='query_element'>").append(query_string)
-      $(element.draggable).hide()
-      type = $(this).attr('id').slice(6)
-      query[type].push(query_string)
-      $(this).append dropped
-      console.log 
-      $.getJSON(
-        window.location.pathname + '/tag'+ window.collection.query_terms()
-        (data) ->
-          $('#record_count').val(data.length)
-        )
+    
   $('.property_list li').draggable
     helper : "clone"
 
@@ -179,3 +165,41 @@ window.collection.generate_visualization = ->
   window.visualization[window.collection.query.visualization](id)
   window.location = '#'+id
   undefined
+
+window.collection.show = ->
+  $.getJSON(
+    ''
+    (data) ->
+      for property, values of data.properties
+        target = $("#"+property+"_list")
+        if target.length > 0
+         target.data('values', values).data('property', property).click(
+            (e) ->
+              $('.property_list').data('property', $(this).data('property')).children('li').remove()
+              for value, ammount of $(this).data('values')
+                li = $("<li data-value='#{value}'>#{value} (#{ammount})</li>").append(query_button('include')).append(query_button('exclude'))
+                $('.property_list').append(li)
+              undefined
+          )
+  )
+  undefined
+
+inc_exc = (e) ->
+  type = $(this).html()
+  query = window.collection.query
+  value = $(this).parent().data('value')
+  property = $(this).parent().parent().data('property')
+  query_string = property+":"+value
+  dropped = $("<span class='query_element'>").append(query_string)
+  #$(element.draggable).hide()
+  query[type].push(query_string)
+  $("#query_"+type).append dropped
+  console.log 
+  $.getJSON(
+    window.location.pathname + '/tag'+ window.collection.query_terms()
+    (data) ->
+      $('#record_count').val(data.length)
+    )
+
+query_button = (value) ->
+  $("<span class='query_button'>"+value+"</span>").click(inc_exc)

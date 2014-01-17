@@ -1,5 +1,6 @@
 <script>
 	$(document).ready(function(){
+		window.collection.show();
 		window.collection.query_builder();
 		
 		$('#query_builder form select').change(function(e){
@@ -45,29 +46,22 @@
 		</div>
 		<div id='properties_menu'>
 			<div id='properties_header'>
-					<% @collection.properties.each do |property, values| %>
-					<% if ['thumbnail','image'].include? property
-						next
-					end%>
-					<a href='#<%=property%>_list' class='property_link'><%=property%></a>
-					<% end %>
-					<br>
-					<label for='filter'>filter</label>
-					<input id='filter'>
-				</div>
-			<div id='collection_properties'>
-			<% @collection.properties.each do |property, values| %>
+				<% @collection.properties.each do |property, values| %>
 				<% if ['thumbnail','image'].include? property
 					next
 				end%>
-				<div id='<%= property %>_list' class='property_wrapper'>
-					<ul  class='property_list' data-property='<%= property%>'>
-					<%= values.each do |value, count| %>
-						<li data-value='<%= value%>'><%= value %> (<%= count%>)</li>
-					<% end %>
+				<a id='<%=property%>_list' class='property_link'><%=property%></a>
+				<% end %>
+				<br>
+				<label for='filter'>filter</label>
+				<input id='filter'>
+			</div>
+			<div id='collection_properties'>
+				<div id='property_list' class='property_wrapper'>
+					<ul  class='property_list' data-property=''>
+					
 					</ul>
 				</div>
-			<% end %>
 			</div>
 		</div>
 		<div id='visualization_options'>

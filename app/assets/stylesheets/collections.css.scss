@@ -2,7 +2,7 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
-.curarium_collection{
+.curarium_collection {
   width: 15em;
   height: 15em;
   background: darkgray;
@@ -11,13 +11,23 @@
   position: relative;
   margin: 2px;
   display: inline-block;
-  h3{
+  h3 {
     font-size: 10pt;
     font-weight: bold;
   }
-  p{
+  p {
     font-size: 8pt;
   }
+}
+
+span.query_button {
+  font-size:7pt;
+  padding: 1pt;
+  border-radius: 1pt;
+  background: darkblue;
+  color: gray;
+  margin: 1px;
+  border-radius: 2px;
 }
 
 //COLLECTION DISPLAY

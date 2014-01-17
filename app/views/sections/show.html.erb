@@ -87,6 +87,7 @@
 	<form method='post' action='message'>
 		<input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>">
 		<input type='hidden' name='message[sender]' value='<%= session[:user_id] %>'>
+		<input type='hidden' name='id' value='<%= @section.id %>'>
 		<input type='hidden' name='message[members]' value='<%= @section.users %>'>
 		<input name='message[subject]' placeholder="message subject"></input>
 		<br>

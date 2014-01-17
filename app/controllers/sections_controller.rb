@@ -88,7 +88,7 @@ class SectionsController < ApplicationController
     @message[:members] = []
     @section.users.each do |member_id|
       if member_id != session[:user_id]
-        @message[:members].push(User.find(member_id))
+        @message[:members].push(User.find(member_id).email)
       end
     end
     @message[:subject] = params[:message][:subject]

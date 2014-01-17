@@ -14,8 +14,8 @@ Curarium::Application.routes.draw do
   get "sessions/create"
   get "sessions/destroy"
 
-  post 'users/message' => 'users#message', as: 'message'
-  post 'sections/message' => 'sections#message', as: 'message'
+  post 'users/message' => 'users#message', as: 'user_message'
+  post 'sections/message' => 'sections#message', as: 'section_message'
 
   resources :users do
     concerns :tray_owner

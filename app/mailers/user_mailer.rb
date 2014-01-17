@@ -10,7 +10,7 @@ class UserMailer < ActionMailer::Base
   def section_message(mail_params)
     @message = mail_params[:content]
     @url  = 'http://curarium.herokuapp.com'
-    mail(to: mail_params[:sender].email, subject: mail_params[:subject], from: mail_params[:sender].email, cc.mail_params[:members])
+    mail(to: mail_params[:sender].email, subject: mail_params[:subject], from: mail_params[:sender].email, cc: mail_params[:members])
   end
   
 end

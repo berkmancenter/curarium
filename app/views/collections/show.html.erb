@@ -22,16 +22,14 @@
 		});
 	})
 </script>
-<div id='collection_header'>
-	<h1><%= @collection.name %></h1>
-	<select>
-		<option value='#collection_info'>ABOUT</option>
-		<option value='#query_builder'>EXPLORE</option>
-	</select>
-</div>
 <section id='collection_pages'>
-	<div id='collection_info'>
+	<div id='collection_information'>
+		<h2><%= @collection.name %></h2>
+		<br>
 		<p><%= @collection.description %></p>
+	</div>
+	<div id='collection_highlights'>
+		<p><%# @collection.spotlights %></p>
 	</div>
 	<div id='query_builder'>
 		<div class='dropper_wrapper'>

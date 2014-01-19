@@ -32,37 +32,42 @@ span.query_button {
 
 //COLLECTION DISPLAY
 
-section#collection_pages {
-  width:100%;
-  height: calc(100% - 25px);
-  background-color: white;
-  display: block;
-  overflow: hidden;
-}
-
-section#collection_pages>div {
-    height: 100%;
-  }
-
 div#collection_header{
   color: white;
   background: black;
   display: block;
   width: 100%;
   height: 25px;
-  * {
+  >* {
     display: inline-block;
   }
-  option {
-    display: block;
+}
+
+section#collection_pages {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+div#collection_information{
+  padding: 2em 1em 1em 1em;
+  width: 25%;
+  height: 100%;
+  display: inline-block;
+  float: left;
+  overflow: hidden;
+  p {
+    max-height: 90%;
+    overflow: auto;
+    padding-bottom: 8em;
   }
 }
 
 div#query_builder {
+  float: left;
   width: 75%;
-  height: 75%;
+  height: 100%;
   border: 1px solid gray;
-  margin: auto;
 }
 
 div.dropper_wrapper {

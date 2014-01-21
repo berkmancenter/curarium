@@ -36,13 +36,13 @@ class Collection < ActiveRecord::Base
   
   def query_records(include, exclude)
     records = self.records
-    if(include.length > 0 and include[0]!= "")
+    unless include == nil
       include.each do |term|
         parameters = term.split(':')
         records = records.where("parsed->:field LIKE :tag",{field: parameters[0], tag: '%\"'+parameters[1]+'\"%'})
       end
     end
-    if(exclude.length > 0 and exclude[0]!= "")
+    unless exclude == nil
       exclude.each do |term|
         parameters = term.split(':')
         records = records.where.not("parsed->:field LIKE :tag",{field: parameters[0], tag: '%\"'+parameters[1]+'\"%'})

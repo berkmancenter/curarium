@@ -1,6 +1,7 @@
 class VisualizationsController < ApplicationController
   
   def index
+    @properties = Collection.find(params[:collection_id]).configuration.keys
     respond_to do |format|
       format.html {  }
       format.json { eval(params[:type]) }
@@ -15,7 +16,7 @@ class VisualizationsController < ApplicationController
   
   def treemap
     @collection = Collection.find(params[:collection_id])
-    if(params[:include][0]== "" and params[:exclude][0]== "")
+    if ( params[:include]==nil and params[:exclude]==nil )
       treemap = treemapify(@collection.properties[params[:property]])
     else
       treemap = treemapify(@collection.sort_properties(params[:include],params[:exclude],params[:property])[:properties])

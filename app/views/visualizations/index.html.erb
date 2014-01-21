@@ -1,12 +1,38 @@
 <script>
 	$(document).ready(function(){
-		window.visualization['<%=params[:type]%>']('main');
 		window.collection.query = {
 			type: '<%= params[:type]%>',
 			property: '<%= params[:property]%>',
-			include: <%= raw(params[:include])%>,
-			exclude: <%= raw(params[:exclude])%>
+			include: <%= raw(params[:include] || [])%>,
+			exclude: <%= raw(params[:exclude] || [])%>
 		};
+		window.visualization['<%=params[:type]%>']('main');
+		
+		$('#visualization_form').appendTo('header #secondary_nav');
+		
 	});
 </script>
 
+<form id='visualization_form' style='display:inline'>
+	<label for='vizualization_type'>type</label>
+	<select id='vizualization_type' name='type'>
+		<option value='treemap'>treemap</option>
+		<option value='thumbnail'>thumbnail</option>
+	</select>
+	<label for='vizualization_property'>property</label>
+	<select id='vizualization_property' name='property'>
+		<% @properties.each do |property|%>
+			<% unless ["image","thumbnail"].include? property %>
+			<option value='<%= property %>'><%= property %></option>
+			<% end %>
+		<% end %>
+	</select>
+	<label for='vizualization_include'>include</label>
+	<select id='vizualization_include' name='include[]'>
+		<option value='topics:saints'>saints</option>>
+	</select>
+	<label for='vizualization_exclude'>exclude</label>
+	<select id='vizualization_exclude' name='exclude[]'>
+	</select>
+	<input type='submit'>
+</form>

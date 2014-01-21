@@ -143,14 +143,10 @@ window.collection.query_terms = ->
     do (term)->
       include = include + "&include[]=" + term
       undefined
-  if include is ""
-    include = "&include[]="
   for term in query.exclude
     do (term)->
       exclude = exclude + "&exclude[]=" + term
       undefined
-  if exclude is ""
-    exclude = "&exclude[]="
   terms = type + property + include + exclude
   return terms
 

@@ -60,5 +60,14 @@ module ApplicationHelper
     end
     return raw(tags + "</ul>")
   end
-
+  
+  def hstore_aray (hstore, field)
+    if hstore[field]
+      return eval(hstore[field])
+    else
+      return []
+    end
+    
+  end
+  
 end

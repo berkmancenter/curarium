@@ -1,3 +1,44 @@
 // Place all the styles related to the Visualizations controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+//thumbnails
+
+#main>.record_thumbnail {
+  width: calc(10% - 0.4em);
+}
+
+.record_thumbnail {
+    padding: 0.2em;
+    width: calc(12.5% - 0.4em);
+    height: 12em;
+    margin: 0.2em;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    float: left;
+    position: relative;
+    border: 1px solid black;
+    h3 {
+      font-size: 8pt;
+      position: absolute;
+      background: black;
+      color: white;
+      width: 100%;
+      bottom: 0;
+      left: 0;
+      height: 3em;
+      overflow: hidden;
+    }
+  }
+
+//treemap
+.node {
+  box-sizing: border-box;
+  font: 10px sans-serif;
+  color: black;
+  line-height: 12px;
+  overflow: hidden;
+  position: absolute;
+  text-indent: 2px;
+}

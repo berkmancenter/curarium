@@ -1,5 +1,12 @@
 <script>
 	$(document).ready(function(){
 		window.visualization['<%=params[:type]%>']('main');
+		window.collection.query = {
+			type: '<%= params[:type]%>',
+			property: '<%= params[:property]%>',
+			include: <%= raw(params[:include])%>,
+			exclude: <%= raw(params[:exclude])%>
+		};
 	});
 </script>
+

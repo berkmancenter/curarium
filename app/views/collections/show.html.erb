@@ -5,15 +5,11 @@
 		
 		$('#query_builder form select').change(function(e){
 			e.preventDefault();
-			window.collection.query.visualization = $(this).val();
+			window.collection.query.type = $(this).val();
 		});
 		
 		$('.property_link').click(function(e){
 			window.collection.query.property = $(this).html();
-		});
-		
-		$('#collection_header select').change(function(e){
-			location = $(this).val();
 		});
 		
 		$('#query_builder form').submit(function(e){

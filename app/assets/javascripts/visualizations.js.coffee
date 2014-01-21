@@ -91,7 +91,7 @@ window.visualization.thumbnail = (container) ->
     )
     
   thumbs = (items) ->
-    d3.select("#"+container).selectAll('div').data(items).enter().append('div').attr('class', 'picture-container').append('div').attr('class', 'pixel').attr(
+    d3.select("#"+container).selectAll('div').data(items).enter().append('div').attr('class', 'record_thumbnail').attr(
       'title'
       (d) -> 
         return d.id + ":" + d['title'].toString()
@@ -106,6 +106,9 @@ window.visualization.thumbnail = (container) ->
       (e) ->
         id = d3.select(this).data()[0].id
         window.open('http://' + window.location.host + '/records/' + id, '_blank')
+    ).append('h3').text(
+      (d) ->
+        d.title
     )
     undefined
     

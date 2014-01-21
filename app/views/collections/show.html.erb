@@ -45,6 +45,18 @@
 				<div id='query_exclude'></div>
 			</div>
 		</div>
+		<div id='visualization_options'>
+			<form>
+				<label for='record_count'>Records:</label>
+				<input id='record_count' type="number" value='<%= @collection.records.length %>' readonly>
+				<select id='vizualization_mode'>
+					<option selected disabled>Choose Vizualization</option>
+					<option value='treemap'>Treemap</option>
+					<option value='thumbnail'>Thumbnail</option>
+				</select>
+				<input type='submit' value='generate visualization'>
+			</form>
+		</div>
 		<div id='properties_menu'>
 			<div id='properties_header'>
 				<% @collection.properties.each do |property, values| %>
@@ -64,18 +76,6 @@
 					</ul>
 				</div>
 			</div>
-		</div>
-		<div id='visualization_options'>
-			<form>
-				<label for='record_count'>Records:</label>
-				<input id='record_count' type="number" value='<%= @collection.records.length %>' readonly>
-				<select id='vizualization_mode'>
-					<option selected disabled>Choose Vizualization</option>
-					<option value='treemap'>Treemap</option>
-					<option value='thumbnail'>Thumbnail</option>
-				</select>
-				<input type='submit' value='generate visualization'>
-			</form>
 		</div>
 	</div>
 </section>

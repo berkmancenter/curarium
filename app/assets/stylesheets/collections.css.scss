@@ -111,8 +111,8 @@ div#query_builder {
 }
 
 div.dropper_wrapper {
-  width: 50%;
-  height: 100%;
+  width: 100%;
+  height: 20%;
   float:left;
   display: inline-block;
 }
@@ -120,17 +120,17 @@ div.dropper_wrapper {
 div.query_wrapper {
   width: 100%;
   height: 50%;
-  padding: 5px;
+  padding: 3px;
 }
 
 h2.query_title, {
   background: slategray;
   width:100%;
-  height: 25px;
-  padding: 5px;
-  -webkit-border-radius: 8px 8px 0 0;
-  -moz-border-radius: 8px 8px 0 0;
-  border-radius: 8px 8px 0 0;
+  height: 20px;
+  padding: 3px;
+  -webkit-border-radius: 3px 3px 0 0;
+  -moz-border-radius: 3px 3px 0 0;
+  border-radius: 3px 3px 0 0;
 }
 
 
@@ -138,15 +138,15 @@ h2.query_title, {
 div#query_include, div#query_exclude {
   background: slategray;
   width:100%;
-  height: calc(100% - 25px);
-  -webkit-border-radius: 0 0 8px 8px;
-  -moz-border-radius: 0 0 8px 8px;
-  border-radius: 0 0 8px 8px;
+  height: calc(100% - 20px);
+  -webkit-border-radius: 0 0 3px 3px;
+  -moz-border-radius: 0 0 3px 3px;
+  border-radius: 0 0 3px 3px;
 }
 
 div#properties_menu{
-  height:100%;
-  width: 25%;
+  height:70%;
+  width: 100%;
   float: left;
   display: inline-block;
   a {
@@ -205,8 +205,8 @@ ul.property_list {
 }
 
 div#visualization_options {
-  width: 25%;
-  height: 100%;
+  width: 100%;
+  height: 10%;
   display: inline-block;
   float: left;
   background:gray;

@@ -4,7 +4,7 @@ window.visualization = {}
 window.visualization.treemap = (container)->
   selected = []
   $.getJSON(
-    window.location.pathname + '/treemap'+ window.collection.query_terms()
+    document.location.href
     (items) ->
       tree(items)
       undefined
@@ -24,13 +24,9 @@ window.visualization.treemap = (container)->
       bottom : 0
       left : 0
     
-    
     width = $('#'+container).width() - margin.left - margin.right 
     height = $('#'+container).height() - margin.top - margin.bottom
-
     color = d3.scale.linear().domain([0, max_value/8, max_value/4, max_value/2, max_value]).range(['#c83737', '#ff9955', '#5aa02c', '#2a7fff'])
-    
-    
     
     treemap = d3.layout.treemap().size([width, height]).value (d) ->
       if selected.indexOf(d.name) < 0
@@ -38,11 +34,7 @@ window.visualization.treemap = (container)->
       else
         return null
     
-    
-    
     div = d3.select('#'+container).append("div").attr('id', 'chart-container').style("position", "relative").style("width", (width + margin.left + margin.right) + "px").style("height", (height + margin.top + margin.bottom) + "px").style("left", margin.left + "px").style("top", margin.top + "px")
-    
-    
     
     position = ->
       this.style(
@@ -64,9 +56,6 @@ window.visualization.treemap = (container)->
       )
       undefined
     
-
-    
-    
     node = div.datum(root).selectAll(".node").data(treemap.nodes).enter().append("div").attr("class", "node").call(position).style(
       "background"
       (d) ->
@@ -78,8 +67,6 @@ window.visualization.treemap = (container)->
     ).on('click', click)
     
     undefined
-    
-
 
   click = (e) -> 
     query = window.collection.query
@@ -87,7 +74,7 @@ window.visualization.treemap = (container)->
     if query.include.indexOf(name) is -1
       query.include.push(name)
     $.getJSON(
-      window.location.pathname + '/treemap'+ window.collection.query_terms()
+      window.location.pathname + window.collection.query_terms()
       (data) -> 
         tree(data)
         undefined
@@ -97,7 +84,7 @@ window.visualization.treemap = (container)->
 
 window.visualization.thumbnail = (container) ->
   $.getJSON(
-    window.location.pathname + '/thumbnail'+ window.collection.query_terms()
+    window.location.href
     (items) ->
       thumbs(items)    
       undefined

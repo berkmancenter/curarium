@@ -9,12 +9,15 @@
 </div>
 
 <div id='record-data'>
-<p>
-  <%= @record.original %>
-</p>
-<p>
-  <%= @record.parsed %>
-</p>
+	<script>
+		$(document).ready(function(){
+			$('.printed_object .key').parent().click(function(e){
+				$(this).next().find('.value').toggle();
+			});
+		});
+	</script>
+ <%= print_hstore @record.parsed, 'printed_object', 'parsed_record' %>
+ <%= print_json @record.original, 'printed_object', 'original_record' %>
 </div>
 <div id='annotations'>
 	<div id='preview_window'></div>

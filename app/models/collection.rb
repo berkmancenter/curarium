@@ -1,6 +1,7 @@
 class Collection < ActiveRecord::Base
   before_create :generate_key
   has_many :records, dependent: :destroy
+  has_many :spotlights, through: :highlights
   validates :name, presence: true, uniqueness: true
   validates :description, presence: true
   validates :configuration, presence: true

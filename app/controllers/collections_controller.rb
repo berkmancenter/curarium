@@ -68,6 +68,8 @@ class CollectionsController < ApplicationController
     end
   end
 
+  # ingestions
+
   def check_key
       collection = Collection.find_by(key: params[:collection_id])
       if collection.nil?
@@ -105,60 +107,6 @@ class CollectionsController < ApplicationController
     r.save
     render json: pr
   end
-  
-      
-      
-  
-  #VISUALIZATIONS
-  
-  def tag
-    @collection = Collection.find(params[:collection_id])
-    tags = @collection.sort_properties(params[:include],params[:exclude],params[:property])
-    render json: tags
-  end
-  
-  def treemap
-    @collection = Collection.find(params[:collection_id])
-    if(params[:include][0]== "" and params[:exclude][0]== "")
-      treemap = treemapify(@collection.properties[params[:property]])
-    else
-      treemap = treemapify(@collection.sort_properties(params[:include],params[:exclude],params[:property])[:properties])
-    end
-    render json: treemap
-  end
-  
-  def thumbnail
-    @collection = Collection.find(params[:collection_id])
-    records = @collection.query_records(params[:include],params[:exclude])
-    records = records.select('parsed')
-    thumbnails = []
-    records.each do |thumb|
-      placeholder = thumb.parsed['thumbnail']
-      placeholder ||= "[]"
-      thumbnails.push({
-          thumbnail: eval(placeholder)[0],
-          title: eval(thumb.parsed['title'])[0],
-          id: eval(thumb.parsed['curarium'])[0]
-        })
-    end
-    render json: thumbnails
-  end
-  
-  def collection_data
-    collection = Collection.find(params[:collection_id])
-    @data = {}
-    @data[:configuration] = collection.recordconfig.configuration
-    @data[:spotlights] = collection.spotlights
-    @data[:spotlights].each do |s|
-      s['url'] = spotlight_url(s['id'])
-    end
-    @data[:description] = collection.desc
-    @data[:id] = collection.id
-    @data[:name] = collection.name
-    render json: @data
-  end
-  
-   
   
   #functions taken from frontend js scripts to enable d3 visualization
 

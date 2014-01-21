@@ -66,21 +66,22 @@ ActiveRecord::Schema.define(version: 20140116210554) do
   end
 
   create_table "sections", force: true do |t|
+    t.string   "users",      default: [],                                                                                 array: true
+    t.string   "admins",     default: [],                                                                                 array: true
     t.datetime "created_at"
     t.datetime "updated_at"
     t.json     "resources",  default: {"Collection"=>[], "Spotlight"=>[], "Tray"=>[], "Visualization"=>[], "Record"=>[]}
     t.string   "title"
-    t.integer  "users",                                                                                                   array: true
-    t.integer  "admins",                                                                                                  array: true
   end
 
   create_table "spotlights", force: true do |t|
     t.string   "title"
     t.text     "body"
     t.string   "type"
-    t.integer  "records",    default: [], array: true
+    t.integer  "records",     default: [], array: true
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "annotations", default: [], array: true
   end
 
   create_table "trays", force: true do |t|

@@ -2,6 +2,15 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
+@mixin no-select {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+} 
+
 .curarium_collection {
   width: 15em;
   height: 15em;
@@ -51,7 +60,7 @@ section#collection_pages {
 
 div#collection_information{
   padding: 2em 1em 1em 1em;
-  width: 25%;
+  width: 15%;
   height: 100%;
   display: inline-block;
   float: left;
@@ -63,9 +72,40 @@ div#collection_information{
   }
 }
 
+div#collection_highlights {
+  font-size: 9pt;
+  width:55%;
+  height: 100%;
+  float: left;
+  overflow: auto;
+  .record_thumbnail {
+    padding: 0.2em;
+    width: calc(12.5% - 0.4em);
+    height: 12em;
+    margin: 0.2em;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    float: left;
+    position: relative;
+    border: 1px solid black;
+    .record_thumbnail_title {
+      font-size: 8pt;
+      position: absolute;
+      background: black;
+      color: white;
+      width: 100%;
+      bottom: 0;
+      left: 0;
+      height: 3em;
+      overflow: hidden;
+    }
+  }
+}
+
 div#query_builder {
   float: left;
-  width: 75%;
+  width: 30%;
   height: 100%;
   border: 1px solid gray;
 }
@@ -156,12 +196,7 @@ ul.property_list {
      padding: 2px;
      cursor: pointer;
      border-radius: 5px;
-     -webkit-touch-callout: none;
-    -webkit-user-select: none;
-    -khtml-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
+     @include no-select;
   }
   li:hover {
     color: white;
@@ -183,12 +218,7 @@ div#visualization_options {
   padding: 3px;
   margin: 2px;
   border-radius: 5px;
-  -webkit-touch-callout: none;
-  -webkit-user-select: none;
-  -khtml-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
+  @include no-select;
 }
 
 //thumbnails

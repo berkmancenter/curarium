@@ -24,12 +24,15 @@
 </script>
 <section id='collection_pages'>
 	<div id='collection_information'>
-		<h2><%= @collection.name %></h2>
+		<h2><%= title @collection.name %></h2>
 		<br>
 		<p><%= @collection.description %></p>
 	</div>
 	<div id='collection_highlights'>
-		<p><%# @collection.spotlights %></p>
+		<% (1..80).each do |n| %>
+			<% @record = Record.offset(rand(Record.count)).first %>
+			<%= render 'records/thumb', locals: {record: @record} %>
+		<% end %>
 	</div>
 	<div id='query_builder'>
 		<div class='dropper_wrapper'>

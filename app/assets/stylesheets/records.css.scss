@@ -28,3 +28,38 @@ div#annotations{
   position: absolute;
   overflow: auto;
 }
+
+.printed_object {
+  list-style: none;
+  background-color: slategray;
+  width: 98%;
+  margin: 1%;
+  .printed_object {
+    padding-left: 1em;
+    margin: 0px;
+  }
+  .key {
+    cursor: pointer;
+    &:hover{
+      color: white;
+      background: black;
+    }
+  }
+  .value {
+    text-decoration: underline;
+    display: none;
+  }
+}
+
+#parsed_record {
+  position: relative;
+  max-height: 30%;
+  overflow: auto;
+}
+
+#original_record {
+  position: relative;
+  max-height: 70%;
+  overflow: auto;
+}
+

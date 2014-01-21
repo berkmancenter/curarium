@@ -40,6 +40,7 @@ Curarium::Application.routes.draw do
     get "thumbnail" => "collections#thumbnail", as: "thumbnail"
     post "check_key" => "collections#check_key", as: "check_key"
     post "ingest" => "collections#ingest", as: "ingest"
+    resources :visualizations
   end
 
   # The priority is based upon order of creation: first created -> highest priority.

@@ -8,12 +8,13 @@
 		};
 		window.visualization['<%=params[:type]%>']('main');
 		
-		$('#visualization_form').appendTo('header #secondary_nav');
+		$('#refine_search').appendTo('header #secondary_nav');
 		
 	});
 </script>
 
-<form id='visualization_form' style='display:inline'>
+<form id='refine_search'>
+	<h3>Refine query:</h3>
 	<label for='vizualization_type'>type</label>
 	<select id='vizualization_type' name='type'>
 		<option value='treemap'>treemap</option>

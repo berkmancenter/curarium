@@ -42,3 +42,34 @@
   position: absolute;
   text-indent: 2px;
 }
+
+form#refine_search{
+  margin-left: 50px;
+  height: 25px;
+  overflow: hidden;
+  position: absolute;
+  width: 300px;
+  background: black;
+  display: inline-block;
+  float: left;
+  &:hover {
+    height: auto;
+    h3{
+      color: gray;
+    }
+  }
+  h3{
+    height: 25px;
+    display: block;
+    font-size: 15px;
+    padding-top: 5px;
+    cursor: pointer;
+  }
+  select, label{
+    width: 125px;
+    display: inline-block;
+  }
+  option {
+    display: block;
+  }
+}

@@ -17,11 +17,29 @@ class VisualizationsController < ApplicationController
   def treemap
     @collection = Collection.find(params[:collection_id])
     if ( params[:include]==nil and params[:exclude]==nil )
-      treemap = treemapify(@collection.properties[params[:property]])
+      tmap = treemapify(@collection.properties[params[:property]])
+      length = @collection.records.length
     else
-      treemap = treemapify(@collection.sort_properties(params[:include],params[:exclude],params[:property])[:properties])
+      query = @collection.sort_properties(params[:include],params[:exclude],params[:property])
+      tmap = treemapify(query[:properties])
+      length = query[:length]
     end
-    render json: treemap
+    render json: {length: length, treemap: tmap}
+  end
+  
+  def treemapify(data,name='main')
+    branch = {}
+    branch['name'] = name
+    if(data.class == Array || data.class == Hash)
+      branch['children'] = []
+      data.each do |key, value|
+        branch['children'].push(treemapify(value,key))
+      end
+    else
+      branch['size'] = data
+      return branch
+    end
+    return branch
   end
   
   def thumbnail

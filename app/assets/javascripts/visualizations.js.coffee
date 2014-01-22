@@ -6,7 +6,8 @@ window.visualization.treemap = (container)->
   $.getJSON(
     document.location.href
     (items) ->
-      tree(items)
+      tree(items.treemap)
+      window.collection.query.length = items.length
       undefined
     )
   
@@ -76,7 +77,7 @@ window.visualization.treemap = (container)->
     $.getJSON(
       window.location.pathname + window.collection.query_terms()
       (data) -> 
-        tree(data)
+        tree(data.treemap)
         undefined
       )
   
@@ -86,7 +87,8 @@ window.visualization.thumbnail = (container) ->
   $.getJSON(
     window.location.href
     (items) ->
-      thumbs(items)    
+      thumbs(items)
+      window.query.length = items.length  
       undefined
     )
     

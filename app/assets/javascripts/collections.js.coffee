@@ -125,6 +125,7 @@ printRecord = (json, path=[]) ->
       return item
 
 window.collection.query = 
+  length: null
   type: 'treemap'
   property: 'names'
   include : []

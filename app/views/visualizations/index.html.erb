@@ -9,6 +9,10 @@
 		window.visualization['<%=params[:type]%>']('main');
 		
 		$('#refine_search').appendTo('header #secondary_nav');
+		$('#query_length').hide().prependTo('header #secondary_nav');
+		while($('#query_length').val() == null) {
+			$('#query_length').val(window.collection.query.length);
+		}
 		
 	});
 </script>
@@ -37,3 +41,5 @@
 	</select>
 	<input type='submit'>
 </form>
+
+<input type='text' id='query_length'></input>

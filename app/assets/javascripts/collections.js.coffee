@@ -44,7 +44,6 @@ window.collection.configure = ->
         record[field] = value
       $("#collection_configuration").val(JSON.stringify(record))
       
-   
 
 field_drop = (e, d) -> #specifies the "droppable" behavior when dragging fields from the original records into the custom curarium fields. Reads the path, generates a form for modifying numeric values and gives a sample output.
   path = $(d.draggable).data('path')
@@ -124,12 +123,19 @@ printRecord = (json, path=[]) ->
       item.append(json)
       return item
 
+
 window.collection.query = 
   length: null
   type: 'treemap'
   property: 'names'
   include : []
   exclude : []
+
+window.collection.query.watch(
+  'length'
+  () ->
+    alert("this")
+  )
       
 window.collection.query_builder = ->
   undefined

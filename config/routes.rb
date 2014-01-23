@@ -1,6 +1,9 @@
 Curarium::Application.routes.draw do
 
   
+  get 'trays/:id/add_records' => 'trays#add_records', as: 'add_records'
+  
+  
   concern :tray_owner do
     resources :trays
   end

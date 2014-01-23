@@ -59,4 +59,10 @@ class VisualizationsController < ApplicationController
     render json: thumbnails
   end
   
+  def list_records
+    @collection = Collection.find(params[:collection_id])
+    records = @collection.list_query(params[:include],params[:exclude])
+    render json: records
+  end
+  
 end

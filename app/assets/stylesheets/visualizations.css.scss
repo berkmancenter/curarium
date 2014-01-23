@@ -73,3 +73,10 @@ form#refine_search{
     display: block;
   }
 }
+
+#query_length {
+  width: 6em;
+  text-align: right;
+  background: black;
+  color: white;
+}

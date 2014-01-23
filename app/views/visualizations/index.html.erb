@@ -9,10 +9,37 @@
 		window.visualization['<%=params[:type]%>']('main');
 		
 		$('#refine_search').appendTo('header #secondary_nav');
-		$('#query_length').hide().prependTo('header #secondary_nav');
-		while($('#query_length').val() == null) {
-			$('#query_length').val(window.collection.query.length);
-		}
+		$('#add_to_tray').prependTo('header #secondary_nav');
+		
+		$('#add_to_tray').submit(function(e) {
+			
+			e.preventDefault();
+			
+			var type_placeholder = window.collection.query.type
+			window.collection.query.type = 'list_records'
+			$.getJSON( window.location.pathname + window.collection.query_terms(), function(data){
+				console.log(data);
+				$.ajax({
+					type : "GET",
+					url : '/trays/'+$('select[name=tray]').val()+'/add_records/',
+					data : {
+							records: data
+						},
+					success : function(data) {
+						console.log(data);
+						},
+					dataType : 'json',
+					headers : {
+					'X-CSRF-Token' : $("meta[name='csrf-token']").attr('content')
+					}
+				});
+				window.collection.query.type = type_placeholder
+			});
+		});
+		
+		var id = setInterval(function() { 
+			$("#query_length").val(window.collection.query.length);
+		}, 500)
 		
 	});
 </script>
@@ -34,7 +61,7 @@
 	</select>
 	<label for='vizualization_include'>include</label>
 	<select id='vizualization_include' name='include[]'>
-		<option value='topics:saints'>saints</option>>
+		<option value='topics:saints'>saints</option>
 	</select>
 	<label for='vizualization_exclude'>exclude</label>
 	<select id='vizualization_exclude' name='exclude[]'>
@@ -42,4 +69,14 @@
 	<input type='submit'>
 </form>
 
-<input type='text' id='query_length'></input>
+<form id='add_to_tray'>
+	<input type='text' id='query_length' >
+	<label for='query_length'> records </label>
+	<input type='submit' value="Add to Tray">
+	<select name='tray'>
+		<option value='new_tray'>New Tray</option>
+		<% User.find(session[:user_id]).trays.each do |tray| %>
+			<option value='<%=tray.id%>'><%= tray.name %></option>
+		<% end %>
+	</select>
+</form>

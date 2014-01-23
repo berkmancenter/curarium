@@ -76,8 +76,10 @@ window.visualization.treemap = (container)->
       query.include.push(name)
     $.getJSON(
       window.location.pathname + window.collection.query_terms()
-      (data) -> 
+      (data) ->
+        window.history.pushState("", "Current Visualization", window.location.pathname + window.collection.query_terms()); 
         tree(data.treemap)
+        window.collection.query.length = data.length
         undefined
       )
   

@@ -51,6 +51,15 @@ class Collection < ActiveRecord::Base
     return records
   end
   
+  def list_query(include, exclude)
+     query = self.query_records(include, exclude)
+     records = []
+     query.find_each(batch_size: 10000) do |record|
+       records.push(record.id)
+     end
+     return records
+  end
+  
   def sort_properties(include, exclude, property)
     query = self.query_records(include, exclude)
     properties = {}

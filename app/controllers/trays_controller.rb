@@ -1,7 +1,23 @@
 class TraysController < ApplicationController
-  before_action :set_tray, only: [:show, :edit, :update, :destroy]
+  before_action :set_tray, only: [:show, :edit, :update, :destroy, :add_records]
   
   def show
+    render json: @tray
+  end
+  
+  def add_records
+    old_records = @tray.records
+    request_records = params[:records]
+    new_records = []
+    request_records.each do |r|
+      new_records.push(r.to_i)
+    end
+    new_records.each do |r|
+      puts r.class
+    end
+    @tray.records = (old_records+new_records).uniq
+    @tray.save
+    render json: @tray
   end
   
   def new

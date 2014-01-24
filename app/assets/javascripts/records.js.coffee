@@ -131,6 +131,7 @@ window.record.display = (image_url)->
         $("input[name='content[y]']").val(clipping.y + (main.offsetHeight/min_scale - surrogate.height)/2) #remove picture offset for storing purposes
         $("input[name='content[width]']").val(clipping.width)
         $("input[name='content[height]']").val(clipping.height)
+        $("input[name='content[image_url]']").val(image_url)
         
         preview = new Kinetic.Stage(
           container: 'preview_window'
@@ -155,17 +156,19 @@ window.record.display = (image_url)->
     )
   
   $.getJSON(
-    document.location+'/annotations'
+    window.location.pathname+'/annotations'
     (notes) ->
       notes_layer = new Kinetic.Layer()
       stage.add(notes_layer)
       for n in notes
-        rect = new Kinetic.Rect(n.content)
-        rect.setAttrs(
-          stroke: 'blue'
-        )
-        notes_layer.add(rect)
-        stage.draw()
+        if n.content.image_url == image_url
+          console.log n
+          rect = new Kinetic.Rect(n.content)
+          rect.setAttrs(
+            stroke: 'blue'
+          )
+          notes_layer.add(rect)
+      stage.draw()
   )
   
   undefined

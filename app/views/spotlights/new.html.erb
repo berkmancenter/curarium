@@ -1,15 +1,24 @@
-<h1>New spotlight</h1>
+<script>
+	$(document).ready(function(){
+		window.trays.show();
+	});
+</script>
+<div id='new_spotlight_wrapper'>
+	<h1>New spotlight</h1>
 
-<%= render 'form' %>
+	<%= render 'form' %>
 
-<% User.find(session[:user_id]).trays.each do |tray|%>
-	<div>
-		<h3><%=tray.name%></h3>
+	<%= link_to 'Back', spotlights_path %>
+</div>
+
+<div id="user_trays">
+	<% User.find(session[:user_id]).trays.each do |tray|%>
+	<div class='user_tray'>
+		<h3><%= tray.name%></h3>
 		<% tray.records.each do |record|%>
-			<% @record = Record.find(record) %>	
-			<%= render 'records/thumb', locals: {record: @record} %>
+		<% @record = Record.find(record) %>
+		<%= render 'records/thumb', locals: {record: @record} %>
 		<% end %>
 	</div>
-<% end %>
-
-<%= link_to 'Back', spotlights_path %>
+	<% end %>
+</div>

@@ -17,6 +17,10 @@ div#record-data{
   height: calc(100% - 25px);
   position: absolute;
   overflow: auto;
+  img {
+    max-height: 80px;
+    max-width: 80px;
+  }
 }
 
 div#annotations{

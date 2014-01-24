@@ -1,6 +1,12 @@
 <script>
 	$(document).ready(function(){
-		window.record.display( '<%=eval(@record.parsed['image'])[0]%>' );
+		<% image = params[:image].to_i || 0%>
+		window.record.display( '<%=eval(@record.parsed['image'])[image]%>' );
+		$('img.surrogate_thumbnail').each( function(i){
+			$(this).click(function(e){
+				window.location = "?image="+i
+			});
+		});
 	});
 </script>
 
@@ -16,6 +22,10 @@
 			});
 		});
 	</script>
+ <% images= eval(@record.parsed['image']) %>
+ <% images.each do |image|%>
+ 	<img src='<%= image+'?width=10000&height=10000'%>' class='surrogate_thumbnail'>
+<%end%>
  <%= print_hstore @record.parsed, 'printed_object', 'parsed_record' %>
  <%= print_json @record.original, 'printed_object', 'original_record' %>
 </div>

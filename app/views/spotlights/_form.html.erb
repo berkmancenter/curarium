@@ -10,7 +10,10 @@
       </ul>
     </div>
   <% end %>
-
+  <div class="field">
+    <%= f.label :type %><br>
+    <%= select_tag(:type, options_for_select([['article','article'],['canvas','canvas'],['slideshow','slideshow']],'article')) %>
+  </div>
   <div class="field">
     <%= f.label :title %><br>
     <%= f.text_field :title %>
@@ -18,10 +21,6 @@
   <div class="field">
     <%= f.label :body %><br>
     <%= f.text_area :body %>
-  </div>
-  <div class="field">
-    <%= f.label :type %><br>
-    <%= f.text_field :type %>
   </div>
   <div class="field">
     <%= f.label :records %><br>

@@ -10,6 +10,15 @@ class RecordsController < ApplicationController
   # GET /records/1
   # GET /records/1.json
   def show
+     eval_parsed = {}
+     @record.parsed.each do |key, value|
+       eval_parsed[key] = eval(value)
+     end
+     respond_to do |format|
+       format.html { }
+       format.json { @record.parsed = eval_parsed }
+     end
+    
   end
 
   # GET /records/new

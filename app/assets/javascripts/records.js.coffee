@@ -82,7 +82,7 @@ window.record.display = (image_url)->
   )
   
   $('#main-canvas').on(
-    'mousedown'
+    'dblclick'
     (event) ->
       if(event.which==1)
         event.preventDefault()

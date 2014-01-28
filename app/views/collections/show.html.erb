@@ -24,7 +24,7 @@
 		<p><%= @collection.description %></p>
 	</div>
 	<div id='collection_highlights'>
-		<% @records = @collection.records.offset(rand((@collection.size).to_i-30)).take(30) %>
+		<% @records = @collection.records.offset(rand((@collection.size).to_i-80)).take(80) %>
 		<% @records.each do |r|%>
 			<% @record = r %>	
 			<%= render 'records/thumb', locals: {record: @record} %>

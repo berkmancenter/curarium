@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140123202555) do
+ActiveRecord::Schema.define(version: 20140128172134) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -36,6 +36,7 @@ ActiveRecord::Schema.define(version: 20140123202555) do
     t.integer  "admin",         default: [], array: true
     t.json     "properties"
     t.json     "associations"
+    t.integer  "size"
   end
 
   create_table "comments", force: true do |t|

@@ -52,12 +52,7 @@ form#refine_search{
   background: black;
   display: inline-block;
   float: left;
-  &:hover {
-    height: auto;
-    h3{
-      color: gray;
-    }
-  }
+
   h3{
     height: 25px;
     display: block;
@@ -79,6 +74,7 @@ form#refine_search{
   
   .visualization_included, .visualization_excluded {
     background: gray;
+    display: inline-block;
     input{
       background: gray;
       color: white;
@@ -96,9 +92,35 @@ form#refine_search{
     font-size: 7pt;
     margin: 2px;
   }
+
+  
   
 }
 
+#options_overlay {
+  width: 125px;
+  position: absolute;
+  max-height: 250px;
+  overflow: auto;
+  top: 0;
+  left: 0;
+  display: none;
+  background: #CCC;
+  z-index: 100;
+  padding: 2px;
+  p {
+    background: #999;
+    color: black;
+    padding: 1px;
+    margin: 1px;
+    font-size: 7pt;
+    cursor: pointer;
+    &:hover {
+      background:black;
+      color: white;
+    }
+  }
+}
 
 form#add_to_tray{
   margin-left: 50px;
@@ -109,12 +131,7 @@ form#add_to_tray{
   background: black;
   display: inline-block;
   float: left;
-  &:hover {
-    height: auto;
-    h3{
-      color: gray;
-    }
-  }
+
   select {
     width: 125px;
     display: inline-block;
@@ -139,16 +156,7 @@ form#add_to_tray{
     width: 6em;
     text-align: right;    
   }
+  
+
 }
 
-#options_overlay {
-  width: 125px;
-  position: absolute;
-  max-height: 250px;
-  overflow: auto;
-  top: 0;
-  left: 0;
-  display: none;
-  background: slateblue;
-  z-index: 100; 
-}

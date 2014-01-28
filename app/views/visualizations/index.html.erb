@@ -7,6 +7,20 @@
 			exclude: <%= raw(params[:exclude] || [])%>
 		};
 		
+		$('form>h3').click(function(e){
+			$(this).data('toggle', !$(this).data('toggle'));
+			var t = $(this).data('toggle');
+			if (t) {
+				$(this).parent().css('height', 'auto');
+				$(this).css('color', 'gray');
+			} else {
+				$(this).parent().css('height', 25);
+				$(this).css('color', 'white');
+			}
+				
+		});
+		
+		
 		var properties = <%= raw(Collection.find(params[:collection_id]).properties.to_json)%>;
 		
 		for(var property in properties){
@@ -28,12 +42,12 @@
 		$('body').append(options_overlay);
 		
 		$('#include_value, #exclude_value').val('').keyup(function(e){
+			
 			var current = $(this).val();
-			if( $(this).attr('id') === 'include_value'){
-				var options = properties[$('#include_property').val()];
-			} else {
-				var options = properties[$('#exclude_property').val()];
-			}
+			var in_ex = $(this).attr('id').substr(0,$(this).attr('id').indexOf('_'));
+			
+			var options = properties[$('#'+in_ex+'_property').val()];
+			
 			
 			var filtered = []
 			for(var any in options){
@@ -42,13 +56,23 @@
 					filtered.push(options[any]);
 				}
 			}
-			console.log(filtered);
-			options_overlay.show();
-			options_overlay.find('*').remove();
-			for(var option in filtered){
-				options_overlay.append("<p>"+filtered[option]+"</p>")
-			}
 			
+			if(current.length > 2) {
+				var that = this;
+				options_overlay.show();
+				options_overlay.find('*').remove();
+				options_overlay.css('top', $(this).offset().top+25);
+				options_overlay.css('left', $(this).offset().left);
+				for(var option in filtered){
+					var opt = $("<p>"+filtered[option]+"</p>").click(function(e){
+						$(this).parent().hide();
+						var new_query_item = $("<span class='visualization_"+in_ex+"d'><span class='remove_element'>x</span><input value='"+$("#"+in_ex+"_property").val()+":"+$(this).html()+"' name='"+in_ex+"[]' readonly></span>");
+						new_query_item.find('span').click( function(e){ $(this).parent().remove(); });
+						$("#visualization_"+in_ex).append(new_query_item);
+					});
+					options_overlay.append(opt)
+				}
+			}
 		});
 		
 		
@@ -60,11 +84,13 @@
 			}
 		});
 		
+		
 		$('#add_to_tray').submit(function(e) {
 			
 			e.preventDefault();
 			
 			var option = $('select[name=tray]').val();
+			
 			
 			var type_placeholder = window.collection.query.type
 			window.collection.query.type = 'list_records'
@@ -134,12 +160,14 @@
 		<% end %>
 	</select>
 	<label for='vizualization_include'>include</label><br>
+	<div id='visualization_include'>
 	<% if params[:include]%>
 		<% params[:include].each do |include|%>
 			<span class='visualization_included'><span class='remove_element'>x</span><input value='<%= include %>' name='include[]' readonly></span>
 		<% end %>
-		<br>
 	<% end %>
+	</div>
+	<br>
 	<select id='include_property'>
 		<% @properties.each do |property|%>
 			<% unless ["image","thumbnail"].include? property %>
@@ -147,15 +175,17 @@
 			<% end %>
 		<% end %>
 	</select>
-	<input class='visualization_new_property' id='include_value'>
+	<input class='visualization_new_property' id='include_value' autocomplete="off" >
 	<br>
 	<label for='vizualization_exclude'>exclude</label><br>
+	<div id='visualization_exclude'>
 	<% if params[:exclude]%>
 		<% params[:exclude].each do |exclude|%>
 			<span class='visualization_excluded'><span class='remove_element'>x</span><input value='<%= exclude %>' name='exclude[]' readonly></span>
 		<% end %>
-		<br>
 	<% end %>
+	</div>
+	<br>
 	<select id='exclude_property'>
 		<% @properties.each do |property|%>
 			<% unless ["image","thumbnail"].include? property %>
@@ -163,14 +193,16 @@
 			<% end %>
 		<% end %>
 	</select>
-	<input class='visualization_new_property' id='include_value'>
+	<input class='visualization_new_property' id='exclude_value'  autocomplete="off" >
 	<br>
 	<input type='submit'>
 </form>
 
 <form id='add_to_tray'>
-	<input type='text' id='query_length' >
-	<label for='query_length'> records </label>
+	<h3>
+		<input type='text' id='query_length' >
+		<label for='query_length'> records </label>
+	</h3>
 	<br>
 	<select name='tray'>
 		<option selected='true' disabled>SELECT TRAY</option>

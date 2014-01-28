@@ -12,7 +12,7 @@
 			window.collection.query.property = $(this).html();
 		});
 		
-		$('#query_builder form').submit(function(e){
+		$('#generate_visualization').submit(function(e){
 			e.preventDefault();
 			window.collection.generate_visualization();
 		});
@@ -25,7 +25,7 @@
 		<p><%= @collection.description %></p>
 	</div>
 	<div id='collection_highlights'>
-		<% @records = @collection.records.offset(rand(@collection.size-30)).take(30) %>
+		<% @records = @collection.records.offset(rand((@collection.size).to_i-30)).take(30) %>
 		<% @records.each do |r|%>
 			<% @record = r %>	
 			<%= render 'records/thumb', locals: {record: @record} %>
@@ -43,9 +43,9 @@
 			</div>
 		</div>
 		<div id='visualization_options'>
-			<form>
+			<form id='generate_visualization' >
 				<label for='record_count'>Records:</label>
-				<input id='record_count' type="number" value='<%= @collection.records.length %>' readonly>
+				<input id='record_count' type="number" value='<%= @collection.size %>' readonly>
 				<select id='vizualization_mode'>
 					<option selected disabled>Choose Vizualization</option>
 					<option value='treemap'>Treemap</option>

@@ -1,6 +1,22 @@
 window.visualization = {}
 
-window.visualization.json = {};
+window.visualization.populate_query_menu = () ->
+  in_ex = 'include'
+  $('#visualization_include').empty()
+  for value in window.collection.query.include
+    term = $("<span class='visualization_#{in_ex}d'><span class='remove_element'>x</span><input value='#{value}' name='#{in_ex}[]' readonly></span>")
+    term.find('span').click (e) -> 
+      $(this).parent().remove()
+    $('#visualization_include').append(term)
+  
+  in_ex = 'exclude'
+  $('#visualization_exclude').empty()
+  for value in window.collection.query.exclude
+    term = $("<span class='visualization_#{in_ex}d'><span class='remove_element'>x</span><input value='#{value}' name='#{in_ex}[]' readonly></span>")
+    term.find('span').click (e) -> 
+      $(this).parent().remove()
+    $('#visualization_exclude').append(term)
+  undefined
 
 window.visualization.treemap = (container)->
   selected = []
@@ -80,6 +96,7 @@ window.visualization.treemap = (container)->
       (data) ->
         window.history.pushState("", "Current Visualization", window.location.pathname + window.collection.query_terms()); 
         tree(data.treemap)
+        window.visualization.populate_query_menu()
         window.collection.query.length = data.length
         undefined
       )

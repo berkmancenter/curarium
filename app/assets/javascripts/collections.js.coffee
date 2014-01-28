@@ -126,8 +126,9 @@ printRecord = (json, path=[]) ->
 
 window.collection.query = 
   length: null
-  type: 'treemap'
-  property: 'names'
+  type: ''
+  property: ''
+  properties: {}
   include : []
   exclude : []
 

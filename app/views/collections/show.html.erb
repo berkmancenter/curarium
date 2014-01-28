@@ -1,7 +1,6 @@
 <script>
 	$(document).ready(function(){
 		window.collection.show();
-		window.collection.query_builder();
 		
 		$('#query_builder form select').change(function(e){
 			e.preventDefault();
@@ -45,7 +44,7 @@
 		<div id='visualization_options'>
 			<form id='generate_visualization' >
 				<label for='record_count'>Records:</label>
-				<input id='record_count' type="number" value='<%= @collection.size %>' readonly>
+				<input id='record_count' type="number" value='<%= (@collection.size).to_i %>' readonly>
 				<select id='vizualization_mode'>
 					<option selected disabled>Choose Vizualization</option>
 					<option value='treemap'>Treemap</option>

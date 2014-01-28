@@ -131,15 +131,6 @@ window.collection.query =
   include : []
   exclude : []
 
-window.collection.query.watch(
-  'length'
-  () ->
-    alert("this")
-  )
-      
-window.collection.query_builder = ->
-  undefined
-
 window.collection.query_terms = ->
   query = window.collection.query
   type = '?type=' + query.type
@@ -175,7 +166,7 @@ window.collection.show = ->
                 li = $("<li data-value='#{value}'>#{value} (#{ammount})</li>").append(query_button('include')).append(query_button('exclude'))
                 $('.property_list').append(li)
               undefined
-          )
+         )
   )
   undefined
 

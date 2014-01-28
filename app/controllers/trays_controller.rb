@@ -31,6 +31,15 @@ class TraysController < ApplicationController
     
   def create
     @tray = Tray.new(tray_params)
+    @tray.owner_id = params[:tray][:owner_id].to_i
+    @tray.owner_type = params[:tray][:owner_type]
+    records = []
+    params[:tray][:records].each do |r|
+      records.push(r.to_i)
+    end
+    @tray.records = records
+    @tray.save
+    render json: @tray
   end
     
   private
@@ -41,7 +50,7 @@ class TraysController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def tray_params
-      params.require(:tray).permit(:title, :body, :type, :records)
+      params.require(:tray).permit(:name, :records, :user_id)
     end
   
 end

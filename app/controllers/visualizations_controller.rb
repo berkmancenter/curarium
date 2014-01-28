@@ -3,7 +3,7 @@ class VisualizationsController < ApplicationController
   def index
     @properties = Collection.find(params[:collection_id]).configuration.keys
     respond_to do |format|
-      format.html {  }
+      format.html { render action: "index" }
       format.json { eval(params[:type]) }
     end
   end

@@ -12,9 +12,10 @@
 </div>
 
 <div id="user_trays">
+	<h2 id='trays_title'> Your Trays </h2>
 	<% User.find(session[:user_id]).trays.each do |tray|%>
 	<div class='user_tray'>
-		<h3><%= tray.name%></h3>
+		<h3><%= tray.name %></h3>
 		<% tray.records.each do |record|%>
 		<% @record = Record.find(record) %>
 		<%= render 'records/thumb', locals: {record: @record} %>

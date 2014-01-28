@@ -44,7 +44,7 @@
 }
 
 form#refine_search{
-  margin-left: 50px;
+  margin-left: 400px;
   height: 25px;
   overflow: hidden;
   position: absolute;
@@ -72,11 +72,83 @@ form#refine_search{
   option {
     display: block;
   }
+  
+  input{
+    color: black;
+  }
+  
+  .visualization_included, .visualization_excluded {
+    background: gray;
+    input{
+      background: gray;
+      color: white;
+      font-size: 7pt;
+    }
+    .remove_element {
+      font-weight: bold;
+      background-color: red;
+      padding: 2px;
+      height: 100%;
+      cursor: pointer;
+    }
+    padding: 2px;
+    width: auto;
+    font-size: 7pt;
+    margin: 2px;
+  }
+  
 }
 
-#query_length {
-  width: 6em;
-  text-align: right;
+
+form#add_to_tray{
+  margin-left: 50px;
+  height: 25px;
+  overflow: hidden;
+  position: absolute;
+  width: 300px;
   background: black;
-  color: white;
+  display: inline-block;
+  float: left;
+  &:hover {
+    height: auto;
+    h3{
+      color: gray;
+    }
+  }
+  select {
+    width: 125px;
+    display: inline-block;
+  }
+  input[name=new_tray] {
+    color: black;
+  }
+  option {
+    display: block;
+  }
+  #query_length, label[for=query_length] {
+    height: 25px;
+    font-size: 15px;
+    padding-top: 5px;
+    cursor: pointer;
+    height: 25px;
+    background: black;
+    color: white;
+    font-weight: bold;
+  }
+  #query_length{
+    width: 6em;
+    text-align: right;    
+  }
+}
+
+#options_overlay {
+  width: 125px;
+  position: absolute;
+  max-height: 250px;
+  overflow: auto;
+  top: 0;
+  left: 0;
+  display: none;
+  background: slateblue;
+  z-index: 100; 
 }

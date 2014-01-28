@@ -1,5 +1,6 @@
 window.visualization = {}
 
+window.visualization.json = {};
 
 window.visualization.treemap = (container)->
   selected = []
@@ -90,7 +91,7 @@ window.visualization.thumbnail = (container) ->
     window.location.href
     (items) ->
       thumbs(items)
-      window.query.length = items.length  
+      window.collection.query.length = items.length
       undefined
     )
     

@@ -1,6 +1,4 @@
-<h1>Listing collections</h1>
-
-  <tbody>
+ 
     <% @collections.each do |collection| %>
      <%	if collection.approved || collection.admin.include?(session[:user_id]) %>
       <div class='curarium_collection'>

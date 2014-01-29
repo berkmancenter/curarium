@@ -9,6 +9,10 @@ window.spotlights = {}
 window.spotlights.components = []
 
 window.spotlights.create = () ->
+  $("#type").change (e)->
+    $(this).val('article')
+    alert('not available yet!')
+    undefined
   $('#spotlight_body, #spotlight_title').val('')
   $('#new_spotlight').submit (e)->
     e.preventDefault();

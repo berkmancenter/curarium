@@ -1,33 +1,13 @@
-<h1>Listing spotlights</h1>
-
-<table>
-  <thead>
-    <tr>
-      <th>Title</th>
-      <th>Body</th>
-      <th>Type</th>
-      <th>Components</th>
-      <th></th>
-      <th></th>
-      <th></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @spotlights.each do |spotlight| %>
-      <tr>
-        <td><%= spotlight.title %></td>
-        <td><%= spotlight.body %></td>
-        <td><%= spotlight.type %></td>
-        <td><%= spotlight.components %></td>
-        <td><%= link_to 'Show', spotlight %></td>
-        <td><%= link_to 'Edit', edit_spotlight_path(spotlight) %></td>
-        <td><%= link_to 'Destroy', spotlight, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
+<% @spotlights.each do |spotlight| %>
+      <div class='curarium_collection'>
+        <h3><%= link_to spotlight.title, spotlight %></h3>
+        <p><%= truncate(spotlight.body, length: 256) %></p>
+        <% if spotlight.user_id == session[:user_id]%>
+        <p><%= link_to 'Edit', edit_spotlight_path(spotlight) %></p>
+        <p><%= link_to 'Destroy', spotlight, method: :delete, data: { confirm: 'Are you sure?' } %></p>
+        <%end%>
+      </div>
     <% end %>
-  </tbody>
-</table>
 
 <br>
-
-<%= link_to 'New Spotlight', new_spotlight_path %>
+<p><%= link_to 'New Spolight', new_spotlight_path %></p>

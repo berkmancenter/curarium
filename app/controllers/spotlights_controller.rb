@@ -25,8 +25,9 @@ class SpotlightsController < ApplicationController
   # POST /spotlights
   # POST /spotlights.json
   def create
-    @spotlight = Spotlight.new(spotlight_params)
-
+    @user = User.find(session[:user_id])
+    @spotlight = User.spotlights.new(spotlight_params)
+    
     respond_to do |format|
       if @spotlight.save
         format.html { redirect_to @spotlight, notice: 'Spotlight was successfully created.' }

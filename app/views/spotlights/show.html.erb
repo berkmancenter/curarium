@@ -1,28 +1,28 @@
-<p id="notice"><%= notice %></p>
+<div id='spotlight_text'>
 
-<p>
-  <strong>Title:</strong>
-  <%= @spotlight.title %>
-</p>
-
-<p>
-  <strong>Body:</strong>
-  <%= @spotlight.body %>
-</p>
-
-<p>
-  <strong>Type:</strong>
-  <%= @spotlight.type %>
-</p>
-
+	<h2 id='spotlight_title'><%= title @spotlight.title %></h2>
+	
+	<p id='spotlight_body'>
+	  <% text = @spotlight.body %>
+	  <%= raw(text.gsub! /\<(\d)\>/, "<a href='#spotlight_reference_\\1'>(see figure \\1)</a>") %>
+	</p>
+	<% if @spotlight.user_id == session[:user_id]%>
+	<%= link_to 'Edit', edit_spotlight_path(@spotlight) %> |
+	<%= link_to 'Back', spotlights_path %>
+	<% end %>
+</div>
 <% if @spotlight.components%>
-<p>
-  <strong>Attached:</strong>
-  <%= @spotlight.components.each do |c|%>
-  	<h4><%=c['title']%></h4>
-  	<a href='/records/<%=c['id']%>?image=<%=c['surrogate']%>' target='_blank'><img src='<%=c['image']%>'></a>
+
+<div id='spotlight_references'>
+  <h3>References:</h3>
+  <div id='references_wrapper'>
+  <% @spotlight.components.each_with_index do |c,i|%>
+  <div id='spotlight_reference_<%=i%>' class='spotlight_reference'>
+  	<h4><%=i%>.-<%=c['title']%></h4>
+  	<a href='/records/<%=c['id']%>?image=<%=c['surrogate']%>' target='_blank'><div style='background-image:url(<%=c['image']%>)'></div></a>
+  </div>
   <% end %>
-</p>
+  </div>
+</div>
  <% end %>
-<%= link_to 'Edit', edit_spotlight_path(@spotlight) %> |
-<%= link_to 'Back', spotlights_path %>
+

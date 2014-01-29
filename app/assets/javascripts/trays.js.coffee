@@ -8,12 +8,12 @@ window.trays.show = () ->
   
   $('.user_tray>h3').click (e) ->
     e.preventDefault()
-    $('#user_trays h3').not(this).hide()
+    $('#user_trays .user_tray').not($(this).parent()).hide()
     $(this).parent().find('*').show()
     $('.user_tray .surrogate').remove()
     $('.user_tray h4').remove()
     $('#trays_title').click (e) ->
-      $('.user_tray>h3').show()
+      $('.user_tray').show()
       $('.user_tray .record_thumbnail').hide()
       $('.user_tray .surrogate').remove()
       $('.user_tray h4').remove()

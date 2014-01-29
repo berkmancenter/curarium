@@ -4,7 +4,11 @@
 	
 	<p id='spotlight_body'>
 	  <% text = @spotlight.body %>
+	  <% if text.match /\<(\d)\>/ %>
 	  <%= raw(text.gsub! /\<(\d)\>/, "<a href='#spotlight_reference_\\1'>(see figure \\1)</a>") %>
+	  <% else %>
+	  <%= text %>
+	  <% end %>
 	</p>
 	<% if @spotlight.user_id == session[:user_id]%>
 	<%= link_to 'Edit', edit_spotlight_path(@spotlight) %> |

@@ -1,7 +1,15 @@
 <% @spotlights.each do |spotlight| %>
       <div class='curarium_collection'>
         <h3><%= link_to spotlight.title, spotlight %></h3>
-        <p><%= truncate(spotlight.body, length: 256) %></p>
+        <p>
+        	<% text = spotlight.body %>
+			  <% if text.match /\<(\d)\>/ %>
+			  <%= truncate(text.gsub!(/\<(\d)\>/, "(see figure \\1)"), length: 256) %>
+			  <% else %>
+			  <%= truncate(text, length: 256) %>
+			  <% end %>
+        	
+        	</p>
         <% if spotlight.user_id == session[:user_id]%>
         <p><%= link_to 'Edit', edit_spotlight_path(spotlight) %></p>
         <p><%= link_to 'Destroy', spotlight, method: :delete, data: { confirm: 'Are you sure?' } %></p>

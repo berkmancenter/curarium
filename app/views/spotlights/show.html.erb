@@ -15,6 +15,7 @@
   <%= @spotlight.type %>
 </p>
 
+<% if @spotlight.components%>
 <p>
   <strong>Attached:</strong>
   <%= @spotlight.components.each do |c|%>
@@ -22,6 +23,6 @@
   	<a href='/records/<%=c['id']%>?image=<%=c['surrogate']%>' target='_blank'><img src='<%=c['image']%>'></a>
   <% end %>
 </p>
-
+ <% end %>
 <%= link_to 'Edit', edit_spotlight_path(@spotlight) %> |
 <%= link_to 'Back', spotlights_path %>

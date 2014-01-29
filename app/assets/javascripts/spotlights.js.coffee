@@ -24,14 +24,14 @@ window.spotlights.create = () ->
     object_params = {}
     for p in array_params
       object_params[p.name] = p.value
-    console.log object_params
     $.ajax(
       type: "POST"
       url: '/spotlights',
       data: 
         array_params
       success: (data)->
-        alert('success: tray '+$("input[name=new_tray]").val()+' created and records added')
+        console.log data
+        window.location = '/spotlights/'+data.id
       dataType : 'json',
       headers : 
         'X-CSRF-Token' : $("meta[name='csrf-token']").attr('content')

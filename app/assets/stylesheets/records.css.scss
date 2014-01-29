@@ -78,6 +78,14 @@ div#annotations{
       background: red;
     }
   }
+  ul {
+    .key {
+      cursor: text;
+      &:hover {
+        background: transparent;
+      }
+    }
+  }
   .value {
     text-decoration: underline;
     display: none;

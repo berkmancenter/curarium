@@ -10,6 +10,7 @@
 	});
 </script>
 
+<% title eval(@record.parsed['title'])[0] %>
 
 <div id='main-canvas'>
 </div>
@@ -17,8 +18,13 @@
 <div id='record-data'>
 	<script>
 		$(document).ready(function(){
-			$('.printed_object .key').parent().click(function(e){
+			$('#parsed_record .key').parent().click(function(e){
 				$(this).next().find('.value').toggle();
+			});
+			$('#original_record *').show();
+			$('#original_record>.key').next().hide();
+			$('#original_record>.key').click(function(e){
+				$(this).next().toggle();
 			});
 		});
 	</script>

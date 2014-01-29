@@ -1,10 +1,11 @@
 class RecordsController < ApplicationController
   before_action :set_record, only: [:show, :edit, :update, :destroy]
+  skip_before_action :authorize, only: [:show]
 
   # GET /records
   # GET /records.json
   def index
-    @records = Record.all
+    
   end
 
   # GET /records/1

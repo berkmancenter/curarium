@@ -1,4 +1,5 @@
 class VisualizationsController < ApplicationController
+  skip_before_action :authorize, only: [:index]
   
   def index
     @properties = Collection.find(params[:collection_id]).configuration.keys

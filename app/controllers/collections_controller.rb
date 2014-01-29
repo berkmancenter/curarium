@@ -1,6 +1,6 @@
 class CollectionsController < ApplicationController
   before_action :set_collection, only: [:show, :edit, :update, :destroy]
-  skip_before_action :authorize, only: [:index, :show, :check_key, :ingest, :treemap]
+  skip_before_action :authorize, only: [:index, :show, :check_key, :ingest]
   skip_before_filter :verify_authenticity_token, only: [:check_key, :ingest]
 
   # GET /collections

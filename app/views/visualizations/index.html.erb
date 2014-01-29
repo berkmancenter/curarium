@@ -75,7 +75,7 @@
 			}
 		});
 		
-		
+		<% if session[:user_id] %>
 		$("select[name=tray]").change(function(e){
 			if($(this).val() === 'new_tray') {
 				$("input[name=new_tray]").show();
@@ -136,7 +136,7 @@
 				window.collection.query.type = type_placeholder
 			});
 		});
-		
+		<% end %>
 		var id = setInterval(function() { 
 			$("#query_length").val(window.collection.query.length);
 		}, 500)
@@ -203,6 +203,7 @@
 		<input type='text' id='query_length' >
 		<label for='query_length'> records </label>
 	</h3>
+	<% if session[:user_id] %>
 	<br>
 	<select name='tray'>
 		<option selected='true' disabled>SELECT TRAY</option>
@@ -213,4 +214,5 @@
 	</select>
 	<input name='new_tray' style='display: none'>
 	<input type='submit' value="Add to Tray">
+	<% end %>
 </form>

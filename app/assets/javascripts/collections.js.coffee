@@ -126,8 +126,8 @@ printRecord = (json, path=[]) ->
 
 window.collection.query = 
   length: null
-  type: ''
-  property: ''
+  type: 'treemap'
+  property: 'title'
   properties: {}
   include : []
   exclude : []
@@ -177,8 +177,11 @@ inc_exc = (e) ->
   value = $(this).parent().data('value')
   property = $(this).parent().parent().data('property')
   query_string = property+":"+value
-  dropped = $("<span class='query_element'>").append(query_string)
-  #$(element.draggable).hide()
+  remove = $("<span class='remove_element'>x</span>").click ->
+    $(this).parent().remove();
+    remove_index = query[type].indexOf(query_string)
+    query[type].splice(remove_index,1)
+  dropped = $("<span class='query_element'>").append(query_string).append(remove);
   query[type].push(query_string)
   $("#query_"+type).append dropped
   console.log 

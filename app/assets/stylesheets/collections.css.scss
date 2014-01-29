@@ -11,6 +11,12 @@
   user-select: none;
 } 
 
+@mixin rounded-corners($radius) {
+  -webkit-border-radius: $radius;
+  -moz-border-radius: $radius;
+  border-radius: $radius;
+}
+
 .curarium_collection {
   width: 15em;
   height: 15em;
@@ -124,13 +130,18 @@ div#query_include, div#query_exclude {
 }
 
 div#properties_menu{
-  height:70%;
+  height:65%;
   width: 100%;
   float: left;
   display: inline-block;
   a {
+    padding: 0 5px 0 5px;
+    border: 1px solid black;
+    @include rounded-corners(3px);
+    cursor: pointer;
     color: black;
     text-decoration: none;
+    margin: 2px;
   }
   a:hover {
     background: black;
@@ -140,7 +151,8 @@ div#properties_menu{
 
 div#properties_header {
   background: gray;
-  height: 50px;
+  height: 75px;
+  line-height: 1.8em;
   input {
     user-select: none;
     border: 1px solid black;
@@ -153,7 +165,7 @@ div#properties_header {
 
 div#collection_properties {
   width: 100%;
-  height: calc(100% - 50px);
+  height: calc(100% - 75px);
   overflow: hidden;
 }
 
@@ -185,10 +197,16 @@ ul.property_list {
 
 div#visualization_options {
   width: 100%;
-  height: 10%;
+  height: 15%;
   display: inline-block;
   float: left;
   background:gray;
+  padding: 2px;
+  select, label, input {
+    display: inline-block;
+    width: 30%;
+    margin: 5px;
+  }
 }
 
 .query_element {
@@ -196,8 +214,21 @@ div#visualization_options {
   background: gray;
   padding: 3px;
   margin: 2px;
-  border-radius: 5px;
+  @include rounded-corners(5px);
   @include no-select;
+  span {
+    display: inline-block;
+    background: red;
+    color: white;
+    font-size: 8px;
+    padding: 2px;
+    margin: 2px;
+    font-weight: bold;
+    @include rounded-corners(3px);
+    width: 12px;
+    height: 12px;
+    cursor: pointer;
+  }
 }
 
 

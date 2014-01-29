@@ -2,6 +2,12 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
+@mixin rounded-corners($radius) {
+  -webkit-border-radius: $radius;
+  -moz-border-radius: $radius;
+  border-radius: $radius;
+}
+
 div#main-canvas {
   display: inline-block;
   width:100%;
@@ -11,7 +17,7 @@ div#main-canvas {
 }
 
 div#record-data{
-  border: 2px solid red;
+  background-image: url('black_50_percent.png');
   display: block;
   width: 20%;
   height: calc(100% - 25px);
@@ -21,21 +27,42 @@ div#record-data{
     max-height: 80px;
     max-width: 80px;
   }
+  nav {
+    position: relative;
+    height: 100px;
+    padding: 10px;
+    
+  }
+  section {
+    position: relative;
+    height: calc(100% - 100px);
+    overflow: auto;
+  }
 }
 
 div#annotations{
-  border: 2px solid red;
+  padding: 1em;
+  background-image: url('black_50_percent.png');
   display: block;
   right: 0;
   width: 20%;
   height: calc(100% - 25px);
   position: absolute;
   overflow: auto;
+  input, textarea {
+    width: 100%;
+    margin: auto;
+    margin-top: 0.5em;
+    font-size: 10pt;
+    resize: none;
+  }
 }
 
 .printed_object {
   list-style: none;
-  background-color: slategray;
+  
+  //background-image: url('black_50_percent.png');
+  color: white;
   width: 98%;
   margin: 1%;
   .printed_object {
@@ -43,10 +70,12 @@ div#annotations{
     margin: 0px;
   }
   .key {
+    padding: 2px;
     cursor: pointer;
+    @include rounded-corners(3px);
     &:hover{
       color: white;
-      background: black;
+      background: red;
     }
   }
   .value {
@@ -56,12 +85,18 @@ div#annotations{
 }
 
 #parsed_record {
+  @include rounded-corners(3px);
+  padding: 0.5em;
   position: relative;
   max-height: 30%;
   overflow: auto;
+  border: 1px solid white;
 }
 
 #original_record {
+  @include rounded-corners(3px);
+  padding: 0.5em;
+  border: 1px solid white;
   position: relative;
   max-height: 70%;
   overflow: auto;

@@ -22,18 +22,24 @@
 			});
 		});
 	</script>
+	<nav>
  <% images= eval(@record.parsed['image']) %>
  <% images.each do |image|%>
  	<img src='<%= image+'?width=10000&height=10000'%>' class='surrogate_thumbnail'>
 <%end%>
+	</nav>
+	<section>
  <%= print_hstore @record.parsed, 'printed_object', 'parsed_record' %>
  <%= print_json @record.original, 'printed_object', 'original_record' %>
+ </section>
 </div>
 <div id='annotations'>
 	<div id='preview_window'></div>
 	<%= form_for([@record, @record.annotations.build]) do |f| %>
-	  <input name='content[title]'>
-	  <textarea name='content[body]'></textarea>
+	  <label for='short_description'>Short Description:</label><br>
+	  <input id='short_description' name='content[title]'><br>
+	  <label for='long_description'>Long Description:</label><br>
+	  <textarea id='long_description' name='content[body]'></textarea><br>
 	  <input type='hidden' name='content[x]'>
 	  <input type='hidden' name='content[y]'>
 	  <input type='hidden' name='content[width]'>

@@ -14,7 +14,7 @@ module ApplicationHelper
         if value.class == Hash or value.class == Array
           tags += "<li class='key'>#{key}:</li><li>"+print_json(value, class_name)+"</li>"
         else
-          tags += "<li><span class='key'>#{key}</span>:<span class='value'>#{value}</span></li>"
+          tags += "<li><span class='key'>#{key}:</span><span class='value'>#{value}</span></li>"
         end
       end
     elsif json_object.class == Array
@@ -42,9 +42,9 @@ module ApplicationHelper
           value = eval(value)
         end
         if value.class == Hash or value.class == Array
-          tags += "<li><span class='key'>#{key}</span>:</li>"+print_hstore(value, class_name)
+          tags += "<li><span class='key'>#{key}:</span></li>"+print_hstore(value, class_name)
         else
-          tags += "<li><span class='key'>#{key}</span>:<span class='value'>#{value}</span></li>"
+          tags += "<li><span class='key'>#{key}:</span><span class='value'>#{value}</span></li>"
         end
       end
     elsif hstore_object.class == Array

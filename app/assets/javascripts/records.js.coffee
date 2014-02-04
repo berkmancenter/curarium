@@ -111,10 +111,12 @@ window.record.display = (image_url)->
     'mouseup'
     (event) ->
       if(event.which==1)
+
+        o_x = 
         
         clipping =
-          x: Math.floor(crop.getAttr('x')) - (main.offsetWidth/min_scale - surrogate.width)/2 #add picture offset for clipping purposes
-          y: Math.floor(crop.getAttr('y')) - (main.offsetHeight/min_scale - surrogate.height)/2 #add picture offset for clipping purposes
+          x: Math.floor(crop.getAttr('x')) - (main.offsetWidth/min_scale - surrogate.width)/2 #remove picture offset for clipping purposes
+          y: Math.floor(crop.getAttr('y')) - (main.offsetHeight/min_scale - surrogate.height)/2 #remove picture offset for clipping purposes
           width: Math.floor(crop.getAttr('width'))
           height: Math.floor(crop.getAttr('height'))
         
@@ -127,8 +129,8 @@ window.record.display = (image_url)->
         
         $(this).unbind('mousemove')
         
-        $("input[name='content[x]']").val(clipping.x + (main.offsetWidth/min_scale - surrogate.width)/2) #remove picture offset for storing purposes
-        $("input[name='content[y]']").val(clipping.y + (main.offsetHeight/min_scale - surrogate.height)/2) #remove picture offset for storing purposes
+        $("input[name='content[x]']").val(clipping.x)
+        $("input[name='content[y]']").val(clipping.y)
         $("input[name='content[width]']").val(clipping.width)
         $("input[name='content[height]']").val(clipping.height)
         $("input[name='content[image_url]']").val(image_url)
@@ -162,12 +164,17 @@ window.record.display = (image_url)->
       stage.add(notes_layer)
       for n in notes
         if n.content.image_url == image_url
-          console.log n
-          rect = new Kinetic.Rect(n.content)
-          rect.setAttrs(
-            stroke: 'blue'
+          console.log(n)
+          rect = new Kinetic.Rect(
+            x: parseInt(n.content.x) + (main.offsetWidth/min_scale - surrogate.width)/2 #add picture offset for display purposes
+            y: parseInt(n.content.y) + (main.offsetHeight/min_scale - surrogate.height)/2 #remove picture offset for clipping purposes
+            stroke:'red'
+            width: n.content.width
+            height: n.content.height
+            
           )
           notes_layer.add(rect)
+          
       stage.draw()
   )
   

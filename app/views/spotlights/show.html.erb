@@ -22,8 +22,15 @@
   <div id='references_wrapper'>
   <% @spotlight.components.each_with_index do |c,i|%>
   <div id='spotlight_reference_<%=i%>' class='spotlight_reference'>
-  	<h4><%=i%>.-<%=c['title']%></h4>
-  	<a href='/records/<%=c['id']%>?image=<%=c['surrogate']%>' target='_blank'><div style='background-image:url(<%=c['image']%>)'></div></a>
+  <h4><%=i%>.-<%=c['title']%></h4>
+  	<% if c['type'] == 'record' %>
+  		<a href='/records/<%=c['id']%>?image=<%=c['surrogate']%>' target='_blank'><div style='background-image:url(<%=c['image']%>)'></div></a>
+  	<% elsif c['type'] == 'annotation' %>
+  		<a href='/records/<%=c['id']%>?image=<%=c['surrogate']%>' target='_blank'><div id='annotation_wrapper_<%=i%>' ></div></a>
+  		<script>
+  			window.spotlights.display_annotation('annotation_wrapper_<%=i%>', <%= raw(c['content'].to_json) %>)
+  		</script>
+  	<% end %>
   </div>
   <% end %>
   </div>

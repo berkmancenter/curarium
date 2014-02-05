@@ -36,10 +36,30 @@ window.spotlights.create = () ->
       headers : 
         'X-CSRF-Token' : $("meta[name='csrf-token']").attr('content')
     )
-    
-    
-    
-    
   undefined
 
-
+window.spotlights.display_annotation = (wrapper, content)->
+  stage = new Kinetic.Stage(
+    container: wrapper
+    width: content.width
+    height: content.height
+  )
+  layer = new Kinetic.Layer()
+  stage.add(layer)
+  image = new Image()
+  image.src = content.image_url+"?width=10000&height=10000"
+  image.onload = ->
+    console.log(content)
+    picture = new Kinetic.Image(
+      image: image
+      width: content.width
+      height: content.height
+      crop:
+        x: content.x
+        y: content.y
+        width: content.width
+        height: content.height
+    )
+    layer.add(picture)
+    stage.draw()
+  undefined

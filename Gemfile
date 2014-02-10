@@ -6,6 +6,13 @@ gem 'rails', '4.0.2'
 #use postgresql
 gem 'pg'
 
+group :test do
+  gem 'rspec-rails'
+  gem 'capybara'
+  gem 'poltergeist'
+  gem 'factory_girl_rails'
+end
+
 #required for Heroku
 gem 'rails_12factor'
 

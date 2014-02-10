@@ -21,3 +21,7 @@
 # rails environment
 Gemfile.lock
 config/database.yml
+
+# vim
+*.swp
+*.swo

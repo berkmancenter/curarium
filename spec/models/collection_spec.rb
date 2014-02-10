@@ -30,5 +30,18 @@ describe ( 'Collection model' ) {
       col.records.count.should > 0
     }
   }
+
+  describe ( 'update configuration' ) {
+    let ( :col ) { Collection.find_by_name( 'test_col' ) }
+
+    it ( 'should reset properties' ) {
+      col.configuration = '{"no_title":["titleInfo",0,"title",0],"image":["relatedItem","*","content","location",0,"url",0,"content"],"thumbnail":["relatedItem","*","content","location",0,"url",1,"content"]}'
+      col.changed.include?( 'configuration' ).should be_true
+      col.properties[ 'title' ].should_not eq( nil ) # not saved yet
+      col.save
+      col.properties[ 'title' ].should eq( nil )
+      col.properties[ 'no_title' ].should_not eq( nil )
+    }
+  }
 }
 

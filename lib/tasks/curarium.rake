@@ -32,28 +32,46 @@ namespace :curarium do
     puts "Ingesting #{ent.count - 2} records from #{input_dir}"
     puts "Ingesting into collection with key: #{collection_key}"
 
-
     j_count = 0
     ent.each { |f| 
       next if File.directory?(f) || File.extname(f) != '.json'
 
       # extract json of this file's record
-      rec_json = IO.read f
+      filename = "./#{input_dir}/#{File.basename(f)}"
+      rec_json = IO.read filename
+      
 
+      configuration = collection.configuration
+      properties = collection.properties.to_json
+      properties = JSON.parse(properties)
 
+      r = collection.records.new
+      r.original = rec_json
+      r.save
 
-      j_count += 1
+      pr = {}
+      pr['curarium'] = [r.id]
 
-#
-#          # send the record's json to server
-#          response = Net::HTTP.post_form(URI.parse(base + "/collections/" + key + "/ingest"), {"j" => rec_json})
-#          if !response.body.empty?
-#            j_count = j_count + 1
-#            puts "success!"
-#          end
-#        rescue
-#          puts "something went wrong"
-#        end
+      configuration.each do |field|
+        pr[field[0]] = collection.follow_json(r.original, field[1])
+        if pr[field[0]] == nil or ['thumbnail','image'].include?(field[0])
+          next
+        end
+        pr[field[0]].each do |p|
+          if(properties[field[0]][p] == nil)
+            properties[field[0]][p] = 1
+          else
+            properties[field[0]][p] = properties[field[0]][p] + 1
+           end
+         end
+      end
+
+      collection.update(properties: properties)
+      r.parsed = pr
+
+      if r.save
+        j_count += 1
+      end
     }
 
     puts "Processed #{j_count} JSON files (out of #{ent.count - 2} total files in directory)"

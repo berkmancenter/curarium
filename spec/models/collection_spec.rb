@@ -26,6 +26,10 @@ describe ( 'Collection model' ) {
       col.properties[ 'title' ].should_not eq( nil )
     }
 
+    it ( 'should know that only one record has the title "test_record"' ) {
+      col.properties[ 'title' ][ 'test_record' ].should eq( 1 )
+    }
+
     it ( 'should have records' ) {
       col.records.count.should > 0
     }

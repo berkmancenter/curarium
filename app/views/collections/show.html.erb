@@ -52,8 +52,9 @@
 		<p><%= @collection.description %></p>
 	</div>
 	<div id='collection_highlights'>
-		<% @records = @collection.records.offset(rand((@collection.size).to_i-80)).take(80) %>
-		<% @records.each do |r|%>
+    <% @records = @collection.records.count > 80 ? @collection.records.offset(rand((@collection.size).to_i-80)).take(80) : @collection.records %>
+		<% @records.each_with_index do |r, i|%>
+      <h3>thumbnail <%= i %></h3>
 			<% @record = r %>	
 			<%= render 'records/thumb', locals: {record: @record} %>
 		<% end %>

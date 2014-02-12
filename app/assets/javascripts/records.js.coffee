@@ -174,8 +174,20 @@ window.record.display = (image_url)->
             
           )
           notes_layer.add(rect)
+      
+      $('#annotation_toggle').change ()->
+        notes_layer.setAttr('visible', $(this).prop('checked'))
+        undefined
           
       stage.draw()
   )
+  
+  $('#record_annotate h4').click ()->
+    $(this).data('clicked', !$(this).data('clicked'))
+    window = $(this).parent()
+    if $(this).data('clicked')
+      window.css('height','auto')
+    else
+      window.css('height',15)
   
   undefined

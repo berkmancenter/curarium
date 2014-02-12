@@ -9,4 +9,15 @@
   .surrogate {
     display: inline-block;
   }
+  .tray_record_images, .tray_record_annotations {
+    position: relative;
+    display: block;
+    overflow: auto;
+    .record_thumbnail{
+      
+    }
+    .surrogate {
+      margin: 0.2em;
+    }
+  }
 }

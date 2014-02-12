@@ -142,7 +142,8 @@ form#add_record_to_tray{
 }
 
 #record_annotations{
-  
+  max-height: 40%;
+  overflow: auto;
   div.annotation_wrapper{
     background: lightgray;
     border: 1px solid black;

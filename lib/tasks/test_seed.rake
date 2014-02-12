@@ -10,6 +10,10 @@ namespace :db do
       test_col = FactoryGirl.create :test_col
       test_col.admin = [ test_user.id ]
 
+      not_approved = FactoryGirl.create :not_approved
+      not_approved.admin = [ test_user.id ]
+      not_approved.save
+
       # records
       crfj test_col, :test_record
       crfj test_col, :test_record_two

@@ -3,8 +3,8 @@ require 'spec_helper'
 describe 'collections requests', :js => true do
   subject { page }
 
-  describe ( 'get /collections index' ) {
-    context ( 'anonymous' ) {
+  context ( 'anonymous' ) {
+    describe ( 'get /collections index' ) {
       before {
         visit collections_path
       }
@@ -18,33 +18,41 @@ describe 'collections requests', :js => true do
       }
     }
 
-    context ( 'with signed in user' ) {
-      before {
-        visit login_path
+    describe ( 'get /collections/:id' ) {
+      let( :col ) { Collection.first }
 
-        #sign_in User.first
-        #visit collections_path
+      before {
+        visit collection_path( col )
       }
 
       it {
-        snap
-        should have_css '.curarium_collection', count: 2
+        should have_title 'Curarium'
+      }
+
+      it {
+        should have_css '.record_thumbnail', count: col.records.count
       }
     }
   }
-  describe ( 'get /collections/:id' ) {
-    let( :col ) { Collection.first }
 
+  context ( 'with signed in user' ) {
     before {
-      visit collection_path( col )
+      visit login_path
+
+      fill_in 'Email:', with: 'test@example.com'
+      fill_in 'Password:', with: 't3stus3r'
+
+      click_button 'Login'
     }
 
-    it {
-      should have_title 'Curarium'
-    }
+    describe ( 'get /collections index' ) {
+      before {
+        visit collections_path
+      }
 
-    it {
-      should have_css '.record_thumbnail', count: col.records.count
+      it {
+        should have_css '.curarium_collection', count: 2
+      }
     }
   }
 end

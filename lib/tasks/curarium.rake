@@ -5,7 +5,12 @@ require 'json'
 namespace :curarium do
   desc 'Mass import JSON data based on configuration key'
   task :ingest, [:input_dir, :collection_key] => [:environment] do |task, args|
+    old_logger = ActiveRecord::Base.logger
+    ActiveRecord::Base.logger = nil
+
     curarium_ingest args[:input_dir], args[:collection_key]
+
+    ActiveRecord::Base.logger = old_logger
   end
 
   def curarium_ingest( input_dir, collection_key )
@@ -71,6 +76,10 @@ namespace :curarium do
 
       if r.save
         j_count += 1
+
+        if j_count % 100 == 0
+          puts j_count
+        end
       end
     }
 

@@ -22,7 +22,7 @@
 			<%= render 'records/thumb', locals: {record: @record} %>
 		<% end %>
 		<h3>Visualizations:</h3>
-		<% if tray.visualizations %>
+		<% unless tray.visualizations.nil? %>
 			<% tray.visualizations.each do |visualization|%>
 				<div class='visualization_preview' data-type='visualization' data-body='<%= visualization.to_json%>'>
 				<h4>type:<%=visualization['terms']['type']%></h4>

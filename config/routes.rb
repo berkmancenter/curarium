@@ -2,6 +2,7 @@ Curarium::Application.routes.draw do
 
   
   get 'trays/:id/add_records' => 'trays#add_records', as: 'add_records'
+  get 'trays/:id/add_visualization' => 'trays#add_visualization', as: 'add_visualization'
   
   
   concern :tray_owner do

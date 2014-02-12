@@ -31,6 +31,11 @@
   		<script>
   			window.spotlights.display_annotation('annotation_wrapper_<%=i%>', <%= raw(c['content'].to_json) %>)
   		</script>
+  	<% elsif c['type'] == 'visualization' %>
+  		<div class='visualization_component'></div>
+  		<script type="text/javascript">
+  			window.visualization['<%=c['body']['terms']['type']%>']('spotlight_reference_<%=i%> .visualization_component', "<%=c['body']['url']%>");
+  		</script>
   	<% end %>
   </div>
   <% end %>

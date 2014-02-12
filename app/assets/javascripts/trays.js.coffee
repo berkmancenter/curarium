@@ -6,12 +6,24 @@ window.trays = {}
 
 window.trays.show = () ->
   
+  $('.user_tray .visualization_preview').dblclick (e)->
+    d = $(this).data()
+    window.spotlights.components.push(d)
+    $(this).remove()
+    current_body = $('#spotlight_body').val()
+    $('#spotlight_body').val(current_body+"<#{window.spotlights.components.indexOf(d)}>")
+    c_frame = $("<div class='visualization_preview'>");
+    console.log(window.spotlights.components)
+    $('#spotlight_components').append(c_frame)
+    undefined
+  
   $('.user_tray>h3').click (e) ->
     e.preventDefault()
     $('#user_trays .user_tray').not($(this).parent()).hide()
     $(this).parent().find('*').show()
     $('.user_tray .surrogate').remove()
-    $('.user_tray h4').remove()
+    $('.user_tray .tray_record_images').remove()
+    $('.user_tray .tray_record_annotations').remove()
     $('#trays_title').click (e) ->
       $('.user_tray').show()
       $('.user_tray .record_thumbnail').hide()
@@ -27,10 +39,15 @@ window.trays.show = () ->
     $.getJSON(
       location
       (data) ->
-        host_tray.append('<h4>Surrogates</h4>')
+        images_div = $("<div class='tray_record_images'>")
+        host_tray.append(images_div)
+        images_div.append('<h4>Surrogates</h4>')
+        notes_div = $("<div class='tray_record_annotations'>")
+        host_tray.append(notes_div)
+        notes_div.append('<h4>Annotations</h4>')
         for image in data.parsed.image
           do (image) ->
-            frame = $("<a class='record_thumbnail surrogate'>").css('background-image', "url("+image+"?width=200&height=200)")
+            frame = $("<div class='record_thumbnail surrogate'>").css('background-image', "url("+image+"?width=200&height=200)")
             frame.data('id',data.parsed.curarium[0])
             frame.data('surrogate',data.parsed.image.indexOf(image))
             frame.data('image',image)
@@ -38,7 +55,7 @@ window.trays.show = () ->
             frame.data('type','record')
             title = $('<h3>').append(data.parsed.image.indexOf(image))
             frame.append(title)
-            host_tray.append(frame)
+            images_div.append(frame)
             $(frame).dblclick (e)->
               d = $(this).data()
               window.spotlights.components.push(d)
@@ -49,8 +66,6 @@ window.trays.show = () ->
               c_title = $('<h3>').append(window.spotlights.components.indexOf(d))
               c_frame.append(c_title)
               $('#spotlight_components').append(c_frame)
-        host_tray.append('<h4>Annotations</h4>')
-        
         for annotation in data.annotations
           do (annotation) ->
             content = annotation.content
@@ -92,7 +107,7 @@ window.trays.show = () ->
               console.log picture.getAttrs()
             title = $('<h3>').append(annotation.content.title)
             frame.append(title)
-            host_tray.append(frame)
+            notes_div.append(frame)
             $(frame).dblclick (e)->
               d = $(this).data()
               window.spotlights.components.push(d)

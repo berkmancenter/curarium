@@ -122,16 +122,14 @@ form#refine_search{
   }
 }
 
-form#add_to_tray{
+form#add_records_to_tray{
   margin-left: 50px;
   height: 25px;
   overflow: hidden;
   position: absolute;
-  width: 300px;
   background: black;
   display: inline-block;
   float: left;
-
   select {
     width: 125px;
     display: inline-block;
@@ -156,7 +154,29 @@ form#add_to_tray{
     width: 6em;
     text-align: right;    
   }
-  
+}
 
+form#add_visualization_to_tray{
+  right: 0;
+  height: 25px;
+  padding-top: 5px;
+  overflow: hidden;
+  position: absolute;
+  background: black;
+  display: inline-block;
+  float: left;
+  h3 {
+    cursor: pointer;
+  }
+  select {
+    width: 125px;
+    display: inline-block;
+  }
+  input[name=new_tray] {
+    color: black;
+  }
+  option {
+    display: block;
+  }
 }
 

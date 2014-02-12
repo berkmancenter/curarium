@@ -58,11 +58,24 @@
       background: darkgray;
       color: white;
       cursor: pointer;
-      &:hover {
-        color: black;
-      }
     }
 }
+
+.visualization_preview {
+        padding: 5px;
+        width: 150px;
+        height: 150px;
+        background: gray;
+        float: left;
+        margin:2px;
+        font-size: 8pt;
+        -webkit-touch-callout: none;
+        -webkit-user-select: none;
+        -khtml-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+      }
 
 #spotlight_components {
   background: darkgray;
@@ -126,5 +139,10 @@
         background-size: contain;
       }
     }
+  }
+  .visuzalization_component{
+    width: 100%;
+    height: 100%;
+    display: block;
   }
 }

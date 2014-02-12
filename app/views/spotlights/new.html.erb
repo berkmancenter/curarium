@@ -18,8 +18,17 @@
 	<div class='user_tray'>
 		<h3><%= tray.name %></h3>
 		<% tray.records.each do |record|%>
-		<% @record = Record.find(record) %>
-		<%= render 'records/thumb', locals: {record: @record} %>
+			<% @record = Record.find(record) %>
+			<%= render 'records/thumb', locals: {record: @record} %>
+		<% end %>
+		<h3>Visualizations:</h3>
+		<% tray.visualizations.each do |visualization|%>
+			<div class='visualization_preview' data-type='visualization' data-body='<%= visualization.to_json%>'>
+			<h4>type:<%=visualization['terms']['type']%></h4>
+			<h4>property:<%=visualization['terms']['property']%></h4>
+			<h4>include:<%=visualization['terms']['include']%></h4>
+			<h4>exclude:<%=visualization['terms']['exclude']%></h4>
+			</div>
 		<% end %>
 	</div>
 	<% end %>

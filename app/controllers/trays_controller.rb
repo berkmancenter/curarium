@@ -1,5 +1,5 @@
 class TraysController < ApplicationController
-  before_action :set_tray, only: [:show, :edit, :update, :destroy, :add_records]
+  before_action :set_tray, only: [:show, :edit, :update, :destroy, :add_records, :add_visualization]
   
   def show
     render json: @tray
@@ -12,12 +12,16 @@ class TraysController < ApplicationController
     request_records.each do |r|
       new_records.push(r.to_i)
     end
-    new_records.each do |r|
-      puts r.class
-    end
     @tray.records = (old_records+new_records).uniq
     @tray.save
     render json: @tray
+  end
+  
+  def add_visualization
+    visualizations = @tray.visualizations.clone
+    visualizations.push(params[:viz_data])
+    @tray.visualizations = visualizations
+    render json: {result: @tray.save}
   end
   
   def new
@@ -34,9 +38,12 @@ class TraysController < ApplicationController
     @tray.owner_id = params[:tray][:owner_id].to_i
     @tray.owner_type = params[:tray][:owner_type]
     records = []
-    params[:tray][:records].each do |r|
-      records.push(r.to_i)
+    if (params[:tray][:records])
+      params[:tray][:records].each do |r|
+        records.push(r.to_i)
+      end
     end
+    @tray.visualizations = [params[:tray][:visualizations]]
     @tray.records = records
     @tray.save
     render json: @tray
@@ -50,7 +57,7 @@ class TraysController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def tray_params
-      params.require(:tray).permit(:name, :records, :user_id)
+      params.require(:tray).permit(:name, :records, :user_id, visualizations:[:length,:property,:type, include:[], exclude:[]])
     end
   
 end

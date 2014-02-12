@@ -108,3 +108,54 @@ div#annotations{
   overflow: auto;
 }
 
+
+
+form#add_record_to_tray{
+  margin-left: 50px;
+  height: 25px;
+  overflow: hidden;
+  position: absolute;
+  background: black;
+  display: inline-block;
+  float: left;
+  *{
+    display:inline;
+  }
+  select {
+    width: 80px;
+    display: inline-block;
+  }
+  input[name=new_tray] {
+    color: black;
+  }
+  
+  input[type=submit] {
+    color: white;
+    height: 20px;
+    font-size: 8pt;
+  }
+  
+  option {
+    display: block;
+  }
+
+}
+
+#record_annotations{
+  
+  div.annotation_wrapper{
+    background: lightgray;
+    border: 1px solid black;
+    padding: 0.5em;
+    margin-top: 0.25em;
+    .annotation_title {
+      font-size: 12pt;
+    }
+    .annotation_body {
+      font-size: 10pt;
+    }
+    .annotation_attribution {
+      font-size: 7pt;
+    }  
+  }
+}

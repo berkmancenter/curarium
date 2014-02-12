@@ -1,6 +1,7 @@
 <% @spotlights.each do |spotlight| %>
       <div class='curarium_collection'>
         <h3><%= link_to spotlight.title, spotlight %></h3>
+        <p>by <%= link_to spotlight.user.name, spotlight.user %> on <%=spotlight.created_at%></p>
         <p>
         	<% text = spotlight.body %>
 			  <% if text.match /\<(\d)\>/ %>

@@ -1,16 +1,97 @@
 <script>
 	$(document).ready(function(){
 		<% image = params[:image].to_i || 0%>
+		$('#add_record_to_tray').prependTo('header #secondary_nav');
+		$('#annotation_toggle_wrapper').prependTo('header #secondary_nav');
+		
 		window.record.display( '<%=eval(@record.parsed['image'])[image]%>' );
 		$('img.surrogate_thumbnail').each( function(i){
 			$(this).click(function(e){
 				window.location = "?image="+i
 			});
 		});
+		
+		var data = [<%= params[:id] %>];
+		
+		$("select[name=tray]").change(function(e){
+			if($(this).val() === 'new_tray') {
+				$("input[name=new_tray]").show();
+			} else {
+				$("input[name=new_tray]").hide();
+			}
+		});
+		
+		$('#add_record_to_tray').submit(function(e) {
+			
+			e.preventDefault();
+			
+			var option = $('select[name=tray]').val();
+			
+			window.collection.query.type = 'list_records';
+			if(option ==='new_tray'){
+				$.ajax({
+					type : "POST",
+					url : 'http://'+window.location.host+'/users/<%= session[:user_id]%>/trays/',
+					data : {
+							tray: {
+								owner_id: <%= session[:user_id] %>,
+								owner_type: 'User',
+								records: data,
+								name: $("input[name=new_tray]").val()
+							}
+							
+						},
+					success : function(data) {
+						alert('success: tray '+$("input[name=new_tray]").val()+' created and records added')
+						},
+					dataType : 'json',
+					headers : {
+					'X-CSRF-Token' : $("meta[name='csrf-token']").attr('content')
+					}
+				});
+			} else {
+				$.ajax({
+					type : "GET",
+					url : '/trays/'+option+'/add_records/',
+					data : {
+							records: data
+						},
+					success : function(data) {
+						alert('success: records added to '+$("input[name=new_tray]").val())
+						},
+					dataType : 'json',
+					headers : {
+					'X-CSRF-Token' : $("meta[name='csrf-token']").attr('content')
+					}
+				});
+			}
+			window.collection.query.type = type_placeholder
+		});
 	});
 </script>
 
 <% title eval(@record.parsed['title'])[0] %>
+
+<% if session[:user_id] %>
+	<form id='add_record_to_tray'>
+		<select name='tray'>
+			<option selected='true' disabled>SELECT TRAY</option>
+			<option value='new_tray'>New Tray</option>
+			<% User.find(session[:user_id]).trays.each do |tray| %>
+				<option value='<%=tray.id%>'><%= tray.name %></option>
+			<% end %>
+		</select>
+		<input name='new_tray' style='display: none'>
+		<input type='submit' value="Add to Tray">
+	</form>
+<% end %>
+
+<div id='annotation_toggle_wrapper'>
+	<form>
+	<label for='annotation_togle'>Show annotations</label>
+	<input type='checkbox' id='annotation_toggle' checked>
+	</form>
+</div>
 
 <div id='main-canvas'>
 </div>
@@ -40,19 +121,36 @@
  </section>
 </div>
 <div id='annotations'>
-	<div id='preview_window'></div>
-	<%= form_for([@record, @record.annotations.build]) do |f| %>
-	  <label for='short_description'>Short Description:</label><br>
-	  <input id='short_description' name='content[title]'><br>
-	  <label for='long_description'>Long Description:</label><br>
-	  <textarea id='long_description' name='content[body]'></textarea><br>
-	  <input type='hidden' name='content[x]'>
-	  <input type='hidden' name='content[y]'>
-	  <input type='hidden' name='content[width]'>
-	  <input type='hidden' name='content[height]'>
-	  <input type='hidden' name='content[image_url]'>
-	  <p>
-	    <%= f.submit %>
-	  </p>
-	<% end %>
+	<div id='record_annotate' class='window'>
+		<h4 class='window_header'>ANNOTATE IMAGE</h4>
+		<div class='window_body'>
+			<div id='preview_window'></div>
+			<%= form_for([@record, @record.annotations.build]) do |f| %>
+			  <label for='short_description'>Short Description:</label><br>
+			  <input id='short_description' name='content[title]'><br>
+			  <label for='long_description'>Long Description:</label><br>
+			  <textarea id='long_description' name='content[body]'></textarea><br>
+			  <input type='hidden' name='content[x]'>
+			  <input type='hidden' name='content[y]'>
+			  <input type='hidden' name='content[width]'>
+			  <input type='hidden' name='content[height]'>
+			  <input type='hidden' name='content[image_url]'>
+			  <p>
+			    <%= f.submit %>
+			  </p>
+			<% end %>
+		</div>
+	</div>
+	<div id='record_annotations'>
+		<% @record.annotations.each do |annotation|%>
+			<% if annotation.content %>
+				<div class='annotation_wrapper'>
+					<p class='annotation_title'><%= annotation.content['title'] %></p>
+					<p class='annotation_body'><%= annotation.content['body'] %></p>
+					<p class='annotation_attribution'>by <%= annotation.user.name %> on <%= annotation.created_at %></p>
+					
+				</div>
+			<% end %>
+		<% end %>
+	</div>
 </div>

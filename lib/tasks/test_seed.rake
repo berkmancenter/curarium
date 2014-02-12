@@ -15,9 +15,9 @@ namespace :db do
       not_approved.save
 
       # records
-      crfj test_col, :test_record
-      crfj test_col, :test_record_two
-      crfj test_col, :test_record_three
+      crfj test_col, :starry_night
+      crfj test_col, :mona_lisa
+      crfj test_col, :last_supper
     end
 
     def crfj( col, r )

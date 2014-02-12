@@ -17,6 +17,10 @@ describe ( 'Record model' ) {
     it ( 'should have title parsed from original' ) {
       rec.parsed[ 'title' ].should eq( '["test_record"]' )
     }
+
+    it ( 'should have thumbnail parsed from original' ) {
+      rec.parsed[ 'thumbnail' ].should eq( '["http://upload.wikimedia.org/wikipedia/commons/thumb/e/ea/Van_Gogh_-_Starry_Night_-_Google_Art_Project.jpg/116px-Van_Gogh_-_Starry_Night_-_Google_Art_Project.jpg"]' )
+    }
   }
 }
 

@@ -24,10 +24,10 @@
 		<h3>Visualizations:</h3>
 		<% tray.visualizations.each do |visualization|%>
 			<div class='visualization_preview' data-type='visualization' data-body='<%= visualization.to_json%>'>
-			<h4>type:<%=visualization['terms']['type']%></h4>
-			<h4>property:<%=visualization['terms']['property']%></h4>
-			<h4>include:<%=visualization['terms']['include']%></h4>
-			<h4>exclude:<%=visualization['terms']['exclude']%></h4>
+			<p>type:<%=visualization['terms']['type']%></p>
+			<p>property:<%=visualization['terms']['property']%></p>
+			<p>include:<%=visualization['terms']['include']%></p>
+			<p>exclude:<%=visualization['terms']['exclude']%></p>
 			</div>
 		<% end %>
 	</div>

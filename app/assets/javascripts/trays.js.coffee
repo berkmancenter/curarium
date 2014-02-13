@@ -12,7 +12,8 @@ window.trays.show = () ->
     $(this).remove()
     current_body = $('#spotlight_body').val()
     $('#spotlight_body').val(current_body+"<#{window.spotlights.components.indexOf(d)}>")
-    c_frame = $("<div class='visualization_preview'>");
+    index = $("<h3>").append(window.spotlights.components.indexOf(d));
+    c_frame = $(this).clone().append(index);
     console.log(window.spotlights.components)
     $('#spotlight_components').append(c_frame)
     undefined
@@ -26,7 +27,7 @@ window.trays.show = () ->
     $('.user_tray .tray_record_annotations').remove()
     $('#trays_title').click (e) ->
       $('.user_tray').show()
-      $('.user_tray .record_thumbnail').hide()
+      $('.user_tray .record_thumbnail, .visualization_preview').hide()
       $('.user_tray .surrogate').remove()
       $('.user_tray h4').remove()
       undefined
@@ -35,7 +36,7 @@ window.trays.show = () ->
     e.preventDefault()
     host_tray = $(this).parent()
     location = $(this).attr('href')
-    host_tray.find('.record_thumbnail').hide()
+    host_tray.find('.record_thumbnail, .visualization_preview').hide()
     $.getJSON(
       location
       (data) ->

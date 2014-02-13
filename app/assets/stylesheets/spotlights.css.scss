@@ -61,26 +61,19 @@
     }
 }
 
-.visualization_preview {
-        padding: 5px;
-        width: 150px;
-        height: 150px;
-        background: gray;
-        float: left;
-        margin:2px;
-        font-size: 8pt;
-        -webkit-touch-callout: none;
-        -webkit-user-select: none;
-        -khtml-user-select: none;
-        -moz-user-select: none;
-        -ms-user-select: none;
-        user-select: none;
-      }
 
 #spotlight_components {
   background: darkgray;
   width: 90%;
   height: 250px;
+  div.visualization_preview {
+    height:85px;
+    width:85px;
+    overflow: none;
+    p {
+      font-size: 8pt;
+    }
+  }
   .record_thumbnail{
     height: 6em;
     width: 4.5%;

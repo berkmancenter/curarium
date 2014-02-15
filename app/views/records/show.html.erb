@@ -29,7 +29,6 @@
 			
 			var option = $('select[name=tray]').val();
 			
-			window.collection.query.type = 'list_records';
 			if(option ==='new_tray'){
 				$.ajax({
 					type : "POST",
@@ -39,7 +38,7 @@
 								owner_id: <%= session[:user_id] %>,
 								owner_type: 'User',
 								records: data,
-								visualizations: "[]",
+								visualizations: [],
 								name: $("input[name=new_tray]").val()
 							}
 							
@@ -68,7 +67,7 @@
 					}
 				});
 			}
-			window.collection.query.type = type_placeholder
+			
 		});
 		<% end %>
 	});

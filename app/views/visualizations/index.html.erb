@@ -160,7 +160,7 @@
 							tray: {
 								owner_id: <%= session[:user_id] %>,
 								owner_type: 'User',
-								visualizations: data,
+								visualizations: JSON.stringify([data]),
 								name: $(add_viz).find("input[name=new_tray]").val()
 							}
 							

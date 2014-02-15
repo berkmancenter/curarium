@@ -38,7 +38,7 @@
 								owner_id: <%= session[:user_id] %>,
 								owner_type: 'User',
 								records: data,
-								visualizations: [],
+								visualizations: JSON.stringify([]),
 								name: $("input[name=new_tray]").val()
 							}
 							

@@ -106,7 +106,7 @@
 									owner_id: <%= session[:user_id] %>,
 									owner_type: 'User',
 									records: data,
-									visualizations: "[]",
+									visualizations: JSON.stringify([]),
 									name: $(add_record).find("input[name=new_tray]").val()
 								}
 								

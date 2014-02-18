@@ -11,6 +11,17 @@
 /db/*.sqlite3
 /db/*.sqlite3-journal
 
+# seed data
+/db/via
+
 # Ignore all logfiles and tempfiles.
 /log/*.log
 /tmp
+
+# rails environment
+Gemfile.lock
+config/database.yml
+
+# vim
+*.swp
+*.swo

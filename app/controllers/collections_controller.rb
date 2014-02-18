@@ -29,10 +29,11 @@ class CollectionsController < ApplicationController
     @collection = Collection.new(collection_params)
     @collection.approved = false
     @collection.admin = [session[:user_id]]
-    @collection.properties = {}
-    @collection.configuration.each do |field|
-      @collection.properties[field[0]] = {}
-    end
+    # now part of collection model
+    #@collection.properties = {}
+    #@collection.configuration.each do |field|
+    #  @collection.properties[field[0]] = {}
+    #end
     respond_to do |format|
       if @collection.save
         format.html { redirect_to @collection, notice: 'Collection was successfully created.' }

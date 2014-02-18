@@ -1,7 +1,8 @@
 <div id='spotlight_text'>
 
 	<h2 id='spotlight_title'><%= title @spotlight.title %></h2>
-	
+	<p>by <%= link_to @spotlight.user.name, @spotlight.user %> on <%=@spotlight.created_at%></p>
+	<br>
 	<p id='spotlight_body'>
 	  <% text = @spotlight.body %>
 	  <% if text.match /\<(\d)\>/ %>
@@ -29,6 +30,11 @@
   		<a href='/records/<%=c['id']%>?image=<%=c['surrogate']%>' target='_blank'><div id='annotation_wrapper_<%=i%>' ></div></a>
   		<script>
   			window.spotlights.display_annotation('annotation_wrapper_<%=i%>', <%= raw(c['content'].to_json) %>)
+  		</script>
+  	<% elsif c['type'] == 'visualization' %>
+  		<div class='visualization_component'></div>
+  		<script type="text/javascript">
+  			window.visualization['<%=c['body']['terms']['type']%>']('spotlight_reference_<%=i%> .visualization_component', "<%=c['body']['url']%>");
   		</script>
   	<% end %>
   </div>

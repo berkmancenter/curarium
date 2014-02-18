@@ -50,3 +50,28 @@ input[type=submit], .fake_button {
 		font-weight: bold;
 	}
 }
+
+.window {
+	border: 1px solid gray;
+	height: 15px;
+	overflow: hidden;
+}
+
+.window_header {
+	background: black;
+	color: white;
+	cursor: pointer;
+	height: 15px;
+	font-size: 12px;
+}
+
+.window_body {
+	padding: 5px;
+}
+
+#secondary_nav{
+	position: relative;
+	display: inline-block;
+	height: 25px;
+	width:50%
+}

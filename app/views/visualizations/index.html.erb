@@ -29,10 +29,11 @@
 		
 		console.log(properties);
 		
-		window.visualization['<%=params[:type]%>']('main');
+		window.visualization['<%=params[:type]%>']('main',window.location.href);
 		
 		$('#refine_search').appendTo('header #secondary_nav');
-		$('#add_to_tray').prependTo('header #secondary_nav');
+		$('#add_records_to_tray').prependTo('header #secondary_nav');
+		$('#add_visualization_to_tray').appendTo('header #secondary_nav');
 		
 		$('.remove_element').click(function(e){
 			$(this).parent().remove();
@@ -85,11 +86,12 @@
 		});
 		
 		
-		$('#add_to_tray').submit(function(e) {
+		$('#add_records_to_tray').submit(function(e) {
 			
 			e.preventDefault();
+			add_record = this;
 			
-			var option = $('select[name=tray]').val();
+			var option = $(add_record).find('select[name=tray]').val();
 			
 			
 			var type_placeholder = window.collection.query.type
@@ -104,12 +106,13 @@
 									owner_id: <%= session[:user_id] %>,
 									owner_type: 'User',
 									records: data,
-									name: $("input[name=new_tray]").val()
+									visualizations: "[]",
+									name: $(add_record).find("input[name=new_tray]").val()
 								}
 								
 							},
 						success : function(data) {
-							alert('success: tray '+$("input[name=new_tray]").val()+' created and records added')
+							alert('success: tray '+$(add_record).find("input[name=new_tray]").val()+' created and records added')
 							},
 						dataType : 'json',
 						headers : {
@@ -124,7 +127,7 @@
 								records: data
 							},
 						success : function(data) {
-							alert('success: records added to '+$("input[name=new_tray]").val())
+							alert('success: records added to '+$(add_record).find("input[name=new_tray]").val())
 							},
 						dataType : 'json',
 						headers : {
@@ -136,6 +139,58 @@
 				window.collection.query.type = type_placeholder
 			});
 		});
+		
+		$('#add_visualization_to_tray').submit(function(e) {
+			
+			add_viz = this;
+			
+			e.preventDefault();
+			
+			var option = $(add_viz).find('select[name=tray]').val();
+			data = {}
+			data.terms = window.collection.query;
+			data.url = window.location.href
+			console.log(data);
+			
+			if(option ==='new_tray'){
+				$.ajax({
+					type : "POST",
+					url : 'http://'+window.location.host+'/users/<%= session[:user_id]%>/trays/',
+					data : {
+							tray: {
+								owner_id: <%= session[:user_id] %>,
+								owner_type: 'User',
+								visualizations: data,
+								name: $(add_viz).find("input[name=new_tray]").val()
+							}
+							
+						},
+					success : function(data) {
+						alert('success: tray '+$(add_viz).find("input[name=new_tray]").val()+' created and visualization added')
+						},
+					dataType : 'json',
+					headers : {
+					'X-CSRF-Token' : $("meta[name='csrf-token']").attr('content')
+					}
+				});
+			} else {
+				$.ajax({
+					type : "GET",
+					url : '/trays/'+option+'/add_visualization/',
+					data : {
+							viz_data: data
+						},
+					success : function(data) {
+						alert('success: visualization added to '+ $(add_viz).find("input[name=new_tray]").val())
+						},
+					dataType : 'json',
+					headers : {
+					'X-CSRF-Token' : $("meta[name='csrf-token']").attr('content')
+					}
+				});
+			}
+		});
+		
 		<% end %>
 		var id = setInterval(function() { 
 			$("#query_length").val(window.collection.query.length);
@@ -198,7 +253,7 @@
 	<input type='submit'>
 </form>
 
-<form id='add_to_tray'>
+<form id='add_records_to_tray'>
 	<h3>
 		<input type='text' id='query_length' >
 		<label for='query_length'> records </label>
@@ -216,3 +271,19 @@
 	<input type='submit' value="Add to Tray">
 	<% end %>
 </form>
+
+<% if session[:user_id] %>
+<form id='add_visualization_to_tray'>
+	<h3>Save visualization:</h3>
+	<br>
+	<select name='tray'>
+		<option selected='true' disabled>SELECT TRAY</option>
+		<option value='new_tray'>New Tray</option>
+		<% User.find(session[:user_id]).trays.each do |tray| %>
+			<option value='<%=tray.id%>'><%= tray.name %></option>
+		<% end %>
+	</select>
+	<input name='new_tray' style='display: none'>
+	<input type='submit' value="Add to Tray">
+</form>
+<% end %>

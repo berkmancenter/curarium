@@ -18,10 +18,10 @@ window.visualization.populate_query_menu = () ->
     $('#visualization_exclude').append(term)
   undefined
 
-window.visualization.treemap = (container)->
+window.visualization.treemap = (container, source)->
   selected = []
   $.getJSON(
-    document.location.href
+    source
     (items) ->
       tree(items.treemap)
       window.collection.query.length = items.length
@@ -103,9 +103,9 @@ window.visualization.treemap = (container)->
   
   undefined
 
-window.visualization.thumbnail = (container) ->
+window.visualization.thumbnail = (container, source) ->
   $.getJSON(
-    window.location.href
+    source
     (items) ->
       thumbs(items)
       window.collection.query.length = items.length

@@ -13,7 +13,7 @@ class RecordsController < ApplicationController
   def show
      eval_parsed = {}
      @record.parsed.each do |key, value|
-       eval_parsed[key] = eval(value)
+       eval_parsed[key] = eval(value) unless value.to_s.empty?
      end
      respond_to do |format|
        format.html { }

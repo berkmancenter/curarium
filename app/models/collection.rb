@@ -16,9 +16,7 @@ class Collection < ActiveRecord::Base
     # create a record from original JSON, parse it & add it to this collection
     r = self.records.new
     r.original = original
-    r.save
     pr = {}
-    pr['curarium'] = [r.id]
     self.configuration.each do |field|
       pr[field[0]] = self.follow_json(r.original, field[1])
       if pr[field[0]] == nil or ['thumbnail','image'].include?(field[0])

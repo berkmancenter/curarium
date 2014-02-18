@@ -14,6 +14,10 @@ describe ( 'Record model' ) {
       rec.parsed.should_not eq( nil )
     }
 
+    it ( 'should no longer store id in parsed' ) {
+      rec.parsed[ 'curarium' ].should eq( nil )
+    }
+
     it ( 'should have title parsed from original' ) {
       rec.parsed[ 'title' ].should eq( '["Starry Night"]' )
     }

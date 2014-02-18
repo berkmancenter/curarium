@@ -47,7 +47,6 @@ class VisualizationsController < ApplicationController
   def thumbnail
     @collection = Collection.find(params[:collection_id])
     records = @collection.query_records(params[:include],params[:exclude])
-    records = records.select('parsed')
     thumbnails = []
     records.each do |thumb|
       placeholder = thumb.parsed['thumbnail']
@@ -55,7 +54,7 @@ class VisualizationsController < ApplicationController
       thumbnails.push({
           thumbnail: eval(placeholder)[0],
           title: eval(thumb.parsed['title'])[0],
-          id: eval(thumb.parsed['curarium'])[0]
+          id: thumb.id
         })
     end
     render json: thumbnails

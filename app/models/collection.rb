@@ -1,6 +1,5 @@
 class Collection < ActiveRecord::Base
   before_create :generate_key
-  before_save :reset_properties
 
   has_many :records, dependent: :destroy
   has_many :spotlights, through: :highlights
@@ -9,28 +8,13 @@ class Collection < ActiveRecord::Base
   validates :configuration, presence: true
   
   def create_record_from_json( original )
-    # why the double parse?
-    properties = self.properties.to_json
-    properties = JSON.parse(properties)
-    
     # create a record from original JSON, parse it & add it to this collection
     r = self.records.new
     r.original = original
     pr = {}
     self.configuration.each do |field|
       pr[field[0]] = self.follow_json(r.original, field[1])
-      if pr[field[0]] == nil or ['thumbnail','image'].include?(field[0])
-        next
-      end
-      pr[field[0]].each do |p|
-        if(properties[field[0]][p] == nil)
-          properties[field[0]][p] = 1
-        else
-          properties[field[0]][p] = properties[field[0]][p] + 1
-         end
-       end
     end
-    self.update(properties: properties)
     r.parsed = pr
     r.save
   end
@@ -113,14 +97,5 @@ class Collection < ActiveRecord::Base
 
   def generate_key
     self[:key] = SecureRandom.base64
-  end
-  
-  def reset_properties
-    if changed.include? 'configuration'
-      self.properties = {}
-      self.configuration.each { |field|
-        self.properties[field[0]] = {}
-      }
-    end 
   end
 end

@@ -37,7 +37,7 @@
 				<label for='visualization_property'>Visualization Property:</label>
 				<select id='visualization_property'>
 					<option selected disabled>Choose Proprety</option>
-					<% @collection.properties.each do |property, values| %>
+					<% @collection.configuration.keys.each do |property| %>
 						<% if ['thumbnail','image'].include? property
 							next
 						end%>
@@ -53,7 +53,7 @@
 			<div id='properties_header'>
 				<label for='properties_header'>Browse collection tags:</label>
 				<br>				
-				<% @collection.properties.each do |property, values| %>
+				<% @collection.configuration.keys.each do |property| %>
 				<% if ['thumbnail','image'].include? property
 					next
 				end%>

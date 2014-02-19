@@ -21,7 +21,7 @@
 		});
 		
 		
-		var properties = <%= raw(Collection.find(params[:collection_id]).properties.to_json)%>;
+		var properties = <%= raw(Collection.find(params[:collection_id]).configuration.to_json)%>;
 		
 		for(var property in properties){
 			properties[property] = Object.keys(properties[property]); 

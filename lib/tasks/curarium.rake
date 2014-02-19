@@ -8,7 +8,11 @@ namespace :curarium do
     old_logger = ActiveRecord::Base.logger
     ActiveRecord::Base.logger = nil
 
+    puts "Started at #{Time.now}"
+
     curarium_ingest args[:input_dir], args[:collection_key]
+
+    puts "Ended at #{Time.now}"
 
     ActiveRecord::Base.logger = old_logger
   end
@@ -44,37 +48,10 @@ namespace :curarium do
       # extract json of this file's record
       filename = "./#{input_dir}/#{File.basename(f)}"
       rec_json = IO.read filename
-      
 
-      configuration = collection.configuration
-      properties = collection.properties.to_json
-      properties = JSON.parse(properties)
+      ok = collection.create_record_from_json rec_json
 
-      r = collection.records.new
-      r.original = rec_json
-      r.save
-
-      pr = {}
-      pr['curarium'] = [r.id]
-
-      configuration.each do |field|
-        pr[field[0]] = collection.follow_json(r.original, field[1])
-        if pr[field[0]] == nil or ['thumbnail','image'].include?(field[0])
-          next
-        end
-        pr[field[0]].each do |p|
-          if(properties[field[0]][p] == nil)
-            properties[field[0]][p] = 1
-          else
-            properties[field[0]][p] = properties[field[0]][p] + 1
-           end
-         end
-      end
-
-      collection.update(properties: properties)
-      r.parsed = pr
-
-      if r.save
+      if ok
         j_count += 1
 
         if j_count % 100 == 0

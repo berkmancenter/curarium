@@ -11,18 +11,19 @@ class VisualizationsController < ApplicationController
   
   def tag
     @collection = Collection.find(params[:collection_id])
-    tags = @collection.sort_properties(params[:include],params[:exclude],params[:property])
+    tags = @collection.sort_properties(params[:include],params[:exclude],params[:property], params[:minimum])
     render json: tags
   end
   
   def treemap
+    minimum = params[:minimum] || 0
     @collection = Collection.find(params[:collection_id])
     if ( params[:include]==nil and params[:exclude]==nil )
       query = @collection.properties
       tmap = treemapify(query[params[:property]])
       length = @collection.size
     else
-      query = @collection.sort_properties(params[:include],params[:exclude],params[:property])
+      query = @collection.sort_properties(params[:include],params[:exclude],params[:property], minimum)
       tmap = treemapify(query[:properties])
       length = query[:length]
     end

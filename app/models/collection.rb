@@ -112,7 +112,7 @@ class Collection < ActiveRecord::Base
     if minimum > 1
       others = 0
       properties.each do |key, value|
-        if value<minimum
+        if value < minimum
           others += value
           properties.delete(key)
         end

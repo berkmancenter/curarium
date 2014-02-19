@@ -16,7 +16,7 @@ class VisualizationsController < ApplicationController
   end
   
   def treemap
-    minimum = params[:minimum] || 0
+    minimum = params[:minimum].to_i || 0
     @collection = Collection.find(params[:collection_id])
     if ( params[:include]==nil and params[:exclude]==nil )
       query = @collection.properties

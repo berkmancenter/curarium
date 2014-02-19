@@ -35,7 +35,7 @@
 					url : 'http://'+window.location.host+'/users/<%= session[:user_id]%>/trays/',
 					data : {
 							tray: {
-								owner_id: <%= session[:user_id] %>,
+								owner_id: <%= session[:user_id] || -1 %>,
 								owner_type: 'User',
 								records: data,
 								visualizations: JSON.stringify([]),

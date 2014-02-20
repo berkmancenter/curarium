@@ -42,24 +42,36 @@ namespace :curarium do
     puts "Ingesting into collection with key: #{collection_key}"
 
     j_count = 0
-    ent.each { |f| 
-      next if File.directory?(f) || File.extname(f) != '.json'
+    ent.each_slice( 2 ) { |f1, f2| 
+      t1 = Thread.new { read_record( input_dir, f1 ) }
+      t2 = Thread.new { read_record( input_dir, f2 ) }
 
-      # extract json of this file's record
-      filename = "./#{input_dir}/#{File.basename(f)}"
-      rec_json = IO.read filename
-
-      ok = collection.create_record_from_json rec_json
-
+      t1.join
+      ok = collection.create_record_from_json t1[ :json ] unless t1[ :json ].nil?
       if ok
         j_count += 1
+      end
 
-        if j_count % 100 == 0
-          puts j_count
-        end
+      t2.join
+      ok = collection.create_record_from_json t2[ :json ] unless t2[ :json ].nil?
+      if ok
+        j_count += 1
+      end
+
+
+      if j_count % 100 == 0
+        puts j_count
       end
     }
 
     puts "Processed #{j_count} JSON files (out of #{ent.count - 2} total files in directory)"
+  end
+
+  def read_record( input_dir, f )
+    # thread to wait for file IO, return json
+    if !File.directory?(f) && File.extname(f) == '.json'
+      filename = "./#{input_dir}/#{File.basename(f)}"
+      Thread.current[ :json ] = IO.read filename
+    end
   end
 end

@@ -43,23 +43,23 @@ namespace :curarium do
 
     j_count = 0
     ent.each_slice( 2 ) { |f1, f2| 
-      t1 = Thread.new { read_record( input_dir, f1 ) }
-      t2 = Thread.new { read_record( input_dir, f2 ) }
+      t1 = Thread.new { read_record( input_dir, f1, collection.configuration ) }
+      t2 = Thread.new { read_record( input_dir, f2, collection.configuration ) }
 
       t1.join
-      ok = collection.create_record_from_json t1[ :json ] unless t1[ :json ].nil?
+      ok = collection.create_record_from_parsed t1[ :original ], t1[ :parsed ] unless t1[ :original ].nil?
       if ok
         j_count += 1
       end
 
       t2.join
-      ok = collection.create_record_from_json t2[ :json ] unless t2[ :json ].nil?
+      ok = collection.create_record_from_parsed t2[ :original ], t2[ :parsed ] unless t2[ :original ].nil?
       if ok
         j_count += 1
       end
 
 
-      if j_count % 100 == 0
+      if j_count > 0 && j_count % 100 == 0
         puts j_count
       end
     }
@@ -67,11 +67,19 @@ namespace :curarium do
     puts "Processed #{j_count} JSON files (out of #{ent.count - 2} total files in directory)"
   end
 
-  def read_record( input_dir, f )
+  def read_record( input_dir, f, configuration )
     # thread to wait for file IO, return json
     if !File.directory?(f) && File.extname(f) == '.json'
       filename = "./#{input_dir}/#{File.basename(f)}"
-      Thread.current[ :json ] = IO.read filename
+      rec_json = IO.read filename
+
+      pr = {}
+      configuration.each do |field|
+        pr[field[0]] = Collection.follow_json(rec_json, field[1])
+      end
+
+      Thread.current[ :original ] = rec_json
+      Thread.current[ :parsed ] = pr
     end
   end
 end

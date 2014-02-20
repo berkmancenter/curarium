@@ -52,7 +52,7 @@ describe ( 'Collection model' ) {
       it {
         pr = {}
         col.configuration.each do |field|
-          pr[field[0]] = col.follow_json(rec_json[ :original ], field[1])
+          pr[field[0]] = Collection.follow_json(rec_json[ :original ], field[1])
         end
 
         expect {

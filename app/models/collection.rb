@@ -7,22 +7,7 @@ class Collection < ActiveRecord::Base
   validates :description, presence: true
   validates :configuration, presence: true
   
-  def create_record_from_parsed( original, parsed )
-    # create a record from original JSON and pre-parsed version
-    r = self.records.new original: original, parsed: parsed
-    r.save
-  end
-  
-  def create_record_from_json( original )
-    # create a record from original JSON, parse it & add it to this collection
-    pr = {}
-    self.configuration.each do |field|
-      pr[field[0]] = self.follow_json(original, field[1])
-    end
-    self.create_record_from_parsed original, pr
-  end
-
-  def follow_json(structure, path)
+  def self.follow_json( structure, path )
     if structure[path[0]] != nil
       current = structure[path[0]]
       if path.length == 1
@@ -48,6 +33,21 @@ class Collection < ActiveRecord::Base
     else
       return nil
     end
+  end
+
+  def create_record_from_parsed( original, parsed )
+    # create a record from original JSON and pre-parsed version
+    r = self.records.new original: original, parsed: parsed
+    r.save
+  end
+  
+  def create_record_from_json( original )
+    # create a record from original JSON, parse it & add it to this collection
+    pr = {}
+    self.configuration.each do |field|
+      pr[field[0]] = Collection.follow_json(original, field[1])
+    end
+    self.create_record_from_parsed original, pr
   end
   
   def query_records(include, exclude)

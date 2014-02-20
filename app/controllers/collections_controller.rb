@@ -86,7 +86,7 @@ class CollectionsController < ApplicationController
     pr = {}
     pr['curarium'] = [r.id]
     configuration.each do |field|
-      pr[field[0]] = collection.follow_json(r.original, field[1])
+      pr[field[0]] = Collection.follow_json(r.original, field[1])
       if pr[field[0]] == nil or ['thumbnail','image'].include?(field[0])
         next
       end

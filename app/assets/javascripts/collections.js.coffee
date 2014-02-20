@@ -131,6 +131,7 @@ window.collection.query =
   properties: {}
   include : []
   exclude : []
+  minimum: 0
 
 window.collection.query_terms = ->
   query = window.collection.query

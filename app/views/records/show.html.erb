@@ -21,13 +21,14 @@
 			}
 		});
 		
+		<% if session[:user_id] %>
+		
 		$('#add_record_to_tray').submit(function(e) {
 			
 			e.preventDefault();
 			
 			var option = $('select[name=tray]').val();
 			
-			window.collection.query.type = 'list_records';
 			if(option ==='new_tray'){
 				$.ajax({
 					type : "POST",
@@ -37,7 +38,7 @@
 								owner_id: <%= session[:user_id] || -1 %>,
 								owner_type: 'User',
 								records: data,
-								visualizations: "[]",
+								visualizations: JSON.stringify([]),
 								name: $("input[name=new_tray]").val()
 							}
 							
@@ -66,8 +67,9 @@
 					}
 				});
 			}
-			window.collection.query.type = type_placeholder
+			
 		});
+		<% end %>
 	});
 </script>
 
@@ -122,6 +124,7 @@
  </section>
 </div>
 <div id='annotations'>
+	<% if session[:user_id] %>
 	<div id='record_annotate' class='window'>
 		<h4 class='window_header'>ANNOTATE IMAGE</h4>
 		<div class='window_body'>
@@ -142,6 +145,7 @@
 			<% end %>
 		</div>
 	</div>
+	<% end %>
 	<div id='record_annotations'>
 		<% @record.annotations.each do |annotation|%>
 			<% if annotation.content %>

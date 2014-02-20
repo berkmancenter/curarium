@@ -76,7 +76,7 @@ class Collection < ActiveRecord::Base
      return records
   end
   
-  def sort_properties(include, exclude, property)
+  def sort_properties(include, exclude, property, minimum=0)
     query = self.query_records(include, exclude)
     properties = {}
     query.find_each(batch_size: 10000) do |record|
@@ -92,6 +92,16 @@ class Collection < ActiveRecord::Base
         properties[p] = properties[p] + 1
        end
       end
+    end
+    if minimum > 1
+      others = 0
+      properties.each do |key, value|
+        if value < minimum
+          others += value
+          properties.delete(key)
+        end
+      end
+      properties["OTHER, less than #{minimum}"] = others
     end
     return {length: query.length, properties: properties}
   end

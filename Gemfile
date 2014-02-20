@@ -8,7 +8,7 @@ gem 'pg'
 
 group :test do
   gem 'rspec-rails'
-  gem 'capybara'
+  gem 'rake'
   gem 'poltergeist'
   gem 'factory_girl_rails'
 end

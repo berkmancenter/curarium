@@ -155,7 +155,6 @@ PLATFORMS
 
 DEPENDENCIES
   bcrypt-ruby (~> 3.1.2)
-  capybara
   coffee-rails (~> 4.0.0)
   d3-rails
   factory_girl_rails
@@ -166,6 +165,7 @@ DEPENDENCIES
   poltergeist
   rails (= 4.0.2)
   rails_12factor
+  rake
   rspec-rails
   sass-rails (~> 4.0.0)
   sdoc

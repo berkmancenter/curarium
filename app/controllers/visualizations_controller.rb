@@ -15,6 +15,23 @@ class VisualizationsController < ApplicationController
     render json: tags
   end
   
+  def quick_search
+    @collection = Collection.find(params[:collection_id])
+    query = params[:terms] || ""
+    result = @collection.records.where("LOWER(original::text) LIKE '%#{query.downcase}%'")
+    thumbnails = []
+    result.each do |thumb|
+      placeholder = thumb.parsed['thumbnail']
+      placeholder ||= "[]"
+      thumbnails.push({
+          thumbnail: JSON.parse(placeholder)[0],
+          title: JSON.parse(thumb.parsed['title'])[0],
+          id: thumb.id
+        })
+    end
+    render json: thumbnails
+  end
+  
   def treemap
     minimum = params[:minimum].to_i || 0
     @collection = Collection.find(params[:collection_id])

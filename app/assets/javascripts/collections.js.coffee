@@ -187,7 +187,7 @@ inc_exc = (e) ->
   $("#query_"+type).append dropped
   console.log 
   $.getJSON(
-    window.location.pathname + '/tag'+ window.collection.query_terms()
+    window.location.pathname + "/visualizations"+ window.collection.query_terms()
     (data) ->
       $('#record_count').val(data.length)
     )

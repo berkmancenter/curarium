@@ -13,7 +13,7 @@
 	</div>
 	<div id='query_builder'>
 		<div id='quick_search'>
-			<form target='_blank' method='get' action='/visualizations'>
+			<form target='_blank' method='get' action='<%=@collection.id%>/visualizations/'>
 				<input id='quick_search_term' type='text' name='terms'>
 				<input type='hidden' name='type' value='quick_search'>
 				<input type='submit' value='quick search'>

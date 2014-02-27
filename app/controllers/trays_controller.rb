@@ -1,5 +1,6 @@
 class TraysController < ApplicationController
-  before_action :set_tray, only: [:show, :edit, :update, :destroy, :add_records, :add_visualization]
+  before_action :set_tray, only: [:show, :edit, :update, :destroy, :add_records, :add_visualization, :external]
+  skip_before_action :authorize, only: [:external]
   
   def show
     render json: @tray
@@ -46,7 +47,23 @@ class TraysController < ApplicationController
     @tray.save
     render json: @tray
   end
-    
+  
+  def external #this is a provisional api like method for interacting with the WAKU editor.
+    tray = {}
+    tray[:name] =  @tray.name
+    tray[:id] = @tray.id
+    tray[:child_items] = [] #using the 'child_items' key to emulate the JDArchive and avoid potential conflicts with Waku as-built.
+    @tray.records.each do |id|
+      r = Record.find(id)
+      r = r.parsed
+      r.each do |key, value|
+        r[key] = JSON.parse(value)
+      end
+      tray[:child_items].push(r)
+    end
+    render json: tray
+  end
+  
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_tray

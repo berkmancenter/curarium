@@ -71,7 +71,7 @@ class TraysController < ApplicationController
       pr[:media_geo_longitude] = 0
       tray[:child_items].push(pr)
     end
-    render json: tray
+    render json: { items: [tray] } #again, conforming to the structure Waku is expecting from JDA
   end
   
   private

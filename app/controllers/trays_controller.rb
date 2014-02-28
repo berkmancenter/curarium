@@ -67,8 +67,8 @@ class TraysController < ApplicationController
       pr[:media_type] = "Image"
       pr[:layer_type] = "Image"
       pr[:archive] = ""
-      pr[:media_geo_latitude] = ""
-      pr[:media_geo_longitude] = ""
+      pr[:media_geo_latitude] = 0
+      pr[:media_geo_longitude] = 0
       tray[:child_items].push(pr)
     end
     render json: tray

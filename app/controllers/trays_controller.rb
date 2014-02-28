@@ -59,7 +59,17 @@ class TraysController < ApplicationController
       r.each do |key, value|
         r[key] = JSON.parse(value)
       end
-      tray[:child_items].push(r)
+      pr = {}
+      pr[:id] = id
+      pr[:uri] = r['image'][0]
+      pr[:thumbnail_url] = r['image'][0]
+      pr[:title] = r['title'][0]
+      pr[:media_type] = "Image"
+      pr[:layer_type] = "Image"
+      pr[:archive] = ""
+      pr[:media_geo_latitude] = ""
+      pr[:media_geo_longitude] = ""
+      tray[:child_items].push(pr)
     end
     render json: tray
   end

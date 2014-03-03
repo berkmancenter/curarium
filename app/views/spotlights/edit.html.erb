@@ -1,6 +1,36 @@
-<h1>Editing spotlight</h1>
+<script>
+	$(document).ready(function(){
+		window.spotlights.components = [];
+		window.trays.show();
+		window.spotlights.update(<%=@spotlight.id%>);
+	});
+</script>
+<div id='new_spotlight_wrapper'>
+	<h1>Edit spotlight</h1>
 
-<%= render 'form' %>
+	<%= render 'form' %>
 
-<%= link_to 'Show', @spotlight %> |
-<%= link_to 'Back', spotlights_path %>
+	<%= link_to 'Back', spotlights_path %>
+</div>
+
+<div id="user_trays">
+	<h2 id='trays_title'> Your Trays </h2>
+	<% User.find(session[:user_id]).trays.each do |tray|%>
+	<div class='user_tray'>
+		<h3><%= tray.name %></h3>
+		<% tray.records.each do |record|%>
+			<% @record = Record.find(record) %>
+			<%= render 'records/thumb', locals: {record: @record} %>
+		<% end %>
+		<h3>Visualizations:</h3>
+		<% tray.visualizations.each do |visualization|%>
+			<div class='visualization_preview' data-type='visualization' data-body='<%= visualization.to_json%>'>
+			<p>type:<%=visualization['terms']['type']%></p>
+			<p>property:<%=visualization['terms']['property']%></p>
+			<p>include:<%=visualization['terms']['include']%></p>
+			<p>exclude:<%=visualization['terms']['exclude']%></p>
+			</div>
+		<% end %>
+	</div>
+	<% end %>
+</div>

@@ -45,7 +45,7 @@ class SpotlightsController < ApplicationController
     respond_to do |format|
       if @spotlight.update(spotlight_params)
         format.html { redirect_to @spotlight, notice: 'Spotlight was successfully updated.' }
-        format.json { head :no_content }
+        format.json { render json: @spotlight }
       else
         format.html { render action: 'edit' }
         format.json { render json: @spotlight.errors, status: :unprocessable_entity }

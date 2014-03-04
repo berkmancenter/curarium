@@ -103,6 +103,10 @@ window.visualization.treemap = (container, source)->
   
   undefined
 
+window.visualization.quick_search = (container, source) ->
+  window.visualization.thumbnail(container, source)
+  undefined
+
 window.visualization.thumbnail = (container, source) ->
   $.getJSON(
     source

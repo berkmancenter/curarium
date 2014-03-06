@@ -22,7 +22,22 @@
   }
 }
 
-.visualization_preview {
+.record_annotation {
+  position: relative;
+  display: inline-block;
+  h3 {
+     position: absolute;
+     width: 100%;
+     background: black;
+     bottom: 0;
+     color: white;
+     height: 1em;
+     font-size: 1em;
+     float: left;
+  }
+}
+
+.visualization_preview, .visualization_component {
   position: relative;
   display: inline-block;
   float: left;
@@ -50,4 +65,8 @@
      font-size: 1em;
      float: left;
     }
+}
+
+.visualization_component {
+  display: inline-block;
 }

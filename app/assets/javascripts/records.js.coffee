@@ -18,10 +18,6 @@ window.record.display = (image_url)->
   surrogate = new Image()
   min_scale = 0
   
-  #surrogate.src = 'http://www.padsandpanels.com/wp-content/uploads/2010/03/familyguy5.jpg' #wide image
-  #surrogate.src = 'http://ninapaley.com/mimiandeunice/wp-content/uploads/2010/08/ME_164_SomethingForNothing.png' #wide image, wider than screen  
-  #surrogate.src = 'http://cameronanstee.files.wordpress.com/2012/04/something-else-01.jpg' #tall image
-  #surrogate.src = 'http://www.thepencilmademedoit.com/wp-content/uploads/2012/08/Day-05-Something-Green.jpg' #square image
   surrogate.src = image_url+'?width=10000&height=10000'  #homeless paintings
   
   surrogate.onload = ->

@@ -7,190 +7,20 @@
 			exclude: <%= raw(params[:exclude] || [])%>
 		};
 		
-		$('form>h3').click(function(e){
-			$(this).data('toggle', !$(this).data('toggle'));
-			var t = $(this).data('toggle');
-			if (t) {
-				$(this).parent().css('height', 'auto');
-				$(this).css('color', 'gray');
-			} else {
-				$(this).parent().css('height', 25);
-				$(this).css('color', 'white');
-			}
-				
-		});
-		
-		
 		var properties = <%= raw(Collection.find(params[:collection_id]).properties.to_json)%>;
 		
 		for(var property in properties){
 			properties[property] = Object.keys(properties[property]); 
 		}
 		
-		console.log(properties);
-		
 		window.visualization['<%=params[:type]%>']('main',window.location.href);
 		
-		$('#refine_search').appendTo('header #secondary_nav');
-		$('#add_records_to_tray').prependTo('header #secondary_nav');
-		$('#add_visualization_to_tray').appendTo('header #secondary_nav');
 		
-		$('.remove_element').click(function(e){
-			$(this).parent().remove();
-		});
-		
-		var options_overlay = $("<div id='options_overlay'>");
-		$('body').append(options_overlay);
-		
-		$('#include_value, #exclude_value').val('').keyup(function(e){
-			
-			var current = $(this).val();
-			var in_ex = $(this).attr('id').substr(0,$(this).attr('id').indexOf('_'));
-			
-			var options = properties[$('#'+in_ex+'_property').val()];
-			
-			
-			var filtered = []
-			for(var any in options){
-				var compare = options[any].substring(0, current.length);
-				if( current.toLowerCase() == compare.toLowerCase()) {
-					filtered.push(options[any]);
-				}
-			}
-			
-			if(current.length > 2) {
-				var that = this;
-				options_overlay.show();
-				options_overlay.find('*').remove();
-				options_overlay.css('top', $(this).offset().top+25);
-				options_overlay.css('left', $(this).offset().left);
-				for(var option in filtered){
-					var opt = $("<p>"+filtered[option]+"</p>").click(function(e){
-						$(this).parent().hide();
-						var new_query_item = $("<span class='visualization_"+in_ex+"d'><span class='remove_element'>x</span><input value='"+$("#"+in_ex+"_property").val()+":"+$(this).html()+"' name='"+in_ex+"[]' readonly></span>");
-						new_query_item.find('span').click( function(e){ $(this).parent().remove(); });
-						$("#visualization_"+in_ex).append(new_query_item);
-					});
-					options_overlay.append(opt)
-				}
-			}
-		});
+		window.collection.visualization_controls(properties);
 		
 		<% if session[:user_id] %>
-		$("select[name=tray]").change(function(e){
-			if($(this).val() === 'new_tray') {
-				$("input[name=new_tray]").show();
-			} else {
-				$("input[name=new_tray]").hide();
-			}
-		});
-		
-		
-		$('#add_records_to_tray').submit(function(e) {
-			
-			e.preventDefault();
-			add_record = this;
-			
-			var option = $(add_record).find('select[name=tray]').val();
-			
-			
-			var type_placeholder = window.collection.query.type
-			window.collection.query.type = 'list_records'
-			$.getJSON( window.location.pathname + window.collection.query_terms(), function(data){
-				if(option ==='new_tray'){
-					$.ajax({
-						type : "POST",
-						url : 'http://'+window.location.host+'/users/<%= session[:user_id]%>/trays/',
-						data : {
-								tray: {
-									owner_id: <%= session[:user_id] %>,
-									owner_type: 'User',
-									records: data,
-									visualizations: JSON.stringify([]),
-									name: $(add_record).find("input[name=new_tray]").val()
-								}
-								
-							},
-						success : function(data) {
-							alert('success: tray '+$(add_record).find("input[name=new_tray]").val()+' created and records added')
-							},
-						dataType : 'json',
-						headers : {
-						'X-CSRF-Token' : $("meta[name='csrf-token']").attr('content')
-						}
-					});
-				} else {
-					$.ajax({
-						type : "GET",
-						url : '/trays/'+option+'/add_records/',
-						data : {
-								records: data
-							},
-						success : function(data) {
-							alert('success: records added to '+$(add_record).find("input[name=new_tray]").val())
-							},
-						dataType : 'json',
-						headers : {
-						'X-CSRF-Token' : $("meta[name='csrf-token']").attr('content')
-						}
-					});
-				}
-				
-				window.collection.query.type = type_placeholder
-			});
-		});
-		
-		$('#add_visualization_to_tray').submit(function(e) {
-			
-			add_viz = this;
-			
-			e.preventDefault();
-			
-			var option = $(add_viz).find('select[name=tray]').val();
-			data = {}
-			data.terms = window.collection.query;
-			data.url = window.location.href
-			console.log(data);
-			
-			if(option ==='new_tray'){
-				$.ajax({
-					type : "POST",
-					url : 'http://'+window.location.host+'/users/<%= session[:user_id]%>/trays/',
-					data : {
-							tray: {
-								owner_id: <%= session[:user_id] %>,
-								owner_type: 'User',
-								visualizations: JSON.stringify([data]),
-								name: $(add_viz).find("input[name=new_tray]").val()
-							}
-							
-						},
-					success : function(data) {
-						alert('success: tray '+$(add_viz).find("input[name=new_tray]").val()+' created and visualization added')
-						},
-					dataType : 'json',
-					headers : {
-					'X-CSRF-Token' : $("meta[name='csrf-token']").attr('content')
-					}
-				});
-			} else {
-				$.ajax({
-					type : "GET",
-					url : '/trays/'+option+'/add_visualization/',
-					data : {
-							viz_data: data
-						},
-					success : function(data) {
-						alert('success: visualization added to '+ $(add_viz).find("input[name=new_tray]").val())
-						},
-					dataType : 'json',
-					headers : {
-					'X-CSRF-Token' : $("meta[name='csrf-token']").attr('content')
-					}
-				});
-			}
-		});
-		
+			window.trays.add_records(<%=session[:user_id].to_i%>);
+			window.trays.add_visualization(<%=session[:user_id].to_i%>);
 		<% end %>
 		var id = setInterval(function() { 
 			$("#query_length").val(window.collection.query.length);

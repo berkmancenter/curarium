@@ -4,6 +4,129 @@
 
 window.trays = {}
 
+window.trays.add_visualization = (user) ->
+  $('#add_visualization_to_tray').submit (e)->
+    add_viz = this
+    e.preventDefault()
+    option = $(add_viz).find('select[name=tray]').val()
+    data = {}
+    data.terms = window.collection.query
+    data.url = window.location.href
+    console.log(data)
+    if (option is 'new_tray')
+      $.ajax
+        type: "POST"
+        url: "http://#{window.location.host}/users/#{user}/trays/"
+        data:
+          tray:
+            owner_id: user
+            owner_type: 'User'
+            visualizations: JSON.stringify([data])
+            name: $(add_viz).find("input[name=new_tray]").val()
+        success: (data) ->
+          alert('success: tray '+$(add_viz).find("input[name=new_tray]").val()+' created and visualization added')
+        dataType: 'json'
+        headers:
+          'X-CSRF-Token' : $("meta[name='csrf-token']").attr('content')
+    else
+      $.ajax
+        type: "GET"
+        url: '/trays/'+option+'/add_visualization/',
+        data:
+            viz_data: data
+        success: (data) ->
+          alert('success: visualization added to '+ $(add_viz).find("input[name=new_tray]").val())
+        dataType: 'json'
+        headers:
+          'X-CSRF-Token': $("meta[name='csrf-token']").attr('content')
+  undefined
+
+window.trays.add_records = (user) ->
+  $("select[name=tray]").change (e)->
+      if($(this).val() is 'new_tray')
+        $("input[name=new_tray]").show()
+      else
+        $("input[name=new_tray]").hide()
+    
+  $('#add_records_to_tray').submit (e)->
+    e.preventDefault()
+    add_record = this
+    option = $(add_record).find('select[name=tray]').val()
+    type_placeholder = window.collection.query.type
+    window.collection.query.type = 'list_records'
+    $.getJSON(window.location.pathname + window.collection.query_terms(),
+    (data) ->
+      if(option is'new_tray')
+        $.ajax
+          type: "POST"
+          url: "http://#{window.location.host}/users/#{user}/trays/"
+          data:
+            tray:
+              owner_id: user
+              owner_type: 'User'
+              records: data
+              visualizations: JSON.stringify([])
+              name: $(add_record).find("input[name=new_tray]").val()
+          success: (data)->
+            alert('success: tray '+$(add_record).find("input[name=new_tray]").val()+' created and records added')
+          dataType: 'json'
+          headers:
+            'X-CSRF-Token': $("meta[name='csrf-token']").attr('content')
+      else
+        $.ajax
+          type: "GET"
+          url: "/trays/#{option}/add_records/"
+          data:
+            records: data
+          success : (data)->
+            alert("success: records added to #{$(add_record).find('input[name=new_tray]').val()}")
+          dataType:'json'
+          headers:
+            'X-CSRF-Token' : $("meta[name='csrf-token']").attr('content')
+      window.collection.query.type = type_placeholder
+      )
+    undefined
+
+window.trays.add_record = (data, user = -1) ->
+  
+  $("select[name=tray]").change ()->
+      if($(this).val() is 'new_tray') 
+        $("input[name=new_tray]").show()
+      else 
+        $("input[name=new_tray]").hide()
+    
+  $('#add_record_to_tray').submit (e)->
+    e.preventDefault()
+    option = $('select[name=tray]').val()
+    if(option is 'new_tray')
+      $.ajax
+        type: "POST"
+        url: "http://#{window.location.host}/users/#{user}/trays/"
+        data:
+          tray:
+            owner_id: user
+            owner_type: 'User'
+            records: data,
+            visualizations: JSON.stringify([])
+            name: $("input[name=new_tray]").val()
+        success: (data) ->
+          alert('success: tray '+$("input[name=new_tray]").val()+' created and records added')
+        dataType: 'json'
+        headers:
+          'X-CSRF-Token': $("meta[name='csrf-token']").attr('content')
+    else
+      $.ajax
+        type: "GET"
+        url: "/trays/#{option}/add_records/"
+        data:
+          records: data
+        success: ()->
+          alert('success: records added to '+$("input[name=new_tray]").val())
+        dataType: 'json'
+        headers:
+          'X-CSRF-Token': $("meta[name='csrf-token']").attr('content')
+  undefined
+
 window.trays.show = () ->
   
   $('.user_tray .visualization_preview').dblclick (e)->
@@ -12,8 +135,8 @@ window.trays.show = () ->
     $(this).remove()
     current_body = $('#spotlight_body').val()
     $('#spotlight_body').val(current_body+"<#{window.spotlights.components.indexOf(d)}>")
-    index = $("<h3>").append(window.spotlights.components.indexOf(d));
-    c_frame = $(this).clone().append(index);
+    index = $("<h3>").append(window.spotlights.components.indexOf(d))
+    c_frame = $(this).clone().append(index)
     console.log(window.spotlights.components)
     $('#spotlight_components').append(c_frame)
     undefined

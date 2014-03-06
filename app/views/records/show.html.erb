@@ -11,64 +11,8 @@
 			});
 		});
 		
-		var data = [<%= params[:id] %>];
-		
-		$("select[name=tray]").change(function(e){
-			if($(this).val() === 'new_tray') {
-				$("input[name=new_tray]").show();
-			} else {
-				$("input[name=new_tray]").hide();
-			}
-		});
-		
 		<% if session[:user_id] %>
-		
-		$('#add_record_to_tray').submit(function(e) {
-			
-			e.preventDefault();
-			
-			var option = $('select[name=tray]').val();
-			
-			if(option ==='new_tray'){
-				$.ajax({
-					type : "POST",
-					url : 'http://'+window.location.host+'/users/<%= session[:user_id]%>/trays/',
-					data : {
-							tray: {
-								owner_id: <%= session[:user_id] || -1 %>,
-								owner_type: 'User',
-								records: data,
-								visualizations: JSON.stringify([]),
-								name: $("input[name=new_tray]").val()
-							}
-							
-						},
-					success : function(data) {
-						alert('success: tray '+$("input[name=new_tray]").val()+' created and records added')
-						},
-					dataType : 'json',
-					headers : {
-					'X-CSRF-Token' : $("meta[name='csrf-token']").attr('content')
-					}
-				});
-			} else {
-				$.ajax({
-					type : "GET",
-					url : '/trays/'+option+'/add_records/',
-					data : {
-							records: data
-						},
-					success : function(data) {
-						alert('success: records added to '+$("input[name=new_tray]").val())
-						},
-					dataType : 'json',
-					headers : {
-					'X-CSRF-Token' : $("meta[name='csrf-token']").attr('content')
-					}
-				});
-			}
-			
-		});
+			window.trays.add_record([<%= params[:id] %>],<%=session[:user_id].to_i%>); 
 		<% end %>
 	});
 </script>

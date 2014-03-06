@@ -1,6 +1,8 @@
-<h1>Editing collection</h1>
+<script>
+	$(document).ready(function() {
+		window.collection.configure();
+		window.collection.populate_fields(<%= raw(@collection.configuration.to_json) %>);
+	});
+</script>
 
 <%= render 'form' %>
-
-<%= link_to 'Show', @collection %> |
-<%= link_to 'Back', collections_path %>

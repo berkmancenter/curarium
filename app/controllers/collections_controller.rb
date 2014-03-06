@@ -29,11 +29,6 @@ class CollectionsController < ApplicationController
     @collection = Collection.new(collection_params)
     @collection.approved = false
     @collection.admin = [session[:user_id]]
-    # now part of collection model
-    #@collection.properties = {}
-    #@collection.configuration.each do |field|
-    #  @collection.properties[field[0]] = {}
-    #end
     respond_to do |format|
       if @collection.save
         format.html { redirect_to @collection, notice: 'Collection was successfully created.' }
@@ -91,7 +86,7 @@ class CollectionsController < ApplicationController
     pr = {}
     pr['curarium'] = [r.id]
     configuration.each do |field|
-      pr[field[0]] = collection.follow_json(r.original, field[1])
+      pr[field[0]] = Collection.follow_json(r.original, field[1])
       if pr[field[0]] == nil or ['thumbnail','image'].include?(field[0])
         next
       end

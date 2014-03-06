@@ -35,15 +35,9 @@ class VisualizationsController < ApplicationController
   def treemap
     minimum = params[:minimum].to_i || 0
     @collection = Collection.find(params[:collection_id])
-    if ( params[:include]==nil and params[:exclude]==nil )
-      query = @collection.properties
-      tmap = treemapify(query[params[:property]])
-      length = @collection.size
-    else
-      query = @collection.sort_properties(params[:include],params[:exclude],params[:property], minimum)
-      tmap = treemapify(query[:properties])
-      length = query[:length]
-    end
+    query = @collection.sort_properties(params[:include],params[:exclude],params[:property], minimum)
+    tmap = treemapify(query[:properties])
+    length = query[:length]
     render json: {length: length, treemap: tmap, properties: query}
   end
   

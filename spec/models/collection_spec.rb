@@ -1,9 +1,9 @@
 require 'spec_helper'
 
 describe ( 'Collection model' ) {
-  context ( 'with valid data' ) {
-    let ( :col ) { Collection.find_by_name( 'test_col' ) }
+  let ( :col ) { Collection.find_by_name( 'test_col' ) }
 
+  context ( 'with valid data' ) {
     it { col.should be_valid }
 
     it ( 'should have generated a key' ) {
@@ -18,16 +18,8 @@ describe ( 'Collection model' ) {
       col.configuration[ 'title' ].present?.should be_true
     }
 
-    it ( 'should have properties' ) {
-      col.properties.should_not eq( nil )
-    }
-
-    it ( 'should have a property for the title configuration field' ) {
-      col.properties[ 'title' ].should_not eq( nil )
-    }
-
-    it ( 'should know that only one record has the title "Starry Night"' ) {
-      col.properties[ 'title' ][ 'Starry Night' ].should eq( 1 )
+    it ( 'should no longer have properties' ) {
+      col.should_not respond_to 'properties'
     }
 
     it ( 'should have records' ) {
@@ -36,15 +28,55 @@ describe ( 'Collection model' ) {
   }
 
   describe ( 'update configuration' ) {
-    let ( :col ) { Collection.find_by_name( 'test_col' ) }
-
-    it ( 'should reset properties' ) {
+    it ( 'should no longer reset properties' ) {
       col.configuration = '{"no_title":["titleInfo",0,"title",0],"image":["relatedItem","*","content","location",0,"url",0,"content"],"thumbnail":["relatedItem","*","content","location",0,"url",1,"content"]}'
       col.changed.include?( 'configuration' ).should be_true
-      col.properties[ 'title' ].should_not eq( nil ) # not saved yet
+      col.should_not respond_to 'properties' # not saved yet
       col.save
-      col.properties[ 'title' ].should eq( nil )
-      col.properties[ 'no_title' ].should_not eq( nil )
+      col.should_not respond_to 'properties'
+    }
+  }
+
+  describe ( 'Collection.follow_json' ) {
+    let ( :original ) { '{"title":"Starry Night"}' }
+
+    it {
+      Collection.follow_json( original, ['title'] ).should eq( ['Starry Night'] )
+    }
+  }
+
+  describe ( 'create_record' ) {
+    let ( :rec_json ) { FactoryGirl.attributes_for( :starry_night ) }
+
+    context ( 'from_json' ) {
+      it {
+        expect {
+          col.create_record_from_json( rec_json[ :original ] )
+        }.to change { col.records.count }.by( 1 )
+      }
+
+      describe ( 'create_record_from_json' ) {
+        before {
+          col.create_record_from_json( rec_json[ :original ] )
+        }
+
+        it {
+          Record.last.parsed[ 'title' ].should eq( '["Starry Night"]' )
+        }
+      }
+    }
+
+    context ( 'from_parsed' ) {
+      it {
+        pr = {}
+        col.configuration.each do |field|
+          pr[field[0]] = Collection.follow_json(rec_json[ :original ], field[1])
+        end
+
+        expect {
+          col.create_record_from_parsed( rec_json[ :original ], pr )
+        }.to change { col.records.count }.by( 1 )
+      }
     }
   }
 }

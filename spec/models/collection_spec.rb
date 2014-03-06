@@ -37,6 +37,14 @@ describe ( 'Collection model' ) {
     }
   }
 
+  describe ( 'Collection.follow_json' ) {
+    let ( :original ) { '{"title":"Starry Night"}' }
+
+    it {
+      Collection.follow_json( original, ['title'] ).should eq( ['Starry Night'] )
+    }
+  }
+
   describe ( 'create_record' ) {
     let ( :rec_json ) { FactoryGirl.attributes_for( :starry_night ) }
 
@@ -45,6 +53,16 @@ describe ( 'Collection model' ) {
         expect {
           col.create_record_from_json( rec_json[ :original ] )
         }.to change { col.records.count }.by( 1 )
+      }
+
+      describe ( 'create_record_from_json' ) {
+        before {
+          col.create_record_from_json( rec_json[ :original ] )
+        }
+
+        it {
+          Record.last.parsed[ 'title' ].should eq( '["Starry Night"]' )
+        }
       }
     }
 

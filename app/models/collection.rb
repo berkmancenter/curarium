@@ -8,10 +8,14 @@ class Collection < ActiveRecord::Base
   validates :configuration, presence: true
   
   def self.follow_json( structure, path )
+    if structure.is_a? String
+      structure = JSON.parse structure
+    end
+
     if structure[path[0]] != nil
       current = structure[path[0]]
       if path.length == 1
-      return [current]
+        return [current]
       else
         if (current.class == Array && path[1] == "*" )
           field = []
@@ -29,7 +33,7 @@ class Collection < ActiveRecord::Base
         end
       end
       field = field.class == Array ? field.compact : field
-    return field
+      return field
     else
       return nil
     end

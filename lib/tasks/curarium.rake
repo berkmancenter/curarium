@@ -86,7 +86,7 @@ namespace :curarium do
 
   def read_record( input_dir, f, configuration )
     # thread to wait for file IO, return json
-    if !File.directory?(f) && File.extname(f) == '.json'
+    if f.present? && !File.directory?(f) && File.extname(f) == '.json'
       filename = "./#{input_dir}/#{File.basename(f)}"
       rec_json = IO.read filename
 

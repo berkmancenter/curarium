@@ -7,6 +7,11 @@ gem 'rails', '4.0.2'
 gem 'pg'
 
 
+gem 'rspec-rails'
+gem 'rake'
+gem 'poltergeist'
+gem 'factory_girl_rails'
+
 
 #required for Heroku
 gem 'rails_12factor'

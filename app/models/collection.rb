@@ -1,6 +1,5 @@
 class Collection < ActiveRecord::Base
   before_create :generate_key
-  before_save :reset_properties
 
   has_many :records, dependent: :destroy
   has_many :spotlights, through: :highlights
@@ -8,41 +7,15 @@ class Collection < ActiveRecord::Base
   validates :description, presence: true
   validates :configuration, presence: true
   
-  def create_record_from_json( original )
-    # why the double parse?
-    # Actually, I think NONE of the parses are needed, as the first one returns a string from a Hash, and the second a Hash from a string.
-    # Maybe there was a good reason of it, I'll remove it and try ingesting. If it works, if that works, this should be ignored altogether. -P
-    
-    properties = self.properties.to_json
-    properties = JSON.parse(properties)
-    
-    # create a record from original JSON, parse it & add it to this collection
-    r = self.records.new
-    r.original = original
-    pr = {}
-    self.configuration.each do |field|
-      pr[field[0]] = self.follow_json(r.original, field[1])
-      if pr[field[0]] == nil or ['thumbnail','image'].include?(field[0])
-        next
-      end
-      pr[field[0]].each do |p|
-        if(properties[field[0]][p] == nil)
-          properties[field[0]][p] = 1
-        else
-          properties[field[0]][p] = properties[field[0]][p] + 1
-         end
-       end
+  def self.follow_json( structure, path )
+    if structure.is_a? String
+      structure = JSON.parse structure
     end
-    self.update(properties: properties)
-    r.parsed = pr
-    r.save
-  end
 
-  def follow_json(structure, path)
     if structure[path[0]] != nil
       current = structure[path[0]]
       if path.length == 1
-      return [current]
+        return [current]
       else
         if (current.class == Array && path[1] == "*" )
           field = []
@@ -60,10 +33,25 @@ class Collection < ActiveRecord::Base
         end
       end
       field = field.class == Array ? field.compact : field
-    return field
+      return field
     else
       return nil
     end
+  end
+
+  def create_record_from_parsed( original, parsed )
+    # create a record from original JSON and pre-parsed version
+    r = self.records.new original: original, parsed: parsed
+    r.save
+  end
+  
+  def create_record_from_json( original )
+    # create a record from original JSON, parse it & add it to this collection
+    pr = {}
+    self.configuration.each do |field|
+      pr[field[0]] = Collection.follow_json(original, field[1])
+    end
+    self.create_record_from_parsed original, pr
   end
   
   def query_records(include, exclude)
@@ -126,14 +114,5 @@ class Collection < ActiveRecord::Base
 
   def generate_key
     self[:key] = SecureRandom.base64
-  end
-  
-  def reset_properties
-    if changed.include? 'configuration'
-      self.properties = {}
-      self.configuration.each { |field|
-        self.properties[field[0]] = {}
-      }
-    end 
   end
 end

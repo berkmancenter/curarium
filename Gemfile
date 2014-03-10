@@ -6,12 +6,12 @@ gem 'rails', '4.0.2'
 #use postgresql
 gem 'pg'
 
-
-gem 'rspec-rails'
-gem 'rake'
-gem 'poltergeist'
-gem 'factory_girl_rails'
-
+group :test do
+  gem 'rspec-rails'
+  gem 'rake'
+  gem 'poltergeist'
+  gem 'factory_girl_rails'
+end
 
 #required for Heroku
 gem 'rails_12factor'

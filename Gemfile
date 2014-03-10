@@ -18,6 +18,7 @@ group :production do
   # Memcached using Memcachier on Heroku
   gem 'memcachier'
   gem 'dalli'
+  gem 'rack-cache'
 end
 
 #required for Heroku

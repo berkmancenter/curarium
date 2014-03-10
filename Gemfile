@@ -13,6 +13,13 @@ group :test do
   gem 'factory_girl_rails'
 end
 
+#caching
+group :production do
+  # Memcached using Memcachier on Heroku
+  gem 'memcachier'
+  gem 'dalli'
+end
+
 #required for Heroku
 gem 'rails_12factor'
 

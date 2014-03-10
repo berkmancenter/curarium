@@ -1,9 +1,14 @@
 Curarium::Application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
-
+  
+  require 'memcachier'
+  require 'dalli'
+  
   # Code is not reloaded between requests.
   config.cache_classes = true
-
+  
+  config.perform_caching = true
+  
   # Eager load code on boot. This eager loads most of Rails and
   # your application in memory, allowing both thread web servers
   # and those relying on copy on write to perform better.
@@ -52,7 +57,8 @@ Curarium::Application.configure do
   # config.logger = ActiveSupport::TaggedLogging.new(SyslogLogger.new)
 
   # Use a different cache store in production.
-  # config.cache_store = :mem_cache_store
+  #config.cache_store = :mem_cache_store
+  config.cache_store = :dalli_store, { compress: true }
 
   # Enable serving of images, stylesheets, and JavaScripts from an asset server.
   # config.action_controller.asset_host = "http://assets.example.com"
@@ -77,4 +83,13 @@ Curarium::Application.configure do
 
   # Use default logging formatter so that PID and timestamp are not suppressed.
   config.log_formatter = ::Logger::Formatter.new
+  
+    
+  # HTTP Caching
+  config.action_dispatch.rack_cache = {
+    :metastore    => Dalli::Client.new,
+    :entitystore  => 'file:tmp/cache/rack/body',
+    :allow_reload => false
+  }
+  
 end

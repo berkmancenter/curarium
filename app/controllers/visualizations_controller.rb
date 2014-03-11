@@ -7,8 +7,8 @@ class VisualizationsController < ApplicationController
       format.html { render action: "index" }
       format.json do
         if Rails.env.production?
-          render json: Rails.cache.fetch('all') do
-            eval(params[:type])}
+          Rails.cache.fetch('all') do
+            render json: eval(params[:type])}
           end
         else
           render json: eval(params[:type])

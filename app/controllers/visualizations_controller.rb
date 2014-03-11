@@ -8,7 +8,7 @@ class VisualizationsController < ApplicationController
       format.json do
         if Rails.env.production?
           Rails.cache.fetch('all') do
-            render json: eval(params[:type])}
+            render json: eval(params[:type])
           end
         else
           render json: eval(params[:type])

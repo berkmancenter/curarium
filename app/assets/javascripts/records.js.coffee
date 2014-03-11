@@ -4,6 +4,32 @@
 
 window.record = {}
 
+window.record.update = () ->
+  $('.parsed_value').click(modify_field)
+  undefined
+
+modify_field = (e) ->
+    field = $(this)
+    field.unbind('click')
+    input = $("<input value='#{$(this).html()}'>")
+    submit = $("<input type='submit' value='change'>")
+    field.empty().append(input).append(submit)
+    submit.mouseup ()->
+      $(field).html($(input).val())
+      $(field).bind('click', modify_field)
+    undefined
+
+read_parsed = ()->
+  parsed = {}
+  $('.parsed_field').each (i) ->
+      key = $(this).attr('id')
+      parsed[key] = []
+      $(this).find('ul').find('li').each (i)->
+        parsed[key].push($(this).html())
+        undefined
+    undefined
+  return parsed 
+
 window.record.display = (image_url)->
   
   main = document.getElementById('main-canvas')

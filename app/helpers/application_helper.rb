@@ -32,31 +32,16 @@ module ApplicationHelper
   end
 
   def print_hstore(hstore_object, class_name,id_name=nil)
-    tags = "<ul class='#{class_name}'"
-    unless id_name == nil
-      tags += "id='#{id_name}'>"
-    end
-    if hstore_object.class == Hash
-      hstore_object.each do |key,value|
-        if value.class == String
-          value = eval(value)
-        end
-        if value.class == Hash or value.class == Array
-          tags += "<li><span class='key'>#{key}:</span></li>"+print_hstore(value, class_name)
-        else
-          tags += "<li><span class='key'>#{key}:</span><span class='value'>#{value}</span></li>"
-        end
+    tags = "<ul class='#{class_name}' id='#{id_name}'>"
+    hstore_object.each do |key, value|
+      tags += "<ul class='parsed_field' id='#{key}'>"
+      tags += "<li class='parsed_key'>#{key}"
+      tags += "<ul class='parsed_values'>"
+      value = JSON.parse(value)
+      value.each do |item|
+        tags += "<li class='parsed_value'>#{item}</li>"
       end
-    elsif hstore_object.class == Array
-      hstore_object.each do |value|
-        if value.class == Hash or value.class ==Array
-          tags += print_hstore(value, class_name)
-        else
-          tags += "<li><span class='value'>#{value}</span></li>"
-        end
-      end
-    else
-      tags += "<li><span class='key'>#{value}</span></li>"
+      tags += "</ul></li></ul>"
     end
     return raw(tags + "</ul>")
   end

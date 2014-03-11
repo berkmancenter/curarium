@@ -50,14 +50,10 @@ class RecordsController < ApplicationController
   # PATCH/PUT /records/1
   # PATCH/PUT /records/1.json
   def update
+    parsed = params[:parsed]
     respond_to do |format|
-      if @record.update(record_params)
-        format.html { redirect_to @record, notice: 'Record was successfully updated.' }
-        format.json { head :no_content }
-      else
-        format.html { render action: 'edit' }
-        format.json { render json: @record.errors, status: :unprocessable_entity }
-      end
+      format.html { redirect_to @record, notice: 'Record was successfully updated.' }
+      format.json { head :no_content }
     end
   end
 

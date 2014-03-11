@@ -12,8 +12,11 @@
 		});
 		
 		<% if session[:user_id] %>
-			window.trays.add_record([<%= params[:id] %>],<%=session[:user_id].to_i%>); 
+			window.trays.add_record([<%= params[:id] %>],<%=session[:user_id].to_i%>);
+			window.record.update(); 
 		<% end %>
+		
+		
 	});
 </script>
 

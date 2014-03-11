@@ -63,7 +63,9 @@ div#annotations{
   color: white;
   width: 98%;
   margin: 1%;
-  .printed_object {
+/*
+ * 
+ .printed_object {
     padding-left: 1em;
     margin: 0px;
   }
@@ -88,15 +90,37 @@ div#annotations{
     text-decoration: underline;
     display: none;
   }
+  */
 }
 
 #parsed_record {
   @include rounded-corners(3px);
   padding: 0.5em;
   position: relative;
-  max-height: 30%;
+  max-height: 80%;
   overflow: auto;
   border: 1px solid white;
+  .parsed_field {
+    font-size: 10pt;
+    font-weight: bold;
+  }
+  .parsed_values {
+    
+    
+  }
+  .parsed_value {
+    margin: 2px;
+    background-color: lightgray;
+    border-radius: 2px;
+    padding: 2px;
+    display: inline-block;
+    list-style: none;
+    font-size: 8pt;
+    color: black;
+    input {
+      display: inline;
+    }
+  }
 }
 
 #original_record {

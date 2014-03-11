@@ -7,20 +7,18 @@ class VisualizationsController < ApplicationController
       format.html { render action: "index" }
       format.json do
         if Rails.env.production?
-          Rails.cache.fetch("all") do
-            eval(params[:type])
-          end
+          render json: Rails.cache.fetch('all') {eval(params[:type])}
         else
-          eval(params[:type])
+          render json: eval(params[:type])
         end
-      end 
+      end
     end
   end
   
   def tag
     @collection = Collection.find(params[:collection_id])
     tags = @collection.sort_properties(params[:include],params[:exclude],params[:property], params[:minimum])
-    render json: tags
+    return tags
   end
   
   def quick_search
@@ -37,7 +35,7 @@ class VisualizationsController < ApplicationController
           id: thumb.id
         })
     end
-    render json: thumbnails
+    return thumbnails
   end
   
   def treemap
@@ -46,7 +44,7 @@ class VisualizationsController < ApplicationController
     query = @collection.sort_properties(params[:include],params[:exclude],params[:property], minimum)
     tmap = treemapify(query[:properties])
     length = query[:length]
-    render json: {length: length, treemap: tmap, properties: query}
+    return {length: length, treemap: tmap, properties: query}
   end
   
   def treemapify(data,name='main')
@@ -77,13 +75,13 @@ class VisualizationsController < ApplicationController
           id: thumb.id
         })
     end
-    render json: thumbnails
+    return thumbnails
   end
   
   def list_records
     @collection = Collection.find(params[:collection_id])
     records = @collection.list_query(params[:include],params[:exclude])
-    render json: records
+    return records
   end
   
 end

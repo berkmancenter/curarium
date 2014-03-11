@@ -5,7 +5,15 @@ class VisualizationsController < ApplicationController
     @properties = Collection.find(params[:collection_id]).configuration.keys
     respond_to do |format|
       format.html { render action: "index" }
-      format.json { eval(params[:type]) }
+      format.json do
+        if Rails.env.production?
+          Rails.cache.fetch("all") do
+            eval(params[:type])
+          end
+        else
+          eval(params[:type])
+        end
+      end 
     end
   end
   

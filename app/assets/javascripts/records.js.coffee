@@ -5,18 +5,41 @@
 window.record = {}
 
 window.record.update = () ->
-  $('.parsed_value').click(modify_field)
+  $('.parsed_value').dblclick(modify_field)
+  add_field = $("<input type='submit' value='add'>").click ()->
+    new_field = $("<li class='parsed_value'></li>")
+    input = $("<input>")
+    add = $("<input type='submit' value='add'>")
+    cancel = $("<input type='submit' value='cancel'>")
+    new_field.append(input).append(add).append(cancel)
+    add.click ()->
+      $(new_field).html($(input).val())
+      $(new_field).bind('dblclick', modify_field)
+    cancel.click ()->
+      new_field.remove()
+    $(this).before(new_field)
+    undefined
+  $('.parsed_field .parsed_values').append(add_field)
   undefined
 
 modify_field = (e) ->
     field = $(this)
-    field.unbind('click')
-    input = $("<input value='#{$(this).html()}'>")
-    submit = $("<input type='submit' value='change'>")
-    field.empty().append(input).append(submit)
-    submit.mouseup ()->
+    field.unbind('dblclick')
+    current = $(this).html()
+    input = $("<input value='#{current}'>")
+    change = $("<input type='submit' value='change'>")
+    cancel = $("<input type='submit' value='cancel'>")
+    del = $("<input type='submit' value='delete'>")
+    field.empty().append(input).append(change).append(cancel).append(del)
+    change.click ()->
       $(field).html($(input).val())
-      $(field).bind('click', modify_field)
+      $(field).bind('dblclick', modify_field)
+      console.log? read_parsed()
+    cancel.click ()->
+      $(field).html(current)
+      $(field).bind('dblclick', modify_field)
+    del.click ()->
+      $(field).remove()
     undefined
 
 read_parsed = ()->

@@ -10,8 +10,9 @@ group :test do
   gem 'rspec-rails'
   gem 'rake'
   gem 'poltergeist'
-  gem 'factory_girl_rails'
 end
+
+gem 'factory_girl_rails' #breaks rake if its only in test group
 
 #caching
 group :production do

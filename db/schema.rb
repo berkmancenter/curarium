@@ -11,11 +11,23 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140219212500) do
+ActiveRecord::Schema.define(version: 20140312145402) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
   enable_extension "hstore"
+
+  create_table "amendments", force: true do |t|
+    t.hstore   "previous"
+    t.hstore   "amended"
+    t.integer  "user_id"
+    t.integer  "record_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "amendments", ["record_id"], name: "index_amendments_on_record_id", using: :btree
+  add_index "amendments", ["user_id"], name: "index_amendments_on_user_id", using: :btree
 
   create_table "annotations", force: true do |t|
     t.integer  "user_id"

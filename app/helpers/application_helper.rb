@@ -37,8 +37,8 @@ module ApplicationHelper
       tags += "<ul class='parsed_field' id='#{key}'>"
       tags += "<li class='parsed_key'>#{key}"
       tags += "<ul class='parsed_values'>"
-      value = JSON.parse(value)
       unless value.nil?
+        value = JSON.parse(value)
         value.each do |item|
           tags += "<li class='parsed_value'>#{item}</li>"
         end

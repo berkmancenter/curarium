@@ -134,8 +134,6 @@ window.record.display = (image_url)->
     (event) ->
       if(event.which==1)
 
-        o_x = 
-        
         clipping =
           x: Math.floor(crop.getAttr('x')) - (main.offsetWidth/min_scale - surrogate.width)/2 #remove picture offset for clipping purposes
           y: Math.floor(crop.getAttr('y')) - (main.offsetHeight/min_scale - surrogate.height)/2 #remove picture offset for clipping purposes

@@ -9,6 +9,11 @@ Curarium::Application.configure do
   
   config.perform_caching = true
   
+  config.action_dispatch.default_headers = {
+    'Access-Control-Allow-Origin' => '*',
+    'Access-Control-Request-Method' => '*'
+  }
+  
   # Eager load code on boot. This eager loads most of Rails and
   # your application in memory, allowing both thread web servers
   # and those relying on copy on write to perform better.

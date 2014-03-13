@@ -6,10 +6,7 @@ require 'rails/all'
 # you've limited to :test, :development, or :production.
 Bundler.require(:default, Rails.env)
 
-config.action_dispatch.default_headers = {
-  'Access-Control-Allow-Origin' => '*',
-  'Access-Control-Request-Method' => '*'
-}
+
 
 module Curarium
   class Application < Rails::Application

@@ -1,6 +1,7 @@
 Curarium::Application.routes.draw do
 
   
+  
   get "amendments/index"
   get 'trays/:id/add_records' => 'trays#add_records', as: 'add_records'
   get 'trays/:id/add_visualization' => 'trays#add_visualization', as: 'add_visualization'
@@ -38,6 +39,7 @@ Curarium::Application.routes.draw do
   resources :spotlights
 
   resources :records do
+    resources :amendments
     resources :annotations
   end
 

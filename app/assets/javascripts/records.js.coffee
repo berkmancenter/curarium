@@ -4,7 +4,13 @@
 
 window.record = {}
 
+window.record.parsed = {}
+
 window.record.update = () ->
+  window.record.parsed = read_parsed()
+  save = $("<input type='submit' value='save changes'>")
+  $('#parsed_record').append(save)
+  save.click(submit_update)
   $('.parsed_value').dblclick(modify_field)
   add_field = $("<input type='submit' value='add'>").click ()->
     new_field = $("<li class='parsed_value'></li>")
@@ -14,12 +20,30 @@ window.record.update = () ->
     new_field.append(input).append(add).append(cancel)
     add.click ()->
       $(new_field).html($(input).val())
+      $(new_field).css('background','lightblue')
       $(new_field).bind('dblclick', modify_field)
+      window.record.parsed = read_parsed()
     cancel.click ()->
       new_field.remove()
     $(this).before(new_field)
     undefined
   $('.parsed_field .parsed_values').append(add_field)
+  undefined
+
+submit_update = ()->
+  $.ajax(
+      type: "PUT"
+      url: window.location.href
+      data: 
+        record:
+          parsed: window.record.parsed
+      success: (data)->
+        console.log data
+        $('.parsed_value').css('background','#D3D3D3')
+      dataType : 'json',
+      headers : 
+        'X-CSRF-Token' : $("meta[name='csrf-token']").attr('content')
+    )
   undefined
 
 modify_field = (e) ->
@@ -33,13 +57,16 @@ modify_field = (e) ->
     field.empty().append(input).append(change).append(cancel).append(del)
     change.click ()->
       $(field).html($(input).val())
+      $(field).css('background','lightblue')
       $(field).bind('dblclick', modify_field)
-      console.log? read_parsed()
+      window.record.parsed = read_parsed()
+      console.log? window.record.parsed
     cancel.click ()->
       $(field).html(current)
       $(field).bind('dblclick', modify_field)
     del.click ()->
       $(field).remove()
+      window.record.parsed = read_parsed()
     undefined
 
 read_parsed = ()->

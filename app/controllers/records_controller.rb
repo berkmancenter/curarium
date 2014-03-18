@@ -50,10 +50,19 @@ class RecordsController < ApplicationController
   # PATCH/PUT /records/1
   # PATCH/PUT /records/1.json
   def update
-    parsed = params[:parsed]
+    original = @record.parsed
+    amended = params[:record][:parsed]
+    @record.update(parsed: amended)
+    
+    @amendment = @record.amendments.new
+    @amendment.user_id = session[:user_id].to_i
+    @amendment.previous = original
+    @amendment.amended = amended
+    @amendment.save
+    
     respond_to do |format|
-      format.html { redirect_to @record, notice: 'Record was successfully updated.' }
-      format.json { head :no_content }
+      format.html { redirect_to @record }
+      format.json { render json: @amendment }
     end
   end
 

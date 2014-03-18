@@ -1,2 +1,32 @@
-<h1>Amendments#index</h1>
-<p>Find me in app/views/amendments/index.html.erb</p>
+<table id='record_amendments'>
+	<thead>
+		<tr>
+			<th class='amendment_id'>ID</th>
+			<th class='amendment_user'>User</th>
+			<th class='amendment_previous'>Previous</th>
+			<th class='amendment_amended'>Amended</th>
+		</tr>
+	</thead>
+	<tbody>
+<% @amendments.each do |amendment| %>
+	<tr>
+		<td class='amendment_id'><%=amendment.id%></td>
+		<td class='amendment_user'><%=User.find(amendment.user_id).name%></td>
+		<td><dl>
+			<% amendment.previous.each do |key,value|%>
+				<dt><%=key%></dt>
+				<dd><%=value%></dd>
+			<% end %>
+			</dl>
+		</td>
+		<td><dl>
+			<% amendment.amended.each do |key,value|%>
+				<dt><%=key%></dt>
+				<dd><%=value%></dd>
+			<% end %>
+			</dl>
+		</td>
+	</tr>
+<% end %>
+</tbody>
+</table>

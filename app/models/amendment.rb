@@ -1,4 +1,4 @@
 class Amendment < ActiveRecord::Base
   belongs_to :user
-  belongs_to :record
+  #belongs_to :record
 end

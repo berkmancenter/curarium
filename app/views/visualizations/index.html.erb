@@ -13,7 +13,7 @@
 		for(var property in properties){
 			properties[property] = Object.keys(properties[property]); 
 		}
-		window.visualization['<%=params[:type]%>']('main',window.location.href);
+		window.visualization['<%=params[:type]%>']('main',"<%=request.original_url%>");
 		window.collection.visualization_controls(properties);
 		<% if session[:user_id] %>
 			window.trays.add_records(<%=session[:user_id].to_i%>);

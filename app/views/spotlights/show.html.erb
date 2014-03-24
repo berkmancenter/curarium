@@ -32,9 +32,13 @@
   			window.spotlights.display_annotation('annotation_wrapper_<%=i%>', <%= raw(c['content'].to_json) %>)
   		</script>
   	<% elsif c['type'] == 'visualization' %>
-  		<div class='visualization_component'></div>
+  		<!--
+  		<%# @visualization = { type: c['body']['terms']['type'], url: c['body']['url']}%>
+  		<%# render partial: 'shared/embed', locals: {visualization: @visualization}%>
+  		-->
+  		<a href="<%=c['body']['url']%>" target='_blank'><div class='visualization_component'></div></a>
   		<script type="text/javascript">
-  			window.visualization['<%=c['body']['terms']['type']%>']('spotlight_reference_<%=i%> .visualization_component', "<%=c['body']['url']%>");
+  			window.visualization['<%=c['body']['terms']['type']+'_embedded'%>']('spotlight_reference_<%=i%> .visualization_component', "<%=c['body']['url']%>");
   		</script>
   	<% end %>
   </div>

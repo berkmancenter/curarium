@@ -60,6 +60,8 @@ section#main {
   }
   #curarium_about{
     width: 20%;
+    height: 15em;
+    overflow: auto;
     #curarium_description {
       font-size: 14pt;
     }
@@ -68,9 +70,27 @@ section#main {
     }
   }
   #curarium_feed{
-    width: 60%;
+    width: 80%;
+    height: 15em;
+    overflow: auto;
   }
   #curarium_dashboard{
-    width: 20%;
+    .curarium_dashboard{
+      width: 20%;
+      height: 100%;
+      display: inline-block;
+      float: left;
+      overflow: auto;
+    }
+    width: 100%;
+    height: calc(100% - 15em - 25px);
+    .user_annotation{
+      width: 75px;
+      height: 75px;
+      margin: 2px;
+      display: inline-block;
+      overflow: hidden;
+      float: left;
+    }
   }
 }

@@ -4,6 +4,7 @@
 		$('#add_record_to_tray').prependTo('header #secondary_nav');
 		$('#annotation_toggle_wrapper').prependTo('header #secondary_nav');
 		
+		window.annotation.tag_selector();
 		window.record.display( '<%=eval(@record.parsed['image'])[image]%>' );
 		$('img.surrogate_thumbnail').each( function(i){
 			$(this).click(function(e){
@@ -81,6 +82,7 @@
 			  <input id='short_description' name='content[title]'><br>
 			  <label for='long_description'>Long Description:</label><br>
 			  <textarea id='long_description' name='content[body]'></textarea><br>
+			  <%= tag_selector @record.parsed %>
 			  <input type='hidden' name='content[x]'>
 			  <input type='hidden' name='content[y]'>
 			  <input type='hidden' name='content[width]'>
@@ -96,11 +98,16 @@
 	<div id='record_annotations'>
 		<% @record.annotations.each do |annotation|%>
 			<% if annotation.content %>
-				<div class='annotation_wrapper'>
+				<div class='annotation_wrapper' id='note_<%= annotation.id%>'>
 					<p class='annotation_title'><%= annotation.content['title'] %></p>
 					<p class='annotation_body'><%= annotation.content['body'] %></p>
+					<%unless annotation.content['tags'].nil? %>
+					<div class='annotation_tags'><% annotation.content['tags'].each do |tag| %>
+						<p class='annotation_tag'><%= tag%></p>
+						<% end %>
+					</div>
+					<% end %>
 					<p class='annotation_attribution'>by <%= annotation.user.name %> on <%= annotation.created_at %></p>
-					
 				</div>
 			<% end %>
 		<% end %>

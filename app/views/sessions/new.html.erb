@@ -1,14 +1,15 @@
-<div class="depot_form">
+<div id='user_sign_in'>
 	<% if flash[:alert] %>
-	<p id="notice">
+	<p id="title" class='error'>
 		<%= flash[:alert] %>
+	</p>
+	<% else %>
+	<p id="title">
+		Please Log In
 	</p>
 	<% end %>
 	<%= form_tag do %>
 	<fieldset>
-		<legend>
-			Please Log In
-		</legend>
 		<div>
 			<%= label_tag :email, 'Email:' %>
 			<%= text_field_tag :email, params[:email] %>
@@ -22,6 +23,7 @@
 		</div>
 	</fieldset>
 	<% end %>
+	<p class='new_user'>new user? <%= link_to 'sign up', controller:'users', action: 'new'%>
 </div>
 
-<p>new user? <%= link_to 'sign up', controller:'users', action: 'new'%>
+

@@ -11,68 +11,80 @@ $text: white;
   border-radius: $radius;
 }
 
-header, nav{
-  width: 100%;
-  height: 25px;
-  position: absolute;
-  ul {
-    display: inline-block;
-    float: right;
-    height: 25px;
-    margin-right: 25px;
-    li {
-      @include rounded-corners(3px);
-      background: gray;
-      display: inline-block;
-      height: 18px;
-      margin: 3.5px;
-      padding: 0 5px 0 5px;
-      a {
-        color: black;
-        &:hover{
-          text-decoration: none;
-        }
-      }
-    }
-  }
-}
 
-header>nav *{
-  display: inline;
-  color: $text;
-}
 
-header nav {
-  background-color: $header;
-}
 
 section#main {
   position: absolute;
   width: 100%;
   height: 100%;
-  padding: 25px 0 0 0;
-  background-color: lightgray;
+  padding: 50px 0 0 0;
+  background-color: white;
   overflow: auto;
   .home_section{
     height: 100%;
     float: left;
-    padding: 1em;
   }
   #curarium_about{
+    padding: 1em;
     width: 20%;
-    height: 15em;
+    height: 100%;
     overflow: auto;
+    img {
+      max-width: 100%;
+    }
     #curarium_description {
-      font-size: 14pt;
+      font-size: 16pt;
     }
     #curarium_sponsors {
-      font-size: 8pt;
+      font-size: 10pt;
     }
   }
   #curarium_feed{
     width: 80%;
-    height: 15em;
-    overflow: auto;
+    height: 100%;
+    overflow: hidden;
+    position: relative;
+    div {
+      display: inline-block;
+      float: left;
+      background-position: center;
+      background-size: cover;
+      div.content {
+        padding: 1em;
+        width:100%;
+        height: 100%;
+        overflow: hidden;
+        h3 {
+          a{
+            font-size: 16pt;
+            color: black;
+            font-weight: bold;
+          }
+        }
+        p.collection {
+          margin-top: 20px;
+          line-height: 20pt;
+          span {
+            background-color: black;
+            color: white;
+          }
+        }
+      }
+    }
+    div.even{
+      width:100%;
+      height: 50%;
+    }
+    div.odd{
+      width:50%;
+      height: 100%;
+    }
+    div.last{
+      background: green;
+      width:100%;
+      height: 100%;
+    }
   }
   #curarium_dashboard{
     .curarium_dashboard{
@@ -81,6 +93,9 @@ section#main {
       display: inline-block;
       float: left;
       overflow: auto;
+    }
+    #user_trays{
+      width: 100%;
     }
     width: 100%;
     height: calc(100% - 15em - 25px);

@@ -1,3 +1,77 @@
 // Place all the styles related to the users controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+@mixin rounded-corners($radius) {
+  -webkit-border-radius: $radius;
+  -moz-border-radius: $radius;
+  border-radius: $radius;
+}
+
+
+
+#user_sign_in {
+  width: 300px;
+  height: 300px;
+  border: 1px solid black;
+  margin: 50px auto;
+  position: relative;
+  background-color: lightgray;
+  #title {
+    width: 100%;
+    background-color: black;
+    color: white;
+    padding: 2px;
+    font-size: 12pt;
+    text-transform: uppercase;
+    font-family: Montserrat;
+    text-align: center;
+    height: 25px;
+    &.error {
+      background-color: red;
+      padding: 6px;
+      font-size: 8pt;
+    }
+  }
+  fieldset{
+    padding: 6px;
+    label {
+    width: 100%;
+  }
+  input {
+    width: 100%;
+  }
+  input[type=submit]{
+    margin: 3px 0;
+    font-family: Montserrat;
+    width: 60px;
+    color: black;
+    border: 1px solid black;
+    text-transform: uppercase;
+    background-color: white;
+    float: right;
+      &:hover {
+        background:black;
+        color: red;
+      }
+    }
+  }
+  p.new_user {
+    text-align: right;
+    width: 75px;
+    font-size: 12pt;
+    float: right;
+    position: absolute;
+    bottom: 10px;
+    right: 6px;
+    a{
+      @include rounded-corners(3px);
+      padding: 2px;
+      font-family: Montserrat;
+      background:white;
+      border: 1px solid black;
+      text-transform: uppercase;
+      color: black;
+    }
+  }
+}

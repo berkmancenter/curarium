@@ -18,7 +18,14 @@
 	border: 0;
 	box-sizing: border-box;
 	-moz-box-sizing:border-box;
-	font-family: Helvetica;
+	font-family: Lato;
+}
+
+a {
+	color: black;
+	font-size: 10pt;
+	text-decoration: none;
+	cursor: pointer;
 }
 
 html, body {
@@ -27,14 +34,7 @@ html, body {
 	position: absolute;
 }
 
-.main_title {
-	text-decoration: none;
-	color: white;
-}
 
-.main_title:visited {
-	color: white;
-}
 
 input[type=submit], .fake_button {
 	display: inline-block;
@@ -72,6 +72,6 @@ input[type=submit], .fake_button {
 #secondary_nav{
 	position: relative;
 	display: inline-block;
-	height: 25px;
+	height: 50px;
 	width:50%
 }

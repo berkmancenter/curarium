@@ -18,7 +18,18 @@
 </div>
 <% else %>
 <div id='curarium_dashboard' class="home_section">
-	<h3> Welcome back, <%= @user.name%>! </h3>
+	<header>
+		<h3> Welcome back, <%= @user.name%>! </h3>
+		<nav id='dashboard_nav'>
+			<ul>
+				<li><a data-target='user_sections'>sections</a></li>
+				<li><a data-target='user_collections'>collections</a></li>
+				<li><a data-target='user_spotlights'>spotlights</a></li>
+				<li><a data-target='current_user_trays'>trays</a></li>
+				<li><a data-target='user_annotations'>annotations</a></li>
+			</ul>
+		</nav>
+	</header>
 	<div id='user_sections' class='curarium_dashboard'>
 		<h3>Sections <%= link_to 'New', new_section_url, class:'fake_button' %></h3>
 		<% Section.where(":id = ANY (users)", {id: session[:user_id].to_s}).each do |c|%>
@@ -120,6 +131,7 @@ window.spotlights.display_annotation('annotation_<%= note.id%>',<%= raw(note['co
 </div>
 <script type="text/javascript">
 	$(document).ready(function() {
+		window.home.dashboard();
 		window.trays.show();
 	}); 
 </script>

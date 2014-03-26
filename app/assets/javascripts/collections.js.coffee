@@ -9,12 +9,9 @@ window.collection.visualization_controls = (properties)->
       $(this).parent().css('height', 'auto')
       $(this).css('color', 'gray')
     else
-      $(this).parent().css('height', 25)
+      $(this).parent().css('height', 20)
       $(this).css('color', 'white')
-    
-  $('#refine_search').appendTo('header #secondary_nav')
-  $('#add_records_to_tray').prependTo('header #secondary_nav')
-  $('#add_visualization_to_tray').appendTo('header #secondary_nav')
+
   
   $('.remove_element').click (e)->
     $(this).parent().remove()

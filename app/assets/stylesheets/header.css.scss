@@ -1,4 +1,6 @@
-$header: black;
+
+$header: 35px;
+$secondary: 20px;
 $text: white;
 
 @mixin rounded-corners($radius) {
@@ -10,7 +12,7 @@ $text: white;
 
 .main_title {
   float: left;
-  height: 50px;
+  height: $header;
   padding-left: 1em;
   display: table;
   a {
@@ -32,14 +34,14 @@ $text: white;
 }
 
 #main_header, #main_nav{
-  background-color: $header;
+  background-color: black;
   width: 100%;
-  height: 50px;
+  height: $header;
   position: absolute;
   ul {
     display: table;
     float: right;
-    height: 50px;
+    height: $header;
     margin-right: 25px;
     li {
       @include rounded-corners(3px);
@@ -58,3 +60,42 @@ $text: white;
     }
   }
 }
+
+nav#secondary_nav {
+      z-index:100;
+      position: absolute;
+      left: 0;
+      top: $header;
+      width: 100%;
+      height: $secondary;
+      padding: 0 30px;
+      background-color: black;
+      color: white;
+      font-family: Montserrat;
+      ul, h3{
+        font-size: 10pt;
+        display: inline-block;
+        float: left;
+      }
+      ul{
+        float: right;
+      }
+      form{
+        float: left;
+        display: inline-block;
+        
+      }
+      li{
+        display: inline;
+        list-style: none;
+        a{
+          text-transform: uppercase;
+          font-size: 8pt;
+          font-weight: bold;
+          color: white;
+          &:hover{
+            color: red;
+          }        
+        }
+      }
+    }

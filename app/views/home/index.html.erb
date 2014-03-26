@@ -17,8 +17,7 @@
 
 </div>
 <% else %>
-<div id='curarium_dashboard' class="home_section">
-	<header>
+<nav id='secondary_nav'>
 		<h3> Welcome back, <%= @user.name%>! </h3>
 		<nav id='dashboard_nav'>
 			<ul>
@@ -29,7 +28,8 @@
 				<li><a data-target='user_annotations'>annotations</a></li>
 			</ul>
 		</nav>
-	</header>
+</nav>
+<div id='curarium_dashboard' class="home_section">
 	<div id='user_sections' class='curarium_dashboard'>
 		<h3>Sections <%= link_to 'New', new_section_url, class:'fake_button' %></h3>
 		<% Section.where(":id = ANY (users)", {id: session[:user_id].to_s}).each do |c|%>

@@ -11,182 +11,116 @@
 </div>
 
 <div id='curarium_feed' class="home_section">
-	
+
 	<% curarium_feed = Collection.where(approved: true).limit(5) + Spotlight.all.limit(10) %>
 	<%= fractal_box(curarium_feed)%>
-	<!--<div class='odd'>
-		<p>CONTENT</p>
-	</div>
-	<div class='odd'>
-		<div class='even'>
-			<p>CONTENT</p>
-		</div>
-		<div class='even'>
-			<div class='odd'>
-				<p>CONTENT</p>
-			</div>
-			<div class='odd'>
-				<div class='even'>
-					<p>CONTENT</p>
-				</div>
-				<div class='even'>
-					<div class='odd'>
-						<p>CONTENT</p>
-					</div>
-					<div class='odd'>
-						<div class='last'>
-							<p>CONTENT</p>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>-->
-	
 
-		<!--	<% curarium_feed = Collection.where(approved: true).limit(5) + Spotlight.all.limit(10) %>
-		<% curarium_feed.each do |cf|%>
-		<% if cf.class == Collection%>
-		<div class='curarium_collection'>
-		<h3><%= link_to cf.name, cf %></h3>
-		<p>
-		<%= truncate(cf.description, length: 256) %>
-		</p>
-		</div>
-		<% else %>
-		<div class='curarium_collection'>
-		<h3><%= link_to cf.title, cf %></h3>
-		<p>
-		<%= truncate(cf.body, length: 256) %>
-		</p>
+</div>
+<% else %>
+<div id='curarium_dashboard' class="home_section">
+	<h3> Welcome back, <%= @user.name%>! </h3>
+	<div id='user_sections' class='curarium_dashboard'>
+		<h3>Sections <%= link_to 'New', new_section_url, class:'fake_button' %></h3>
+		<% Section.where(":id = ANY (users)", {id: session[:user_id].to_s}).each do |c|%>
+		<div class='curarium_section'>
+			<h4><%= link_to c.title, c %></h4>
 		</div>
 		<% end %>
-		<% end %>-->
 	</div>
-	<% else %>
-
-	<div id='curarium_feed' class="home_section">
-		<% Collection.where(approved: true).each do |c|%>
+	<div id='user_collections' class='curarium_dashboard'>
+		<h3>Collections   <%= link_to 'New', new_collection_path, class: 'fake_button' %></h3>
+		<% Collection.all.each do |collection| %>
+		<%	if collection.admin.include?(session[:user_id]) %>
 		<div class='curarium_collection'>
-			<h3><%= link_to c.name, c %></h3>
+			<h3><%= link_to collection.name, collection %></h3>
 			<p>
-				<%= truncate(c.description, length: 256) %>
+				<%= truncate(collection.description, length: 256) %>
+			</p>
+			<p>
+				<%= collection.key %>
+			</p>
+			<p>
+				<%= link_to 'Edit', edit_collection_path(collection) %>
+			</p>
+			<p>
+				<%= link_to 'Destroy', collection, method: :delete, data: { confirm: 'Are you sure?' } %>
 			</p>
 		</div>
+		<% end%>
 		<% end %>
-		<% Spotlight.all.each do |s|%>
+	</div>
+	<div id='user_spotlights' class='curarium_dashboard'>
+		<h3>Spotlights   <%= link_to 'New', new_spotlight_path, class: 'fake_button' %></h3>
+		<% @user.spotlights.each do |spotlight| %>
 		<div class='curarium_collection'>
-			<h3><%= link_to s.title, s %></h3>
+			<h3><%= link_to spotlight.title, spotlight %></h3>
 			<p>
-				<%= truncate(s.body, length: 256) %>
+				by <%= link_to spotlight.user.name, spotlight.user %> on <%= spotlight.created_at%>
+			</p>
+			<p>
+				<% text = spotlight.body %>
+				<% if text.match /\<(\d)\>/ %>
+				<%= truncate(text.gsub!(/\<(\d)\>/, "(see figure \\1)"), length: 256) %>
+				<% else %>
+				<%= truncate(text, length: 256) %>
+				<% end %>
+
+			</p>
+			<p>
+				<%= link_to 'Edit', edit_spotlight_path(spotlight) %>
+			</p>
+			<p>
+				<%= link_to 'Destroy', spotlight, method: :delete, data: { confirm: 'Are you sure?' } %>
 			</p>
 		</div>
 		<% end %>
 	</div>
-	<div id='curarium_dashboard' class="home_section">
-		<h3> Welcome back, <%= @user.name%>! </h3>
-		<div id='user_sections' class='curarium_dashboard'>
-			<h3>Sections <%= link_to 'New', new_section_url, class:'fake_button' %></h3>
-			<% Section.where(":id = ANY (users)", {id: session[:user_id].to_s}).each do |c|%>
-			<div class='curarium_section'>
-				<h4><%= link_to c.title, c %></h4>
-			</div>
-			<% end %>
-		</div>
-		<div id='user_collections' class='curarium_dashboard'>
-			<h3>Collections   <%= link_to 'New', new_collection_path, class: 'fake_button' %></h3>
-			<% Collection.all.each do |collection| %>
-			<%	if collection.admin.include?(session[:user_id]) %>
-			<div class='curarium_collection'>
-				<h3><%= link_to collection.name, collection %></h3>
-				<p>
-					<%= truncate(collection.description, length: 256) %>
-				</p>
-				<p>
-					<%= collection.key %>
-				</p>
-				<p>
-					<%= link_to 'Edit', edit_collection_path(collection) %>
-				</p>
-				<p>
-					<%= link_to 'Destroy', collection, method: :delete, data: { confirm: 'Are you sure?' } %>
-				</p>
-			</div>
-			<% end%>
-			<% end %>
-		</div>
-		<div id='user_spotlights' class='curarium_dashboard'>
-			<h3>Spotlights   <%= link_to 'New', new_spotlight_path, class: 'fake_button' %></h3>
-			<% @user.spotlights.each do |spotlight| %>
-			<div class='curarium_collection'>
-				<h3><%= link_to spotlight.title, spotlight %></h3>
-				<p>
-					by <%= link_to spotlight.user.name, spotlight.user %> on <%= spotlight.created_at%>
-				</p>
-				<p>
-					<% text = spotlight.body %>
-					<% if text.match /\<(\d)\>/ %>
-					<%= truncate(text.gsub!(/\<(\d)\>/, "(see figure \\1)"), length: 256) %>
-					<% else %>
-					<%= truncate(text, length: 256) %>
-					<% end %>
-
-				</p>
-				<p>
-					<%= link_to 'Edit', edit_spotlight_path(spotlight) %>
-				</p>
-				<p>
-					<%= link_to 'Destroy', spotlight, method: :delete, data: { confirm: 'Are you sure?' } %>
-				</p>
-			</div>
-			<% end %>
-		</div>
-		<div id='current_user_trays' class='curarium_dashboard'>
-			<h3>Trays</h3>
-			<div id="user_trays">
-				<h2 id='trays_title'> Your Trays </h2>
-				<% @user.trays.each do |tray|%>
-				<div class='user_tray'>
-					<h3><%= tray.name %></h3>
-					<% tray.records.each do |record|%>
-					<% @record = Record.find(record) %>
-					<%= render 'records/thumb', locals: {record: @record} %>
-					<% end %>
-					<h3>Visualizations:</h3>
-					<% tray.visualizations.each do |visualization|%>
-					<div class='visualization_preview' data-type='visualization' data-body='<%= visualization.to_json%>'>
-						<p>
-							type:<%= visualization['terms']['type']%>
-						</p>
-						<p>
-							property:<%= visualization['terms']['property']%>
-						</p>
-						<p>
-							include:<%= visualization['terms']['include']%>
-						</p>
-						<p>
-							exclude:<%= visualization['terms']['exclude']%>
-						</p>
-					</div>
-					<% end %>
+	<div id='current_user_trays' class='curarium_dashboard'>
+		<h3>Trays</h3>
+		<div id="user_trays">
+			<h2 id='trays_title'> Your Trays </h2>
+			<% @user.trays.each do |tray|%>
+			<div class='user_tray'>
+				<h3><%= tray.name %></h3>
+				<% tray.records.each do |record|%>
+				<% @record = Record.find(record) %>
+				<%= render 'records/thumb', locals: {record: @record} %>
+				<% end %>
+				<h3>Visualizations:</h3>
+				<% tray.visualizations.each do |visualization|%>
+				<div class='visualization_preview' data-type='visualization' data-body='<%= visualization.to_json%>'>
+					<p>
+						type:<%= visualization['terms']['type']%>
+					</p>
+					<p>
+						property:<%= visualization['terms']['property']%>
+					</p>
+					<p>
+						include:<%= visualization['terms']['include']%>
+					</p>
+					<p>
+						exclude:<%= visualization['terms']['exclude']%>
+					</p>
 				</div>
 				<% end %>
 			</div>
-		</div>
-		<div id='user_annotations' class='curarium_dashboard'>
-			<h3>Annotations</h3>
-			<% @user.annotations.each do |note|%>
-			<a class='user_annotation' href='<%= record_path Record.find(note['record_id'])%>' target='_blank' id='annotation_<%= note.id%>'> </a>
-			<script type='text/javascript'>
-window.spotlights.display_annotation('annotation_<%= note.id%>',<%= raw(note['content'].to_json) %>
-				)
-			</script>
 			<% end %>
 		</div>
 	</div>
-	<script type="text/javascript">
-$(document).ready(function(){
-window.trays.show();
-});
-	</script>
-	<% end %>
+	<div id='user_annotations' class='curarium_dashboard'>
+		<h3>Annotations</h3>
+		<% @user.annotations.each do |note|%>
+		<a class='user_annotation' href='<%= record_path Record.find(note['record_id'])%>' target='_blank' id='annotation_<%= note.id%>'> </a>
+		<script type='text/javascript'>
+window.spotlights.display_annotation('annotation_<%= note.id%>',<%= raw(note['content'].to_json) %>
+	)
+		</script>
+		<% end %>
+	</div>
+</div>
+<script type="text/javascript">
+	$(document).ready(function() {
+		window.trays.show();
+	}); 
+</script>
+<% end %>

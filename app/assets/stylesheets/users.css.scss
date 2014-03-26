@@ -10,7 +10,7 @@
 
 
 
-#user_sign_in {
+#user_sign_in, #new_curarium_user {
   width: 300px;
   height: 300px;
   border: 1px solid black;
@@ -33,7 +33,7 @@
       font-size: 8pt;
     }
   }
-  fieldset{
+  fieldset, form{
     padding: 6px;
     label {
     width: 100%;

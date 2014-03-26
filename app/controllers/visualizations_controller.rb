@@ -42,10 +42,14 @@ class VisualizationsController < ApplicationController
   def treemap
     minimum = params[:minimum].to_i || 0
     @collection = Collection.find(params[:collection_id])
+    @records = @collection.records.where("lower(parsed->:field) LIKE :tag", {
+      field: params[ :type ],
+      tag: '%\"' + params[ :property ] + '\"%'
+    })
     query = @collection.sort_properties(params[:include],params[:exclude],params[:property], minimum)
     tmap = treemapify(query[:properties])
     length = query[:length]
-    return {length: length, treemap: tmap, properties: query}
+    return {length: length, treemap: tmap, properties: query, records: @records}
   end
   
   def treemapify(data,name='main')

@@ -2,6 +2,9 @@ record = {}
 window.collection = {}
 
 window.collection.visualization_controls = (properties)->
+  
+  options = []
+  
   $('form>h3').click (e)->
     $(this).data('toggle', !$(this).data('toggle'))
     t = $(this).data('toggle')
@@ -11,17 +14,37 @@ window.collection.visualization_controls = (properties)->
     else
       $(this).parent().css('height', 20)
       $(this).css('color', 'white')
-
+  
+  $("#include_property, #exclude_property").change () ->
+    next = $(this).next() 
+    loading = $('<span>loading data</span>')
+    query_type_placeholder = window.collection.query.type
+    query_property_placeholder = window.collection.query.property
+    next.hide()             #hide input field
+    $(this).after(loading)  #while list of properties load
+    window.collection.query.property = $(this).val()
+    window.collection.query.type = 'properties'
+    $.getJSON(
+      window.location.pathname + window.collection.query_terms() #load properties
+      (data) ->
+        options = data
+        loading.remove()
+        next.show()
+        window.collection.query.type = query_type_placeholder
+        window.collection.query.property = query_property_placeholder
+    )
+    undefined
   
   $('.remove_element').click (e)->
     $(this).parent().remove()
   
   options_overlay = $("<div id='options_overlay'>")
   $('body').append(options_overlay)
+  
   $('#include_value, #exclude_value').val('').keyup (e)->
     current = $(this).val()
     in_ex = $(this).attr('id').substr(0,$(this).attr('id').indexOf('_'))
-    options = properties[$('#'+in_ex+'_property').val()]
+    #options = properties[$('#'+in_ex+'_property').val()]
     filtered = []
     for any in options
       compare = any.substring(0, current.length)
@@ -41,6 +64,8 @@ window.collection.visualization_controls = (properties)->
             $(this).parent().remove()
           $("#visualization_"+in_ex).append(new_query_item)
         options_overlay.append(opt)
+    else
+      options_overlay.hide()
   undefined
 
 

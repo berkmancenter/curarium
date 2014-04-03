@@ -7,7 +7,6 @@
 			exclude: <%= raw(params[:exclude] || [])%>
 		};
 
-		
 		var properties = <%= raw(Collection.find(params[:collection_id]).configuration.to_json)%>;
 		
 		for(var property in properties){
@@ -48,6 +47,7 @@
 	
 	<form id='refine_search'>
 		<h3>Refine query:</h3>
+		<br>
 		<label for='vizualization_type'>type</label>
 		<select id='vizualization_type' name='type'>
 			<option value='treemap'>treemap</option>
@@ -61,7 +61,8 @@
 				<% end %>
 			<% end %>
 		</select>
-		<label for='vizualization_include'>include</label><br>
+		<br><br>
+		<label for='vizualization_include'>include</label>
 		<div id='visualization_include'>
 		<% if params[:include]%>
 			<% params[:include].each do |include|%>
@@ -69,7 +70,6 @@
 			<% end %>
 		<% end %>
 		</div>
-		<br>
 		<select id='include_property'>
 			<% @properties.each do |property|%>
 				<% unless ["image","thumbnail"].include? property %>
@@ -78,7 +78,7 @@
 			<% end %>
 		</select>
 		<input class='visualization_new_property' id='include_value' autocomplete="off" >
-		<br>
+		<br><br>
 		<label for='vizualization_exclude'>exclude</label><br>
 		<div id='visualization_exclude'>
 		<% if params[:exclude]%>
@@ -87,7 +87,6 @@
 			<% end %>
 		<% end %>
 		</div>
-		<br>
 		<select id='exclude_property'>
 			<% @properties.each do |property|%>
 				<% unless ["image","thumbnail"].include? property %>

@@ -41,7 +41,7 @@ Curarium::Application.routes.draw do
     resources :amendments
     resources :annotations
   end
-
+  
   resources :collections do
     get "tag" => "collections#tag", as: "tag"
     get "treemap" => "collections#treemap", as: "treemap"

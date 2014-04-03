@@ -132,10 +132,12 @@ window.visualization.thumbnail = (container, source) ->
       (e) ->
         id = d3.select(this).data()[0].id
         window.open('http://' + window.location.host + '/records/' + id, '_blank')
-    ).append('h3').text(
+    )
+    ###.append('h3').text(
       (d) ->
         d.title
     )
+    ###
     undefined
     
   undefined
@@ -211,7 +213,7 @@ window.visualization.treemap_embedded = (container, source)->
   
   undefined
 
-window.visualization.thumbnail = (container, source) ->
+window.visualization.thumbnail_embedded = (container, source) ->
   $.getJSON(
     source
     (items) ->

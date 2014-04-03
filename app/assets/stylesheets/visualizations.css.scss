@@ -15,9 +15,9 @@
 
 .record_thumbnail {
     padding: 0.2em;
-    width: calc(12.5% - 0.4em);
-    height: 12em;
-    margin: 0.2em;
+    width: 8em;
+    height: 8em;
+    margin: 0.1em;
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
@@ -126,7 +126,6 @@ form#refine_search{
 form#add_records_to_tray{
   height: 20px;
   overflow: hidden;
-  position: absolute;
   background: black;
   display: inline-block;
   select {
@@ -139,12 +138,8 @@ form#add_records_to_tray{
   option {
     display: block;
   }
-  #query_length, label[for=query_length] {
-    height: 25px;
-    font-size: 15px;
-    padding-top: 5px;
+  #query_length {
     cursor: pointer;
-    height: 25px;
     background: black;
     color: white;
     font-weight: bold;

@@ -20,17 +20,17 @@
 
 div#main-canvas {
   display: inline-block;
-  width:100%;
-  height:100%;
-  float:left;
-  position:relative;
+  width: 100%;
+  height: calc(100% - 5px);
+  float: left;
+  position: relative;
 }
 
 div#record-data{
   background-image: url('black_50_percent.png');
   display: block;
   width: 20%;
-  height: calc(100% - 25px);
+  height: calc(100% - 55px);
   position: absolute;
   overflow: auto;
   img {
@@ -56,7 +56,7 @@ div#annotations{
   display: block;
   right: 0;
   width: 20%;
-  height: calc(100% - 25px);
+  height: calc(100% - 55px);
   position: absolute;
   overflow: auto;
   input, textarea {
@@ -87,34 +87,6 @@ div#annotations{
   color: white;
   width: 98%;
   margin: 1%;
-/*
- * 
- .printed_object {
-    padding-left: 1em;
-    margin: 0px;
-  }
-  .key {
-    padding: 2px;
-    cursor: pointer;
-    @include rounded-corners(3px);
-    &:hover{
-      color: white;
-      background: red;
-    }
-  }
-  ul {
-    .key {
-      cursor: text;
-      &:hover {
-        background: transparent;
-      }
-    }
-  }
-  .value {
-    text-decoration: underline;
-    display: none;
-  }
-  */
 }
 
 #parsed_record {

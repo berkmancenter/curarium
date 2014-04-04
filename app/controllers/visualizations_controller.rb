@@ -83,10 +83,25 @@ class VisualizationsController < ApplicationController
     return thumbnails
   end
   
+  def properties
+    @collection = Collection.find(params[:collection_id])
+    return @collection.sort_properties(params[:include],params[:exclude],params[:property])[:properties].keys
+  end
+  
   def list_records
     @collection = Collection.find(params[:collection_id])
     records = @collection.list_query(params[:include],params[:exclude])
     return records
   end
-  
+=begin  
+  THIS WAS PART OF AN ILL FATED ATTEMPT TO MAKE VISUALIZATIONS EMBEDDABLE.
+  def embed
+    url = URI.parse('http://curarium.herokuapp.com/collections/1/visualizations?type=treemap&property=topics')
+    req = Net::HTTP::Get.new(url.to_s)
+    res = Net::HTTP.start(url.host, url.port) {|http|
+       http.request(req)
+    }
+    render text: res.body
+  end
+=end  
 end

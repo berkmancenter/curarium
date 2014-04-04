@@ -1,74 +1,72 @@
 <script>
-	$(document).ready(function(){
-		<% image = params[:image].to_i || 0%>
-		$('#add_record_to_tray').prependTo('header #secondary_nav');
-		$('#annotation_toggle_wrapper').prependTo('header #secondary_nav');
-		
-		window.record.display( '<%=eval(@record.parsed['image'])[image]%>' );
-		$('img.surrogate_thumbnail').each( function(i){
-			$(this).click(function(e){
-				window.location = "?image="+i
-			});
-		});
-		
-		<% if session[:user_id] %>
-			window.trays.add_record([<%= params[:id] %>],<%=session[:user_id].to_i%>);
-			window.record.update(); 
-		<% end %>
-		
-		
+	$(document).ready(function(){<% image = params[:image].to_i || 0%>
+$('#add_record_to_tray').prependTo('header #secondary_nav');
+$('#annotation_toggle_wrapper').prependTo('header #secondary_nav');
+
+window.annotation.tag_selector();
+window.record.display( '<%= eval(@record.parsed['image'])[image]%>' );
+	$('img.surrogate_thumbnail').each( function(i){
+	$(this).click(function(e){
+	window.location = "?image="+i
 	});
-</script>
+	});
+
+<% if session[:user_id] %>
+	window.trays.add_record([<%= params[:id] %>],<%= session[:user_id].to_i%>);
+	window.record.update(); 
+<% end %>});</script>
 
 <% title eval(@record.parsed['title'])[0] %>
 
-<% if session[:user_id] %>
+<nav id="secondary_nav">
+
+	<% if session[:user_id] %>
 	<form id='add_record_to_tray'>
 		<select name='tray'>
 			<option selected='true' disabled>SELECT TRAY</option>
 			<option value='new_tray'>New Tray</option>
 			<% User.find(session[:user_id]).trays.each do |tray| %>
-				<option value='<%=tray.id%>'><%= tray.name %></option>
+			<option value='<%= tray.id%>'><%= tray.name %></option>
 			<% end %>
 		</select>
 		<input name='new_tray' style='display: none'>
 		<input type='submit' value="Add to Tray">
 	</form>
-<% end %>
+	<% end %>
 
-<div id='annotation_toggle_wrapper'>
-	<form>
-	<label for='annotation_togle'>Show annotations</label>
-	<input type='checkbox' id='annotation_toggle' checked>
-	</form>
-</div>
+	<div id='annotation_toggle_wrapper'>
+		<form>
+			<label for='annotation_togle'>Show annotations</label>
+			<input type='checkbox' id='annotation_toggle' checked>
+		</form>
+	</div>
+</nav>
 
-<div id='main-canvas'>
-</div>
+<div id='main-canvas'></div>
 
 <div id='record-data'>
 	<script>
-		$(document).ready(function(){
-			$('#parsed_record .key').parent().click(function(e){
+		$(document).ready(function() {
+			$('#parsed_record .key').parent().click(function(e) {
 				$(this).next().find('.value').toggle();
 			});
 			$('#original_record *').show();
 			$('#original_record>.key').next().hide();
-			$('#original_record>.key').click(function(e){
+			$('#original_record>.key').click(function(e) {
 				$(this).next().toggle();
 			});
 		});
 	</script>
 	<nav>
- <% images= eval(@record.parsed['image']) %>
- <% images.each do |image|%>
- 	<img src='<%= image+'?width=10000&height=10000'%>' class='surrogate_thumbnail'>
-<%end%>
+		<% images= eval(@record.parsed['image']) %>
+		<% images.each do |image|%>
+		<img src='<%= image+'?width=10000&height=10000'%>' class='surrogate_thumbnail'>
+		<%end%>
 	</nav>
 	<section>
- <%= print_hstore @record.parsed, 'printed_object', 'parsed_record' %>
- <%= print_json @record.original, 'printed_object', 'original_record' %>
- </section>
+		<%= print_hstore @record.parsed, 'printed_object', 'parsed_record' %>
+		<%= print_json @record.original, 'printed_object', 'original_record' %>
+	</section>
 </div>
 <div id='annotations'>
 	<% if session[:user_id] %>
@@ -77,32 +75,50 @@
 		<div class='window_body'>
 			<div id='preview_window'></div>
 			<%= form_for([@record, @record.annotations.build]) do |f| %>
-			  <label for='short_description'>Short Description:</label><br>
-			  <input id='short_description' name='content[title]'><br>
-			  <label for='long_description'>Long Description:</label><br>
-			  <textarea id='long_description' name='content[body]'></textarea><br>
-			  <input type='hidden' name='content[x]'>
-			  <input type='hidden' name='content[y]'>
-			  <input type='hidden' name='content[width]'>
-			  <input type='hidden' name='content[height]'>
-			  <input type='hidden' name='content[image_url]'>
-			  <p>
-			    <%= f.submit %>
-			  </p>
+			<label for='short_description'>Short Description:</label>
+			<br>
+			<input id='short_description' name='content[title]'>
+			<br>
+			<label for='long_description'>Long Description:</label>
+			<br>
+			<textarea id='long_description' name='content[body]'></textarea>
+<br>			<%= tag_selector @record.parsed %>
+			<input type='hidden' name='content[x]'>
+			<input type='hidden' name='content[y]'>
+			<input type='hidden' name='content[width]'>
+			<input type='hidden' name='content[height]'>
+			<input type='hidden' name='content[image_url]'>
+			<p>
+				<%= f.submit %>
+			</p>
 			<% end %>
 		</div>
 	</div>
 	<% end %>
 	<div id='record_annotations'>
 		<% @record.annotations.each do |annotation|%>
-			<% if annotation.content %>
-				<div class='annotation_wrapper'>
-					<p class='annotation_title'><%= annotation.content['title'] %></p>
-					<p class='annotation_body'><%= annotation.content['body'] %></p>
-					<p class='annotation_attribution'>by <%= annotation.user.name %> on <%= annotation.created_at %></p>
-					
-				</div>
+		<% if annotation.content %>
+		<div class='annotation_wrapper' id='note_<%= annotation.id%>'>
+			<p class='annotation_title'>
+				<%= annotation.content['title'] %>
+			</p>
+			<p class='annotation_body'>
+				<%= annotation.content['body'] %>
+			</p>
+			<%unless annotation.content['tags'].nil? %>
+			<div class='annotation_tags'>
+				<% annotation.content['tags'].each do |tag| %>
+				<p class='annotation_tag'>
+					<%= tag%>
+				</p>
+				<% end %>
+			</div>
 			<% end %>
+			<p class='annotation_attribution'>
+				by <%= annotation.user.name %> on <%= annotation.created_at %>
+			</p>
+		</div>
+		<% end %>
 		<% end %>
 	</div>
 </div>

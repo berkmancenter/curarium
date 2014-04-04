@@ -1,8 +1,7 @@
 Curarium::Application.routes.draw do
 
   
-  
-  get "amendments/index"
+  #get 'embed' => 'visualizations#embed', as: 'embed'
   get 'trays/:id/add_records' => 'trays#add_records', as: 'add_records'
   get 'trays/:id/add_visualization' => 'trays#add_visualization', as: 'add_visualization'
   
@@ -42,7 +41,7 @@ Curarium::Application.routes.draw do
     resources :amendments
     resources :annotations
   end
-
+  
   resources :collections do
     get "tag" => "collections#tag", as: "tag"
     get "treemap" => "collections#treemap", as: "treemap"

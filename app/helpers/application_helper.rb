@@ -48,6 +48,19 @@ module ApplicationHelper
     return raw(tags + "</ul>")
   end
   
+  def tag_selector(hstore_object)
+    tags = "<select id='tag_selector'>"
+    hstore_object.each do |key, value|
+      unless value.nil?
+        value = JSON.parse(value)
+        value.each do |item|
+          tags += "<option value='#{item}'>#{key}:#{item}</option>"
+        end
+      end
+    end
+    return raw(tags + "</select>")
+  end
+  
   def hstore_aray (hstore, field)
     if hstore[field]
       return eval(hstore[field])

@@ -38,7 +38,6 @@ submit_update = ()->
         record:
           parsed: window.record.parsed
       success: (data)->
-        console.log data
         $('.parsed_value').css('background','#D3D3D3')
       dataType : 'json',
       headers : 
@@ -60,7 +59,6 @@ modify_field = (e) ->
       $(field).css('background','lightblue')
       $(field).bind('dblclick', modify_field)
       window.record.parsed = read_parsed()
-      console.log? window.record.parsed
     cancel.click ()->
       $(field).html(current)
       $(field).bind('dblclick', modify_field)
@@ -118,7 +116,7 @@ window.record.display = (image_url)->
     )
     
     layer.add(image)
-    stage.draw()
+    get_annotations()
     undefined
   
   
@@ -227,30 +225,94 @@ window.record.display = (image_url)->
         crop.destroy()
     )
   
-  $.getJSON(
-    window.location.pathname+'/annotations'
-    (notes) ->
-      notes_layer = new Kinetic.Layer()
-      stage.add(notes_layer)
-      for n in notes
-        if n.content.image_url == image_url
-          console.log(n)
-          rect = new Kinetic.Rect(
-            x: parseInt(n.content.x) + (main.offsetWidth/min_scale - surrogate.width)/2 #add picture offset for display purposes
-            y: parseInt(n.content.y) + (main.offsetHeight/min_scale - surrogate.height)/2 #remove picture offset for clipping purposes
-            stroke:'red'
-            width: n.content.width
-            height: n.content.height
+    
+  
+  get_annotations = ()->
+    $.getJSON(
+      window.location.pathname+'/annotations'
+      (notes) ->
+        notes_layer = new Kinetic.Layer()
+        stage.add(notes_layer)
+        for n in notes
+          if n.content.image_url == image_url
+            ID = "note_"+n.id
+            rect = new Kinetic.Rect(
+              id: ID
+              x: parseInt(n.content.x) + (main.offsetWidth/min_scale - surrogate.width)/2 #add picture offset for display purposes
+              y: parseInt(n.content.y) + (main.offsetHeight/min_scale - surrogate.height)/2 #remove picture offset for clipping purposes
+              stroke:'red'
+              strokeWidth: 1
+              width: n.content.width
+              height: n.content.height
+            )
+            rect.tags = n.content.tags
             
-          )
-          notes_layer.add(rect)
-      
-      $('#annotation_toggle').change ()->
-        notes_layer.setAttr('visible', $(this).prop('checked'))
-        undefined
-          
-      stage.draw()
-  )
+            #THE FOLLOWING ARE INTERFACE RELATED FUNCTIONS FOR INTERACTION BETWEEN NOTES, IMAGE CROPPINGS AND TAGS
+            
+            rect.on('mouseover',
+            () ->
+              $('#'+this.getAttr('id')).css
+                background: 'red'
+              undefined
+            )
+            
+            rect.on('mouseout',
+            () ->
+              $('#'+this.getAttr('id')).css
+                background: '#C3C3C3'
+              undefined
+            )
+            
+            $('.parsed_value').mouseover () ->
+              $(this).css('background-color', 'green')
+              notes = notes_layer.getChildren()
+              tag = $(this).html()
+              for note in notes
+                if note.tags and note.tags.indexOf(tag) > -1
+                  note.setAttrs
+                    stroke: 'green'
+                    strokeWidth: 3
+                  note.draw()
+              undefined
+            
+            $('.parsed_value').mouseout () ->
+              $(this).css('background-color', 'lightgray')
+              notes = notes_layer.getChildren()
+              for note in notes
+                note.setAttrs
+                  stroke: 'red'
+                  strokeWidth: 1
+              notes_layer.draw()
+              undefined
+            
+            $("#"+ID).mouseover ()->
+              note = notes_layer.find('#'+$(this).attr('id'))
+              note.setAttrs
+                stroke: 'green'
+                strokeWidth: 4
+              notes_layer.draw()
+              undefined
+              
+            $("#"+ID).mouseout ()->
+              note = notes_layer.find('#'+$(this).attr('id'))
+              note.setAttrs
+                stroke: 'red'
+                strokeWidth: 1
+              notes_layer.draw()
+              undefined
+              
+            #END OF INTERFACE RELATED FUNCTIONS
+            
+            notes_layer.add(rect)
+        
+        $('#annotation_toggle').change ()->
+          notes_layer.setAttr('visible', $(this).prop('checked'))
+          undefined
+            
+        stage.draw()
+    )
+    undefined
+  
   
   $('#record_annotate h4').click ()->
     $(this).data('clicked', !$(this).data('clicked'))

@@ -88,7 +88,7 @@ class Collection < ActiveRecord::Base
       if parsed == nil
         next
       end
-      fields = eval(parsed)
+      fields = JSON.parse(parsed)
       fields.each do |p|
       if(properties[p] == nil)
         properties[p] = 1

@@ -77,17 +77,25 @@ window.spotlights.update = (id) ->
   undefined
 
 window.spotlights.display_annotation = (wrapper, content)->
+  context = $('#'+wrapper).attr('class') == 'user_annotation'
+  x_fit = if context then $('#'+wrapper).width()/content.width else 1
+  y_fit = if context then $('#'+wrapper).height()/content.height else 1
+  
   stage = new Kinetic.Stage(
     container: wrapper
     width: content.width
     height: content.height
+    scale: 
+      x: if content.width > content.height then y_fit else x_fit
+      y: if content.width > content.height then y_fit else x_fit
   )
   layer = new Kinetic.Layer()
   stage.add(layer)
   image = new Image()
   image.src = content.image_url+"?width=10000&height=10000"
+  
+  
   image.onload = ->
-    console.log(content)
     picture = new Kinetic.Image(
       image: image
       width: content.width

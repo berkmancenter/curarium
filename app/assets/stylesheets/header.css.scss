@@ -1,0 +1,101 @@
+
+$header: 35px;
+$secondary: 20px;
+$text: white;
+
+@mixin rounded-corners($radius) {
+  -webkit-border-radius: $radius;
+  -moz-border-radius: $radius;
+  border-radius: $radius;
+}
+
+
+.main_title {
+  float: left;
+  height: $header;
+  padding-left: 1em;
+  display: table;
+  a {
+    display: table-cell;
+    vertical-align: middle;
+    font-family: Montserrat;
+    font-size: 24pt;
+    text-decoration: none;
+    color: white;
+    &:hover
+    {
+      color: red;
+    }
+  }
+}
+
+.main_title:visited {
+  color: white;
+}
+
+#main_header, #main_nav{
+  background-color: black;
+  width: 100%;
+  height: $header;
+  position: absolute;
+  ul {
+    display: table;
+    float: right;
+    height: $header;
+    margin-right: 25px;
+    li {
+      @include rounded-corners(3px);
+      display: table-cell;
+      vertical-align: middle;
+      padding: 5px;
+      text-transform: uppercase;
+      a {
+        font-size: 10pt;
+        font-family: Montserrat;
+        color: white;
+        &:hover{
+          color: red;
+        }
+      }
+    }
+  }
+}
+
+nav#secondary_nav {
+      z-index:100;
+      position: absolute;
+      left: 0;
+      top: $header;
+      width: 100%;
+      height: $secondary;
+      padding: 0 30px;
+      background-color: black;
+      color: white;
+      font-family: Montserrat;
+      ul, h3{
+        font-size: 10pt;
+        display: inline-block;
+        float: left;
+      }
+      ul{
+        float: right;
+      }
+      form{
+        float: left;
+        display: inline-block;
+        
+      }
+      li{
+        display: inline;
+        list-style: none;
+        a{
+          text-transform: uppercase;
+          font-size: 8pt;
+          font-weight: bold;
+          color: white;
+          &:hover{
+            color: red;
+          }        
+        }
+      }
+    }

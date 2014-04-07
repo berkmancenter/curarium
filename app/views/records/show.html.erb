@@ -4,17 +4,18 @@ $('#add_record_to_tray').prependTo('header #secondary_nav');
 $('#annotation_toggle_wrapper').prependTo('header #secondary_nav');
 
 window.annotation.tag_selector();
-window.record.display( '<%= eval(@record.parsed['image'])[image]%>' );
+window.record.display( '<%= eval(@record.parsed['image'])[image]%>');
 	$('img.surrogate_thumbnail').each( function(i){
-	$(this).click(function(e){
-	window.location = "?image="+i
-	});
+		$(this).click(function(e){
+			window.location = "?image="+i
+			});
 	});
 
 <% if session[:user_id] %>
 	window.trays.add_record([<%= params[:id] %>],<%= session[:user_id].to_i%>);
 	window.record.update(); 
-<% end %>});</script>
+<% end %>});
+</script>
 
 <% title eval(@record.parsed['title'])[0] %>
 

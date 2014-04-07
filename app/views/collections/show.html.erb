@@ -64,15 +64,15 @@
 				<% if ['thumbnail','image'].include? property
 					next
 				end%>
-				<a id='<%=property%>_list' class='property_link'><%=property%></a>
+				<a id='<%=property%>_list' class='property_link' data-property='<%=property%>'><%=property%></a>
 				<% end %>
 				<br>
 				<label for='filter'>filter</label>
-				<input id='filter'>
+				<input id='filter' autocomplete="off">
 			</div>
 			<div id='collection_properties'>
 				<div id='property_list' class='property_wrapper'>
-					<ul  class='property_list' data-property=''>
+					<ul  class='property_list' data-property = ''>
 					
 					</ul>
 				</div>
@@ -80,3 +80,8 @@
 		</div>
 	</div>
 </section>
+<script type="text/javascript">
+	$(document).ready(function(){
+		window.collection.show();
+	});
+</script>

@@ -41,9 +41,9 @@ input[type=submit], .fake_button {
 	display: inline-block;
 	background: black;
 	border: 1px solid white;
-	font-size: 10pt;
+	font-size: 8pt;
 	color: white;
-	padding: 0.25em;
+	
 	border-radius: 4px;
 	width: auto;
 	cursor: pointer;

@@ -8,7 +8,7 @@
 			<li>
 				<%= link_to 'Spotlights', spotlights_path %>
 			</li>
-			<% if session[:user_id]==nil%>
+			<% if session[:user_id].nil? %>
 			<li>
 				<%= link_to 'Sign In', login_path %>
 			</li>

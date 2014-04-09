@@ -1,5 +1,5 @@
 <% if session[:user_id].nil? %>
-
+<% content_for :main_class, raw("class='no-secondary-nav'") %>
 <div id='curarium_about' class="home_section">
 	<%= image_tag 'curarium logo_gif.gif'%>
 	<p id='curarium_description'>

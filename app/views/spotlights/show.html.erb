@@ -1,5 +1,5 @@
+<% content_for :main_class, raw("class='no-secondary-nav'") %>
 <div id='spotlight_text'>
-
 	<h2 id='spotlight_title'><%= title @spotlight.title %></h2>
 	<p>by <%= link_to @spotlight.user.name, @spotlight.user %> on <%=@spotlight.created_at%></p>
 	<br>

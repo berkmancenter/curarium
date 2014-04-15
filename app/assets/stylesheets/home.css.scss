@@ -12,9 +12,6 @@ $text: white;
   border-radius: $radius;
 }
 
-
-
-
 section#main {
   position: absolute;
   width: 100%;
@@ -22,6 +19,9 @@ section#main {
   padding: $header+$secondary 0 0 0;
   background-color: white;
   overflow: auto;
+  &.no-secondary-nav {
+    padding: $header 0 0 0;
+  }
   .home_section{
     height: 100%;
     float: left;

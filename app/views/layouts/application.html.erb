@@ -10,7 +10,7 @@
 		<%= csrf_meta_tags %>
 	</head>
 	<body>
-		<section id='main'>
+		<section id='main'  <%= yield :main_class %> >
 			<%= yield %>
 		</section>
 		<%= render 'shared/header'%>

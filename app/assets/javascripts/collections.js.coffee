@@ -2,9 +2,7 @@ record = {}
 window.collection = {}
 
 window.collection.visualization_controls = (properties)->
-  
   options = []
-  
   $('form>h3').click (e)->
     $(this).data('toggle', !$(this).data('toggle'))
     t = $(this).data('toggle')
@@ -271,21 +269,58 @@ window.collection.generate_visualization = ->
   undefined
 
 window.collection.show = ->
-  $.getJSON(
-    ''
-    (data) ->
-      for property, values of data.properties
-        target = $("#"+property+"_list")
-        if target.length > 0
-         target.data('values', values).data('property', property).click(
-            (e) ->
-              $('.property_list').data('property', $(this).data('property')).children('li').remove()
-              for value, ammount of $(this).data('values')
-                li = $("<li data-value='#{value}'>#{value} (#{ammount})</li>").append(query_button('include')).append(query_button('exclude'))
-                $('.property_list').append(li)
-              undefined
-         )
-  )
+  $('select').prop('selectedIndex', 0)
+  
+  $('#visualization_type').change (e)->
+    e.preventDefault()
+    window.collection.query.type = $(this).val()
+    undefined
+  
+  $('#visualization_property').change (e)->
+    e.preventDefault()
+    window.collection.query.property = $(this).val()
+    undefined
+  
+  $('#generate_visualization').submit (e)->
+    e.preventDefault()
+    if ($('#visualization_mode').val() is null) or ($('#visualization_property').val() is null)
+      alert('please select visualization mode and property')
+    else
+      window.collection.generate_visualization()
+    undefined
+  
+  $('.property_link').click ()->
+    property = $(this).data('property')
+    $('#property_list .property_list').empty()
+    $('#property_list .property_list').data('property', property)
+    $('#filter').val('')
+    query_type_placeholder = window.collection.query.type
+    query_property_placeholder = window.collection.query.property
+    window.collection.query.property = property
+    window.collection.query.type = 'properties'
+    $.getJSON(
+      window.location.pathname + '/visualizations' + window.collection.query_terms() #load properties
+      (data) ->
+        console.log(data)
+        for value in data
+          li = $("<li data-value='#{value}'>#{value}</li>").append(query_button('include')).append(query_button('exclude'))
+          $('#property_list .property_list').append(li)
+        window.collection.query.type = query_type_placeholder
+        window.collection.query.property = query_property_placeholder
+    )
+    undefined
+  
+  $('#filter').keyup (e) ->
+    compare = $(this).val().toLowerCase()
+    l = compare.length
+    if (l > 1)
+      $('#property_list .property_list li').each (e)->
+        if $(this).html().toLowerCase().indexOf(compare) > -1
+          $(this).show()
+        else
+          $(this).hide()
+    undefined
+    
   undefined
 
 inc_exc = (e) ->

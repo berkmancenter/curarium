@@ -1,17 +1,24 @@
- 
-    <% @collections.each do |collection| %>
-     <%	if collection.approved || collection.admin.include?(session[:user_id]) %>
-      <div class='curarium_collection'>
-        <h3><%= link_to collection.name, collection %></h3>
-        <p><%= truncate(collection.description, length: 256) %></p>
-        <% if collection.admin.include?(session[:user_id])%>
-        	<p><%= collection.key %></p>
-        <p><%= link_to 'Edit', edit_collection_path(collection) %></p>
-        <p><%= link_to 'Destroy', collection, method: :delete, data: { confirm: 'Are you sure?' } %></p>
-        <%end%>
-      </div>
-    <% end%>
-    <% end %>
+<% @collections.each do |collection| %>
+<%	if collection.approved || collection.admin.include?(session[:user_id]) %>
+<div class='curarium_collection'>
+	<h3><%= link_to collection.name, collection %></h3>
+	<p>
+		<%= truncate(collection.description, length: 256) %>
+	</p>
+	<% if collection.admin.include?(session[:user_id])%>
+	<p>
+		<%= collection.key %>
+	</p>
+	<p>
+		<%= link_to 'Edit', edit_collection_path(collection) %>
+	</p>
+	<p>
+		<%= link_to 'Destroy', collection, method: :delete, data: { confirm: 'Are you sure?' } %>
+	</p>
+	<%end%>
+</div>
+<% end%>
+<% end %>
 
 <br>
 

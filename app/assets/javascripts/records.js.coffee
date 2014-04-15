@@ -125,6 +125,7 @@ window.record.display = (image_url)->
   stage.add(layer)
   stage.draw()
   
+  
   scroll = (e) ->
     e.preventDefault()
     stage_scale = stage.getAttr('scale').x

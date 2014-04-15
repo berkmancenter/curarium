@@ -1,4 +1,5 @@
 class AnnotationsController < ApplicationController
+  skip_before_action :authorize, only: [:index, :show, :check_key, :ingest]
   def new
     @annotation = Annotation.new
   end

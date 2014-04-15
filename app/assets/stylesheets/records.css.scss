@@ -21,7 +21,7 @@
 div#main-canvas {
   display: inline-block;
   width: 100%;
-  height: calc(100% - 5px);
+  height: calc( 100% - 4px);
   float: left;
   position: relative;
 }
@@ -137,19 +137,18 @@ div#annotations{
 
 
 form#add_record_to_tray{
-  margin-left: 50px;
-  height: 25px;
+  height: 20px;
   overflow: hidden;
-  position: absolute;
+  position: relative;
   background: black;
   display: inline-block;
-  margin-top: -8px;
   *{
     display:inline;
   }
   select {
     width: 80px;
     display: inline-block;
+    font-size: 8pt;
   }
   input[name=new_tray] {
     color: black;

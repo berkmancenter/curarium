@@ -42,14 +42,24 @@ class VisualizationsController < ApplicationController
   def treemap
     minimum = params[:minimum].to_i || 0
     @collection = Collection.find(params[:collection_id])
-    @records = @collection.records.where("lower(parsed->:field) LIKE :tag", {
-      field: params[ :type ],
-      tag: '%\"' + params[ :property ] + '\"%'
-    })
-    query = @collection.sort_properties(params[:include],params[:exclude],params[:property], minimum)
-    tmap = treemapify(query[:properties])
-    length = query[:length]
-    return {length: length, treemap: tmap, properties: query, records: @records}
+#    @records = @collection.records.where("lower(parsed->:field) LIKE :tag", {
+#      field: params[ :property ],
+#      tag: '%\"' + params[ :property ] + '\"%'
+#    })
+
+    @records = @collection.records.select("lower(parsed->'#{params[ :property ]}') as parsed, count( lower(parsed->'#{params[ :property ]}') ) as id").group( "lower( parsed->'#{params[ :property ]}' )" )
+
+    #select lower( parsed->'title' ),count( lower( parsed->'title' ) ) from "records" where "records"."collection_id" = 1 group by lower( parsed->'title' ) limit 1000
+
+    #query = @collection.sort_properties(params[:include],params[:exclude],params[:property], minimum)
+    #tmap = treemapify(query[:properties])
+    #length = query[:length]
+    return {
+      #length: length,
+      #treemap: tmap,
+      #properties: query,
+      records: @records
+    }
   end
   
   def treemapify(data,name='main')

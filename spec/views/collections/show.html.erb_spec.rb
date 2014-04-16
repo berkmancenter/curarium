@@ -12,8 +12,8 @@ describe ( 'collections/show' ) {
     }
 
     it {
-      # moved to js file
-      should_not have_css 'script', visible: false
+      # javascript is back in html, as single call to collection.show
+      should have_css 'script', visible: false
     }
 
     it {

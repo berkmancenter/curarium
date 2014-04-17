@@ -11,12 +11,42 @@
 		<p><%= @collection.description %></p>
 	</div>
 	<div id='collection_highlights'>
-    <% @records = @collection.records.count > 80 ? @collection.records.offset(rand((@collection.size).to_i-80)).take(80) : @collection.records %>
+		<% Spotlight.all.each_with_index do |spotlight, i| %>
+			<% size = 'big'%>
+			<% if i > 1 
+				size = 'small'
+			end %>
+			<a class='spotlight_preview <%=size%>' href='<%= spotlight_path spotlight%>' target='_blank'>
+				<% image_background = "" %>
+				<% spotlight.components.each do |component| %>
+					<% if component['type'] == 'record' %>
+						<% image_background = component['image'] %>
+						<% break %>
+					<% end %>
+				<% end %>
+				<div class='spotlight_image' style="background-image: url('<%= image_background %>');">
+					
+				</div>
+				<h3><%= spotlight.title %></h3>
+				 <p>
+			         <% text = spotlight.body %>
+					 <% if text.match /\<(\d)\>/ %>
+					 <%= truncate(text.gsub!(/\<(\d)\>/, "(see figure \\1)"), length: 256) %>
+					 <% else %>
+					 <%= truncate(text, length: 256) %>
+					 <% end %>
+        		</p>
+			</a>
+		<% end %>
+		<!--
+    	<% @records = @collection.records.count > 80 ? @collection.records.offset(rand((@collection.size).to_i-80)).take(80) : @collection.records %>
 		<% @records.each_with_index do |r, i|%>
 			<% @record = r %>	
 			<%= render 'records/thumb', locals: {record: @record} %>
 		<% end %>
+		-->
 	</div>
+	<!--
 	<div id='query_builder'>
 		<div id='quick_search'>
 			<form target='_blank' method='get' action='<%=@collection.id%>/visualizations/'>
@@ -85,6 +115,7 @@
 			</div>
 		</div>
 	</div>
+	-->
 </section>
 <script type="text/javascript">
 	$(document).ready(function(){

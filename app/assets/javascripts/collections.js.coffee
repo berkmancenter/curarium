@@ -1,6 +1,8 @@
 record = {}
 window.collection = {}
 
+#COLLECTION CONFIGURATION
+
 window.collection.visualization_controls = (properties)->
   options = []
   $('form>h3').click (e)->
@@ -12,58 +14,6 @@ window.collection.visualization_controls = (properties)->
     else
       $(this).parent().css('height', 20)
       $(this).css('color', 'white')
-  
-  $("#include_property, #exclude_property").change () ->
-    next = $(this).next() 
-    loading = $('<span>loading data</span>')
-    query_type_placeholder = window.collection.query.type
-    query_property_placeholder = window.collection.query.property
-    next.hide()             #hide input field
-    $(this).after(loading)  #while list of properties load
-    window.collection.query.property = $(this).val()
-    window.collection.query.type = 'properties'
-    $.getJSON(
-      window.location.pathname + window.collection.query_terms() #load properties
-      (data) ->
-        options = data
-        loading.remove()
-        next.show()
-        window.collection.query.type = query_type_placeholder
-        window.collection.query.property = query_property_placeholder
-    )
-    undefined
-  
-  $('.remove_element').click (e)->
-    $(this).parent().remove()
-  
-  options_overlay = $("<div id='options_overlay'>")
-  $('body').append(options_overlay)
-  
-  $('#include_value, #exclude_value').val('').keyup (e)->
-    current = $(this).val()
-    in_ex = $(this).attr('id').substr(0,$(this).attr('id').indexOf('_'))
-    #options = properties[$('#'+in_ex+'_property').val()]
-    filtered = []
-    for any in options
-      compare = any.substring(0, current.length)
-      if current.toLowerCase() == compare.toLowerCase() 
-        filtered.push(any)
-    if current.length > 2
-      that = this
-      options_overlay.show()
-      options_overlay.find('*').remove()
-      options_overlay.css('top', $(this).offset().top+25)
-      options_overlay.css('left', $(this).offset().left)
-      for option in filtered
-        opt = $("<p>"+option+"</p>").click (e)->
-          $(this).parent().hide()
-          new_query_item = $("<span class='visualization_"+in_ex+"d'><span class='remove_element'>x</span><input value='"+$("#"+in_ex+"_property").val()+":"+$(this).html()+"' name='"+in_ex+"[]' readonly></span>")
-          new_query_item.find('span').click (e)->
-            $(this).parent().remove()
-          $("#visualization_"+in_ex).append(new_query_item)
-        options_overlay.append(opt)
-    else
-      options_overlay.hide()
   undefined
 
 
@@ -237,7 +187,7 @@ printRecord = (json, path=[]) ->
       item.append(json)
       return item
 
-
+#COLLECTION QUERY
 window.collection.query = 
   length: null
   type: 'treemap'
@@ -265,11 +215,13 @@ window.collection.query_terms = ->
   return terms
 
 window.collection.generate_visualization = ->
-  window.open(window.location.pathname+'/visualizations'+window.collection.query_terms())
+  window.location = (window.location.pathname+window.collection.query_terms())
   undefined
 
+#COLLECTION SHOW
 window.collection.show = ->
-  $('select').prop('selectedIndex', 0)
+  
+  update_controls()
   
   $('#visualization_type').change (e)->
     e.preventDefault()
@@ -283,38 +235,36 @@ window.collection.show = ->
   
   $('#generate_visualization').submit (e)->
     e.preventDefault()
-    if ($('#visualization_mode').val() is null) or ($('#visualization_property').val() is null)
-      alert('please select visualization mode and property')
-    else
-      window.collection.generate_visualization()
+    window.collection.generate_visualization()
     undefined
   
   $('.property_link').click ()->
+    property_list =$(this).parents('.collection_terms').first().find('.property_list')
     property = $(this).data('property')
-    $('#property_list .property_list').empty()
-    $('#property_list .property_list').data('property', property)
-    $('#filter').val('')
+    property_list.empty()
+    property_list.data('property', property)
+    $('.filter').val('')
     query_type_placeholder = window.collection.query.type
     query_property_placeholder = window.collection.query.property
     window.collection.query.property = property
     window.collection.query.type = 'properties'
     $.getJSON(
-      window.location.pathname + '/visualizations' + window.collection.query_terms() #load properties
+      window.location.pathname + window.collection.query_terms() #load properties
       (data) ->
         console.log(data)
         for value in data
-          li = $("<li data-value='#{value}'>#{value}</li>").append(query_button('include')).append(query_button('exclude'))
-          $('#property_list .property_list').append(li)
+          li = $("<li data-value='#{value}'>#{value}</li>").click(inc_exc)
+          property_list.append(li)
         window.collection.query.type = query_type_placeholder
         window.collection.query.property = query_property_placeholder
     )
     undefined
   
-  $('#filter').keyup (e) ->
+  $('.filter').keyup (e) ->
     compare = $(this).val().toLowerCase()
     l = compare.length
     if (l > 1)
-      $('#property_list .property_list li').each (e)->
+      $(this).parents('.collection_terms').first().find('.property_list li').each (e)->
         if $(this).html().toLowerCase().indexOf(compare) > -1
           $(this).show()
         else
@@ -323,25 +273,45 @@ window.collection.show = ->
     
   undefined
 
+update_controls = () ->
+  
+  h  = $('div#query_builder').height()
+  $('div#query_builder').height(0)
+  $('#visualization_controls').click (e) ->
+    e.preventDefault()
+    $(this).data('closed', !$(this).data('closed'))
+    t = if $(this).data('closed') then h else 0
+    $('div#query_builder').animate(
+      height: t
+    ,500)
+  
+  $('#visualization_type').val(window.collection.query.type)
+  $('#visualization_property').val(window.collection.query.property)
+  for property in window.collection.query.include
+    $("#query_include").append visualization_property('include', property)
+  for property in window.collection.query.exclude
+    $("#query_exclude").append visualization_property('exclude', property)
+  undefined
+
 inc_exc = (e) ->
-  type = $(this).html()
-  query = window.collection.query
-  value = $(this).parent().data('value')
-  property = $(this).parent().parent().data('property')
+  type = $(this).parents('.collection_terms').first().data('type')
+  value = $(this).data('value')
+  property = $(this).parent().data('property')
   query_string = property+":"+value
-  remove = $("<span class='remove_element'>x</span>").click ->
-    $(this).parent().remove()
-    remove_index = query[type].indexOf(query_string)
-    query[type].splice(remove_index,1)
-  dropped = $("<span class='query_element'>").append(query_string).append(remove)
-  query[type].push(query_string)
-  $("#query_"+type).append dropped
-  console.log 
+  window.collection.query[type].push(query_string)
+  $("#query_#{type}").append visualization_property(type, query_string)
   $.getJSON(
     window.location.pathname + "/visualizations"+ window.collection.query_terms()
     (data) ->
       $('#record_count').val(data.length)
     )
+
+visualization_property = (type, string)->
+  remove = $("<span class='remove_element'>x</span>").click ->
+    $(this).parent().remove()
+    remove_index = window.collection.query[type].indexOf(string)
+    window.collection.query[type].splice(remove_index,1)
+  return $("<span class='query_element'>").append($("<span class='element'>#{string}</span>")).append(remove)
 
 query_button = (value) ->
   $("<span class='query_button'>"+value+"</span>").click(inc_exc)

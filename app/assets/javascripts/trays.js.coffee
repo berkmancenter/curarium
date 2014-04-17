@@ -44,9 +44,9 @@ window.trays.add_visualization = (user) ->
 window.trays.add_records = (user) ->
   $("select[name=tray]").change (e)->
       if($(this).val() is 'new_tray')
-        $("input[name=new_tray]").show()
+        $(this).parent().find("input[name=new_tray]").show()
       else
-        $("input[name=new_tray]").hide()
+        $(this).parent().find("input[name=new_tray]").hide()
     
   $('#add_records_to_tray').submit (e)->
     e.preventDefault()
@@ -79,7 +79,7 @@ window.trays.add_records = (user) ->
           data:
             records: data
           success : (data)->
-            alert("success: records added to #{$(add_record).find('input[name=new_tray]').val()}")
+            alert("success: records added to tray")
           dataType:'json'
           headers:
             'X-CSRF-Token' : $("meta[name='csrf-token']").attr('content')

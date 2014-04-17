@@ -96,8 +96,8 @@ nav#secondary_nav {
       li{
         display: inline-block;
         list-style: none;
-        width: 50%;
         float: left;
+        margin-left: 2em; 
         a{
           text-transform: uppercase;
           font-size: 8pt;

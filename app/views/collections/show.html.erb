@@ -20,7 +20,7 @@
         size = 'small'
       end %>
 		<a class='spotlight_preview <%= size%>' href='<%= spotlight_path spotlight%>' target='_blank'> <% image_background = "" %>
-		<%= unless spotlight.components.nil?%>
+		<% unless spotlight.components.nil?%>
 			<% spotlight.components.each do |component| %>
 				<% if component['type'] == 'record' %>
 					<% image_background = component['image'] %>

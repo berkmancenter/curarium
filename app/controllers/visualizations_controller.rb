@@ -2,7 +2,8 @@ class VisualizationsController < ApplicationController
   skip_before_action :authorize, only: [:index]
   
   def index
-    @properties = Collection.find(params[:collection_id]).configuration.keys
+    @collection = Collection.find(params[:collection_id])
+    @properties = @collection.configuration.keys
     respond_to do |format|
       format.html { render action: "index" }
       format.json do

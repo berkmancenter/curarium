@@ -91,15 +91,7 @@ window.visualization.treemap = (container, source)->
     name = query.property+":"+d3.select(this).data()[0].name
     if query.include.indexOf(name) is -1
       query.include.push(name)
-    $.getJSON(
-      window.location.pathname + window.collection.query_terms()
-      (data) ->
-        window.history.pushState("", "Current Visualization", window.location.pathname + window.collection.query_terms()); 
-        tree(data.treemap)
-        window.visualization.populate_query_menu()
-        window.collection.query.length = data.length
-        undefined
-      )
+    window.collection.generate_visualization()
   
   undefined
 
@@ -133,11 +125,6 @@ window.visualization.thumbnail = (container, source) ->
         id = d3.select(this).data()[0].id
         window.open('http://' + window.location.host + '/records/' + id, '_blank')
     )
-    ###.append('h3').text(
-      (d) ->
-        d.title
-    )
-    ###
     undefined
     
   undefined

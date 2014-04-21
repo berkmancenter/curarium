@@ -1,93 +1,44 @@
 <nav id="secondary_nav">
 	<ul>
-		<li><a>ABOUT</a></li>
-		<li><a>EXPLORE</a></li>
+		<li>
+			<%= link_to 'EXPLORE', collection_visualizations_path(@collection)%>
+		</li>
 	</ul>
 </nav>
 <section id='collection_pages'>
 	<div id='collection_information'>
 		<h2><%= title @collection.name %></h2>
 		<br>
-		<p><%= @collection.description %></p>
+		<p>
+			<%= @collection.description %>
+		</p>
 	</div>
 	<div id='collection_highlights'>
-    <% @records = @collection.records.count > 80 ? @collection.records.offset(rand((@collection.size).to_i-80)).take(80) : @collection.records %>
-		<% @records.each_with_index do |r, i|%>
-			<% @record = r %>	
-			<%= render 'records/thumb', locals: {record: @record} %>
+		<% Spotlight.all.each_with_index do |spotlight, i| %>
+		<% size = 'big'%>
+		<% if i > 1
+        size = 'small'
+      end %>
+		<a class='spotlight_preview <%= size%>' href='<%= spotlight_path spotlight%>' target='_blank'> <% image_background = "" %>
+		<% unless spotlight.components.nil?%>
+			<% spotlight.components.each do |component| %>
+				<% if component['type'] == 'record' %>
+					<% image_background = component['image'] %>
+					<% break %>
+				<% end %>
+			<% end %>
+		<% end %>  
+		<div class='spotlight_image' style="background-image: url('<%= image_background %>');">
+
+		</div> <h3><%= spotlight.title %></h3>
+		<p>
+			<% text = spotlight.body %>
+			<% if text.match /\<(\d)\>/ %>
+			<%= truncate(text.gsub!(/\<(\d)\>/, "(see figure \\1)"), length: 256) %>
+			<% else %>
+			<%= truncate(text, length: 256) %>
+			<% end %>
+		</p> </a>
 		<% end %>
 	</div>
-	<div id='query_builder'>
-		<div id='quick_search'>
-			<form target='_blank' method='get' action='<%=@collection.id%>/visualizations/'>
-				<input id='quick_search_term' type='text' name='terms'>
-				<input type='hidden' name='type' value='quick_search'>
-				<input type='submit' value='quick search'>
-			</form>
-		</div>
-		<div class='dropper_wrapper'>
-			<div class='query_wrapper'>
-				<h2 class='query_title'>include</h2>
-				<div id='query_include'></div>
-			</div>
-			<div class='query_wrapper'>
-				<h2 class='query_title'>exclude</h2>
-				<div id='query_exclude'></div>
-			</div>
-		</div>
-		<div id='visualization_options'>
-			<form id='generate_visualization' >
-				<label for='record_count'>Selected Records:</label>
-				<input id='record_count' type="number" value='<%= (@collection.size).to_i %>' readonly>
-				<br>
-				<label for='visualization_type'>Visualization Type:</label>
-				<select id='visualization_type'>
-					<option selected disabled>Choose Visualization</option>
-					<option value='treemap'>Treemap</option>
-					<option value='thumbnail'>Thumbnail</option>
-				</select>
-				<br>
-				<label for='visualization_property'>Visualization Property:</label>
-				<select id='visualization_property'>
-					<option selected disabled>Choose Proprety</option>
-					<% @collection.configuration.keys.each do |property| %>
-						<% if ['thumbnail','image'].include? property
-							next
-						end%>
-						<option value='<%= property %>'><%= property %></option>
-				
-					<% end %>
-				</select>
-				<br>
-				<input type='submit' value='generate visualization'>
-			</form>
-		</div>
-		<div id='properties_menu'>
-			<div id='properties_header'>
-				<label for='properties_header'>Browse collection tags:</label>
-				<br>				
-				<% @collection.configuration.keys.each do |property| %>
-				<% if ['thumbnail','image'].include? property
-					next
-				end%>
-				<a id='<%=property%>_list' class='property_link' data-property='<%=property%>'><%=property%></a>
-				<% end %>
-				<br>
-				<label for='filter'>filter</label>
-				<input id='filter' autocomplete="off">
-			</div>
-			<div id='collection_properties'>
-				<div id='property_list' class='property_wrapper'>
-					<ul  class='property_list' data-property = ''>
-					
-					</ul>
-				</div>
-			</div>
-		</div>
-	</div>
 </section>
-<script type="text/javascript">
-	$(document).ready(function(){
-		window.collection.show();
-	});
-</script>

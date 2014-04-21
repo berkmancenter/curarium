@@ -67,17 +67,28 @@ describe ( 'Collection model' ) {
     }
 
     context ( 'from_parsed' ) {
-      it {
+      let ( :pr ) {
         pr = {}
         col.configuration.each do |field|
           pr[field[0]] = Collection.follow_json(rec_json[ :original ], field[1])
         end
+      }
 
+      it {
         expect {
           col.create_record_from_parsed( rec_json[ :original ], pr )
         }.to change { col.records.count }.by( 1 )
       }
+
+      context ( 'static function' ) {
+        it {
+          expect {
+            Collection.create_record_from_parsed( col.key, rec_json[ :original ], pr )
+          }.to change { col.records.count }.by( 1 )
+        }
+      }
     }
+
   }
 }
 

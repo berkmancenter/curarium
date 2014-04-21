@@ -7,6 +7,13 @@ class Collection < ActiveRecord::Base
   validates :description, presence: true
   validates :configuration, presence: true
   
+  def self.create_record_from_parsed( key, original, parsed )
+    # create a record from original JSON and pre-parsed version
+    col = find_by_key key
+    r = col.records.new original: original, parsed: parsed
+    r.save
+  end
+
   def self.follow_json( structure, path )
     if structure.is_a? String
       structure = JSON.parse structure

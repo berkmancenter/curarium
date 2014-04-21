@@ -12,6 +12,7 @@ class CollectionsController < ApplicationController
   # GET /collections/1
   # GET /collections/1.json
   def show
+    #right now, the ONE collection is showing ALL spotlights in Curarium. This has to change as soon as there are more than one collections.
     @spotlights = Spotlight.all
   end
 
@@ -66,7 +67,25 @@ class CollectionsController < ApplicationController
   end
 
   # ingestions
-
+  
+  def add
+    @collection = Collection.find(params[:collection_id])
+  end
+  
+  def upload
+    @collection = Collection.find(params[:collection_id])
+    if @collection.update(collection_params)
+        params[:json_files]['path'].each do |url|
+          @json_file = @collection.json_files.create!(path: url, collection_id: @collection.id)
+        end
+        format.html { redirect_to @collection, notice: 'JSON was successfully updated.' }
+        format.json { head :no_content }
+      else
+        format.html { render action: 'edit' }
+        format.json { render json: @@collection.errors, status: :unprocessable_entity }
+      end
+  end
+  
   def check_key
       collection = Collection.find_by(key: params[:collection_id])
       if collection.nil?
@@ -105,8 +124,7 @@ class CollectionsController < ApplicationController
     render json: pr
   end
   
-  #functions taken from frontend js scripts to enable d3 visualization
-
+  
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_collection

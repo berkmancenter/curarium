@@ -43,11 +43,10 @@ Curarium::Application.routes.draw do
   end
   
   resources :collections do
-    get "tag" => "collections#tag", as: "tag"
-    get "treemap" => "collections#treemap", as: "treemap"
-    get "thumbnail" => "collections#thumbnail", as: "thumbnail"
     post "check_key" => "collections#check_key", as: "check_key"
     post "ingest" => "collections#ingest", as: "ingest"
+    get "add" => "collections#add", as: "add"
+    post "upload" => "collections#upload", as: "upload"
     resources :visualizations
   end
 

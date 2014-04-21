@@ -19,7 +19,6 @@
 /tmp
 
 # rails environment
-Gemfile.lock
 config/database.yml
 
 # vim

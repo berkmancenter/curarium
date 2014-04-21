@@ -62,6 +62,10 @@ end
 # Use ActiveModel has_secure_password
 gem 'bcrypt-ruby', '~> 3.1.2'
 
+#file upload and cloud services
+gem 'carrierwave'
+gem 'fog'
+
 # Use unicorn as the app server
 # gem 'unicorn'
 

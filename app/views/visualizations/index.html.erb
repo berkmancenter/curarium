@@ -1,120 +1,142 @@
 <script>
 	$(document).ready(function(){
-		window.collection.query = {
-			type: '<%= params[:type]%>',
-			property: '<%= params[:property]%>',
-			include: <%= raw(params[:include] || [])%>,
-			exclude: <%= raw(params[:exclude] || [])%>
-		};
+		<%= raw("window.collection.query.type='#{params[:type]}';") if params[:type]%>
+		<%= raw("window.collection.query.property='#{params[:property]}';") if params[:property]%>
+		<%= raw("window.collection.query.include=#{raw(params[:include])};") if params[:include]%>
+		<%= raw("window.collection.query.exclude=#{raw(params[:exclude])};") if params[:exclude]%>
+			
+		window.collection.show();
+		console.log(window.collection.query.include);
 
-		var properties = <%= raw(Collection.find(params[:collection_id]).configuration.to_json)%>;
-		
-		for(var property in properties){
-			properties[property] = Object.keys(properties[property]); 
-		}
-		window.visualization['<%=params[:type]%>']('visualization_container',"<%=request.original_url%>");
-		window.collection.visualization_controls(properties);
+		window.visualization[window.collection.query.type]('visualization_container',window.location.pathname+window.collection.query_terms());
+
 		<% if session[:user_id] %>
-			window.trays.add_records(<%=session[:user_id].to_i%>);
-			window.trays.add_visualization(<%=session[:user_id].to_i%>);
+		window.trays.add_records(<%= session[:user_id].to_i%>);
+		window.trays.add_visualization(<%= session[:user_id].to_i%>);
 		<% end %>
-		var id = setInterval(function() { 
-			$("#query_length").val(window.collection.query.length);
-		}, 500)
 		
+		var id = setInterval(function() {
+			$("#query_length").val(window.collection.query.length);
+		}, 500);
 	});
 </script>
 <nav id='secondary_nav'>
 	
-	<form id='add_records_to_tray'>
-		<h3>
-			<input type='text' id='query_length' >
-			records
-		</h3>
-		<% if session[:user_id] %>
-		<br>
+	<a id='visualization_controls'>Visualization Controls:</a>
+	<ul>
+		<li>
+			<!--
+			<form id='quick_search' target='_blank' method='get' action=''>
+				<input id='quick_search_term' type='text' name='terms'>
+				<input type='hidden' name='type' value='quick_search'>
+			</form>
+			-->
+		</li>
+		<li>
+			<%= link_to 'ABOUT', collection_path(@collection), id: 'collection_about'%>
+		</li>
+	</ul>
+</nav>
+<div id='query_builder'>
+	<div id='visualization_options'>
+		<form id='generate_visualization' >
+			<div class='visualization_menu'>
+			<label for='visualization_type'>Visualization Type:</label>
+			<select id='visualization_type'>
+				<option value='treemap'>Treemap</option>
+				<option value='thumbnail'>Thumbnail</option>
+			</select>
+			</div>
+			<div class='visualization_menut'>
+			<label for='visualization_property'>Visualize Proprety:</label>
+			<select id='visualization_property'>
+				<% @collection.configuration.keys.each do |property| %>
+				<% if ['thumbnail','image'].include? property
+		          next
+		          end%>
+				<option value='<%= property %>'><%= property %></option>
+				<% end %>
+			</select>
+			</div>
+			<input type='submit' value='generate visualization'>
+		</form>
+	</div>
+	<div id='save_information'>
+	<% if session[:user_id] %>
+	<form id='add_visualization_to_tray'>
+		<p>Save visualization:</p>
 		<select name='tray'>
 			<option selected='true' disabled>SELECT TRAY</option>
 			<option value='new_tray'>New Tray</option>
 			<% User.find(session[:user_id]).trays.each do |tray| %>
-				<option value='<%=tray.id%>'><%= tray.name %></option>
+			<option value='<%= tray.id%>'><%= tray.name %></option>
 			<% end %>
 		</select>
 		<input name='new_tray' style='display: none'>
 		<input type='submit' value="Add to Tray">
-		<% end %>
 	</form>
-	
-	<form id='refine_search'>
-		<h3>Refine query:</h3>
-		<br>
-		<label for='vizualization_type'>type</label>
-		<select id='vizualization_type' name='type'>
-			<option value='treemap'>treemap</option>
-			<option value='thumbnail'>thumbnail</option>
-		</select>
-		<label for='vizualization_property'>property</label>
-		<select id='vizualization_property' name='property'>
-			<% @properties.each do |property|%>
-				<% unless ["image","thumbnail"].include? property %>
-				<option value='<%= property %>'><%= property %></option>
-				<% end %>
-			<% end %>
-		</select>
-		<br><br>
-		<label for='vizualization_include'>include</label>
-		<div id='visualization_include'>
-		<% if params[:include]%>
-			<% params[:include].each do |include|%>
-				<span class='visualization_included'><span class='remove_element'>x</span><input value='<%= include %>' name='include[]' readonly></span>
-			<% end %>
-		<% end %>
-		</div>
-		<select id='include_property'>
-			<% @properties.each do |property|%>
-				<% unless ["image","thumbnail"].include? property %>
-				<option value='<%= property %>'><%= property %></option>
-				<% end %>
-			<% end %>
-		</select>
-		<input class='visualization_new_property' id='include_value' autocomplete="off" >
-		<br><br>
-		<label for='vizualization_exclude'>exclude</label><br>
-		<div id='visualization_exclude'>
-		<% if params[:exclude]%>
-			<% params[:exclude].each do |exclude|%>
-				<span class='visualization_excluded'><span class='remove_element'>x</span><input value='<%= exclude %>' name='exclude[]' readonly></span>
-			<% end %>
-		<% end %>
-		</div>
-		<select id='exclude_property'>
-			<% @properties.each do |property|%>
-				<% unless ["image","thumbnail"].include? property %>
-				<option value='<%= property %>'><%= property %></option>
-				<% end %>
-			<% end %>
-		</select>
-		<input class='visualization_new_property' id='exclude_value'  autocomplete="off" >
-		<br>
-		<input type='submit'>
-	</form>
-	
-	
-	
-	<% if session[:user_id] %>
-	<form id='add_visualization_to_tray'>
-		<h3>Save visualization:</h3>
-		<br>
+	<form id='add_records_to_tray'>
+		<p>Save Records:</p>
 		<select name='tray'>
 			<option selected='true' disabled>SELECT TRAY</option>
 			<option value='new_tray'>New Tray</option>
 			<% User.find(session[:user_id]).trays.each do |tray| %>
-				<option value='<%=tray.id%>'><%= tray.name %></option>
+			<option value='<%= tray.id%>'><%= tray.name %></option>
 			<% end %>
 		</select>
 		<input name='new_tray' style='display: none'>
 		<input type='submit' value="Add to Tray">
 	</form>
 	<% end %>
-</nav>
+	</div>
+	
+		<div id='included_terms' class='query_terms'>
+			<h4 class='query_title'>include</h4>
+			<div id='query_include' data-type='include'></div>
+		</div>
+		<div id='excluded_terms' class='query_terms' >
+			<h4 class='query_title'>exclude</h4>
+			<div id='query_exclude' data-type='exclude'></div>
+		</div>
+		<div id='include_properties' class='collection_terms' data-type='include'>
+			<div class='properties_header'>
+				<select>
+					<option selected disabled>property...</option>
+					<% @collection.configuration.keys.each do |property| %>
+					<% if ['thumbnail','image'].include? property
+		            next
+		            end%>
+					<option id='<%= property%>_list' class='property_link' data-property='<%= property%>'><%= property%></option>
+					<% end %>
+				</select>
+				<input class='filter' autocomplete="off">
+			</div>
+			<div class='collection_properties'>
+				<ul  class='property_list' data-property = ''>
+
+				</ul>
+			</div>
+		</div>
+		<div id='exclude_properties' class='collection_terms' data-type='exclude'>
+			<div class='properties_header'>
+				<select>
+					<option selected disabled>property...</option>
+					<% @collection.configuration.keys.each do |property| %>
+					<% if ['thumbnail','image'].include? property
+		            next
+		            end%>
+					<option id='<%= property%>_list' class='property_link' data-property='<%= property%>'><%= property%></option>
+					<% end %>
+				</select>
+				<input class='filter' autocomplete="off">
+			</div>
+			<div class='collection_properties'>
+				<ul  class='property_list' data-property = ''>
+
+				</ul>
+			</div>
+		</div>
+	</div>
+</div>
+
 <div id='visualization_container'></div>

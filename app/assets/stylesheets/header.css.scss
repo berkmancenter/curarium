@@ -64,30 +64,40 @@ $text: white;
 nav#secondary_nav {
       z-index:100;
       position: absolute;
-      left: 0;
       top: $header;
+      left: 0;
       width: 100%;
       height: $secondary;
-      padding: 0 30px;
       background-color: black;
       color: white;
       font-family: Montserrat;
-      ul, h3{
-        font-size: 10pt;
+      
+      >* {
         display: inline-block;
         float: left;
       }
+      
+      #visualization_controls {
+        display: inline-block;
+        float: left;
+        width: 50%;
+        color: white;
+        text-transform: uppercase;
+        padding-left: 27px;
+      }     
       ul{
-        float: right;
-      }
-      form{
+        width: 50%;
         float: left;
         display: inline-block;
-        
+        height: $secondary;
       }
+      
+      
       li{
-        display: inline;
+        display: inline-block;
         list-style: none;
+        float: left;
+        margin-left: 2em; 
         a{
           text-transform: uppercase;
           font-size: 8pt;

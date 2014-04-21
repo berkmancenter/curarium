@@ -18,16 +18,14 @@
 </div>
 <% else %>
 <nav id='secondary_nav'>
-		<h3> Welcome back, <%= @user.name%>! </h3>
-		<nav id='dashboard_nav'>
-			<ul>
-				<li><a data-target='user_sections'>sections</a></li>
-				<li><a data-target='user_collections'>collections</a></li>
-				<li><a data-target='user_spotlights'>spotlights</a></li>
-				<li><a data-target='current_user_trays'>trays</a></li>
-				<li><a data-target='user_annotations'>annotations</a></li>
-			</ul>
-		</nav>
+		<p> Welcome back, <%= @user.name%>! </p>
+		<ul>
+			<li><a data-target='user_sections'>sections</a></li>
+			<li><a data-target='user_collections'>collections</a></li>
+			<li><a data-target='user_spotlights'>spotlights</a></li>
+			<li><a data-target='current_user_trays'>trays</a></li>
+			<li><a data-target='user_annotations'>annotations</a></li>
+		</ul>
 </nav>
 <div id='curarium_dashboard' class="home_section">
 	<div id='user_sections' class='curarium_dashboard'>

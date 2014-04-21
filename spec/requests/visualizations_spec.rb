@@ -7,18 +7,18 @@ describe 'visualization requests', :js => true do
 
   shared_examples_for ( 'refine query' ) {
     it {
-      should have_css '#vizualization_property option', text: 'title', visible: false
-      should have_css '#vizualization_property option', text: 'artist', visible: false
+      should have_css '#visualization_property option', text: 'title', visible: false
+      should have_css '#visualization_property option', text: 'artist', visible: false
     }
 
     it {
-      should have_css '#include_property option', text: 'title', visible: false
-      should have_css '#include_property option', text: 'artist', visible: false
+      should have_css '#include_properties option', text: 'title', visible: false
+      should have_css '#include_properties option', text: 'artist', visible: false
     }
 
     it {
-      should have_css '#exclude_property option', text: 'title', visible: false
-      should have_css '#exclude_property option', text: 'artist', visible: false
+      should have_css '#exclude_properties option', text: 'title', visible: false
+      should have_css '#exclude_properties option', text: 'artist', visible: false
     }
   }
 

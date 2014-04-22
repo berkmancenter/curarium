@@ -38,6 +38,7 @@ class CollectionsController < ApplicationController
         params[:json_files]['path'].each do |url|
           @json_file = @collection.json_files.create!(path: url, collection_id: @collection.id)
         end
+        Parser.new.async.perform(@collection.id)
         format.html { redirect_to @collection, notice: 'Collection was successfully created.' }
         format.json { render action: 'show', status: :created, location: @collection }
       else
@@ -55,6 +56,7 @@ class CollectionsController < ApplicationController
         params[:json_files]['path'].each do |url|
           @json_file = @collection.json_files.create!(path: url, collection_id: @collection.id)
         end
+        Parser.new.async.perform(@collection.id)
         format.html { redirect_to @collection, notice: 'Collection was successfully updated.' }
         format.json { head :no_content }
       else
@@ -75,21 +77,6 @@ class CollectionsController < ApplicationController
   end
 
   # ingestions
-  
-  def add
-    @collection = Collection.find(params[:collection_id])
-  end
-  
-  def upload
-    @collection = Collection.find(params[:collection_id])
-    if @collection.update(collection_params)
-        format.html { redirect_to @collection, notice: 'JSON was successfully updated.' }
-        format.json { head :no_content }
-      else
-        format.html { render action: 'edit' }
-        format.json { render json: @@collection.errors, status: :unprocessable_entity }
-      end
-  end
   
   def check_key
       collection = Collection.find_by(key: params[:collection_id])

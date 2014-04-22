@@ -19,10 +19,12 @@ class CollectionsController < ApplicationController
   # GET /collections/new
   def new
     @collection = Collection.new
+    @json_files = @collection.json_files.build
   end
 
   # GET /collections/1/edit
   def edit
+    @json_files = @collection.json_files.build
   end
 
   # POST /collections
@@ -33,6 +35,9 @@ class CollectionsController < ApplicationController
     @collection.admin = [session[:user_id]]
     respond_to do |format|
       if @collection.save
+        params[:json_files]['path'].each do |url|
+          @json_file = @collection.json_files.create!(path: url, collection_id: @collection.id)
+        end
         format.html { redirect_to @collection, notice: 'Collection was successfully created.' }
         format.json { render action: 'show', status: :created, location: @collection }
       else
@@ -47,6 +52,9 @@ class CollectionsController < ApplicationController
   def update
     respond_to do |format|
       if @collection.update(collection_params)
+        params[:json_files]['path'].each do |url|
+          @json_file = @collection.json_files.create!(path: url, collection_id: @collection.id)
+        end
         format.html { redirect_to @collection, notice: 'Collection was successfully updated.' }
         format.json { head :no_content }
       else
@@ -75,9 +83,6 @@ class CollectionsController < ApplicationController
   def upload
     @collection = Collection.find(params[:collection_id])
     if @collection.update(collection_params)
-        params[:json_files]['path'].each do |url|
-          @json_file = @collection.json_files.create!(path: url, collection_id: @collection.id)
-        end
         format.html { redirect_to @collection, notice: 'JSON was successfully updated.' }
         format.json { head :no_content }
       else
@@ -133,6 +138,6 @@ class CollectionsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def collection_params
-      params.require(:collection).permit(:name, :description, :configuration)
+      params.require(:collection).permit(:name, :description, :configuration, json_files_attributes: [:id, :collection_id, :path])
     end
 end

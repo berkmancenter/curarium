@@ -9,10 +9,9 @@ class VisualizationsController < ApplicationController
       format.json do
         if Rails.env.production?
           response = Rails.cache.fetch(params.to_s) { eval(params[:type]) }
-          puts "working?"
+          puts params.to_s
         else
           response = eval(params[:type])
-          puts "not working"
         end
         render json: response
       end

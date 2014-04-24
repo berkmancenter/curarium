@@ -625,7 +625,9 @@
             var row_serial = y * this.total_columns
             for (var x = column_left; x < column_right; x++)
             {
-                var serial = row_serial + x
+            	try {
+            		
+            	var serial = row_serial + x
                 this.visible_serials.push(serial)
                 var block = this.block_hub.getBlockBySerial(serial)
                 var id = block.info['id']
@@ -655,6 +657,9 @@
                         this.ghostIt(block)
                     }
                 //}
+                } catch(e) {
+            		console.log(e);
+            	}
             }
         }
         settings.images_loader.loadQueue()

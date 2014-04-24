@@ -18,6 +18,11 @@ window.visualization.populate_query_menu = () ->
     $('#visualization_exclude').append(term)
   undefined
 
+window.visualization.thumbnail = (container, source) ->
+  #$('#'+container).find('*').remove()
+  $('#'+container).spatialc({url: source});
+  undefined
+
 window.visualization.treemap = (container, source)->
   selected = []
   $.getJSON(
@@ -99,7 +104,7 @@ window.visualization.quick_search = (container, source) ->
   window.visualization.thumbnail(container, source)
   undefined
 
-window.visualization.thumbnail = (container, source) ->
+window.visualization.old_thumbnail = (container, source) ->
   $.getJSON(
     source
     (items) ->

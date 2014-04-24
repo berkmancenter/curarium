@@ -190,7 +190,7 @@ printRecord = (json, path=[]) ->
 #COLLECTION QUERY
 window.collection.query = 
   length: null
-  type: 'treemap'
+  type: 'thumbnail'
   property: 'title'
   properties: {}
   include : []

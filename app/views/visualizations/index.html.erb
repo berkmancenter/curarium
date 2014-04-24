@@ -6,7 +6,6 @@
 		<%= raw("window.collection.query.exclude=#{raw(params[:exclude])};") if params[:exclude]%>
 			
 		window.collection.show();
-		console.log(window.collection.query.include);
 
 		window.visualization[window.collection.query.type]('visualization_container',window.location.pathname+window.collection.query_terms());
 
@@ -35,7 +34,10 @@
 		<li>
 			<%= link_to 'ABOUT', collection_path(@collection), id: 'collection_about'%>
 		</li>
+		<!--<li><button type="button" id="map-toggle" class="btn btn-primary active"><strong>S</strong>cale map</button>-->
 	</ul>
+	
+    <!--<div id="minimap"><div class="closesign"></div></div>-->
 </nav>
 <div id='query_builder'>
 	<div id='visualization_options'>

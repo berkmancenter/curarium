@@ -96,6 +96,7 @@ class VisualizationsController < ApplicationController
   end
   
   def encode_params
+    collection = params[:collection_id].to_s
     type = params[:type].to_s
     property = params[:property].to_s
     include = ""
@@ -110,7 +111,7 @@ class VisualizationsController < ApplicationController
         exclude += e.to_s
       end
     end
-    return (type+'_'+property+'_'+include+'_'+exclude).gsub(/:/,'_')
+    return ('c'+collection+'_'+type+'_'+property+'_'+include+'_'+exclude).gsub(/:/,'_')
   end
   
 =begin  

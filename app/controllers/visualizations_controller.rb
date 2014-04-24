@@ -8,8 +8,7 @@ class VisualizationsController < ApplicationController
       format.html { render action: "index" }
       format.json do
         if Rails.env.production?
-          response = Rails.cache.fetch(params.to_s) { eval(params[:type]) }
-          puts params.to_s
+          response = Rails.cache.fetch(encode_params) { eval(params[:type]) }
         else
           response = eval(params[:type])
         end
@@ -95,6 +94,25 @@ class VisualizationsController < ApplicationController
     records = @collection.list_query(params[:include],params[:exclude])
     return records
   end
+  
+  def encode_params
+    type = params[:type].to_s
+    property = params[:property].to_s
+    include = ""
+    unless params[:include].nil?
+      params[:include].sort.each do |i|
+        include += i.to_s
+      end
+    end
+    exclude = ""
+    unless params[:exclude].nil?
+      params[:exclude].sort.each do |e|
+        exclude += e.to_s
+      end
+    end
+    return (type+'_'+property+'_'+include+'_'+exclude).gsub(/:/,'_')
+  end
+  
 =begin  
   THIS WAS PART OF AN ILL FATED ATTEMPT TO MAKE VISUALIZATIONS EMBEDDABLE.
   def embed

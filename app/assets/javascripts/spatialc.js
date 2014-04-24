@@ -625,7 +625,7 @@
             var row_serial = y * this.total_columns
             for (var x = column_left; x < column_right; x++)
             {
-            	try {
+            	try { //THIS CODE WAS FAILING FOR SMALLER IMAGE SETS, SO I PUT IT INSIDE A TRY-CATCH STATEMENT. THIS IS A TEMPORARY SOLUTION. -P
             		
             	var serial = row_serial + x
                 this.visible_serials.push(serial)

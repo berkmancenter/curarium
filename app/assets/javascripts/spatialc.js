@@ -268,11 +268,13 @@
 
         this.element = document.createElement('div')
         this.element.setAttribute('class', 'item loading')
+        this.element.setAttribute('id', id)
         this.element.style.backgroundImage = 'url(' + this.info['thumbnail'] + ')'
         //this.element.onclick = this.openSpotlight
         this.element.onmouseup = this.movemouseup
         this.element.block = this
-
+		
+		
         var moveicon = document.createElement('div')
         moveicon.setAttribute('class', 'moveicon')
         moveicon.onmousedown = this.movemousedown
@@ -292,6 +294,10 @@
     {
         $(this.element).removeClass('loading')
         $(this.element).find('.moveicon').css('display', 'block')
+        var id = this.element.getAttribute('id')
+        this.element.onclick = function(){
+			window.open('http://' + window.location.host + '/records/' + id, '_blank');
+		};
         for (prop in this.clones)
         {
             var clone = this.clones[prop]

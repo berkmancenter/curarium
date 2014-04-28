@@ -6,7 +6,7 @@ window.annotation = {}
 
 window.annotation.tag_selector = ()->
   $('#tag_selector').change ()->
-    div = $("<input type='text'class='annotation_tag' readonly='readonly' name='content[tags][]'>").val($(this).val())
+    div = $("<input type='text'class='annotation_tag' readonly='readonly' name='annotation[content][tags][]'>").val($(this).val())
     $(this).before(div)
     undefined
   undefined

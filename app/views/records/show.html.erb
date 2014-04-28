@@ -79,20 +79,22 @@
 		<div class='window_body'>
 			<div id='preview_window'></div>
 			<%= form_for([@record, @record.annotations.build]) do |f| %>
-			<label for='short_description'>Short Description:</label>
-			<br>
-			<input id='short_description' name='content[title]'>
-			<br>
-			<label for='long_description'>Long Description:</label>
-			<br>
-			<textarea id='long_description' name='content[body]'></textarea>
-			<br>			
+				<%= f.fields_for :content do |content|%><br>
+			    	<div>
+			    		<%= content.label :title%><br>
+			    		<%= content.text_field :title%>
+			    	</div>
+			    	<div>
+			    		<%= content.label :body%><br>
+			    		<%= content.text_area :body%>
+			    	</div>
+			    	<%= content.hidden_field :x, id: 'content_x'%>
+			    	<%= content.hidden_field :y, id: 'content_y'%>
+			    	<%= content.hidden_field :width, id: 'content_width'%>
+			    	<%= content.hidden_field :height, id: 'content_height'%>
+			    	<%= content.hidden_field :image_url, id: 'content_url'%>
+			    <% end %>		
 			<%= tag_selector @record.parsed %>
-			<input type='hidden' name='content[x]'>
-			<input type='hidden' name='content[y]'>
-			<input type='hidden' name='content[width]'>
-			<input type='hidden' name='content[height]'>
-			<input type='hidden' name='content[image_url]'>
 			<p>
 				<%= f.submit %>
 			</p>

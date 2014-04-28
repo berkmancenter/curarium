@@ -1,19 +1,15 @@
 <%= form_for(@annotation) do |f| %>
-  <% if @annotation.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@annotation.errors.count, "error") %> prohibited this record from being saved:</h2>
-
-      <ul>
-      <% @annotation.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
-
   <div class="field">
-    <%= f.label :content %><br>
-    <%= f.text_field :content %>
+    <%= f.fields_for :content do |content|%><br>
+    	<div>
+    		<%= content.label :title%><br>
+    		<%= content.text_field :title%>
+    	</div>
+    	<div>
+    		<%= content.label :body%><br>
+    		<%= content.textarea :body%>
+    	</div>
+    <% end %>
   </div>
   <div class="actions">
     <%= f.submit %>

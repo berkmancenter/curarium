@@ -198,11 +198,11 @@ window.record.display = (image_url)->
         
         $(this).unbind('mousemove')
         
-        $("input[name='content[x]']").val(clipping.x)
-        $("input[name='content[y]']").val(clipping.y)
-        $("input[name='content[width]']").val(clipping.width)
-        $("input[name='content[height]']").val(clipping.height)
-        $("input[name='content[image_url]']").val(image_url)
+        $("#content_x").val(clipping.x)
+        $("#content_y").val(clipping.y)
+        $("#content_width").val(clipping.width)
+        $("#content_height").val(clipping.height)
+        $("#content_url").val(image_url)
         
         preview = new Kinetic.Stage(
           container: 'preview_window'

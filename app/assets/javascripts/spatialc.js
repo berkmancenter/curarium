@@ -6,14 +6,34 @@
  * Licensed under the MIT license:
  *   http://www.opensource.org/licenses/mit-license.php
  *
- * Revision: 107 2014-03-30
+ * Revision: 107 2014-04-25
  */
+
+/*
+
+ 	This are the line numbers where chunks of code HAD to be commented out in order for spatial C to work decoupled from story assembler, websocket, admin panels, etc. 
+ 	273,358,397,640,768,1648
+ 	
+ 	the "init" functions begin in line 1694. The first one had to be commented and a line added to is so it jumps straight to "init_step_4()"
+ 	
+ 	In both cases (commented blocks and init function), the problem might be solved by adding some conditional clauses. 
+ 	
+ 	To correct a bug that was preventing some collections from loading, a "try... catch" statement was added in line 628.
+ 	This is probably a patch solution that again could be solved by adding conditionals.
+ 	There is also an issue with zooming in for smaller collections which I still haven't been able to figure out.
+ 	
+ 	Finally, in lines 273 and 300 the onclick behavior of each block was modified so instead of opening a pop-up, it opens the record page in a new tab.
+ 	This was not a 'bug' but rather a necessary modification to integrate with our code.
+ 	
+*/
+ 	 
+
 
 
 (function( $ ){
 
 
-    /*function Socket(address)
+    function Socket(address)
     {
         this.init(address)
     }
@@ -64,7 +84,7 @@
                     settings.ws.waitForSocketConnection(socket, callback);
                 }
         }, 5)
-    }*/
+    }
 
 
     function FlashBlock(opt)
@@ -310,7 +330,7 @@
     {
         return this.element
     }
-    /*
+    
     Block.prototype.openSpotlight = function(e)
     {
         if (this.getAttribute('class').indexOf('item') > -1) {
@@ -325,7 +345,7 @@
             // settings.display_block.topics.innerHTML = 'Topics: ' + block.topics
         }
     }
-    */
+    
     Block.prototype.movemousedown = function(e)
     {
         settings.drag_block = this.parentElement
@@ -355,7 +375,7 @@
         $('body').removeClass('unselectable')
         var id = settings.drag_block.block.info['id']
         var block = settings.block_hub.getBlockById(id)
-        /*for (var i = 0, il = settings.userpanel_hub.count(); i < il; i++)
+        /*for (var i = 0, il = settings.userpanel_hub.count(); i < il; i++)  //THIS BLOCK HAS TO BE KEPT COMMENTED
         {
             var userpanel = settings.userpanel_hub.getUserPanel(i)
             if (userpanel.checkIfHovered(e.pageX, e.pageY))
@@ -394,7 +414,7 @@
 
     function highlightEmptyPlugs(x, y)
     {
-        /*for (var i = 0, il = settings.userpanel_hub.count(); i < il; i++)
+        /*for (var i = 0, il = settings.userpanel_hub.count(); i < il; i++) //THIS BLOCK HAS TO BE KEPT COMMENTED
         {
             var up = settings.userpanel_hub.getUserPanel(i)
             for (var k = 0, kl = up.plugs.length; k < kl; k++)
@@ -637,7 +657,7 @@
                     settings.images_loader.queueBlock(block)
                 }                
                 var elem = null
-                /*if (settings.userpanel_hub.isAnyUserPanelHasId(id)) 
+                /*if (settings.userpanel_hub.isAnyUserPanelHasId(id)) //THIS BLOCK HAS TO BE KEPT COMMENTED
                 {
                     this.placePlug(block, x, y)
                     block.element.style.display = 'none'
@@ -765,7 +785,7 @@
         var elem = block.getElement()
         var id = block.info['id']
 
-        /*var userpanel = settings.userpanel_hub.isAnyUserPanelHasId(id)
+        /*var userpanel = settings.userpanel_hub.isAnyUserPanelHasId(id) //THIS BLOCK HAS TO BE KEPT COMMENTED
         if (userpanel)
         {
             userpanel.removeBlock(id)
@@ -935,7 +955,7 @@
         render()
     }
 
-    /*
+    
     function UserPanelHub()
     {
         this.userpanel_array = new Array()
@@ -1634,7 +1654,7 @@
             }
         })
     }
-    */
+    
 
     function createStructure()
     {
@@ -1645,8 +1665,8 @@
         settings.side_size = Math.ceil(c_width / 20)
         settings.blocks_panel = new BlocksPanel(settings.container,
                                 {'height': c_height, 'side_size': settings.side_size })
-        /*
-        settings.story_holder = document.createElement('div')
+        /*  //THIS BLOCK HAS TO BE KEPT COMMENTED
+        settings.story_holder = document.createElement('div')   
         settings.story_holder.setAttribute('id', 'story-holder')
         settings.container.appendChild(settings.story_holder)
 
@@ -1675,7 +1695,7 @@
         });
     }
 
-    /*function toggleSeveralPanels()
+    function toggleSeveralPanels()
     {
         if (settings.userpanel_hub.visiblePanelsCount() == 1)
         {
@@ -1688,7 +1708,7 @@
             settings.userpanel_hub.hideUserPanel()
         }
         render()
-    }*/
+    }
     
 
     function init()
@@ -1699,7 +1719,7 @@
         /// tries to authenticate user by cookie or creates new
         //settings.user = new User()
         //settings.user.authenticate(init_step_2)
-        init_step_4();
+        init_step_4(); //THIS LINE WAS ADDED SO WE CAN SKIP STRAIGHT TO init_step_4
         return
     }
 
@@ -1758,7 +1778,7 @@
         {
             settings.user.logIn(settings.opt.login, '', init_step_2)
         }
-	/*
+	
         if (settings.opt.resize)
         {
             settings.userpanel_hub.setNewBlocksPanelHeight()
@@ -1777,13 +1797,13 @@
                 }
             }
             settings.userpanel_hub.setNewBlocksPanelHeight()
-        }*/
+        }
     }
 
     function render()
     {
         settings.images_loader.reset()
-        /*for (var i = 0, il = settings.userpanel_hub.count(); i < il; i++)
+        /*for (var i = 0, il = settings.userpanel_hub.count(); i < il; i++) //THIS BLOCK HAS TO BE KEPT COMMENTED
         {
             settings.userpanel_hub.getUserPanel(i).update()
         }*/
@@ -1860,7 +1880,7 @@
         settings.blocks_panel.setBlockHub(settings.block_hub)
         render()
     }
-    /*
+    
     function createSpotlightPanel()
     {
         settings.shade_div = document.createElement('div')
@@ -1931,7 +1951,7 @@
         d.setTime(d.getTime()+(exdays*24*60*60*1000));
         var expires = "expires="+d.toGMTString();
         document.cookie = cname + "=" + cvalue + "; " + expires;
-    }*/
+    }
 
 }( jQuery ));
 

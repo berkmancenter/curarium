@@ -10,10 +10,9 @@ class VisualizationsController < ApplicationController
       format.json do
         response = VizCache.find_by(query: encode_params)
         if response.nil?
-          Visualizer.new.async.perform(params)
-          #response = eval(params[:type])
-          #stored_response = VizCache.new({query: encode_params, data: response})
-          #stored_response.save
+          response = eval(params[:type])
+          stored_response = VizCache.new({query: encode_params, data: response})
+          stored_response.save
         else
           response = response.data
         end

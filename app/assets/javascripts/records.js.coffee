@@ -152,81 +152,72 @@ window.record.display = (image_url)->
     opacity: 0.25
   )
   
-  $('#main-canvas').on(
-    'dblclick'
-    (event) ->
-      if(event.which==1)
-        event.preventDefault()
-        stage.setAttr('draggable', false)
-        canvas_x = (event.clientX - $(this).offset().left)-stage.getAttr('x')
-        canvas_y = (event.clientY - $(this).offset().top)-stage.getAttr('y')
-        crop.setAttrs(
-          x: canvas_x/stage.getAttr('scale').x
-          y: canvas_y/stage.getAttr('scale').y
-        )
-        layer.add(crop)
-        $(this).on(
-          'mousemove'
-          (event) ->
-            canvas_x = event.clientX - $(this).offset().left - stage.getAttr('x')
-            canvas_y = event.clientY - $(this).offset().top - stage.getAttr('y')
-            crop.setAttrs(
-              width:  (canvas_x - crop.getAttr('x')*stage.getAttr('scale').x)/stage.getAttr('scale').x
-              height: (canvas_y - crop.getAttr('y')*stage.getAttr('scale').y)/stage.getAttr('scale').y
-            )
-            stage.draw()
+  canvas_dblclick = (event) ->
+    if(event.which==1)
+      event.preventDefault()
+      stage.setAttr('draggable', false)
+      canvas_x = (event.clientX - $(this).offset().left)-stage.getAttr('x')
+      canvas_y = (event.clientY - $(this).offset().top)-stage.getAttr('y')
+      crop.setAttrs(
+        x: canvas_x/stage.getAttr('scale').x
+        y: canvas_y/stage.getAttr('scale').y
+      )
+      layer.add(crop)
+      $(this).on(
+        'mousemove'
+        (event) ->
+          canvas_x = event.clientX - $(this).offset().left - stage.getAttr('x')
+          canvas_y = event.clientY - $(this).offset().top - stage.getAttr('y')
+          crop.setAttrs(
+            width:  (canvas_x - crop.getAttr('x')*stage.getAttr('scale').x)/stage.getAttr('scale').x
+            height: (canvas_y - crop.getAttr('y')*stage.getAttr('scale').y)/stage.getAttr('scale').y
           )
-    )
+          stage.draw()
+        )
+    undefined
     
-  $('#main-canvas').on(
-    'mouseup'
-    (event) ->
-      if(event.which==1)
-
-        clipping =
-          x: Math.floor(crop.getAttr('x')) - (main.offsetWidth/min_scale - surrogate.width)/2 #remove picture offset for clipping purposes
-          y: Math.floor(crop.getAttr('y')) - (main.offsetHeight/min_scale - surrogate.height)/2 #remove picture offset for clipping purposes
-          width: Math.floor(crop.getAttr('width'))
-          height: Math.floor(crop.getAttr('height'))
-        
-        clipping =
-          x: if clipping.width > 0 then clipping.x else clipping.x+clipping.width
-          y: if clipping.height > 0 then clipping.y else clipping.y+clipping.height
-          width: Math.abs(clipping.width)
-          height: Math.abs(clipping.height)
-        
-        
-        $(this).unbind('mousemove')
-        
-        $("#content_x").val(clipping.x)
-        $("#content_y").val(clipping.y)
-        $("#content_width").val(clipping.width)
-        $("#content_height").val(clipping.height)
-        $("#content_url").val(image_url)
-        
-        preview = new Kinetic.Stage(
-          container: 'preview_window'
-          width: if clipping.width > clipping.height then 300 else clipping.width * 300 / clipping.height
-          height: if clipping.width > clipping.height then clipping.height * 300 / clipping.width else 300
-        )
-        
-        preview_layer = new Kinetic.Layer()
-        
-        preview_image = new Kinetic.Image(
-          image: surrogate
-          crop: clipping
-          scale:
-            x: preview.getAttr('width')/surrogate.width
-            y: preview.getAttr('height')/surrogate.height
-        )
-        
-        preview_layer.add(preview_image)
-        preview.add(preview_layer)
-        
-        crop.destroy()
-    )
+  canvas_mouseup = (event) ->
+    if(event.which==1)
+      
+      stage.setAttr('draggable', true)
+      
+      clipping =
+        x: Math.floor(crop.getAttr('x')) - (main.offsetWidth/min_scale - surrogate.width)/2 #remove picture offset for clipping purposes
+        y: Math.floor(crop.getAttr('y')) - (main.offsetHeight/min_scale - surrogate.height)/2 #remove picture offset for clipping purposes
+        width: Math.floor(crop.getAttr('width'))
+        height: Math.floor(crop.getAttr('height'))
+      
+      clipping =
+        x: if clipping.width > 0 then clipping.x else clipping.x+clipping.width
+        y: if clipping.height > 0 then clipping.y else clipping.y+clipping.height
+        width: Math.abs(clipping.width)
+        height: Math.abs(clipping.height)
+      
+      $(this).unbind('mousemove')
+      $("#content_x").val(clipping.x)
+      $("#content_y").val(clipping.y)
+      $("#content_width").val(clipping.width)
+      $("#content_height").val(clipping.height)
+      $("#content_url").val(image_url)
+      preview = new Kinetic.Stage(
+        container: 'preview_window'
+        width: if clipping.width > clipping.height then 300 else clipping.width * 300 / clipping.height
+        height: if clipping.width > clipping.height then clipping.height * 300 / clipping.width else 300
+      )
+      preview_layer = new Kinetic.Layer()
+      preview_image = new Kinetic.Image(
+        image: surrogate
+        crop: clipping
+        scale:
+          x: preview.getAttr('width')/surrogate.width
+          y: preview.getAttr('height')/surrogate.height
+      )
+      preview_layer.add(preview_image)
+      preview.add(preview_layer)
+      crop.destroy()
+    undefined
   
-    
+  
   
   get_annotations = ()->
     $.getJSON(
@@ -314,6 +305,71 @@ window.record.display = (image_url)->
     )
     undefined
   
+  
+  $('#main-canvas').on('dblclick', canvas_dblclick )    
+  $('#main-canvas').on('mouseup', canvas_mouseup )
+  
+  $('.tag_selector').change ()->
+    div = $("<input type='text'class='annotation_tag' readonly='readonly' name='annotation[content][tags][]'>").val($(this).val())
+    $(this).before(div)
+    undefined
+  
+  $('.edit_clipping').click ()->
+    current_note = $(this).parent()
+    id = $(this).parent().attr('id')
+    rect = stage.find("##{id}")
+    stage.setAttr('draggable', false)
+    $('#main-canvas').unbind('dblclick')    
+    $('#main-canvas').unbind('mouseup')
+    notes_layer = stage.getLayers()[1]
+    notes_layer.remove()
+    stage.draw()
+    $('#main-canvas').mousedown (event)->
+      canvas_x = (event.clientX - $(this).offset().left)-stage.getAttr('x')
+      canvas_y = (event.clientY - $(this).offset().top)-stage.getAttr('y')
+      crop.setAttrs(
+        x: canvas_x/stage.getAttr('scale').x
+        y: canvas_y/stage.getAttr('scale').y
+      )
+      layer.add(crop)
+      $(this).mousemove (event)->
+        canvas_x = event.clientX - $(this).offset().left - stage.getAttr('x')
+        canvas_y = event.clientY - $(this).offset().top - stage.getAttr('y')
+        crop.setAttrs(
+          width:  (canvas_x - crop.getAttr('x')*stage.getAttr('scale').x)/stage.getAttr('scale').x
+          height: (canvas_y - crop.getAttr('y')*stage.getAttr('scale').y)/stage.getAttr('scale').y
+        )
+        stage.draw()
+        undefined
+    undefined
+    $('#main-canvas').mouseup (event)->
+      clipping =
+        x: Math.floor(crop.getAttr('x')) - (main.offsetWidth/min_scale - surrogate.width)/2 #remove picture offset for clipping purposes
+        y: Math.floor(crop.getAttr('y')) - (main.offsetHeight/min_scale - surrogate.height)/2 #remove picture offset for clipping purposes
+        width: Math.floor(crop.getAttr('width'))
+        height: Math.floor(crop.getAttr('height'))
+      
+      rect.setAttrs(
+        x: crop.getAttr('x')
+        y: crop.getAttr('y')
+        width: crop.getAttr('width')
+        height: crop.getAttr('height')
+      )
+      
+      $(current_note).find('.content_x').val(clipping.x)
+      $(current_note).find('.content_y').val(clipping.y)
+      $(current_note).find('.content_width').val(clipping.width)
+      $(current_note).find('.content_height').val(clipping.height)
+      
+      $(this).unbind()
+      $(this).on('dblclick', canvas_dblclick )    
+      $(this).on('mouseup', canvas_mouseup )
+      stage.setAttr('draggable', true)
+      stage.add(notes_layer)
+      crop.destroy()
+      stage.draw()
+      undefined
+    undefined
   
   $('#record_annotate h4').click ()->
     $(this).data('clicked', !$(this).data('clicked'))

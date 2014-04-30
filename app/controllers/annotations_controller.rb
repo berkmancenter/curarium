@@ -1,5 +1,6 @@
 class AnnotationsController < ApplicationController
-  skip_before_action :authorize, only: [:index, :show, :check_key, :ingest]
+  before_action :set_annotation, only: [:show, :edit, :update, :destroy]
+  skip_before_action :authorize, only: [:index, :show]
   def new
     @annotation = Annotation.new
   end
@@ -29,6 +30,17 @@ class AnnotationsController < ApplicationController
   end
 
   def update
+    @record = Record.find(params[:record_id])
+    @annotation.update(annotation_params)
+    respond_to do |format|
+      if @annotation.save
+        format.html { redirect_to @record, notice: 'Annoation was successfully created.' }
+        format.json { render action: 'show', status: :created, location: @annotation }
+      else
+        format.html { render action: 'new' }
+        format.json { render json: @annotation.errors, status: :unprocessable_entity }
+      end
+    end
   end
 
   def index

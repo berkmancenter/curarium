@@ -6,6 +6,7 @@ class VisualizationsController < ApplicationController
     @properties = @collection.configuration.keys
     respond_to do |format|
       format.html { render action: "index" }
+      format.js { render action: "index" }
       format.json do
         if Rails.env.production?
           response = Rails.cache.fetch(encode_params) { eval(params[:type]) }
@@ -73,11 +74,19 @@ class VisualizationsController < ApplicationController
     records = @collection.query_records(params[:include],params[:exclude])
     thumbnails = []
     records.each do |thumb|
+      parsed = {}
+      thumb.parsed.each do |key, value|
+        unless ['image','thumbnail','curarium'].include? key
+          unless value.nil?
+            parsed[key] = eval(value)
+          end
+        end
+      end
       placeholder = thumb.parsed['thumbnail']
       placeholder ||= "[]"
       thumbnails.push({
           thumbnail: eval(placeholder)[0],
-          title: eval(thumb.parsed['title'])[0],
+          parsed: parsed,
           id: thumb.id
         })
     end

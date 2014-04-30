@@ -17,9 +17,9 @@ gem 'factory_girl_rails' #breaks rake if its only in test group
 #caching
 group :production do
   # Memcached using Memcachier on Heroku
-  #gem 'memcachier'
-  #gem 'dalli'
-  #gem 'rack-cache'
+  gem 'memcachier'
+  gem 'dalli'
+  gem 'rack-cache'
 end
 
 #required for Heroku

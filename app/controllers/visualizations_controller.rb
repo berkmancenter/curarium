@@ -8,10 +8,13 @@ class VisualizationsController < ApplicationController
       format.html { render action: "index" }
       format.js { render action: "index" }
       format.json do
-        if Rails.env.production?
-          response = Rails.cache.fetch(encode_params) { eval(params[:type]) }
-        else
+        response = VizCache.find_by(query: encode_params)
+        if response.nil?
           response = eval(params[:type])
+          stored_response = VizCache.new({query: encode_params, data: response})
+          stored_response.save
+        else
+          response = response.data
         end
         render json: response
       end

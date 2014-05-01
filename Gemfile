@@ -66,6 +66,10 @@ gem 'bcrypt-ruby', '~> 3.1.2'
 gem 'carrierwave'
 gem 'fog'
 
+#running jobs as back processes 
+#gem 'sidekiq'
+gem 'sucker_punch' #does not require additional workers or redis on Heroku
+
 # Use unicorn as the app server
 # gem 'unicorn'
 

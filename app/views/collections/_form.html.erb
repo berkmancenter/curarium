@@ -24,6 +24,12 @@
 		<br>
 		<%= f.text_area :description, placeholder: "A description of your collection. It can be a long text." %>
 	</div>
+	
+	<%= f.fields_for :json_files do |json_file|%>
+		<%= json_file.label :path%>
+		<%= json_file.file_field :path, multiple: true, name: "json_files[path][]"%>
+	<% end %>
+	
 	<div class="field">
 		<%= f.hidden_field :configuration, value: "{}" %>
 	</div>
@@ -35,10 +41,9 @@
 	<form id='parse'>
 		<textarea id='json' placeholder='copy and paste your sample json record here'></textarea>
 		<br >
-		<input type='submit' value='parse'>-->
+		<input type='submit' value='parse'>
 	</form>
 	
-	<%= link_to 'Back', collections_path %>
 </section>
 <section id='parsed' class='configure_collection'></section>
 <section id='output' class='configure_collection'>

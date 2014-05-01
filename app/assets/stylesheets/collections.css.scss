@@ -225,6 +225,9 @@ section.configure_collection {
   height: calc(100% - 25px);
   height: 100%;
   float: left;
+  input[type=text], textarea {
+    border: 1px solid #999;
+  }
 }
 
 input[type=submit] {

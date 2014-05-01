@@ -65,6 +65,22 @@ describe 'visualization requests', :js => true do
         # one for each title + one for root node
         should have_css '.node', count: col.records.count + 1
       }
+
+      it {
+        should have_css '.node', text: 'Starry Night(1)'
+      }
+
+      it {
+        should have_css '.node', text: 'Mona Lisa(1)'
+      }
+
+      it {
+        should have_css '.node', text: 'Last Supper(1)'
+      }
+
+      it {
+        should have_css '.node', text: 'Lucrezia(1)'
+      }
     }
 
     describe ( 'treemap artist' ) {
@@ -77,6 +93,79 @@ describe 'visualization requests', :js => true do
       it {
         # there are only 3 artists in test data + 1 for root node
         should have_css '.node', count: 3 + 1
+      }
+
+      it {
+        should have_css '.node', text: 'da Vinci(2)'
+      }
+
+      it {
+        should have_css '.node', text: 'Van Gogh(1)'
+      }
+
+      it {
+        should have_css '.node', text: 'Parmigianino(1)'
+      }
+    }
+
+    describe ( 'treemap title include one' ) {
+      before {
+        visit "#{collection_visualizations_path( col )}?type=treemap&property=title&include[]=title:Starry Night"
+      }
+
+      it {
+        should have_css '.node', count: 1 + 1
+      }
+
+      it {
+        should have_css '.node', text: 'Starry Night(1)'
+      }
+
+      it {
+        should_not have_css '.node', text: 'Mona Lisa(1)'
+      }
+    }
+
+    describe ( 'treemap title include two' ) {
+      before {
+        visit "#{collection_visualizations_path( col )}?type=treemap&property=title&include[]=title:Starry Night&include[]=title:Mona Lisa"
+      }
+
+      it {
+        pending "this doesn't seem to be valid syntax for Curarium"
+        should have_css '.node', count: 2 + 1
+      }
+    }
+
+    describe ( 'treemap title exclude one' ) {
+      before {
+        visit "#{collection_visualizations_path( col )}?type=treemap&property=title&exclude[]=title:Starry Night"
+      }
+
+      it {
+        should have_css '.node', count: col.records.count + 1 - 1
+      }
+
+      it {
+        should_not have_css '.node', text: 'Starry Night(1)'
+      }
+    }
+
+    describe ( 'treemap title exclude two' ) {
+      before {
+        visit "#{collection_visualizations_path( col )}?type=treemap&property=title&exclude[]=title:Starry Night&exclude[]=title:Mona Lisa"
+      }
+
+      it {
+        should have_css '.node', count: col.records.count + 1 - 2
+      }
+
+      it {
+        should_not have_css '.node', text: 'Starry Night(1)'
+      }
+
+      it {
+        should_not have_css '.node', text: 'Mona Lisa(1)'
       }
     }
   }

@@ -1,5 +1,6 @@
 class AnnotationChangeContentType < ActiveRecord::Migration
   def change
-    change_column :annotations, :content, 'json USING to_json(content) '
+    remove_column :annotations, :content, :integer
+    add_column :annotations, :content, :json
   end
 end

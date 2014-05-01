@@ -12,16 +12,19 @@ class CollectionsController < ApplicationController
   # GET /collections/1
   # GET /collections/1.json
   def show
+    #right now, the ONE collection is showing ALL spotlights in Curarium. This has to change as soon as there are more than one collections.
     @spotlights = Spotlight.all
   end
 
   # GET /collections/new
   def new
     @collection = Collection.new
+    @json_files = @collection.json_files.build
   end
 
   # GET /collections/1/edit
   def edit
+    @json_files = @collection.json_files.build
   end
 
   # POST /collections
@@ -32,6 +35,10 @@ class CollectionsController < ApplicationController
     @collection.admin = [session[:user_id]]
     respond_to do |format|
       if @collection.save
+        params[:json_files]['path'].each do |url|
+          @json_file = @collection.json_files.create!(path: url, collection_id: @collection.id)
+        end
+        Parser.new.async.perform(@collection.id)
         format.html { redirect_to @collection, notice: 'Collection was successfully created.' }
         format.json { render action: 'show', status: :created, location: @collection }
       else
@@ -46,6 +53,10 @@ class CollectionsController < ApplicationController
   def update
     respond_to do |format|
       if @collection.update(collection_params)
+        params[:json_files]['path'].each do |url|
+          @json_file = @collection.json_files.create!(path: url, collection_id: @collection.id)
+        end
+        Parser.new.async.perform(@collection.id)
         format.html { redirect_to @collection, notice: 'Collection was successfully updated.' }
         format.json { head :no_content }
       else
@@ -66,7 +77,7 @@ class CollectionsController < ApplicationController
   end
 
   # ingestions
-
+  
   def check_key
       collection = Collection.find_by(key: params[:collection_id])
       if collection.nil?
@@ -105,8 +116,7 @@ class CollectionsController < ApplicationController
     render json: pr
   end
   
-  #functions taken from frontend js scripts to enable d3 visualization
-
+  
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_collection
@@ -115,6 +125,6 @@ class CollectionsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def collection_params
-      params.require(:collection).permit(:name, :description, :configuration)
+      params.require(:collection).permit(:name, :description, :configuration, json_files_attributes: [:id, :collection_id, :path])
     end
 end

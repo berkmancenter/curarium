@@ -3,7 +3,7 @@
 <div id='curarium_about' class="home_section">
 	<%= image_tag 'curarium logo_gif.gif'%>
 	<p id='curarium_description'>
-		Curarium leverages the power of the crowd to annotate, curate, & augment works with the aim of constructing shareable, media-rich stories & elaborate arguments about individual items as well as groups of items.
+		Curarium leverages the power of the crowd to annotate, curate, &amp; augment works with the aim of constructing shareable, media-rich stories &amp; elaborate arguments about individual items as well as groups of items.
 	</p>
 	<p id='curarium_sponsors'>
 		Development of the Curarium is generously supported by the De Bosis Endowment and the Kress Foundation.
@@ -13,7 +13,12 @@
 <div id='curarium_feed' class="home_section">
 
 	<% curarium_feed = Collection.where(approved: true).limit(5) + Spotlight.all.limit(10) %>
-	<%= fractal_box(curarium_feed)%>
+
+  <% curarium_feed.each_with_index { |e, i| %>
+    <div class="<%= i % 2 == 0 ? 'even' : 'odd' %> <%= 'last' if i == curarium_feed.count - 1 %>">
+      <%= raw parse_content( e ) %>
+    </div>
+  <% } %>
 
 </div>
 <% else %>

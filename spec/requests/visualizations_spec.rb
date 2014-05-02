@@ -168,5 +168,19 @@ describe 'visualization requests', :js => true do
         should_not have_css '.node', text: 'Mona Lisa(1)'
       }
     }
+
+    describe ( 'treemap click' ) {
+      before {
+        visit "#{collection_visualizations_path( col )}?type=treemap&property=artist"
+        # should be click_link
+        page.execute_script( %q[$('.node').last().click( )] )
+      }
+
+      it {
+        pending 'the nodes should be display: block links for better clickability'
+        snap
+        should have_css '.node', count: 1 + 1
+      }
+    }
   }
 end

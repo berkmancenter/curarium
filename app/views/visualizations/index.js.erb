@@ -1,3 +1,5 @@
+<% uuid = "curarium"+SecureRandom.hex(4) %>
+
 document.write("<style type='text/css'> .node { box-sizing: border-box; font: 10px sans-serif; color: black; line-height: 12px; overflow: hidden !important; position: absolute;  text-indent: 2px;	} </style>");
 
 if(typeof(jQuery) == 'undefined'){ 
@@ -20,7 +22,7 @@ function areWeThereYet(){
 		setTimeout(areWeThereYet,100)
 	} else {
 		$(document).ready(function(){
-			visualize();
+			<%= uuid %>();
 		});		
 	}
 }
@@ -28,17 +30,22 @@ function areWeThereYet(){
 
 
 
-var visualize = function() {
+var <%= uuid %> = function() {
   	<%= raw("window.collection.query.type='#{params[:type]}';") if params[:type]%>
   	<%= raw("window.collection.query.property='#{params[:property]}';") if params[:property]%>
   	<%= raw("window.collection.query.include=#{raw(params[:include])};") if params[:include]%>
   	<%= raw("window.collection.query.exclude=#{raw(params[:exclude])};") if params[:exclude]%>
   	
-  	if($('#curarium_container').length == 0){
-  		$('body').append($("<div id='curarium_container' style='display:inline-block;width:100%; height:100%'></div>"));
-  	}
+  	
+  	
+  	var placement = $('.curarium').first()
+  	
+  	
+  	$(placement).append($("<div id='<%= uuid %>' style='display:inline-block;width:100%; height:100%'></div>"));
+  	$(placement).removeClass('curarium');
+  	
   		
 	type = window.collection.query.type;
-	window.visualization[type]('curarium_container',"http://curarium.herokuapp.com/collections/<%=params[:collection_id]%>/visualizations"+window.collection.query_terms()+"&format=json");
+	window.visualization[type]('<%= uuid %>',"http://curarium.herokuapp.com/collections/<%=params[:collection_id]%>/visualizations"+window.collection.query_terms()+"&format=json");
   
 }

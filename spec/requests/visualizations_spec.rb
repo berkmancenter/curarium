@@ -172,14 +172,12 @@ describe 'visualization requests', :js => true do
     describe ( 'treemap click' ) {
       before {
         visit "#{collection_visualizations_path( col )}?type=treemap&property=artist"
-        # should be click_link
-        page.execute_script( %q[$('.node').last().click( )] )
+        click_link 'Parmigianino(1)'
       }
 
       it {
-        pending 'the nodes should be display: block links for better clickability'
-        snap
         should have_css '.node', count: 1 + 1
+        should have_css '.node', text: 'Parmigianino(1)'
       }
     }
   }

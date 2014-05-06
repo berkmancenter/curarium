@@ -49,7 +49,7 @@ module ApplicationHelper
   end
   
   def tag_selector(hstore_object)
-    tags = "<select id='tag_selector'>"
+    tags = "<select class='tag_selector'>"
     hstore_object.each do |key, value|
       unless value.nil?
         value = JSON.parse(value)

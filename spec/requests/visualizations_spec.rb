@@ -103,7 +103,7 @@ describe 'visualization requests', :js => true do
       }
 
       it {
-        should have_css '.node', text: 'da Vinci(2)'
+        should have_css '.node', text: 'Da Vinci(2)'
       }
 
       it {

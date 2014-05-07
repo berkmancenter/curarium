@@ -88,7 +88,10 @@ window.visualization.treemap = (container, source)->
           return color(d.id)
     ).text(
       (d) ->
-        return d.parsed + '(' + d.id + ')'
+        if d.parsed != undefined
+          return JSON.parse(d.parsed)[0] + '(' + d.id + ')'
+        else
+          return ''
     ).on('click', click)
     
     undefined

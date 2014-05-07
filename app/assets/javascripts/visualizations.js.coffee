@@ -18,6 +18,11 @@ window.visualization.populate_query_menu = () ->
     $('#visualization_exclude').append(term)
   undefined
 
+window.visualization.thumbnail = (container, source) ->
+  #$('#'+container).find('*').remove()
+  $('#'+container).spatialc({url: source});
+  undefined
+
 window.visualization.treemap = (container, source)->
   selected = []
   $.getJSON(
@@ -54,7 +59,7 @@ window.visualization.treemap = (container, source)->
       else
         return null
     
-    div = d3.select('#'+container).append("div").attr('id', 'chart-container').style("position", "relative").style("width", (width + margin.left + margin.right) + "px").style("height", (height + margin.top + margin.bottom) + "px").style("left", margin.left + "px").style("top", margin.top + "px")
+    div = d3.select('#'+container).style('overflow', 'hidden').append("div").attr('id', 'chart-container').style("position", "relative").style("width", (width + margin.left + margin.right) + "px").style("height", (height + margin.top + margin.bottom) + "px").style("left", margin.left + "px").style("top", margin.top + "px")
     
     position = ->
       this.style(
@@ -76,7 +81,7 @@ window.visualization.treemap = (container, source)->
       )
       undefined
     
-    node = div.datum(root).selectAll(".node").data(treemap.nodes).enter().append("div").attr("class", "node").call(position).style(
+    node = div.datum(root).selectAll(".node").data(treemap.nodes).enter().append("a").attr("href", "#").attr("class", "node").call(position).style(
       "background"
       (d) ->
         if d.id?
@@ -91,6 +96,7 @@ window.visualization.treemap = (container, source)->
   click = (e) -> 
     query = window.collection.query
     name = query.property+":"+d3.select(this).data()[0].name
+    console.log('click name: ' + name)
     if query.include.indexOf(name) is -1
       query.include.push(name)
     window.collection.generate_visualization()
@@ -101,7 +107,7 @@ window.visualization.quick_search = (container, source) ->
   window.visualization.thumbnail(container, source)
   undefined
 
-window.visualization.thumbnail = (container, source) ->
+window.visualization.old_thumbnail = (container, source) ->
   $.getJSON(
     source
     (items) ->
@@ -187,7 +193,7 @@ window.visualization.treemap_embedded = (container, source)->
       )
       undefined
     
-    node = div.datum(root).selectAll(".node").data(treemap.nodes).enter().append("div").attr("class", "node").call(position).style(
+    node = div.datum(root).selectAll(".node").data(treemap.nodes).enter().append("a").attr("href", "#").attr("class", "node").call(position).style(
       "background"
       (d) ->
         if d.size?

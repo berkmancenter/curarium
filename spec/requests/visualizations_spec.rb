@@ -31,16 +31,23 @@ describe 'visualization requests', :js => true do
       it_should_behave_like 'refine query'
 
       it {
-        should have_css '.record_thumbnail', count: col.records.count
+        # thumbnail view currently replaced with spatialc
+        #should have_css '.record_thumbnail', count: col.records.count
+        should have_css '.item', count: col.records.count
       }
 
       it {
-        should have_css ".record_thumbnail[title^='#{col.records.first.id}:']"
+        # thumbnail view currently replaced with spatialc
+        # element id of just a number, not a good plan
+        #should have_css ".record_thumbnail[title^='#{col.records.first.id}:']"
+        should have_css ".item[id='#{col.records.first.id}']"
       }
 
       describe ( 'click thumbnail' ) {
         before {
-          page.execute_script %q[$(".record_thumbnail").first().click();]
+          # thumbnail view currently replaced with spatialc
+          #page.execute_script %q[$(".record_thumbnail").first().click();]
+          page.execute_script %q[$(".item").first().click();]
         }
 
         it ( 'should show record#show' ) {
@@ -166,6 +173,18 @@ describe 'visualization requests', :js => true do
 
       it {
         should_not have_css '.node', text: 'Mona Lisa(1)'
+      }
+    }
+
+    describe ( 'treemap click' ) {
+      before {
+        visit "#{collection_visualizations_path( col )}?type=treemap&property=artist"
+        click_link 'Parmigianino(1)'
+      }
+
+      it {
+        should have_css '.node', count: 1 + 1
+        should have_css '.node', text: 'Parmigianino(1)'
       }
     }
   }

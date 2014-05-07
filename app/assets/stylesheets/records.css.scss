@@ -73,8 +73,18 @@ div#annotations{
     padding: 2px;
     margin: 2px;
     @include rounded-corners(3px);
+    @include no-select;
   }
-  #tag_selector {
+  .edit_clipping {
+    padding: 2px;
+    cursor: pointer;
+    display: inline-block;
+    font-size: 8pt;
+    background: slategray;
+    @include rounded-corners(3px);
+    @include no-select;
+  }
+  .tag_selector {
     width: 150px;
     option {
       width: 150px;

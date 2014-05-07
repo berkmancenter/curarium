@@ -37,7 +37,7 @@ class Parser
       end
     }
     File.delete(zip_path)
-    collection.approved = True
+    collection.approved = true
     collection.save
     puts "Processed #{j_count} JSON files (out of #{paths.count} total files in directory)" 
   end

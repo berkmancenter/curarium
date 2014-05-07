@@ -139,8 +139,20 @@ describe 'visualization requests', :js => true do
       }
 
       it {
-        pending "this doesn't seem to be valid syntax for Curarium"
+        # handles this case now
         should have_css '.node', count: 2 + 1
+      }
+
+      it {
+        should have_css '.node', text: 'Starry Night(1)'
+      }
+
+      it {
+        should have_css '.node', text: 'Mona Lisa(1)'
+      }
+
+      it {
+        should_not have_css '.node', text: 'Parmigianino'
       }
     }
 

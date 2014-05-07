@@ -58,10 +58,22 @@ class VisualizationsController < ApplicationController
     @records = @collection.records
 
     if params[:include].present?
-      params[:include].each { |p|
+      # break out values to avoid SQL injection
+      where_clause = ''
+      where_values = []
+
+      params[:include].each_with_index { |p, i|
         values = p.split ':'
-        @records = @records.where( "lower(parsed->'#{values[0]}') like '%#{values[1].downcase}%'" )
+
+        if i > 0
+          where_clause = where_clause + ' OR '
+        end
+
+        where_clause = where_clause + "lower(parsed->'#{values[0]}') like ?"
+        where_values << "%#{values[1].downcase}%"
       }
+
+      @records = @records.where( "(#{where_clause})", *where_values )
     end
 
     @records = @records.select("lower(parsed->'#{params[ :property ]}') as parsed, count( lower(parsed->'#{params[ :property ]}') ) as id").group( "lower( parsed->'#{params[ :property ]}' )" )

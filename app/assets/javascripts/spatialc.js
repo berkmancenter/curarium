@@ -336,7 +336,7 @@
         if (this.getAttribute('class').indexOf('item') > -1) {
             settings.shade_div.style.display = 'block'
             settings.display_block.title.innerHTML = 'Title: ' + this.block.info['title']
-            settings.display_block.image.setAttribute('src', 'img/ajax.gif')
+            settings.display_block.image.setAttribute('src', '/assets/ajax.gif')
             settings.display_block.image.setAttribute('src', this.block.info['fullsize'])
             settings.images_loader.queueUrgentImage(this.block.info['fullsize'])
             settings.images_loader.loadQueue()
@@ -1741,7 +1741,7 @@
     function init_step_4()
     {
         settings.block_hub = new BlockHub()
-        var img = new Image; img.src = 'img/ajax.gif' // load ajax loader image to browser cache
+        var img = new Image; img.src = '/assets/ajax.gif' // load ajax loader image to browser cache
         settings.images_loader = new ImagesLoader()
         
         if (settings.first == true)

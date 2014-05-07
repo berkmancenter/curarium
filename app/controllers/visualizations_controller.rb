@@ -88,11 +88,11 @@ class VisualizationsController < ApplicationController
           where_clause = where_clause + ' OR '
         end
 
-        where_clause = where_clause + "not lower(parsed->'#{values[0]}') like ?"
+        where_clause = where_clause + "lower(parsed->'#{values[0]}') like ?"
         where_values << "%#{values[1].downcase}%"
       }
 
-      @records = @records.where( "(#{where_clause})", *where_values )
+      @records = @records.where( "not (#{where_clause})", *where_values )
     end
 
     @records = @records.select("lower(parsed->'#{params[ :property ]}') as parsed, count( lower(parsed->'#{params[ :property ]}') ) as id").group( "lower( parsed->'#{params[ :property ]}' )" )

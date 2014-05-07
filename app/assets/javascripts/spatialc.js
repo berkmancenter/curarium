@@ -250,7 +250,7 @@
     ImagesLoader.prototype.removeClassFromParent = function()
     {
         this.element.block.loaded()
-        this.remove()
+        $(this).remove()
         this.element.block.is_rendered = true
         settings.images_loader.processImagesQueue()
     }

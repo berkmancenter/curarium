@@ -96,13 +96,14 @@ window.visualization.treemap = (container, source)->
     
     undefined
 
-  click = (e) -> 
+  click = (e) ->
     query = window.collection.query
-    name = query.property+":"+d3.select(this).data()[0].name
-    console.log('click name: ' + name)
+    value = JSON.parse(d3.select(this).data()[0].parsed)[0]
+    name = query.property+":"+value
     if query.include.indexOf(name) is -1
       query.include.push(name)
     window.collection.generate_visualization()
+    return false
   
   undefined
 

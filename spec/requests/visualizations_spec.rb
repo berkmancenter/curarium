@@ -191,7 +191,7 @@ describe 'visualization requests', :js => true do
     describe ( 'treemap click' ) {
       before {
         visit "#{collection_visualizations_path( col )}?type=treemap&property=artist"
-        click_link 'Parmigianino(1)'
+        click_link 'parmigianino(1)'
       }
 
       it {

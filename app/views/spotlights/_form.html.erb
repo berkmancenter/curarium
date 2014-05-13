@@ -20,6 +20,7 @@
   </div>
   <div class="field">
     <%= f.label :body %><br>
+    <%= render "shared/toolbar"%>
     <%= f.text_area :body %>
   </div>
   <div id='spotlight_components' class="field">
@@ -29,3 +30,14 @@
     <%= f.submit %>
   </div>
 <% end %>
+  <script src="../js/wysihtml5-0.3.0.min.js"></script>
+  <script src="../js/simple.js"></script>
+	<script type='text/javascript'>
+		$(document).ready(function(){
+			var editor = new wysihtml5.Editor("spotlight_body", {
+			    toolbar:      "toolbar", 
+			    parserRules:  ruleset,
+			    stylesheets: ["../css/text_editor.css"]
+			  });
+		});
+	</script>

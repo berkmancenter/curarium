@@ -3,14 +3,14 @@
 	<h2 id='spotlight_title'><%= title @spotlight.title %></h2>
 	<p>by <%= link_to @spotlight.user.name, @spotlight.user %> on <%=@spotlight.created_at%></p>
 	<br>
-	<p id='spotlight_body'>
+	<div id='spotlight_body'>
 	  <% text = @spotlight.body %>
 	  <% if text.match /\<(\d+)\>/ %>
 	  <%= raw(text.gsub! /\<(\d+)\>/, "<a href='#spotlight_reference_\\1'>(see figure \\1)</a>") %>
 	  <% else %>
-	  <%= text %>
+	  <%= raw text %>
 	  <% end %>
-	</p>
+	</div>
 	<% if @spotlight.user_id == session[:user_id]%>
 	<%= link_to 'Edit', edit_spotlight_path(@spotlight) %> |
 	<%= link_to 'Back', spotlights_path %>

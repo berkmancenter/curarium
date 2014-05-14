@@ -40,6 +40,7 @@
 
 //treemap
 .node {
+  display: block;
   box-sizing: border-box;
   font: 10px sans-serif;
   color: black;
@@ -47,6 +48,7 @@
   overflow: hidden !important;
   position: absolute;
   text-indent: 2px;
+  text-transform: capitalize;
 }
 
 form#refine_search{

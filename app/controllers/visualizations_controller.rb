@@ -8,11 +8,14 @@ class VisualizationsController < ApplicationController
       format.html { render action: "index" }
       format.js { render action: "index" }
       format.json do
-        response = VizCache.find_by(query: encode_params)
+        viz_cache = Curarium::Application.config.local['viz_cache']
+        response = VizCache.find_by(query: encode_params) if viz_cache
         if response.nil?
           response = eval(params[:type])
-          stored_response = VizCache.new({query: encode_params, data: response})
-          stored_response.save
+          if viz_cache
+            stored_response = VizCache.new({query: encode_params, data: response})
+            stored_response.save
+          end
         else
           response = response.data
         end
@@ -47,14 +50,64 @@ class VisualizationsController < ApplicationController
   def treemap
     minimum = params[:minimum].to_i || 0
     @collection = Collection.find(params[:collection_id])
-    @records = @collection.records.where("lower(parsed->:field) LIKE :tag", {
-      field: params[ :type ],
-      tag: '%\"' + params[ :property ] + '\"%'
-    })
-    query = @collection.sort_properties(params[:include],params[:exclude],params[:property], minimum)
-    tmap = treemapify(query[:properties])
-    length = query[:length]
-    return {length: length, treemap: tmap, properties: query, records: @records}
+#    @records = @collection.records.where("lower(parsed->:field) LIKE :tag", {
+#      field: params[ :property ],
+#      tag: '%\"' + params[ :property ] + '\"%'
+#    })
+
+    @records = @collection.records
+
+    if params[:include].present?
+      # break out values to avoid SQL injection
+      where_clause = ''
+      where_values = []
+
+      params[:include].each_with_index { |p, i|
+        values = p.split ':'
+
+        if i > 0
+          where_clause = where_clause + ' OR '
+        end
+
+        where_clause = where_clause + "lower(parsed->'#{values[0]}') like ?"
+        where_values << "%#{values[1].downcase}%"
+      }
+
+      @records = @records.where( "(#{where_clause})", *where_values )
+    end
+
+    if params[:exclude].present?
+      # break out values to avoid SQL injection
+      where_clause = ''
+      where_values = []
+
+      params[:exclude].each_with_index { |p, i|
+        values = p.split ':'
+
+        if i > 0
+          where_clause = where_clause + ' OR '
+        end
+
+        where_clause = where_clause + "lower(parsed->'#{values[0]}') like ?"
+        where_values << "%#{values[1].downcase}%"
+      }
+
+      @records = @records.where( "not (#{where_clause})", *where_values )
+    end
+
+    @records = @records.select("lower(parsed->'#{params[ :property ]}') as parsed, count( lower(parsed->'#{params[ :property ]}') ) as id").group( "lower( parsed->'#{params[ :property ]}' )" )
+
+    #select lower( parsed->'title' ),count( lower( parsed->'title' ) ) from "records" where "records"."collection_id" = 1 group by lower( parsed->'title' ) limit 1000
+
+    #query = @collection.sort_properties(params[:include],params[:exclude],params[:property], minimum)
+    #tmap = treemapify(query[:properties])
+    #length = query[:length]
+    return {
+      #length: length,
+      #treemap: tmap,
+      #properties: query,
+      records: @records
+    }
   end
   
   def treemapify(data,name='main')

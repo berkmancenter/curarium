@@ -1,0 +1,13 @@
+defaults: &defaults
+  viz_cache: true
+
+development:
+  <<: *defaults
+
+test:
+  <<: *defaults
+  viz_cache: false
+
+production:
+  <<: *defaults
+

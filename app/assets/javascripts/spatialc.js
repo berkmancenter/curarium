@@ -261,13 +261,14 @@
         this.init()
     }
 
-    function Block(id, serial, thumbnail, title, cid)
+    function Block(id, serial, thumbnail, title, cid, parsed)
     {
         this.info = {
             'id': id,
             'title': title,
             'serial': serial,
-            'cid': cid
+            'cid': cid,
+            'parsed':parsed
         }
 
         if (thumbnail.indexOf('?') == -1)
@@ -445,8 +446,61 @@
     function BlockHub()
     {
         this.url = 'anyurl'
-        this.blocks_array = new Array()
+        //this.blocks_array = new Array()
+	
+		this.blocks_array = new Array()
+        this.wasSorted = false
+        this.sort_by = 'title'
+        this.sort_direction = 'asc'
     }
+    
+    BlockHub.prototype.sortBy = function(field)
+    {
+        function compare_asc(a,b) {
+	    var first = a.info.parsed[field] || [null];
+	    var second = b.info.parsed[field] || [null];
+            if (first[0] < second[0])
+                return -1
+            if (first[0] > second[0])
+                return 1
+            return 0
+        }
+
+        function compare_desc(a,b) {
+            var first = a.info.parsed[field] || [null];
+	    var second = b.info.parsed[field] || [null];
+            if (first[0] > second[0])
+                return -1
+            if (first[0] < second[0])
+                return 1
+            return 0
+        }
+        this.sort_by = field
+
+        if (this.sort_direction == 'asc')
+        {
+            this.blocks_array.sort(compare_asc)
+        } else {
+            this.blocks_array.sort(compare_desc)
+        }
+
+        // asign new serial values
+        for (var i = 0, il = this.blocks_array.length; i < il; i++)
+        {
+            var block = this.blocks_array[i]
+            block.info['prev_serial'] = block.info['serial']
+            block.info['serial'] = i
+        }
+
+        this.wasSorted = true
+    }
+
+    BlockHub.prototype.sortDirection = function(sort_direction)
+    {
+        this.sort_direction = sort_direction
+        this.sortBy(this.sort_by)
+    }
+    
 
     BlockHub.prototype.addBlock = function(block) {
         this.blocks_array.push(block)
@@ -956,6 +1010,8 @@
     }
 
     
+    
+    
     function UserPanelHub()
     {
         this.userpanel_array = new Array()
@@ -1100,7 +1156,7 @@
                 }
             },
             error: function(msg){
-                showMessage('error: ' + msg['responseText'])
+                //showMessage('error: ' + msg['responseText'])
             },
             complete: function(){
                 if (callback) callback()
@@ -1757,7 +1813,10 @@
         if (settings.opt.url && settings.opt.url != settings.url)
         {
             settings.url = settings.opt.url
-            getBlocks(settings.url)
+            settings.cid = settings.opt.cid
+            settings.collection_name = settings.opt.collection_name
+            //settings.blocks_panel.defaultView()
+            getBlocks(settings.url, settings.collection_name)
         }
         
         $.extend(settings, settings.opt)
@@ -1768,8 +1827,10 @@
                 if (settings.opt.ghost_mode == false)
                 {
                     settings.blocks_panel.ghostOff()
+                    //showMessage('Ghost mode off')
                 } else {
                     settings.blocks_panel.update()
+                    //showMessage('Ghost mode on')
                 }
             }
         }
@@ -1778,15 +1839,28 @@
         {
             settings.user.logIn(settings.opt.login, '', init_step_2)
         }
-	
+
         if (settings.opt.resize)
         {
             settings.userpanel_hub.setNewBlocksPanelHeight()
         }
 
-        if (settings.opt.toggleuserpanel)
+        if (settings.opt.sort_by)
         {
-            var func = null
+            settings.blocks_panel.block_hub.sortBy(settings.opt.sort_by)
+            //showMessage('Sorted ' + settings.opt['sort_name'])
+            settings.blocks_panel.update()
+        }
+
+        if (settings.opt.sort_order)
+        {
+            settings.blocks_panel.block_hub.sortDirection(settings.opt.sort_order)
+            //showMessage('Sorted ' + settings.opt['sort_name'])
+            settings.blocks_panel.update()
+        }
+
+        if (settings.opt.toggleuserpanel) // hide/show user panels
+        {
             if (settings.userpanel_hub.visiblePanelsCount() == 0)
             {
                 settings.userpanel_hub.addUserPanel()
@@ -1798,6 +1872,40 @@
             }
             settings.userpanel_hub.setNewBlocksPanelHeight()
         }
+
+        if (typeof settings.opt.collapse !== 'undefined') // hide/show user panels
+        {
+            if (settings.opt.collapse == true)
+            {
+                while(settings.userpanel_hub.visiblePanelsCount())
+                {
+                    settings.userpanel_hub.hideUserPanel()
+                }
+            } else {
+                if (settings.userpanel_hub.visiblePanelsCount() == 0)
+                {
+                    settings.userpanel_hub.addUserPanel()
+                }
+            }
+
+            settings.userpanel_hub.setNewBlocksPanelHeight()
+        }
+
+        if (settings.opt.show_minimap)
+        {
+            toggleMinimap()
+            //showMessage('Minimap opened')
+        }
+        
+        if (settings.opt['default-view'])
+        {
+            settings.blocks_panel.defaultView()
+        }
+
+        if (settings.opt['message'])
+        {
+            //showMessage(settings.opt['message'])
+        }        
     }
 
     function render()
@@ -1875,7 +1983,7 @@
         for (var i = 0, il = response.length; i < il; i++)
         {
             if (response[i].thumbnail == null) continue
-            settings.block_hub.addBlock(new Block(response[i].id, settings.block_hub.count(), response[i].thumbnail, response[i].title, settings.cid))
+            settings.block_hub.addBlock(new Block(response[i].id, settings.block_hub.count(), response[i].thumbnail, response[i].title, settings.cid, response[i].parsed))
         }
         settings.blocks_panel.setBlockHub(settings.block_hub)
         render()

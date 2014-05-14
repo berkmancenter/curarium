@@ -21,6 +21,21 @@ window.visualization.populate_query_menu = () ->
 window.visualization.thumbnail = (container, source) ->
   #$('#'+container).find('*').remove()
   $('#'+container).spatialc({url: source});
+  ###
+  $('[data-sort-field]').click(function() {
+        $('#spatialc-container').spatialc({
+            'sort_by': $(this).attr('data-sort-field'),
+            'sort_name': $(this).attr('data-sort-field-name')
+        })
+    })
+
+    $('[data-sort-order]').click(function() {
+        $('#spatialc-container').spatialc({
+            'sort_order': $(this).attr('data-sort-order'),
+            'sort_name': $(this).attr('data-sort-order-name')
+        })
+    })
+  ###
   undefined
 
 window.visualization.treemap = (container, source)->

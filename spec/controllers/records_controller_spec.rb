@@ -18,8 +18,8 @@ describe ( RecordsController ) {
       let ( :collection ) { Collection.first }
 
       it {
-        Record.should_receive( :where ).with( { collection_id: collection.id } )
-        get :index, collection_records_path( collection )
+        Record.should_receive( :where ).with( collection_id: collection.id )
+        get :index, :collection_id => collection
         response.code.should eq( '200' )
       }
     }

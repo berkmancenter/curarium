@@ -19,6 +19,8 @@ namespace :db do
       crfj test_col, :mona_lisa
       crfj test_col, :last_supper
       crfj test_col, :lucrezia
+
+      crfj not_approved, :aphrodite
     end
 
     def crfj( col, r )

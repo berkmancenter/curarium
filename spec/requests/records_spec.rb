@@ -27,6 +27,16 @@ describe 'records requests', :js => true do
       click_button 'Login'
     }
 
+    describe ( 'get records#index' ) {
+      before {
+        visit records_path
+      }
+
+      it {
+        should have_title 'Records'
+      }
+    }
+
     describe ( 'get /records/:id' ) {
       before {
         visit record_path( rec )

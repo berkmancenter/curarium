@@ -5,7 +5,12 @@ class RecordsController < ApplicationController
   # GET /records
   # GET /records.json
   def index
-    
+    if params[ :collection_id ]
+      @collection = Collection.find params[ :collection_id ]
+      @records = @collection.records
+    else
+      @records = Record.all
+    end
   end
 
   # GET /records/1

@@ -6,7 +6,9 @@
 	<div id='spotlight_body'>
 	  <% text = @spotlight.body %>
 	  <% if text.match /\<(\d+)\>/ %>
-	  <%= raw(text.gsub! /\<(\d+)\>/, "<a href='#spotlight_reference_\\1'>(see figure \\1)</a>") %>
+	  <%= raw(text.gsub! /\<(\d+)\>/, "<a href='#spotlight_reference_\\1'>(see figure \\1)</a>") %> <!-- BACKWARDS COMPATIBILITY -->
+	  <% elsif text.match /\{(\d+)\}/ %>
+	  <%= raw(text.gsub! /\{(\d+)\}/, "<a href='#spotlight_reference_\\1'>(see figure \\1)</a>") %> <!-- BACKWARDS COMPATIBILITY -->
 	  <% else %>
 	  <%= raw text %>
 	  <% end %>

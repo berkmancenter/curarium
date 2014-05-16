@@ -30,7 +30,6 @@ window.spotlights.create = () ->
       data: 
         array_params
       success: (data)->
-        console.log data
         window.location = '/spotlights/'+data.id
       dataType : 'json',
       headers : 
@@ -68,7 +67,6 @@ window.spotlights.update = (id) ->
       data:  
         array_params
       success: (data)->
-        console.log data
         window.location = '/spotlights/'+id
       dataType : 'json',
       headers : 

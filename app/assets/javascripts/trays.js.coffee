@@ -12,7 +12,7 @@ window.trays.add_visualization = (user) ->
     data = {}
     data.terms = window.collection.query
     data.url = window.location.href
-    console.log(data)
+    #console.log(data)
     if (option is 'new_tray')
       $.ajax
         type: "POST"
@@ -134,11 +134,12 @@ window.trays.show = () ->
     window.spotlights.components.push(d)
     $(this).remove()
     current_body = $('#spotlight_body').val()
-    $('#spotlight_body').val(current_body+"<#{window.spotlights.components.indexOf(d)}>")
+    $('#spotlight_body').val(current_body+"{#{window.spotlights.components.indexOf(d)}}")
+    document.getElementsByTagName('iframe')[0].contentWindow.document.body.innerHTML += "{#{window.spotlights.components.indexOf(d)}}"
     index = $("<h3>").append(window.spotlights.components.indexOf(d))
     c_frame = $(this).clone().append(index)
-    console.log(window.spotlights.components)
     $('#spotlight_components').append(c_frame)
+    
     undefined
   
   $('.user_tray>h3').click (e) ->
@@ -185,11 +186,14 @@ window.trays.show = () ->
               window.spotlights.components.push(d)
               $(this).remove()
               current_body = $('#spotlight_body').val()
-              $('#spotlight_body').val(current_body+"<#{window.spotlights.components.indexOf(d)}>")
+              
+              $('#spotlight_body').val(current_body+"{#{window.spotlights.components.indexOf(d)}}")
+              document.getElementsByTagName('iframe')[0].contentWindow.document.body.innerHTML += "{#{window.spotlights.components.indexOf(d)}}"
               c_frame = $("<a class='record_thumbnail component'>").css('background-image', "url("+d.image+"?width=200&height=200)")
               c_title = $('<h3>').append(window.spotlights.components.indexOf(d))
               c_frame.append(c_title)
               $('#spotlight_components').append(c_frame)
+              $('.wysihtml5-editor').append(c_frame)
         for annotation in data.annotations
           do (annotation) ->
             content = annotation.content
@@ -228,7 +232,7 @@ window.trays.show = () ->
               })
               layer.add(picture)
               stage.add(layer)
-              console.log picture.getAttrs()
+              #console.log picture.getAttrs()
             title = $('<h3>').append(annotation.content.title)
             frame.append(title)
             notes_div.append(frame)
@@ -237,11 +241,13 @@ window.trays.show = () ->
               window.spotlights.components.push(d)
               $(this).remove()
               current_body = $('#spotlight_body').val()
-              $('#spotlight_body').val(current_body+"<#{window.spotlights.components.indexOf(d)}>")
+              $('#spotlight_body').val(current_body+"{#{window.spotlights.components.indexOf(d)}}")
+              document.getElementsByTagName('iframe')[0].contentWindow.document.body.innerHTML += "{#{window.spotlights.components.indexOf(d)}}"
               c_frame = $("<a class='record_thumbnail component'>").css('background-image', "url("+d.image+"?width=200&height=200)")
               c_title = $('<h3>').append(window.spotlights.components.indexOf(d))
               c_frame.append(c_title)
               $('#spotlight_components').append(c_frame)
+              $('.wysihtml5-editor').append(c_frame)
         undefined
     )
     

@@ -8,7 +8,7 @@
 	  <% if text.match /\<(\d+)\>/ %>
 	  <%= raw(text.gsub! /\<(\d+)\>/, "<a href='#spotlight_reference_\\1'>(see figure \\1)</a>") %> <!-- BACKWARDS COMPATIBILITY -->
 	  <% elsif text.match /\{(\d+)\}/ %>
-	  <%= raw(text.gsub! /\{(\d+)\}/, "<a href='#spotlight_reference_\\1'>(see figure \\1)</a>") %> <!-- BACKWARDS COMPATIBILITY -->
+	  <%= raw(text.gsub! /\{(\d+)\}/, "<a href='#spotlight_reference_\\1'>(see figure \\1)</a>") %> 
 	  <% else %>
 	  <%= raw text %>
 	  <% end %>

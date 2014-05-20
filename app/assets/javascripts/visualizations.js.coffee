@@ -104,7 +104,7 @@ window.visualization.treemap = (container, source)->
     ).text(
       (d) ->
         if d.parsed != undefined
-          return JSON.parse(d.parsed)[0] + '(' + d.id + ')'
+          return d.parsed + '(' + d.id + ')'
         else
           return ''
     ).on('click', click)
@@ -113,7 +113,7 @@ window.visualization.treemap = (container, source)->
 
   click = (e) ->
     query = window.collection.query
-    value = JSON.parse(d3.select(this).data()[0].parsed)[0]
+    value = d3.select(this).data()[0].parsed
     name = query.property+":"+value
     if query.include.indexOf(name) is -1
       query.include.push(name)

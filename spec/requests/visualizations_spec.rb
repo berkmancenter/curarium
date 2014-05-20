@@ -188,6 +188,37 @@ describe 'visualization requests', :js => true do
       }
     }
 
+    describe ( 'treemap topics' ) {
+      before {
+        visit "#{collection_visualizations_path( col )}?type=treemap&property=topics"
+      }
+
+      it {
+        # 12 distinct topics in test data
+        should have_css '.node', count: 12 + 1
+      }
+
+      it {
+        should have_css '.node', text: 'Women(3)'
+      }
+    }
+
+    describe ( 'treemap topics include one' ) {
+      before {
+        visit "#{collection_visualizations_path( col )}?type=treemap&property=topics&include[]=topics:Lisa"
+      }
+
+      it {
+        # useless but possible query
+        # all topics for the records that have topics that include Lisa (one record, returning all its topics)
+        should have_css '.node', count: 3 + 1
+      }
+
+      #it {
+        #should have_css '.node', text: 'Women(3)'
+      #}
+    }
+
     describe ( 'treemap click' ) {
       before {
         visit "#{collection_visualizations_path( col )}?type=treemap&property=artist"

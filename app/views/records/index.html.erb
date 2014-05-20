@@ -1,8 +1,4 @@
 <% provide :title, 'Records' %>
 <h1>Records<%= " for #{@collection.name}" if @collection.present? %></h1>
 
-<ul>
-<% @records.each do |record| %>
-  <%= render partial: 'records/list_item', object: record %>
-<% end %>
-</ul>
+<%= render partial: 'records/list', object: @records %>

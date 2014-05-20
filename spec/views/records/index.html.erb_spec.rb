@@ -27,17 +27,4 @@ describe ( 'records/index' ) {
       should have_css 'h1', text: "Records for #{collection.name}"
     }
   }
-
-  describe ( '?vis=list' ) {
-    # ?vis=list is not required, list is the default vis for records
-
-    before {
-      assign( :records, Record.all )
-      render
-    }
-
-    it {
-      should have_css '.records-list'
-    }
-  }
 }

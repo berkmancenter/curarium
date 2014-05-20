@@ -32,9 +32,9 @@ ActiveRecord::Schema.define(version: 20140430153529) do
   create_table "annotations", force: true do |t|
     t.integer  "user_id"
     t.integer  "record_id"
+    t.json     "content"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.json     "content"
   end
 
   create_table "collections", force: true do |t|

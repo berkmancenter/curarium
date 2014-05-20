@@ -1,5 +1,5 @@
 <section id='input' class='configure_collection'>
-	<%= form_for(@collection) do |f| %>
+	<%= form_for(@collection, :html => { :multipart => true }) do |f| %>
 	<% if @collection.errors.any? %>
 	<div id="error_explanation">
 		<h2><%= pluralize(@collection.errors.count, "error") %> prohibited this collection from being saved:</h2>
@@ -25,10 +25,7 @@
 		<%= f.text_area :description, placeholder: "A description of your collection. It can be a long text." %>
 	</div>
 	
-	<%= f.fields_for :json_files do |json_file|%>
-		<%= json_file.label :path%>
-		<%= json_file.file_field :path, multiple: true, name: "json_files[path][]"%>
-	<% end %>
+	<input type='file' name='file'>
 	
 	<div class="field">
 		<%= f.hidden_field :configuration, value: "{}" %>

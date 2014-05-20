@@ -17,6 +17,13 @@
 		var id = setInterval(function() {
 			$("#query_length").val(window.collection.query.length);
 		}, 500);
+		
+		$('.sort').click(function() {
+	        $('#visualization_container').spatialc({
+	            'sort_by': $(this).data('sort_by'),
+	        });
+    	});
+		
 	});
 </script>
 
@@ -30,6 +37,13 @@
 				<input type='hidden' name='type' value='quick_search'>
 			</form>
 			-->
+		</li>
+		<li>
+			<% @collection.configuration.each do |field,value|%>
+				<% unless ['image','thumbnail','curarium'].include? field%>
+					<button class='sort' data-sort_by='<%= field %>'><%= field %></button>
+				<% end %>
+			<% end %>
 		</li>
 		<li>
 			<%= link_to 'ABOUT', collection_path(@collection), id: 'collection_about'%>

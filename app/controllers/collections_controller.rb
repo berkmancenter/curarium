@@ -35,10 +35,11 @@ class CollectionsController < ApplicationController
     @collection.admin = [session[:user_id]]
     respond_to do |format|
       if @collection.save
-        params[:json_files]['path'].each do |url|
-          @json_file = @collection.json_files.create!(path: url, collection_id: @collection.id)
-        end
-        Parser.new.async.perform(@collection.id)
+        f = File.new("#{Rails.root}/tmp/#{params[:file].original_filename}", 'wb')
+        f.write params[:file].read
+        f.close
+        Parser.new.async.perform(@collection.id, "#{Rails.root}/tmp/#{params[:file].original_filename}")
+        #Parser.new.async.perform(@collection.id)
         format.html { redirect_to @collection, notice: 'Collection was successfully created.' }
         format.json { render action: 'show', status: :created, location: @collection }
       else

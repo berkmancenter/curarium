@@ -21,6 +21,21 @@ window.visualization.populate_query_menu = () ->
 window.visualization.thumbnail = (container, source) ->
   #$('#'+container).find('*').remove()
   $('#'+container).spatialc({url: source});
+  ###
+  $('[data-sort-field]').click(function() {
+        $('#spatialc-container').spatialc({
+            'sort_by': $(this).attr('data-sort-field'),
+            'sort_name': $(this).attr('data-sort-field-name')
+        })
+    })
+
+    $('[data-sort-order]').click(function() {
+        $('#spatialc-container').spatialc({
+            'sort_order': $(this).attr('data-sort-order'),
+            'sort_name': $(this).attr('data-sort-order-name')
+        })
+    })
+  ###
   undefined
 
 window.visualization.treemap = (container, source)->
@@ -89,7 +104,7 @@ window.visualization.treemap = (container, source)->
     ).text(
       (d) ->
         if d.parsed != undefined
-          return JSON.parse(d.parsed)[0] + '(' + d.id + ')'
+          return d.parsed + '(' + d.id + ')'
         else
           return ''
     ).on('click', click)
@@ -98,7 +113,7 @@ window.visualization.treemap = (container, source)->
 
   click = (e) ->
     query = window.collection.query
-    value = JSON.parse(d3.select(this).data()[0].parsed)[0]
+    value = d3.select(this).data()[0].parsed
     name = query.property+":"+value
     if query.include.indexOf(name) is -1
       query.include.push(name)

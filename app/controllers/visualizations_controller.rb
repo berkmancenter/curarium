@@ -49,63 +49,65 @@ class VisualizationsController < ApplicationController
   
   def treemap
     minimum = params[:minimum].to_i || 0
-    @collection = Collection.find(params[:collection_id])
-#    @records = @collection.records.where("lower(parsed->:field) LIKE :tag", {
-#      field: params[ :property ],
-#      tag: '%\"' + params[ :property ] + '\"%'
-#    })
 
-    @records = @collection.records
+    # a lot of this should move to records model
+    
+    where_clause = ActiveRecord::Base.send( :sanitize_sql_array, [ 'where collection_id = %s', params[:collection_id] ] )
 
     if params[:include].present?
       # break out values to avoid SQL injection
-      where_clause = ''
-      where_values = []
+      where_values = ['']
 
       params[:include].each_with_index { |p, i|
         values = p.split ':'
 
         if i > 0
-          where_clause = where_clause + ' OR '
+          where_values[0] = where_values[0] + ' OR '
         end
 
-        where_clause = where_clause + "lower(parsed->'#{values[0]}') like ?"
+        where_values[0] = where_values[0] + "lower(parsed->'#{values[0]}') like '%s'"
         where_values << "%#{values[1].downcase}%"
       }
 
-      @records = @records.where( "(#{where_clause})", *where_values )
+      where_clause = where_clause + " AND ( #{ActiveRecord::Base.send( :sanitize_sql_array, where_values )} )"
     end
 
     if params[:exclude].present?
       # break out values to avoid SQL injection
-      where_clause = ''
-      where_values = []
+      where_values = ['']
 
       params[:exclude].each_with_index { |p, i|
         values = p.split ':'
 
         if i > 0
-          where_clause = where_clause + ' OR '
+          where_values[0] = where_values[0] + ' OR '
         end
 
-        where_clause = where_clause + "lower(parsed->'#{values[0]}') like ?"
+        where_values[0] = where_values[0] + "lower(parsed->'#{values[0]}') like '%s'"
         where_values << "%#{values[1].downcase}%"
       }
 
-      @records = @records.where( "not (#{where_clause})", *where_values )
+      where_clause = where_clause + " AND NOT ( #{ActiveRecord::Base.send( :sanitize_sql_array, where_values )} )"
     end
 
-    @records = @records.select("lower(parsed->'#{params[ :property ]}') as parsed, count( lower(parsed->'#{params[ :property ]}') ) as id").group( "lower( parsed->'#{params[ :property ]}' )" )
+    sql = %[select values as parsed, count(values) as id from (
+      SELECT  trim(
+        both from unnest(
+          string_to_array(
+            regexp_replace(
+              lower(parsed->'#{params[ :property ]}'), '[\\[\\]"]', '', 'g'
+            ), ','
+          )
+        )
+      ) as values
+      FROM "records"
+      #{where_clause}
+    ) as subquery
+    group by values]
 
-    #select lower( parsed->'title' ),count( lower( parsed->'title' ) ) from "records" where "records"."collection_id" = 1 group by lower( parsed->'title' ) limit 1000
+    @records = ActiveRecord::Base.connection.execute(sql)
 
-    #query = @collection.sort_properties(params[:include],params[:exclude],params[:property], minimum)
-    #tmap = treemapify(query[:properties])
-    #length = query[:length]
     return {
-      #length: length,
-      #treemap: tmap,
-      #properties: query,
       records: @records
     }
   end

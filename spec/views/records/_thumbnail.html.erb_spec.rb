@@ -8,11 +8,11 @@ describe ( 'records/thumbnail' ) {
 
     before {
       assign( :record, record )
-      render 'records/thumbnail', record: record
+      render 'records/thumbnail', thumbnail: record
     }
 
     it {
-      should have_css "a.record_thumbnail" 
+      should have_css "a"
     }
 
     it {
@@ -20,7 +20,7 @@ describe ( 'records/thumbnail' ) {
     }
 
     it {
-      should have_css 'h3.record_thumbnail_title', text: JSON.parse( record.parsed['title'] )[0]
+      should have_css "a[title='#{JSON.parse( record.parsed['title'] )[0]}']"
     }
   }
 }

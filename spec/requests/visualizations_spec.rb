@@ -194,12 +194,17 @@ describe 'visualization requests', :js => true do
       }
 
       it {
-        # 12 distinct topics in test data
-        should have_css '.node', count: 12 + 1
+        # 13 distinct topics in test data
+        should have_css '.node', count: 13 + 1
       }
 
       it {
         should have_css '.node', text: 'Women(3)'
+      }
+
+      it ( 'should not screw up values with commas' ) {
+        should_not have_css '.node', text: 'Joseph(1)'
+        should have_css '.node', text: 'Joseph, Saint(1)'
       }
     }
 

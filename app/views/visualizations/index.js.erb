@@ -22,9 +22,9 @@ if(typeof(window.curarium) == 'undefined'){
 }
 
 function spatial_ready() {
-  if(!(typeof(jQuery) ==- 'undefined')) { 
+  if(typeof(jQuery) === 'undefined') { 
       return false;
-  } else if(typeof(jQuery) ==- 'undefined'){
+  } else if(!(typeof(jQuery) === 'undefined')){
       if(typeof($().spatialc) === 'undefined'){
           return false;
       } else {

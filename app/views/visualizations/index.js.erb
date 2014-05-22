@@ -14,11 +14,19 @@ if(typeof(window.curarium) == 'undefined'){
 	document.write("<script type='text/javascript' src='http://curarium.herokuapp.com/js/curarium.js'></script>");
 }
 
+if(typeof(window.curarium) == 'undefined'){ 
+	document.write("<script type='text/javascript' src='http://code.jquery.com/ui/1.10.4/jquery-ui.min.js'></script>");
+	document.write("<script type='text/javascript' src='http://curarium.herokuapp.com/js/jquery.ui.zoomify.js'></script>");
+	document.write("<script type='text/javascript' src='http://curarium.herokuapp.com/js/spatialc.js'></script>");
+	document.write("<link type='text/css' rel='stylesheet' href='http://curarium.herokuapp.com/css/spatialc.css'></script>");
+	
+}
+
 
 setTimeout(areWeThereYet, 100)
 
 function areWeThereYet(){
-	if ((typeof(jQuery)== 'undefined' || typeof(d3) == 'undefined') || typeof(window.curarium) == 'undefined'){
+	if (typeof(jQuery) === 'undefined' || typeof(d3) === 'undefined' || typeof(window.curarium) === 'undefined' || typeof($().spatialc) === 'undefined'){
 		setTimeout(areWeThereYet,100)
 	} else {
 		$(document).ready(function(){
@@ -42,6 +50,10 @@ var <%= uuid %> = function() {
   	
   	
   	$(placement).append($("<div id='<%= uuid %>' style='display:inline-block;width:100%; height:100%'></div>"));
+  	$(placement).click(function(e){
+  		e.stopPropagation();
+  		window.open("http://curarium.herokuapp.com/collections/<%=params[:collection_id]%>/visualizations"+window.collection.query_terms(), "_blank")
+  	});
   	$(placement).removeClass('curarium');
   	
   		

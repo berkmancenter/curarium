@@ -1,0 +1,224 @@
+
+.blocks-panel-container
+{
+    overflow: hidden;
+    background-color: #ccc;
+    background-image: url('c.gif');
+    position: relative;
+    outline-style:none;
+    box-shadow: inset 0 0 1px;
+}
+
+.unselectable
+{
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+
+
+.blocks-panel
+{
+    position: relative;
+    top: 0px;
+    left: 0px;
+    box-shadow: 0 0 50px #999;
+}
+
+
+.item
+{
+    cursor: pointer;
+    position: absolute;
+    background-size: cover;
+    background-repeat: no-repeat;
+    z-index: 2;
+}
+
+.loading
+{
+    background-image: url('ajax.gif') !important;
+}
+
+.item .text
+{
+    background-color: rgba(255,255,255,0.5);
+    font-size: 0.7em;
+}
+
+.moveicon
+{
+    position: absolute;
+    right: 0;
+    top: 0;
+    height: 1em;
+    width: 1em;
+    background-color: white;
+    background-image: url('move-24.png');
+    background-size: cover;
+    cursor: move;
+    background-repeat: no-repeat
+}
+
+.item:hover 
+{ 
+    transform: scale(1.2); 
+    -webkit-transform: scale(1.2); 
+    z-index: 15; 
+    box-shadow: rgb(50, 50, 50) 0px 0px 16px; 
+}
+
+.testdiv
+{
+    position: absolute;
+    background-color: rgba(200,200,200,0.5);
+    z-index: 0;
+}
+
+.nav-buttons { 
+    display: table;
+    font-weight: bold;
+    font-size: 1em;
+    position: absolute;
+    cursor: pointer;
+    z-index: 10;
+    opacity: 0;
+}
+.nav-buttons .text {
+    display: table-cell;
+    vertical-align: middle;
+    text-align: center;
+    visibility: hidden;
+    text-shadow: 2px 0px 6px #fff, -2px 0px 6px #fff;
+    font-size: 2em;
+    font-family: "Verdana";
+}
+
+.nav-buttons.horizontal
+{
+    width: 100%;
+    height: 10%;
+}
+
+.nav-buttons.left { left: 0; top: 0; background: linear-gradient(to right, rgba(255, 0, 0, 1), rgba(255, 0, 0, 0)); }
+.nav-buttons.right { right: 0; top: 0; background: linear-gradient(to right, rgba(255, 0, 0, 0), rgba(255, 0, 0, 1)); }
+.nav-buttons.down { bottom: 0px; left: 0; background: linear-gradient(to top, rgba(255, 0, 0, 1), rgba(255, 0, 0, 0)); }
+.nav-buttons.up { top: 0; left: 0; background: linear-gradient(to top, rgba(255, 0, 0, 0), rgba(255, 0, 0, 1)); }
+
+.nav-buttons.vertical
+{
+    width: 5%;
+    height: 100%;
+}
+
+.nav-buttons:hover .text { visibility: visible; }
+
+.map-icon
+{
+    position: absolute;
+    right: 10px;
+    top: 0.6em;
+}
+
+.closesign
+{
+    height: 1.6em;
+    width: 1.6em;
+    position: absolute;
+    background-image: url('close.png');
+    background-size: cover;
+    right: -1.0em;
+    top: -1.0em;
+    cursor: pointer;
+}
+
+.map-icon img
+{
+    height: 30px;
+    width: 100px;
+    cursor: pointer;
+}
+
+#minimap
+{
+	z-index: 100000 !important;
+    position: absolute !important;
+    right: 5em !important;
+    top: 5.8em !important;
+    height: 15em !important;
+    width: 15em !important;
+    z-index: 20 !important;
+    visibility: hidden;
+    box-shadow: rgb(50, 50, 50) 0px 0px 16px !important;
+}
+
+.ui-zoomify {
+  padding: 10px !important;
+  background: #eee !important;
+  margin-bottom: 10px !important;
+}
+
+.ui-zoomify .window {
+  border-bottom: 1px solid #ccc !important;
+  padding-bottom: 10px !important;
+}
+
+.ui-zoomify .window .view {
+  width: 100% !important;
+  border: 1px solid #444 !important;
+  position: relative !important;
+  box-sizing: border-box !important;
+  -moz-box-sizing: border-box !important;
+}
+
+.ui-zoomify .window .view .frame {
+  position: absolute !important;
+  top: 0px !important;
+  left: 0px !important;
+  width: 100% !important;
+  height: 100% !important;
+  border: 3px solid red !important;
+  box-sizing: border-box !important;
+  -moz-box-sizing: border-box !important;
+  background: rgba(255,0,0,.3) !important;
+  z-index: 1 !important;
+}
+
+.ui-zoomify .window .view .display{
+  position: absolute !important;
+  top: 0 !important;
+  left: 0 !important;
+  width: 100% !important;
+  z-index: 0 !important;
+}    
+
+.ui-zoomify .settings {
+  border-top: 1px solid #f8f8f8 !important;
+  padding-top: 4px !important;
+  height: 22px !important;
+}
+
+.ui-zoomify .settings input {
+  border: 1px solid #aaa !important;
+  width: 55px !important;
+  font-size: 11px !important;
+  float: left !important;
+  padding: 2px !important;
+}
+
+.ui-zoomify .settings .slider {
+  width: 100px !important;
+  height: 7px !important;
+  float: right !important;
+  margin-right: 10px !important;
+  margin-top: 8px !important;
+}
+
+.ui-zoomify .settings .slider .ui-slider-handle {
+  width: 15px !important;
+  height: 15px !important;
+}

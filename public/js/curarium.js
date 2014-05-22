@@ -3,7 +3,7 @@
   var field_drop, inc_exc, modify_field, printRecord, query_button, read_parsed, record, render_thumbnail, submit_update, traceField, update_controls, visualization_property;
 
   record = {};
-
+  window.curarium = true;
   window.collection = {};
 
   window.collection.visualization_controls = function(properties) {
@@ -1482,7 +1482,7 @@
         }
       }).text(function(d) {
         if (d.parsed !== void 0) {
-          return JSON.parse(d.parsed)[0] + '(' + d.id + ')';
+          return d.parsed + '(' + d.id + ')';
         } else {
           return '';
         }
@@ -1492,7 +1492,7 @@
     click = function(e) {
       var name, query, value;
       query = window.collection.query;
-      value = JSON.parse(d3.select(this).data()[0].parsed)[0];
+      value = d3.select(this).data()[0].parsed;
       name = query.property + ":" + value;
       if (query.include.indexOf(name) === -1) {
         query.include.push(name);

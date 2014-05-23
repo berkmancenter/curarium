@@ -317,7 +317,7 @@
         $(this.element).find('.moveicon').css('display', 'block')
         var id = this.element.getAttribute('id')
         this.element.onclick = function(){
-			window.open('http://' + window.location.host + '/records/' + id, '_blank');
+			window.open('http://curarium.herokuapp.com/records/' + id, '_blank');
 		};
         for (prop in this.clones)
         {

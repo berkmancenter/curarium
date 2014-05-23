@@ -1486,20 +1486,10 @@
         } else {
           return '';
         }
-      }).on('click', click);
+      });
       return void 0;
     };
-    click = function(e) {
-      var name, query, value;
-      query = window.collection.query;
-      value = d3.select(this).data()[0].parsed;
-      name = query.property + ":" + value;
-      if (query.include.indexOf(name) === -1) {
-        query.include.push(name);
-      }
-      window.collection.generate_visualization();
-      return false;
-    };
+    
     return void 0;
   };
 

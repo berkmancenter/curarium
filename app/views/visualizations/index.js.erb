@@ -66,10 +66,12 @@ var <%= uuid %> = function() {
   	
   	
   	$(placement).append($("<div id='<%= uuid %>' style='display:inline-block;width:100%; height:100%'></div>"));
+  	<% unless params[:type] == 'thumbnail' %>
   	$(placement).click(function(e){
   		e.stopPropagation();
   		window.open("http://curarium.herokuapp.com/collections/<%=params[:collection_id]%>/visualizations"+window.collection.query_terms(), "_blank")
   	});
+  	<% end %>
   	$(placement).removeClass('curarium');
   	
   		

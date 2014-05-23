@@ -26,12 +26,14 @@ if(typeof(window.curarium) === 'undefined'){
 
 function spatial_ready() {
   if(typeof(jQuery) === 'undefined') { 
+      console.log("X");
       return false;
   } else {
       if(typeof $().spatialc == 'undefined' || typeof jQuery.ui == 'undefined' || typeof jQuery.ui.zoomify == 'undefined' ){
+	  console.log("Y");
           return false;
       } else {
-	  console.log(true);
+	  console.log("Z");
 	  return true;
       }
   }

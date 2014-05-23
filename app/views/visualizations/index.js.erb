@@ -24,16 +24,14 @@ document.write("<link type='text/css' rel='stylesheet' href='http://curarium.her
 
 function spatial_ready() {
   <% if params[:type] != 'thumbnail' %>
+    return true;
   <% end %>
   if(typeof(jQuery) === 'undefined') { 
-      console.log("X");
       return false;
   } else {
       if(typeof $().spatialc == 'undefined' || typeof jQuery.ui == 'undefined' || typeof jQuery.ui.zoomify == 'undefined' ){
-	  console.log("Y");
           return false;
       } else {
-	  console.log("Z");
 	  return true;
       }
   }

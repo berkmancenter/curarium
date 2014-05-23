@@ -3,31 +3,35 @@
 document.write("<style type='text/css'> .node { box-sizing: border-box; font: 10px sans-serif; color: black; line-height: 12px; overflow: hidden !important; position: absolute;  text-indent: 2px;	} </style>");
 
 <% if params[:type] == 'thumbnail' %>
-document.write("<script type='text/javascript' src='http://code.jquery.com/ui/1.10.4/jquery-ui.min.js'></script>");
 document.write("<script type='text/javascript' src='http://curarium.herokuapp.com/js/jquery.ui.zoomify.js'></script>");
 document.write("<script type='text/javascript' src='http://curarium.herokuapp.com/js/spatialc.js'></script>");
 document.write("<link type='text/css' rel='stylesheet' href='http://curarium.herokuapp.com/css/spatialc.css'></script>");
 <% end %>
 
-if(typeof(jQuery) == 'undefined'){ 
+
+
+if(typeof(jQuery) === 'undefined'){ 
 	document.write("<script type='text/javascript' src='https://code.jquery.com/jquery-2.1.0.min.js'></script>");
+} else if (typeof jQuery.ui === 'undefined') {
+	document.write("<script type='text/javascript' src='http://code.jquery.com/ui/1.10.4/jquery-ui.min.js'></script>");
 }
 
-if(typeof(d3) == 'undefined'){ 
+if(typeof(d3) === 'undefined'){ 
 	document.write("<script type='text/javascript' src='http://d3js.org/d3.v3.min.js'></script>");
 }
 
-if(typeof(window.curarium) == 'undefined'){ 
+if(typeof(window.curarium) === 'undefined'){ 
 	document.write("<script type='text/javascript' src='http://curarium.herokuapp.com/js/curarium.js'></script>");
 }
 
 function spatial_ready() {
   if(typeof(jQuery) === 'undefined') { 
       return false;
-  } else if(!(typeof(jQuery) === 'undefined')){
-      if(typeof($().spatialc) === 'undefined'){
+  } else {
+      if(typeof $().spatialc == 'undefined' || typeof jQuery.ui == 'undefined' || typeof jQuery.ui.zoomify == 'undefined' ){
           return false;
       } else {
+	  console.log(true);
 	  return true;
       }
   }

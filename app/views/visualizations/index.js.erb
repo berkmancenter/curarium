@@ -3,7 +3,7 @@
 document.write("<style type='text/css'> .node { box-sizing: border-box; font: 10px sans-serif; color: black; line-height: 12px; overflow: hidden !important; position: absolute;  text-indent: 2px;	} </style>");
 
 
-if(typeof(jQuery) === 'undefined'){ 
+if(typeof(jQuery) === 'undefined' || jQuery.fn.jquery != "2.1.0"){ 
 	document.write("<script type='text/javascript' src='https://code.jquery.com/jquery-2.1.0.min.js'></script>");
 }
 
@@ -27,7 +27,7 @@ function spatial_ready() {
       console.log("X");
       return false;
   } else {
-      if(typeof $().spatialc == 'undefined' || typeof jQuery.ui == 'undefined' ){
+      if(typeof $().spatialc == 'undefined' || typeof jQuery.ui == 'undefined' || typeof jQuery.ui.zoomify == 'undefined' ){
 	  console.log("Y");
           return false;
       } else {

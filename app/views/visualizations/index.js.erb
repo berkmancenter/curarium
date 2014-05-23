@@ -44,7 +44,7 @@ function spatial_ready() {
 setTimeout(areWeThereYet, 100)
 
 function areWeThereYet(){
-	if (typeof(jQuery) === 'undefined' || typeof(d3) === 'undefined' || typeof(window.curarium) === 'undefined' || spatial_ready()){
+	if (typeof(jQuery) === 'undefined' || typeof(d3) === 'undefined' || typeof(window.curarium) === 'undefined' || !spatial_ready()){
 		setTimeout(areWeThereYet,100)
 	} else {
 		$(document).ready(function(){

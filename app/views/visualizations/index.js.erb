@@ -23,6 +23,8 @@ document.write("<link type='text/css' rel='stylesheet' href='http://curarium.her
 <% end %>
 
 function spatial_ready() {
+  <% if params[:type] != 'thumbnail' %>
+  <% end %>
   if(typeof(jQuery) === 'undefined') { 
       console.log("X");
       return false;

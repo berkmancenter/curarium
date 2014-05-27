@@ -35,8 +35,8 @@ div#record-data{
 }
 
 div#record-data img {
-  max-height: 80px;
-  max-width: 80px;
+  max-height: 80px !important;
+  max-width: 80px !important;
 }
 
 div#record-data nav {

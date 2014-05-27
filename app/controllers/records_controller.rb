@@ -18,6 +18,7 @@ class RecordsController < ApplicationController
      respond_to do |format|
        format.html { }
        format.json { @record.parsed = eval_parsed }
+       format.js { render action: "show" }
      end
     
   end

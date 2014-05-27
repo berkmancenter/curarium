@@ -558,6 +558,7 @@
         y: (main.offsetHeight / min_scale - surrogate.height) / 2
       });
       layer.add(image);
+      stage.draw(); 
       get_annotations();
       return void 0;
     };

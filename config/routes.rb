@@ -38,6 +38,10 @@ Curarium::Application.routes.draw do
   resources :spotlights
 
   resources :records do
+    member do
+      get 'thumb'
+    end
+
     resources :amendments
     resources :annotations
   end

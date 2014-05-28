@@ -1,5 +1,5 @@
 class RecordsController < ApplicationController
-  before_action :set_record, only: [:show, :edit, :update, :destroy]
+  before_action :set_record, only: [:show, :thumb, :edit, :update, :destroy]
   skip_before_action :authorize, only: [:show]
 
   # GET /records
@@ -24,7 +24,15 @@ class RecordsController < ApplicationController
        format.html { }
        format.json { @record.parsed = eval_parsed }
      end
-    
+  end
+
+  # GET /records/1/thumb
+  def thumb
+    thumb_url = JSON.parse( @record.parsed[ 'thumbnail' ] )[0]
+    thumb_connection = open( thumb_url, 'rb' )
+    if stale?( etag: thumb_connection.meta[ 'etag' ], last_modified: thumb_connection.meta[ 'last-modified' ].to_date )
+      send_data thumb_connection.read, type: thumb_connection.meta[ 'content-type' ], disposition: 'inline'
+    end
   end
 
   # GET /records/new

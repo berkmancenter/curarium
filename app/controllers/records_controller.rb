@@ -24,8 +24,10 @@ class RecordsController < ApplicationController
   # GET /records/1/thumb
   def thumb
     thumb_url = JSON.parse( @record.parsed[ 'thumbnail' ] )[0]
-    thumb_data = open( thumb_url, 'rb' ).read
-    send_data thumb_data, type: 'image/png', disposition: 'inline'
+    thumb_connection = open( thumb_url, 'rb' )
+    if stale?( etag: thumb_connection.meta[ 'etag' ], last_modified: thumb_connection.meta[ 'last-modified' ].to_date )
+      send_data thumb_connection.read, type: thumb_connection.meta[ 'content-type' ], disposition: 'inline'
+    end
   end
 
   # GET /records/new

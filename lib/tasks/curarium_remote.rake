@@ -10,14 +10,14 @@ namespace :curarium_remote do
 
     puts "Started at #{Time.now}"
 
-    curarium_ingest args[:collection_id]
+    curarium_ingest_remote args[:collection_id]
 
     puts "Ended at #{Time.now}"
 
     ActiveRecord::Base.logger = old_logger
   end
 
-  def curarium_ingest( collection_id )
+  def curarium_ingest_remote( collection_id )
     usage = "usage: rake curarium:ingest['path/to/input_dir,collection_id']"
 
     if collection_id.nil?
@@ -38,8 +38,8 @@ namespace :curarium_remote do
     j_count = 0
     ent.each { |f| 
       configuration = collection.configuration
-      read_record( f.path, configuration )
-      t = Thread.new { read_record( f.path, configuration ) }
+      read_record_remote( f.path, configuration )
+      t = Thread.new { read_record_remote( f.path, configuration ) }
 
       t.join
 
@@ -59,7 +59,7 @@ namespace :curarium_remote do
     puts "Processed #{j_count} JSON files (out of #{ent.count} total files in directory)"
   end
 
-  def read_record( path, configuration )
+  def read_record_remote( path, configuration )
     json_file = JSON.parse(Net::HTTP.get(URI(path.to_s)))
     pr = {}
     configuration.each do |field|

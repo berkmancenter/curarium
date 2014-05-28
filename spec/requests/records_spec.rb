@@ -36,5 +36,15 @@ describe 'records requests', :js => true do
         should have_title 'Curarium'
       }
     }
+
+    describe ( 'get /records/:id/thumb' ) {
+      before {
+        visit thumb_record_path( rec )
+      }
+
+      it {
+        page.status_code.should eq( 200 )
+      }
+    }
   }
 end

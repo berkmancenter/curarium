@@ -3,7 +3,10 @@ class HomeController < ApplicationController
   
   def index
     unless session[:user_id].nil?
-      @user = User.find(session[:user_id])
+      @user = User.find_by_id(session[:user_id])
+      if @user.nil?
+        reset_session
+      end
     end
   end
   

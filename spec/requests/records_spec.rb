@@ -28,12 +28,50 @@ describe 'records requests', :js => true do
     }
 
     describe ( 'get records#index' ) {
-      before {
-        visit records_path
+      describe( 'header' ) {
+        before {
+          visit records_path
+        }
+
+        it {
+          should have_title 'Records'
+        }
       }
 
-      it {
-        should have_title 'Records'
+      describe ( 'vis_controls' ) {
+        context( 'with default vis' ) {
+          before {
+            visit records_path
+          }
+
+          it {
+            should have_css '.vis-controls select[name="vis"]'
+            should have_css 'option[value="list"][selected]'
+          }
+        }
+
+        context( 'with list vis' ) {
+          before {
+            visit "#{records_path}?vis=list"
+          }
+
+          it {
+            should have_css '.vis-controls select[name="vis"]'
+            should have_css 'option[value="list"][selected]'
+          }
+        }
+
+        context( 'with thumbnails vis' ) {
+          before {
+            visit "#{records_path}?vis=thumbnails"
+          }
+
+          it {
+            should have_css '.vis-controls select[name="vis"]'
+            should_not have_css 'option[value="list"][selected]'
+            should have_css 'option[value="thumbnails"][selected]'
+          }
+        }
       }
     }
 

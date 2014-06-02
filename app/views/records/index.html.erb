@@ -1,4 +1,8 @@
 <% provide :title, 'Records' %>
 <h1>Records<%= " for #{@collection.name}" if @collection.present? %></h1>
 
+<% puts "**** #{params.inspect} ****" %>
+
+<%= render partial: 'records/vis_controls' %>
+
 <%= render partial: 'records/list', object: @records %>

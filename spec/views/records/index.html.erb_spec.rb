@@ -12,6 +12,10 @@ describe ( 'records/index' ) {
     it {
       should have_css 'h1', text: 'Records'
     }
+
+    it {
+      should have_css 'section.vis-controls'
+    }
   }
 
   context ( 'in a collection' ) {

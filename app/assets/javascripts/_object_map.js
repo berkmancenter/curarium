@@ -24,13 +24,13 @@ $( function() {
               if ( view.tile.column >= 0 && view.tile.row >= 0 ) {
                 var quadKey = tileToQuadkey( view.tile.column, view.tile.row, view.zoom );
                 var index = tileToIndex( view.tile.column, view.tile.row, view.zoom );
-                console.log( 'quadKey: ' + quadKey + ', index: ' + index );
 
                 if ( index >= 0 && index < recordIds.length ) {
                   var defer = new jQuery.Deferred();
                   var img = new Image();
 
                   img.onload = function( ) {
+                    context.clearRect( 0, 0, 256, 256 );
                     context.drawImage( img, 0, 0 );
 
                     defer.resolve( context.canvas.toDataURL( 'image/png' ) );

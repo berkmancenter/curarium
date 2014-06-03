@@ -46,24 +46,21 @@ class RecordsController < ApplicationController
   def thumb
     thumb_url = JSON.parse( @record.parsed[ 'thumbnail' ] )[0]
     if thumb_url.nil?
-      thumb_url = ActionController::Base.helpers.asset_path('missing_thumb.png')
-    end
-
-    thumb_connection = open( thumb_url + ( thumb_url.include?( '?' ) ? '&' : '?' ) + 'width=256&height=256', 'rb' )
-
-    puts '***'
-    puts "*** #{thumb_connection.inspect} ***"
-    puts '***'
-
-    if thumb_connection.is_a? Tempfile
-      send_data thumb_connection.read, type: "image/#{image_type thumb_connection.path}", disposition: 'inline'
+      send_data File.open( "#{Rails.public_path}/missing_thumb.png", 'rb' ).read, type: 'image/png', disposition: 'inline'
     else
-      if stale?( etag: thumb_url.hash, last_modified: Date.today )
-        send_data thumb_connection.read, type: thumb_connection.meta[ 'content-type' ], disposition: 'inline'
+      thumb_connection = open( thumb_url + ( thumb_url.include?( '?' ) ? '&' : '?' ) + 'width=256&height=256', 'rb' )
+
+      if thumb_connection.is_a? Tempfile
+        send_data thumb_connection.read, type: "image/#{image_type thumb_connection.path}", disposition: 'inline'
+      else
+        thumb_hash = thumb_url.hash
+        cache_date = Rails.cache.fetch( "#{thumb_hash}-date" ) { Date.today }
+        cache_image = Rails.cache.fetch( "#{thumb_hash}-image" ) { thumb_connection.read }
+
+        if stale?( etag: thumb_hash, last_modified: cache_date )
+          send_data cache_image, type: thumb_connection.meta[ 'content-type' ], disposition: 'inline'
+        end
       end
-      #if stale?( etag: thumb_connection.meta[ 'etag' ], last_modified: thumb_connection.meta[ 'last-modified' ].to_date )
-      #  send_data thumb_connection.read, type: thumb_connection.meta[ 'content-type' ], disposition: 'inline'
-      #end
     end
   end
 

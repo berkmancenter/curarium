@@ -21,17 +21,29 @@ $( function() {
           {
             type: 'tiled',
             src: function( view ) {
-              var defer = new jQuery.Deferred();
-              var img = new Image();
+              if ( view.tile.column >= 0 && view.tile.row >= 0 ) {
+                var quadKey = tileToQuadkey( view.tile.column, view.tile.row, view.zoom );
+                var index = tileToIndex( view.tile.column, view.tile.row, view.zoom );
+                console.log( 'quadKey: ' + quadKey + ', index: ' + index );
 
-              img.onload = function( ) {
-                context.drawImage( img, 0, 0 );
+                if ( index >= 0 && index < recordIds.length ) {
+                  var defer = new jQuery.Deferred();
+                  var img = new Image();
 
-                defer.resolve( context.canvas.toDataURL( 'image/png' ) );
+                  img.onload = function( ) {
+                    context.drawImage( img, 0, 0 );
+
+                    defer.resolve( context.canvas.toDataURL( 'image/png' ) );
+                  }
+
+                  img.src = '/records/' + recordIds[index] + '/thumb';
+                  return defer;
+                } else {
+                  return '';
+                }
+              } else {
+                return '';
               }
-
-              img.src = '/records/1/thumb';
-              return defer;
             }
           }
         ],
@@ -46,4 +58,43 @@ $( function() {
       } );
     }
   }
+
+  function tileToQuadkey( column, row, zoom ) {
+    var quadKey = "",
+        digit,
+        mask;
+    
+    for ( var i = zoom; i > 0; i-- ) {
+      digit = 0;
+      mask = 1 << (i - 1);
+      if ((column & mask) !== 0) {
+        digit++;
+      }
+      if ((row & mask) !== 0) {
+        digit += 2;
+      }
+      quadKey += digit;
+    }
+    return quadKey;
+  }
+
+  function tileToIndex( column, row, zoom ) {
+    var index = 0,
+        digit,
+        mask;
+    
+    for ( var i = zoom; i > 0; i-- ) {
+      digit = 0;
+      mask = 1 << (i - 1);
+      if ((column & mask) !== 0) {
+        digit++;
+      }
+      if ((row & mask) !== 0) {
+        digit += 2;
+      }
+      index += Math.pow( 4, i) * digit / 4;
+    }
+    return index;
+  }
+
 } );

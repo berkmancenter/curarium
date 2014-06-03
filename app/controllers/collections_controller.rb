@@ -54,10 +54,10 @@ class CollectionsController < ApplicationController
   def update
     respond_to do |format|
       if @collection.update(collection_params)
-        params[:json_files]['path'].each do |url|
-          @json_file = @collection.json_files.create!(path: url, collection_id: @collection.id)
-        end
-        Parser.new.async.perform(@collection.id)
+        f = File.new("#{Rails.root}/tmp/#{params[:file].original_filename}", 'wb')
+        f.write params[:file].read
+        f.close
+        Parser.new.async.perform(@collection.id, "#{Rails.root}/tmp/#{params[:file].original_filename}")
         format.html { redirect_to @collection, notice: 'Collection was successfully updated.' }
         format.json { head :no_content }
       else
@@ -126,6 +126,6 @@ class CollectionsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def collection_params
-      params.require(:collection).permit(:name, :description, :configuration, json_files_attributes: [:id, :collection_id, :path])
+      params.require(:collection).permit(:name, :description, :configuration, :source, json_files_attributes: [:id, :collection_id, :path])
     end
 end

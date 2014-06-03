@@ -24,13 +24,19 @@
 		<br>
 		<%= f.text_area :description, placeholder: "A description of your collection. It can be a long text." %>
 	</div>
-	
+
+	<div class="field">
+		<%= f.label :source %>
+		<br>
+		<%= f.text_field :source, placeholder: "Collection originally hosted by..." %>
+	</div>
+
 	<input type='file' name='file'>
-	
+
 	<div class="field">
 		<%= f.hidden_field :configuration, value: "{}" %>
 	</div>
-	
+
 	<div class="actions">
 		<%= f.submit %>
 	</div>
@@ -40,20 +46,38 @@
 		<br >
 		<input type='submit' value='parse'>
 	</form>
-	
+
 </section>
 <section id='parsed' class='configure_collection'></section>
 <section id='output' class='configure_collection'>
 	<div id='output'>
-	<div id='title' class='field_wrapper'><p>title</p></div>
-	<div id='image' class='field_wrapper'><p>image</p></div>
-	<div id='thumbnail' class='field_wrapper'><p>thumbnail</p></div>
-	<form id='add_field'>
-		<input id='field_name' name='field_name' type='text' placeholder='custom field name'><br>
-		<input type='submit' value='Add field'>
-	</form>
-	<!-- <form id='submit_configuration'>
+		<div id='unique_identifier' class='field_wrapper'>
+			<p>
+				Unique Identifier
+			</p>
+		</div>
+		<div id='title' class='field_wrapper'>
+			<p>
+				title
+			</p>
+		</div>
+		<div id='image' class='field_wrapper'>
+			<p>
+				image
+			</p>
+		</div>
+		<div id='thumbnail' class='field_wrapper'>
+			<p>
+				thumbnail
+			</p>
+		</div>
+		<form id='add_field'>
+			<input id='field_name' name='field_name' type='text' placeholder='custom field name'>
+			<br>
+			<input type='submit' value='Add field'>
+		</form>
+		<!-- <form id='submit_configuration'>
 		<input type='submit' value='Submit Configuration'>
-	</form>-->
-</div>
+		</form>-->
+	</div>
 </section>

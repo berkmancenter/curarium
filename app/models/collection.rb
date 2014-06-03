@@ -50,9 +50,9 @@ class Collection < ActiveRecord::Base
     end
   end
 
-  def create_record_from_parsed( original, parsed )
+  def create_record_from_parsed( original, parsed, unique_identifier )
     # create a record from original JSON and pre-parsed version
-    r = self.records.new original: original, parsed: parsed
+    r = self.records.new({original: original, parsed: parsed, unique_identifier: unique_identifier})
     r.save
   end
   

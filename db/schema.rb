@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140430153529) do
+ActiveRecord::Schema.define(version: 20140602230212) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -48,6 +48,7 @@ ActiveRecord::Schema.define(version: 20140430153529) do
     t.integer  "admin",         default: [], array: true
     t.json     "associations"
     t.integer  "size"
+    t.string   "source"
   end
 
   create_table "comments", force: true do |t|
@@ -84,6 +85,7 @@ ActiveRecord::Schema.define(version: 20140430153529) do
     t.integer  "collection_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "unique_identifier"
   end
 
   create_table "sections", force: true do |t|

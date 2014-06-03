@@ -27,12 +27,17 @@ div#main-canvas {
 }
 
 .records-objectmap {
+  background: blue;
+  position: relative;
+  height: 40em;
+
   .geomap {
+    background: green;
     bottom: 0;
     left: 0;
     position: absolute;
     right: 0;
-    top: 6em;
+    top: 0;
   }
 }
 

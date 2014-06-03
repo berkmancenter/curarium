@@ -19,7 +19,13 @@ $( function() {
             type: 'tiled',
             src: function( view ) {
               if ( view.tile.column >= 0 && view.tile.row >= 0 ) {
-                var quadKey = tileToQuadkey( view.tile.column, view.tile.row, view.zoom );
+                // each tile needs a canvas now...I think,
+                // since drawing may happen over multiple async calls
+                var canvas = $( '<canvas width="256" height="256" />' );
+                var context = canvas[0].getContext( '2d' );
+
+                var quadKey = tileToQuadKey( view.tile.column, view.tile.row, view.zoom );
+
                 var indexes = quadKeyToIndexes( quadKey );
                 var imageSize = Math.pow( 2, view.zoom );
                 var imageDepth = Math.ceil( indexes.length / 2 );
@@ -28,11 +34,6 @@ $( function() {
                 var tileDefer = new jQuery.Deferred();
 
 
-                // each tile needs a canvas now...I think,
-                // since drawing may happen over multiple async calls
-                var canvas = $( '<canvas width="256" height="256" />' );
-                var context = canvas[0].getContext( '2d' );
-
 
 
                 var imageDeferreds = [];
@@ -40,10 +41,11 @@ $( function() {
                 $.each( indexes, function( tileImageIndex ) { 
                   var recordIdIndex = this;
 
-                  var x = imageSize * ( tileImageIndex % imageDepth );
+                  var x = imageSize * ( ( tileImageIndex % 2 ) ); //imageDepth );
                   var y = imageSize * Math.floor( tileImageIndex / imageDepth );
-                  console.log( 'x: ' + x + ', y: ' + y );
+
                   if ( recordIdIndex >= 0 && recordIdIndex < recordIds.length ) {
+                    console.log( 'x: ' + x + ', y: ' + y );
 
 
                     var imageDefer = new jQuery.Deferred();
@@ -67,7 +69,7 @@ $( function() {
                     img.src = '/records/' + recordIds[ recordIdIndex ] + '/thumb';
 
                   } else {
-                    context.fillStyle = '#ff0000';
+                    //context.fillStyle = '#ff0000';
                     context.fillRect( x, y, imageSize, imageSize );
                   }
 
@@ -99,7 +101,7 @@ $( function() {
     }
   }
 
-  function tileToQuadkey( column, row, zoom ) {
+  function tileToQuadKey( column, row, zoom ) {
     var quadKey = "",
         digit,
         mask;

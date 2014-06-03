@@ -26,6 +26,16 @@ div#main-canvas {
   position: relative;
 }
 
+.records-object-map {
+  .geomap {
+    bottom: 0;
+    left: 0;
+    position: absolute;
+    right: 0;
+    top: 6em;
+  }
+}
+
 div#record-data{
   background-image: url('black_50_percent.png');
   display: block;

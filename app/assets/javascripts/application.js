@@ -16,6 +16,7 @@
 //= require jquery.ui.autocomplete
 //= require jquery.ui.slider
 //= require jquery_ujs
+//= require jquery.geo-1.0.0-b2.min
 //= require d3
 //= require turbolinks
 //= require_tree .

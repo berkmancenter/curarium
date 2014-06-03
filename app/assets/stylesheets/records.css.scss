@@ -124,7 +124,6 @@ div#annotations{
   .parsed_value {
     @include no-select;
     margin: 1px;
-    background-color: lightgray;
     @include rounded-corners(2px);
     padding: 2px;
     display: inline-block;
@@ -132,6 +131,19 @@ div#annotations{
     font-size: 8pt;
     color: black;
     cursor: pointer;
+    &.original {
+      background-color: slategray;
+    }
+    &.new {
+      background-color: orange;
+    }
+    &.deleted {
+      background-color: slategray;
+      text-decoration: line-through;
+    }
+    &:hover {
+      background-color: green;
+    }
   }
 }
 

@@ -2,7 +2,7 @@
 <script>
 	$(document).ready(function(){
 		<% image = params[:image].to_i || 0%>
-		window.record.display('<%= JSON.parse(@record.parsed['image'])[image]%>');
+		window.record.display('<%= JSON.parse(@current_metadata['image'])[image]%>');
 		$('img.surrogate_thumbnail').each( function(i){
 			$(this).click(function(e){
 				window.location = "?image="+i
@@ -15,7 +15,7 @@
 	});
 </script>
 
-<% title eval(@record.parsed['title'])[0] %>
+<% title eval(@current_metadata['title'])[0] %>
 
 <nav id="secondary_nav">
 
@@ -59,13 +59,13 @@
 		});
 	</script>
 	<nav>
-		<% images= eval(@record.parsed['image']) %>
+		<% images= eval(@current_metadata['image']) %>
 		<% images.each do |image|%>
 		<img src='<%= image+'?width=10000&height=10000'%>' class='surrogate_thumbnail'>
 		<% end %>
 	</nav>
 	<section>
-		<%= print_hstore @record.parsed, 'printed_object', 'parsed_record' %>
+		<%= print_metadata @record.parsed, @current_metadata, 'printed_object', 'parsed_record' %>
 		<%= print_json @record.original, 'printed_object', 'original_record' %>
 	</section>
 </div>
@@ -91,7 +91,7 @@
 			    	<%= content.hidden_field :height, id: 'content_height'%>
 			    	<%= content.hidden_field :image_url, id: 'content_url'%>
 			    <% end %>		
-			<%= tag_selector @record.parsed %>
+			<%= tag_selector @current_metadata %>
 			<p>
 				<%= f.submit %>
 			</p>
@@ -126,7 +126,7 @@
 						    		<% end %>
 						    	<% end %>
 						    <% end %>		
-							<%= tag_selector @record.parsed %>
+							<%= tag_selector @current_metadata %>
 							<p>
 								<%= f.submit %>
 							</p>

@@ -11,8 +11,13 @@ class RecordsController < ApplicationController
   # GET /records/1
   # GET /records/1.json
   def show
+     if @record.amendments.length > 0
+       @current_metadata = @record.amendments.last.amended
+     else
+       @current_metadata = @record.parsed
+     end
      eval_parsed = {}
-     @record.parsed.each do |key, value|
+     @current_metadata.each do |key, value|
        eval_parsed[key] = eval(value) unless value.to_s.empty?
      end
      respond_to do |format|
@@ -51,13 +56,17 @@ class RecordsController < ApplicationController
   # PATCH/PUT /records/1
   # PATCH/PUT /records/1.json
   def update
-    original = @record.parsed
     amended = params[:record][:parsed]
-    @record.update(parsed: amended)
+    #@record.update(parsed: amended)
+    if @record.amendments.length > 0
+      last_amendment = @record.amendments.last.amended
+    else
+      last_amendment = @record.parsed
+    end
     
     @amendment = @record.amendments.new
     @amendment.user_id = session[:user_id].to_i
-    @amendment.previous = original
+    @amendment.previous = last_amendment
     @amendment.amended = amended
     @amendment.save
     

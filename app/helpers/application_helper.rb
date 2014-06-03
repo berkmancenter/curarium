@@ -48,6 +48,37 @@ module ApplicationHelper
     return raw(tags + "</ul>")
   end
   
+  def print_metadata(original, current, class_name,id_name=nil) #should this rather be in the controller?
+    tags = "<ul class='#{class_name}' id='#{id_name}'>"
+    original.each do |key, value|
+      tags += "<ul class='parsed_field' id='#{key}'>"
+      tags += "<li class='parsed_key'>#{key}"
+      tags += "<ul class='parsed_values'>"
+      #get an instance of the original metadata and of the current version of it
+      original_value = JSON.parse(original[key])
+      original_value = original_value.map(&:to_s) #make sure everything is a string... should become irrelevant.
+      current_value = JSON.parse(current[key])
+      current_value = current_value.map(&:to_s)
+      #compare the original value to the current one
+      provided_values = original_value & current_value #values in both instances
+      new_values = current_value - original_value #values only present in the 'current' version, hence new
+      deleted_values = original_value - current_value #'original' values not present in the 'current' version, hence deleted
+      #add li tags for each kind
+      provided_values.each do |item|
+        tags += "<li class='parsed_value original'>#{item}</li>"
+      end
+      new_values.each do |item|
+        tags += "<li class='parsed_value new'>#{item}</li>"
+      end
+      deleted_values.each do |item|
+        tags += "<li class='parsed_value deleted'>#{item}</li>"
+      end
+      
+      tags += "</ul></li></ul>"
+    end
+    return raw(tags + "</ul>")
+  end
+  
   def tag_selector(hstore_object)
     tags = "<select class='tag_selector'>"
     hstore_object.each do |key, value|

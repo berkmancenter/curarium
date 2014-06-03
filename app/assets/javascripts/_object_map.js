@@ -21,6 +21,8 @@ $( function() {
               if ( view.tile.column >= 0 && view.tile.row >= 0 ) {
                 var quadKey = tileToQuadkey( view.tile.column, view.tile.row, view.zoom );
                 var indexes = quadKeyToIndexes( quadKey );
+                var imageSize = Math.pow( 2, view.zoom );
+                var imageDepth = Math.ceil( indexes.length / 2 );
                 console.log( 'quadKey: ' + quadKey + ', indexes: ' + indexes.join(', ') );
 
                 var tileDefer = new jQuery.Deferred();
@@ -33,30 +35,45 @@ $( function() {
 
 
 
-                /*
+                var imageDeferreds = [];
+
                 $.each( indexes, function( tileImageIndex ) { 
                   var recordIdIndex = this;
+
+                  var x = imageSize * ( tileImageIndex % imageDepth );
+                  var y = imageSize * Math.floor( tileImageIndex / imageDepth );
+                  console.log( 'x: ' + x + ', y: ' + y );
+                  if ( recordIdIndex >= 0 && recordIdIndex < recordIds.length ) {
+
+
+                    var imageDefer = new jQuery.Deferred();
+                    imageDeferreds.push( imageDefer );
+
+                    var img = new Image();
+
+                    console.log( '  id: ' + recordIds[ recordIdIndex ] );
+                    img.onload = function( ) {
+                      //context.clearRect( 0, 0, 256, 256 );
+
+                      context.drawImage( img, x, y, imageSize, imageSize );
+
+                      imageDefer.resolve();
+                    };
+
+                    img.onerror = function( ) {
+                      imageDefer.resolve();
+                    };
+
+                    img.src = '/records/' + recordIds[ recordIdIndex ] + '/thumb';
+
+                  } else {
+                    context.fillStyle = '#ff0000';
+                    context.fillRect( x, y, imageSize, imageSize );
+                  }
+
                 } );
-                */
 
-
-                var imageDefer = new jQuery.Deferred();
-
-                var img = new Image();
-
-                console.log( '  id: ' + recordIds[ indexes[0] ] );
-                img.onload = function( ) {
-                  context.clearRect( 0, 0, 256, 256 );
-                  context.drawImage( img, 0, 0 );
-
-                  imageDefer.resolve();
-
-                }
-
-                img.src = '/records/' + recordIds[indexes[0]] + '/thumb';
-
-
-                $.when( imageDefer ).then( function( ) {
+                $.when.apply($, imageDeferreds ).then( function( ) {
                   tileDefer.resolve( context.canvas.toDataURL( 'image/png' ) );
                 } );
 

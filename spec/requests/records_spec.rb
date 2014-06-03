@@ -37,6 +37,24 @@ describe 'records requests', :js => true do
           should have_title 'Records'
         }
       }
+
+      describe ( 'objectmap' ) {
+        before {
+          visit "#{records_path}?vis=objectmap"
+        }
+
+        it {
+          should have_css '.records-objectmap'
+        }
+
+        it {
+          should have_css '.records-objectmap .geomap'
+        }
+
+        it {
+          should have_css '.geomap.geo-map'
+        }
+      }
     }
 
     describe ( 'get /records/:id' ) {

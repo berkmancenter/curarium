@@ -15,15 +15,15 @@ describe ( 'records/objectmap' ) {
     }
 
     it {
+      should have_css '.records-objectmap[data-record-ids]'
+    }
+
+    it {
+      should have_css %[.records-objectmap[data-record-ids="[#{records.map { |r| r.id }.join(',')}]"]]
+    }
+
+    it {
       should have_css '.records-objectmap div.geomap'
-    }
-
-    it {
-      should have_css '.geomap[data-record-ids]'
-    }
-
-    it {
-      should have_css %[.geomap[data-record-ids="[#{records.map { |r| r.id }.join(',')}]"]]
     }
   }
 }

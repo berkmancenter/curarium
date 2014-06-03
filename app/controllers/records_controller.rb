@@ -26,12 +26,33 @@ class RecordsController < ApplicationController
      end
   end
 
+  def image_type( local_file_path )
+    png = Regexp.new("\x89PNG".force_encoding("binary"))
+    jpg = Regexp.new("\xff\xd8\xff\xe0\x00\x10JFIF".force_encoding("binary"))
+
+    case IO.read(local_file_path, 10)
+    when /^GIF8/
+      'gif'
+    when /^#{png}/
+      'png'
+    when /^#{jpg}/
+      'jpeg'
+    else
+      '*'
+    end
+  end
+    
   # GET /records/1/thumb
   def thumb
     thumb_url = JSON.parse( @record.parsed[ 'thumbnail' ] )[0]
     thumb_connection = open( thumb_url, 'rb' )
-    if stale?( etag: thumb_connection.meta[ 'etag' ], last_modified: thumb_connection.meta[ 'last-modified' ].to_date )
-      send_data thumb_connection.read, type: thumb_connection.meta[ 'content-type' ], disposition: 'inline'
+
+    if thumb_connection.is_a? Tempfile
+      send_data thumb_connection.read, type: "image/#{image_type thumb_connection.path}", disposition: 'inline'
+    else
+      if stale?( etag: thumb_connection.meta[ 'etag' ], last_modified: thumb_connection.meta[ 'last-modified' ].to_date )
+        send_data thumb_connection.read, type: thumb_connection.meta[ 'content-type' ], disposition: 'inline'
+      end
     end
   end
 

@@ -5,14 +5,11 @@ $( function() {
 
     if ( $.isArray( recordIds ) && recordIds.length > 0 ) {
       $.geo.proj = null;
-      var canvas = $( '<canvas width="256" height="256" />' );
-      var context = canvas[0].getContext( '2d' );
-
       $( '.records-objectmap .geomap' ).geomap( {
         bbox: [ 0, 0, 1024, 768 ],
         zoom: 8,
 
-        zoomMin: 8,
+        zoomMin: 7,
         zoomMax: 8,
 
         axisLayout: 'image',
@@ -23,27 +20,50 @@ $( function() {
             src: function( view ) {
               if ( view.tile.column >= 0 && view.tile.row >= 0 ) {
                 var quadKey = tileToQuadkey( view.tile.column, view.tile.row, view.zoom );
-                //var index = tileToIndex( view.tile.column, view.tile.row, view.zoom );
-                var index = quadKeyToIndex( quadKey );
-                console.log( 'quadKey: ' + quadKey + ', index: ' + index );
+                var indexes = quadKeyToIndexes( quadKey );
+                console.log( 'quadKey: ' + quadKey + ', indexes: ' + indexes.join(', ') );
 
-                if ( index >= 0 && index < recordIds.length ) {
-                  console.log( '  id: ' + recordIds[ index ] );
-                  var defer = new jQuery.Deferred();
-                  var img = new Image();
+                var tileDefer = new jQuery.Deferred();
 
-                  img.onload = function( ) {
-                    context.clearRect( 0, 0, 256, 256 );
-                    context.drawImage( img, 0, 0 );
 
-                    defer.resolve( context.canvas.toDataURL( 'image/png' ) );
-                  }
+                // each tile needs a canvas now...I think,
+                // since drawing may happen over multiple async calls
+                var canvas = $( '<canvas width="256" height="256" />' );
+                var context = canvas[0].getContext( '2d' );
 
-                  img.src = '/records/' + recordIds[index] + '/thumb';
-                  return defer;
-                } else {
-                  return '';
+
+
+                /*
+                $.each( indexes, function( tileImageIndex ) { 
+                  var recordIdIndex = this;
+                } );
+                */
+
+
+                var imageDefer = new jQuery.Deferred();
+
+                var img = new Image();
+
+                console.log( '  id: ' + recordIds[ indexes[0] ] );
+                img.onload = function( ) {
+                  context.clearRect( 0, 0, 256, 256 );
+                  context.drawImage( img, 0, 0 );
+
+                  imageDefer.resolve();
+
                 }
+
+                img.src = '/records/' + recordIds[indexes[0]] + '/thumb';
+
+
+                $.when( imageDefer ).then( function( ) {
+                  tileDefer.resolve( context.canvas.toDataURL( 'image/png' ) );
+                } );
+
+
+
+
+                return tileDefer;
               } else {
                 return '';
               }
@@ -81,16 +101,25 @@ $( function() {
     return quadKey;
   }
 
-  function quadKeyToIndex( quadKey ) {
-    var index = 0,
-        digit;
+  function quadKeyToIndexes( quadKey ) {
+    if ( quadKey.length === 8 ) {
+      var index = 0,
+          digit;
 
-    for ( var i = quadKey.length - 1; i > 0; i-- ) {
-      digit = parseInt( quadKey[ i ] );
-      index += Math.pow( 4, 8 - i) * digit / 4;
+      for ( var i = quadKey.length - 1; i > 0; i-- ) {
+        digit = parseInt( quadKey[ i ] );
+        index += Math.pow( 4, 8 - i) * digit / 4;
+      }
+
+      return [ index ];
+    } else {
+      var indexes = [];
+      $.merge( indexes, quadKeyToIndexes( quadKey + '0' ) );
+      $.merge( indexes, quadKeyToIndexes( quadKey + '1' ) );
+      $.merge( indexes, quadKeyToIndexes( quadKey + '2' ) );
+      $.merge( indexes, quadKeyToIndexes( quadKey + '3' ) );
+      return indexes;
     }
-
-    return index;
   }
 
   function tileToIndex( column, row, zoom ) {

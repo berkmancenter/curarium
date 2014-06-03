@@ -3,6 +3,6 @@
 
 <% puts "**** #{params.inspect} ****" %>
 
-<%= render partial: 'records/vis_controls' %>
+<%= render partial: 'records/vis_controls', locals: { params: params } %>
 
 <%= render partial: 'records/list', object: @records %>

@@ -109,7 +109,7 @@ describe ( 'records/index' ) {
       }
 
       it {
-        should have_css '.records-object-map'
+        should have_css '.records-objectmap'
       }
     }
   }

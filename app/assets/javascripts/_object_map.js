@@ -1,4 +1,4 @@
 $( function() {
-  if ( $( '.records-object-map' ) ) {
+  if ( $( '.records-objectmap' ) ) {
   }
 } );

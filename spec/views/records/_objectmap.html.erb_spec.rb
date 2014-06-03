@@ -1,21 +1,21 @@
 require 'spec_helper'
 
-describe ( 'records/object_map' ) {
+describe ( 'records/objectmap' ) {
   subject { rendered }
 
   context ( 'all records' ) {
     let ( :records ) { Record.all }
 
     before {
-      render partial: 'records/object_map', object: records
+      render partial: 'records/objectmap', object: records
     }
 
     it {
-      should have_css 'section.records-object-map'
+      should have_css 'section.records-objectmap'
     }
 
     it {
-      should have_css '.records-object-map div.geomap'
+      should have_css '.records-objectmap div.geomap'
     }
 
     it {

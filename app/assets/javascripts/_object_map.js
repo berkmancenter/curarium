@@ -23,9 +23,12 @@ $( function() {
             src: function( view ) {
               if ( view.tile.column >= 0 && view.tile.row >= 0 ) {
                 var quadKey = tileToQuadkey( view.tile.column, view.tile.row, view.zoom );
-                var index = tileToIndex( view.tile.column, view.tile.row, view.zoom );
+                //var index = tileToIndex( view.tile.column, view.tile.row, view.zoom );
+                var index = quadKeyToIndex( quadKey );
+                console.log( 'quadKey: ' + quadKey + ', index: ' + index );
 
                 if ( index >= 0 && index < recordIds.length ) {
+                  console.log( '  id: ' + recordIds[ index ] );
                   var defer = new jQuery.Deferred();
                   var img = new Image();
 
@@ -76,6 +79,18 @@ $( function() {
       quadKey += digit;
     }
     return quadKey;
+  }
+
+  function quadKeyToIndex( quadKey ) {
+    var index = 0,
+        digit;
+
+    for ( var i = quadKey.length - 1; i > 0; i-- ) {
+      digit = parseInt( quadKey[ i ] );
+      index += Math.pow( 4, 8 - i) * digit / 4;
+    }
+
+    return index;
   }
 
   function tileToIndex( column, row, zoom ) {

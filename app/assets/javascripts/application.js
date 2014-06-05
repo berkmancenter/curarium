@@ -11,10 +11,7 @@
 // about supported directives.
 //
 //= require jquery
-//= require jquery.ui.draggable
-//= require jquery.ui.droppable
-//= require jquery.ui.autocomplete
-//= require jquery.ui.slider
+//= require jquery.ui.all
 //= require jquery_ujs
 //= require d3
 //= require turbolinks

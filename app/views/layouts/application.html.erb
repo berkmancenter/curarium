@@ -10,9 +10,17 @@
 		<%= csrf_meta_tags %>
 	</head>
 	<body>
+	  <div class="menulines"></div>
+		<div class="GLOBAL_HOLDER">
+		  <%= render 'shared/header'%>
+		  <%= yield %>
+		  <%= render 'shared/footer'%>
+		</div>
+		<!-- ORIGINAL HTML
 		<section id='main'  <%= yield :main_class %> >
-			<%= yield %>
+			<%# yield %>
 		</section>
-		<%= render 'shared/header'%>
+		<%# render 'shared/header'%>
+		-->
 	</body>
 </html>

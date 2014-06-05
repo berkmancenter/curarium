@@ -1,21 +1,23 @@
-<% @spotlights.each do |spotlight| %>
-      <div class='curarium_collection'>
-        <h3><%= link_to spotlight.title, spotlight %></h3>
-        <p>by <%= link_to spotlight.user.name, spotlight.user %> on <%=spotlight.created_at%></p>
-        <p>
-        	<% text = spotlight.body %>
-			  <% if text.match /\<(\d)\>/ %>
-			  <%= truncate(text.gsub!(/\<(\d)\>/, "(see figure \\1)"), length: 256) %>
-			  <% else %>
-			  <%= truncate(text, length: 256) %>
-			  <% end %>
-        	
-        	</p>
-        <% if spotlight.user_id == session[:user_id]%>
-        <p><%= link_to 'Edit', edit_spotlight_path(spotlight) %></p>
-        <p><%= link_to 'Destroy', spotlight, method: :delete, data: { confirm: 'Are you sure?' } %></p>
-        <%end%>
-      </div>
-    <% end %>
-<br>
-<p><%= link_to 'New Spolight', new_spotlight_path %></p>
+<!--- BEGIN SUB MENU  (this will maybe become a partial)--->	
+<div class="SUB_MENU">
+  <div class="expandable">
+    Active Collection: 
+    <span class="active_collection">Homeless Paintings</span>
+  </div>
+  <div class="right">
+    <div class="orderby"><span>Order:</span><span><%= image_tag "clock_r.png" %><%= image_tag "up_r.png" %><%= image_tag "down_r.png" %></span></div>
+    </div>
+ </div>
+<!--- END SUB MENU --->	
+
+<!--- BEGIN GALLERY --->	     
+<div class="GALLERY">
+  <% @spotlights.each do |spotlight| %>
+      <%= print_item(spotlight) %>
+  <% end %>
+  <div class="gallery_item">
+      <div class="createnew"> <%= link_to 'New Spolight', new_spotlight_path %> </div>
+  </div>
+	      
+</div>
+<!--- END GALLERY --->  

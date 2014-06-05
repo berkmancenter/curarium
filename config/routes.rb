@@ -7,6 +7,7 @@ Curarium::Application.routes.draw do
   
   get 'trays/:id' => 'trays#external', as: 'external'
   
+  get 'about' => 'home#about', as: 'about'
   
   concern :tray_owner do
     resources :trays

@@ -98,7 +98,33 @@ module ApplicationHelper
     else
       return []
     end
-    
   end
+  
+  def print_item(item)
+    container = ""
+    background = ""
+    if item.class == Collection
+      unless item.records.first.parsed['image'].nil?
+	background = JSON.parse(item.records.first.parsed['image'])[0]
+      end
+      container += "<a href='#{collection_path(item)}'><div class='gallery_item' style=background-image:url('#{background}')>"
+      container += "<div class='object_id'>#{item.name}</div>"
+    elsif item.class == Spotlight
+      container += "<a href='#{spotlight_path(item)}'><div class='gallery_item spotlight'>"
+      container += "<div class='object_id'>#{item.title}</div>"
+      container += "<div class='border'><div class='innertext'>#{item.body.gsub(/\<(\d+)\>/, "(see figure \\1)")}...</div></div>"
+      container += image_tag "spotlight_tail.png"
+      container += "<div class='name'><b>#{User.find(item.user_id).name}</b> <i>on #{item.created_at.strftime("%d %b %y")}</i></div>"
+    elsif item.class == Record
+      unless item.parsed['image'].nil?
+	background = JSON.parse(item.parsed['image'])[0]
+      end
+      container += "<a href='#{record_path(item)}'><div class='gallery_item' style=background-image:url('#{background}')>"
+      container += "<div class='object_id'>#{item.id}</div>"
+    end
+    container += "</a></div>"
+    return raw(container)
+  end
+  
   
 end

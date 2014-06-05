@@ -1,10 +1,24 @@
 <!--- BEGIN GLOBAL MENU --->	
 <div class="GLOBAL_MENU">
     <div class="left">
+	<% if params[:controller] == 'home'  and action_name == 'index' %>
 		<div class="toggle_curarium">
 			<%= link_to 'Curarium', root_url, class:'curarium_name' %>
 			<div class="dropdown_menu"><%= link_to 'About / Contact', '/about' %></div>
 		</div>
+	<% else %>
+		<div class="toggle_curarium">
+		  <a href='<%=root_path%>' >
+		    <%= image_tag "miniicon.png" %>
+		  </a>
+		  <div class="global_search">
+		    <input type="text" name="fname" value="Search Curarium"><%= image_tag "search_g.png" %>
+		  </div>
+		  <div class="dropdown_menu">
+		    <%= link_to "About / Contact", "/about" %>
+		  </div>
+		</div>
+	<% end %>
     </div>
     <div class="expandable">
     	<div class="tools">

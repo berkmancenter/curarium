@@ -2,9 +2,21 @@ class HomeController < ApplicationController
   skip_before_action :authorize
   
   def index
+    @records = Record.limit(10).order("RANDOM()")
+    @collection = Collection.limit(1).order("RANDOM()")
+    @spotlights = Spotlight.limit(10).order("RANDOM()")
+    @all = (@records+@spotlights).shuffle
     unless session[:user_id].nil?
       @user = User.find(session[:user_id])
     end
+    
   end
   
+  def about
+    @record = Record.limit(1).order("RANDOM()").first
+    while(@record.parsed['image'].nil?)
+      @record = Record.limit(1).order("RANDOM()")
+    end
+  end
+
 end

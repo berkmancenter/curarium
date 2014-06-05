@@ -11,16 +11,20 @@
 	</head>
 	<body>
 	  <div class="menulines"></div>
-		<div class="GLOBAL_HOLDER">
-		  <%= render 'shared/header'%>
-		  <%= yield %>
-		  <%= render 'shared/footer'%>
-		</div>
-		<!-- ORIGINAL HTML
-		<section id='main'  <%= yield :main_class %> >
-			<%# yield %>
-		</section>
-		<%# render 'shared/header'%>
-		-->
+	  <% if params[:controller] == 'home' and action_name == 'about' %>
+	  <!-- RANDOM IMAGE HEADER -->
+	  <div class="about_header_lines" style="background: url('<%= JSON.parse(@record.parsed['image'])[0]%>') repeat center center; "></div>
+	  <% end %>
+	  <div class="GLOBAL_HOLDER">
+	    <%= render 'shared/header'%>
+	    <%= yield %>
+	    <%= render 'shared/footer'%>
+	  </div>
+	  <!-- ORIGINAL HTML
+	  <section id='main'  <%= yield :main_class %> >
+		  <%# yield %>
+	  </section>
+	  <%# render 'shared/header'%>
+	  -->
 	</body>
 </html>

@@ -38,10 +38,16 @@ a {
     height: 200px;
     float: left;
     margin: 10px;  
+    background-repeat: no-repeat;
+    background-position: center center; 
+    background-size: cover;
   }
   .item_lrg {
     width: 420px;
     height: 420px;
+    background-repeat: no-repeat;
+    background-position: center center; 
+    background-size: cover;
   }
 }
 
@@ -310,7 +316,9 @@ a {
   font-size: 14px;
 }
 .spotlight .innertext{
+  height: 108px;
   padding: 30px 20px;
+  overflow: hidden;
 }
 .spotlight img, .spotlight .name {
   position: absolute;

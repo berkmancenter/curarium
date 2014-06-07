@@ -3,7 +3,7 @@ class HomeController < ApplicationController
   
   def index
     @records = Record.limit(10).order("RANDOM()")
-    @collection = Collection.limit(1).order("RANDOM()")
+    @collection = Collection.limit(1).order("RANDOM()").first
     @spotlights = Spotlight.limit(10).order("RANDOM()")
     @all = (@records+@spotlights).shuffle
     unless session[:user_id].nil?
@@ -15,7 +15,7 @@ class HomeController < ApplicationController
   def about
     @record = Record.limit(1).order("RANDOM()").first
     while(@record.parsed['image'].nil?)
-      @record = Record.limit(1).order("RANDOM()")
+      @record = Record.limit(1).order("RANDOM()").first
     end
   end
 

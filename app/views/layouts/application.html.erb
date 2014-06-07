@@ -11,14 +11,16 @@
 	</head>
 	<body>
 	  <div class="menulines"></div>
-	  <% if params[:controller] == 'home' and action_name == 'about' %>
-	  <!-- RANDOM IMAGE HEADER -->
-	  <div class="about_header_lines" style="background: url('<%= JSON.parse(@record.parsed['image'])[0]%>') repeat center center; "></div>
+	  <% if (params[:controller] == 'home' and action_name == 'about') or ( params[:controller] == 'collections' and action_name == 'show') %>
+	    <!-- RANDOM IMAGE HEADER -->
+	    <div class="about_header_lines" style="background: url('<%= JSON.parse(@record.parsed['image'])[0]%>') repeat center center; "></div>
 	  <% end %>
 	  <div class="GLOBAL_HOLDER">
 	    <%= render 'shared/header'%>
 	    <%= yield %>
-	    <%= render 'shared/footer'%>
+	    <% unless (params[:controller] == 'visualizations' and action_name == 'index') %>
+	      <%= render 'shared/footer'%>
+	    <% end %>
 	  </div>
 	  <!-- ORIGINAL HTML
 	  <section id='main'  <%= yield :main_class %> >

@@ -100,17 +100,17 @@ module ApplicationHelper
     end
   end
   
-  def print_item(item)
+  def print_item(item, big=false)
     container = ""
     background = ""
     if item.class == Collection
       unless item.records.first.parsed['image'].nil?
 	background = JSON.parse(item.records.first.parsed['image'])[0]
       end
-      container += "<a href='#{collection_path(item)}'><div class='gallery_item' style=background-image:url('#{background}')>"
+      container += "<a href='#{collection_path(item)}'><div class='gallery_item#{" item_lrg" if big}' style=background-image:url('#{background}')>"
       container += "<div class='object_id'>#{item.name}</div>"
     elsif item.class == Spotlight
-      container += "<a href='#{spotlight_path(item)}'><div class='gallery_item spotlight'>"
+      container += "<a href='#{spotlight_path(item)}'><div class='gallery_item spotlight#{" item_lrg" if big}' >"
       container += "<div class='object_id'>#{item.title}</div>"
       container += "<div class='border'><div class='innertext'>#{item.body.gsub(/\<(\d+)\>/, "(see figure \\1)")}...</div></div>"
       container += image_tag "spotlight_tail.png"
@@ -119,12 +119,19 @@ module ApplicationHelper
       unless item.parsed['image'].nil?
 	background = JSON.parse(item.parsed['image'])[0]
       end
-      container += "<a href='#{record_path(item)}'><div class='gallery_item' style=background-image:url('#{background}')>"
+      container += "<a href='#{record_path(item)}'><div class='gallery_item#{" item_lrg" if big}' style=background-image:url('#{background}')>"
       container += "<div class='object_id'>#{item.id}</div>"
     end
     container += "</a></div>"
     return raw(container)
   end
   
+  def active_collection
+    unless @active_collection.nil?
+      return @active_collection.name
+    else
+      return link_to "...choose a collection", collections_path
+    end
+  end
   
 end

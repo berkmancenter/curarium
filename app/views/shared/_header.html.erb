@@ -25,8 +25,9 @@
 		<div class="toggle_user">
 			<a href='<%= login_url %>'>Log In <%= image_tag "user_b.png" %><%= image_tag "user_r.png" %></a>
 			<div class="dropdown_menu"><a href="/Curarium/about.html">Logout</a></div>
-		</div>		
-		<div class="toggle_explore"><a href="<%= collections_path %>">Explore <%= image_tag "explore_b.png" %><%= image_tag "explore_r.png" %></a></div>
+		</div>
+		
+		<div class="toggle_explore"><a href="<%= @active_collection.nil? ? collections_path : collection_visualizations_path(@active_collection) %>">Explore <%= image_tag "explore_b.png" %><%= image_tag "explore_r.png" %></a></div>
 		<div class="toggle_spotlights"><a href="<%= spotlights_path %>">Spotlights <%= image_tag "spotlight_b.png" %> <%= image_tag "spotlight_r.png" %></a></div>	
 		<div class="toggle_collections"><a href="<%= collections_path %>">Collections <%= image_tag "collection_b.png" %><%= image_tag "collection_r.png" %></a></div>
 		</div>

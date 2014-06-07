@@ -51,9 +51,7 @@
 <div class="GALLERY">
 	<div class="titlebar">Latest Activity</div> 
 	
-	<div class="gallery_item item_lrg" style="background-image: url('<%= JSON.parse(@collection.first.records.first.parsed['image'])[0]%>')">
-		<div class="object_id"><%= @collection.first.name %></div>
-	</div>
+	<%= print_item(@collection, true) %>
 	<% @all.each do |item| %>
 	  <%= print_item(item) %>
 	<% end %>

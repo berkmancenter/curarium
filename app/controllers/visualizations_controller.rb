@@ -10,17 +10,17 @@ class VisualizationsController < ApplicationController
       format.html { render action: "index" }
       format.js { render action: "index" }
       format.json do
-        #viz_cache = Curarium::Application.config.local['viz_cache']
-        #response = VizCache.find_by(query: encode_params) if viz_cache
-        #if response.nil?
+        viz_cache = Curarium::Application.config.local['viz_cache']
+        response = VizCache.find_by(query: encode_params) if viz_cache
+        if response.nil?
           response = eval(params[:type])
-         # if viz_cache
-          #  stored_response = VizCache.new({query: encode_params, data: response})
-           # stored_response.save
-         # end
-        #else
-         # response = response.data
-        #end
+          if viz_cache
+            stored_response = VizCache.new({query: encode_params, data: response})
+            stored_response.save
+          end
+        else
+          response = response.data
+        end
         render json: response
       end
     end

@@ -104,8 +104,8 @@ module ApplicationHelper
     container = ""
     background = ""
     if item.class == Collection
-      unless item.records.first.parsed['image'].nil?
-	background = JSON.parse(item.records.first.parsed['image'])[0]
+      unless item.records.first.parsed['thumbnail'].nil?
+	background = JSON.parse(item.records.first.parsed['thumbnail'])[0]
       end
       container += "<a href='#{collection_path(item)}'><div class='gallery_item#{" item_lrg" if big}' style=background-image:url('#{background}')>"
       container += "<div class='object_id'>#{item.name}</div>"
@@ -116,8 +116,8 @@ module ApplicationHelper
       container += image_tag "spotlight_tail.png"
       container += "<div class='name'><b>#{User.find(item.user_id).name}</b> <i>on #{item.created_at.strftime("%d %b %y")}</i></div>"
     elsif item.class == Record
-      unless item.parsed['image'].nil?
-	background = JSON.parse(item.parsed['image'])[0]
+      unless item.parsed['thumbnail'].nil?
+	background = JSON.parse(item.parsed['thumbnail'])[0]
       end
       container += "<a href='#{record_path(item)}'><div class='gallery_item#{" item_lrg" if big}' style=background-image:url('#{background}')>"
       container += "<div class='object_id'>#{item.id}</div>"

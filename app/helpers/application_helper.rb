@@ -55,9 +55,9 @@ module ApplicationHelper
       tags += "<li class='parsed_key'>#{key}"
       tags += "<ul class='parsed_values'>"
       #get an instance of the original metadata and of the current version of it
-      original_value = JSON.parse(original[key] || '')
+      original_value = JSON.parse(original[key] || '{}')
       original_value = original_value.map(&:to_s) #make sure everything is a string... should become irrelevant.
-      current_value = JSON.parse(current[key] || '')
+      current_value = JSON.parse(current[key] || '{}')
       current_value = current_value.map(&:to_s)
       #compare the original value to the current one
       provided_values = original_value & current_value #values in both instances

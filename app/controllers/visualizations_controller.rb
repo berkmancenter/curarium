@@ -3,6 +3,8 @@ class VisualizationsController < ApplicationController
   
   def index
     @collection = Collection.find(params[:collection_id])
+    cookies[:active_collection] = params[:collection_id]
+    @active_collection = @collection
     @properties = @collection.configuration.keys
     respond_to do |format|
       format.html { render action: "index" }

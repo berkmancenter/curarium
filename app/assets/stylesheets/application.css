@@ -46,7 +46,7 @@ html, body {
 
 
 
-input[type=submit], .fake_button {
+/*input[type=submit], .fake_button {
   display: inline-block;
   background: black;
   border: 1px solid white;
@@ -59,7 +59,7 @@ input[type=submit], .fake_button {
   &:hover {
     font-weight: bold;
   }
-}
+}*/
 
 .window {
   border: 1px solid gray;

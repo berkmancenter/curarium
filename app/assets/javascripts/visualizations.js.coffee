@@ -1,13 +1,16 @@
 window.visualization = {}
 
+###
 window.visualization.populate_query_menu = () ->
   in_ex = 'include'
-  $('#visualization_include').empty()
+  holder = $('#control_box #tag_holder')
+  $(holder).empty()
+  
   for value in window.collection.query.include
     term = $("<span class='visualization_#{in_ex}d'><span class='remove_element'>x</span><input value='#{value}' name='#{in_ex}[]' readonly></span>")
     term.find('span').click (e) ->
       $(this).parent().remove()
-    $('#visualization_include').append(term)
+    $(holder).append(term)
   
   in_ex = 'exclude'
   $('#visualization_exclude').empty()
@@ -15,27 +18,12 @@ window.visualization.populate_query_menu = () ->
     term = $("<span class='visualization_#{in_ex}d'><span class='remove_element'>x</span><input value='#{value}' name='#{in_ex}[]' readonly></span>")
     term.find('span').click (e) ->
       $(this).parent().remove()
-    $('#visualization_exclude').append(term)
+    $(holder).append(term)
   undefined
+###
 
 window.visualization.thumbnail = (container, source) ->
-  #$('#'+container).find('*').remove()
   $('#'+container).spatialc({url: source});
-  ###
-  $('[data-sort-field]').click(function() {
-        $('#spatialc-container').spatialc({
-            'sort_by': $(this).attr('data-sort-field'),
-            'sort_name': $(this).attr('data-sort-field-name')
-        })
-    })
-
-    $('[data-sort-order]').click(function() {
-        $('#spatialc-container').spatialc({
-            'sort_order': $(this).attr('data-sort-order'),
-            'sort_name': $(this).attr('data-sort-order-name')
-        })
-    })
-  ###
   undefined
 
 window.visualization.treemap = (container, source)->
@@ -157,7 +145,6 @@ window.visualization.old_thumbnail = (container, source) ->
   undefined
 
 window.visualization.treemap_embedded = (container, source)->
-  console.log("woiks")
   selected = []
   $.getJSON(
     source

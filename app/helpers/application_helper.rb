@@ -128,7 +128,7 @@ module ApplicationHelper
   
   def active_collection
     unless @active_collection.nil?
-      return @active_collection.name
+      return link_to @active_collection.name, collection_path(@active_collection)
     else
       return link_to "...choose a collection", collections_path
     end

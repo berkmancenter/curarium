@@ -76,6 +76,8 @@ form#refine_search{
     color: black;
   }
   
+  
+  
   .visualization_included, .visualization_excluded {
     background: gray;
     display: inline-block;
@@ -84,13 +86,7 @@ form#refine_search{
       color: white;
       font-size: 7pt;
     }
-    .remove_element {
-      font-weight: bold;
-      background-color: red;
-      padding: 2px;
-      height: 100%;
-      cursor: pointer;
-    }
+    
     padding: 2px;
     width: auto;
     font-size: 7pt;
@@ -126,6 +122,7 @@ form#refine_search{
   }
 }
 
+/*
 form#add_records_to_tray{
   height: 20px;
   overflow: hidden;
@@ -171,5 +168,5 @@ form#add_visualization_to_tray{
   option {
     display: block;
   }
-}
+}*/
 

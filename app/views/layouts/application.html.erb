@@ -20,13 +20,12 @@
 	    <%= yield %>
 	    <% unless (params[:controller] == 'visualizations' and action_name == 'index') %>
 	      <%= render 'shared/footer'%>
+	    <% else %>
+	      <!--- BEGIN VISUALIZATION HOLDER --->	
+		<!--- <div class="EXPLORE" style="background: url('../../assets/explore_bg2.jpg');"></div> placeholderversion --->	
+		<div class="EXPLORE" id='visualization_container'></div>
+	      <!--- END VISUALIZATION HOLDER --->	
 	    <% end %>
 	  </div>
-	  <!-- ORIGINAL HTML
-	  <section id='main'  <%= yield :main_class %> >
-		  <%# yield %>
-	  </section>
-	  <%# render 'shared/header'%>
-	  -->
 	</body>
 </html>

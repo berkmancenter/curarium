@@ -12,11 +12,16 @@ body {
   height: 100%;
   font-family: sans-serif;
   font-size: 12px;
+  pointer-events: none;
+  * {
+    pointer-events: auto;
+  }
 }
 html {
   height: 100%;
   margin: 0;
   padding: 0;
+  pointer-events: none;
 }
 
 a {
@@ -33,6 +38,10 @@ a {
   min-width: 882px;
   position: relative;
   border: 0px solid black;
+   pointer-events: none;
+  * {
+    pointer-events: auto;
+  }
   .gallery_item {
     width: 200px;
     height: 200px;
@@ -778,6 +787,16 @@ a {
 .explore_bar .exclude{
   background: #000000;
 }
+.explore_bar .include, .explore_bar .exclude{  
+  .remove_element {
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    background-image: url("remove_query_term.png"); 
+    cursor: pointer;
+  }
+}
+
 .explore_bar .tag_holder{
   overflow: auto;
   height: 65px;

@@ -76,14 +76,14 @@ describe ( 'Collection model' ) {
 
       it {
         expect {
-          col.create_record_from_parsed( rec_json[ :original ], pr )
+          col.create_record_from_parsed( rec_json[ :original ], pr, 'fake_unique_id' )
         }.to change { col.records.count }.by( 1 )
       }
 
       context ( 'static function' ) {
         it {
           expect {
-            Collection.create_record_from_parsed( col.key, rec_json[ :original ], pr )
+            Collection.create_record_from_parsed( col.key, rec_json[ :original ], pr, 'fake_unique_id' )
           }.to change { col.records.count }.by( 1 )
         }
       }

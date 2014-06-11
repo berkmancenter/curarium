@@ -1,0 +1,62 @@
+<% uuid = "curarium"+SecureRandom.hex(4) %>
+
+document.write("<link type='text/css' rel='stylesheet' href='http://curarium.herokuapp.com/css/record.css'></script>");
+
+if(typeof(jQuery) === 'undefined' || jQuery.fn.jquery != "2.1.0"){ 
+	document.write("<script type='text/javascript' src='https://code.jquery.com/jquery-2.1.0.min.js'></script>");
+}
+
+if(typeof(Kinetic) === 'undefined'){ 
+	document.write("<script type='text/javascript' src='http://cdnjs.cloudflare.com/ajax/libs/kineticjs/5.0.1/kinetic.min.js'></script>");
+}
+
+if(typeof(window.curarium) === 'undefined'){ 
+	document.write("<script type='text/javascript' src='http://curarium.herokuapp.com/js/curarium.js'></script>");
+}
+
+
+setTimeout(areWeThereYet, 100)
+
+function areWeThereYet(){
+	if (typeof(jQuery) === 'undefined' || typeof(Kinetic) === 'undefined' || typeof(window.curarium) === 'undefined'){
+		setTimeout(areWeThereYet,100)
+	} else {
+		$(document).ready(function(){
+			<%= uuid %>();
+		});		
+	}
+}
+	
+
+
+                                            
+
+var <%= uuid %> = function() {
+	
+	var placement = $('.curarium').first();
+	$(placement).removeClass('curarium');
+	$(placement).attr('id', '<%= uuid %>').attr('class','record_container');
+	
+	
+	
+	var main_canvas = $("<div id='main-canvas'></div>");
+	
+	var parsed = <%= raw(@record.parsed.to_json) %>
+	for(var p in parsed) {
+	  parsed[p] = JSON.parse(parsed[p]);
+	}
+	
+	var annotations = <%= raw(@record.annotations.to_json) %>
+	
+        var record_info = $("<div id='record-data'><nav><% images= eval(@record.parsed['image']) %><% images.each do |image|%><img src='<%= image+'?width=10000&height=10000'%>' class='surrogate_thumbnail'><% end %></nav><section><%= print_hstore @record.parsed, 'printed_object', 'parsed_record' %></section></div>");
+        
+        $(placement).append(main_canvas).append(record_info);
+        
+        window.record.display(parsed.image[0], annotations);
+	
+	$('img.surrogate_thumbnail').each( function(i){
+	  $(this).click(function(e){
+	    window.record.display(parsed.image[i], annotations);
+	  });
+	});
+}

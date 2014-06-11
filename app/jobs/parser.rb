@@ -23,8 +23,14 @@ class Parser
       t = Thread.new { read_record( path, configuration ) }
 
       t.join
-
-      ok = collection.create_record_from_parsed t[ :original ], t[ :parsed ] unless t[ :original ].nil?
+      
+      if Record.exists?(unique_identifier: t[ :unique_identifier ], collection_id: collection_id)
+        ok = Record.find_by(unique_identifier: t[ :unique_identifier ], collection_id: collection_id)
+        ok.update(parsed: t[:parsed], original: t[:original])
+      else
+        ok = collection.create_record_from_parsed(t[ :original ], t[ :parsed ], t[ :unique_identifier ])# unless t[ :original ].nil?
+      end
+      
       if ok
         j_count += 1
       end
@@ -45,12 +51,18 @@ class Parser
   def read_record( path, configuration )
     json_file = JSON.parse(File.open(path, 'r').read)
     pr = {}
+    unique_identifier = ''
     configuration.each do |field|
-      pr[field[0]] = Collection.follow_json(json_file, field[1])
+      unless field[0] == 'unique_identifier'
+        pr[field[0]] = Collection.follow_json(json_file, field[1])
+      else
+        unique_identifier = Collection.follow_json(json_file, field[1])[0]
+      end
     end
-
+    
     Thread.current[ :original ] = json_file
     Thread.current[ :parsed ] = pr
+    Thread.current[:unique_identifier] = unique_identifier
   end
   
 end

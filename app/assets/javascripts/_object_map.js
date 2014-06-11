@@ -5,6 +5,7 @@ $( function() {
 
     if ( $.isArray( recordIds ) && recordIds.length > 0 ) {
       $.geo.proj = null;
+
       $( '.records-objectmap .geomap' ).geomap( {
         bbox: [ 0, 0, 1024, 768 ],
         zoom: 8,
@@ -29,7 +30,7 @@ $( function() {
                 var indexes = quadKeyToIndexes( quadKey );
                 var imageSize = Math.pow( 2, view.zoom );
                 var imageDepth = Math.ceil( indexes.length / 2 );
-                console.log( 'quadKey: ' + quadKey + ', indexes: ' + indexes.join(', ') );
+                //console.log( 'quadKey: ' + quadKey + ', indexes: ' + indexes.join(', ') );
 
                 var tileDefer = new jQuery.Deferred();
 
@@ -45,7 +46,7 @@ $( function() {
                   var y = imageSize * Math.floor( tileImageIndex / imageDepth );
 
                   if ( recordIdIndex >= 0 && recordIdIndex < recordIds.length ) {
-                    console.log( 'x: ' + x + ', y: ' + y );
+                    //console.log( 'x: ' + x + ', y: ' + y );
 
 
                     var imageDefer = new jQuery.Deferred();
@@ -53,7 +54,7 @@ $( function() {
 
                     var img = new Image();
 
-                    console.log( '  id: ' + recordIds[ recordIdIndex ] );
+                    //console.log( '  id: ' + recordIds[ recordIdIndex ] );
                     img.onload = function( ) {
                       //context.clearRect( 0, 0, 256, 256 );
 
@@ -97,6 +98,44 @@ $( function() {
           basePixelSize: 256,
           origin: [ 0, 0 ]
         }
+      } );
+
+      var miniCanvas = $( '<canvas width="256" height="256" />' );
+      var miniContext = miniCanvas[0].getContext( '2d' );
+
+      var recordDimension = Math.ceil( Math.sqrt( recordIds.length ) );
+      var miniDimension = Math.ceil( recordDimension / 2 ) * 2;
+      var miniScale = 1 / miniDimension;
+      var miniSize = 256 * miniScale;
+      console.log( 'miniScale: ' + miniScale );
+      console.log( 'miniSize: ' + miniSize );
+
+      // start with some random colors
+      for ( var row = 0; row < miniDimension; row++ ) {
+        for ( var col = 0; col < miniDimension; col ++ ) {
+          miniContext.fillStyle = '#'+Math.floor(Math.random()*16777215).toString(16);
+          miniContext.fillRect( miniSize * col, miniSize * row, miniSize, miniSize );
+        }
+      }
+
+
+      $( '.records-objectmap .minimap' ).geomap( {
+        bbox: [ 0, 0, 256, 256 ],
+        bboxMax: [ 0, 0, 256, 256 ],
+
+        mode: 'static',
+
+        services: [
+          {
+            type: 'shingled',
+            src: function( view ) {
+              return miniContext.canvas.toDataURL( 'image/png' );
+
+            }
+          }
+        ],
+
+        tilingScheme: null
       } );
     }
   }

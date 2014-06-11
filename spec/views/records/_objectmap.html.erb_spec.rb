@@ -25,5 +25,9 @@ describe ( 'records/objectmap' ) {
     it {
       should have_css '.records-objectmap div.geomap'
     }
+
+    it {
+      should have_css '.records-objectmap div.minimap'
+    }
   }
 }

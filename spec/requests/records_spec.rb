@@ -54,6 +54,14 @@ describe 'records requests', :js => true do
         it {
           should have_css '.geomap.geo-map'
         }
+
+        it {
+          should have_css '.records-objectmap .minimap'
+        }
+
+        it {
+          should have_css '.minimap.geo-map'
+        }
       }
     }
 

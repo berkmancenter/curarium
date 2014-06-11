@@ -68,7 +68,7 @@ window.collection.configure = ->
      undefined
 
 window.collection.populate_fields = (configuration)->
-  $('#title, #image, #thumbnail').remove()
+  $('#unique_identifier, #title, #image, #thumbnail').remove()
   for field, path of configuration
     field_name = field
     new_field = $('<div>').attr('class', 'field_wrapper').attr('id', field_name).droppable

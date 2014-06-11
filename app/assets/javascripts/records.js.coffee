@@ -72,7 +72,7 @@ read_parsed = ()->
   $('.parsed_field').each (i) ->
       key = $(this).attr('id')
       parsed[key] = []
-      $(this).find('ul').find('li').each (i)->
+      $(this).find('ul').find('li').not('.deleted').each (i)->
         parsed[key].push($(this).html())
         undefined
     undefined
@@ -256,7 +256,7 @@ window.record.display = (image_url)->
             )
             
             $('.parsed_value').mouseover () ->
-              $(this).css('background-color', 'green')
+              #$(this).css('background-color', 'green')
               notes = notes_layer.getChildren()
               tag = $(this).html()
               for note in notes
@@ -268,7 +268,7 @@ window.record.display = (image_url)->
               undefined
             
             $('.parsed_value').mouseout () ->
-              $(this).css('background-color', 'lightgray')
+              #$(this).css('background-color', 'lightgray')
               notes = notes_layer.getChildren()
               for note in notes
                 note.setAttrs

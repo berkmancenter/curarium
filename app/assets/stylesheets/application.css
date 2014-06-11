@@ -61,6 +61,10 @@ html, body {
   }
 }*/
 
+select {
+   background-color: white;
+}
+
 .window {
   border: 1px solid gray;
   height: 15px;

@@ -670,13 +670,31 @@ a {
 }
 /*EXPLORE*/
 .EXPLORE {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
+  padding-top: 38px;
   z-index: -3;
 }
+
+//treemap
+.node {
+  display: block;
+  box-sizing: border-box;
+  font: 10px sans-serif;
+  color: black;
+  line-height: 12px;
+  overflow: hidden !important;
+  position: absolute;
+  text-indent: 2px;
+  text-transform: capitalize;
+}
+
 .explore_bar {
   background: white;
   z-index: 50;

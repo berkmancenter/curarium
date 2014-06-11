@@ -52,7 +52,7 @@ module ApplicationHelper
     tags = "<ul class='#{class_name}' id='#{id_name}'>"
     original.each do |key, value|
       tags += "<ul class='parsed_field' id='#{key}'>"
-      tags += "<li class='parsed_key'>#{key}"
+      tags += "<li class='parsed_key'><span>#{key}</span>"
       tags += "<ul class='parsed_values'>"
       #get an instance of the original metadata and of the current version of it
       original_value = JSON.parse(original[key] || '{}')

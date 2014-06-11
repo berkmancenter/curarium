@@ -988,11 +988,16 @@ a {
 }
 /*RECORDS PAGE*/
 .RECORD {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+  position: absolute;
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
+  padding-top: 38px;
   z-index: -3;
   margin: auto;
 }
@@ -1001,6 +1006,12 @@ a {
   width: 100%;
   top: 60px;
   background: transparent;
+  table {
+    pointer-events: none;
+    * {
+      pointer-events: auto;
+    }
+  }
 }
 .bubble_menu .menu_piece{
   width: 200px;
@@ -1077,7 +1088,44 @@ a {
   display: none;
   padding: 10px;
   overflow:auto; 
-  
+  #parsed_record{
+    &>ul>li {
+      list-style: none;
+      span {
+	width: 100%;
+	display: inline-block;
+	margin: 1px;
+	background-color: #D2232A;
+	color: white;
+	font-weight: bold;
+	padding: 2px;
+	padding-left: 5px;
+      }
+      ul {
+	background-color: white;
+	color: black;
+	padding-left:10px;
+	list-style: none;
+	font-weight: normal;
+	display: block;
+	height: auto;
+	li {
+	  display: inline-block;
+	  border: 1px solid #D2232A;
+	  padding: 1px;
+	  margin: 1px;
+	  @include rounded-corners(3px);
+	  &.deleted {
+	    text-decoration:line-through;
+	  }
+	  &.new {
+	    border: 1px solid darkgray;
+	    color: darkgray;
+	  }
+	}
+      }
+    }
+  }
 }
 .bubble_menu .surrogates .expand img {
   width: 50px; float: left; padding: 5px;

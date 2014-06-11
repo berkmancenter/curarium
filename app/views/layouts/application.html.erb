@@ -18,13 +18,17 @@
 	  <div class="GLOBAL_HOLDER">
 	    <%= render 'shared/header'%>
 	    <%= yield %>
-	    <% unless (params[:controller] == 'visualizations' and action_name == 'index') %>
-	      <%= render 'shared/footer'%>
-	    <% else %>
+	      
+	    <% if (params[:controller] == 'visualizations' and action_name == 'index') %>
 	      <!--- BEGIN VISUALIZATION HOLDER --->	
-		<!--- <div class="EXPLORE" style="background: url('../../assets/explore_bg2.jpg');"></div> placeholderversion --->	
 		<div class="EXPLORE" id='visualization_container'></div>
-	      <!--- END VISUALIZATION HOLDER --->	
+	      <!--- END VISUALIZATION HOLDER --->
+	    <% elsif (params[:controller] == 'records' and action_name == 'show') %>
+	      <!--- BEGIN RECORD HOLDER --->	
+		  <div  id='main-canvas' class="RECORD" style="background: url('img/records/record.jpg') no-repeat center;"></div>
+	      <!--- END RECORD HOLDER --->
+	    <% else %>
+	      <%= render 'shared/footer'%>
 	    <% end %>
 	  </div>
 	</body>

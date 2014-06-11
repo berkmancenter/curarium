@@ -15,23 +15,99 @@
 	});
 </script>
 
+
+<!--- BEGIN SUB MENU --->	
+<div class="SUB_MENU bubble_menu">
+	<table cellspacing="0" cellpadding="0"><tr>
+		<td valign="top" class="bub_menu">
+			<div class="menu_piece">
+			<div class="button">Parsed Information<%= image_tag "pulldown_r.png" %><%= image_tag "pullup_r.png" %></div>
+			<div class="expand">
+				<!-- THIS IS WHERE THE PARSED RECORD INFORMATION GOES --->
+				<%= print_metadata @record.parsed, @current_metadata, 'printed_object', 'parsed_record' %>
+			</div>
+			</div>
+		</td><td valign="top" class="bub_menu surrogates">
+			<div class="menu_piece">
+			<div class="button">Surrogates<%= image_tag "pulldown_r.png" %><%= image_tag "pullup_r.png" %></div>
+			<div class="expand">
+				<!-- THIS IS WHERE THE SURROGATE IMAGES GO --->
+			<nav>
+			    <% images= eval(@current_metadata['image']) %>
+			    <% images.each do |image|%>
+				<img src='<%= image+'?width=10000&height=10000'%>' class='surrogate_thumbnail'>
+			    <% end %>
+			</nav>
+			</div>
+			</div>
+		</td><td valign="top" class="bub_dis nohover">
+			<div class="menu_piece">
+			<div class="button">Record #02323<%= image_tag "edit_r.png" %></div>
+			<div class="expand">
+			</div>
+			</div>
+		</td><td valign="top" class="bub_menu">
+			<div class="menu_piece">
+			<div class="button">Add to Tray<%= image_tag "pulldown_r.png" %><%= image_tag "pullup_r.png" %></div>
+			<div class="expand">
+			      <% if session[:user_id] %>
+			      <!-- THIS IS WHERE THE LIST OF TRAYS GOES --->
+				<div class="tray">Tray 01<div class="add">add</div></div>
+				<div class="tray">Tray 02<div class="add">add</div></div>
+				<div class="tray">Tray 03<div class="add">add</div></div>
+				<div class="tray">Tray 04<div class="add">add</div></div>
+				<div class="tray">Tray 05<div class="add">add</div></div>
+				<!-- old form for adding to trays, keeping for reference
+				<form id='add_record_to_tray'>
+					<select name='tray'>
+						<option selected='true' disabled>SELECT TRAY</option>
+						<option value='new_tray'>New Tray</option>
+						<% User.find(session[:user_id]).trays.each do |tray| %>
+						<option value='<%= tray.id%>'><%= tray.name %></option>
+						<% end %>
+					</select>
+					<input name='new_tray' style='display: none'>
+					<input type='submit' value="Add to Tray">
+				</form>
+				-->
+			      <% end %>
+				
+			</div>
+			</div>
+		</td><td valign="top" class="bub_menu">
+			<div class="menu_piece">
+			<div class="button">Annotate<%= image_tag "pulldown_r.png" %><%= image_tag "pullup_r.png" %></div>
+			<div class="expand">
+				<!-- THIS IS WHERE THE ANNOTATION STUFF GOES --->
+				This is where the annotations go
+				</br>This is where the annotations go
+				</br>This is where the annotations go
+				</br>This is where the annotations go
+				</br>This is where the annotations go
+				</br>This is where the annotations go
+				</br>This is where the annotations go
+				</br>This is where the annotations go
+				</br>This is where the annotations go
+				</br>This is where the annotations go
+				
+			</div>
+			</div>
+		</td>
+	</tr></table>
+	
+</div><!--- END SUB MENU --->	
+
+<!--- BEGIN COLLECTION CREDIT --->
+	  <div class="credit"><a href="">Collection provided by <%= @record.collection.source%></a></div>
+	  <div class="return"><a href="">&#10094; Return to Explore</a></div>
+<!--- END COLLECTION CREDIT --->
+
+<!--
 <% title eval(@current_metadata['title'])[0] %>
 
 <nav id="secondary_nav">
 
-	<% if session[:user_id] %>
-		<form id='add_record_to_tray'>
-			<select name='tray'>
-				<option selected='true' disabled>SELECT TRAY</option>
-				<option value='new_tray'>New Tray</option>
-				<% User.find(session[:user_id]).trays.each do |tray| %>
-				<option value='<%= tray.id%>'><%= tray.name %></option>
-				<% end %>
-			</select>
-			<input name='new_tray' style='display: none'>
-			<input type='submit' value="Add to Tray">
-		</form>
-	<% end %>
+	
 
 	<div id='annotation_toggle_wrapper'>
 		<form>
@@ -58,12 +134,7 @@
 			});
 		});
 	</script>
-	<nav>
-		<% images= eval(@current_metadata['image']) %>
-		<% images.each do |image|%>
-		<img src='<%= image+'?width=10000&height=10000'%>' class='surrogate_thumbnail'>
-		<% end %>
-	</nav>
+
 	<section>
 		<%= print_metadata @record.parsed, @current_metadata, 'printed_object', 'parsed_record' %>
 		<%= print_json @record.original, 'printed_object', 'original_record' %>
@@ -158,3 +229,4 @@
 		<% end %>
 	</div>
 </div>
+-->

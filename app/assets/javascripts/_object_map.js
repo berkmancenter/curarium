@@ -106,14 +106,7 @@ $( function() {
         },
 
         bboxchange: function( e, geo ) {
-          var miniBbox = [
-            Math.min( Math.max( geo.bbox[0] * miniScale, 0 ), 256 ),
-            256 - Math.min( Math.max( geo.bbox[1] * miniScale, 0 ), 256 ),
-            Math.min( Math.max( geo.bbox[2] * miniScale, 0 ), 256 ),
-            256 - Math.min( Math.max( geo.bbox[3] * miniScale, 0 ), 256 )
-          ]; 
-          miniMap.geomap( 'empty' );
-          miniMap.geomap( 'append', $.geo.polygonize( miniBbox ) );
+          updateMiniBbox( geo.bbox );
 
           map.geomap( 'empty' );
         },
@@ -214,7 +207,21 @@ $( function() {
 
         tilingScheme: null
       } );
+
+      updateMiniBbox();
     }
+  }
+
+  function updateMiniBbox( bbox ) {
+    bbox = bbox || map.geomap( 'option', 'bbox' );
+
+    var miniBbox = [
+      Math.min( Math.max( bbox[0] * miniScale, 0 ), 256 ),
+      256 - Math.min( Math.max( bbox[1] * miniScale, 0 ), 256 ),
+      Math.min( Math.max( bbox[2] * miniScale, 0 ), 256 ),
+      256 - Math.min( Math.max( bbox[3] * miniScale, 0 ), 256 )
+    ]; 
+    miniMap.geomap( 'empty' ).geomap( 'append', $.geo.polygonize( miniBbox ) );
   }
 
   function tileToQuadKey( column, row, zoom ) {

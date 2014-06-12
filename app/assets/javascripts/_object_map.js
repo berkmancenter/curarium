@@ -45,6 +45,9 @@ $( function() {
                   var x = imageSize * ( ( tileImageIndex % 2 ) ); //imageDepth );
                   var y = imageSize * Math.floor( tileImageIndex / imageDepth );
 
+                  var xMini = miniSize * ( ( tileImageIndex % 2 ) ); //imageDepth );
+                  var yMini = miniSize * Math.floor( tileImageIndex / miniDimension );
+
                   if ( recordIdIndex >= 0 && recordIdIndex < recordIds.length ) {
                     //console.log( 'x: ' + x + ', y: ' + y );
 
@@ -59,6 +62,9 @@ $( function() {
                       //context.clearRect( 0, 0, 256, 256 );
 
                       context.drawImage( img, x, y, imageSize, imageSize );
+
+                      //miniContext.drawImage( img, xMini, yMini, miniSize, miniSize );
+                      //miniMap.geomap( 'refresh' );
 
                       imageDefer.resolve();
                     };
@@ -97,6 +103,20 @@ $( function() {
           levels: 9,
           basePixelSize: 256,
           origin: [ 0, 0 ]
+        },
+
+        bboxchange: function( e, geo ) {
+          console.log( 'bboxchange: ' + geo.bbox.join( ', ' ) );
+          console.log( 'miniScale: ' + miniScale );
+          console.log( 'bboxchange: ' + $.map( geo.bbox, function( v ) { return Math.min( Math.max( v * miniScale, 0 ), 256 ) } ).join( ', ' ) );
+          var miniBbox = [
+            Math.min( Math.max( geo.bbox[0] * miniScale, 0 ), 256 ),
+            256 - Math.min( Math.max( geo.bbox[1] * miniScale, 0 ), 256 ),
+            Math.min( Math.max( geo.bbox[2] * miniScale, 0 ), 256 ),
+            256 - Math.min( Math.max( geo.bbox[3] * miniScale, 0 ), 256 )
+          ]; 
+          miniMap.geomap( 'empty' );
+          miniMap.geomap( 'append', $.geo.polygonize( miniBbox ) );
         }
       } );
 
@@ -119,7 +139,7 @@ $( function() {
       }
 
 
-      $( '.records-objectmap .minimap' ).geomap( {
+      var miniMap = $( '.records-objectmap .minimap' ).geomap( {
         bbox: [ 0, 0, 256, 256 ],
         bboxMax: [ 0, 0, 256, 256 ],
 
@@ -130,7 +150,9 @@ $( function() {
             type: 'shingled',
             src: function( view ) {
               return miniContext.canvas.toDataURL( 'image/png' );
-
+            },
+            style: {
+              opacity: .98
             }
           }
         ],
@@ -198,5 +220,4 @@ $( function() {
     }
     return index;
   }
-
 } );

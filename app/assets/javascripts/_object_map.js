@@ -121,7 +121,8 @@ $( function() {
         move: function( e, geo ) {
           if ( geo.coordinates[ 0 ] >= 0 && geo.coordinates[ 1 ] >= 0 ) {
             // cache imageSize somewhere, it only changes when zoom changes
-            var imageSize = Math.pow( 2, map.geomap( 'option', 'zoom' ) );
+            var zoom = map.geomap( 'option', 'zoom' );
+            var imageSize = Math.pow( 2, zoom );
             //console.log( 'imageSize: ' + imageSize );
 
             //console.log( 'pixelXY: ' + geo.coordinates );
@@ -129,11 +130,23 @@ $( function() {
             var tileXY = [ Math.floor( geo.coordinates[ 0 ] / 256 ), Math.floor( geo.coordinates[ 1 ] / 256 ) ];
             //console.log( 'tileXY: ' + tileXY );
 
-            var pixelBbox = [ tileXY[ 0 ] * 256, tileXY[ 1 ] * 256, tileXY[ 0 ] * 256 + 256, tileXY[ 1 ] * 256 + 256 ];
-            //console.log( 'pixelBbox: ' + pixelBbox );
+            var quadKey = tileToQuadKey( tileXY[ 0 ], tileXY[ 1 ], zoom );
+            if ( quadKey.length < 8 ) {
+              quadKey = '0' + quadKey;
+            }
+            //console.log( quadKey );
 
             map.geomap( 'empty' );
-            map.geomap( 'append', $.geo.polygonize( pixelBbox ) );
+
+            var indexes = quadKeyToIndexes( quadKey );
+            if ( indexes.length === 1 && indexes[ 0 ] < recordIds.length ) {
+              //console.log( 'recordId: ' + recordIds[ indexes[ 0 ] ] );
+
+              var pixelBbox = [ tileXY[ 0 ] * 256, tileXY[ 1 ] * 256, tileXY[ 0 ] * 256 + 256, tileXY[ 1 ] * 256 + 256 ];
+              //console.log( 'pixelBbox: ' + pixelBbox );
+
+              map.geomap( 'append', $.geo.polygonize( pixelBbox ) );
+            }
           }
         },
 

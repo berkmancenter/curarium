@@ -6,7 +6,7 @@ $( function() {
     if ( $.isArray( recordIds ) && recordIds.length > 0 ) {
       $.geo.proj = null;
 
-      $( '.records-objectmap .geomap' ).geomap( {
+      var map = $( '.records-objectmap .geomap' ).geomap( {
         bbox: [ 0, 0, 1024, 768 ],
         zoom: 8,
 
@@ -106,9 +106,6 @@ $( function() {
         },
 
         bboxchange: function( e, geo ) {
-          console.log( 'bboxchange: ' + geo.bbox.join( ', ' ) );
-          console.log( 'miniScale: ' + miniScale );
-          console.log( 'bboxchange: ' + $.map( geo.bbox, function( v ) { return Math.min( Math.max( v * miniScale, 0 ), 256 ) } ).join( ', ' ) );
           var miniBbox = [
             Math.min( Math.max( geo.bbox[0] * miniScale, 0 ), 256 ),
             256 - Math.min( Math.max( geo.bbox[1] * miniScale, 0 ), 256 ),
@@ -117,6 +114,25 @@ $( function() {
           ]; 
           miniMap.geomap( 'empty' );
           miniMap.geomap( 'append', $.geo.polygonize( miniBbox ) );
+        },
+
+        move: function( e, geo ) {
+          if ( geo.coordinates[ 0 ] >= 0 && geo.coordinates[ 1 ] >= 0 ) {
+            // cache imageSize somewhere, it only changes when zoom changes
+            var imageSize = Math.pow( 2, map.geomap( 'option', 'zoom' ) );
+            //console.log( 'imageSize: ' + imageSize );
+
+            //console.log( 'pixelXY: ' + geo.coordinates );
+
+            var tileXY = [ Math.floor( geo.coordinates[ 0 ] / 256 ), Math.floor( geo.coordinates[ 1 ] / 256 ) ];
+            //console.log( 'tileXY: ' + tileXY );
+
+            var pixelBbox = [ tileXY[ 0 ] * 256, tileXY[ 1 ] * 256, tileXY[ 0 ] * 256 + 256, tileXY[ 1 ] * 256 + 256 ];
+            //console.log( 'pixelBbox: ' + pixelBbox );
+
+            map.geomap( 'empty' );
+            map.geomap( 'append', $.geo.polygonize( pixelBbox ) );
+          }
         }
       } );
 
@@ -127,8 +143,6 @@ $( function() {
       var miniDimension = Math.ceil( recordDimension / 2 ) * 2;
       var miniScale = 1 / miniDimension;
       var miniSize = 256 * miniScale;
-      console.log( 'miniScale: ' + miniScale );
-      console.log( 'miniSize: ' + miniSize );
 
       // start with some random colors
       for ( var row = 0; row < miniDimension; row++ ) {

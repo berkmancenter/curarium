@@ -51,7 +51,7 @@ namespace :curarium do
         r.update( original: t[:original], parsed: t[:parsed] )
         ok = true
       else
-        ok = Collection.create_record_from_parsed collection_key, t[ :original ], t[ :parsed ] unless t[ :original ].nil?
+        ok = Collection.create_record_from_parsed collection_key, t[ :original ], t[ :parsed ], t[ :unique_identifier ] unless t[ :original ].nil?
       end
 
       if ok
@@ -80,9 +80,10 @@ namespace :curarium do
 
       configuration.each do |field|
         if field[0] == 'unique_identifier'
-          unique_identifier = Collection.follow_json(original, field[1])[ 0 ]
+          unique_identifier_obj = Collection.follow_json(rec_json, field[1])
+          unique_identifier = unique_identifier_obj[ 0 ] unless unique_identifier_obj.nil?
         else
-          pr[field[0]] = Collection.follow_json(original, field[1])
+          pr[field[0]] = Collection.follow_json(rec_json, field[1])
         end
       end
 

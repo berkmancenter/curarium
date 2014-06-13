@@ -13,7 +13,14 @@ class CollectionsController < ApplicationController
   # GET /collections/1.json
   def show
     #right now, the ONE collection is showing ALL spotlights in Curarium. This has to change as soon as there are more than one collections.
-    @spotlights = Spotlight.all
+    #@spotlights = Spotlight.all
+    @record =@collection.records.limit(1).order("RANDOM()").first
+    records = @collection.records.limit(5).order("RANDOM()")
+    spotlights = Spotlight.limit(5).order("RANDOM()")
+    @all = (records+spotlights).shuffle
+    while(@record.parsed['image'].nil?)
+      @record = @collection.records.limit(1).order("RANDOM()").first
+    end
   end
 
   # GET /collections/new

@@ -1,3 +1,168 @@
+<!--- BEGIN HEADER BAR --->	
+<div class="about_header">
+<div class="page_title"><%= @collection.name %></div>
+</div>
+<!--- END HEADER BAR --->	  
+
+
+
+<!--- BEGIN ABOUT CONTENT --->	
+<div class="about_content">
+	<!-- left content -->
+    <div class="left"><div class="holder">
+    	<div class="titlebar main"><%= image_tag "collection_r.png" %>Collection</div>
+		<div class="profile_img" style="background: url('<%= JSON.parse(@collection.records.first.parsed['image'])[0] unless @collection.records.first.parsed['image'].nil? %>') no-repeat center center; background-size: cover;">&nbsp;</div>   
+       <div class="stalking_menu_holder">
+        	<div class="stalking_menu">
+        	<div class="to_about"><%= image_tag "about_r.png" %> About</div>
+        	<div><%= image_tag "follow_r.png" %> Follow this collection</div>
+        	<div class="to_spot"><%= image_tag "spotlight_r.png" %> Associated Spotlights</div>
+        	<div><%= image_tag "explore_r.png" %> <%= link_to "Explore",  collection_visualizations_path(@collection) %></div>
+        	</div>
+        </div> 
+    </div></div><!-- end left content -->
+    
+    <!-- middle content -->
+    <div class="expandable"><div class="holder">
+			<!-- ABOUT CONTENT -->
+		<div class="titlebar to_about">About <div class="more">more <%= image_tag "pulldown_r.png" %></div></div>
+		<div class="cont_about">
+			<%= @collection.description %>
+		</div>
+   		
+   		<!-- COLLECTION CONTENT -->
+    	<div class="titlebar to_spot">Spotlights <div class="more">more <%= image_tag "pulldown_r.png" %></div></div>
+		<div class="cont_spotlight">
+	<% @all.each_with_index do |item,i| %>
+	   <%if i>1 %>
+	    <%= print_item(item) %>
+	   <% else %>
+	   <%= print_item(item, true) %>
+	   <% end %>
+	<% end %>
+					
+			</div><!-- end cont_spotlight --> 
+    </div></div><!-- end middle content -->
+
+	<!-- right content -->
+     <div class="right"><div class="holder">
+     		<div class="titlebar">Latest Activity <div class="more">hide</div></div>
+     			<!--- an activity --->
+				<table cellspacing="0" cellpadding="0" class="activity_holder"><tr>
+				<td valign="top" class="date">
+					02.12&nbsp; - <%= image_tag "collection_r.png" %>
+				</td><td valign="top" class="activity">
+					Paula added this collection to the circle Humanities Studio II
+				</td></tr></table>
+     			<!--- an activity --->
+				<table cellspacing="0" cellpadding="0" class="activity_holder"><tr>
+				<td valign="top" class="date">
+					02.12&nbsp; - <%= image_tag "user_r.png" %>
+				</td><td valign="top" class="activity">
+					Sara added an anotation to record #23423
+				</td></tr></table>
+     			<!--- an activity --->
+				<table cellspacing="0" cellpadding="0" class="activity_holder"><tr>
+				<td valign="top" class="date">
+					02.12&nbsp; - <%= image_tag "spotlight_r.png" %>
+				</td><td valign="top" class="activity">
+					David mentioned record #12312 in their spotlight "The Sign of Three"
+				</td></tr></table>
+     			<!--- an activity --->
+				<table cellspacing="0" cellpadding="0" class="activity_holder"><tr>
+				<td valign="top" class="date">
+					02.12&nbsp; - <%= image_tag "user_r.png" %>
+				</td><td valign="top" class="activity">
+					David started following this collection
+				</td></tr></table>
+     			<!--- an activity --->
+				<table cellspacing="0" cellpadding="0" class="activity_holder"><tr>
+				<td valign="top" class="date">
+					02.13&nbsp; - <%= image_tag "collection_r.png" %>
+				</td><td valign="top" class="activity">
+					Jorge created this collection
+				</td></tr></table>
+     			<!--- an activity --->
+				<table cellspacing="0" cellpadding="0" class="activity_holder"><tr>
+				<td valign="top" class="date">
+					02.12&nbsp; - <%= image_tag "collection_r.png" %>
+				</td><td valign="top" class="activity">
+					Paula added this collection to the circle Humanities Studio II
+				</td></tr></table>
+     			<!--- an activity --->
+				<table cellspacing="0" cellpadding="0" class="activity_holder"><tr>
+				<td valign="top" class="date">
+					02.12&nbsp; - <%= image_tag "user_r.png" %>
+				</td><td valign="top" class="activity">
+					Sara added an anotation to record #23423
+				</td></tr></table>
+     			<!--- an activity --->
+				<table cellspacing="0" cellpadding="0" class="activity_holder"><tr>
+				<td valign="top" class="date">
+					02.12&nbsp; - <%= image_tag "spotlight_r.png" %>
+				</td><td valign="top" class="activity">
+					David mentioned record #12312 in their spotlight "The Sign of Three"
+				</td></tr></table>
+     			<!--- an activity --->
+				<table cellspacing="0" cellpadding="0" class="activity_holder"><tr>
+				<td valign="top" class="date">
+					02.12&nbsp; - <%= image_tag "user_r.png" %>
+				</td><td valign="top" class="activity">
+					David started following this collection
+				</td></tr></table>
+     			<!--- an activity --->
+				<table cellspacing="0" cellpadding="0" class="activity_holder"><tr>
+				<td valign="top" class="date">
+					02.13&nbsp; - <%= image_tag "collection_r.png" %>
+				</td><td valign="top" class="activity">
+					Jorge created this collection
+				</td></tr></table>
+     			<!--- an activity --->
+				<table cellspacing="0" cellpadding="0" class="activity_holder"><tr>
+				<td valign="top" class="date">
+					02.12&nbsp; - <%= image_tag "collection_r.png" %>
+				</td><td valign="top" class="activity">
+					Paula added this collection to the circle Humanities Studio II
+				</td></tr></table>
+     			<!--- an activity --->
+				<table cellspacing="0" cellpadding="0" class="activity_holder"><tr>
+				<td valign="top" class="date">
+					02.12&nbsp; - <%= image_tag "user_r.png" %>
+				</td><td valign="top" class="activity">
+					Sara added an anotation to record #23423
+				</td></tr></table>
+     			<!--- an activity --->
+				<table cellspacing="0" cellpadding="0" class="activity_holder"><tr>
+				<td valign="top" class="date">
+					02.12&nbsp; - <%= image_tag "spotlight_r.png" %>
+				</td><td valign="top" class="activity">
+					David mentioned record #12312 in their spotlight "The Sign of Three"
+				</td></tr></table>
+     			<!--- an activity --->
+				<table cellspacing="0" cellpadding="0" class="activity_holder"><tr>
+				<td valign="top" class="date">
+					02.12&nbsp; - <%= image_tag "user_r.png" %>
+				</td><td valign="top" class="activity">
+					David started following this collection
+				</td></tr></table>
+     			<!--- an activity --->
+				<table cellspacing="0" cellpadding="0" class="activity_holder"><tr>
+				<td valign="top" class="date">
+					02.13&nbsp; - <%= image_tag "collection_r.png" %>
+				</td><td valign="top" class="activity">
+					Jorge created this collection
+				</td></tr></table>
+				
+				
+     </div></div><!-- end right content -->
+     
+</div><!--- END ABOUT CONTENT --->	
+
+<!--- BEGIN GALLERY --->	
+
+
+
+<!-- OLD HTML
 <nav id="secondary_nav">
 	<ul>
 		<li>
@@ -41,4 +206,4 @@
 		</p> </a>
 		<% end %>
 	</div>
-</section>
+</section> -->

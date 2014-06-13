@@ -1,30 +1,25 @@
-<% @collections.each do |collection| %>
-<%	if collection.approved || collection.admin.include?(session[:user_id]) %>
-<div class='curarium_collection'>
-	<h3><%= link_to collection.name, collection %></h3>
-	<p>
-		Originally hosted by <%= collection.source %>
-	</p>
-	<p>
-		<%= truncate(collection.description, length: 256) %>
-	</p>
-	
-	
-	<% if collection.admin.include?(session[:user_id])%>
-	<p>
-		<%= collection.key %>
-	</p>
-	<p>
-		<%= link_to 'Edit', edit_collection_path(collection) %>
-	</p>
-	<p>
-		<%= link_to 'Destroy', collection, method: :delete, data: { confirm: 'Are you sure?' } %>
-	</p>
-	<%end%>
-</div>
-<% end%>
-<% end %>
-
-<br>
-
-<%= link_to 'New Collection', new_collection_path %>
+<!--- BEGIN SUB MENU  (this will maybe become a partial)--->	
+<div class="SUB_MENU">
+  <div class="expandable">
+    Active Collection: 
+    <span class="active_collection"><%= active_collection %></span>
+  </div>
+  <div class="right">
+    <div class="orderby"><span>Order:</span><span><%= image_tag "clock_r.png" %><%= image_tag "up_r.png" %><%= image_tag "down_r.png" %></span></div>
+    </div>
+ </div>
+<!--- END SUB MENU --->	
+      
+      
+<!--- BEGIN GALLERY --->	     
+<div class="GALLERY">
+  <% @collections.each do |collection| %>
+    <% if collection.approved  %>
+      <%= print_item(collection) %>
+    <% end %>
+  <% end %>
+  <div class="gallery_item">
+    <div class="createnew"> <%= link_to 'New Collection', new_collection_path %> </div>
+  </div>
+	      
+</div><!--- END GALLERY --->  

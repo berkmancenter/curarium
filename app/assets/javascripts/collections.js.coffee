@@ -1,7 +1,7 @@
 record = {}
 window.collection = {}
 
-#COLLECTION CONFIGURATION
+
 
 window.collection.visualization_controls = (properties)->
   options = []
@@ -16,6 +16,8 @@ window.collection.visualization_controls = (properties)->
       $(this).css('color', 'white')
   undefined
 
+
+#COLLECTION CONFIGURATION
 
 window.collection.configure = ->
   
@@ -233,31 +235,35 @@ window.collection.show = ->
     window.collection.query.property = $(this).val()
     undefined
   
-  $('#generate_visualization').submit (e)->
-    e.preventDefault()
+  $('#generate_visualization').click (e)->
     window.collection.generate_visualization()
     undefined
   
   $('.property_link').click ()->
-    property_list =$(this).parents('.collection_terms').first().find('.property_list')
-    property = $(this).data('property')
-    property_list.empty()
-    property_list.data('property', property)
+    #property_list =$("#tag_holder")
+    property = $("#select_property").val()
+    #property_list.empty()
+    #property_list.data('property', property)
     $('.filter').val('')
     query_type_placeholder = window.collection.query.type
     query_property_placeholder = window.collection.query.property
     window.collection.query.property = property
     window.collection.query.type = 'properties'
+    $('#query_term').attr('placeholder', 'loading values...')
     $.getJSON(
       window.location.pathname + window.collection.query_terms() #load properties
       (data) ->
-        console.log(data)
-        for value in data
-          li = $("<li data-value='#{value}'>#{value}</li>").click(inc_exc)
-          property_list.append(li)
+        $('#query_term').autocomplete {source: data, messages: {noResults: '', results: ()->}}
+        $('#query_term').attr('placeholder', 'Type in a term to include or exclude')
         window.collection.query.type = query_type_placeholder
         window.collection.query.property = query_property_placeholder
     )
+    undefined
+  
+  $('#include_button, #exclude_button').click ()->
+    property = "#{$('#select_property').val()}:#{$('#query_term').val()}"
+    window.collection.query[$(this).data('type')].push(property)
+    $("#tag_holder").append visualization_property($(this).data('type'), property)
     undefined
   
   $('.filter').keyup (e) ->
@@ -275,28 +281,23 @@ window.collection.show = ->
 
 update_controls = () ->
   
-  h  = $('div#query_builder').height()
-  $('div#query_builder').height(0)
-  $('#visualization_controls').click (e) ->
-    e.preventDefault()
-    $(this).data('closed', !$(this).data('closed'))
-    t = if $(this).data('closed') then h else 0
-    $('div#query_builder').animate(
-      height: t
-    ,500)
+  $("#tag_holder").empty()
   
   $('#visualization_type').val(window.collection.query.type)
   $('#visualization_property').val(window.collection.query.property)
+  
   for property in window.collection.query.include
-    $("#query_include").append visualization_property('include', property)
+    $("#tag_holder").append visualization_property('include', property)
+  
   for property in window.collection.query.exclude
-    $("#query_exclude").append visualization_property('exclude', property)
+    $("#tag_holder").append visualization_property('exclude', property)
   undefined
 
+###
 inc_exc = (e) ->
-  type = $(this).parents('.collection_terms').first().data('type')
-  value = $(this).data('value')
-  property = $(this).parent().data('property')
+  type = $(this).data('type')
+  value = $("#query_term").val()
+  property = $("select_property").val()
   query_string = property+":"+value
   window.collection.query[type].push(query_string)
   $("#query_#{type}").append visualization_property(type, query_string)
@@ -305,13 +306,16 @@ inc_exc = (e) ->
     (data) ->
       $('#record_count').val(data.length)
     )
+###
 
 visualization_property = (type, string)->
-  remove = $("<span class='remove_element'>x</span>").click ->
+  remove = $("<span class='remove_element'></span>").click ->
     $(this).parent().remove()
     remove_index = window.collection.query[type].indexOf(string)
     window.collection.query[type].splice(remove_index,1)
-  return $("<span class='query_element'>").append($("<span class='element'>#{string}</span>")).append(remove)
+  return $("<span class='query_element #{type}'>").append($("<span class='element' data-term='#{string}'>#{string.split(':')[1]}</span>")).append(remove)
 
+###
 query_button = (value) ->
   $("<span class='query_button'>"+value+"</span>").click(inc_exc)
+###

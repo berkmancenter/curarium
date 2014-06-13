@@ -52,12 +52,12 @@ module ApplicationHelper
     tags = "<ul class='#{class_name}' id='#{id_name}'>"
     original.each do |key, value|
       tags += "<ul class='parsed_field' id='#{key}'>"
-      tags += "<li class='parsed_key'>#{key}"
+      tags += "<li class='parsed_key'><span>#{key}</span>"
       tags += "<ul class='parsed_values'>"
       #get an instance of the original metadata and of the current version of it
-      original_value = JSON.parse(original[key])
+      original_value = JSON.parse(original[key] || '{}')
       original_value = original_value.map(&:to_s) #make sure everything is a string... should become irrelevant.
-      current_value = JSON.parse(current[key])
+      current_value = JSON.parse(current[key] || '{}')
       current_value = current_value.map(&:to_s)
       #compare the original value to the current one
       provided_values = original_value & current_value #values in both instances
@@ -98,7 +98,40 @@ module ApplicationHelper
     else
       return []
     end
-    
+  end
+  
+  def print_item(item, big=false)
+    container = ""
+    background = ""
+    if item.class == Collection
+      unless item.records.first.parsed['image'].nil?
+	background = JSON.parse(item.records.first.parsed['image'])[0]
+      end
+      container += "<a href='#{collection_path(item)}'><div class='gallery_item#{" item_lrg" if big}' style=background-image:url('#{background}')>"
+      container += "<div class='object_id'>#{item.name}</div>"
+    elsif item.class == Spotlight
+      container += "<a href='#{spotlight_path(item)}'><div class='gallery_item spotlight#{" item_lrg" if big}' >"
+      container += "<div class='object_id'>#{item.title}</div>"
+      container += "<div class='border'><div class='innertext'>#{item.body.gsub(/\<(\d+)\>/, "(see figure \\1)")}...</div></div>"
+      container += image_tag "spotlight_tail.png"
+      container += "<div class='name'><b>#{User.find(item.user_id).name}</b> <i>on #{item.created_at.strftime("%d %b %y")}</i></div>"
+    elsif item.class == Record
+      unless item.parsed['image'].nil?
+	background = JSON.parse(item.parsed['image'])[0]
+      end
+      container += "<a href='#{record_path(item)}'><div class='gallery_item#{" item_lrg" if big}' style=background-image:url('#{background}')>"
+      container += "<div class='object_id'>#{item.id}</div>"
+    end
+    container += "</a></div>"
+    return raw(container)
+  end
+  
+  def active_collection
+    unless @active_collection.nil?
+      return link_to @active_collection.name, collection_path(@active_collection)
+    else
+      return link_to "...choose a collection", collections_path
+    end
   end
   
 end

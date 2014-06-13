@@ -1,3 +1,5 @@
+<% cookies[:active_collection] = @collection.id %>
+
 <script>
 	$(document).ready(function(){
 		<%= raw("window.collection.query.type='#{params[:type]}';") if params[:type]%>
@@ -27,132 +29,163 @@
 	});
 </script>
 
-<nav id='secondary_nav'>
-	<a id='visualization_controls'>Visualization Controls:</a>
-	<ul>
-		<li>
-			<!--
-			<form id='quick_search' target='_blank' method='get' action=''>
-				<input id='quick_search_term' type='text' name='terms'>
-				<input type='hidden' name='type' value='quick_search'>
-			</form>
-			-->
-		</li>
-		<li>
-			<% @collection.configuration.each do |field,value|%>
-				<% unless ['image','thumbnail','curarium'].include? field%>
-					<button class='sort' data-sort_by='<%= field %>'><%= field %></button>
-				<% end %>
-			<% end %>
-		</li>
-		<li>
-			<%= link_to 'ABOUT', collection_path(@collection), id: 'collection_about'%>
-		</li>
-		<!--<li><button type="button" id="map-toggle" class="btn btn-primary active"><strong>S</strong>cale map</button>-->
-	</ul>
+
+<!--- BEGIN SUB MENU --->	
+<div class="SUB_MENU">
+    <div class="expandable">
+        Active Collection: 
+        <span class="active_collection"><%= active_collection %></span>
+    </div>
+    <div class="right">
+    	<div class="orderby"><span>Order:</span>
+    			<span><%= image_tag "clock_r.png", class: "ordering_list" %><%= image_tag "up_r.png" %><%= image_tag "down_r.png" %></span>
+    	</div>
+    </div>
+	<div class="controls_toggle">Visualization Controls <%= image_tag "pulldown_r.png" %><%= image_tag "pullup_r.png" %></div>
+</div><!--- END SUB MENU --->	
+
+
+
+<!--- BEGIN INFO BAR --->	
+<div class="expand_orderby">
+	<!-- THIS IS WHERE THE LIST OF ORDERING OPTIONS GO --->
+	<div class="tray">Order type 1</div>
+	<div class="tray">Order type 1</div>
+	<div class="tray">Order type 1</div>
+	<div class="tray">Order type 1</div>
+	<div class="tray">Order type 1</div>
+</div>
+<div class="INFO_BAR explore_bar slider_bar">
+    <div class="expandable">
+		<div class="control_box_holder">
+		<!--<div class="control_box album">
+			 <%= image_tag "records/03.jpg" %>
+		</div> -->
+		<!--- VISUALIZATION TYPE --->
+		<div class="control_box">
+			<div class="select_top">Visualization Type
+				<div class="drop_down">
+					<select id='visualization_type'>
+					  <option value='treemap'>Treemap</option>
+					  <option value='thumbnail'>Thumbnail</option>
+					</select>
+				</div> 
+			</div> 
+			<div class="select_bottom">Visualization Property
+				<div class="drop_down">
+					<select id='visualization_property'>
+					  <% @collection.configuration.keys.each do |property| %>
+					    <% if ['thumbnail','image'].include? property
+					    next
+					  end%>
+					  <option value='<%= property %>'><%= property %></option>
+					<% end %>
+				      </select>
+				</div> 
+			</div> 
+			<div id="generate_visualization" class="button">Update Visualization</div> 
+		</div> 
+		<!--- FILTER RECORDS ---> 
+		<div class="control_box filter">
+			<div id='tag_holder' class="select_top tag_holder">
+				<div class='include'>Add</div>
+				<div class='exclude'>Add</div>
+			</div> 
+						
+			<div class="select_bottom">&nbsp;
+				<select id='select_property' class="selectproperty">
+				  <option value="" disabled="disabled" selected="selected">Select a property</option>
+				   <% @collection.configuration.keys.each do |property| %>
+				   <% if ['thumbnail','image','unique_identifier'].include? property %>
+					      <% next %>
+				    <% end %>
+				    <option id='<%= property%>_list' class='property_link' data-property='<%= property%>'><%= property%></option>
+				    <% end %>
+				</select>
+
+				<div class="drop_down">
+					
+					<table class="filter_bar" cellspacing="0" cellpadding="0"><tr>
+					<td valign="top">
+					<input id='query_term' class="text" type="text" name="fname" placeholder="select a property">
+					</td><td valign="top">
+					<div id='exclude_button' class="exclude" data-type='exclude'>Exclude^</div><div id='include_button' class="include" data-type='include'>Include^</div>
+					</td>
+					</tr></table>
+				
+				</div> 
+			</div> 				
+			<div class="button">Filter Records</div>
+		</div> 
+		<!--- SEARCH --->
+		<div class="control_box">	
+			<div class="select_top">Quick Search
+				<div class="drop_down">
+					<input class="text" type="text" name="fname" placeholder="search for terms"><%= image_tag "search_r.png", class: "stickleft" %>
+				</div> 
+			</div> 
+			<div class="select_bottom">&nbsp;
+				<div class="drop_down">
+					Include Filter <input class="stickleft" type="checkbox" name="filter" value="filter">
+				</div> 
+			</div> 
+			<div class="button">Search</div>	  
+		</div> 
+		<div class="control_box">
+			<div class="select_top">Save Visualization
+				<div class="drop_down">
+					<%# if session[:user_id] %>
+					<% if true %>
+					  <form id='add_visualization_to_tray'>
+					    <select name='tray'>
+					      <option selected='true' disabled>Select a tray</option>
+					      <option value='new_tray'>New Tray</option>
+					      <%# User.find(session[:user_id]).trays.each do |tray| %>
+					      <% User.find(1).trays.each do |tray| %>
+						<option value='<%= tray.id%>'><%= tray.name %></option>
+					      <% end %>
+					    </select>
+					    <input name='new_tray' style='display: none'>
+					    <input class="button" style='position: relative; padding: 0; background-color: transparent' type='submit' value="Add to Tray">
+					  </form>
+					<% end %>
+				</div> 
+			</div> 
+			<div class="select_bottom">Save Record
+				<div class="drop_down">
+					 <%# if session[:user_id] %>
+					 <% if true %>
+					  <form id='add_records_to_tray'>
+					    <p>Save Records:</p>
+					    <select name='tray'>
+					      <option selected='true' disabled>SELECT TRAY</option>
+					      <option value='new_tray'>New Tray</option>
+					      <%# User.find(session[:user_id]).trays.each do |tray| %>
+					      <% User.find(1).trays.each do |tray| %>
+						<option value='<%= tray.id%>'><%= tray.name %></option>
+					      <% end %>
+					    </select>
+					    <input name='new_tray' style='display: none'>
+					    <input class="button" style='position: relative; padding: 0; background-color: transparent' type='submit' value="Add to Tray">
+					  </form>
+					<% end %>
+				</div> 
+			</div> 
+			<!-- <div class="button">Save to Tray</div> -->
+			<!-- the original "new" layout includes only one submit button
+			but in the "old" site each "add to tray" was its own form, and hence needed its own button.
+			this might get solved easily but for now I'm leaving 2 submit buttons and commenting the old one-->
+		</div> 
+		</div><!--- end control box holder --->
+    </div>
+</div><!--- END INFO BAR --->
 	
-    <!--<div id="minimap"><div class="closesign"></div></div>-->
-</nav>
+	<!--- BEGIN MINI MAP --->
+	<div class="minimap"><%= image_tag "minimap_placeholder.jpg" %></div>
+	<!--- END MINI MAP --->
+	
+	<!--- BEGIN COLLECTION CREDIT --->
+	<div class="credit"><a href="/Curarium/record.html">Collection provided by <%= @active_collection.source%></a></div>
+	<!--- END MINI MAP --->
 
-<div id='query_builder'>
-  <div id='visualization_options'>
-    <form id='generate_visualization' >
-      <div class='visualization_menu'>
-        <label for='visualization_type'>Visualization Type:</label>
-        <select id='visualization_type'>
-          <option value='treemap'>Treemap</option>
-          <option value='thumbnail'>Thumbnail</option>
-        </select>
-      </div>
-      <div class='visualization_menut'>
-        <label for='visualization_property'>Visualize Proprety:</label>
-        <select id='visualization_property'>
-          <% @collection.configuration.keys.each do |property| %>
-            <% if ['thumbnail','image'].include? property
-            next
-          end%>
-          <option value='<%= property %>'><%= property %></option>
-        <% end %>
-      </select>
-    </div>
-    <input type='submit' value='generate visualization'>
-  </form>
-</div>
-<div id='save_information'>
-  <% if session[:user_id] %>
-    <form id='add_visualization_to_tray'>
-      <p>Save visualization:</p>
-      <select name='tray'>
-        <option selected='true' disabled>SELECT TRAY</option>
-        <option value='new_tray'>New Tray</option>
-        <% User.find(session[:user_id]).trays.each do |tray| %>
-          <option value='<%= tray.id%>'><%= tray.name %></option>
-        <% end %>
-      </select>
-      <input name='new_tray' style='display: none'>
-      <input type='submit' value="Add to Tray">
-    </form>
-    <form id='add_records_to_tray'>
-      <p>Save Records:</p>
-      <select name='tray'>
-        <option selected='true' disabled>SELECT TRAY</option>
-        <option value='new_tray'>New Tray</option>
-        <% User.find(session[:user_id]).trays.each do |tray| %>
-          <option value='<%= tray.id%>'><%= tray.name %></option>
-        <% end %>
-      </select>
-      <input name='new_tray' style='display: none'>
-      <input type='submit' value="Add to Tray">
-    </form>
-  <% end %>
-</div>
-
-<div id='included_terms' class='query_terms'>
-  <h4 class='query_title'>include</h4>
-  <div id='query_include' data-type='include'></div>
-</div>
-<div id='excluded_terms' class='query_terms' >
-  <h4 class='query_title'>exclude</h4>
-  <div id='query_exclude' data-type='exclude'></div>
-</div>
-<div id='include_properties' class='collection_terms' data-type='include'>
-  <div class='properties_header'>
-    <select>
-      <option selected disabled>property...</option>
-      <% @collection.configuration.keys.each do |property| %>
-        <% if ['thumbnail','image'].include? property
-        next
-      end%>
-      <option id='<%= property%>_list' class='property_link' data-property='<%= property%>'><%= property%></option>
-    <% end %>
-  </select>
-  <input class='filter' autocomplete="off">
-</div>
-<div class='collection_properties'>
-  <ul  class='property_list' data-property = ''>
-
-  </ul>
-</div>
-    </div>
-    <div id='exclude_properties' class='collection_terms' data-type='exclude'>
-      <div class='properties_header'>
-        <select>
-          <option selected disabled>property...</option>
-          <% @collection.configuration.keys.each do |property| %>
-            <% if ['thumbnail','image'].include? property
-            next
-          end%>
-          <option id='<%= property%>_list' class='property_link' data-property='<%= property%>'><%= property%></option>
-        <% end %>
-      </select>
-      <input class='filter' autocomplete="off">
-    </div>
-    <div class='collection_properties'>
-      <ul  class='property_list' data-property = ''>
-
-      </ul>
-    </div>
-  </div>
-</div>
-
-<div id='visualization_container'></div>
+</div><!--- END HOLDER --->

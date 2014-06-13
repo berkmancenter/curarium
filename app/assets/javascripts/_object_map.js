@@ -94,6 +94,11 @@ $( function() {
                 return '';
               }
             }
+          },
+          {
+            type: 'shingled',
+            'class': 'thumb-highlight',
+            src: ''
           }
         ],
 
@@ -107,8 +112,6 @@ $( function() {
 
         bboxchange: function( e, geo ) {
           updateMiniBbox( geo.bbox );
-
-          map.geomap( 'empty' );
         },
 
         move: function( e, geo ) {
@@ -129,7 +132,7 @@ $( function() {
             }
             //console.log( quadKey );
 
-            map.geomap( 'empty' );
+            thumbHighlight.geomap( 'empty', false );
 
             var indexes = quadKeyToIndexes( quadKey );
             if ( indexes.length === 1 && indexes[ 0 ] < recordIds.length ) {
@@ -138,7 +141,7 @@ $( function() {
               var pixelBbox = [ tileXY[ 0 ] * 256, tileXY[ 1 ] * 256, tileXY[ 0 ] * 256 + 256, tileXY[ 1 ] * 256 + 256 ];
               //console.log( 'pixelBbox: ' + pixelBbox );
 
-              map.geomap( 'append', $.geo.polygonize( pixelBbox ) );
+              thumbHighlight.geomap( 'append', $.geo.polygonize( pixelBbox ) );
             }
           }
         },
@@ -169,6 +172,8 @@ $( function() {
           }
         }
       } );
+
+      var thumbHighlight = $( '.thumb-highlight' );
 
       var miniCanvas = $( '<canvas width="256" height="256" />' );
       var miniContext = miniCanvas[0].getContext( '2d' );

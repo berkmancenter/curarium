@@ -1,31 +1,6 @@
-<h1>Listing records</h1>
+<% provide :title, 'Records' %>
+<h1>Records<%= " for #{@collection.name}" if @collection.present? %></h1>
 
-<table>
-  <thead>
-    <tr>
-      <th>Original</th>
-      <th>Parsed</th>
-      <th>Belongs to</th>
-      <th></th>
-      <th></th>
-      <th></th>
-    </tr>
-  </thead>
+<%= render partial: 'records/vis_controls', locals: { params: params } %>
 
-  <tbody>
-    <% @records.each do |record| %>
-      <tr>
-        <td><%= record.original %></td>
-        <td><%= record.parsed %></td>
-        <td><%= record.collection_id %></td>
-        <td><%= link_to 'Show', record %></td>
-        <td><%= link_to 'Edit', edit_record_path(record) %></td>
-        <td><%= link_to 'Destroy', record, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-
-<br>
-
-<%= link_to 'New Record', new_record_path %>
+<%= render partial: "records/#{params['vis'] || 'list'}", object: @records %>

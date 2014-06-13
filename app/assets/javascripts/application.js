@@ -13,6 +13,7 @@
 //= require jquery
 //= require jquery.ui.all
 //= require jquery_ujs
+//= require jquery.geo-1.0.0-test
 //= require d3
 //= require turbolinks
 //= require_tree .

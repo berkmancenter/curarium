@@ -8,7 +8,6 @@ gem 'pg'
 
 group :test do
   gem 'rspec-rails'
-  gem 'rake'
   gem 'poltergeist'
 end
 

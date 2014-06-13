@@ -1,7 +1,0 @@
-<% if hstore_aray(@record.parsed, 'image')[0] != nil %>
-<a href='/records/<%= @record.id %>' target='_blank' class='record_thumbnail' style='background-image:url(<%= hstore_aray(@record.parsed, 'image')[0]+"?width=300&height=300" %>)' title='<%= hstore_aray(@record.parsed, 'title')[0] %>'>
-<% else %>
-<a href='/records/<%= @record.id %>' target='_blank'  class='record_thumbnail' style='background-color:red' title='<%= hstore_aray(@record.parsed, 'title')[0] %>'>
-<% end %>
-	<h3 class='record_thumbnail_title'><%= eval(@record.parsed['title'])[0] %></h3>
-</a>

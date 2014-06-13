@@ -11,10 +11,10 @@ class Collection < ActiveRecord::Base
   
   accepts_nested_attributes_for :json_files
   
-  def self.create_record_from_parsed( key, original, parsed )
+  def self.create_record_from_parsed( key, original, parsed, unique_identifier )
     # create a record from original JSON and pre-parsed version
     col = find_by_key key
-    r = col.records.new original: original, parsed: parsed
+    r = col.records.new original: original, parsed: parsed, unique_identifier: unique_identifier
     r.save
   end
 
@@ -59,10 +59,16 @@ class Collection < ActiveRecord::Base
   def create_record_from_json( original )
     # create a record from original JSON, parse it & add it to this collection
     pr = {}
+    unique_identifier = ''
+
     self.configuration.each do |field|
-      pr[field[0]] = Collection.follow_json(original, field[1])
+      if field[0] == 'unique_identifier'
+        unique_identifier = Collection.follow_json(original, field[1])[ 0 ]
+      else
+        pr[field[0]] = Collection.follow_json(original, field[1])
+      end
     end
-    self.create_record_from_parsed original, pr
+    self.create_record_from_parsed original, pr, unique_identifier
   end
   
   def query_records(include, exclude)

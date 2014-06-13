@@ -1,0 +1,20 @@
+.records-objectmap {
+  .geomap {
+    bottom: 0;
+    left: 0;
+    position: absolute;
+    right: 0;
+    top: 0;
+  }
+
+  .minimap {
+    background: green;
+    bottom: 1em;
+    height: 256px;
+    left: 1em;
+    position: absolute;
+    width: 256px;
+  }
+}
+
+

@@ -39,6 +39,10 @@ Curarium::Application.routes.draw do
   resources :spotlights
 
   resources :records do
+    member do
+      get 'thumb'
+    end
+
     resources :amendments
     resources :annotations
   end
@@ -48,6 +52,7 @@ Curarium::Application.routes.draw do
     post "ingest" => "collections#ingest", as: "ingest"
     get "add" => "collections#add", as: "add"
     post "upload" => "collections#upload", as: "upload"
+    resources :records
     resources :visualizations
   end
 

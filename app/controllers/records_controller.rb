@@ -1,11 +1,16 @@
 class RecordsController < ApplicationController
-  before_action :set_record, only: [:show, :edit, :update, :destroy]
+  before_action :set_record, only: [:show, :thumb, :edit, :update, :destroy]
   skip_before_action :authorize, only: [:show]
 
   # GET /records
   # GET /records.json
   def index
-    
+    if params[ :collection_id ]
+      @collection = Collection.find params[ :collection_id ]
+      @records = @collection.records
+    else
+      @records = Record.all
+    end
   end
 
   # GET /records/1
@@ -25,7 +30,44 @@ class RecordsController < ApplicationController
        format.json { @record.parsed = eval_parsed }
        format.js { render action: "show" }
      end
+  end
+
+  def image_type( local_file_path )
+    png = Regexp.new("\x89PNG".force_encoding("binary"))
+    jpg = Regexp.new("\xff\xd8\xff\xe0\x00\x10JFIF".force_encoding("binary"))
+
+    case IO.read(local_file_path, 10)
+    when /^GIF8/
+      'gif'
+    when /^#{png}/
+      'png'
+    when /^#{jpg}/
+      'jpeg'
+    else
+      '*'
+    end
+  end
     
+  # GET /records/1/thumb
+  def thumb
+    thumb_url = JSON.parse( @record.parsed[ 'thumbnail' ] )[0]
+    if thumb_url.nil?
+      send_data File.open( "#{Rails.public_path}/missing_thumb.png", 'rb' ).read, type: 'image/png', disposition: 'inline'
+    else
+      thumb_connection = open( thumb_url + ( thumb_url.include?( '?' ) ? '&' : '?' ) + 'width=256&height=256', 'rb' )
+
+      if thumb_connection.is_a? Tempfile
+        send_data thumb_connection.read, type: "image/#{image_type thumb_connection.path}", disposition: 'inline'
+      else
+        thumb_hash = thumb_url.hash
+        cache_date = Rails.cache.fetch( "#{thumb_hash}-date" ) { Date.today }
+        cache_image = Rails.cache.fetch( "#{thumb_hash}-image" ) { thumb_connection.read }
+
+        if stale?( etag: thumb_hash, last_modified: cache_date )
+          send_data cache_image, type: thumb_connection.meta[ 'content-type' ], disposition: 'inline'
+        end
+      end
+    end
   end
 
   # GET /records/new

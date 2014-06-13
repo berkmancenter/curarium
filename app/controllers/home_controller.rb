@@ -7,7 +7,10 @@ class HomeController < ApplicationController
     @spotlights = Spotlight.limit(10).order("RANDOM()")
     @all = (@records+@spotlights).shuffle
     unless session[:user_id].nil?
-      @user = User.find(session[:user_id])
+      @user = User.find_by_id(session[:user_id])
+      if @user.nil?
+        reset_session
+      end
     end
     
   end

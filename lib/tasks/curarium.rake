@@ -41,11 +41,19 @@ namespace :curarium do
 
     j_count = 0
     ent.each { |f| 
-      configuration = Collection.find_by_key( collection_key ).configuration
+      collection = Collection.find_by_key( collection_key )
+      configuration = collection.configuration
       t = Thread.new { read_record( input_dir, f, configuration ) }
       t.join
 
-      ok = Collection.create_record_from_parsed collection_key, t[ :original ], t[ :parsed ] unless t[ :original ].nil?
+      if Record.exists?( unique_identifier: t[ :unique_identifier ], collection_id: collection.id )
+        r = Record.find_by( unique_identifier: t[ :unique_identifier ], collection_id: collection.id )
+        r.update( original: t[:original], parsed: t[:parsed] )
+        ok = true
+      else
+        ok = Collection.create_record_from_parsed collection_key, t[ :original ], t[ :parsed ] unless t[ :original ].nil?
+      end
+
       if ok
         j_count += 1
       end
@@ -68,12 +76,19 @@ namespace :curarium do
       rec_json = IO.read filename
 
       pr = {}
+      unique_identifier = ''
+
       configuration.each do |field|
-        pr[field[0]] = Collection.follow_json(rec_json, field[1])
+        if field[0] == 'unique_identifier'
+          unique_identifier = Collection.follow_json(original, field[1])[ 0 ]
+        else
+          pr[field[0]] = Collection.follow_json(original, field[1])
+        end
       end
 
       Thread.current[ :original ] = rec_json
       Thread.current[ :parsed ] = pr
+      Thread.current[ :unique_identifier ] = unique_identifier
     end
   end
 end

@@ -46,11 +46,12 @@ namespace :curarium do
       t = Thread.new { read_record( input_dir, f, configuration ) }
       t.join
 
-      if Record.exists?( unique_identifier: t[ :unique_identifier ], collection_id: collection.id )
+      if t[ :unique_identifier ] != '' && Record.exists?( unique_identifier: t[ :unique_identifier ], collection_id: collection.id )
         r = Record.find_by( unique_identifier: t[ :unique_identifier ], collection_id: collection.id )
         r.update( original: t[:original], parsed: t[:parsed] )
         ok = true
       else
+
         ok = Collection.create_record_from_parsed collection_key, t[ :original ], t[ :parsed ], t[ :unique_identifier ] unless t[ :original ].nil?
       end
 
@@ -63,6 +64,7 @@ namespace :curarium do
 
         GC.start
         puts "heap: #{GC.stat[ :heap_live_num ]}"
+        break
       end
     }
 

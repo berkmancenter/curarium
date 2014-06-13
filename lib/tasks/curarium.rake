@@ -64,7 +64,6 @@ namespace :curarium do
 
         GC.start
         puts "heap: #{GC.stat[ :heap_live_num ]}"
-        break
       end
     }
 

@@ -8,12 +8,12 @@
   }
 
   .minimap {
-    background: green;
-    bottom: 1em;
-    height: 256px;
-    left: 1em;
+    
+    bottom: 3em;
+    left: 3em;
     position: absolute;
-    width: 256px;
+    height: 128px; /* was 256 */
+    width: 128px;
   }
 }
 

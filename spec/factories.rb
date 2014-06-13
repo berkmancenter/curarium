@@ -15,6 +15,14 @@ FactoryGirl.define do
       #admin test_user
       configuration '{"title":["title"],"image":["imageInfo","url"],"thumbnail":["imageInfo","thumbnail_url"]}'
     end
+
+    factory :via do
+      name 'via'
+      description 'via stuff'
+      approved true
+      #admin test_user
+      configuration '{"title": ["titleInfo", 0, "title", 0], "image": ["relatedItem", "*", "content", "location", 0, "url", 0, "content"], "thumbnail": ["relatedItem", "*", "content", "location", 0, "url", 1, "content"], "names": ["name", "*", "namePart", 0], "genre": ["genre", "*"], "topics": ["subject", "*", "topic", 0]}'
+    end
   end
 
   factory :record do

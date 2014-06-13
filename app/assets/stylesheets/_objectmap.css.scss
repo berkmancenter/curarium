@@ -7,9 +7,9 @@
     top: 0;
   }
 
-  .minimap {
-    background: green;
+  .minimap.geo-map {
     bottom: 1em;
+    border: solid 5px white;
     height: 256px;
     left: 1em;
     position: absolute;

@@ -241,6 +241,9 @@ $(document).ready ()->
   )
   
   # RECORDS-PAGE
+  $('.bub_menu input, .bub_menu li, .bub_menu form, #record_annotations').click (e)->
+    e.stopPropagation()
+    
   $('.bub_menu, .record_popup .add_to_tray').click(()->
       $(this).find(".expand").stop().slideToggle(200)
       $(this).find(".button img").stop().fadeToggle(200)

@@ -1001,14 +1001,55 @@ a {
   z-index: -3;
   margin: auto;
 }
+
+
+#record_annotations{
+  div.annotation_wrapper{
+    background: lightgray;
+    border: 1px solid black;
+    padding: 0.5em;
+    margin-top: 0.25em;
+    .annotation_title {
+      font-size: 12pt;
+    }
+    .annotation_body {
+      font-size: 10pt;
+    }
+    .annotation_attribution {
+      font-size: 7pt;
+    }
+    .annotation_tag {
+      font-size: 8pt;
+      font-weight: bold;
+      background: red;
+      padding: 2px;
+      @include rounded-corners(2px);
+    }    
+  }
+}
+
+
+/*HACKING*/
+.record_img {
+  position: relative;
+  max-width: 100%;
+  height: 100%;
+}
+
+.record {
+  max-width: 100%;
+  max-height: 100%;
+}
+
+/*HACKING*/
 .bubble_menu {
   overflow: visible;
   width: 100%;
   top: 60px;
   background: transparent;
-  table {
+  * {
     pointer-events: none;
-    * {
+    .menu_piece, .menu_piece * {
       pointer-events: auto;
     }
   }

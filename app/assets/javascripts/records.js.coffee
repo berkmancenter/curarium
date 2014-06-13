@@ -20,8 +20,9 @@ window.record.update = () ->
     new_field.append(input).append(add).append(cancel)
     add.click ()->
       $(new_field).html($(input).val())
-      $(new_field).css('background','lightblue')
+      $(new_field).toggleClass('new',true)
       $(new_field).bind('dblclick', modify_field)
+      $('input[value=save changes]').css('background-color','red');
       window.record.parsed = read_parsed()
     cancel.click ()->
       new_field.remove()
@@ -38,7 +39,7 @@ submit_update = ()->
         record:
           parsed: window.record.parsed
       success: (data)->
-        $('.parsed_value').css('background','#D3D3D3')
+        $('.parsed_value new').css('background','#D3D3D3')
       dataType : 'json',
       headers : 
         'X-CSRF-Token' : $("meta[name='csrf-token']").attr('content')
@@ -56,7 +57,7 @@ modify_field = (e) ->
     field.empty().append(input).append(change).append(cancel).append(del)
     change.click ()->
       $(field).html($(input).val())
-      $(field).css('background','lightblue')
+      $(field).toggleClass('new', true)
       $(field).bind('dblclick', modify_field)
       window.record.parsed = read_parsed()
     cancel.click ()->
@@ -219,8 +220,8 @@ window.record.display = (image_url)->
       $("#content_url").val(image_url)
       preview = new Kinetic.Stage(
         container: 'preview_window'
-        width: if clipping.width > clipping.height then 300 else clipping.width * 300 / clipping.height
-        height: if clipping.width > clipping.height then clipping.height * 300 / clipping.width else 300
+        width: if clipping.width > clipping.height then 180 else clipping.width * 180 / clipping.height
+        height: if clipping.width > clipping.height then clipping.height * 180 / clipping.width else 180
       )
       preview_layer = new Kinetic.Layer()
       preview_image = new Kinetic.Image(

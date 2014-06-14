@@ -69,6 +69,10 @@ input[type=text], textarea {
   border: 1px solid gray;
 }
 
+.tag_selector {
+  width: 100%;
+}
+
 /*
 .window {
   border: 1px solid gray;

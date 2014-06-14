@@ -47,7 +47,7 @@ class CollectionsController < ApplicationController
         f.close
         Parser.new.async.perform(@collection.id, "#{Rails.root}/tmp/#{params[:file].original_filename}")
         #Parser.new.async.perform(@collection.id)
-        format.html { redirect_to @collection, notice: 'Collection was successfully created.' }
+        format.html { redirect_to collections_path, notice: 'Collection was successfully created.' }
         format.json { render action: 'show', status: :created, location: @collection }
       else
         format.html { render action: 'new' }

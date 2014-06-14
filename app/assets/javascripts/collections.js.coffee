@@ -29,7 +29,7 @@ window.collection.configure = ->
   $('#output .field_wrapper').click (e) ->
     console.log $(this).data('path').toString()
   
-  $('#parse').submit (e) ->
+  $('#parse').click (e) ->
     e.preventDefault()
     $('#parsed').empty()
     try
@@ -47,11 +47,11 @@ window.collection.configure = ->
   $('form#add_field').submit (e) ->
       e.preventDefault()
       field_name = $(this).find('input[name=field_name]').val()
-      new_field = $('<div>').attr('class', 'field_wrapper').attr('id', field_name).droppable
+      new_field = $('<div>').attr('class', 'field field_wrapper').attr('id', field_name).droppable
         drop : field_drop
       title = $('<p>').append(field_name)
       $(new_field).append(title)
-      close = $('<div>').attr('class', 'close').append('X').click (e) ->
+      close = $('<div>').attr('class', 'close').click (e) ->
         $(this).parent().remove()
       $(new_field).append(close)
       $("#output form#add_field").before(new_field)

@@ -8,6 +8,11 @@
 		<%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>
 		<%= javascript_include_tag "application", "data-turbolinks-track" => true %>
 		<%= csrf_meta_tags %>
+		<script type='text/javascript'>
+			$(document).ready(function(){
+				setTimeout(global_function,1000); //extremely ugly hack
+			});
+		</script>
 	</head>
 	<body>
 	  <div class="menulines"></div>
@@ -27,6 +32,8 @@
 	      <!--- BEGIN RECORD HOLDER --->	
 		  <div  id='main-canvas' class="RECORD" style="background: url('img/records/record.jpg') no-repeat center;"></div>
 	      <!--- END RECORD HOLDER --->
+	    <% elsif (params[:controller] == 'spotlights' and (action_name == 'new' || action_name == 'edit' || action_name == 'show' )) %>
+	      
 	    <% else %>
 	      <%= render 'shared/footer'%>
 	    <% end %>

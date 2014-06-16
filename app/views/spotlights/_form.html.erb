@@ -1,43 +1,53 @@
 <%= form_for(@spotlight) do |f| %>
-  <% if @spotlight.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@spotlight.errors.count, "error") %> prohibited this spotlight from being saved:</h2>
+<% if @spotlight.errors.any? %>
+<div id="error_explanation">
+	<h2><%= pluralize(@spotlight.errors.count, "error") %> prohibited this spotlight from being saved:</h2>
 
-      <ul>
-      <% @spotlight.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
-  <div class="field">
-    <%= f.label :type %><br>
-    <%= select_tag(:type, options_for_select([['article','article'],['canvas','canvas'],['slideshow','slideshow']],'article')) %>
-  </div>
-  <div class="field">
-    <%= f.label :title %><br>
-    <%= f.text_field :title %>
-  </div>
-  <div class="field">
-    <%= f.label :body %><br>
-    <%= render "shared/toolbar"%>
-    <%= f.text_area :body %>
-  </div>
-  <div id='spotlight_components' class="field">
-   	<%= f.label :components %><br>
-  </div>
-  <div class="actions">
-    <%= f.submit %>
-  </div>
+	<ul>
+		<% @spotlight.errors.full_messages.each do |msg| %>
+		<li>
+			<%= msg %>
+		</li>
+		<% end %>
+	</ul>
+</div>
 <% end %>
-  <script src="../js/wysihtml5-0.3.0.min.js"></script>
-  <script src="../js/simple.js"></script>
-	<script type='text/javascript'>
-		$(document).ready(function(){
-			var editor = new wysihtml5.Editor("spotlight_body", {
-			    toolbar:      "toolbar", 
-			    parserRules:  ruleset,
-			    stylesheets: ["../css/text_editor.css"]
-			  });
+<div class="titlebar bord">
+	<%= f.text_field :title, placeholder:"Spotlight Title (Edit)", class:"text" %>
+</div>
+
+<!-- ><div class="field">
+<%= f.label :type %>
+<%= select_tag(:type, options_for_select([['article','article'],['canvas','canvas'],['slideshow','slideshow']],'article')) %>
+</div> -->
+
+<div class="field">
+	<%= render "shared/toolbar"%>
+	<%= f.text_area :body, placeholder: 'Spotlight body...' %>
+</div>
+
+<div class="titlebar bord">
+	Components
+</div>
+<div id='spotlight_components' class="noscroll">
+	Components go here
+</div>
+<div class="actions">
+	<%= f.submit 'Publish', class: 'button' %>
+</div>
+<% end %>
+
+<!--- END subtitle -->
+
+<script src="../js/wysihtml5-0.3.0.min.js"></script>
+<script src="../js/simple.js"></script>
+<script type='text/javascript'>
+	$(document).ready(function() {
+		var editor = new wysihtml5.Editor("spotlight_body", {
+			toolbar : "toolbar",
+			parserRules : ruleset,
+			stylesheets : ["../css/text_editor.css"]
 		});
-	</script>
+	}); 
+</script>
+

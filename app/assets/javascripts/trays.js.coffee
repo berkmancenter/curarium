@@ -146,24 +146,29 @@ window.trays.show = () ->
     e.preventDefault()
     $('#user_trays .user_tray').not($(this).parent()).hide()
     $(this).parent().find('*').show()
+    $(this).parent().css('height','400px')
     $('.user_tray .surrogate').remove()
     $('.user_tray .tray_record_images').remove()
     $('.user_tray .tray_record_annotations').remove()
-    $('#trays_title').click (e) ->
-      $('.user_tray').show()
-      $('.user_tray .record_thumbnail, .visualization_preview').hide()
-      $('.user_tray .surrogate').remove()
-      $('.user_tray h4').remove()
-      undefined
+    
+  $('.close_tray').click (e) ->
+    $(this).parent().css('height',20)
+    $(this).hide()
+    $('.user_tray').show()
+    $('.surrogate').remove()
+    $(this).parent().find('h4, .tray_records, .tray_visualizations').hide()
+    undefined
+  
   
   $('.user_tray .record_thumbnail').click (e) ->
     e.preventDefault()
-    host_tray = $(this).parent()
+    host_tray = $(this).parent().parent()
     location = $(this).attr('href')
-    host_tray.find('.record_thumbnail, .visualization_preview').hide()
+    host_tray.find('.tray_records, .tray_visualizations, h4').hide()
     $.getJSON(
       location
       (data) ->
+        console.log? data
         images_div = $("<div class='tray_record_images'>")
         host_tray.append(images_div)
         images_div.append('<h4>Surrogates</h4>')
@@ -173,7 +178,7 @@ window.trays.show = () ->
         for image in data.parsed.image
           do (image) ->
             frame = $("<div class='record_thumbnail surrogate'>").css('background-image', "url("+image+"?width=200&height=200)")
-            frame.data('id',data.parsed.curarium[0])
+            frame.data('id',data.id)
             frame.data('surrogate',data.parsed.image.indexOf(image))
             frame.data('image',image)
             frame.data('title',data.parsed.title[0])
@@ -202,7 +207,7 @@ window.trays.show = () ->
             content.x = parseInt(content.x)
             content.y = parseInt(content.y)
             frame = $("<div class='record_annotation surrogate'>")
-            frame.data('id',data.parsed.curarium[0])
+            frame.data('id',data.id)
             frame.data('surrogate',data.parsed.image.indexOf(image))
             frame.data('image',content.image_url)
             frame.data('title',content.title)

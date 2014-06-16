@@ -134,15 +134,13 @@
 		<div class="control_box">
 			<div class="select_top">Save Visualization
 				<div class="drop_down">
-					<%# if session[:user_id] %>
-					<% if true %>
+					<% if session[:user_id] %>
 					  <form id='add_visualization_to_tray'>
 					    <select name='tray'>
 					      <option selected='true' disabled>Select a tray</option>
 					      <option value='new_tray'>New Tray</option>
-					      <%# User.find(session[:user_id]).trays.each do |tray| %>
-					      <% User.find(1).trays.each do |tray| %>
-						<option value='<%= tray.id%>'><%= tray.name %></option>
+					      <% User.find(session[:user_id]).trays.each do |tray| %>
+							<option value='<%= tray.id%>'><%= tray.name %></option>
 					      <% end %>
 					    </select>
 					    <input name='new_tray' style='display: none'>
@@ -153,16 +151,14 @@
 			</div> 
 			<div class="select_bottom">Save Record
 				<div class="drop_down">
-					 <%# if session[:user_id] %>
-					 <% if true %>
+					 <% if session[:user_id] %>
 					  <form id='add_records_to_tray'>
 					    <p>Save Records:</p>
 					    <select name='tray'>
-					      <option selected='true' disabled>SELECT TRAY</option>
+					      <option selected='true' value='null' disabled>SELECT TRAY</option>
 					      <option value='new_tray'>New Tray</option>
-					      <%# User.find(session[:user_id]).trays.each do |tray| %>
-					      <% User.find(1).trays.each do |tray| %>
-						<option value='<%= tray.id%>'><%= tray.name %></option>
+					      <% User.find(session[:user_id]).trays.each do |tray| %>
+							<option value='<%= tray.id%>'><%= tray.name %></option>
 					      <% end %>
 					    </select>
 					    <input name='new_tray' style='display: none'>

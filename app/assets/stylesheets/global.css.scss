@@ -97,7 +97,7 @@ a {
   text-align: center;
   color: #d2232a;
   font-weight: bold;
-  
+  background-color: white;
 }
 .button:hover {
   background: #d2232a;
@@ -1288,6 +1288,7 @@ dt:hover {
 }
 .spotlight_viewedit #subtitle {
   height: 20px;
+  width: 100%;
 }
 .spotlight_viewedit #spotlight_body {
   border: 0;
@@ -1297,6 +1298,20 @@ dt:hover {
 }
 .spotlight_viewedit{
   width: 100%;
+  .titlebar {
+    margin: 0px;
+    margin-right: 20px;
+  }
+  form {
+    width: 100%;
+    * {
+      margin-right: 20px;
+      a,img {
+        margin: 0px;
+      }
+    }
+  }
+  
 }
 .spotlight_viewedit .viewer{
   width: 50%;
@@ -1310,11 +1325,42 @@ dt:hover {
   font-size: 14px;
   padding: 0 10px 0 0;
 }
-.spotlight_viewedit .reference{
+
+.spotlight_viewedit #spotlight_references{
   width: 50%;
   float: right;
   height: 100%;
 }
+
+.spotlight_viewedit #references_wrapper {
+  width: 100%;
+  height: 400px;
+  overflow: hidden;
+
+}
+
+.spotlight_viewedit .reference{
+  width: 100%;
+  height: 400px;
+  .scroll {
+    width: 100%;
+    height: 400px;
+    a {
+    width: 100%;
+    height: 400px;
+    display: block;
+      div {
+        width: 100%;
+        height: 400px;
+        background-position: center;
+        background-size: contain;
+        background-repeat: no-repeat;
+      }
+    }
+  }
+}
+
+
 .spotlight_viewedit .reference .scroll{
   margin: 0 0 0 10px;
   overflow: auto;
@@ -1335,4 +1381,85 @@ dt:hover {
   top:0;
   bottom:0;
   margin:auto;
+}
+
+/*NEW ADDED STUFF */
+.spotlight_viewedit  #subtitle img{
+    width: 15px;
+    height: 15px;
+    padding: 0 10px 10px 0;
+    margin: 0px;;
+}
+.spotlight_viewedit  #subtitle{
+    padding: 0 0 5px 0;
+    float: left;
+}
+.spotlight_viewedit, .main {
+  padding: 0 10px;
+}
+.reference .bord, .reference #subtitle{
+  padding: 0 10px; 
+}
+
+/*trays */
+
+#trays_wrapper {
+  height: 450px;
+  .user_tray {
+    height: 20px;
+    overflow: auto;
+    position: relative;
+    .close_tray {
+      position: absolute;
+      top: 0;
+      right: 0;
+      background-image: url('close_b.png');
+      background-size: contain;
+      width: 10px;
+      height: 10px;
+    }
+    
+    .tray_records, .tray_visualizations {
+      height: 180px;
+      overflow: auto;
+      display: none;
+    }
+    
+    h3{
+      cursor: pointer;
+    }
+    h4{
+      display: none;
+    }
+  }
+}
+
+.visualization_preview, .visualization_component {
+  position: relative;
+  display: inline-block;
+  float: left;
+  display: none;
+  padding: 5px;
+  width: 75px;
+  height: 75px;
+  background: gray;
+  margin:2px;
+  font-size: 6pt;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+   h3{
+     position: absolute;
+     width: 100%;
+     background: black;
+     bottom: 0;
+     color: white;
+     height: 1em;
+     margin-left: -5px;
+     font-size: 1em;
+     float: left;
+    }
 }

@@ -38,11 +38,6 @@ resizecontent = (winwidth, winheight) ->
     "height": winheight-190
     ,1000)
   
-  
-  
-  
-  
-  
   $(".GLOBAL_MENU .expandable img:last-child").css({"display":"none"})
   #/ IF 5 TILES OR LESS
   if GLOBAL_HOLDER_w <= 1100 
@@ -56,7 +51,6 @@ resizecontent = (winwidth, winheight) ->
   else
     $(".GLOBAL_MENU .expandable .tools div").css({"width":"200px"})
   
-  
   #/ FOR FOOTER TO STICK TO BOTTOM
   $(".GLOBAL_HOLDER").css({"min-height":winheight})
   if GLOBAL_HOLDER_h < winheight
@@ -64,7 +58,6 @@ resizecontent = (winwidth, winheight) ->
   
   if GLOBAL_HOLDER_h > winheight
     $(".FOOTER").css({"position":"static"})
-  
   
   #/ ADJUST FONT SIZE TO FIT IN TABLE
   if winwidth > 1540
@@ -109,14 +102,12 @@ undefined
 
 
 
-$(document).ready ()->
+window.global_function = ()->
   infobar_orginal = $("#hintbar_desc").html()
   infobar_css = "#d2232a"
   winheight = $(window).height()
   winwidth = $(window).width()
   resizecontent(winwidth, winheight)
-  
-  
   
   if $(".toggle_explore").length > 0
     highlight = ".tools ."+$('#pageid').attr('class')

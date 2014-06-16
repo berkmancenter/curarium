@@ -1,19 +1,18 @@
 <div id="toolbar" style="display: none;">
 
-	<a data-wysihtml5-command="formatBlock" data-wysihtml5-command-value="h3">Title</a>
-	<a data-wysihtml5-command="formatBlock" data-wysihtml5-command-value="h5">Subtitle</a>
-	<a data-wysihtml5-command="formatBlock" data-wysihtml5-command-value="p">Regular</a>
+	<a data-wysihtml5-command="formatBlock" data-wysihtml5-command-value="h5"><%= image_tag "text-editor/sub.png" %></a>
+	<a data-wysihtml5-command="formatBlock" data-wysihtml5-command-value="p"><%= image_tag "text-editor/regular.png" %></a>
 
-	<a data-wysihtml5-command="bold">bold</a>
-	<a data-wysihtml5-command="italic">italic</a>
+	<a data-wysihtml5-command="bold"><%= image_tag "text-editor/bold.png" %></a>
+	<a data-wysihtml5-command="italic"><%= image_tag "text-editor/italic.png" %></a>
 
 	<!-- Some wysihtml5 commands require extra parameters -->
-	<a data-wysihtml5-command="justifyLeft">align left</a>
-	<a data-wysihtml5-command="justifyCenter">align center</a>
-	<a data-wysihtml5-command="justifyRight">align right</a>
+	<a data-wysihtml5-command="justifyLeft"><%= image_tag "text-editor/left.png" %></a>
+	<a data-wysihtml5-command="justifyCenter"><%= image_tag "text-editor/center.png" %></a>
+	<a data-wysihtml5-command="justifyRight"><%= image_tag "text-editor/right.png" %></a>
 
 	<!-- Some wysihtml5 commands like 'createLink' require extra paramaters specified by the user (eg. href) -->
-	<a data-wysihtml5-command="createLink">insert link</a>
+	<a data-wysihtml5-command="createLink"><%= image_tag "text-editor/link.png" %></a>
 	<div data-wysihtml5-dialog="createLink" style="display: none;">
 		<label> Link:
 			<input data-wysihtml5-dialog-field="href" value="http://" class="text">
@@ -21,7 +20,7 @@
 		<a data-wysihtml5-dialog-action="save">OK</a><a data-wysihtml5-dialog-action="cancel">Cancel</a>
 	</div>
 	<!-- Some wysihtml5 commands like 'createLink' require extra paramaters specified by the user (eg. href) -->
-	<a data-wysihtml5-command="insertImage">insert image</a>
+	<a data-wysihtml5-command="insertImage"><%= image_tag "text-editor/instertimage.png" %></a>
 	<div data-wysihtml5-dialog="insertImage" style="display: none;">
 		<label> Image:
 			<input data-wysihtml5-dialog-field="src" value="http://">
@@ -30,3 +29,4 @@
 		<a data-wysihtml5-dialog-action="cancel">Cancel</a>
 	</div>
 </div>
+

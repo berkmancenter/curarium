@@ -64,8 +64,8 @@ end
 gem 'bcrypt-ruby', '~> 3.1.2'
 
 #file upload and cloud services
-gem 'carrierwave'
-gem 'fog'
+#gem 'carrierwave'
+#gem 'fog'
 
 #running jobs as back processes 
 #gem 'sidekiq'

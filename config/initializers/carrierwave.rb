@@ -1,3 +1,4 @@
+=begin
 CarrierWave.configure do |config|
   
   if Rails.env.development? || Rails.env.test?
@@ -11,3 +12,4 @@ CarrierWave.configure do |config|
     config.fog_directory  = "curarium_uploads"
   end
 end
+=end

@@ -54,11 +54,11 @@ describe ( 'records/index' ) {
       }
 
       it {
-        should have_css 'option[value="list"][selected]'
+        should have_css 'option[value="objectmap"][selected]'
       }
 
       it {
-        should have_css '.records-list'
+        should have_css '.records-objectmap'
       }
     }
 

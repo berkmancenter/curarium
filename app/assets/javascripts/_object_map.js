@@ -216,7 +216,7 @@ $( function() {
       miniMap.click( function( e ) {
         // minus known border width
         console.log( e.offsetX - 5, e.offsetY - 5 );
-        map.geomap( 'option', 'center', [ (e.offsetX - 5) * miniSize * 256, (e.offsetY - 5) * miniSize * 256 ] );
+        map.geomap( 'option', 'center', [ (e.offsetX - 5) / miniSize * 256, (e.offsetY - 5) / miniSize * 256 ] );
         updateMiniBbox();
       } );
 

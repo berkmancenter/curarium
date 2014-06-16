@@ -35,6 +35,10 @@ def seed
   via.admin = [ test_user.id ]
   via.save
 
+  japanese = FactoryGirl.create :japanese
+  japanese.admin = [ test_user.id ]
+  japanese.save
+
   # records
   crfj test_col, :starry_night
   crfj test_col, :mona_lisa

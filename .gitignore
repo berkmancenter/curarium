@@ -13,6 +13,7 @@
 
 # seed data
 /db/via
+/db/japanese
 
 # Ignore all logfiles and tempfiles.
 /log/*.log

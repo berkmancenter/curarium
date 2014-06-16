@@ -46,8 +46,8 @@ namespace :curarium do
       t = Thread.new { read_record( input_dir, f, configuration ) }
       t.join
 
-      if t[ :unique_identifier ] != '' && Record.exists?( unique_identifier: t[ :unique_identifier ], collection_id: collection.id )
-        r = Record.find_by( unique_identifier: t[ :unique_identifier ], collection_id: collection.id )
+      if t[ :unique_identifier ] != '' && Record.exists?( unique_identifier: t[ :unique_identifier ].to_s, collection_id: collection.id )
+        r = Record.find_by( unique_identifier: t[ :unique_identifier ].to_s, collection_id: collection.id )
         r.update( original: t[:original], parsed: t[:parsed] )
         ok = true
       else

@@ -24,8 +24,8 @@ class Parser
 
       t.join
       
-      if Record.exists?(unique_identifier: t[ :unique_identifier ], collection_id: collection_id)
-        ok = Record.find_by(unique_identifier: t[ :unique_identifier ], collection_id: collection_id)
+      if Record.exists?(unique_identifier: t[ :unique_identifier ].to_s, collection_id: collection_id)
+        ok = Record.find_by(unique_identifier: t[ :unique_identifier ].to_s, collection_id: collection_id)
         ok.update(parsed: t[:parsed], original: t[:original])
       else
         ok = collection.create_record_from_parsed(t[ :original ], t[ :parsed ], t[ :unique_identifier ])# unless t[ :original ].nil?

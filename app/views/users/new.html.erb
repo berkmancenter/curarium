@@ -1,7 +1,26 @@
-<div id="new_curarium_user">
-	<h1 id="title">New User</h1>
+<!--- BEGIN INFO BAR --->	
+<div class="INFO_BAR">
+    <div class="left shifter">
+        <%= image_tag "animated_icon.gif", id: "hint_orig" %>
+		<%= image_tag "hint_collection.png", id: "hint_coll" %>
+		<%= image_tag "hint_spotlight.png", id: "hint_spot" %>
+		<%= image_tag "hint_explore.png", id: "hint_expl" %>
+		<%= image_tag "hint_user.png", id: "hint_user" %>
+    </div>
+    <div class="expandable"><div class="info_text">
+		<div class="hintbar_desc">
+		<span>
+		Sign up! Join the community</br>
+		</span>
+		</div>
+    	
+    	<div id="hintbar_links" class="signup">
+			<%= render 'form' %>
+			
+			</div>
+		</div>
+    
+    </div></div>
+ 
+</div><!--- END INFO BAR --->
 
-	<%= render 'form' %>
-
-	<%= link_to 'Back', login_path %>
-</div>

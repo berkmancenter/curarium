@@ -76,7 +76,7 @@ select {
    background-color: white;
 }
 
-input[type=text], textarea {
+input[type=text], input[type=password], textarea {
   border: 1px solid #CCC !important;
 }
 

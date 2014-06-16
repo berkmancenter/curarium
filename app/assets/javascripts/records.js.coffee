@@ -176,7 +176,7 @@ window.record.display = (image_url)->
       event.preventDefault()
       stage.setAttr('draggable', false)
       canvas_x = (event.clientX - $(this).offset().left)-stage.getAttr('x')
-      canvas_y = (event.clientY - $(this).offset().top)-stage.getAttr('y')
+      canvas_y = (event.clientY - $(this).offset().top - parseInt($(this).css('padding-top')))-stage.getAttr('y')
       crop.setAttrs(
         x: canvas_x/stage.getAttr('scale').x
         y: canvas_y/stage.getAttr('scale').y
@@ -186,7 +186,7 @@ window.record.display = (image_url)->
         'mousemove'
         (event) ->
           canvas_x = event.clientX - $(this).offset().left - stage.getAttr('x')
-          canvas_y = event.clientY - $(this).offset().top - stage.getAttr('y')
+          canvas_y = event.clientY - $(this).offset().top - parseInt($(this).css('padding-top')) - stage.getAttr('y')
           crop.setAttrs(
             width:  (canvas_x - crop.getAttr('x')*stage.getAttr('scale').x)/stage.getAttr('scale').x
             height: (canvas_y - crop.getAttr('y')*stage.getAttr('scale').y)/stage.getAttr('scale').y
@@ -345,7 +345,7 @@ window.record.display = (image_url)->
     stage.draw()
     $('#main-canvas').mousedown (event)->
       canvas_x = (event.clientX - $(this).offset().left)-stage.getAttr('x')
-      canvas_y = (event.clientY - $(this).offset().top)-stage.getAttr('y')
+      canvas_y = (event.clientY - $(this).offset().top - parseInt($(this).css('padding-top')))-stage.getAttr('y')
       crop.setAttrs(
         x: canvas_x/stage.getAttr('scale').x
         y: canvas_y/stage.getAttr('scale').y
@@ -353,7 +353,7 @@ window.record.display = (image_url)->
       layer.add(crop)
       $(this).mousemove (event)->
         canvas_x = event.clientX - $(this).offset().left - stage.getAttr('x')
-        canvas_y = event.clientY - $(this).offset().top - stage.getAttr('y')
+        canvas_y = event.clientY - $(this).offset().top - parseInt($(this).css('padding-top')) - stage.getAttr('y')
         crop.setAttrs(
           width:  (canvas_x - crop.getAttr('x')*stage.getAttr('scale').x)/stage.getAttr('scale').x
           height: (canvas_y - crop.getAttr('y')*stage.getAttr('scale').y)/stage.getAttr('scale').y

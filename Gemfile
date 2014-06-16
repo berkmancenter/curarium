@@ -6,7 +6,7 @@ gem 'rails', '4.0.2'
 #use postgresql
 gem 'pg'
 
-gem 'mysql2'
+
 
 group :test do
   gem 'rspec-rails'

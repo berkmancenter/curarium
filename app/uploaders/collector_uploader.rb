@@ -1,3 +1,4 @@
+=begin
 # encoding: utf-8
 
 class CollectorUploader < CarrierWave::Uploader::Base
@@ -49,3 +50,4 @@ class CollectorUploader < CarrierWave::Uploader::Base
   # end
 
 end
+=end

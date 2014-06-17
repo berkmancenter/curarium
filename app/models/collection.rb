@@ -9,8 +9,6 @@ class Collection < ActiveRecord::Base
   validates :description, presence: true
   validates :configuration, presence: true
   
-  accepts_nested_attributes_for :json_files
-  
   def self.create_record_from_parsed( key, original, parsed, unique_identifier )
     # create a record from original JSON and pre-parsed version
     col = find_by_key key

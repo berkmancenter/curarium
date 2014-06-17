@@ -48,7 +48,6 @@ Curarium::Application.routes.draw do
   end
   
   resources :collections do
-    post "check_key" => "collections#check_key", as: "check_key"
     post "ingest" => "collections#ingest", as: "ingest"
     get "add" => "collections#add", as: "add"
     post "upload" => "collections#upload", as: "upload"

@@ -1,7 +1,6 @@
 class CollectionsController < ApplicationController
   before_action :set_collection, only: [:show, :edit, :update, :destroy]
-  skip_before_action :authorize, only: [:index, :show, :check_key, :ingest]
-  skip_before_filter :verify_authenticity_token, only: [:check_key, :ingest]
+  skip_before_action :authorize, only: [:index, :show, :ingest]
 
   # GET /collections
   # GET /collections.json
@@ -18,15 +17,11 @@ class CollectionsController < ApplicationController
     records = @collection.records.limit(5).order("RANDOM()")
     spotlights = Spotlight.limit(5).order("RANDOM()")
     @all = (records+spotlights).shuffle
-    while(@record.parsed['image'].nil?)
-      @record = @collection.records.limit(1).order("RANDOM()").first
-    end
   end
 
   # GET /collections/new
   def new
     @collection = Collection.new
-    @json_files = @collection.json_files.build
   end
 
   # GET /collections/1/edit
@@ -86,44 +81,6 @@ class CollectionsController < ApplicationController
 
   # ingestions
   
-  def check_key
-      collection = Collection.find_by(key: params[:collection_id])
-      if collection.nil?
-        render json: {collection: false }
-      else
-        render json: {collection: true }
-      end
-  end
-
-  def ingest
-    collection = Collection.find_by_key(params[:collection_id])
-    configuration = collection.configuration
-    properties = collection.properties.to_json
-    properties = JSON.parse(properties)
-    r = collection.records.new
-    r.original = params["j"]
-    r.save
-    pr = {}
-    pr['curarium'] = [r.id]
-    configuration.each do |field|
-      pr[field[0]] = Collection.follow_json(r.original, field[1])
-      if pr[field[0]] == nil or ['thumbnail','image'].include?(field[0])
-        next
-      end
-      pr[field[0]].each do |p|
-        if(properties[field[0]][p] == nil)
-          properties[field[0]][p] = 1
-        else
-          properties[field[0]][p] = properties[field[0]][p] + 1
-         end
-       end
-    end
-    collection.update(properties: properties)
-    r.parsed = pr
-    r.save
-    render json: pr
-  end
-  
   
   private
     # Use callbacks to share common setup or constraints between actions.
@@ -133,6 +90,6 @@ class CollectionsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def collection_params
-      params.require(:collection).permit(:name, :description, :configuration, :source, json_files_attributes: [:id, :collection_id, :path])
+      params.require(:collection).permit(:name, :description, :configuration, :source)
     end
 end

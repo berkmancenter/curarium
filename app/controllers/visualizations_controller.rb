@@ -189,15 +189,5 @@ class VisualizationsController < ApplicationController
     return ('c'+collection+'_'+type+'_'+property+'_'+include+'_'+exclude).gsub(/:/,'_')
   end
   
-=begin  
-  THIS WAS PART OF AN ILL FATED ATTEMPT TO MAKE VISUALIZATIONS EMBEDDABLE.
-  def embed
-    url = URI.parse('http://curarium.herokuapp.com/collections/1/visualizations?type=treemap&property=topics')
-    req = Net::HTTP::Get.new(url.to_s)
-    res = Net::HTTP.start(url.host, url.port) {|http|
-       http.request(req)
-    }
-    render text: res.body
-  end
-=end  
+
 end

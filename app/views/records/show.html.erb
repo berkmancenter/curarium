@@ -33,7 +33,7 @@
 			<div class="expand">
 				<!-- THIS IS WHERE THE SURROGATE IMAGES GO --->
 			<nav>
-			    <% images= eval(@current_metadata['image']) %>
+			    <% images= JSON.parse(@current_metadata['image']) %>
 			    <% images.each do |image|%>
 				<img src='<%= image+'?width=10000&height=10000'%>' class='surrogate_thumbnail'>
 			    <% end %>

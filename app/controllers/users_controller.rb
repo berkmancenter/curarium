@@ -2,6 +2,7 @@ class UsersController < ApplicationController
   before_action :set_user, only: [:show, :edit, :update, :destroy]
   before_action :super?, only: [:index]
   skip_before_action :authorize, only: [:new, :create]
+  skip_before_filter :verify_authenticity_token #this must be deleted!~
 
   # GET /users
   # GET /users.json

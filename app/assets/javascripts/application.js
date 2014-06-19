@@ -20,36 +20,51 @@
 
 
 function recordPopup(id) {
+    var cover = $("<div>");
+    cover.css({
+      'width':'100%',
+      'height':'100%',
+      'position':'fixed',
+      'top':0,
+      'left':0,
+      'z-index': 100,
+      'background-color':'black',
+      'opacity': 0.5
+    });
+    $('body').append(cover);
     $.getJSON("http://"+window.location.host+"/records/"+id+".json",
       function(data){
-	console.log(data);
+	
 	var src = data.parsed.image[0];
 	var img = new Image();
+	$(img).hide();
 	img.src = src;
-	img.onload = function(){
-	    
-	    $(this).css({
+	img.onload = function(){    
+	    $(img).css({
 	      'max-height': '100%',
 	      'max-width': '100%'
 	    });
 	  
+	    $('.record').show();
+	    
 	    $(popup).css({
 	      width: img.width+320,
 	      height: img.height+50,
-	      'max-height': '50%',
-	      'max-width': '50%'
+	      'max-width':'95%',
+	      'max-height':'80%'
+	      
 	  });
 	}
 	
-	$('.GLOBAL_HOLDER').css('pointer-events','none');
 	
 	var popup = $('<div></div>').attr('class','record_popup').css({
 	    width: 500,
-	    height: 500
+	    height: 500,
+	    'z-index':101
 	});
-	var info = $("<div calss='record_data'><div class='titlebar'>"+id+"</div></div>");
-	
-	var printed_object = $("<ul class='printed_object'></ul>");
+	var info = $("<div class='record_data expand'><div class='titlebar'>"+id+"</div></div>");
+	$(info).show();
+	var printed_object = $("<ul id='parsed_record' class='printed_object'></ul>");
 	for(var field in data.parsed){
 	  var values = $("<ul class='parsed_values'></ul>");
 	  for(var value in data.parsed[field]){
@@ -59,17 +74,32 @@ function recordPopup(id) {
 	  var parsed_field = $("<ul class='parsed_field'></ul>").attr('id',field).append(key);
 	  $(printed_object).append(parsed_field);
 	}
-	//info.append(printed_object);
+	info.append(printed_object);
 	
-	var image = $('<div></div>').attr('class', 'record_img').append($("<div class='titlebar'><a href='"+"http://"+window.location.host+"/records/"+id+"' target='_blank'><span class='navigate'><img src='/assets/annotate_r.png'>go to record</span></a><div class='add_to_tray'><span class='navigate'><img src='/assets/add_to_tray_r.png'>add to tray</span><div class='expand'></div></div></div><img class='record' src="+src+">"));
+	var titlebar = $("<div class='titlebar'></div>");
+	var link = $("<a href='"+"http://"+window.location.host+"/records/"+id+"' target='_blank'><span class='navigate'><img src='/assets/annotate_r.png'>go to record</span></a>");
+	var add_to_tray = '';
+	$(titlebar).append(link);
+	var image = $('<div></div>').attr('class', 'record_img').append(titlebar).append($("<img class='record' src="+src+">"));
+	$('.record').hide();
+	
+	
 	
 	
 	var surrogates= $('<div></div>').attr('class', 'record_surr');
 	
+	var close = $("<img src='../../assets/close_r.png'>").css({
+	  position: 'absolute',
+	  top:0,
+	  right: 0
+	})
 	
-	$(popup).append(info).append(image);
+	$(popup).append(info).append(image).append(close);
 	$('.GLOBAL_HOLDER').append(popup);
-	$(popup).click(function() { $(this).remove() });
+	$(close).click(function() { 
+	  $(popup).remove();
+	  $(cover).remove();
+	});
       }
     );
 }

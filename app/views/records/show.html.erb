@@ -42,7 +42,7 @@
 			</div>
 		</td><td valign="top" class="bub_dis nohover">
 			<div class="menu_piece">
-			<div class="button">Record #02323<%= image_tag "edit_r.png" %></div>
+			<div class="button"><%=@record.id%>(<%= JSON.parse(@record.parsed['title'])[0] %><%= image_tag "edit_r.png" %></div>
 			<div class="expand">
 			</div>
 			</div>

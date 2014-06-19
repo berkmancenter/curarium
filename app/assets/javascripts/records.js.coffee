@@ -8,7 +8,7 @@ window.record.parsed = {}
 
 window.record.update = () ->
   window.record.parsed = read_parsed()
-  save = $("<input type='submit' value='save changes'>")
+  save = $("<input type='submit' id='save_changes' value='Save Changes'>")
   $('#parsed_record').append(save)
   save.click(submit_update)
   $('.parsed_value').dblclick(modify_field)
@@ -22,7 +22,7 @@ window.record.update = () ->
       $(new_field).html($(input).val())
       $(new_field).toggleClass('new',true)
       $(new_field).bind('dblclick', modify_field)
-      $('input[value=save changes]').css('background-color','red');
+      $('#save_changes').css('background-color','red');
       window.record.parsed = read_parsed()
     cancel.click ()->
       new_field.remove()
@@ -77,6 +77,7 @@ read_parsed = ()->
         parsed[key].push($(this).html())
         undefined
     undefined
+  console.log parsed
   return parsed 
 
 collapse_parsed_information = ()->

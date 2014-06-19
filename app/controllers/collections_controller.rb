@@ -14,9 +14,10 @@ class CollectionsController < ApplicationController
     #right now, the ONE collection is showing ALL spotlights in Curarium. This has to change as soon as there are more than one collections.
     #@spotlights = Spotlight.all
     @record =@collection.records.limit(1).order("RANDOM()").first
-    records = @collection.records.limit(5).order("RANDOM()")
+    records = @collection.records.limit(10).order("RANDOM()")
     spotlights = Spotlight.limit(5).order("RANDOM()")
-    @all = (records+spotlights).shuffle
+    @all = (records).shuffle
+    #@all = (records+spotlights).shuffle #for the time being we are removing records from spotlights
   end
 
   # GET /collections/new

@@ -164,12 +164,15 @@ a {
 .tray {
   padding: 7px 0;
   width: 100%;
+  position: relative;
 }
 .tray .add{
-  float:right;
+  right: 0;
+  top: 0;
   font-weight: bold;
   color: #d2232a;
   position: absolute;
+  cursor: pointer;
 }
 /* GLOBAL MENU */
 .GLOBAL_MENU{

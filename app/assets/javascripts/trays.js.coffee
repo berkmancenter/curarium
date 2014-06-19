@@ -87,6 +87,27 @@ window.trays.add_records = (user) ->
       )
     undefined
 
+ window.trays.add_record = (data,user) ->
+  $('.tray .add').each ()->
+    $(this).click (e)->
+      e.stopPropagation()
+      tray_id = $(this).parent().data('tray')
+      tray_name = $(this).parent().data('tray_name')
+      $.ajax
+        type: "GET"
+        url: "/trays/#{tray_id}/add_records/"
+        data:
+          records: data
+        success: ()->
+          alert("success: records added to #{tray_name}")
+        dataType: 'json'
+        headers:
+          'X-CSRF-Token': $("meta[name='csrf-token']").attr('content')
+    undefined
+  undefined
+ undefined
+ 
+ ### Old add record to tray
 window.trays.add_record = (data, user = -1) ->
   
   $("select[name=tray]").change ()->
@@ -95,6 +116,10 @@ window.trays.add_record = (data, user = -1) ->
       else 
         $("input[name=new_tray]").hide()
     
+    
+    
+    
+ 
   $('#add_record_to_tray').submit (e)->
     e.preventDefault()
     option = $('select[name=tray]').val()
@@ -126,6 +151,7 @@ window.trays.add_record = (data, user = -1) ->
         headers:
           'X-CSRF-Token': $("meta[name='csrf-token']").attr('content')
   undefined
+  ###
 
 window.trays.show = () ->
   

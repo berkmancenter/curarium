@@ -42,7 +42,7 @@
 			</div>
 		</td><td valign="top" class="bub_dis nohover">
 			<div class="menu_piece">
-			<div class="button"><%=@record.id%>(<%= JSON.parse(@record.parsed['title'])[0] %><%= image_tag "edit_r.png" %></div>
+			<div class="button"><%=@record.id%>(<%= JSON.parse(@record.parsed['title'])[0]%>)<%= image_tag "edit_r.png" %></div>
 			<div class="expand">
 			</div>
 			</div>
@@ -53,7 +53,7 @@
 			      <% if session[:user_id] %>
 			      <!-- THIS IS WHERE THE LIST OF TRAYS GOES --->
 				<% User.find(session[:user_id]).trays.each do |tray| %>
-				  <div class="tray" data-tray='<%= tray.id%>'><%= tray.name %><div class="add">add</div></div>
+				  <div class="tray" data-tray='<%= tray.id%>' data-tray_name='<%= tray.name%>'><%= tray.name %><div class="add">add</div></div>
 				<% end %>
 				<!-- old form for adding to trays, keeping for reference
 				<form id='add_record_to_tray'>

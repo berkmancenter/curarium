@@ -1,8 +1,7 @@
 class Collection < ActiveRecord::Base
   before_create :generate_key
 
-  has_many :records, dependent: :destroy
-  has_many :json_files, dependent: :destroy  
+  has_many :records, dependent: :destroy  
   validates :name, presence: true, uniqueness: true
   validates :description, presence: true
   validates :configuration, presence: true

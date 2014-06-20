@@ -43,7 +43,7 @@
 			</div>
 		</td><td valign="top" class="bub_dis nohover">
 			<div class="menu_piece">
-			<div class="button">Record #02323<%= image_tag "edit_r.png" %></div>
+			<div class="button"><%=@record.id%><%= image_tag "edit_r.png" %></div>
 			<div class="expand">
 			</div>
 			</div>
@@ -52,23 +52,15 @@
 			<div class="button">Add to Tray<%= image_tag "pulldown_r.png" %><%= image_tag "pullup_r.png" %></div>
 			<div class="expand">
 			      <% if session[:user_id] %>
+<<<<<<< HEAD
 			      <!-- THIS IS WHERE THE LIST OF TRAYS GOES -->
+=======
+				 <div class="new_tray"> <input type='text' placeholder='new tray'><div class="add">add</div></div>
+>>>>>>> ce1e07cff033a456e1d6ff2b551c883fd95552d1
 				<% User.find(session[:user_id]).trays.each do |tray| %>
-				  <div class="tray" data-tray='<%= tray.id%>'><%= tray.name %><div class="add">add</div></div>
+				  <div class="tray" data-tray='<%= tray.id%>' data-tray_name='<%= tray.name%>'><%= tray.name %><div class="add">add</div></div>
 				<% end %>
-				<!-- old form for adding to trays, keeping for reference
-				<form id='add_record_to_tray'>
-					<select name='tray'>
-						<option selected='true' disabled>SELECT TRAY</option>
-						<option value='new_tray'>New Tray</option>
-						<% User.find(session[:user_id]).trays.each do |tray| %>
-						<option value='<%= tray.id%>'><%= tray.name %></option>
-						<% end %>
-					</select>
-					<input name='new_tray' style='display: none'>
-					<input type='submit' value="Add to Tray">
-				</form>
-				-->
+				<!-- missing create new tray -->
 			      <% end %>
 				
 			</div>

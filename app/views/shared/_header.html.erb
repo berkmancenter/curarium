@@ -23,8 +23,12 @@
     <div class="expandable">
     	<div class="tools">
 		<div class="toggle_user">
+		    <% if session[:user_id] %>
+			<%= link_to  raw("Log Out#{image_tag("user_b.png")}#{image_tag("user_r.png")}"), logout_url, method: :delete %>
+			<!-- <a href='<%= logout_url %>'>Log Out <%= image_tag "user_b.png" %><%= image_tag "user_r.png" %></a> -->
+		    <% else %>
 			<a href='<%= login_url %>'>Log In <%= image_tag "user_b.png" %><%= image_tag "user_r.png" %></a>
-			<div class="dropdown_menu"><a href="/Curarium/about.html">Logout</a></div>
+		    <% end %>
 		</div>
 		
 		<div class="toggle_explore"><a href="<%= @active_collection.nil? ? collections_path : collection_visualizations_path(@active_collection) %>">Explore <%= image_tag "explore_b.png" %><%= image_tag "explore_r.png" %></a></div>

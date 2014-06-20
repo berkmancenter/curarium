@@ -14,9 +14,10 @@ class CollectionsController < ApplicationController
     #right now, the ONE collection is showing ALL spotlights in Curarium. This has to change as soon as there are more than one collections.
     #@spotlights = Spotlight.all
     @record =@collection.records.limit(1).order("RANDOM()").first
-    records = @collection.records.limit(5).order("RANDOM()")
+    records = @collection.records.limit(10).order("RANDOM()")
     spotlights = Spotlight.limit(5).order("RANDOM()")
-    @all = (records+spotlights).shuffle
+    @all = (records).shuffle
+    #@all = (records+spotlights).shuffle #for the time being we are removing records from spotlights
   end
 
   # GET /collections/new
@@ -42,7 +43,7 @@ class CollectionsController < ApplicationController
         f.close
         Parser.new.async.perform(@collection.id, "#{Rails.root}/tmp/#{params[:file].original_filename}")
         #Parser.new.async.perform(@collection.id)
-        format.html { redirect_to collections_path, notice: 'Collection was successfully created.' }
+        format.html { redirect_to collections_path, notice: 'Your collection is currently uploading, please check back within the hour.' }
         format.json { render action: 'show', status: :created, location: @collection }
       else
         format.html { render action: 'new' }

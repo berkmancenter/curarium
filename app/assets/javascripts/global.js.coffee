@@ -149,6 +149,13 @@ window.global_function = ()->
     $('#hint_coll').stop().fadeToggle(200);$('#hint_orig').stop().fadeToggle(200)
   )
   
+  $('.gallery_item').hover(
+    () ->
+      $(this).find(".collection_options").stop().fadeToggle(200)
+    ,() -> 
+      $(this).find(".collection_options").stop().fadeToggle(200)
+    )
+  
   #SPOTLIGHTS
   $('.toggle_spotlights').hover(()->
     $('#spot').stop().fadeToggle(200);$('#orig').stop().fadeToggle(200)

@@ -31,7 +31,8 @@ window.record.update = () ->
   $('.parsed_field .parsed_values').append(add_field)
   undefined
 
-submit_update = ()->
+submit_update = (e)->
+  e.stopPropagation()
   $.ajax(
       type: "PUT"
       url: window.location.href

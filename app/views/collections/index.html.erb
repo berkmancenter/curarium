@@ -9,7 +9,12 @@
     </div>
  </div>
 <!--- END SUB MENU --->	
-      
+
+<% if flash[:alert] %>
+	<p class='button'>
+		<%= flash[:alert] %>
+	</p>
+<% end %>
       
 <!--- BEGIN GALLERY --->	     
 <div class="GALLERY">

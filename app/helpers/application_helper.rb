@@ -106,9 +106,15 @@ module ApplicationHelper
     if item.class == Collection
       unless item.records.first.parsed['image'].nil?
 	background = JSON.parse(item.records.first.parsed['image'])[0]
-      end 
+      end      
+#      unless item.records[1].parsed['image'].nil?
+#	stack1 = JSON.parse(item.records[1].parsed['image'])[0]
+#      end
+#      unless item.records[2].parsed['image'].nil?
+#	stack2 = JSON.parse(item.records[2].parsed['image'])[0]
+#      end
       container += "<a href='#{collection_path(item)}'><div class='gallery_item #{"item_lrg" if big}' )>"
-      container += "<div class='stack1 #{"item_lrg" if big}'></div><div class='stack2 #{"item_lrg" if big}'></div>"
+      container += "<div class='stack1 #{"item_lrg" if big}' style='background-image:url(#{})'></div><div class='stack2 #{"item_lrg" if big}' style='background-image:url(#{})'></div>"
       container += "<div class='stack3 #{"item_lrg" if big}' style='background-image:url(#{background})'>"
       container += "<div class='object_id'>#{item.name}</div>"
       container += "<div class='collection_options'><div class='collection_options_inner'>"

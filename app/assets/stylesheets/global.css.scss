@@ -164,19 +164,25 @@ a {
 .expandable .dropdown_menu a {
   padding: 3px 37px 3px 20px!important;
 }
-.tray {
-  padding: 7px 0;
+.tray,.new_tray {
+  margin-bottom: 5px;
+  padding: 3px 0;
+  height: 10px;
   width: 100%;
   position: relative;
+  input[type=text] {
+    width: 80%;
+  }
+  .add{
+    right: 0;
+    top: 5px;
+    font-weight: bold;
+    color: #d2232a;
+    position: absolute;
+    cursor: pointer;
+  }
 }
-.tray .add{
-  right: 0;
-  top: 0;
-  font-weight: bold;
-  color: #d2232a;
-  position: absolute;
-  cursor: pointer;
-}
+
 /* GLOBAL MENU */
 .GLOBAL_MENU{
   height: 35px;

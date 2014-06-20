@@ -105,6 +105,28 @@ window.trays.add_records = (user) ->
           'X-CSRF-Token': $("meta[name='csrf-token']").attr('content')
     undefined
   undefined
+  
+  $('.new_tray .add').click (e)->      
+     name = $(this).parent().find('input').val()
+     $.ajax
+      type: "POST"
+      url: "http://#{window.location.host}/users/#{user}/trays/"
+      data:
+        tray:
+          owner_id: user
+          owner_type: 'User'
+          records: data,
+          visualizations: JSON.stringify([])
+          name: name
+      success: (data) ->
+        alert("success: tray #{name} created and records added")
+        console.log(data)
+        $('.new_tray .input').val('')
+        $('.new_tray').after($("<div class='tray' data-tray='#{data.id}' data-tray_name='#{name}'>#{name}<div class='add'>add</div></div>"))
+      dataType: 'json'
+      headers:
+        'X-CSRF-Token': $("meta[name='csrf-token']").attr('content')
+    undefined
  undefined
  
  ### Old add record to tray

@@ -51,7 +51,7 @@
 			<div class="button">Add to Tray<%= image_tag "pulldown_r.png" %><%= image_tag "pullup_r.png" %></div>
 			<div class="expand">
 			      <% if session[:user_id] %>
-
+				 <div class="new_tray"> <input type='text' placeholder='new tray'><div class="add">add</div></div>
 				<% User.find(session[:user_id]).trays.each do |tray| %>
 				  <div class="tray" data-tray='<%= tray.id%>' data-tray_name='<%= tray.name%>'><%= tray.name %><div class="add">add</div></div>
 				<% end %>

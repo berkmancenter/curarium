@@ -1,7 +1,8 @@
-<!--- BEGIN SUB MENU --->	
+<!--- BEGIN SUB MENU -->	
 <div class="SUB_MENU bubble_menu">
 			<div class="titlebar main bord"><%= image_tag "spotlight_r.png" %>Spotlight Viewer</div>
-</div><!--- END SUB MENU --->	
+			
+</div><!--- END SUB MENU -->	
 
 
 
@@ -40,6 +41,7 @@
 			  		<a href="<%=c['body']['url']%>" target='_blank'><div class='visualization_component'></div></a>
 			  		<script type="text/javascript">
 			  			window.visualization['<%=c['body']['terms']['type']%>']('spotlight_reference_<%=i%>', "<%=c['body']['url']%>");
+			  			global_function();
 			  		</script>
 			  	<% end %>
 			  	</div>

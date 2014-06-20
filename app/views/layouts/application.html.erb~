@@ -5,7 +5,11 @@
 		<%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>
 		<%= javascript_include_tag "application", "data-turbolinks-track" => true %>
 		<%= csrf_meta_tags %>
-		<%= render 'shared/global' %>
+		<script type='text/javascript'>
+			$(document).ready(function(){
+				global_function();
+			});
+		</script>
 	</head>
 	<body>
 	  <div class="menulines"></div>
@@ -19,14 +23,13 @@
 	    <%= yield %>
 	      
 	    <% if (params[:controller] == 'visualizations' and action_name == 'index') %>
-
-	      <!-- BEGIN VISUALIZATION HOLDER -->	
-		  <div class="EXPLORE" id='visualization_container'></div>
-	      <!-- END VISUALIZATION HOLDER-->
+	      <!--- BEGIN VISUALIZATION HOLDER --->	
+		<div class="EXPLORE" id='visualization_container'></div>
+	      <!--- END VISUALIZATION HOLDER --->
 	    <% elsif (params[:controller] == 'records' and action_name == 'show') %>
-	      <!-- BEGIN RECORD HOLDER -->	
+	      <!--- BEGIN RECORD HOLDER --->	
 		  <div  id='main-canvas' class="RECORD" style="background: url('img/records/record.jpg') no-repeat center;"></div>
-	      <!-- END RECORD HOLDER -->
+	      <!--- END RECORD HOLDER --->
 	    <% elsif (params[:controller] == 'spotlights' and (action_name == 'new' || action_name == 'edit' || action_name == 'show' )) %>
 	      
 	    <% else %>

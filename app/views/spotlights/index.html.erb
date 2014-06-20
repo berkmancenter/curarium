@@ -1,4 +1,4 @@
-<!--- BEGIN SUB MENU  (this will maybe become a partial)--->	
+<!-- BEGIN SUB MENU  (this will maybe become a partial)-->	
 <div class="SUB_MENU">
   <div class="expandable">
     Active Collection: 
@@ -7,10 +7,11 @@
   <div class="right">
     <div class="orderby"><span>Order:</span><span><%= image_tag "clock_r.png" %><%= image_tag "up_r.png" %><%= image_tag "down_r.png" %></span></div>
     </div>
+    <%= render 'shared/global' %>
  </div>
-<!--- END SUB MENU --->	
+<!--- END SUB MENU -->	
 
-<!--- BEGIN GALLERY --->	     
+<!-- BEGIN GALLERY -->	     
 <div class="GALLERY">
   <% @spotlights.each do |spotlight| %>
       <%= print_item(spotlight) %>

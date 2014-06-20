@@ -1,4 +1,3 @@
-
 resizecontent = (winwidth, winheight) ->
   GLOBAL_HOLDER_h = $(".GLOBAL_HOLDER").height()
   GLOBAL_HOLDER_w = $(".GLOBAL_HOLDER").width()
@@ -97,9 +96,6 @@ resizecontent = (winwidth, winheight) ->
     $(".about_content .right .holder").css({"width":"200px"})
   
 undefined
-
-
-
 
 
 window.global_function = ()->
@@ -242,8 +238,6 @@ window.global_function = ()->
       $(this).find(".expand").stop().slideToggle(200)
       $(this).find(".button img").stop().fadeToggle(200)
   )
-  
-
   
   $('.orderby .ordering_list').click(()->
       $('.expand_orderby').stop().slideToggle(200)

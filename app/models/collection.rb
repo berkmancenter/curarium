@@ -1,13 +1,13 @@
 class Collection < ActiveRecord::Base
   before_create :generate_key
 
-<<<<<<< HEAD
+
   has_many :records, dependent: :destroy
   has_many :spotlights, through: :highlights
   
-=======
+
   has_many :records, dependent: :destroy  
->>>>>>> ce1e07cff033a456e1d6ff2b551c883fd95552d1
+
   validates :name, presence: true, uniqueness: true
   validates :description, presence: true
   validates :configuration, presence: true

@@ -2,7 +2,7 @@
 	$(document).ready(function() {
 		window.collection.configure();
 		window.collection.populate_fields(<%= raw(@collection.configuration.to_json) %>);
-		global_function();
+		
 	});
 </script>
 

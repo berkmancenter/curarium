@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 resizecontent = (winwidth, winheight) ->
   GLOBAL_HOLDER_h = $(".GLOBAL_HOLDER").height()
   GLOBAL_HOLDER_w = $(".GLOBAL_HOLDER").width()
@@ -250,7 +250,7 @@ window.global_function = ()->
 $(window).resize ()->
   winheight = $(window).height()
   winwidth = $(window).width()
-=======
+
 
 resizecontent = (winwidth, winheight) ->
   GLOBAL_HOLDER_h = $(".GLOBAL_HOLDER").height()
@@ -515,5 +515,5 @@ window.global_function = ()->
 $(window).resize ()->
   winheight = $(window).height()
   winwidth = $(window).width()
->>>>>>> ce1e07cff033a456e1d6ff2b551c883fd95552d1
+
   resizecontent(winwidth, winheight)

@@ -1,4 +1,3 @@
-
 <script>
 	$(document).ready(function(){
 		<% image = params[:image].to_i || 0%>
@@ -16,10 +15,10 @@
 	global_function();
 </script>
 
-
 <!-- BEGIN SUB MENU -->	
 <div class="SUB_MENU bubble_menu">
 	<table cellspacing="0" cellpadding="0"><tr>
+		
 		<td valign="top" class="bub_menu">
 			<div class="menu_piece">
 			<div class="button">Parsed Information<%= image_tag "pulldown_r.png" %><%= image_tag "pullup_r.png" %></div>
@@ -28,7 +27,9 @@
 				<%= print_metadata @record.parsed, @current_metadata, 'printed_object', 'parsed_record' %>
 			</div>
 			</div>
-		</td><td valign="top" class="bub_menu surrogates">
+		</td>
+
+		<td valign="top" class="bub_menu surrogates">
 			<div class="menu_piece">
 			<div class="button">Surrogates<%= image_tag "pulldown_r.png" %><%= image_tag "pullup_r.png" %></div>
 			<div class="expand">
@@ -41,22 +42,25 @@
 			</nav>
 			</div>
 			</div>
-		</td><td valign="top" class="bub_dis nohover">
+		</td>
+
+		<td valign="top" class="bub_dis nohover">
 			<div class="menu_piece">
 			<div class="button"><%=@record.id%><%= image_tag "edit_r.png" %></div>
 			<div class="expand">
 			</div>
 			</div>
-		</td><td valign="top" class="bub_menu">
+		</td>
+
+		<td valign="top" class="bub_menu">
 			<div class="menu_piece">
 			<div class="button">Add to Tray<%= image_tag "pulldown_r.png" %><%= image_tag "pullup_r.png" %></div>
 			<div class="expand">
 			      <% if session[:user_id] %>
-<<<<<<< HEAD
+
 			      <!-- THIS IS WHERE THE LIST OF TRAYS GOES -->
-=======
+
 				 <div class="new_tray"> <input type='text' placeholder='new tray'><div class="add">add</div></div>
->>>>>>> ce1e07cff033a456e1d6ff2b551c883fd95552d1
 				<% User.find(session[:user_id]).trays.each do |tray| %>
 				  <div class="tray" data-tray='<%= tray.id%>' data-tray_name='<%= tray.name%>'><%= tray.name %><div class="add">add</div></div>
 				<% end %>
@@ -65,7 +69,9 @@
 				
 			</div>
 			</div>
-		</td><td valign="top" class="bub_menu">
+		</td>
+
+		<td valign="top" class="bub_menu">
 			<div class="menu_piece">
 			<div class="button">Annotate<%= image_tag "pulldown_r.png" %><%= image_tag "pullup_r.png" %></div>
 			<div class="expand">
@@ -124,10 +130,10 @@
 						<% end %>
 					<% end %>
 				</div>
-			  </div>
-				
-			  </div>
-			  </div>
+				</div>
+			</div>
+			</div>
+			</div>
 		</td>
 	</tr></table>
 	
@@ -136,7 +142,7 @@
 <!-- BEGIN COLLECTION CREDIT -->
 	  <div class="credit"><a href="">Collection provided by <%= @record.collection.source%></a></div>
 	  <div class="return"><a href="">&#10094; Return to Explore</a></div>
-<!--- END COLLECTION CREDIT --->
+<!--- END COLLECTION CREDIT -->
 
 <!--
 <% title eval(@current_metadata['title'])[0] %>

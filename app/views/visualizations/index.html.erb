@@ -33,7 +33,7 @@
 </script>
 
 
-<!--- BEGIN SUB MENU --->	
+<!--- BEGIN SUB MENU -->	
 <div class="SUB_MENU">
     <div class="expandable">
         Active Collection: 
@@ -45,11 +45,13 @@
     	</div>
     </div>
 	<div class="controls_toggle">Visualization Controls <%= image_tag "pulldown_r.png" %><%= image_tag "pullup_r.png" %></div>
-</div><!--- END SUB MENU --->	
+
+</div>
+<!--- END SUB MENU --->	
 
 
 
-<!--- BEGIN INFO BAR --->	
+<!--- BEGIN INFO BAR -->	
 <div class="expand_orderby">
 	<!-- THIS IS WHERE THE LIST OF ORDERING OPTIONS GO --->
 	<div class="tray">Order type 1</div>
@@ -64,7 +66,8 @@
 		<!--<div class="control_box album">
 			 <%= image_tag "records/03.jpg" %>
 		</div> -->
-		<!--- VISUALIZATION TYPE --->
+
+		<!--- VISUALIZATION TYPE -->
 		<div class="control_box">
 			<div class="select_top">Visualization Type
 				<div class="drop_down">
@@ -88,7 +91,7 @@
 			</div> 
 			<div id="generate_visualization" class="button">Update Visualization</div> 
 		</div> 
-		<!--- FILTER RECORDS ---> 
+		<!--- FILTER RECORDS --> 
 		<div class="control_box filter">
 			<div id='tag_holder' class="select_top tag_holder">
 				<div class='include'>Add</div>
@@ -120,7 +123,8 @@
 			</div> 				
 			<div class="button">Filter Records</div>
 		</div> 
-		<!--- SEARCH --->
+
+		<!--- SEARCH -->
 		<div class="control_box">	
 			<div class="select_top">Quick Search
 				<div class="drop_down">
@@ -177,13 +181,13 @@
 		</div> 
 		</div><!--- end control box holder --->
     </div>
-</div><!--- END INFO BAR --->
+</div><!-- END INFO BAR -->
 	
-	<!--- BEGIN MINI MAP --->
+	<!-- BEGIN MINI MAP -->
 	<div class="minimap"><%= image_tag "minimap_placeholder.jpg" %></div>
 	<!--- END MINI MAP --->
 	
-	<!--- BEGIN COLLECTION CREDIT --->
+	<!-- BEGIN COLLECTION CREDIT -->
 	<div class="credit"><a href="/Curarium/record.html">Collection provided by <%= @active_collection.source%></a></div>
 	<!--- END MINI MAP --->
 

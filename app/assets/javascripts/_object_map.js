@@ -185,8 +185,9 @@ $( function() {
 
       // start with some random colors
       for ( var row = 0; row < miniDimension; row++ ) {
-        for ( var col = 0; col < miniDimension; col ++ ) {
-          miniContext.fillStyle = '#'+Math.floor(Math.random()*16777215).toString(16);
+        for ( var col = 0; col < miniDimension; col ++ ) {            
+            miniContext.fillStyle = '#'+randRed();
+//          miniContext.fillStyle = '#'+Math.floor(Math.random()*16777215).toString(16);
           miniContext.fillRect( miniSize * col, miniSize * row, miniSize, miniSize );
         }
       }
@@ -294,4 +295,16 @@ $( function() {
     }
     return index;
   }
+
+  function IntRand (min,max) {
+    return Math.round(Math.random()*(max-min)+min);
+  }
+
+  function randRed () {
+    var r = IntRand(0xaa,0xff);
+    var g = IntRand(0x00,0x55);
+    var b = IntRand(0x00,0x55);
+    return ((r<<16)|(g<<8)|b).toString(16);
+  }
+
 } );

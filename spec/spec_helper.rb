@@ -13,8 +13,15 @@ end
 # in spec/support/ and its subdirectories.
 Dir[Rails.root.join("spec/support/**/*.rb")].each { |f| require f }
 
-Capybara.javascript_driver = :poltergeist
-Capybara.current_driver = :poltergeist
+Capybara.register_driver :slow_poltergeist do |app|
+  Capybara::Poltergeist::Driver.new( app, {
+    timeout: 1.minutes,
+    window_size: [ 1280, 1024 ]
+  } )
+end
+
+Capybara.javascript_driver = :slow_poltergeist
+Capybara.current_driver = :slow_poltergeist
 
 # Checks for pending migrations before tests are run.
 # If you are not using ActiveRecord, you can remove this line.

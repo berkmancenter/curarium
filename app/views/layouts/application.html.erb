@@ -2,6 +2,9 @@
 <html>
 	<head>
 		<title>Curarium - <%= yield(:title) || "Home" %></title>
+		<script src="js/kinetic-v5.0.1.min.js"></script>
+		<script src="js/jquery.ui.zoomify.js"></script>
+		<script src="js/spatialc.js"></script>
 		<%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>
 		<%= javascript_include_tag "application", "data-turbolinks-track" => true %>
 		<%= csrf_meta_tags %>

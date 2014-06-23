@@ -91,9 +91,10 @@ function recordPopup(id) {
 	info.append(printed_object);
 	//
 	
-	
-	var titlebar = $("<div class='titlebar'></div>");  //record title
-	var link = $("<a href='"+"http://"+window.location.host+"/records/"+id+"' target='_blank'><span class='navigate'><img src='/assets/annotate_r.png'>go to record</span></a>"); //hyperlink to record
+	//record title
+	var titlebar = $("<div class='titlebar'></div>");  
+	 //hyperlink to record
+	var link = $("<a href='"+"http://"+window.location.host+"/records/"+id+"' target='_blank'><span class='navigate'><img src='/assets/annotate_r.png'>go to record</span></a>");
 	var add_to_tray = '';
 	$(titlebar).append(link);
 	var image = $('<div></div>').attr('class', 'record_img').append(titlebar).append($("<img class='record' src="+src+">"));

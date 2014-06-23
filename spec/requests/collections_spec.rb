@@ -14,7 +14,8 @@ describe 'collections requests', :js => true do
       }
 
       it {
-        should have_css '.curarium_collection', count: 1
+        # should non-signed in users see the New Collection button?
+        should have_css '.gallery_item', count: 4
       }
     }
 
@@ -30,11 +31,12 @@ describe 'collections requests', :js => true do
       }
 
       it {
-        should have_css 'h2', text: col.name
+        should have_css '.page_title', text: col.name
       }
 
       it {
-        should have_css 'p', text: col.description
+        # semantically, should be a p element instead of div
+        should have_css '.cont_about', text: col.description
       }
 
       it {
@@ -61,7 +63,7 @@ describe 'collections requests', :js => true do
       }
 
       it {
-        should have_css '.curarium_collection', count: 2
+        should have_css '.gallery_item', count: 4
       }
     }
   }

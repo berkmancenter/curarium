@@ -4,10 +4,18 @@ describe ( 'collections/show' ) {
   subject { rendered }
 
   context ( 'normal collection' ) {
-    let ( :col ) { Collection.first }
+    let ( :collection ) { Collection.first }
+    let ( :record ) { collection.records.limit(1).order("RANDOM()").first }
+    let ( :records ) { collection.records.limit(5).order("RANDOM()") }
+    let ( :spotlights ) { Spotlight.limit(5).order("RANDOM()") }
+    let ( :all ) { (records + spotlights).shuffle }
 
     before {
-      assign( :collection, col )
+      assign( :collection, collection )
+      assign( :record, record )
+      assign( :records, records )
+      assign( :spotlights, spotlights )
+      assign( :all, all )
       render
     }
 
@@ -17,20 +25,7 @@ describe ( 'collections/show' ) {
     }
 
     it {
-      should have_css 'section#collection_pages'
+      should have_css '.cont_spotlight'
     }
-
-    it ( 'should have our collection configuration props as vis options' ) {
-      # no longer, must click Explore link
-      should_not have_css '#visualization_property option', text: 'title'
-      should_not have_css '#visualization_property option', text: 'artist'
-    }
-
-    it ( 'should have our collection configuration props tag links' ) {
-      # no longer, must click Explore link
-      should_not have_css '#properties_header a.property_link', text: 'title'
-      should_not have_css '#properties_header a.property_link', text: 'artist'
-    }
-
   }
 }

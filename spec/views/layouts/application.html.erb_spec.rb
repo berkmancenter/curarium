@@ -13,7 +13,9 @@ describe ( 'layouts/application' ) {
     }
 
     describe ( 'shared/header' ) {
-      should have_css '.GLOBAL_MENU'
+      it {
+        should have_css '.GLOBAL_MENU'
+      }
     }
 
     it {
@@ -21,7 +23,9 @@ describe ( 'layouts/application' ) {
     }
 
     describe ( 'shared/header' ) {
-      should have_css '.FOOTER'
+      it {
+        should have_css '.FOOTER'
+      }
     }
   }
 }

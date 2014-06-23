@@ -20,7 +20,6 @@ describe 'visualization requests', :js => true do
       }
 
       it {
-        snap
         should have_css '.explore_bar #select_property option', text: 'topics', visible: false
       }
 

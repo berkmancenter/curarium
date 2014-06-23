@@ -1,18 +1,19 @@
 <script>
+
 	$(document).ready(function(){
+		global_function();
 		<% image = params[:image].to_i || 0%>
 		window.record.display('<%= JSON.parse(@current_metadata['image'])[image]%>');
 		$('img.surrogate_thumbnail').each( function(i){
 			$(this).click(function(e){
 				window.location = "?image="+i
-			});
+			});		
 		});
 		<% if session[:user_id] %>
 		window.trays.add_record([<%= params[:id] %>],<%= session[:user_id].to_i%>);
 		window.record.update();
 		<% end %>
-	});
-	global_function();
+	});	
 </script>
 
 <!-- BEGIN SUB MENU -->	
@@ -126,7 +127,6 @@
 										by <%= annotation.user.name %> on <%= annotation.created_at %>
 									</p>
 								</div>
-
 						<% end %>
 					<% end %>
 				</div>
@@ -136,7 +136,7 @@
 			</div>
 		</td>
 	</tr></table>
-	
+
 </div><!-- END SUB MENU -->	
 
 <!-- BEGIN COLLECTION CREDIT -->

@@ -319,7 +319,6 @@
         var id = this.element.getAttribute('id')
         this.element.onclick = function(){
 			recordPopup(id);
-			//window.open('http://' + window.location.host + '/records/' + id, '_blank');
 		};
         for (prop in this.clones)
         {

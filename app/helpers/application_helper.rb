@@ -30,23 +30,6 @@ module ApplicationHelper
     end
     return raw(tags + "</ul>")
   end
-
-  def print_hstore(hstore_object, class_name,id_name=nil)
-    tags = "<ul class='#{class_name}' id='#{id_name}'>"
-    hstore_object.each do |key, value|
-      tags += "<ul class='parsed_field' id='#{key}'>"
-      tags += "<li class='parsed_key'>#{key}"
-      tags += "<ul class='parsed_values'>"
-      unless value.nil?
-        value = JSON.parse(value)
-        value.each do |item|
-          tags += "<li class='parsed_value'>#{item}</li>"
-        end
-      end
-      tags += "</ul></li></ul>"
-    end
-    return raw(tags + "</ul>")
-  end
   
   def print_metadata(original, current, class_name,id_name=nil) #should this rather be in the controller?
     tags = "<ul class='#{class_name}' id='#{id_name}'>"

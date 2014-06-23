@@ -1,9 +1,0 @@
-<h1><%=@collection.name%></h1>
-<%= form_for @collection, url: {action: 'uploadI '}  do |c|%>
-	<%= c.fields_for :json_files do |json_file| %>
-		<%= json_file.label :path%>
-		<%= json_file.file_field :path, multiple: true, name: "json_files[path][]"%>
-	<% end %>
-<% end %>
-<%= render 'shared/global' %>
-

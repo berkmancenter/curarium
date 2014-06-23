@@ -25,7 +25,7 @@
 	      <!--- END VISUALIZATION HOLDER --->
 	    <% elsif (params[:controller] == 'records' and action_name == 'show') %>
 	      <!--- BEGIN RECORD HOLDER --->	
-		  <div  id='main-canvas' class="RECORD"></div>
+		  <div  id='main-canvas' class="RECORD" style="background: url('img/records/record.jpg') no-repeat center;"></div>
 	      <!--- END RECORD HOLDER --->
 	    <% else %>
 	      <%= render 'shared/footer'%>

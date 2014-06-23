@@ -6,19 +6,43 @@ describe 'visualization requests', :js => true do
   subject { page }
 
   shared_examples_for ( 'refine query' ) {
-    it {
-      should have_css '#visualization_property option', text: 'title', visible: false
-      should have_css '#visualization_property option', text: 'artist', visible: false
-    }
+    context ( 'open controls' ) {
+      before { 
+        execute_script "$( function() { $('.explore_bar').show(); } );"
+      }
 
-    it {
-      should have_css '#include_properties option', text: 'title', visible: false
-      should have_css '#include_properties option', text: 'artist', visible: false
-    }
+      it {
+        should have_css '.explore_bar #select_property option', text: 'title', visible: false
+      }
 
-    it {
-      should have_css '#exclude_properties option', text: 'title', visible: false
-      should have_css '#exclude_properties option', text: 'artist', visible: false
+      it {
+        should have_css '.explore_bar #select_property option', text: 'artist', visible: false
+      }
+
+      it {
+        snap
+        should have_css '.explore_bar #select_property option', text: 'topics', visible: false
+      }
+
+      it {
+        should have_css '.explore_bar .filter_bar input#query_term'
+      }
+
+      it {
+        # should but html button
+        should have_css '.explore_bar #exclude_button'
+        should have_css '.explore_bar div.exclude', text: 'Exclude'
+      }
+
+      it {
+        # should but html button
+        should have_css '.explore_bar #include_button'
+        should have_css '.explore_bar div.include', text: 'Include'
+      }
+
+      it {
+        should have_css '.explore_bar div.button', text: 'Filter Records'
+      }
     }
   }
 
@@ -61,7 +85,7 @@ describe 'visualization requests', :js => true do
       }
     }
 
-    describe ( 'treemap title' ) {
+    describe ( 'simply treemap title' ) {
       before {
         visit "#{collection_visualizations_path( col )}?type=treemap&property=title"
       }

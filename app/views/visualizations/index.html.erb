@@ -44,7 +44,8 @@
     			<span><%= image_tag "clock_r.png", class: "ordering_list" %><%= image_tag "up_r.png" %><%= image_tag "down_r.png" %></span>
     	</div>
     </div>
-	<div class="controls_toggle">Visualization Controls <%= image_tag "pulldown_r.png" %><%= image_tag "pullup_r.png" %></div>
+    	
+	<div class="controls_toggle" style="float:center clear:both"> Visualization Control<%= image_tag "pulldown_r.png" %><%= image_tag "pullup_r.png" %></div>
 
 </div>
 <!--- END SUB MENU --->	
@@ -115,7 +116,8 @@
 					<td valign="top">
 					<input id='query_term' class="text" type="text" name="fname" placeholder="select a property">
 					</td><td valign="top">
-					<div id='exclude_button' class="exclude" data-type='exclude'>Exclude^</div><div id='include_button' class="include" data-type='include'>Include^</div>
+					<div id='exclude_button' class="exclude" data-type='exclude'>Exclude^</div>
+					<div id='include_button' class="include" data-type='include'>Include^</div>
 					</td>
 					</tr></table>
 				
@@ -189,6 +191,6 @@
 	
 	<!-- BEGIN COLLECTION CREDIT -->
 	<div class="credit"><a href="/Curarium/record.html">Collection provided by <%= @active_collection.source%></a></div>
-	<!--- END MINI MAP --->
+	<!--- END MINI MAP -->
 
-</div><!--- END HOLDER --->
+</div><!--- END HOLDER -->

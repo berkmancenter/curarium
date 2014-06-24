@@ -1,4 +1,5 @@
 <script>
+
 	$(document).ready(function(){
 		global_function();
 		<% image = params[:image].to_i || 0%>
@@ -6,15 +7,19 @@
 		$('img.surrogate_thumbnail').each( function(i){
 			$(this).click(function(e){
 				window.location = "?image="+i
-			});
+			});		
 		});
 		
 		<% if session[:user_id] %>
 		window.trays.add_record([<%= params[:id] %>],<%= session[:user_id].to_i%>);
 		window.record.update();
 		<% end %>
+<<<<<<< HEAD
 	});
 	
+=======
+	});	
+>>>>>>> d52798f3d4b67333afd942025b9f24e73125106e
 </script>
 
 <!-- BEGIN SUB MENU -->	
@@ -128,7 +133,6 @@
 										by <%= annotation.user.name %> on <%= annotation.created_at %>
 									</p>
 								</div>
-
 						<% end %>
 					<% end %>
 				</div>
@@ -138,10 +142,10 @@
 			</div>
 		</td>
 	</tr></table>
-	
+
 </div><!-- END SUB MENU -->	
 
 <!-- BEGIN COLLECTION CREDIT -->
 	  <div class="credit"><a href="">Collection provided by <%= @record.collection.source%></a></div>
-	  <div class="return"><a href="">&#10094; Return to Explore</a></div>
+	  <div class="return"><a href="" onclick="javascript: history.go(-1)">&#10094; Return to Explore</a></div>
 <!--- END COLLECTION CREDIT -->

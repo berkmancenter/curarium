@@ -1,11 +1,15 @@
-<!--- BEGIN SUB MENU --->	
+<!--- BEGIN SUB MENU -->	
 <div class="SUB_MENU">
-			<div class="titlebar main bord">Collection Creator</div>
+			<div class="titlebar main bord"> Collection Creator </div>
 			<!-- <div class="button submit">Upload Collection</div> -->
-</div><!--- END SUB MENU --->	
+</div><!--- END SUB MENU -->
+
+<div class="BELOW_MENU">
+			<div class=""><a href=""><u>Click for instructions</u></a></div>
+</div>	
 
 
-<!--- BEGIN ABOUT CONTENT --->	
+<!--- BEGIN ABOUT CONTENT -->	
 
 <div class="uploader_content">	
 	<!-- left content -->
@@ -44,16 +48,18 @@
 	    <div class="field">
 		    <%= f.hidden_field :configuration, value: "{}" %>
 	    </div>
-
-	    <div class="actions">
-		    <%= f.submit 'Upload Collection', class:"button submit" %>
+		
+	   <div class="actions">
+		    <%= f.submit 'Upload Collection', class:"button submit" %> 
 	    </div>
 	  <% end %>
+
 	  <form>
-		Collection JSON Sample <span id='parse' class="uploadjson">Parse</span>
+		Collection JSON Sample 		
 		  <div class="input_box">
-			  <textarea id='json' class="text" placeholder='copy and paste your sample json record here'></textarea>	
-		  </div> 
+			  <textarea id='json' class="text" placeholder='Copy and paste your sample json record here'></textarea>
+		  </div>
+		  <span id='parse' class= "uploadjson">Parse</span>	 
 	  </form>
 	  </div>
 	</div>
@@ -71,6 +77,7 @@
 	<!-- right content -->
      <div id='output' class="right">
 	<div class="holder">
+
 	<div class="titlebar">Active Fields</div>
 	    <div id='output'>
 		<div id='unique_identifier' class='field field_wrapper'>
@@ -97,7 +104,9 @@
 			<input id='field_name' name='field_name' type='text' placeholder='custom field name'>
 			<br>
 			<input type='submit' value='Add field'>
+			
 		</form>
+
 	</div>
 	</div></div><!-- end right content -->
      

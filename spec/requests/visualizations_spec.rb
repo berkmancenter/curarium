@@ -162,16 +162,16 @@ describe 'visualization requests', :js => true do
       }
 
       it {
-        # handles this case now
-        should have_css '.node', count: 2 + 1
+        # no record has two titles (multiple includes require all)
+        should have_css '.node', count: 1
       }
 
       it {
-        should have_css '.node', text: 'Starry Night(1)'
+        should_not have_css '.node', text: 'Starry Night(1)'
       }
 
       it {
-        should have_css '.node', text: 'Mona Lisa(1)'
+        should_not have_css '.node', text: 'Mona Lisa(1)'
       }
 
       it {
@@ -233,18 +233,73 @@ describe 'visualization requests', :js => true do
 
     describe ( 'treemap topics include one' ) {
       before {
-        visit "#{collection_visualizations_path( col )}?type=treemap&property=topics&include[]=topics:Lisa"
+        visit "#{collection_visualizations_path( col )}?type=treemap&property=topics&include[]=topics:women"
       }
 
       it {
-        # useless but possible query
-        # all topics for the records that have topics that include Lisa (one record, returning all its topics)
+        should have_css '.node', count: 10 + 1
+      }
+
+      it {
+        should have_css '.node', text: 'Women(3)'
+      }
+    }
+
+
+    describe ( 'treemap topics include two' ) {
+      before {
+        visit "#{collection_visualizations_path( col )}?type=treemap&property=topics&include[]=topics:women&include[]=topics:portraits"
+      }
+
+      it {
+        # all topics from only records having both included topics: women & portraits
+        should have_css '.node', count: 5 + 1
+      }
+
+      it {
+        should have_css '.node', text: 'Women(2)'
+      }
+    }
+
+    describe ( 'treemap topics exclude two' ) {
+      before {
+        visit "#{collection_visualizations_path( col )}?type=treemap&property=topics&exclude[]=topics:Jesus&exclude[]=topics:women"
+      }
+
+      it {
         should have_css '.node', count: 3 + 1
       }
 
-      #it {
-        #should have_css '.node', text: 'Women(3)'
-      #}
+      it {
+        should_not have_css '.node', text: 'Supper(1)'
+      }
+
+      it {
+        should_not have_css '.node', text: 'Women'
+      }
+
+      it {
+        should have_css '.node', text: 'Stars'
+      }
+    }
+
+
+    describe ( 'treemap topics exclude one' ) {
+      before {
+        visit "#{collection_visualizations_path( col )}?type=treemap&property=topics&exclude[]=topics:Jesus"
+      }
+
+      it {
+        should have_css '.node', count: 8 + 1
+      }
+
+      it {
+        should_not have_css '.node', text: 'Supper(1)'
+      }
+
+      it {
+        should have_css '.node', text: 'Women(2)'
+      }
     }
 
     describe ( 'treemap click' ) {

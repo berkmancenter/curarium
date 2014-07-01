@@ -64,7 +64,7 @@ class VisualizationsController < ApplicationController
         values = p.split ':'
 
         if i > 0
-          where_values[0] = where_values[0] + ' OR '
+          where_values[0] = where_values[0] + ' AND '
         end
 
         where_values[0] = where_values[0] + "lower(parsed->'#{values[0]}') like '%s'"

@@ -1,35 +1,6 @@
-<!-- RYAN: IF YOU'RE SEEING THIS COMMENT IT MEANS I FORGOT TO UNDO CHANGES TO THIS VIEW BEFORE PUSHING. 
-THIS IS BASICALLY A QUICK MOCKUP SO JEFFREY AND MATTHEW CAN SEE HOW YOUR OBJECT MAP LOOKS WITH OUR NEW LAYOUT, BEFORE DOING IT FOR REAL 
-
 <% provide :title, 'Records' %>
 <h1>Records<%= " for #{@collection.name}" if @collection.present? %></h1> 
 
-BEGIN HACK
-
--->
-
-<style type='text/css'>
-  .records-objectmap .geomap {
-    margin-top: -50%;
-    margin-left: -50%;
-  }
-</style>
-
-
-<div class="SUB_MENU">
-    <div class="expandable">
-        Active Collection: 
-        <span class="active_collection">Homeless Paintings</span>
-    </div>
-    <div class="right">
-    	<div class="orderby"><span>Order:</span>
-    			<span><%= image_tag "/clock_r.png", class: "ordering_list" %><%= image_tag "up_r.png" %><%= image_tag "down_r.png" %></span>
-    	</div>
-       
-    </div>
-	<div class="controls_toggle">Visualization Controls <%= image_tag "pulldown_r.png" %><%= image_tag "pullup_r.png" %></div>
-</div><!--- END HACK--->	
-
-<%# render partial: 'records/vis_controls', locals: { params: params } %>
+<%=render partial: 'records/vis_controls', locals: { params: params } %>
 
 <%= render partial: "records/#{params['vis'] || 'objectmap'}", object: @records %>

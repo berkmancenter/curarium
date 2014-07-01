@@ -1,3 +1,4 @@
+//this code was provided by Ole Goethe, along with Spatial C
 $.widget("ui.zoomify", {
   options: {image: "", zoom: 1, x: 0, y: 0, max: 400, ratio_hw: 0},
   image: {},

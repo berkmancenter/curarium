@@ -239,6 +239,7 @@
             var block = this.block_queue[i]
             var img = new Image;
             img.src = block.info['thumbnail']
+            //img.src = 'http://'+ window.location.host+'/records/'+block.info['id']+'/thumb'
             img.element = block.element
             img.onload = this.removeClassFromParent
         } else {
@@ -301,7 +302,7 @@
         moveicon.onmousedown = this.movemousedown
         moveicon.pressed = false
         moveicon.style.display = 'none'
-        this.element.appendChild(moveicon)
+        //this.element.appendChild(moveicon)
 
         var text = document.createElement('span')
         text.setAttribute('class', 'text')
@@ -317,7 +318,7 @@
         $(this.element).find('.moveicon').css('display', 'block')
         var id = this.element.getAttribute('id')
         this.element.onclick = function(){
-			window.open('http://curarium.herokuapp.com/records/' + id, '_blank');
+			recordPopup(id);
 		};
         for (prop in this.clones)
         {

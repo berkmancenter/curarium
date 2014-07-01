@@ -1,4 +1,62 @@
-<% content_for :main_class, raw("class='no-secondary-nav'") %>
+<!--- BEGIN SUB MENU -->	
+<div class="SUB_MENU bubble_menu">
+			<div class="titlebar main bord"><%= image_tag "spotlight_r.png" %>Spotlight Viewer</div>
+			
+</div><!--- END SUB MENU -->	
+
+
+
+<div class="spotlight_viewedit">
+	 
+	<div class="viewer">
+		<div class="titlebar bord"><%= title @spotlight.title %></div>
+				<div id="subtitle" >by <%= link_to @spotlight.user.name, @spotlight.user %> on <%=@spotlight.created_at.strftime("%d %b %y")%></div>
+		<div class="scroll">
+			  <% text = @spotlight.body %>
+			  <% if text.match /\<(\d+)\>/ %>
+			  <%= raw(text.gsub! /\<(\d+)\>/, "<a href='#spotlight_reference_\\1'>(see figure \\1)</a>") %> <!-- BACKWARDS COMPATIBILITY -->
+			  <% elsif text.match /\{(\d+)\}/ %>
+			  <%= raw(text.gsub! /\{(\d+)\}/, "<a href='#spotlight_reference_\\1'>(see figure \\1)</a>") %> 
+			  <% else %>
+			  <%= raw text %>
+			  <% end %>
+		</div>
+	</div>
+	<div id='spotlight_references'>
+		<div class="titlebar bord">References</div>
+		<div id='references_wrapper'>
+			<% if @spotlight.components%>
+			 <% @spotlight.components.each_with_index do |c,i|%>
+			  <div id='spotlight_reference_<%=i%>' class="reference">
+			
+			  <div class="scroll">
+			  	<% if c['type'] == 'record' %>
+			  		<a href='/records/<%=c['id']%>?image=<%=c['surrogate']%>' target='_blank'><div style="background-image:url('<%=c['image']%>')"></div></a>
+			  	<% elsif c['type'] == 'annotation' %>
+			  		<a href='/records/<%=c['id']%>?image=<%=c['surrogate']%>' target='_blank'><div id='annotation_wrapper_<%=i%>' ></div></a>
+			  		<script>
+			  			window.spotlights.display_annotation('annotation_wrapper_<%=i%>', <%= raw(c['content'].to_json) %>)
+			  		</script>
+			  	<% elsif c['type'] == 'visualization' %>
+			  		<a href="<%=c['body']['url']%>" target='_blank'><div class='visualization_component'></div></a>
+			  		<script type="text/javascript">
+			  			window.visualization['<%=c['body']['terms']['type']%>']('spotlight_reference_<%=i%>', "<%=c['body']['url']%>");
+			  			global_function();
+			  		</script>
+			  	<% end %>
+			  	</div>
+			  </div>
+			  <% end %>
+			<% end %>
+		</div>
+	</div>
+</div>
+
+
+
+ 
+
+<!--
 <div id='spotlight_text'>
 	<h2 id='spotlight_title'><%= title @spotlight.title %></h2>
 	<p>by <%= link_to @spotlight.user.name, @spotlight.user %> on <%=@spotlight.created_at%></p>
@@ -6,7 +64,7 @@
 	<div id='spotlight_body'>
 	  <% text = @spotlight.body %>
 	  <% if text.match /\<(\d+)\>/ %>
-	  <%= raw(text.gsub! /\<(\d+)\>/, "<a href='#spotlight_reference_\\1'>(see figure \\1)</a>") %> <!-- BACKWARDS COMPATIBILITY -->
+	  <%= raw(text.gsub! /\<(\d+)\>/, "<a href='#spotlight_reference_\\1'>(see figure \\1)</a>") %> 
 	  <% elsif text.match /\{(\d+)\}/ %>
 	  <%= raw(text.gsub! /\{(\d+)\}/, "<a href='#spotlight_reference_\\1'>(see figure \\1)</a>") %> 
 	  <% else %>
@@ -37,7 +95,7 @@
   		<!--
   		<%# @visualization = { type: c['body']['terms']['type'], url: c['body']['url']}%>
   		<%# render partial: 'shared/embed', locals: {visualization: @visualization}%>
-  		-->
+
   		<a href="<%=c['body']['url']%>" target='_blank'><div class='visualization_component'></div></a>
   		<script type="text/javascript">
   			window.visualization['<%=c['body']['terms']['type']+'_embedded'%>']('spotlight_reference_<%=i%> .visualization_component', "<%=c['body']['url']%>");
@@ -49,3 +107,4 @@
 </div>
  <% end %>
 
+-->

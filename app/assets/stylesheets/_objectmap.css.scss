@@ -8,12 +8,11 @@
   }
 
   .minimap.geo-map {
-    bottom: 1em;
+    bottom: 3em;
     border: solid 5px white;
-    height: 256px;
-    left: 1em;
     position: absolute;
-    width: 256px;
+    height: 128px; /* was 256 */
+    width: 128px;
   }
 }
 

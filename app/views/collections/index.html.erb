@@ -1,4 +1,4 @@
-<!--- BEGIN SUB MENU  (this will maybe become a partial)--->	
+<!-- BEGIN SUB MENU  (this will maybe become a partial) -->	
 <div class="SUB_MENU">
   <div class="expandable">
     Active Collection: 
@@ -6,12 +6,20 @@
   </div>
   <div class="right">
     <div class="orderby"><span>Order:</span><span><%= image_tag "clock_r.png" %><%= image_tag "up_r.png" %><%= image_tag "down_r.png" %></span></div>
-    </div>
- </div>
-<!--- END SUB MENU --->	
+    </div>   
+ </div> 
+ <%= render 'shared/global' %>
+<!-- END SUB MENU -->	
+
+
+<% if flash[:alert] %>
+	<p class='button'>
+		<%= flash[:alert] %>
+	</p>
+<% end %>
+
       
-      
-<!--- BEGIN GALLERY --->	     
+<!-- BEGIN GALLERY -->	     
 <div class="GALLERY">
   <% @collections.each do |collection| %>
     <% if collection.approved  %>
@@ -22,4 +30,4 @@
     <div class="createnew"> <%= link_to 'New Collection', new_collection_path %> </div>
   </div>
 	      
-</div><!--- END GALLERY --->  
+</div><!--- END GALLERY -->  

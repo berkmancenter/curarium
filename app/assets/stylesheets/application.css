@@ -27,7 +27,6 @@
   margin: 0;
   padding: 0;
   border: 0;
-  /*font-family: Lato;*/
 }
 
 a {
@@ -46,46 +45,40 @@ html, body {
 
 
 
-/*input[type=submit], .fake_button {
-  display: inline-block;
-  background: black;
-  border: 1px solid white;
-  font-size: 8pt;
-  color: white;
-  
-  border-radius: 4px;
-  width: auto;
-  cursor: pointer;
-  &:hover {
-    font-weight: bold;
+.record_thumbnail {
+    padding: 1px;
+    width: 75px;
+    height: 75px;
+    margin: 0.1em;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    float: left;
+    position: relative;
+
   }
-}*/
+
+.record_thumbnail h3{
+	font-size: 6pt;
+      position: absolute;
+      background: #d2232a;
+      color: white;
+      width: 100%;
+      bottom: 0;
+      left: 0;
+      height: 3em;
+      overflow: hidden;
+
+}
 
 select {
    background-color: white;
 }
 
-.window {
-  border: 1px solid gray;
-  height: 15px;
-  overflow: hidden;
+input[type=text], input[type=password], textarea {
+  border: 1px solid #CCC !important;
 }
 
-.window_header {
-  background: black;
-  color: white;
-  cursor: pointer;
-  height: 15px;
-  font-size: 12px;
-}
-
-.window_body {
-  padding: 5px;
-}
-
-#secondary_nav{
-position: relative;
-display: inline-block;
-height: 50px;
-width:50%
+.tag_selector {
+  width: 100%;
 }

@@ -2,21 +2,6 @@ record = {}
 window.collection = {}
 
 
-
-window.collection.visualization_controls = (properties)->
-  options = []
-  $('form>h3').click (e)->
-    $(this).data('toggle', !$(this).data('toggle'))
-    t = $(this).data('toggle')
-    if t
-      $(this).parent().css('height', 'auto')
-      $(this).css('color', 'gray')
-    else
-      $(this).parent().css('height', 20)
-      $(this).css('color', 'white')
-  undefined
-
-
 #COLLECTION CONFIGURATION
 
 window.collection.configure = ->
@@ -26,15 +11,14 @@ window.collection.configure = ->
   $('#output .field_wrapper').droppable
     drop : field_drop
   
-  $('#output .field_wrapper').click (e) ->
-    console.log $(this).data('path').toString()
-  
-  $('#parse').submit (e) ->
+  #function that parses the pasted json into droppable collapsable and draggable definition lists
+  $('#parse').click (e) ->
     e.preventDefault()
     $('#parsed').empty()
     try
       record = JSON.parse($("#json").val())
       $('#parsed').append(printRecord(record))
+      #print record is the function that does the actual parsing.
       $('#parsed dd').draggable
         helper : "clone"
       $('#parsed dd').attr('title', 'drag me to a field')
@@ -47,11 +31,11 @@ window.collection.configure = ->
   $('form#add_field').submit (e) ->
       e.preventDefault()
       field_name = $(this).find('input[name=field_name]').val()
-      new_field = $('<div>').attr('class', 'field_wrapper').attr('id', field_name).droppable
+      new_field = $('<div>').attr('class', 'field field_wrapper').attr('id', field_name).droppable
         drop : field_drop
       title = $('<p>').append(field_name)
       $(new_field).append(title)
-      close = $('<div>').attr('class', 'close').append('X').click (e) ->
+      close = $('<div>').attr('class', 'close').click (e) ->
         $(this).parent().remove()
       $(new_field).append(close)
       $("#output form#add_field").before(new_field)
@@ -69,8 +53,12 @@ window.collection.configure = ->
        $(this).trigger('submit')
      undefined
 
+#This function is called by the collections/edit view to make sure that the stored version of the configuration 
+#shows up when modifying the Collection.
 window.collection.populate_fields = (configuration)->
+  #delete the four required fields (these will be replaced by configured versions of themselves)
   $('#unique_identifier, #title, #image, #thumbnail').remove()
+  #for each element in the configuration, create a field on the right part of the page, and assign it its current path.
   for field, path of configuration
     field_name = field
     new_field = $('<div>').attr('class', 'field_wrapper').attr('id', field_name).droppable
@@ -112,7 +100,9 @@ window.collection.populate_fields = (configuration)->
     $(new_field).append(value)
   undefined
 
-field_drop = (e, d) -> #specifies the "droppable" behavior when dragging fields from the original records into the custom curarium fields. Reads the path, generates a form for modifying numeric values and gives a sample output.
+#field_drop() specifies the "droppable" behavior when dragging fields from the original records into the custom curarium fields. 
+#Reads the path, generates a form for modifying numeric values and gives a sample output.
+field_drop = (e, d) -> 
   path = $(d.draggable).data('path')
   $(this).data('path', path)
   field = $('<form>')
@@ -142,6 +132,7 @@ field_drop = (e, d) -> #specifies the "droppable" behavior when dragging fields 
   value = $("<div class='value'>").append(traceField(record, path))
   $(this).append(value)
 
+#TraceField
 traceField = (object, path) ->
   if object[path[0]]?
     current = object[path[0]]
@@ -161,7 +152,10 @@ traceField = (object, path) ->
   else
     return null
 
-#this function takes a JSON structure and outputs a nested definition list. Keys and Array indexes are converted into Definition Terms(<dt>), Objects and Arrays into Definition Lists(dl) and numeric and string values into Definition Definitions(<dd>)
+#print_record takes a JSON structure and outputs a nested definition list. 
+#Keys and Array indexes are converted into Definition Terms(<dt>), 
+#Objects and Arrays into Definition Lists(dl),
+#numeric and string values into Definition Definitions(<dd>)
 printRecord = (json, path=[]) -> 
     localpath = path.slice(0)
     if typeof json is 'object'
@@ -190,6 +184,9 @@ printRecord = (json, path=[]) ->
       return item
 
 #COLLECTION QUERY
+
+#this object contains the values that control visualizations:
+#which type it is, which property is visualizing, which keywords are included, and which excluded.
 window.collection.query = 
   length: null
   type: 'thumbnail'
@@ -199,6 +196,7 @@ window.collection.query =
   exclude : []
   minimum: 0
 
+#this function simply encodes the preceding object into  URL parameters
 window.collection.query_terms = ->
   query = window.collection.query
   type = '?type=' + query.type
@@ -240,10 +238,7 @@ window.collection.show = ->
     undefined
   
   $('.property_link').click ()->
-    #property_list =$("#tag_holder")
     property = $("#select_property").val()
-    #property_list.empty()
-    #property_list.data('property', property)
     $('.filter').val('')
     query_type_placeholder = window.collection.query.type
     query_property_placeholder = window.collection.query.property
@@ -279,6 +274,8 @@ window.collection.show = ->
     
   undefined
 
+#when reloading the page, update_controls makes sure that the current visualization options are properly displayed
+#in the visualization controls.
 update_controls = () ->
   
   $("#tag_holder").empty()
@@ -293,20 +290,6 @@ update_controls = () ->
     $("#tag_holder").append visualization_property('exclude', property)
   undefined
 
-###
-inc_exc = (e) ->
-  type = $(this).data('type')
-  value = $("#query_term").val()
-  property = $("select_property").val()
-  query_string = property+":"+value
-  window.collection.query[type].push(query_string)
-  $("#query_#{type}").append visualization_property(type, query_string)
-  $.getJSON(
-    window.location.pathname + "/visualizations"+ window.collection.query_terms()
-    (data) ->
-      $('#record_count').val(data.length)
-    )
-###
 
 visualization_property = (type, string)->
   remove = $("<span class='remove_element'></span>").click ->
@@ -314,8 +297,3 @@ visualization_property = (type, string)->
     remove_index = window.collection.query[type].indexOf(string)
     window.collection.query[type].splice(remove_index,1)
   return $("<span class='query_element #{type}'>").append($("<span class='element' data-term='#{string}'>#{string.split(':')[1]}</span>")).append(remove)
-
-###
-query_button = (value) ->
-  $("<span class='query_button'>"+value+"</span>").click(inc_exc)
-###

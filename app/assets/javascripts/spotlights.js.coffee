@@ -1,26 +1,25 @@
-# Place all the behaviors and hooks related to the matching controller here.
-# All this logic will automatically be available in application.js.
-# You can use CoffeeScript in this file: http://coffeescript.org/
 
-#create
 
 window.spotlights = {}
 
+#Components are Images, Annotations and visualizations that form part of a Spotlight
+#While the spotlight is being edited, and before it is saved, its components live in the spotlights.components Array/
 window.spotlights.components = []
 
+
+#CREATE
+#THIS FUNCTION GETS CALLED BY THE SPOTLIGHTS' NEW PAGE
 window.spotlights.create = () ->
-  $("#type").change (e)->
-    $(this).val('article')
-    alert('not available yet!')
-    undefined
   $('#spotlight_body, #spotlight_title').val('')
   $('#new_spotlight').submit (e)->
     e.preventDefault();
+    #serialize spotlight form and append the spotlight components to it
     array_params = $(this).serializeArray()
     array_params.push(
       name: 'spotlight[components]'
       value: JSON.stringify(window.spotlights.components) 
     )
+    #convert the to make it compatible with ActiveRecord
     object_params = {}
     for p in array_params
       object_params[p.name] = p.value
@@ -36,21 +35,18 @@ window.spotlights.create = () ->
         'X-CSRF-Token' : $("meta[name='csrf-token']").attr('content')
     )
   undefined
-  
+
+#UPDATE
+#THIS FUNCTION GETS CALLED BY THE SPOTLIGHTS' EDIT PAGE  
 window.spotlights.update = (id) ->
-  $("#type").change (e)->
-    $(this).val('article')
-    alert('not available yet!')
-    undefined
-    
+  #Populate the components section with those of the Spotlight being edited
   $.getJSON('/spotlights/'+id, (data)->
     for component, i in data.components
       render_thumbnail(component, i)
-      #square = $("<div>#{i}</div>")
       window.spotlights.components.push(component)
-      #$('#spotlight_components').append(square)
   )
     
+  #Just like on spotlights.create, but with a PUT request
   $('.edit_spotlight').submit (e)->
     e.preventDefault();
     array_params = $(this).serializeArray()
@@ -74,6 +70,9 @@ window.spotlights.update = (id) ->
     )
   undefined
 
+
+#HELPER FUNCTIONS
+#THIS FUNCTION RENDERS AN ANNOTATION IN THE SPOTLIGHTS' SHOW ACTION (A PUBLISHED SPOTLIGHT).
 window.spotlights.display_annotation = (wrapper, content)->
   context = $('#'+wrapper).attr('class') == 'user_annotation'
   x_fit = if context then $('#'+wrapper).width()/content.width else 1
@@ -108,6 +107,7 @@ window.spotlights.display_annotation = (wrapper, content)->
     stage.draw()
   undefined
 
+#THIS FUNCTION TAKES A COMPONENT AND RENDERS IT ON THE PAGE ACCORDING TO ITS TYPE. IT'S CALLED BY THE SPOTLIGHT UPDATE FUNCTION
 render_thumbnail = (data, i) ->
   switch data.type
     when 'record'

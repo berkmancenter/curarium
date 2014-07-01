@@ -3,25 +3,46 @@
 	<p id="title" class='error'>
 		<%= flash[:alert] %>
 	</p>
-	<% else %>
-	<p id="title">
-		Please Log In
-	</p>
 	<% end %>
-	<%= form_tag do %>
-	<fieldset>
-		<div>
-			<%= label_tag :email, 'Email:' %>
-			<%= text_field_tag :email, params[:email] %>
-		</div>
-		<div>
-			<%= label_tag :password, 'Password:' %>
-			<%= password_field_tag :password, params[:password] %>
-		</div>
-		<div>
-			<%= submit_tag "Login" %>
-		</div>
-	</fieldset>
-	<% end %>
-	<p class='new_user'>new user? <%= link_to 'sign up', controller:'users', action: 'new'%>
+	
 </div>
+
+<!--- BEGIN INFO BAR -->	
+<div class="INFO_BAR">
+    <div class="left shifter">
+        <%= image_tag "animated_icon.gif", id: "hint_orig" %>
+		<%= image_tag "hint_collection.png", id: "hint_coll" %>
+		<%= image_tag "hint_spotlight.png", id: "hint_spot" %>
+		<%= image_tag "hint_explore.png", id: "hint_expl" %>
+		<%= image_tag "hint_user.png", id: "hint_user" %>
+    </div>
+    <div class="expandable"><div class="info_text">
+		<div class="hintbar_desc">
+		<span>
+		Member Log in</br>
+		</span>
+		</div>
+    	
+    	<div id="hintbar_links" class="login">
+				<%= form_tag do %>
+				<fieldset>
+					<div class="login_signup">
+						<%= label_tag :email, 'Email:' %>
+						<%= text_field_tag :email, params[:email], class:"text" %>
+					</div>
+					<div class="login_signup">
+						<%= label_tag :password, 'Password:' %>
+						<%= password_field_tag :password, params[:password], class:"text"  %>
+					</div>
+					<div>
+						<%= submit_tag "Login", class:"button" %>
+					</div>
+				</fieldset>
+				<% end %>
+				<p class='switch'>Not a member?<%= link_to 'sign up', controller:'users', action: 'new'%>
+			</div>
+		</div>
+    </div>
+  </div>
+ 
+</div><!--- END INFO BAR --->	

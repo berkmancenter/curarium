@@ -1,13 +1,15 @@
-
 <script>
+
 	$(document).ready(function(){
+		global_function();
 		<% image = params[:image].to_i || 0%>
 		window.record.display('<%= JSON.parse(@current_metadata['image'])[image]%>');
 		$('img.surrogate_thumbnail').each( function(i){
 			$(this).click(function(e){
 				window.location = "?image="+i
-			});
+			});		
 		});
+		
 		<% if session[:user_id] %>
 		window.trays.add_record([<%= params[:id] %>],<%= session[:user_id].to_i%>);
 		window.record.update();
@@ -15,218 +17,130 @@
 	});
 </script>
 
-
-<!--- BEGIN SUB MENU --->	
+<!-- BEGIN SUB MENU -->	
 <div class="SUB_MENU bubble_menu">
 	<table cellspacing="0" cellpadding="0"><tr>
+		
 		<td valign="top" class="bub_menu">
 			<div class="menu_piece">
 			<div class="button">Parsed Information<%= image_tag "pulldown_r.png" %><%= image_tag "pullup_r.png" %></div>
 			<div class="expand">
-				<!-- THIS IS WHERE THE PARSED RECORD INFORMATION GOES --->
+				<!-- THIS IS WHERE THE PARSED RECORD INFORMATION GOES -->
 				<%= print_metadata @record.parsed, @current_metadata, 'printed_object', 'parsed_record' %>
 			</div>
 			</div>
-		</td><td valign="top" class="bub_menu surrogates">
+		</td>
+
+		<td valign="top" class="bub_menu surrogates">
 			<div class="menu_piece">
 			<div class="button">Surrogates<%= image_tag "pulldown_r.png" %><%= image_tag "pullup_r.png" %></div>
 			<div class="expand">
-				<!-- THIS IS WHERE THE SURROGATE IMAGES GO --->
+				<!-- THIS IS WHERE THE SURROGATE IMAGES GO -->
 			<nav>
-			    <% images= eval(@current_metadata['image']) %>
+			    <% images= JSON.parse(@current_metadata['image']) %>
 			    <% images.each do |image|%>
 				<img src='<%= image+'?width=10000&height=10000'%>' class='surrogate_thumbnail'>
 			    <% end %>
 			</nav>
 			</div>
 			</div>
-		</td><td valign="top" class="bub_dis nohover">
+		</td>
+
+		<td valign="top" class="bub_dis nohover">
 			<div class="menu_piece">
-			<div class="button">Record #02323<%= image_tag "edit_r.png" %></div>
+			<div class="button"><%=@record.id%><%= image_tag "edit_r.png" %></div>
 			<div class="expand">
 			</div>
 			</div>
-		</td><td valign="top" class="bub_menu">
+		</td>
+
+		<td valign="top" class="bub_menu">
 			<div class="menu_piece">
 			<div class="button">Add to Tray<%= image_tag "pulldown_r.png" %><%= image_tag "pullup_r.png" %></div>
 			<div class="expand">
 			      <% if session[:user_id] %>
-			      <!-- THIS IS WHERE THE LIST OF TRAYS GOES --->
-				<div class="tray">Tray 01<div class="add">add</div></div>
-				<div class="tray">Tray 02<div class="add">add</div></div>
-				<div class="tray">Tray 03<div class="add">add</div></div>
-				<div class="tray">Tray 04<div class="add">add</div></div>
-				<div class="tray">Tray 05<div class="add">add</div></div>
-				<!-- old form for adding to trays, keeping for reference
-				<form id='add_record_to_tray'>
-					<select name='tray'>
-						<option selected='true' disabled>SELECT TRAY</option>
-						<option value='new_tray'>New Tray</option>
-						<% User.find(session[:user_id]).trays.each do |tray| %>
-						<option value='<%= tray.id%>'><%= tray.name %></option>
-						<% end %>
-					</select>
-					<input name='new_tray' style='display: none'>
-					<input type='submit' value="Add to Tray">
-				</form>
-				-->
+
+			      <!-- THIS IS WHERE THE LIST OF TRAYS GOES -->
+
+				 <div class="new_tray"> <input type='text' placeholder='new tray'><div class="add">add</div></div>
+				<% User.find(session[:user_id]).trays.each do |tray| %>
+				  <div class="tray" data-tray='<%= tray.id%>' data-tray_name='<%= tray.name%>'><%= tray.name %><div class="add">add</div></div>
+				<% end %>
+				<!-- missing create new tray -->
 			      <% end %>
 				
 			</div>
 			</div>
-		</td><td valign="top" class="bub_menu">
+		</td>
+
+		<td valign="top" class="bub_menu">
 			<div class="menu_piece">
 			<div class="button">Annotate<%= image_tag "pulldown_r.png" %><%= image_tag "pullup_r.png" %></div>
 			<div class="expand">
-				<!-- THIS IS WHERE THE ANNOTATION STUFF GOES --->
-				This is where the annotations go
-				</br>This is where the annotations go
-				</br>This is where the annotations go
-				</br>This is where the annotations go
-				</br>This is where the annotations go
-				</br>This is where the annotations go
-				</br>This is where the annotations go
-				</br>This is where the annotations go
-				</br>This is where the annotations go
-				</br>This is where the annotations go
-				
+			  <div id='annotations'>
+			    <% if session[:user_id] %>
+			    <h4 class='window_header'>ANNOTATE IMAGE</h4>
+			    <div class='window_body'>
+				<div id='preview_window'></div>
+				<%= form_for([@record, @record.annotations.build]) do |f| %>
+					<%= f.fields_for :content do |content|%><br>
+					<div>
+						<%= content.label :title%><br>
+						<%= content.text_field :title%>
+					</div>
+					<div>
+						<%= content.label :body%><br>
+						<%= content.text_area :body%>
+					</div>
+					<%= content.hidden_field :x, id: 'content_x'%>
+					<%= content.hidden_field :y, id: 'content_y'%>
+					<%= content.hidden_field :width, id: 'content_width'%>
+					<%= content.hidden_field :height, id: 'content_height'%>
+					<%= content.hidden_field :image_url, id: 'content_url'%>
+				    <% end %>		
+				<%= tag_selector @current_metadata %>
+				<p>
+				  <%= f.submit %>
+				</p>
+				<% end %>
+
+				<% end %>
+				<div id='record_annotations'>
+					<% @record.annotations.each do |annotation|%>
+						<% if annotation.content %>
+								<div class='annotation_wrapper' id='note_<%= annotation.id%>'>
+									<p class='annotation_title'>
+										<%= annotation.content['title'] %>
+									</p>
+									<p class='annotation_body'>
+										<%= annotation.content['body'] %>
+									</p>
+									<%unless annotation.content['tags'].nil? %>
+									<div class='annotation_tags'>
+										<% annotation.content['tags'].each do |tag| %>
+										<p class='annotation_tag'>
+											<%= tag%>
+										</p>
+										<% end %>
+									</div>
+									<% end %>
+									<p class='annotation_attribution'>
+										by <%= annotation.user.name %> on <%= annotation.created_at %>
+									</p>
+								</div>
+						<% end %>
+					<% end %>
+				</div>
+				</div>
+			</div>
 			</div>
 			</div>
 		</td>
 	</tr></table>
-	
-</div><!--- END SUB MENU --->	
 
-<!--- BEGIN COLLECTION CREDIT --->
+</div><!-- END SUB MENU -->	
+
+<!-- BEGIN COLLECTION CREDIT -->
 	  <div class="credit"><a href="">Collection provided by <%= @record.collection.source%></a></div>
-	  <div class="return"><a href="">&#10094; Return to Explore</a></div>
-<!--- END COLLECTION CREDIT --->
-
-<!--
-<% title eval(@current_metadata['title'])[0] %>
-
-<nav id="secondary_nav">
-
-	
-
-	<div id='annotation_toggle_wrapper'>
-		<form>
-			<label for='annotation_togle'>Show annotations</label>
-			<input type='checkbox' id='annotation_toggle' checked>
-		</form>
-	</div>
-</nav>
-
-<div id='main-canvas'>
-	
-</div>
-
-<div id='record-data'>
-	<script>
-		$(document).ready(function() {
-			$('#parsed_record .key').parent().click(function(e) {
-				$(this).next().find('.value').toggle();
-			});
-			$('#original_record *').show();
-			$('#original_record>.key').next().hide();
-			$('#original_record>.key').click(function(e) {
-				$(this).next().toggle();
-			});
-		});
-	</script>
-
-	<section>
-		<%= print_metadata @record.parsed, @current_metadata, 'printed_object', 'parsed_record' %>
-		<%= print_json @record.original, 'printed_object', 'original_record' %>
-	</section>
-</div>
-<div id='annotations'>
-	<% if session[:user_id] %>
-	<div id='record_annotate' class='window'>
-		<h4 class='window_header'>ANNOTATE IMAGE</h4>
-		<div class='window_body'>
-			<div id='preview_window'></div>
-			<%= form_for([@record, @record.annotations.build]) do |f| %>
-				<%= f.fields_for :content do |content|%><br>
-			    	<div>
-			    		<%= content.label :title%><br>
-			    		<%= content.text_field :title%>
-			    	</div>
-			    	<div>
-			    		<%= content.label :body%><br>
-			    		<%= content.text_area :body%>
-			    	</div>
-			    	<%= content.hidden_field :x, id: 'content_x'%>
-			    	<%= content.hidden_field :y, id: 'content_y'%>
-			    	<%= content.hidden_field :width, id: 'content_width'%>
-			    	<%= content.hidden_field :height, id: 'content_height'%>
-			    	<%= content.hidden_field :image_url, id: 'content_url'%>
-			    <% end %>		
-			<%= tag_selector @current_metadata %>
-			<p>
-				<%= f.submit %>
-			</p>
-			<% end %>
-		</div>
-	</div>
-	<% end %>
-	<div id='record_annotations'>
-		<% @record.annotations.each do |annotation|%>
-			<% if annotation.content %>
-				<% if annotation.user_id == session[:user_id] %>
-					<div class='annotation_wrapper' id='note_<%= annotation.id%>'>
-						<p class='edit_clipping'>add/edit clipping</p>
-						<%= form_for([@record, annotation], {method: :put}) do |f| %>
-							<%= f.fields_for :content do |content|%><br>
-						    	<div>
-						    		<%= content.label :title%><br>
-						    		<%= content.text_field :title, value: annotation.content['title'] %>
-						    	</div>
-						    	<div>
-						    		<%= content.label :body%><br>
-						    		<%= content.text_area :body, value: annotation.content['body']%>
-						    	</div>
-						    	<%= content.hidden_field :x, class: 'content_x', value: annotation.content['x']%>
-						    	<%= content.hidden_field :y, class: 'content_y', value: annotation.content['y']%>
-						    	<%= content.hidden_field :width, class: 'content_width', value: annotation.content['width']%>
-						    	<%= content.hidden_field :height, class: 'content_height', value: annotation.content['height']%>
-						    	<%= content.hidden_field :image_url, class: 'content_url', value: annotation.content['image_url']%>
-						    	<% unless annotation.content['tags'].nil? %>
-						    		<% annotation.content['tags'].each do |tag| %>
-						    			<input type='text'class='annotation_tag' readonly='readonly' value='<%= tag%>' title='<%= tag%>' name='annotation[content][tags][]'>
-						    		<% end %>
-						    	<% end %>
-						    <% end %>		
-							<%= tag_selector @current_metadata %>
-							<p>
-								<%= f.submit %>
-							</p>
-						<% end %>
-					</div>
-				<% else %>
-					<div class='annotation_wrapper' id='note_<%= annotation.id%>'>
-						<p class='annotation_title'>
-							<%= annotation.content['title'] %>
-						</p>
-						<p class='annotation_body'>
-							<%= annotation.content['body'] %>
-						</p>
-						<%unless annotation.content['tags'].nil? %>
-						<div class='annotation_tags'>
-							<% annotation.content['tags'].each do |tag| %>
-							<p class='annotation_tag'>
-								<%= tag%>
-							</p>
-							<% end %>
-						</div>
-						<% end %>
-						<p class='annotation_attribution'>
-							by <%= annotation.user.name %> on <%= annotation.created_at %>
-						</p>
-					</div>
-				<% end %>
-			<% end %>
-		<% end %>
-	</div>
-</div>
--->
+	  <div class="return"><a href="" onclick="javascript: history.go(-1)">&#10094; Return to Explore</a></div>
+<!--- END COLLECTION CREDIT -->

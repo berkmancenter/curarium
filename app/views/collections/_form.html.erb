@@ -1,72 +1,94 @@
-<section id='input' class='configure_collection'>
-	<%= form_for(@collection, :html => { :multipart => true }) do |f| %>
-	<% if @collection.errors.any? %>
-	<div id="error_explanation">
-		<h2><%= pluralize(@collection.errors.count, "error") %> prohibited this collection from being saved:</h2>
+<!--- BEGIN SUB MENU --->	
+<div class="SUB_MENU">
+			<div class="titlebar main bord">Collection Creator</div>
+			<!-- <div class="button submit">Upload Collection</div> -->
+</div><!--- END SUB MENU --->	
 
-		<ul>
-			<% @collection.errors.full_messages.each do |msg| %>
-			<li>
-				<%= msg %>
-			</li>
-			<% end %>
-		</ul>
+
+<!--- BEGIN ABOUT CONTENT --->	
+
+<div class="uploader_content">	
+	<!-- left content -->
+	<div class="left"><div class="holder">
+	  <%= form_for(@collection, :html => { :multipart => true }) do |f| %>
+	    <% if @collection.errors.any? %>
+	      <div id="error_explanation">
+		      <h2><%= pluralize(@collection.errors.count, "error") %> prohibited this collection from being saved:</h2>
+
+		      <ul>
+			      <% @collection.errors.full_messages.each do |msg| %>
+			      <li>
+				      <%= msg %>
+			      </li>
+			      <% end %>
+		      </ul>
+	      </div>
+	    <% end %>
+	    
+	    <div class="titlebar">General Information</div> 
+	    Collection Name
+	    <div class="input_box">
+		    <%= f.text_field :name, placeholder: "Choose a name for your collection", class: 'text' %>
+	    </div> 
+	    Collection Description
+	    <div class="input_box">
+		    <%= f.text_area :description, placeholder: "A description of your collection. It can be a long text.", id:"spotlight_body", class: 'text' %>	
+	    </div> 
+	    Collection Provider
+	    <div class="input_box">
+		    <%= f.text_field :source, placeholder: "Identify the provider of this collection", class: 'text' %>
+	    </div> 
+
+	    <input type='file' name='file'>
+
+	    <div class="field">
+		    <%= f.hidden_field :configuration, value: "{}" %>
+	    </div>
+
+	    <div class="actions">
+		    <%= f.submit 'Upload Collection', class:"button submit" %>
+	    </div>
+	  <% end %>
+	  <form>
+		Collection JSON Sample <span id='parse' class="uploadjson">Parse</span>
+		  <div class="input_box">
+			  <textarea id='json' class="text" placeholder='copy and paste your sample json record here'></textarea>	
+		  </div> 
+	  </form>
+	  </div>
 	</div>
-	<% end %>
+    
+    <!-- middle content -->
+    <div class="expandable"><div class="holder">
+		<!-- ABOUT CONTENT -->
+		<div class="titlebar">Collection JSON File</div>
+		Parsed json file
+		<div class="json_holder" id='parsed'>
+				No File - Please Upload a JSON file		
+		</div>
+    </div></div><!-- end middle content -->
 
-	<div class="field">
-		<%= f.label :name %>
-		<br>
-		<%= f.text_field :name, placeholder: "the title of your collection" %>
-	</div>
-	<div class="field">
-		<%= f.label :description %>
-		<br>
-		<%= f.text_area :description, placeholder: "A description of your collection. It can be a long text." %>
-	</div>
-
-	<div class="field">
-		<%= f.label :source %>
-		<br>
-		<%= f.text_field :source, placeholder: "Collection originally hosted by..." %>
-	</div>
-
-	<input type='file' name='file'>
-
-	<div class="field">
-		<%= f.hidden_field :configuration, value: "{}" %>
-	</div>
-
-	<div class="actions">
-		<%= f.submit %>
-	</div>
-	<% end %>
-	<form id='parse'>
-		<textarea id='json' placeholder='copy and paste your sample json record here'></textarea>
-		<br >
-		<input type='submit' value='parse'>
-	</form>
-
-</section>
-<section id='parsed' class='configure_collection'></section>
-<section id='output' class='configure_collection'>
-	<div id='output'>
-		<div id='unique_identifier' class='field_wrapper'>
+	<!-- right content -->
+     <div id='output' class="right">
+	<div class="holder">
+	<div class="titlebar">Active Fields</div>
+	    <div id='output'>
+		<div id='unique_identifier' class='field field_wrapper'>
 			<p>
 				Unique Identifier
 			</p>
 		</div>
-		<div id='title' class='field_wrapper'>
+		<div id='title' class='field field_wrapper'>
 			<p>
 				title
 			</p>
 		</div>
-		<div id='image' class='field_wrapper'>
+		<div id='image' class='field field_wrapper'>
 			<p>
 				image
 			</p>
 		</div>
-		<div id='thumbnail' class='field_wrapper'>
+		<div id='thumbnail' class='field field_wrapper'>
 			<p>
 				thumbnail
 			</p>
@@ -76,8 +98,7 @@
 			<br>
 			<input type='submit' value='Add field'>
 		</form>
-		<!-- <form id='submit_configuration'>
-		<input type='submit' value='Submit Configuration'>
-		</form>-->
 	</div>
-</section>
+	</div></div><!-- end right content -->
+     
+</div><!--- END ABOUT CONTENT --->	

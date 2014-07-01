@@ -15,22 +15,25 @@
 		window.trays.add_records(<%= session[:user_id].to_i%>);
 		window.trays.add_visualization(<%= session[:user_id].to_i%>);
 		<% end %>
-		
+
+		global_function();
+		/*
 		var id = setInterval(function() {
 			$("#query_length").val(window.collection.query.length);
 		}, 500);
+		
 		
 		$('.sort').click(function() {
 	        $('#visualization_container').spatialc({
 	            'sort_by': $(this).data('sort_by'),
 	        });
-    	});
+		});*/
 		
 	});
 </script>
 
 
-<!--- BEGIN SUB MENU --->	
+<!--- BEGIN SUB MENU -->	
 <div class="SUB_MENU">
     <div class="expandable">
         Active Collection: 
@@ -41,12 +44,15 @@
     			<span><%= image_tag "clock_r.png", class: "ordering_list" %><%= image_tag "up_r.png" %><%= image_tag "down_r.png" %></span>
     	</div>
     </div>
-	<div class="controls_toggle">Visualization Controls <%= image_tag "pulldown_r.png" %><%= image_tag "pullup_r.png" %></div>
-</div><!--- END SUB MENU --->	
+    	
+	<div class="controls_toggle" style="float:center clear:both"> Visualization Control<%= image_tag "pulldown_r.png" %><%= image_tag "pullup_r.png" %></div>
+
+</div>
+<!--- END SUB MENU --->	
 
 
 
-<!--- BEGIN INFO BAR --->	
+<!--- BEGIN INFO BAR -->	
 <div class="expand_orderby">
 	<!-- THIS IS WHERE THE LIST OF ORDERING OPTIONS GO --->
 	<div class="tray">Order type 1</div>
@@ -61,7 +67,8 @@
 		<!--<div class="control_box album">
 			 <%= image_tag "records/03.jpg" %>
 		</div> -->
-		<!--- VISUALIZATION TYPE --->
+
+		<!--- VISUALIZATION TYPE -->
 		<div class="control_box">
 			<div class="select_top">Visualization Type
 				<div class="drop_down">
@@ -85,7 +92,7 @@
 			</div> 
 			<div id="generate_visualization" class="button">Update Visualization</div> 
 		</div> 
-		<!--- FILTER RECORDS ---> 
+		<!--- FILTER RECORDS --> 
 		<div class="control_box filter">
 			<div id='tag_holder' class="select_top tag_holder">
 				<div class='include'>Add</div>
@@ -109,7 +116,8 @@
 					<td valign="top">
 					<input id='query_term' class="text" type="text" name="fname" placeholder="select a property">
 					</td><td valign="top">
-					<div id='exclude_button' class="exclude" data-type='exclude'>Exclude^</div><div id='include_button' class="include" data-type='include'>Include^</div>
+					<div id='exclude_button' class="exclude" data-type='exclude'>Exclude^</div>
+					<div id='include_button' class="include" data-type='include'>Include^</div>
 					</td>
 					</tr></table>
 				
@@ -117,7 +125,8 @@
 			</div> 				
 			<div class="button">Filter Records</div>
 		</div> 
-		<!--- SEARCH --->
+
+		<!--- SEARCH -->
 		<div class="control_box">	
 			<div class="select_top">Quick Search
 				<div class="drop_down">
@@ -134,15 +143,13 @@
 		<div class="control_box">
 			<div class="select_top">Save Visualization
 				<div class="drop_down">
-					<%# if session[:user_id] %>
-					<% if true %>
+					<% if session[:user_id] %>
 					  <form id='add_visualization_to_tray'>
 					    <select name='tray'>
 					      <option selected='true' disabled>Select a tray</option>
 					      <option value='new_tray'>New Tray</option>
-					      <%# User.find(session[:user_id]).trays.each do |tray| %>
-					      <% User.find(1).trays.each do |tray| %>
-						<option value='<%= tray.id%>'><%= tray.name %></option>
+					      <% User.find(session[:user_id]).trays.each do |tray| %>
+							<option value='<%= tray.id%>'><%= tray.name %></option>
 					      <% end %>
 					    </select>
 					    <input name='new_tray' style='display: none'>
@@ -153,16 +160,14 @@
 			</div> 
 			<div class="select_bottom">Save Record
 				<div class="drop_down">
-					 <%# if session[:user_id] %>
-					 <% if true %>
+					 <% if session[:user_id] %>
 					  <form id='add_records_to_tray'>
 					    <p>Save Records:</p>
 					    <select name='tray'>
-					      <option selected='true' disabled>SELECT TRAY</option>
+					      <option selected='true' value='null' disabled>SELECT TRAY</option>
 					      <option value='new_tray'>New Tray</option>
-					      <%# User.find(session[:user_id]).trays.each do |tray| %>
-					      <% User.find(1).trays.each do |tray| %>
-						<option value='<%= tray.id%>'><%= tray.name %></option>
+					      <% User.find(session[:user_id]).trays.each do |tray| %>
+							<option value='<%= tray.id%>'><%= tray.name %></option>
 					      <% end %>
 					    </select>
 					    <input name='new_tray' style='display: none'>
@@ -178,14 +183,14 @@
 		</div> 
 		</div><!--- end control box holder --->
     </div>
-</div><!--- END INFO BAR --->
+</div><!-- END INFO BAR -->
 	
-	<!--- BEGIN MINI MAP --->
+	<!-- BEGIN MINI MAP -->
 	<div class="minimap"><%= image_tag "minimap_placeholder.jpg" %></div>
 	<!--- END MINI MAP --->
 	
-	<!--- BEGIN COLLECTION CREDIT --->
+	<!-- BEGIN COLLECTION CREDIT -->
 	<div class="credit"><a href="/Curarium/record.html">Collection provided by <%= @active_collection.source%></a></div>
-	<!--- END MINI MAP --->
+	<!--- END MINI MAP -->
 
-</div><!--- END HOLDER --->
+</div><!--- END HOLDER -->

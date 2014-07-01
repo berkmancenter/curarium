@@ -56,7 +56,7 @@ class Parser
       unless field[0] == 'unique_identifier'
         pr[field[0]] = Collection.follow_json(json_file, field[1])
       else
-        unique_identifier = Collection.follow_json(json_file, field[1])[0]
+        unique_identifier = Collection.follow_json(json_file, field[1])[0].to_s #make sure this is a string.
       end
     end
     

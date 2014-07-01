@@ -13,14 +13,6 @@ end
 
 gem 'factory_girl_rails' #breaks rake if its only in test group
 
-#caching
-group :production do
-  # Memcached using Memcachier on Heroku
-  gem 'memcachier'
-  gem 'dalli'
-  gem 'rack-cache'
-end
-
 #required for Heroku
 gem 'rails_12factor'
 
@@ -36,16 +28,13 @@ gem 'uglifier', '>= 1.3.0'
 # Use CoffeeScript for .js.coffee assets and views
 gem 'coffee-rails', '~> 4.0.0'
 
-# See https://github.com/sstephenson/execjs#readme for more supported runtimes
-# gem 'therubyracer', platforms: :ruby
-
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
 # Use jquery-ui
 gem 'jquery-ui-rails'
 
 #Use d3 for visualizations
-gem "d3-rails"
+gem 'd3-rails'
 
 # Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
 gem 'turbolinks'
@@ -61,12 +50,7 @@ end
 # Use ActiveModel has_secure_password
 gem 'bcrypt-ruby', '~> 3.1.2'
 
-#file upload and cloud services
-gem 'carrierwave'
-gem 'fog'
-
 #running jobs as back processes 
-#gem 'sidekiq'
 gem 'sucker_punch' #does not require additional workers or redis on Heroku
 gem 'rubyzip' #unzip things
 

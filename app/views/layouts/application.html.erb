@@ -2,31 +2,36 @@
 <html>
 	<head>
 		<title>Curarium - <%= yield(:title) || "Home" %></title>
-		<link href='http://fonts.googleapis.com/css?family=Montserrat:400,700' rel='stylesheet' type='text/css'>
-		<link href='http://fonts.googleapis.com/css?family=Lato:400,700,900,300' rel='stylesheet' type='text/css'>
-		<!-- <link href='http://fonts.googleapis.com/css?family=Roboto:400,500,700,900,300&subset=latin,latin-ext' rel='stylesheet' type='text/css'> -->
+		<script src="/js/kinetic-v5.0.1.min.js"></script>
 		<%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>
 		<%= javascript_include_tag "application", "data-turbolinks-track" => true %>
+		<!-- adding these scripts externally caused them to break for some reason
+		<script src="/js/jquery.ui.zoomify.js"></script>
+		<script src="/js/spatialc.js"></script> -->
 		<%= csrf_meta_tags %>
 	</head>
 	<body>
 	  <div class="menulines"></div>
 	  <% if (params[:controller] == 'home' and action_name == 'about') or ( params[:controller] == 'collections' and action_name == 'show') %>
 	    <!-- RANDOM IMAGE HEADER -->
+	<% unless JSON.parse(@record.parsed['image']).nil? %>
 	    <div class="about_header_lines" style="background: url('<%= JSON.parse(@record.parsed['image'])[0]%>') repeat center center; "></div>
-	  <% end %>
+	  <% end %><% end %>
 	  <div class="GLOBAL_HOLDER">
 	    <%= render 'shared/header'%>
 	    <%= yield %>
 	      
 	    <% if (params[:controller] == 'visualizations' and action_name == 'index') %>
-	      <!--- BEGIN VISUALIZATION HOLDER --->	
-		<div class="EXPLORE" id='visualization_container'></div>
-	      <!--- END VISUALIZATION HOLDER --->
+
+	      <!-- BEGIN VISUALIZATION HOLDER -->	
+		  <div class="EXPLORE" id='visualization_container'></div>
+	      <!-- END VISUALIZATION HOLDER-->
 	    <% elsif (params[:controller] == 'records' and action_name == 'show') %>
-	      <!--- BEGIN RECORD HOLDER --->	
+	      <!-- BEGIN RECORD HOLDER -->	
 		  <div  id='main-canvas' class="RECORD"></div>
-	      <!--- END RECORD HOLDER --->
+	      <!-- END RECORD HOLDER -->
+	    <% elsif (params[:controller] == 'spotlights' and (action_name == 'new' || action_name == 'edit' || action_name == 'show' )) %>
+	      
 	    <% else %>
 	      <%= render 'shared/footer'%>
 	    <% end %>

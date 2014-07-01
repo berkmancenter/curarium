@@ -50,13 +50,16 @@ a {
     background-repeat: no-repeat;
     background-position: center center; 
     background-size: cover;
+    a{
+      width: 100%;
+      height: 100%;
+      display: block;
+      
+    }
   }
   .item_lrg {
     width: 420px;
     height: 420px;
-    background-repeat: no-repeat;
-    background-position: center center; 
-    background-size: cover;
   }
 }
 
@@ -97,7 +100,7 @@ a {
   text-align: center;
   color: #d2232a;
   font-weight: bold;
-  
+  background-color: white;
 }
 .button:hover {
   background: #d2232a;
@@ -161,16 +164,25 @@ a {
 .expandable .dropdown_menu a {
   padding: 3px 37px 3px 20px!important;
 }
-.tray {
-  padding: 7px 0;
+.tray,.new_tray {
+  margin-bottom: 5px;
+  padding: 3px 0;
+  height: 10px;
   width: 100%;
+  position: relative;
+  input[type=text] {
+    width: 80%;
+  }
+  .add{
+    right: 0;
+    top: 5px;
+    font-weight: bold;
+    color: #d2232a;
+    position: absolute;
+    cursor: pointer;
+  }
 }
-.tray .add{
-  float:right;
-  font-weight: bold;
-  color: #d2232a;
-  position: absolute;
-}
+
 /* GLOBAL MENU */
 .GLOBAL_MENU{
   height: 35px;
@@ -1001,14 +1013,55 @@ a {
   z-index: -3;
   margin: auto;
 }
+
+
+#record_annotations{
+  div.annotation_wrapper{
+    background: lightgray;
+    border: 1px solid black;
+    padding: 0.5em;
+    margin-top: 0.25em;
+    .annotation_title {
+      font-size: 12pt;
+    }
+    .annotation_body {
+      font-size: 10pt;
+    }
+    .annotation_attribution {
+      font-size: 7pt;
+    }
+    .annotation_tag {
+      font-size: 8pt;
+      font-weight: bold;
+      background: red;
+      padding: 2px;
+      @include rounded-corners(2px);
+    }    
+  }
+}
+
+
+/*HACKING*/
+.record_img {
+  position: relative;
+  max-width: 100%;
+  height: 100%;
+}
+
+.record {
+  max-width: 100%;
+  max-height: 100%;
+}
+
+/*HACKING*/
 .bubble_menu {
   overflow: visible;
   width: 100%;
   top: 60px;
   background: transparent;
-  table {
+  * {
     pointer-events: none;
-    * {
+    .menu_piece, .menu_piece * {
       pointer-events: auto;
     }
   }
@@ -1131,6 +1184,87 @@ a {
   width: 50px; float: left; padding: 5px;
 }
 
+/* UPLOADER */
+.uploader_content {
+	padding: 20px 0 0 0;
+	height: 100%;
+	overflow: hidden;
+}
+.uploader_content .left .holder, .uploader_content .right .holder {
+	width: 420px;
+}
+.uploader_content .expandable {
+	width: 100%;
+}
+.uploader_content .input_box input, .uploader_content .input_box textarea{
+	width: 100%;
+	font-family: arial;
+	font-size: 12px;
+}
+.uploader_content .input_box textarea{
+	height: 200px;
+}
+.uploader_content .uploadjson {
+	float: right;
+	font-weight: bold;
+	color: #d2232a;
+}
+.uploader_content .input_box,.uploader_content .json_holder{
+	margin: 5px 0 20px 0;
+}
+.uploader_content .json_holder{
+	max-height: 1000px;
+	overflow: auto;
+}
+.uploader_content .field {
+	border: 1px solid #ccc; 
+	padding: 3px;
+	margin: 5px 0 10px 0;
+	position: relative;
+}
+.uploader_content .field p {
+  width: 80%;
+}
+
+.uploader_content .field .close{
+	position: absolute;
+	top: 0;
+	right: 0;
+	width: 10px;
+	height: 10px;
+	background-image: url('close_b.png');
+	background-size: contain;
+}
+.uploader_content .field .close img{
+	width: 10px;
+}
+.submit {
+	position: absolute;
+	top: 75px;
+	right: 0;
+	padding: 5px 0;
+	width: 200px;
+	background: #d2232a;
+	color: #fff;
+	margin: 0 10px;
+	z-index: 100;
+}
+
+#parsed {
+ dl, dt, dd {
+    margin-left:20px;
+  }
+  dd {
+    color: #D2232A;
+    cursor: crosshair;
+  }
+dt:hover {
+  text-decoration: underline;
+  cursor: pointer;
+  }
+}
+
+
 /* A SPOTLIGHT EDITOR*/
 .spoteditor_sub {
   overflow: visible;	
@@ -1166,6 +1300,7 @@ a {
 }
 .spotlight_viewedit #subtitle {
   height: 20px;
+  width: 100%;
 }
 .spotlight_viewedit #spotlight_body {
   border: 0;
@@ -1175,6 +1310,20 @@ a {
 }
 .spotlight_viewedit{
   width: 100%;
+  .titlebar {
+    margin: 0px;
+    margin-right: 20px;
+  }
+  form {
+    width: 100%;
+    * {
+      margin-right: 20px;
+      a,img {
+        margin: 0px;
+      }
+    }
+  }
+  
 }
 .spotlight_viewedit .viewer{
   width: 50%;
@@ -1188,11 +1337,42 @@ a {
   font-size: 14px;
   padding: 0 10px 0 0;
 }
-.spotlight_viewedit .reference{
+
+.spotlight_viewedit #spotlight_references{
   width: 50%;
   float: right;
   height: 100%;
 }
+
+.spotlight_viewedit #references_wrapper {
+  width: 100%;
+  height: 400px;
+  overflow: hidden;
+
+}
+
+.spotlight_viewedit .reference{
+  width: 100%;
+  height: 400px;
+  .scroll {
+    width: 100%;
+    height: 400px;
+    a {
+    width: 100%;
+    height: 400px;
+    display: block;
+      div {
+        width: 100%;
+        height: 400px;
+        background-position: center;
+        background-size: contain;
+        background-repeat: no-repeat;
+      }
+    }
+  }
+}
+
+
 .spotlight_viewedit .reference .scroll{
   margin: 0 0 0 10px;
   overflow: auto;
@@ -1213,4 +1393,221 @@ a {
   top:0;
   bottom:0;
   margin:auto;
+}
+
+/*NEW ADDED STUFF */
+.spotlight_viewedit  #subtitle img{
+    width: 15px;
+    height: 15px;
+    padding: 0 10px 10px 0;
+    margin: 0px;;
+}
+.spotlight_viewedit  #subtitle{
+    padding: 0 0 5px 0;
+    float: left;
+}
+.spotlight_viewedit, .main {
+  padding: 0 10px;
+}
+.reference .bord, .reference #subtitle{
+  padding: 0 10px; 
+}
+
+/*trays */
+
+#trays_wrapper {
+  height: 450px;
+  .user_tray {
+    height: 20px;
+    overflow: auto;
+    position: relative;
+    .close_tray {
+      position: absolute;
+      top: 0;
+      right: 0;
+      background-image: url('close_b.png');
+      background-size: contain;
+      width: 10px;
+      height: 10px;
+    }
+    
+    .tray_records, .tray_visualizations {
+      height: 180px;
+      overflow: auto;
+      display: none;
+    }
+    
+    h3{
+      cursor: pointer;
+    }
+    h4{
+      display: none;
+    }
+  }
+}
+
+.visualization_preview, .visualization_component {
+  position: relative;
+  display: inline-block;
+  float: left;
+  display: none;
+  padding: 5px;
+  width: 75px;
+  height: 75px;
+  background: gray;
+  margin:2px;
+  font-size: 6pt;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+   h3{
+     position: absolute;
+     width: 100%;
+     background: black;
+     bottom: 0;
+     color: white;
+     height: 1em;
+     margin-left: -5px;
+     font-size: 1em;
+     float: left;
+    }
+}
+
+
+/*LOGIN*/
+.login{
+	top: 90px;
+}
+.signup{
+	top: 55px;
+}
+.login_signup {
+	padding: 0 0 10px 0; 
+	position: relative;
+	width: 420px;
+}
+.login_signup b{
+	color: #d2232a;
+}
+.login_signup input, .login_signup:last-child {
+	position: absolute;
+	left: 120px;
+	bottom: 7px;
+	padding: 0;
+	margin: 0;
+}
+.login_signup input {
+	padding: 2px 0;
+	margin: 0;
+	width: 200px;
+}
+.login_signup:last-child{
+	bottom: -25px;
+}
+.login_signup:last-child div{
+	float: left;
+}
+
+.login_signup .button{	
+	width: 200px;	
+}
+.switch {
+	text-transform: none;
+	padding: 4px 0 0 10px;
+}
+
+/* COLLECTIONS HOVER */
+
+.collection_options {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background: url('transbg2.png');
+	display: none;
+}
+.collection_options_inner{
+	position: absolute;
+	bottom: 0;
+	left: 10px;
+	right: 10px;
+	color: #d2232a;
+	font-weight: bold;
+}
+.collection_options_inner div{
+	text-align: left;
+	border: 1px solid #d2232a;
+	padding: 5px 5px 5px 30px;
+	margin: 10px 0;
+	position: relative;
+}
+.collection_options_inner div:hover{
+	background: #d2232a;
+	color: #fff;
+}
+.collection_options_inner div img{
+	width: 14px;
+	position: absolute;
+	left: 5px;
+	top: 5px;
+}
+.collection_options_inner div img:last-child{
+	display: none;
+}
+
+.object_id {
+	z-index: 10!important;
+}
+.stack1,.stack2,.stack3{
+	position: absolute;
+}
+.stack3{
+	width: 192px;
+	height:192px;
+	top: 0;
+	left: 0;
+	z-index: 1;
+	background-repeat: no-repeat;
+	background-position: center center; 
+	background-size: cover;
+	&.item_lrg {
+	  width: 412px;
+	  height: 412px;
+	}
+}
+.stack2{
+	width: 191px;
+	height:191px;
+	top: 3px;
+	left: 3px;
+	z-index: -2;
+	border: 1px solid #888;
+	background: #fff;
+	background-repeat: no-repeat;
+	background-position: center center; 
+	background-size: cover;
+	&.item_lrg {
+	  width: 411px;
+	  height: 411px;
+	}
+}
+.stack1{
+	width: 191px;
+	height:191px;	
+	top: 7px;
+	left: 7px;
+	z-index: -3;
+	border: 1px solid #888;
+	background: #fff;
+	background-repeat: no-repeat;
+	background-position: center center; 
+	background-size: cover;
+	&.item_lrg {
+	  width: 411px;
+	  height: 411px;
+	}
 }

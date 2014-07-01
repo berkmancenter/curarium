@@ -25,6 +25,29 @@ describe ( RecordsController ) {
       }
     }
   }
+
+  describe ( 'GET record' ) {
+    let ( :record ) { Record.first }
+
+    it {
+      get :show, :id => record.id
+
+      response.code.should eq( '200' )
+
+    }
+  }
+
+  describe ( 'GET record/thumb' ) {
+    let ( :record ) { Record.first }
+
+    it {
+      get :thumb, :id => record.id
+
+      response.code.should eq( '200' )
+    }
+  }
+
+
 }
 
 

@@ -7,8 +7,9 @@ gem 'rails', '4.0.2'
 gem 'pg'
 
 group :test do
-  gem 'rspec-rails'
-  gem 'poltergeist'
+  gem 'rspec-rails', '2.14.2'
+  gem 'capybara', '2.3.0'
+  gem 'poltergeist', '1.5.1'
 end
 
 gem 'factory_girl_rails' #breaks rake if its only in test group

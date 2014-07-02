@@ -25,10 +25,10 @@
         <div class = 'menu_wrapper'>
 		      <div class="toggle_user toggle_tools">
 		    <% if session[:user_id] %>
-			<%= link_to  raw("Log Out#{image_tag("user_b.png")}#{image_tag("user_r.png")}"), logout_url, method: :delete %>
+			<%= link_to  raw("Log Out#{image_tag("user_b.png", class: 'black')}#{image_tag("user_r.png",class: 'red')}"), logout_url, method: :delete %>
 			<!-- <a href='<%= logout_url %>'>Log Out <%= image_tag "user_b.png" %><%= image_tag "user_r.png" %></a> -->
 		    <% else %>
-			<a href='<%= login_url %>'>Log In <%= image_tag "user_b.png" %><%= image_tag "user_r.png" %></a>
+			<a href='<%= login_url %>'>Log In <%= image_tag "user_b.png", class: 'black' %><%= image_tag "user_r.png", class: 'red' %></a>
 		    <% end %>
 		      </div>
 		      <div class="toggle_explore toggle_tools"><a href="<%= @active_collection.nil? ? collections_path : collection_visualizations_path(@active_collection) %>">Explore <%= image_tag "explore_b.png", class: 'black' %><%= image_tag "explore_r.png", class: 'red' %></a></div>

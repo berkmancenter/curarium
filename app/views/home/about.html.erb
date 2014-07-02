@@ -16,10 +16,10 @@
 		<div class="profile_img" style="background: url('assets/animated_icon.gif') no-repeat center center; background-size: cover;">&nbsp;</div>   
        <div class="stalking_menu_holder">
         	<div class="stalking_menu stalking_menu_main">
-        	<div class="to_about">What is Curarium?</div>
-        	<div class="to_vocab">Curarium Vocabulary</div>
-        	<div class="to_how">How do I use Curarium?</div>
-        	<div class="to_contact">Contact Us</div>
+        	<div class="to_about"><a href='#to_about'>What is Curarium?</a></div>
+        	<div class="to_vocab"><a href='#to_vocab'>Curarium Vocabulary</a></div>
+        	<div class="to_how"><a href='#to_how'>How do I use Curarium?</a></div>
+        	<div class="to_contact"><a href='#to_contact'>Contact Us</a></div>
         	</div>
         </div> 
     </div></div><!-- end left content -->
@@ -27,41 +27,41 @@
     <!-- middle content -->
     <div class="expandable"><div class="holder">
 			<!-- ABOUT CONTENT -->
-		<div class="titlebar to_about">What is Curarium?</div>
+		<div class="titlebar to_about" id='to_about'>What is Curarium?</div>
 		<div class="cont_about">
 		<u>Curarium</u> is a platform for exploring, analyzing, and making arguments about collections and the objects they comprise. It leverages the power of collections to tell stories by giving users tools ranging from item-level annotations to comprehensive, repository-wide visualizations, allowing them to bring both objects and the communities to which they belong into dialogue with one another.
 		<p>Curarium isn’t an online exhibition platform, but an environment for pursuing and sharing collections-based research nimbly, intuitively, and iteratively. Browse vast numbers of objects, using an expanding library of visualization tools to generate dynamic data portraits of collections. Annotate records and images, curating them to highlight relationships and juxtapositions. Assemble those records into trays of objects, images, and visualizations to share and work collaboratively with your social circles, and transform trays into published spotlights that unlock the stories and arguments bound up in collections.</p>		
 		</div>
 		
 	   	<!-- VOCAB CONTENT -->
-    	<div class="titlebar to_vocab">Curarium Vocabulary</div>
+    	<div class="titlebar cont_vocab" id='to_vocab'>Curarium Vocabulary</div>
 		<div class="cont_vocab">	
-				<span class="vann">Annotation</span> | <span class="vcir">Circle</span> | <span class="vcoll">Collection</span> | <span class="ving">Ingest</span> | <span class="vrec">Record</span> | <span class="vstra">Social Tray</span> | <span class="vspo">Spotlight</span> | <span class="vtra">Tray</span>	
+				<span class="vann"><a href='#vann'>Annotation</a></span> | <span class="vcir"><a href='#vcir'>Circle</a></span> | <span class="vcoll"><a href='#vcoll'>Collection</a></span> | <span class="ving"><a href='#ving'>Ingest</a></span> | <span class="vrec"><a href='#vrec'>Record</a></span> | <span class="vstra"><a href='#vstra'>Social Tray</a></span> | <span class="vspo"><a href='#vspo'>Spotlight</a></span> | <span class="vtra"><a href='#vtra'>Tray</a></span>	
 		</div><!-- end vocab -->	
 		
 		
    		<!-- HOW CONTENT -->
-    	<div class="titlebar to_how">How do I use Curarium?</div>
+    	<div class="titlebar to_how" id='to_how'>How do I use Curarium?</div>
 		<div>		
 				<table class="howitem" cellspacing="0" cellpadding="0"><tr valign="top">
 					<td><%= image_tag "hint_collection.png", id: "hint_coll" %></td>
 					<td>Collect<ol>
-					<li>Find and follow <span class="vcoll">collections</span> of interest to you </li>
-					<li>OR <span class="ving">ingest</span> your own <span class="vcoll">collection</span>* of up to 30,000 <span class="vrec">records</span> in just 5 minutes. *Requires JSON files and offsite hosting</li>
+					<li>Find and follow <span class="vcoll" id='vcoll'>collections</span> of interest to you </li>
+					<li>OR <span class="ving" id='ving'>ingest</span> your own <span class="vcoll">collection</span>* of up to 30,000 <span class="vrec" id='vrec'>records</span> in just 5 minutes. *Requires JSON files and offsite hosting</li>
 					</ol></td>
 				</tr></table>
 				<table class="howitem" cellspacing="0" cellpadding="0"><tr valign="top">
 					<td><%= image_tag "hint_explore.png", id: "hint_coll" %></td>
 					<td>Explore<ol>
 				<li>Within any <span class="vcoll">collection</span>, browse, filter, search, and generate visualizations.</li>
-				<li><span class="vann">Annotate</span> <span class="vrec">records</span> and make additions to their metadata.</li>
-				<li>Save individual <span class="vrec">records</span>, groups of <span class="vrec">records</span>, or visualizations to a <span class="vtra">tray</span>. </li>
+				<li><span class="vann" id='vann'>Annotate</span> <span class="vrec">records</span> and make additions to their metadata.</li>
+				<li>Save individual <span class="vrec">records</span>, groups of <span class="vrec">records</span>, or visualizations to a <span class="vtra" id='vtra'>tray</span>. </li>
 				<li>Categorize what you save using as many <span class="vtra">trays</span> as you need.</li>
 				</ol></td>
 				</tr></table>
 				<table class="howitem" cellspacing="0" cellpadding="0"><tr valign="top">
 					<td><%= image_tag "hint_spotlight.png", id: "hint_coll" %></td>
-					<td><span class="vspo">Spotlight</span><ol>
+					<td><span class="vspo" id='vspo'>Spotlight</span><ol>
 				<li>Tell stories by pulling directly from the content you’ve collected in your <span class="vtra">trays</span>.</li>
 				<li>Publish, share, and export your <span class="vspo">spotlights</span>.</li>
 				</ol></td>
@@ -71,8 +71,8 @@
 					<td>User<ol>
 				<li>Edit your <span class="vcoll">collections</span>, <span class="vtra">trays</span>, and <span class="vspo">spotlights</span>.</li>
 				<li>Track <span class="vcoll">collections</span> and users you follow.</li>
-				<li>Start or join user <span class="vcir">circles</span> to share and collaborate on work within a specified <span class="vcoll">collection</span> or set of <span class="vcoll">collections</span>.</li>
-				<li>From your <span class="vcir">circle’s</span> splash page, access <span class="vcir">circle</span>-specific <span class="vcoll">collections</span>; check the newsfeed to find updated <span class="vcir">circle</span> annotations, <span class="vstra">social trays</span>, and <span class="vspo">spotlights</span>; post comments to your <span class="vcir">circle</span> members.</li>
+				<li>Start or join user <span class="vcir" id='vcir'>circles</span> to share and collaborate on work within a specified <span class="vcoll">collection</span> or set of <span class="vcoll">collections</span>.</li>
+				<li>From your <span class="vcir">circle’s</span> splash page, access <span class="vcir">circle</span>-specific <span class="vcoll">collections</span>; check the newsfeed to find updated <span class="vcir">circle</span> annotations, <span class="vstra" id='vstra'>social trays</span>, and <span class="vspo">spotlights</span>; post comments to your <span class="vcir">circle</span> members.</li>
 				<li>When you explore any <span class="vcoll">collections</span> in your <span class="vcir">circles</span>, you can use a <span class="vstra">social tray</span> to work in real time with <span class="vcir">circle</span> members to collect and order <span class="vrec">records</span>.</li>
 				</ol></td>
 				</tr></table>        
@@ -80,7 +80,7 @@
 		
 		
    		<!-- CONTACT CONTENT -->
-    	<div class="titlebar to_contact">Contact Us<div class="more">more <%= image_tag "pulldown_r.png" %></div></div>
+    	<div class="titlebar to_contact" id='to_contact'>Contact Us<div class="more">more <%= image_tag "pulldown_r.png" %></div></div>
 		<div>
 			We would be happy to answer any questions or concern you may have at: 
 			<p><b> curarium@metalab.harvard.edu	</b></p>		

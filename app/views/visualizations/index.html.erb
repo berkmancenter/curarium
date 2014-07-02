@@ -37,14 +37,8 @@
         <span class="active_collection"><%= active_collection %></span>
     </div>
     <div class="right">
-    	<div class="orderby"><span>Order:</span>
-    			<span><%= image_tag "clock_r.png", class: "ordering_list" %><%= image_tag "up_r.png" %><%= image_tag "down_r.png" %></span>
-    	</div>
-    </div>
-	<div class="controls_toggle">Visualization Controls <%= image_tag "pulldown_r.png" %><%= image_tag "pullup_r.png" %></div>
-</div><!--- END SUB MENU --->	
-
-
+    	<div class="orderby"><span id='order_span'>Order:</span>
+    			<input type='checkbox' class='checkbox_hack' id='orderby_cb'><label for='orderby_cb'><%= image_tag "clock_r.png", class: "ordering_list" %></label><%= image_tag "up_r.png" %><%= image_tag "down_r.png" %>
 
 <!--- BEGIN INFO BAR --->	
 <div class="expand_orderby">
@@ -55,6 +49,11 @@
 	<div class="tray">Order type 1</div>
 	<div class="tray">Order type 1</div>
 </div>
+    	</div>
+    </div>
+  <input type='checkbox' class='checkbox_hack' id='viscon'>
+	<div class="controls_toggle"><label for='viscon'>Visualization Controls</label><%= image_tag 'pullup_r.png', id: 'up' %><%= image_tag 'pulldown_r.png', id: 'down' %></div>
+
 <div class="INFO_BAR explore_bar slider_bar">
     <div class="expandable">
 		<div class="control_box_holder">
@@ -63,7 +62,8 @@
 		</div> -->
 		<!--- VISUALIZATION TYPE --->
 		<div class="control_box">
-			<div class="select_top">Visualization Type
+			<div class="select_top"
+      >Visualization Type
 				<div class="drop_down">
 					<select id='visualization_type'>
 					  <option value='treemap'>Treemap</option>
@@ -179,6 +179,10 @@
 		</div><!--- end control box holder --->
     </div>
 </div><!--- END INFO BAR --->
+</div><!--- END SUB MENU --->	
+
+
+
 	
 	<!--- BEGIN MINI MAP --->
 	<div class="minimap"><%= image_tag "minimap_placeholder.jpg" %></div>

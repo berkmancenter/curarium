@@ -22,16 +22,17 @@
     </div>
     <div class="expandable">
     	<div class="tools">
-		<div class="toggle_user">
-			<a href='<%= login_url %>'>Log In <%= image_tag "user_b.png" %><%= image_tag "user_r.png" %></a>
-			<div class="dropdown_menu"><a href="/Curarium/about.html">Logout</a></div>
-		</div>
-		
-		<div class="toggle_explore"><a href="<%= @active_collection.nil? ? collections_path : collection_visualizations_path(@active_collection) %>">Explore <%= image_tag "explore_b.png" %><%= image_tag "explore_r.png" %></a></div>
-		<div class="toggle_spotlights"><a href="<%= spotlights_path %>">Spotlights <%= image_tag "spotlight_b.png" %> <%= image_tag "spotlight_r.png" %></a></div>	
-		<div class="toggle_collections"><a href="<%= collections_path %>">Collections <%= image_tag "collection_b.png" %><%= image_tag "collection_r.png" %></a></div>
-		</div>
-	</div>
+        <div class = 'menu_wrapper'>
+		      <div class="toggle_user toggle_tools">
+			      <a href='<%= login_url %>'>Log In <%= image_tag "user_b.png" %><%= image_tag "user_r.png" %></a>
+			      <div class="dropdown_menu"><a href="/Curarium/about.html">Logout</a></div>
+		      </div>
+		      <div class="toggle_explore toggle_tools"><a href="<%= @active_collection.nil? ? collections_path : collection_visualizations_path(@active_collection) %>">Explore <%= image_tag "explore_b.png" %><%= image_tag "explore_r.png" %></a></div>
+      		<div class="toggle_spotlights toggle_tools"><a href="<%= spotlights_path %>">Spotlights <%= image_tag "spotlight_b.png" %> <%= image_tag "spotlight_r.png" %></a></div>	
+		      <div class="toggle_collections toggle_tools"><a href="<%= collections_path %>">Collections <%= image_tag "collection_b.png" %><%= image_tag "collection_r.png" %></a></div>
+		    </div>
+	  </div>
+  </div>
 </div><!--- END GLOBAL MENU --->	
 <!-- THIS IS THE ORIGINAL CONTENT
 <header id='main_header'>

@@ -208,7 +208,6 @@ DEPENDENCIES
   rack-cache
   rails (= 4.0.2)
   rails_12factor
-  rake
   rspec-rails
   rubyzip
   sass-rails (~> 4.0.0)

@@ -132,7 +132,7 @@ a {
   width: 200px;
   position: absolute;
   padding: 20px 0px 20px 0px!important;
-  width: 200px!important;
+  width: 100%!important;
 }
 .dropdown_menu a {
   color: #000000!important;
@@ -231,8 +231,9 @@ a {
   }
   .expandable{
     .tools {
-      width: 1000px;
-      position: absolute;
+//      width: 1000px;
+      width: 100%;
+//      position: absolute;
       right: 10px; top: 12px;
     }
     div{
@@ -443,7 +444,7 @@ a {
   overflow: hidden;
   width: 110%;
 }
-.about_content .cont_vocab span{
+.about_content .cont_vocab a{
   font-weight: bold;
   color: #d2232a;
 }
@@ -489,7 +490,7 @@ a {
   position: relative;
 }
 .about_content .stalking_menu {
-  position: fixed;
+//  position: fixed;
   font-weight: bold;
   color: #d2232a;
 }
@@ -627,7 +628,7 @@ a {
   top: 70px;
   width: 100%;
   height: 15px;
-  overflow: hidden;
+/*  overflow: hidden; */
   padding: 6px 0;
   @include rounded-corners(3px);
   
@@ -712,7 +713,8 @@ a {
   top: 25px!important;
 }
 .explore_bar .control_box_holder{
-  min-width: 2000px;
+//  min-width: 2000px;
+    width: 100%;
 }
 .explore_bar .control_box{
   height: 200px;
@@ -932,12 +934,13 @@ a {
 .controls_toggle img {
   position: absolute;
   top: 1px;
-  right: 45px;
+ // right: 45px; 
   width: 13px;
 }
-.controls_toggle img:nth-child(n+2) {
+/*.controls_toggle img:nth-child(n+2) {
   display: none;
 }
+*/
 .control_box .button {
   width: 100%;
   position: absolute;
@@ -952,7 +955,7 @@ a {
  * background: #ffffff;
  * color: #d2232a;
  } **/
-.controls_toggle:hover {
+.controls_toggle label:hover {
   text-decoration: underline;	
 }
 .minimap {
@@ -1020,7 +1023,7 @@ a {
   border: 1px solid #d2232a;
   padding: 25px 0 0 0;
   background: url('transbg.png');
-  overflow:hidden; 	
+  overflow:hidden;
 }
 .bubble_menu .button{
   border: 0;
@@ -1213,4 +1216,154 @@ a {
   top:0;
   bottom:0;
   margin:auto;
+}
+
+/* Replace global.js.coffe */
+
+.record_img .record {
+  max-width: 70%;
+  max-height: 70%;
+}
+
+.record_img {
+  width: 70%;
+  height: 70%;
+}
+
+.about_content .left {
+  width: 200px;
+}
+
+.about_content .expandable {
+  width: 55%;
+}
+
+
+.about_content .right {
+  width: 33%;
+}
+
+.GLOBAL_MENU .expandable .tools {
+  display: table;
+}
+
+.GLOBAL_MENU .expandable .tools .toggle_tools {
+  display: table-cell;
+  width: 23%;
+  padding: 0px 0px 0px 2%;
+}
+
+.GLOBAL_MENU .expandable .tools .menu_wrapper {
+  display: table-row;
+  width: 100%;
+}
+
+.GLOBAL_HOLDER {
+  min-height: 100%;
+}
+
+.FOOTER {
+  position: absolute;
+  bottom: 0px;
+}
+
+.explore_bar .expandable {
+  width: 100%;
+  display: block;
+}
+
+.explore_bar .control_box {
+  width: 16%;
+  margin: 0px 2% 0px 0px;
+}
+
+.explore_bar .filter {
+  width: 43%;
+}
+
+.explore_bar .control_box_holder {
+  margin: 0px 1% 0px 1%;
+}
+
+.INFO_BAR .expandable .hintbar_desc span {
+// font-size: 1.8vw;
+  font-size: 2em;
+}
+
+.toggle_user:hover .dropdown_menu {
+  display: block;
+}
+
+.toggle_curarium:hover .dropdown_menu {
+  display: block;
+}
+
+.GLOBAL_MENU .menu_wrapper {
+  padding: 0px;
+}
+
+.GLOBAL_MENU {
+  padding: 0px;
+  height: 105px;
+}
+
+.toggle_tools a:hover {
+  color: #D2233A;
+}
+.toggle_tools a:hover img {
+  display: none;
+}
+
+.stalking_menu div:hover {
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.stalking_menu a {
+  color: #D2232A;
+}
+
+.cont_vocab span:hover {
+  text-decoration: underline;
+  cursor: pointer;
+  color: #d2232a
+}
+
+.controls_toggle label:hover, .navigate:hover, .orderby img:hover {
+  cursor: pointer;
+}
+
+.checkbox_hack {
+  display: none;
+}
+
+#viscon:checked ~ .slider_bar {
+  display: block;
+  top: 6px;
+}
+
+#up {
+  display: none;
+}
+
+#viscon:checked ~ .controls_toggle #up {
+  display: inline;
+}
+
+#viscon:checked ~ .controls_toggle #down {
+  display: none;
+}
+
+.expand_orderby {
+  top: 35px;
+}
+
+#orderby_cb:checked ~ .expand_orderby {
+  display: block;
+}
+
+#order_span {
+  position: relative;
+  padding: 0px;
+  bottom: 4px;
 }

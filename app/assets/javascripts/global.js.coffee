@@ -133,7 +133,7 @@ resizecontent = (winwidth, winheight) ->
     $(".explore_bar .album, .bubble_menu .bub_dis").css({"display":"none"})
 #    $(".about_content .right .holder").css({"width":"200px"})
   
-#undefined
+undefined
 
 
 

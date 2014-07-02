@@ -1,7 +1,6 @@
 <script>
 
 	$(document).ready(function(){
-		global_function();
 		<% image = params[:image].to_i || 0%>
 		window.record.display('<%= JSON.parse(@current_metadata['image'])[image]%>');
 		$('img.surrogate_thumbnail').each( function(i){

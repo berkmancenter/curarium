@@ -1310,7 +1310,16 @@ a {
 .toggle_tools a:hover {
   color: #D2233A;
 }
-.toggle_tools a:hover img {
+
+.toggle_tools .red {
+  display: none;
+}
+
+.toggle_tools a:hover img.red {
+  display: block;
+}
+
+.toggle_tools a:hover img.black {
   display: none;
 }
 

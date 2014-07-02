@@ -21,7 +21,8 @@ describe ( 'collections/show' ) {
 
     it {
       # removed again as of commit hash: de298652b9a600d8c360bbd2c490cdfb0d05eda4
-      should_not have_css 'script', visible: false
+      # re-added to call global_function
+      should have_css 'script', visible: false
     }
 
     it {

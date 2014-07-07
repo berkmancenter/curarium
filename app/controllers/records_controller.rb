@@ -2,7 +2,7 @@ require 'open-uri'
 
 class RecordsController < ApplicationController
   before_action :set_record, only: [:show, :thumb, :edit, :update, :destroy]
-  skip_before_action :authorize, only: [:show]
+  skip_before_action :authorize, only: [:show,:thumb]
 
   # GET /records
   # GET /records.json

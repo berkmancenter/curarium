@@ -7,12 +7,49 @@ class RecordsController < ApplicationController
   # GET /records
   # GET /records.json
   def index
-    if params[ :collection_id ]
-      @collection = Collection.find params[ :collection_id ]
-      @records = @collection.records
-    else
-      @records = Record.all
+    where_clause = ''
+
+    if params[ :collection_id ].present?
+      where_clause = where_clause + ActiveRecord::Base.send( :sanitize_sql_array, [ ' collection_id = %s', params[:collection_id] ] )
     end
+
+    if params[:include].present?
+      # break out values to avoid SQL injection
+      where_values = ['']
+
+      params[:include].each_with_index { |p, i|
+        values = p.split ':'
+
+        if i > 0
+          where_values[0] = where_values[0] + ' AND '
+        end
+
+        where_values[0] = where_values[0] + "lower(parsed->'#{values[0]}') like '%s'"
+        where_values << "%#{values[1].downcase}%"
+      }
+
+      where_clause = where_clause + " AND ( #{ActiveRecord::Base.send( :sanitize_sql_array, where_values )} )"
+    end
+
+    if params[:exclude].present?
+      # break out values to avoid SQL injection
+      where_values = ['']
+
+      params[:exclude].each_with_index { |p, i|
+        values = p.split ':'
+
+        if i > 0
+          where_values[0] = where_values[0] + ' OR '
+        end
+
+        where_values[0] = where_values[0] + "lower(parsed->'#{values[0]}') like '%s'"
+        where_values << "%#{values[1].downcase}%"
+      }
+
+      where_clause = where_clause + " AND NOT ( #{ActiveRecord::Base.send( :sanitize_sql_array, where_values )} )"
+    end
+
+    @records = Record.where(where_clause)
   end
 
   # GET /records/1

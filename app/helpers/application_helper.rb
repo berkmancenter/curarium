@@ -87,8 +87,11 @@ module ApplicationHelper
     container = ""
     background = ""
     if item.class == Collection
-	    background = ''
-      background = JSON.parse(item.records.first.parsed['image'])[0] unless !item.records.any? || item.records.first.parsed['image'].nil?
+#	    background = ''
+#      background = JSON.parse(item.records.first.parsed['image'])[0] unless !item.records.any? || item.records.first.parsed['image'].nil?
+      background = thumb_record_path(item.records.first) unless item.records.first.nil?
+
+
 #      unless item.records[1].parsed['image'].nil?
 #	stack1 = JSON.parse(item.records[1].parsed['image'])[0]
 #      end
@@ -110,9 +113,10 @@ module ApplicationHelper
       container += "<div class='name'><b>#{User.find(item.user_id).name}</b> <i>on #{item.created_at.strftime("%d %b %y")}</i></div>"
       container += "</div>"
     elsif item.class == Record
-      unless item.parsed['image'].nil?
-	background = JSON.parse(item.parsed['image'])[0]
-      end
+#      unless item.parsed['image'].nil?
+#	background = JSON.parse(item.parsed['image'])[0]
+  background = thumb_record_path(item)
+#      end
       container += "<a href='#{record_path(item)}'><div class='gallery_item#{" item_lrg" if big}' style=background-image:url('#{background}')>"
       container += "<div class='object_id'>#{item.id}</div>"
       container += "</div>"

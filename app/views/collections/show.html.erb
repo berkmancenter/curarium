@@ -9,7 +9,7 @@
 	<!-- left content -->
     <div class="left"><div class="holder">
     	<div class="titlebar main"><%= image_tag "collection_r.png" %>Collection</div>
-		<div class="profile_img" style="background: url('<%= JSON.parse(@collection.records.first.parsed['image'])[0] unless @collection.records.first.parsed['image'].nil? %>') no-repeat center center; background-size: cover;">&nbsp;</div>   
+		<div class="profile_img" style="background: url('<%= thumb_record_path(@collection.records.first) unless @collection.records.first.nil? %>') no-repeat center center; background-size: cover;">&nbsp;</div>   
        <div class="stalking_menu_holder">
         	<div class="stalking_menu">
         	<div class="to_about"><%= image_tag "about_r.png" %> About</div>

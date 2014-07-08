@@ -47,13 +47,13 @@
 
 </div><!--- END INFO BAR --->	
 
-<!- -BEGIN GALLERY -->	
+<!--BEGIN GALLERY -->	
 <div class="GALLERY">
 	<div class="titlebar">Latest Activity</div> 
-	
-	<%= print_item(@collection, true) %>
+
+  <%= render :partial => 'shared/print_item', :locals=>{:item=>@collection,:big=>true} %>
 	<% @all.each do |item| %>
-	  <%= print_item(item) %>
+	  <%= render :partial => 'shared/print_item', :locals=>{:item=>item} %>
 	<% end %>
 	
 	

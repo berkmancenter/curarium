@@ -26,7 +26,7 @@
 			<label for='parsed_id'><div class="button">Parsed Information<%= image_tag "pulldown_r.png" %><%= image_tag "pullup_r.png" %></div></label>
 			<div class="expand">
 				<!-- THIS IS WHERE THE PARSED RECORD INFORMATION GOES -->
-				<%= print_metadata @record.parsed, @current_metadata, 'printed_object', 'parsed_record' %>
+        <%= render :partial => 'shared/print_metadata', :locals=>{:original=>@record.parsed,:current=>@current_metadata,:class_name=>'printed_object',:id_name=>'parsed_record'} %>
 			</div>
 			</div>
 		</td>

@@ -14,7 +14,7 @@
 <!-- BEGIN GALLERY -->	     
 <div class="GALLERY">
   <% @spotlights.each do |spotlight| %>
-      <%= print_item(spotlight) %>
+      <%= render :partial => 'shared/print_item', :locals=>{:item=>spotlight} %>
   <% end %>
   <div class="gallery_item">
       <div class="createnew"> <%= link_to 'New Spolight', new_spotlight_path %> </div>

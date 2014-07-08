@@ -49,7 +49,32 @@ class RecordsController < ApplicationController
       where_clause = where_clause + " AND NOT ( #{ActiveRecord::Base.send( :sanitize_sql_array, where_values )} )"
     end
 
-    @records = Record.where(where_clause)
+    if params[ :property ].present? && params[ :vis ] == 'treemap'
+      # ["a", "b, b", "c"]
+      # ["a%SPLIT%b, b%SPLIT%c"]
+      # a%SPLIT%b, b%SPLIT%c
+      # a -- b, b -- c
+      sql = %[select values as parsed, count(values) as id from (
+        SELECT  trim(
+          both from unnest(
+            string_to_array(
+              regexp_replace(
+                regexp_replace(
+                  lower(parsed->'#{params[ :property ]}'), '", "', '%SPLIT%', 'g'
+                ), '[\\[\\]"]', '', 'g'
+              ), '%SPLIT%'
+            )
+          )
+        ) as values
+        FROM "records"
+        WHERE #{where_clause}
+      ) as subquery
+      group by values]
+
+      @records = ActiveRecord::Base.connection.execute(sql)
+    else
+      @records = Record.where(where_clause)
+    end
   end
 
   # GET /records/1

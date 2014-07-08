@@ -281,6 +281,15 @@ describe 'records requests', :js => true do
               visit "#{collection_records_path col}?vis=treemap&property=topics"
             }
 
+            it ( 'should have topics encoded' ) {
+              should have_css %[.records-treemap[data-property-counts*="women"]]
+              should have_css %[.records-treemap[data-property-counts*="portraits"]]
+            }
+
+            it ( 'should not have other values' ) {
+              should_not have_css %[.records-treemap[data-property-counts*="gogh"]]
+            }
+                    
             it {
               # 13 distinct topics in test data, extra .node for root
               should have_css '.node', count: 13 + 1

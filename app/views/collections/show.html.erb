@@ -33,9 +33,9 @@
 		<div class="cont_spotlight">
 	<% @all.each_with_index do |item,i| %>
 	   <%if i>1 %>
-	    <%= print_item(item) %>
+	    <%= render :partial => 'shared/print_item', :locals=>{:item=>item} %>
 	   <% else %>
-	   <%= print_item(item, true) %>
+    <%= render :partial => 'shared/print_item', :locals=>{:item=>item,:big=>true} %>
 	   <% end %>
 	<% end %>
 					

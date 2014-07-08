@@ -22,7 +22,7 @@
 <div class="GALLERY">
   <% @collections.each do |collection| %>
     <% if collection.approved  %>
-      <%= print_item(collection) %>
+      <%= render :partial=>'shared/print_item', :locals=>{:item=>collection} %>
     <% end %>
   <% end %>
   <div class="gallery_item">

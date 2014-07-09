@@ -3,9 +3,15 @@
 
   <%= form_tag(request.original_url, method: :get) do |f| %>
     <%= label_tag 'vis', 'Visualization type' %>
-    <%= select_tag 'vis', options_for_select( [ ['list', 'list'], ['thumbnails','thumbnails'], ['object map', 'objectmap'], ['treemap', 'treemap'] ], params['vis'] || 'objectmap' ) %>
+    <%= select_tag 'vis', options_for_select( [ ['list', 'list'], ['thumbnails','thumbnails'], ['object map', 'objectmap'], ['treemap', 'treemap'] ], params['vis'] || 'objectmap' ) %><br>
+    <%= label_tag 'selprop', 'Select property' %>
+    <%= select_tag 'selprop', options_for_select(@properties),:id=>'selprop' %><br>
+    <%= text_field_tag 'propval' %>
+    <%= button_tag 'Include',:onclick=>'addprop(true)',:type=>'button'%>
+    <%= button_tag 'Exclude',:onclick=>'addprop(false);',:type=>'button' %><br>
+    <span id='props'></span>
 
-    <%= submit_tag 'Go', name: nil %>
+    <br><%= submit_tag 'Go', name: nil %>
   <% end %>
 </section>
 

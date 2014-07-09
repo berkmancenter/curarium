@@ -11,7 +11,19 @@ class RecordsController < ApplicationController
 
     if params[ :collection_id ].present?
       where_clause = where_clause + ActiveRecord::Base.send( :sanitize_sql_array, [ ' collection_id = %s', params[:collection_id] ] )
+      @collection = Collection.find(params[:collection_id])
+      @properties = @collection.configuration.keys
+    else 
+      coll = Collection.all
+      @properties = []
+      coll.each do |c|
+        c.configuration.keys.each do |p|
+          @properties << p unless @properties.include? p
+        end
+      end
     end
+
+    @properties -= ['thumbnail','image','unique_identifier']
 
     if params[:include].present?
       # break out values to avoid SQL injection

@@ -2,12 +2,13 @@ $( function() {
   var objectmap = $( '.records-objectmap' );
   if ( objectmap.length === 1 ) {
     var recordIds = objectmap.data( 'recordIds' );
+    var recordDimension = Math.ceil( Math.sqrt( recordIds.length ) );
 
     if ( $.isArray( recordIds ) && recordIds.length > 0 ) {
       $.geo.proj = null;
 
       var map = $( '.records-objectmap .geomap' ).geomap( {
-        bbox: [ 0, 0, 1024, 768 ],
+        bbox: [ 256 * recordDimension / 2, 256 * recordDimension / 2, 1024, 768 ],
         zoom: 8,
 
         zoomMin: 7,
@@ -178,7 +179,6 @@ $( function() {
       var miniCanvas = $( '<canvas width="256" height="256" />' );
       var miniContext = miniCanvas[0].getContext( '2d' );
 
-      var recordDimension = Math.ceil( Math.sqrt( recordIds.length ) );
       var miniDimension = Math.ceil( recordDimension / 2 ) * 2;
       var miniScale = 1 / miniDimension;
       var miniSize = 256 * miniScale;

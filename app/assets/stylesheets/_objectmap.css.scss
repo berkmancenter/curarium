@@ -1,18 +1,18 @@
 .records-objectmap {
   .geomap {
-    bottom: 0;
+    bottom: 35px;
     left: 0;
     position: absolute;
     right: 0;
-    top: 0;
+    top: 38px;
   }
 
   .minimap.geo-map {
     bottom: 3em;
     border: solid 5px white;
     position: absolute;
-    height: 128px; /* was 256 */
-    width: 128px;
+    height: 256px; /* was 256 */
+    width: 256px;
   }
 }
 

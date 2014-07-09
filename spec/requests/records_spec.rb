@@ -274,6 +274,37 @@ describe 'records requests', :js => true do
             }
           }
         }
+
+        describe ( 'vis=treemap' ) {
+          context ( 'with topics' ) {
+            before {
+              visit "#{collection_records_path col}?vis=treemap&property=topics"
+            }
+
+            it ( 'should have topics encoded' ) {
+              should have_css %[.records-treemap[data-property-counts*="women"]]
+              should have_css %[.records-treemap[data-property-counts*="portraits"]]
+            }
+
+            it ( 'should not have other values' ) {
+              should_not have_css %[.records-treemap[data-property-counts*="gogh"]]
+            }
+                    
+            it {
+              # 13 distinct topics in test data, extra .node for root
+              should have_css '.node', count: 13 + 1
+            }
+
+            it {
+              should have_css '.node', text: 'Women(3)'
+            }
+
+            it ( 'should not screw up values with commas' ) {
+              should_not have_css '.node', text: 'Joseph(1)'
+              should have_css '.node', text: 'Joseph, Saint(1)'
+            }
+          }
+        }
       }
 
       describe ( 'get /records/:id' ) {

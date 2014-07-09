@@ -24,9 +24,9 @@ describe ( 'records/vis_controls' ) {
       should have_css 'select[name="vis"]'
     }
 
-    it {
-      should have_css 'option[value="list"]'
-      should have_css 'option[value="thumbnails"]'
-    }
+    it { should have_css 'option[value="list"]' }
+    it { should have_css 'option[value="thumbnails"]' }
+    it { should have_css 'option[value="objectmap"]' }
+    it { should have_css 'option[value="treemap"]' }
   }
 }

@@ -5,6 +5,7 @@ describe ( 'records/vis_controls' ) {
 
   context ( 'no arguments' ) {
     before {
+      assign( :properties, [ 'title', 'artist', 'topics' ] )
       render partial: 'records/vis_controls', request: { original_url: '/records/' }
     }
 

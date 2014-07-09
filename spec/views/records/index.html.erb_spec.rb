@@ -3,6 +3,10 @@ require 'spec_helper'
 describe ( 'records/index' ) {
   subject { rendered }
 
+  before {
+    assign( :properties, [ 'title', 'artist', 'topics' ] )
+  }
+
   context ( 'all records' ) {
     before {
       assign( :records, Record.all )

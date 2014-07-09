@@ -1717,6 +1717,10 @@ dt:hover {
   height: 105px;
 }
 
+.toggle_tools a {
+  color: black;
+}
+
 .toggle_tools a:hover {
   color: #D2233A;
 }
@@ -1786,3 +1790,20 @@ dt:hover {
   padding: 0px;
   bottom: 4px;
 }
+
+.bubble_menu .menu_piece .button {
+  background: transparent;
+}
+
+.bubble_menu .menu_piece .button:hover {
+  background: #d2222a;
+}
+
+.bubble_menu .nohover .button:hover {
+  background: transparent;
+}
+
+.bubble_menu .menu_piece .checkbox_hack:checked ~ .expand {
+  display: block;
+}
+

@@ -2,16 +2,78 @@ require 'open-uri'
 
 class RecordsController < ApplicationController
   before_action :set_record, only: [:show, :thumb, :edit, :update, :destroy]
-  skip_before_action :authorize, only: [:show]
+  skip_before_action :authorize, only: [:show,:thumb]
 
   # GET /records
   # GET /records.json
   def index
-    if params[ :collection_id ]
-      @collection = Collection.find params[ :collection_id ]
-      @records = @collection.records
+    where_clause = ''
+
+    if params[ :collection_id ].present?
+      where_clause = where_clause + ActiveRecord::Base.send( :sanitize_sql_array, [ ' collection_id = %s', params[:collection_id] ] )
+    end
+
+    if params[:include].present?
+      # break out values to avoid SQL injection
+      where_values = ['']
+
+      params[:include].each_with_index { |p, i|
+        values = p.split ':'
+
+        if i > 0
+          where_values[0] = where_values[0] + ' AND '
+        end
+
+        where_values[0] = where_values[0] + "lower(parsed->'#{values[0]}') like '%s'"
+        where_values << "%#{values[1].downcase}%"
+      }
+
+      where_clause = where_clause + " AND ( #{ActiveRecord::Base.send( :sanitize_sql_array, where_values )} )"
+    end
+
+    if params[:exclude].present?
+      # break out values to avoid SQL injection
+      where_values = ['']
+
+      params[:exclude].each_with_index { |p, i|
+        values = p.split ':'
+
+        if i > 0
+          where_values[0] = where_values[0] + ' OR '
+        end
+
+        where_values[0] = where_values[0] + "lower(parsed->'#{values[0]}') like '%s'"
+        where_values << "%#{values[1].downcase}%"
+      }
+
+      where_clause = where_clause + " AND NOT ( #{ActiveRecord::Base.send( :sanitize_sql_array, where_values )} )"
+    end
+
+    if params[ :property ].present? && params[ :vis ] == 'treemap'
+      # ["a", "b, b", "c"]
+      # ["a%SPLIT%b, b%SPLIT%c"]
+      # a%SPLIT%b, b%SPLIT%c
+      # a -- b, b -- c
+      sql = %[select values as parsed, count(values) as id from (
+        SELECT  trim(
+          both from unnest(
+            string_to_array(
+              regexp_replace(
+                regexp_replace(
+                  lower(parsed->'#{params[ :property ]}'), '", "', '%SPLIT%', 'g'
+                ), '[\\[\\]"]', '', 'g'
+              ), '%SPLIT%'
+            )
+          )
+        ) as values
+        FROM "records"
+        WHERE #{where_clause}
+      ) as subquery
+      group by values]
+
+      @records = ActiveRecord::Base.connection.execute(sql)
     else
-      @records = Record.all
+      @records = Record.where(where_clause)
     end
   end
 

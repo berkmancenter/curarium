@@ -3,7 +3,7 @@
 
   <%= form_tag(request.original_url, method: :get) do |f| %>
     <%= label_tag 'vis', 'Visualization type' %>
-    <%= select_tag 'vis', options_for_select( [ ['list', 'list'], ['thumbnails','thumbnails'], ['object map', 'objectmap'] ], params['vis'] || 'objectmap' ) %>
+    <%= select_tag 'vis', options_for_select( [ ['list', 'list'], ['thumbnails','thumbnails'], ['object map', 'objectmap'], ['treemap', 'treemap'] ], params['vis'] || 'objectmap' ) %>
 
     <%= submit_tag 'Go', name: nil %>
   <% end %>

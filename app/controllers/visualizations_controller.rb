@@ -41,7 +41,7 @@ class VisualizationsController < ApplicationController
       placeholder = thumb.parsed['thumbnail']
       placeholder ||= "[]"
       thumbnails.push({
-          thumbnail: JSON.parse(placeholder)[0],
+          thumbnail: eval(placeholder)[0],
           title: JSON.parse(thumb.parsed['title'])[0],
           id: thumb.id
         })

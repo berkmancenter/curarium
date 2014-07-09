@@ -211,7 +211,11 @@ $( function() {
           }
         ],
 
-        tilingScheme: null
+        tilingScheme: null,
+
+        shapeStyle: {
+          color: '#dedede'
+        }
       } );
 
       miniMap.click( function( e ) {

@@ -29,5 +29,10 @@ describe ( 'records/vis_controls' ) {
     it { should have_css 'option[value="thumbnails"]' }
     it { should have_css 'option[value="objectmap"]' }
     it { should have_css 'option[value="treemap"]' }
+
+    it { should have_css 'button[data-cmd="include"]', text: 'Include' }
+    it { should have_css 'button[data-cmd="exclude"]', text: 'Exclude' }
+
+    it { should have_css '#props' }
   }
 }

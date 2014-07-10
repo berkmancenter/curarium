@@ -7,8 +7,8 @@
     <%= label_tag 'selprop', 'Select property' %>
     <%= select_tag 'selprop', options_for_select(@properties),:id=>'selprop' %><br>
     <%= text_field_tag 'propval' %>
-    <%= button_tag 'Include',:id=>'include-prop',:type=>'button'%>
-    <%= button_tag 'Exclude',:id=>'exclude-prop',:type=>'button' %><br>
+    <%= button_tag 'Include', :class=>'add-prop', 'data-cmd'=>'include', :type=>'button' %>
+    <%= button_tag 'Exclude', :class=>'add-prop', 'data-cmd'=>'exclude', :type=>'button' %><br>
     <span id='props'></span>
 
     <br><%= submit_tag 'Go', name: nil %>

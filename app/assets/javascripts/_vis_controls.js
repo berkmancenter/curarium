@@ -24,19 +24,16 @@ $( function( ) {
     props.html( propsHtml );
   }
 
-  $( '#include-prop' ).click( function( ) { addprop( true ); } );
-  $( '#exclude-prop' ).click( function( ) { addprop( false ); } );
-
-  function addprop(include) {
+  $( '.add-prop' ).click( function() {
     var sel = $( '#selprop' ).val();
     var val = $( '#propval' ).val();
 
-    var className = include?'include':'exclude';
+    var className = $( this ).data( 'cmd' );
     var value = sel+":"+val;
     var id=val.replace(/\s/g,'_');
 
     props.append( "<span id='"+id+"' class='"+className+"'><a>x</a><input class='checkbox_hack' name='"+className+"[]' value='"+value+"'> "+val+"</span> " );
-  }
+  } );
 
   props.on( 'click', 'a', function() {
     $( this ).parent().remove();

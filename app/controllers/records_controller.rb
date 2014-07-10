@@ -99,7 +99,7 @@ class RecordsController < ApplicationController
      end
      eval_parsed = {}
      @current_metadata.each do |key, value|
-       eval_parsed[key] = eval(value) unless value.to_s.empty?
+       eval_parsed[key] = JSON.parse(value) unless value.to_s.empty?
      end
      respond_to do |format|
        format.html { }

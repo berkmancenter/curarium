@@ -13,7 +13,7 @@ class VisualizationsController < ApplicationController
         viz_cache = Curarium::Application.config.local['viz_cache']
         response = VizCache.find_by(query: encode_params) if viz_cache
         if response.nil?
-          response = eval(params[:type])
+          response = JSON.parse(params[:type])
           if viz_cache
             stored_response = VizCache.new({query: encode_params, data: response})
             stored_response.save
@@ -41,7 +41,7 @@ class VisualizationsController < ApplicationController
       placeholder = thumb.parsed['thumbnail']
       placeholder ||= "[]"
       thumbnails.push({
-          thumbnail: eval(placeholder)[0],
+          thumbnail: JSON.parse(placeholder)[0],
           title: JSON.parse(thumb.parsed['title'])[0],
           id: thumb.id
         })
@@ -144,14 +144,14 @@ class VisualizationsController < ApplicationController
       thumb.parsed.each do |key, value|
         unless ['image','thumbnail','curarium'].include? key
           unless value.nil?
-            parsed[key] = eval(value)
+            parsed[key] = JSON.parse(value)
           end
         end
       end
       placeholder = thumb.parsed['thumbnail']
       placeholder ||= "[]"
       thumbnails.push({
-          thumbnail: eval(placeholder)[0],
+          thumbnail: JSON.parse(placeholder)[0],
           parsed: parsed,
           id: thumb.id
         })

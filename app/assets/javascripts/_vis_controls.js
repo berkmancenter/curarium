@@ -5,9 +5,9 @@ $( function( ) {
     var vals = decodeURIComponent(window.location.search.replace("?","")).split("&");
     var propsHtml = '';
 
-    var i, kv, v;
+    var kv, v;
 
-    for (i=0, l=vals.length;i<l;i++) {
+    for (var i = 0; i < vals.length; i++) {
       kv = vals[i].split("=");
       if (kv[0]=='include[]') {
         v = kv[1].split(":");

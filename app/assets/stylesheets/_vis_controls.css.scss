@@ -1,0 +1,22 @@
+.vis-controls {
+  #props > span {
+    display: inline-block;
+    margin: .25em;
+    padding: .25em;
+  }
+
+  .include {
+    background: #d2232a;
+    color: #fff;
+  }
+
+  .exclude {
+    background: #000;
+    color: #fff;
+  }
+
+  .include a, .exclude a {
+    color: #fff;
+    font-weight: bold;
+  }
+}

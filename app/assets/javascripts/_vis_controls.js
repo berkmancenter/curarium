@@ -1,5 +1,10 @@
 $( function( ) {
   if ( $( '.vis-controls' ).length ) {
+    
+    function propHtml( className, value, text ) {
+      return '<span class="' + className + '"><a href="#">x</a> <input class="checkbox_hack" name="' + className + '[]" value="' + value + '">' + text + '</span>';
+    }
+
     var props = $( '#props' );
 
     var vals = decodeURIComponent(window.location.search.replace("?","")).split("&");
@@ -20,6 +25,22 @@ $( function( ) {
 
     props.html( propsHtml );
 
+    $( '#per_page' ).change( function() {
+      $( '#vis-form' ).submit();
+    } );
+
+
+    $( '#vis' ).change ( function() {
+      if ($.inArray(this.value,['thumbnails','list'])>-1) {
+        $( '.page_in' ).prop('disabled',false);
+      }
+      else {
+        $( '.page_in' ).prop('disabled',true);
+      }
+    } );
+
+    $( '#vis' ).trigger('change')
+
     $( '.add-prop' ).click( function() {
       var sel = $( '#selprop' ).val();
       var val = $( '#propval' ).val();
@@ -35,8 +56,5 @@ $( function( ) {
       return false;
     } );
 
-    function propHtml( className, value, text ) {
-      return '<span class="' + className + '"><a href="#">x</a> <input class="checkbox_hack" name="' + className + '[]" value="' + value + '">' + text + '</span>';
-    }
   }
 } );

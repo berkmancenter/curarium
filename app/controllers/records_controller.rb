@@ -84,6 +84,13 @@ class RecordsController < ApplicationController
       group by values]
 
       @records = ActiveRecord::Base.connection.execute(sql)
+    elsif (params[:vis] != 'objectmap') 
+      #limit = (params[:limit].to_i.zero?)? 200 : params[:limit].to_i
+      #offset = params[:offset].to_i*offset
+      @num = Record.where(where_clause).count()
+      @perpage = (params[:per_page].to_i.zero?) ? 200 : params[:per_page].to_i
+      @page = (params[:page].to_i.zero? || params[:page].to_i > (@num.to_f/@perpage).ceil) ? 1 : params[:page].to_i
+      @records = Record.where(where_clause).limit(@perpage).offset((@page-1)*@perpage)
     else
       @records = Record.where(where_clause)
     end
@@ -99,7 +106,7 @@ class RecordsController < ApplicationController
      end
      eval_parsed = {}
      @current_metadata.each do |key, value|
-       eval_parsed[key] = JSON.parse(value) unless value.to_s.empty?
+       eval_parsed[key] = eval(value) unless value.to_s.empty?
      end
      respond_to do |format|
        format.html { }

@@ -1,7 +1,7 @@
 $( function( ) {
-  var props = $( '#props' );
+  if ( $( '.vis-controls' ).length ) {
+    var props = $( '#props' );
 
-  if ( props.length ) {
     var vals = decodeURIComponent(window.location.search.replace("?","")).split("&");
     var propsHtml = '';
 
@@ -20,20 +20,19 @@ $( function( ) {
     }
 
     props.html( propsHtml );
+
+    $( '.add-prop' ).click( function() {
+      var sel = $( '#selprop' ).val();
+      var val = $( '#propval' ).val();
+
+      var className = $( this ).data( 'cmd' );
+      var value = sel+":"+val;
+
+      props.append( "<span class='"+className+"'><a>x</a><input class='checkbox_hack' name='"+className+"[]' value='"+value+"'> "+val+"</span> " );
+    } );
+
+    props.on( 'click', 'a', function() {
+      $( this ).parent().remove();
+    } );
   }
-
-  $( '.add-prop' ).click( function() {
-    var sel = $( '#selprop' ).val();
-    var val = $( '#propval' ).val();
-
-    var className = $( this ).data( 'cmd' );
-    var value = sel+":"+val;
-
-    props.append( "<span class='"+className+"'><a>x</a><input class='checkbox_hack' name='"+className+"[]' value='"+value+"'> "+val+"</span> " );
-  } );
-
-  props.on( 'click', 'a', function() {
-    $( this ).parent().remove();
-  } );
-
 } );

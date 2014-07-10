@@ -3,5 +3,5 @@
 <% else %>
 <a href='/records/<%= @record.id %>' target='_blank'  class='record_thumbnail' style='background-color:#CCC' title='<%= hstore_aray(@record.parsed, 'title')[0] %>'>
 <% end %>
-	<h3 class='record_thumbnail_title'><%= eval(@record.parsed['title'])[0] %></h3>
+	<h3 class='record_thumbnail_title'><%= JSON.parse(@record.parsed['title'])[0] %></h3>
 </a>

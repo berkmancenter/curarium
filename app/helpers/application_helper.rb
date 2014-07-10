@@ -20,7 +20,7 @@ module ApplicationHelper
   
   def hstore_aray (hstore, field)
     if hstore[field]
-      return eval(hstore[field])
+      return JSON.parse(hstore[field])
     else
       return []
     end

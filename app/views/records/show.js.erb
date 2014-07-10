@@ -44,7 +44,7 @@ var <%= uuid %> = function() {
 	
 	var annotations = <%= raw(@record.annotations.to_json) %>
 	
-        var record_info = $("<div id='record-data'><nav><% images= eval(@curent_metadata['image']) %><% images.each do |image|%><img src='<%= image+'?width=10000&height=10000'%>' class='surrogate_thumbnail'><% end %></nav><section><%= print_metadata @record.parsed, @current_metadata, 'printed_object', 'parsed_record' %></section></div>");
+        var record_info = $("<div id='record-data'><nav><% images= JSON.parse(@curent_metadata['image']) %><% images.each do |image|%><img src='<%= image+'?width=10000&height=10000'%>' class='surrogate_thumbnail'><% end %></nav><section><%= print_metadata @record.parsed, @current_metadata, 'printed_object', 'parsed_record' %></section></div>");
         
         $(placement).append(main_canvas).append(record_info);
         

@@ -15,7 +15,7 @@
     <%= label_tag 'page', 'Page' %>
     <%= select_tag 'page', options_for_select((1..((@num.to_f/@perpage).ceil)).to_a, params[:page].to_i || 1), class: 'page_in' %>
     <%= label_tag 'per_page', 'Records per page' %>
-    <%= text_field_tag 'per_page', @perpage, class: 'page_in' %>
+    <%= text_field_tag 'per_page', @perpage, class: 'page_in', type: 'number' %>
     <br><%= submit_tag 'Go', name: nil %>
   <% end %>
 </section>

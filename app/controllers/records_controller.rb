@@ -4,6 +4,10 @@ class RecordsController < ApplicationController
   before_action :set_record, only: [:show, :thumb, :edit, :update, :destroy]
   skip_before_action :authorize, only: [:show,:thumb]
 
+  rescue_from ArgumentError do |ex|
+    render nothing: true, status: 400
+  end
+
   # GET /records
   # GET /records.json
   def index
@@ -62,6 +66,8 @@ class RecordsController < ApplicationController
     end
 
     if params[ :property ].present? && params[ :vis ] == 'treemap'
+      property = ActiveRecord::Base.send( :sanitize_sql_array, params[ :property ] )
+
       # ["a", "b, b", "c"]
       # ["a%SPLIT%b, b%SPLIT%c"]
       # a%SPLIT%b, b%SPLIT%c
@@ -72,7 +78,7 @@ class RecordsController < ApplicationController
             string_to_array(
               regexp_replace(
                 regexp_replace(
-                  lower(parsed->'#{params[ :property ]}'), '", "', '%SPLIT%', 'g'
+                  lower(parsed->'#{property}'), '", "', '%SPLIT%', 'g'
                 ), '[\\[\\]"]', '', 'g'
               ), '%SPLIT%'
             )

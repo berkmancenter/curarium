@@ -25,6 +25,13 @@ describe ( 'collections/show' ) {
     }
 
     it {
+      should have_css '.col-sidebar'
+    }
+
+    it { should have_css %Q|.col-sidebar a[href*="#{collection_records_path collection}"]| }
+    it { should have_css '.col-sidebar a', text: 'Explore' }
+
+    it {
       should have_css '.cont_spotlight'
     }
   }

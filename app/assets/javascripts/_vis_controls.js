@@ -45,6 +45,13 @@ $( function( ) {
 
 
     $( '#vis' ).change ( function() {
+      if ($.inArray(this.value,['treemap'])>-1) {
+        $( '#property' ).prop('disabled',false);
+      }
+      else {
+        $( '#property' ).prop('disabled',true);
+      }
+
       if ($.inArray(this.value,['thumbnails','list'])>-1) {
         $( '.page_in' ).prop('disabled',false);
       }
@@ -63,6 +70,7 @@ $( function( ) {
       var value = sel+":"+val;
 
       props.append( propHtml( className, value, val ) );
+      $( '#propval' ).val('');
     } );
 
     props.on( 'click', 'a', function() {

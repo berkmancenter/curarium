@@ -14,7 +14,7 @@ class RecordsController < ApplicationController
     where_clause = ''
 
     if params[ :collection_id ].present?
-      where_clause = where_clause + ActiveRecord::Base.send( :sanitize_sql_array, [ ' collection_id = %s', params[:collection_id] ] )
+      where_clause << ActiveRecord::Base.send( :sanitize_sql_array, [ ' collection_id = %s', params[:collection_id] ] )
       @collection = Collection.find(params[:collection_id])
       @properties = @collection.configuration.keys
     else 
@@ -44,7 +44,7 @@ class RecordsController < ApplicationController
         where_values << "%#{values[1].downcase}%"
       }
 
-      where_clause = where_clause + " AND ( #{ActiveRecord::Base.send( :sanitize_sql_array, where_values )} )"
+      where_clause << " AND ( #{ActiveRecord::Base.send( :sanitize_sql_array, where_values )} )"
     end
 
     if params[:exclude].present?
@@ -62,11 +62,11 @@ class RecordsController < ApplicationController
         where_values << "%#{values[1].downcase}%"
       }
 
-      where_clause = where_clause + " AND NOT ( #{ActiveRecord::Base.send( :sanitize_sql_array, where_values )} )"
+      where_clause << " AND NOT ( #{ActiveRecord::Base.send( :sanitize_sql_array, where_values )} )"
     end
 
     if params[ :property ].present? && params[ :vis ] == 'treemap'
-      property = ActiveRecord::Base.send( :sanitize_sql_array, params[ :property ] )
+      property = ActiveRecord::Base.send( :sanitize_sql_array, [ '%s', params[ :property ] ] )
 
       # ["a", "b, b", "c"]
       # ["a%SPLIT%b, b%SPLIT%c"]

@@ -21,23 +21,26 @@ $( function( ) {
 
     var props = $( '#props' );
 
-    var vals = decodeURIComponent(window.location.search.replace("?","")).split("&");
-    var propsHtml = '';
+    var search = window.location.search.replace("?","");
+    if ( search.length ) {
+      var vals = decodeURIComponent(search).split("&");
+      var propsHtml = '';
 
-    var kv, v;
+      var kv, v;
 
-    for (var i = 0; i < vals.length; i++) {
-      kv = vals[i].split("=");
-      v = kv[1].split(":");
+      for (var i = 0; i < vals.length; i++) {
+        kv = vals[i].split("=");
+        v = kv[1].split(":");
 
-      if (kv[0]=='include[]') {
-        propsHtml += propHtml( 'include', kv[1], v[1] );
-      } else if (kv[0]=='exclude[]') {
-        propsHtml += propHtml( 'exclude', kv[1], v[1] );
+        if (kv[0]=='include[]') {
+          propsHtml += propHtml( 'include', kv[1], v[1] );
+        } else if (kv[0]=='exclude[]') {
+          propsHtml += propHtml( 'exclude', kv[1], v[1] );
+        }
       }
-    }
 
-    props.html( propsHtml );
+      props.html( propsHtml );
+    }
 
     $( '#per_page' ).change( function() {
       $( '#vis-form' ).submit();

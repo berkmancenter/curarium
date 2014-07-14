@@ -9,7 +9,7 @@ describe ( RecordsController ) {
     context ( 'no arguments' ) {
       it {
         # Record gets a where '' now, even if no arguments sent to controller
-        Record.should_receive( :where )
+        #Record.should_receive( :where )
         get :index
         response.code.should eq( '200' )
       }

@@ -13,7 +13,7 @@ class VisualizationsController < ApplicationController
         viz_cache = Curarium::Application.config.local['viz_cache']
         response = VizCache.find_by(query: encode_params) if viz_cache
         if response.nil?
-          response = JSON.parse(params[:type])
+          response = treemap
           if viz_cache
             stored_response = VizCache.new({query: encode_params, data: response})
             stored_response.save

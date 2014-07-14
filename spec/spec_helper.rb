@@ -27,6 +27,9 @@ Capybara.current_driver = :slow_poltergeist
 # If you are not using ActiveRecord, you can remove this line.
 ActiveRecord::Migration.check_pending! if defined?(ActiveRecord::Migration)
 
+# Disable the db log for now
+ActiveRecord::Base.logger = nil
+
 RSpec.configure do |config|
   # Capybara 
   config.include Capybara::DSL

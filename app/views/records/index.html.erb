@@ -1,6 +1,6 @@
 <% provide :title, 'Records' %>
 <h1>Records<%= " for #{@collection.name}" if @collection.present? %></h1> 
 
-<%=render partial: 'records/vis_controls', locals: { params: params } %>
-
 <%= render partial: "records/#{params['vis'] || 'objectmap'}", object: @records %>
+
+<%=render partial: 'records/vis_controls', locals: { params: params } %>

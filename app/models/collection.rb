@@ -13,6 +13,7 @@ class Collection < ActiveRecord::Base
     col = find_by_key key
     r = col.records.new original: original, parsed: parsed, unique_identifier: unique_identifier
     r.save
+    r.cache_thumb
   end
 
   def self.follow_json( structure, path )
@@ -51,6 +52,7 @@ class Collection < ActiveRecord::Base
     # create a record from original JSON and pre-parsed version
     r = self.records.new({original: original, parsed: parsed, unique_identifier: unique_identifier})
     r.save
+    r.cache_thumb
   end
   
   def create_record_from_json( original )

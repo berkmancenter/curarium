@@ -72,6 +72,7 @@ describe ( 'Collection model' ) {
         col.configuration.each do |field|
           pr[field[0]] = Collection.follow_json(rec_json[ :original ], field[1])
         end
+        pr
       }
 
       it {
@@ -85,6 +86,23 @@ describe ( 'Collection model' ) {
           expect {
             Collection.create_record_from_parsed( col.key, rec_json[ :original ], pr, 'fake_unique_id' )
           }.to change { col.records.count }.by( 1 )
+        }
+
+        describe ( 'cache thumbnail' ) {
+          before {
+            Rails.cache.clear
+            Collection.create_record_from_parsed( col.key, rec_json[ :original ], pr, 'fake_unique_id' )
+          }
+
+          it ( 'should cache today' ) {
+            record = Record.last
+            puts "*** #{record.parsed[ 'thumbnail' ].class} ***"
+            thumb_url = JSON.parse( record.parsed[ 'thumbnail' ] )[ 0 ]
+            thumb_hash = thumb_url.hash
+
+            cache_date = Rails.cache.fetch( "#{thumb_hash}-date" ) { Date.new }
+            cache_date.should eq( Date.today )
+          }
         }
       }
     }

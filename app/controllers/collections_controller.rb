@@ -1,6 +1,6 @@
 class CollectionsController < ApplicationController
   before_action :set_collection, only: [:show, :edit, :update, :destroy]
-  skip_before_action :authorize, only: [:index, :show, :ingest]
+  skip_before_action :authorize, only: [:index, :show, :import]
 
   # GET /collections
   # GET /collections.json
@@ -80,7 +80,7 @@ class CollectionsController < ApplicationController
     end
   end
 
-  # ingestions
+  # importations
   
   
   private

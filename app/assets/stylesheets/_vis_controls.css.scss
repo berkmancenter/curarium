@@ -1,4 +1,146 @@
 .vis-controls {
+  
+  position: absolute;
+  top: 70px;
+  left: 5px;
+  right: 5px;
+  text-align: center;
+
+  .rec_menu {
+    border: 1px solid #d2233a;
+    background: #eee;
+  }
+
+  .rec_menu label[for=drop] {
+    color: #d2233a;
+    font-weight: bold;
+  }
+
+  .rec_menu label[for=drop]:hover {
+    cursor: pointer;
+    text-decoration: underline;
+  }
+
+  #drop:checked ~ .dropdown {
+    display: table;
+    border-collapse: separate;
+    border-spacing: .7em;
+  }
+
+  #drop:checked ~ #down {
+    display: none;
+  }
+
+  #drop:checked ~ #up {
+    display: inline;
+  }
+
+
+  .dropdown {
+    display: none;
+    top: 300px;
+    width: 100%;
+  }
+
+  .dropcell {
+    text-align: left;
+    display: table-cell;
+    width: 31.1%;
+    border: 1px solid #d2233a;
+    background: #fff;
+    height: 250px;
+    overflow: auto;
+  }
+
+  .update {
+    display: table-caption;
+    caption-side: bottom;
+    border: 1px solid #d2233a;
+    background: #fff;
+    height: 35px;
+    margin: 0px .7em;
+  }
+
+  #go {
+    background: #d2233a;
+    border: 1px solid #d2233a;
+    color: #fff;
+    font-weight: bold;
+    height: 25px;
+    width: 31%;
+  }
+
+  #go:hover {
+    background: #fff;
+    color: #d2233a;
+  }
+
+  select {
+    border: 1px solid #d2233a;
+    font-weight: bold;
+    color: #d2233a;
+    background: #fff;
+    width: 100%;
+  }
+
+  select[disabled], input[disabled] {
+    color: #999;
+    border: 1px solid #999 !important;
+  }
+
+  .in {
+    border: 1px solid #000 !important;
+  }
+
+  #up, #down {
+    width: 13px;
+    height: auto;
+    top: 2px;
+    position: absolute;
+  }
+
+
+  .subcell {
+    margin: 6% 6% 0px 6%;
+  }
+
+  #incexc {
+    display: table;
+    width: 88%;
+  }
+
+  .add-prop {
+    width: 75px;
+    background: #fff;
+    font-weight: bold;
+  }
+
+  .wrap {
+    width: 78px;
+    display: table-cell;
+  }
+
+  #inc {
+    border: 1px solid #d2233a;
+    color: #d2233a;
+  }
+
+  #exc {
+    border: 1px solid #000;
+    color: #000;
+  }
+
+  #per_page {
+    width: 100%;
+    border: 1px solid #ccc;
+    background: #fff;
+  }
+
+  #propval {
+    width: 100%;
+    display: table-cell;
+  }
+
   #props > span {
     display: inline-block;
     margin: .25em;

@@ -15,7 +15,7 @@ describe 'collections requests', :js => true do
 
       it {
         # should non-signed in users see the New Collection button?
-        should have_css '.gallery_item', count: 4
+        should have_css '.gallery_item', count: 5
       }
     }
 
@@ -28,6 +28,10 @@ describe 'collections requests', :js => true do
 
       it {
         should have_title 'Curarium'
+      }
+
+      it {
+        should have_css 'body.collections.show'
       }
 
       it {
@@ -63,7 +67,11 @@ describe 'collections requests', :js => true do
       }
 
       it {
-        should have_css '.gallery_item', count: 4
+        should have_css 'body.collections.index'
+      }
+
+      it {
+        should have_css '.gallery_item', count: 5
       }
     }
   }

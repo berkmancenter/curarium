@@ -69,11 +69,12 @@ $( function( ) {
       var sel = $( '#selprop' ).val();
       var val = $( '#propval' ).val();
 
-      var className = $( this ).data( 'cmd' );
-      var value = sel+":"+val;
-
-      props.append( propHtml( className, value, val ) );
-      $( '#propval' ).val('');
+      if (val!=='') {
+        var className = $( this ).data( 'cmd' );
+        var value = sel+":"+val;
+        props.append( propHtml( className, value, val ) );
+        $( '#propval' ).val('');
+      }
     } );
 
     props.on( 'click', 'a', function() {

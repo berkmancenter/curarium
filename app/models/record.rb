@@ -1,4 +1,5 @@
 require 'open-uri'
+require 'zlib'
 
 class Record < ActiveRecord::Base
   has_many :annotations, dependent: :destroy
@@ -25,7 +26,7 @@ class Record < ActiveRecord::Base
     thumb_url = JSON.parse( parsed[ 'thumbnail' ] )[0]
 
     if thumb_url.present?
-      thumb_hash = thumb_url.hash
+      thumb_hash = Zlib.crc32 thumb_url
       thumb_connection = open( thumb_url + ( thumb_url.include?( '?' ) ? '&' : '?' ) + 'width=256&height=256', 'rb' )
 
       Rails.cache.write "#{thumb_hash}-date", Date.today

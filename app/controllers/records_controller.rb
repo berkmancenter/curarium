@@ -1,4 +1,5 @@
 require 'open-uri'
+require 'zlib'
 
 class RecordsController < ApplicationController
   before_action :set_record, only: [:show, :thumb, :edit, :update, :destroy]
@@ -140,7 +141,7 @@ class RecordsController < ApplicationController
     if thumb_url.nil?
       send_data File.open( "#{Rails.public_path}/missing_thumb.png", 'rb' ).read, type: 'image/png', disposition: 'inline'
     else
-      thumb_hash = thumb_url.hash
+      thumb_hash = Zlib.crc32 thumb_url
 
       cache_date = Rails.cache.read "#{thumb_hash}-date"
       cache_image = Rails.cache.read "#{thumb_hash}-image"

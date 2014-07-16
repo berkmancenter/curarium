@@ -1,4 +1,5 @@
 require 'spec_helper'
+require 'zlib'
 
 describe ( 'Collection model' ) {
   let ( :col ) { Collection.find_by_name( 'test_col' ) }
@@ -96,9 +97,8 @@ describe ( 'Collection model' ) {
 
           it ( 'should cache today' ) {
             record = Record.last
-            puts "*** #{record.parsed[ 'thumbnail' ].class} ***"
             thumb_url = JSON.parse( record.parsed[ 'thumbnail' ] )[ 0 ]
-            thumb_hash = thumb_url.hash
+            thumb_hash = Zlib.crc32 thumb_url
 
             cache_date = Rails.cache.fetch( "#{thumb_hash}-date" ) { Date.new }
             cache_date.should eq( Date.today )

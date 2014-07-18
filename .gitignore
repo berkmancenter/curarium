@@ -20,8 +20,10 @@
 /tmp
 
 # rails environment
-config/database.yml
+/config/database.yml
 
 # vim
 *.swp
 *.swo
+
+

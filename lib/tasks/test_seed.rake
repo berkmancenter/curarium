@@ -31,6 +31,10 @@ def seed
   not_approved.admin = [ test_user.id ]
   not_approved.save
 
+  multi_image = FactoryGirl.create :multi_image
+  multi_image.admin = [ test_user.id ]
+  multi_image.save
+
   via = FactoryGirl.create :via
   via.admin = [ test_user.id ]
   via.save
@@ -46,5 +50,7 @@ def seed
   crfj test_col, :lucrezia
 
   crfj not_approved, :aphrodite
+
+  crfj multi_image, :crucifixion
 end
 

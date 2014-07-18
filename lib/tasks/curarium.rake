@@ -53,6 +53,8 @@ namespace :curarium do
       else
 
         ok = Collection.create_record_from_parsed collection_key, t[ :original ], t[ :parsed ], t[ :unique_identifier ] unless t[ :original ].nil?
+        # sleep to avoid rate limiting
+        sleep 0.125
       end
 
       if ok

@@ -16,6 +16,10 @@ describe 'records requests', :js => true do
       it {
         should have_title 'Curarium'
       }
+
+      it {
+        should have_css 'body.records.show'
+      }
     }
   }
 
@@ -40,6 +44,10 @@ describe 'records requests', :js => true do
 
           it {
             should have_title 'Records'
+          }
+
+          it {
+            should have_css 'body.records.index'
           }
         }
 

@@ -6,7 +6,8 @@
 		<%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>
 		<%= csrf_meta_tags %>
 	</head>
-	<body>
+
+  <body class="<%= "#{params[ :controller ]} #{params[ :action ]}" %>">
 	  <div class="menulines"></div>
 	  <% if (params[:controller] == 'home' and action_name == 'about') or ( params[:controller] == 'collections' and action_name == 'show') %>
 	    <!-- RANDOM IMAGE HEADER -->

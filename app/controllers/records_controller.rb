@@ -1,4 +1,5 @@
 require 'open-uri'
+require 'zlib'
 
 class RecordsController < ApplicationController
   before_action :set_record, only: [:show, :thumb, :edit, :update, :destroy]
@@ -133,21 +134,25 @@ class RecordsController < ApplicationController
     
   # GET /records/1/thumb
   def thumb
+    # try to get the image from cache
+    # if not in cache, send missing_thumb image & attempt to cache again
     thumb_url = JSON.parse( @record.parsed[ 'thumbnail' ] )[0]
+
     if thumb_url.nil?
       send_data File.open( "#{Rails.public_path}/missing_thumb.png", 'rb' ).read, type: 'image/png', disposition: 'inline'
     else
-      thumb_connection = open( thumb_url + ( thumb_url.include?( '?' ) ? '&' : '?' ) + 'width=256&height=256', 'rb' )
+      thumb_hash = Zlib.crc32 thumb_url
 
-      if thumb_connection.is_a? Tempfile
-        send_data thumb_connection.read, type: "image/#{image_type thumb_connection.path}", disposition: 'inline'
+      cache_date = Rails.cache.read "#{thumb_hash}-date"
+      cache_image = Rails.cache.read "#{thumb_hash}-image"
+      cache_type = Rails.cache.read "#{thumb_hash}-type"
+
+      if ( cache_date.nil? || cache_image.nil? || cache_type.nil? )
+        send_data File.open( "#{Rails.public_path}/missing_thumb.png", 'rb' ).read, type: 'image/png', disposition: 'inline'
+        @record.cache_thumb
       else
-        thumb_hash = thumb_url.hash
-        cache_date = Rails.cache.fetch( "#{thumb_hash}-date" ) { Date.today }
-        cache_image = Rails.cache.fetch( "#{thumb_hash}-image" ) { thumb_connection.read }
-
         if stale?( etag: thumb_hash, last_modified: cache_date )
-          send_data cache_image, type: thumb_connection.meta[ 'content-type' ], disposition: 'inline'
+          send_data cache_image, type: cache_type, disposition: 'inline'
         end
       end
     end

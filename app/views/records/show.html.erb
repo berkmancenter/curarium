@@ -1,6 +1,11 @@
 <script>
 
-	$(document).ready(function(){
+	window.onload = function() {
+
+    // TODO: This should not be handled in JavaScript
+    // view can do this on server
+    // surrogates can be simple hyperlinks
+
 		<% image = params[:image].to_i || 0%>
 		window.record.display('<%= JSON.parse(@current_metadata['image'])[image]%>');
 		$('img.surrogate_thumbnail').each( function(i){
@@ -9,11 +14,16 @@
 			});		
 		});
 		
+    // TODO: Move this stuff to its own JavaScript file in assets
+    // or attempt to make it more HTML-based
+
+  /*
 		<% if session[:user_id] %>
 		window.trays.add_record([<%= params[:id] %>],<%= session[:user_id].to_i%>);
 		window.record.update();
 		<% end %>
-	});
+  */
+	};
 </script>
 
 <!-- BEGIN SUB MENU -->	

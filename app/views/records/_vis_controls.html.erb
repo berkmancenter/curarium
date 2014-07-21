@@ -5,6 +5,7 @@
     <%= image_tag 'pullup_r.png', id: 'up' %>
     <%= image_tag 'pulldown_r.png', id: 'down' %>
     <div class = 'dropdown'>
+    <div class = 'floating_divs'>
       <%= form_tag(request.original_url, method: :get, id: 'vis-form') do |f| %>
           <div class='dropcell'>
             <div class='subcell'>
@@ -39,6 +40,8 @@
               <%= label_tag 'per_page', 'Records per page' %><br>
               <%= text_field_tag 'per_page', @perpage, class: 'in page_in', type: 'number' %>
             </div>
+          </div>
+          <span class='stretch'></span>
           </div>
           <div class = 'update'>
             <div style='line-height:35px;'>

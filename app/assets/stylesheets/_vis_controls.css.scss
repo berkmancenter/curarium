@@ -9,6 +9,7 @@
   .rec_menu {
     border: 1px solid #d2233a;
     background: #eee;
+    padding: 5px 8px;
   }
 
   .rec_menu label[for=drop] {
@@ -35,21 +36,29 @@
     display: inline;
   }
 
-
+  
   .dropdown {
     display: none;
     top: 300px;
     width: 100%;
   }
+  
+  .floatdivs{
+    text-align: justify;
+    -ms-text-justify: distribute-all-lines;
+    text-justify: distribute-all-lines;
+  }
 
   .dropcell {
     text-align: left;
-    display: table-cell;
-    width: 31.1%;
+    width: 32.1%;
     border: 1px solid #d2233a;
     background: #fff;
     height: 250px;
     overflow: auto;
+    display: inline-block;
+    *display: inline;
+    zoom: 1
   }
 
   .update {
@@ -58,7 +67,14 @@
     border: 1px solid #d2233a;
     background: #fff;
     height: 35px;
-    margin: 0px .7em;
+    margin: 5px .7em;
+  }
+  
+  .stretch {
+    width: 100%;
+    display: inline-block;
+    font-size: 0;
+    line-height: 0
   }
 
   #go {

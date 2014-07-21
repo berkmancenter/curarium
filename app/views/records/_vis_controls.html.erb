@@ -22,9 +22,9 @@
               <%= select_tag 'selprop', options_for_select(@properties),:id=>'selprop' %>
             </div>
             <div class='subcell' id='incexc'>
+              <%= text_field_tag 'propval', nil, :placeholder=>'Enter property' %>
               <div class='wrap'><%= button_tag 'Include', 'id'=>'inc', :class=>'add-prop', 'data-cmd'=>'include', :type=>'button' %></div><div class='wrap'>
               <%= button_tag 'Exclude', 'id'=>'exc', :class=>'add-prop', 'data-cmd'=>'exclude', :type=>'button' %></div>
-              <%= text_field_tag 'propval', '', 'class'=>'in' %>
             </div>
             <div id='props' class='subcell'></div>
           </div>

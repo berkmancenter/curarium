@@ -53,7 +53,21 @@ class Collection < ActiveRecord::Base
 
     # must reload to extract converted-to-json hstore value
     r.reload
-    r.cache_thumb
+
+    # if not in cache, attempt to cache
+    thumb_url = JSON.parse( r.parsed[ 'thumbnail' ] )[0]
+    thumb_hash = Zlib.crc32 thumb_url
+
+    cache_date = Rails.cache.read "#{thumb_hash}-date"
+    cache_image = Rails.cache.read "#{thumb_hash}-image"
+    cache_type = Rails.cache.read "#{thumb_hash}-type"
+
+    if cache_date.nil? || cache_image.nil? || cache_type.nil?
+      r.cache_thumb
+      sleep 0.0625
+    else
+      #puts "record #{r.id} already in cache"
+    end
   end
   
   def create_record_from_json( original )

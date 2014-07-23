@@ -55,6 +55,9 @@ class Collection < ActiveRecord::Base
     r.reload
 
     # if not in cache, attempt to cache
+    thumb_url_src = r.parsed[ 'thumbnail' ]
+    return unless thumb_url_src.present?
+
     thumb_url = JSON.parse( r.parsed[ 'thumbnail' ] )[0]
     thumb_hash = Zlib.crc32 thumb_url
 

@@ -87,7 +87,9 @@ class RecordsController < ApplicationController
       group by values]
 
       @records = ActiveRecord::Base.connection.execute(sql)
-    elsif params[:vis] != 'objectmap'
+
+    # Array of views that require paging
+    elsif  ['thumbnails','list'].include? params[:vis]
       @num = Record.where( where_clause ).count( :id )
       @perpage = (params[:per_page].to_i<=0) ? 200 : params[:per_page].to_i
       @page = (params[:page].to_i<=0 || params[:page].to_i > (@num.to_f/@perpage).ceil) ? 1 : params[:page].to_i

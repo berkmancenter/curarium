@@ -199,7 +199,8 @@ window.collection.query =
 #this function simply encodes the preceding object into  URL parameters
 window.collection.query_terms = ->
   query = window.collection.query
-  type = '?type=' + query.type
+#  type = '?type=' + query.type
+  vis = '?vis=treemap'
   property = "&property=" + query.property
   include = ""
   exclude = ""
@@ -211,7 +212,8 @@ window.collection.query_terms = ->
     do (term)->
       exclude = exclude + "&exclude[]=" + term
       undefined
-  terms = type + property + include + exclude
+#  terms = type + vis + property + include + exclude
+  terms = vis + property + include + exclude
   return terms
 
 window.collection.generate_visualization = ->

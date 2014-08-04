@@ -239,6 +239,17 @@ $('.orderby .ordering_list').click(function() {
 		$('.expand_orderby').stop().slideToggle(200);
 		});
 
+///COLLECTION HOVER
+
+$('.gallery_item').hover(
+	function() {
+    $(this).find(".collection_options").stop().fadeToggle(200);;
+	},
+	function() { 
+	$(this).find(".collection_options").stop().fadeToggle(200);;
+	});
+
+
 
 }());
 

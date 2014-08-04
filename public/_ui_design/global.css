@@ -1238,3 +1238,75 @@ font-weight: bold;
 	padding: 4px 0 0 10px;
 }
 
+/* COLLECTIONS HOVER */
+
+.collection_options {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background: url('img/transbg2.png');
+	display: none;
+}
+.collection_options_inner{
+	position: absolute;
+	bottom: 0;
+	left: 10px;
+	right: 10px;
+	color: #d2232a;
+	font-weight: bold;
+}
+.collection_options_inner div{
+	text-align: left;
+	border: 1px solid #d2232a;
+	padding: 5px 5px 5px 30px;
+	margin: 10px 0;
+	position: relative;
+}
+.collection_options_inner div:hover{
+	background: #d2232a;
+	color: #fff;
+}
+.collection_options_inner div img{
+	width: 14px;
+	position: absolute;
+	left: 5px;
+	top: 5px;
+}
+.collection_options_inner div img:last-child{
+	display: none;
+}
+
+.object_id {
+	z-index: 10!important;
+}
+.stack1,.stack2,.stack3{
+	position: absolute;
+}
+.stack3{
+	width: 192px;
+	height:192px;
+	top: 0;
+	left: 0;
+	z-index: 1;
+}
+.stack2{
+	width: 191px;
+	height:191px;
+	top: 3px;
+	left: 3px;
+	z-index: -2;
+	border: 1px solid #888;
+	background: #fff;
+}
+.stack1{
+	width: 191px;
+	height:191px;	
+	top: 7px;
+	left: 7px;
+	z-index: -3;
+	border: 1px solid #888;
+	background: #fff;
+}
+

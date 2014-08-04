@@ -1,0 +1,255 @@
+html {
+	position: relative;
+    min-height: 100%;
+}
+body {
+	padding: 0;
+	margin: 0;
+	font-family: arial;
+	font-size: 12px;
+	/* bottom = footer height */
+	margin: 0 0 550px 0;
+
+}
+/*GLOBAL BITS AND PIECES*/
+a {
+	text-decoration: none;
+	color: #d2232a;
+}
+a:hover {
+	text-decoration: underline;
+}
+.titlebar {
+	font-size: 16px;
+	color: #d2232a;
+	padding: 0 0 10px 0;
+}
+.CONTENT{
+	padding: 0 20px;
+}
+#hintbar_left {
+	width: 200px;
+	padding-right: 20px;
+}
+#hintbar_right{
+	width: 100%!important;
+}
+/* GLOBAL MENU */
+.GLOBAL_MENU {
+	width: 100%;
+	height: 38px;
+	border-top: 3px solid #d2232a;
+	border-bottom: 1px solid #ccc;
+	padding: 8px 20px;
+}
+.GLOBAL_MENU #menu_name div {
+	text-transform:uppercase;
+	font-weight: bold;
+	color: #d2232a;
+	font-size: 14px;
+}
+.GLOBAL_MENU #menu_tool div {
+	width: 200px;
+	float: right;
+	text-align: right;
+	text-transform:uppercase;
+	position: relative;
+}
+.GLOBAL_MENU #menu_tool a {
+	color: #000;
+	padding: 0 27px 0 0;
+}
+.GLOBAL_MENU #menu_tool a:hover {
+text-decoration: none;
+font-weight: bold;
+}
+.GLOBAL_MENU #menu_tool img:first-child, .GLOBAL_MENU #menu_tool img:last-child {
+	position: absolute;
+    top: -1px; 
+    right: 0;
+}
+.GLOBAL_MENU #menu_tool img:last-child {
+    display: none;
+}
+.GLOBAL_MENU #menu_tool img, .FRONTPAGE_INFOBAR #hintbar_search img {
+	position: relative;
+	top: 3px;
+	padding: 0 0 0 5px;
+}
+
+/*FRONT PAGE INFORMATION BAR*/
+.FRONTPAGE_INFOBAR{
+	padding: 50px 0;
+	height: 200px;
+	overflow: hidden;
+}
+.FRONTPAGE_INFOBAR #hintbar_left {
+	height: 200px;
+	position:relative;
+}
+.FRONTPAGE_INFOBAR #hintbar_left img:first-child, .FRONTPAGE_INFOBAR #hintbar_left img:nth-child(n+2){
+	position: absolute;
+    top: 0; 
+    left: 0;
+    height: 200px;
+}
+.FRONTPAGE_INFOBAR #hintbar_left img:nth-child(n+2) {
+    display: none;
+   
+}
+.FRONTPAGE_INFOBAR #hintbar_right{
+	height: 199px;
+	border-bottom: 1px solid #d2232a;
+	position:relative; 
+}
+.FRONTPAGE_INFOBAR #hintbar_desc {
+	font-size: 28px;
+	color: #d2232a;
+	font-weight: bold;
+	width: 100%;
+}
+.FRONTPAGE_INFOBAR #hintbar_desc span:first-child, .FRONTPAGE_INFOBAR #hintbar_desc span:nth-child(n+2){
+	position: absolute;
+    top: 0; 
+    left: 0;
+}
+.FRONTPAGE_INFOBAR #hintbar_desc span:nth-child(n+2) {
+    display: none;
+    color: black;
+	font-size: 26px;
+   
+}
+.FRONTPAGE_INFOBAR #hintbar_search, .FRONTPAGE_INFOBAR #hintbar_links, .FRONTPAGE_INFOBAR #about_links {
+	position:absolute; 
+	font-size: 15px;
+	text-transform:uppercase;
+}
+.FRONTPAGE_INFOBAR #hintbar_search b, .FRONTPAGE_INFOBAR #hintbar_links b{
+	color: #d2232a;
+	font-weight: bold;
+}
+.FRONTPAGE_INFOBAR #hintbar_links,.FRONTPAGE_INFOBAR #about_links {
+	bottom: 40px;
+}
+.FRONTPAGE_INFOBAR #about_links {
+	text-transform:none!important;
+	color: #d2232a;
+}
+.FRONTPAGE_INFOBAR #hintbar_search {
+	bottom:0;
+	padding-bottom: 2px;
+}
+
+/*GALLERY*/
+.GALLERY .container{
+	float: left;
+	width: 200px;
+	height: 200px;
+	margin: 0 20px 20px 0;
+	position:relative;	
+}
+.GALLERY #artifact {	
+	overflow: hidden;
+}
+.GALLERY #object_id {
+	position: absolute;
+	right: 1px;
+	top: 1px;
+	padding: 2px 7px;
+	background: white;
+}
+.GALLERY #spotlight #object_id {
+	background: #d2232a;
+	color: white;
+	right:0px;
+	top: 0px;
+}
+.GALLERY  #collection {
+	overflow: hidden;
+	width: 420px;
+	height: 420px;
+}
+.GALLERY #spotlight #border{
+	border: 2px solid #d2232a;
+	height: 183px!important;
+	-moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    -khtml-border-radius: 5px;
+    border-radius: 5px;
+    color: #d2232a;
+    font-size: 14px;
+}
+.GALLERY #spotlight #innertext{
+	padding: 30px 20px;
+}
+.GALLERY #spotlight img, .GALLERY #spotlight #name {
+	position: absolute;
+	bottom: 0px;
+	left: 10px;
+	font-size: 11px;
+	color: #d2232a;
+}
+.GALLERY #spotlight #name {
+	left: 30px!important;
+	bottom: -2px!important;
+}
+#dropdown_curarium {
+    display: none; 
+    width: 200px;
+    position: absolute;
+    padding: 20px 0 20px 0;
+}
+#dropdown_curarium a {
+    color: #000000;
+    font-weight: normal;
+    text-transform:none;
+}
+/*ABOUT PAGE*/
+.ABOUT #what, .ABOUT #vocab, .ABOUT #how, .ABOUT #contact{
+	border-top: 1px solid #d2232a;
+	padding: 50px 0 150px 0;
+}
+.ABOUT #what {
+	border: 0px!important;	
+}
+.ABOUT #hintbar_right{
+	font-size: 18px;
+}
+.ABOUT #hintbar_left {
+	font-size: 16px!important;
+	font-weight: bold;
+	color: #d2232a;
+}
+.ABOUT #howitem{
+	font-weight: bold;
+	padding: 0 0 20px 0;
+}
+.ABOUT #howitem ul{
+	font-weight: normal;
+}
+.ABOUT #howitem td:nth-child(2){
+	padding-left: 20px;
+}
+.ABOUT #vocab span:hover {
+	cursor: hand;
+}
+.ABOUT img{
+	width: 200px;
+}
+.ABOUT #contact b{
+	color: #d2232a;
+}
+/*FOOTER*/
+.FOOTER {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    height: 50px;
+    width: 100%;
+    overflow:hidden;
+}
+.FOOTER div{
+	margin: 10px 20px;
+	padding: 10px 0;
+	border-top: 1px solid #d2232a;
+}

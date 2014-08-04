@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta content="text/html;charset=utf-8" http-equiv="Content-Type">
+<meta content="utf-8" http-equiv="encoding">
+<title>Title of the document</title>
+<link rel="stylesheet" type="text/css" href="global.css">
+
+<script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+<script src="http://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+</head>
+
+
+<body>
+<!--- MENU START --->
+<table class="GLOBAL_MENU" cellspacing="0" cellpadding="0"><tr>
+	<td id="menu_name">
+		<div id="toggle_curarium">
+			<a href="/">Curarium</a>
+			<div id="dropdown_curarium"><a href="/about">About / Contact</a></div>
+		</div>
+	</td>
+	<td id="menu_tool">
+		<div id="toggle_user"><a href="/">Log In <img src="img/user_b.png"><img src="img/user_r.png"></a></div>
+		<div id="toggle_explore"><a href="/">Explore <img src="img/explore_b.png"><img src="img/explore_r.png"></a></div>
+		<div id="toggle_spotlights"><a href="/">Spotlights <img src="img/spotlight_b.png"><img src="img/spotlight_r.png"></a></div>	
+		<div id="toggle_collections"><a href="/">Collections <img src="img/collection_b.png"><img src="img/collection_r.png"></a></div>
+	</td>
+</tr>
+</table>
+<!--- MENU END --->
+<div class="CONTENT">
+
+<!--- INFO BAR START --->
+<table class="FRONTPAGE_INFOBAR" cellspacing="0" cellpadding="0"><tr valign="top">
+	<td><div id="hintbar_left">
+			<img id="hint_orig" src="img/icon.png">
+			<img id="hint_coll" src="img/hint_collection.png">
+			<img id="hint_spot" src="img/hint_spotlight.png">
+			<img id="hint_expl" src="img/hint_explore.png">
+			<img id="hint_user" src="img/hint_user.png">
+		</div></td>
+	<td width=100%><div id="hintbar_right">
+		<div id="hintbar_desc">
+			<span id="orig">
+			Curarium leverages the power of the crowd to annotate, curate, & augment works with the aim of constructing shareable, media-rich stories & elaborate arguments about individual items as well as groups of items.
+			</span>
+			<span id="coll">
+			Collections:
+			 Find and follow collections of interest to you OR ingest your own collection* of up to 30,000 records in just 5 minutes.
+			</span>
+			<span id="spot">
+			Spotlights:
+			 Tell stories by pulling directly from the content you’ve collected in your trays. 
+			Publish, share, and export your spotlights. 
+			</span>
+			<span id="expl">
+			Explore:
+			 Within any collection, browse, filter, search, and generate visualizations.
+				Annotate records and make additions to their metadata.
+				Save individual records, groups of records, or visualizations to a tray. 
+				Categorize what you save using as many trays as you need. 
+			</span>
+			<span id="user">
+			You:
+			Start or join user circles to share and collaborate on work within a specified collection or set of collections. 
+			When you explore any collections in your circles, you can use a social tray to work in real time with circle members to collect and order records. 
+			</span>
+		</div>
+		<div id="hintbar_links">
+		<b><a href="/about">Learn more</a></b>
+		</br><b>Sign Up</b>, Join the Community
+		</div>
+		<div id="hintbar_search">
+		<b>Search <img src="img/search_r.png"></b>		
+		</div>
+	</div></td>
+</tr>
+</table>
+<!--- INFO BAR END --->
+
+<!--- GALLERY START --->
+<div class="titlebar">Recent Activity</div>
+<div class="GALLERY">
+	<!-- an collection -->
+	<div class="container" id="collection">
+		<img id="imagec" src="img/homelesspaintings/45925394.jpg">
+		<div id="object_id">Homeless Paintings Collection</div>
+	</div>
+	<!-- an image -->
+	<div class="container" id="artifact">
+		<img id="image" src="img/homelesspaintings/45918201.jpg">
+		<div id="object_id">01231</div>
+	</div>
+
+	<!-- a spotlight -->
+	<div class="container" id="spotlight">
+		<!-- a spotlight text-->
+		<div id="border"><div id="innertext">
+		“It’s no great secret that the Madonna and the Christ child feature heavily in Renaissance Italian painting. On Curarium alone, out of Berenson’s 16,000 photos...  
+		</div></div>
+		<!-- a spotlight credit-->
+		<img src="img/spotlight_tail.png">
+		<div id="name"><b>Mike</b> <i>on 11.02.14</i></div>
+		<div id="object_id">Here is the spotlight title</div>
+	</div>
+
+</div>
+
+
+
+<!--- GALLERY END --->
+
+<!--- FOOTER START --->
+<div class="FOOTER">
+<div>
+	test
+</div>
+</div>
+<!--- FOOTER END --->
+</div>
+</body>
+<script type="text/javascript" src="global.js"></script>
+</html>

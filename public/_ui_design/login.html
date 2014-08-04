@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta content="text/html;charset=utf-8" http-equiv="Content-Type">
+<meta content="utf-8" http-equiv="encoding">
+<title>Title of the document</title>
+<link rel="stylesheet" type="text/css" href="global.css">
+<script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+<script src="http://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+</head>
+
+<body><div class="menulines"></div>
+
+<!--- BEGIN HOLDER --->
+<div class="GLOBAL_HOLDER">
+	
+<!--- BEGIN GLOBAL MENU --->	
+<div class="GLOBAL_MENU">
+    <div class="left">
+		<div class="toggle_curarium">
+			<a class="curarium_name" href="/Curarium/curarium.html">Curarium</a>
+			<div class="dropdown_menu"><a href="/Curarium/about.html">About / Contact</a></div>
+		</div>
+    </div>
+    <div class="expandable">
+    	<div class="tools">
+		<!--<div class="toggle_user"><a href="/Curarium/user.html">Log In <img src="img/user_b.png"><img src="img/user_r.png"></a></div>-->
+		<div class="toggle_user">
+			<a href="/Curarium/user.html">Log In <img src="img/user_b.png"><img src="img/user_r.png"></a>
+			<div class="dropdown_menu"><a href="/Curarium/about.html">Logout</a></div>
+		</div>		
+		<div class="toggle_explore"><a href="/Curarium/explore.html">Explore <img src="img/explore_b.png"><img src="img/explore_r.png"></a></div>
+		<div class="toggle_spotlights"><a href="/Curarium/spotlights.html">Spotlights <img src="img/spotlight_b.png"><img src="img/spotlight_r.png"></a></div>	
+		<div class="toggle_collections"><a href="/Curarium/collections.html">Collections <img src="img/collection_b.png"><img src="img/collection_r.png"></a></div>
+		</div>
+	</div>
+</div><!--- END GLOBAL MENU --->		
+
+
+<!--- BEGIN INFO BAR --->	
+<div class="INFO_BAR">
+    <div class="left shifter">
+        <img id="hint_orig" src="img/animated_icon.gif">
+		<img id="hint_coll" src="img/hint_collection.png">
+		<img id="hint_spot" src="img/hint_spotlight.png">
+		<img id="hint_expl" src="img/hint_explore.png">
+		<img id="hint_user" src="img/hint_user.png">
+    </div>
+    <div class="expandable"><div class="info_text">
+		<div class="hintbar_desc">
+		<span>
+		Member Log in</br>
+		</span>
+		</div>
+    	
+    	<div id="hintbar_links" class="login">
+			<div class="login_signup"><b>Username</b><input class="text" type="text" name="fname" value=""></div>
+			<div class="login_signup"><b>Password</b><input class="text" type="text" name="fname" value=""></div>
+			<div class="login_signup">
+			<div class="button">Log in</div><div class="switch">Not a member? <a href="/Curarium/signup.html"><b>Sign up!</b></a></div>
+			</div>
+		</div>
+    
+    </div></div>
+ 
+</div><!--- END INFO BAR --->	
+
+
+
+<div class="FOOTER">
+<div>
+<span>&copy; CURARIUM 2013</span>
+<a href="http://metalab.harvard.edu/">metaLAB (at) Harvard</a><span class="dot">&middot;</span><a href="http://itatti.harvard.edu/">Villa I Tatti</a>
+</div>
+</div>
+
+
+</div><!--- END HOLDER --->
+
+
+
+
+
+</body>
+<script type="text/javascript" src="global.js"></script>
+</html>

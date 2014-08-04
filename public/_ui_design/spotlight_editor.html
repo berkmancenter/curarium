@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta content="text/html;charset=utf-8" http-equiv="Content-Type">
+<meta content="utf-8" http-equiv="encoding">
+<title>Title of the document</title>
+<link rel="stylesheet" type="text/css" href="global.css">
+<script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+<script src="http://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+</head>
+
+<body><div class="menulines"></div>
+
+<!--- BEGIN HOLDER --->
+<div class="GLOBAL_HOLDER">
+	
+<!--- BEGIN GLOBAL MENU --->	
+<div class="GLOBAL_MENU">
+    <div class="left"><div>
+       <a href="/Curarium/curarium.html"><img src="img/miniicon.png"></a>
+       <div class="global_search"><input type="text" name="fname" value="Search Curarium"><img src="img/search_g.png"></div>
+    </div></div>
+    <div class="expandable">
+    	<div class="tools">
+		<div class="toggle_user"><a href="/Curarium/user.html">Log In <img src="img/user_b.png"><img src="img/user_r.png"></a></div>
+		<div class="toggle_explore"><a href="/Curarium/explore.html">Explore <img src="img/explore_b.png"><img src="img/explore_r.png"></a></div>
+		<div class="toggle_spotlights"><a href="/Curarium/spotlights.html">Spotlights <img src="img/spotlight_b.png"><img src="img/spotlight_r.png"></a></div>	
+		<div class="toggle_collections"><a href="/Curarium/collections.html">Collections <img src="img/collection_b.png"><img src="img/collection_r.png"></a></div>
+		</div>
+	</div>
+</div><!--- END GLOBAL MENU --->		
+
+
+<!--- BEGIN SUB MENU --->	
+<div class="SUB_MENU bubble_menu">
+	<table cellspacing="0" cellpadding="0"><tr>
+		<td valign="top" class="bub_shr nohover">
+			<div class="menu_piece spot_editor">
+			<div class="button">Spotlight Editor<img src="img/alph_r.png"></div>
+			</div>
+		</td><td valign="top" class="bub_menu3">
+			<div class="menu_piece">
+			<div class="button">Spotlight Type: select<img src="img/pulldown_r.png"><img src="img/pullup_r.png"></div>
+			<div class="expand">
+				<!-- THIS IS WHERE THE LIST OF TYPES GOES --->
+				<div class="tray">Article<div class="add"><input class="stickleft" type="checkbox" name="article" value="article"></div></div>
+				<div class="tray">Canvas<div class="add"><input class="stickleft" type="checkbox" name="canvas" value="canvas"></div></div>
+				<div class="tray">Slideshow<div class="add"><input class="stickleft" type="checkbox" name="slideshow" value="slideshow"></div></div>
+			</div>
+			</div>
+		</td><td valign="top" class="bub_highlight">
+			<div class="menu_piece">
+			<div class="button">Submit Spotlight<img src="img/submit_w.png"></div>
+			</div>
+		</td>
+	</tr></table>
+</div><!--- END SUB MENU --->	
+
+
+
+<!--- BEGIN INFO BAR --->	
+
+<div class="INFO_BAR spoteditor_bar slider_bar">
+    <div class="expandable">
+		<div class="control_box_holder">
+		<!-----THIS IS WHERE THE TRAYS GO --->
+
+		</div>
+    </div>
+</div><!--- END INFO BAR --->	
+
+<table class="spotlight_editor" cellspacing="0" cellpadding="0"><tr>
+	<td valign="top"><div class="editor">
+		<!--- SPOTLIGHT EDITOR --->
+		<div class="titlebar"><input class="text" type="text" name="fname" value="Spotlight Title (Edit)"></div>	
+			<!--- BEGIN TOOLBAR --> 
+				<div id="toolbar" >
+				<a data-wysihtml5-command="formatBlock" data-wysihtml5-command-value="h3">Title</a>
+				<a data-wysihtml5-command="formatBlock" data-wysihtml5-command-value="h5">Subtitle</a>
+				<a data-wysihtml5-command="formatBlock" data-wysihtml5-command-value="p">Regular</a>
+			
+				<a data-wysihtml5-command="bold">bold</a>
+				<a data-wysihtml5-command="italic">italic</a>
+			
+				<!-- Some wysihtml5 commands require extra parameters -->
+				<a data-wysihtml5-command="justifyLeft">align left</a>
+				<a data-wysihtml5-command="justifyCenter">align center</a>
+				<a data-wysihtml5-command="justifyRight">align right</a>
+			
+				<!-- Some wysihtml5 commands like 'createLink' require extra paramaters specified by the user (eg. href) -->
+				<a data-wysihtml5-command="createLink">insert link</a>
+				<div data-wysihtml5-dialog="createLink" style="display: none;">
+					<label> Link:
+						<input data-wysihtml5-dialog-field="href" value="http://" class="text">
+					</label>
+					<a data-wysihtml5-dialog-action="save">OK</a><a data-wysihtml5-dialog-action="cancel">Cancel</a>
+				</div>
+				<!-- Some wysihtml5 commands like 'createLink' require extra paramaters specified by the user (eg. href) -->
+				<a data-wysihtml5-command="insertImage">insert image</a>
+				<div data-wysihtml5-dialog="insertImage" style="display: none;">
+					<label> Image:
+						<input data-wysihtml5-dialog-field="src" value="http://">
+					</label>
+					<a data-wysihtml5-dialog-action="save">OK</a>
+					<a data-wysihtml5-dialog-action="cancel">Cancel</a>
+				</div>
+				</div>
+				<!--- END TOOLBAR -->		
+		<div class="box">
+			<!--- SPOTLIGHT BODY --->
+			<textarea id="spotlight_body" name="spotlight[body]"></textarea>
+		</div>
+		<div class="box">
+			<!--- SPOTLIGHT COMPONENTS --->
+			<div id="spotlight_components">The components go here</div>
+		</div>
+	</div></td>
+	<td valign="top"><div class="trays">
+		<!--- YOUR TRAYS SELECTOR --->
+		<div class="titlebar">Your Trays</div> 
+		<div id="toolbar"></div>
+		<div class="box">
+			Your trays go here
+		</div>
+	</div></td>
+</tr></table>
+
+
+
+
+</div><!--- END HOLDER --->
+
+
+
+
+
+
+
+
+</body>
+<script type="text/javascript" src="global.js"></script>
+</html>

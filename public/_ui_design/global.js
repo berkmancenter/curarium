@@ -2,9 +2,12 @@
 function resizecontent (winwidth, winheight){
 var GLOBAL_HOLDER_h = $(".GLOBAL_HOLDER").height();
 var GLOBAL_HOLDER_w = $(".GLOBAL_HOLDER").width();
+var spotlight_editor_w = $(".spotlight_editor td").width();
 
+$('.bubble_menu .menu_piece').css({"max-height": winheight-120},1000);
+$('.bubble_menu .expand').css({"max-height": winheight-150},1000);
+$('.bubble_menu .spot_editor').css({"width": spotlight_editor_w-10},1000);
 
-console.log(GLOBAL_HOLDER_w);
 /// IF 5 TILES OR LESS
 if(GLOBAL_HOLDER_w <= 1100){
 	$(".ABOUT .right").css({"width":"200px"});
@@ -29,22 +32,36 @@ if(GLOBAL_HOLDER_h > winheight){$(".FOOTER").css({"position":"static"});}
 	if(winwidth > 1540){
 	$(".INFO_BAR .expandable .hintbar_desc span").css({"font-size":"28px"});
 	$(".latestpost").css({"font-size":"40px"});
+	$(".explore_bar .album, .bubble_menu .bub_dis").css({"display":"show"});
+	$(".explore_bar .filter").css({"width":"630px"});
 	}	
-	if(winwidth <= 1540){
+	if(winwidth < 1540){
 	$(".INFO_BAR .expandable .hintbar_desc span").css({"font-size":"24px"});
 	$(".latestpost").css({"font-size":"38px"});
+	$(".bubble_menu .bub_dis").css({"display":"show"});
+	$(".explore_bar .album ").css({"display":"none"});
+	$(".explore_bar .filter").css({"width":"630px"});
 	}
-	if(winwidth <= 1320){
+	if(winwidth < 1320){
 	$(".INFO_BAR .expandable .hintbar_desc span").css({"font-size":"22px"});
 	$(".latestpost").css({"font-size":"35px"});
+	$(".bubble_menu .bub_dis").css({"display":"show"});
+	$(".explore_bar .album").css({"display":"none"});
+	$(".explore_bar .filter").css({"width":"420px"});
+
 	};
-	if(winwidth <= 1100){
+	if(winwidth < 1100){
 	$(".INFO_BAR .expandable .hintbar_desc span").css({"font-size":"21px"});
 	$(".latestpost").css({"font-size":"30px"});
+	$(".explore_bar .album, .bubble_menu .bub_dis").css({"display":"none"});
+	$(".explore_bar .filter").css({"width":"200px"});
+
 	};
-	if(winwidth <= 882){
+	if(winwidth < 882){
 	$(".INFO_BAR .expandable .hintbar_desc span").css({"font-size":"21px"});
 	$(".latestpost").css({"font-size":"30px"});
+	$(".explore_bar .album, .bubble_menu .bub_dis").css({"display":"none"});
+
 	};
 
 }
@@ -122,7 +139,7 @@ $('.toggle_user').hover(
 	$('#hint_user').stop().fadeToggle(200);$('#hint_orig').stop().fadeToggle(200);});
 
 //ABOUT PAGE//
-var highlight = 
+
 $('#vocab span, .ABOUT .left span').hover(
 	function() {$(this).css({'cursor': 'pointer','text-decoration': 'underline'});},
 	function() {$(this).css({'cursor': 'pointer','text-decoration': 'none'});});
@@ -220,7 +237,28 @@ $('.layout_icon').hover(
         }
     });
 
-
 	
+// EXPLORE-PAGE
+$('.controls_toggle').hover(
+	function() {$(this).css({'cursor': 'pointer'});},
+	function() {$(this).css({'cursor': 'pointer'});});
+$('.controls_toggle').click(
+	function() {
+    $('.slider_bar').stop().slideToggle(200);
+   $(this).find("img").stop().fadeToggle(200);
+   },
+	function() { 
+	$('.slider_bar').stop().slideToggle(200);
+	$(this).find("img").stop().fadeToggle(200);
+	});
+	
+// RECORDS-PAGE
+$('.bub_menu1 .button').click(function() {$('.bub_menu1 .expand').stop().slideToggle(200);},function() {$('.bub_menu1 .expand').stop().slideToggle(200);});
+$('.bub_menu2 .button').click(function() {$('.bub_menu2 .expand').stop().slideToggle(200);},function() {$('.bub_menu2 .expand').stop().slideToggle(200);});
+$('.bub_menu3 .button').click(function() {$('.bub_menu3 .expand').stop().slideToggle(200);},function() {$('.bub_menu3 .expand').stop().slideToggle(200);});
+$('.bub_menu4 .button').click(function() {$('.bub_menu4 .expand').stop().slideToggle(200);},function() {$('.bub_menu4 .expand').stop().slideToggle(200);});
+$('.bub_menu1 .button, .bub_menu2 .button, .bub_menu3 .button, .bub_menu4 .button').click(
+	function() {$(this).find("img").stop().fadeToggle(200);},
+	function() {$(this).find("img").stop().fadeToggle(200);});	
 	
 }());

@@ -39,9 +39,7 @@
 			  		</script>
 			  	<% elsif c['type'] == 'visualization' %>
 			  		<a href="<%=c['body']['url']%>" target='_blank'><div class='visualization_component'></div></a>
-			  		<script type="text/javascript">
-			  			window.visualization['<%=c['body']['terms']['type']%>']('spotlight_reference_<%=i%>', "<%=c['body']['url']%>");
-			  		</script>
+            <!-- TODO: window.visualization JavaScript call removed; use _vis partials, see #9466 -->
 			  	<% end %>
 			  	</div>
 			  </div>

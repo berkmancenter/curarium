@@ -10,19 +10,23 @@
 </head>
 
 <body><div class="menulines"></div>
-
+<span id="pageid"class="toggle_explore" style="display: none"></span>
 <!--- BEGIN HOLDER --->
 <div class="GLOBAL_HOLDER">
 	
 <!--- BEGIN GLOBAL MENU --->	
 <div class="GLOBAL_MENU">
-    <div class="left"><div>
-       <a href="/Curarium/curarium.html"><img src="img/miniicon.png"></a>
-       <div class="global_search"><input type="text" name="fname" value="Search Curarium"><img src="img/search_g.png"></div>
-    </div></div>
+    <div class="left">    <div class="toggle_curarium">
+		<a href="/Curarium/curarium.html"><img src="img/miniicon.png"></a><div class="global_search"><input type="text" name="fname" value="Search Curarium"><img src="img/search_g.png"></div>
+		<div class="dropdown_menu"><a href="/Curarium/about.html">About / Contact</a></div>
+	</div></div>  
     <div class="expandable">
     	<div class="tools">
-		<div class="toggle_user"><a href="/Curarium/user.html">Log In <img src="img/user_b.png"><img src="img/user_r.png"></a></div>
+		<!--<div class="toggle_user"><a href="/Curarium/user.html">Log In <img src="img/user_b.png"><img src="img/user_r.png"></a></div>-->
+		<div class="toggle_user">
+			<a href="/Curarium/user.html">Log In <img src="img/user_b.png"><img src="img/user_r.png"></a>
+			<div class="dropdown_menu"><a href="/Curarium/about.html">Logout</a></div>
+		</div>		
 		<div class="toggle_explore"><a href="/Curarium/explore.html">Explore <img src="img/explore_b.png"><img src="img/explore_r.png"></a></div>
 		<div class="toggle_spotlights"><a href="/Curarium/spotlights.html">Spotlights <img src="img/spotlight_b.png"><img src="img/spotlight_r.png"></a></div>	
 		<div class="toggle_collections"><a href="/Curarium/collections.html">Collections <img src="img/collection_b.png"><img src="img/collection_r.png"></a></div>
@@ -38,7 +42,9 @@
         <span class="active_collection">Homeless Paintings</span>
     </div>
     <div class="right">
-    	<div class="orderby"><span>Order:</span><span><img src="img/clock_r.png"><img src="img/up_r.png"><img src="img/down_r.png"></span></div>
+    	<div class="orderby"><span>Order:</span>
+    			<span><img class="ordering_list" src="img/clock_r.png"><img src="img/up_r.png"><img src="img/down_r.png"></span>
+    	</div>
     </div>
 	<div class="controls_toggle">Visualization Controls <img src="img/pulldown_r.png"><img src="img/pullup_r.png"></div>
 </div><!--- END SUB MENU --->	
@@ -46,13 +52,20 @@
 
 
 <!--- BEGIN INFO BAR --->	
-
+<div class="expand_orderby">
+	<!-- THIS IS WHERE THE LIST OF ORDERING OPTIONS GO --->
+	<div class="tray">Order type 1</div>
+	<div class="tray">Order type 1</div>
+	<div class="tray">Order type 1</div>
+	<div class="tray">Order type 1</div>
+	<div class="tray">Order type 1</div>
+</div>
 <div class="INFO_BAR explore_bar slider_bar">
     <div class="expandable">
 		<div class="control_box_holder">
-		<div class="control_box album">
+		<!--<div class="control_box album">
 			 <img src="img/records/03.jpg">
-		</div> 
+		</div> -->
 		<!--- VISUALIZATION TYPE --->
 		<div class="control_box">
 			<div class="select_top">Visualization Type
@@ -126,7 +139,53 @@
     </div>
 </div><!--- END INFO BAR --->	
 
-
+	<!--- BEGIN RECORD POPUP --->	
+	<div class="record_popup">
+		<div class="record_data"><div class="titlebar">Record #23423 Data</div>
+				<div class="record_cont_holder">
+				This is where the parsed record information goes.</br>This is where the parsed record information goes.</br>This is where the parsed record information goes.
+				</br>This is where the parsed record information goes.</br>This is where the parsed record information goes.</br>This is where the parsed record information goes.
+				</br>This is where the parsed record information goes.</br>This is where the parsed record information goes.</br>This is where the parsed record information goes.
+				</br>This is where the parsed record information goes.</br>This is where the parsed record information goes.</br>This is where the parsed record information goes.
+				</br>This is where the parsed record information goes.</br>This is where the parsed record information goes.</br>This is where the parsed record information goes.
+				</br>This is where the parsed record information goes.</br>This is where the parsed record information goes.</br>This is where the parsed record information goes.
+				</br>This is where the parsed record information goes.</br>This is where the parsed record information goes.</br>This is where the parsed record information goes.
+				</br>This is where the parsed record information goes.</br>This is where the parsed record information goes.</br>This is where the parsed record information goes.
+				</br>This is where the parsed record information goes.</br>This is where the parsed record information goes.</br>This is where the parsed record information goes.
+				</br>This is where the parsed record information goes.</br>This is where the parsed record information goes.</br>This is where the parsed record information goes.
+				</br>This is where the parsed record information goes.</br>This is where the parsed record information goes.</br>This is where the parsed record information goes.
+				</br>This is where the parsed record information goes.</br>This is where the parsed record information goes.</br>This is where the parsed record information goes.
+				</br>This is where the parsed record information goes.</br>This is where the parsed record information goes.</br>This is where the parsed record information goes.
+				</br>This is where the parsed record information goes.</br>This is where the parsed record information goes.</br>This is where the parsed record information goes.
+				</br>This is where the parsed record information goes.</br>This is where the parsed record information goes.</br>This is where the parsed record information goes.
+				</div>
+		</div>
+		<div class="record_img">
+			<div class="titlebar">
+				<a href="/Curarium/record.html"><span class="navigate"><img src="img/annotate_r.png">go to record</span></a>
+				<div class="add_to_tray"><span class="navigate"><img src="img/add_to_tray_r.png">add to tray</span>
+						<div class="expand">
+						<!-- THIS IS WHERE THE LIST OF TRAYS GOES --->
+						<div class="tray">Tray 01<div class="add">add</div></div>
+						<div class="tray">Tray 02<div class="add">add</div></div>
+						<div class="tray">Tray 03<div class="add">add</div></div>
+						<div class="tray">Tray 04<div class="add">add</div></div>
+						<div class="tray">Tray 05<div class="add">add</div></div>
+						</div>
+				</div>
+			</div>
+			<img class="record" src="img/records/353454.jpg">
+		</div>
+		<div class="record_surr"><div class="titlebar"><span class="navigate close">close<img src="img/close_r.png"></span></div>
+			<div class="record_cont_holder">
+			<img src="img/records/18720106.jpg">
+			<img src="img/records/1212121.jpg">
+			<img src="img/records/32342342.jpg">
+			</div>
+		</div>
+	</div>
+	<!--- END RECORD POPUP --->		
+	
 	<!--- BEGIN MINI MAP --->	
 	<div class="minimap"><img src="img/minimap_placeholder.jpg"></div>
 	<!--- END MINI MAP --->		

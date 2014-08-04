@@ -16,25 +16,29 @@
 	
 <!--- BEGIN GLOBAL MENU --->	
 <div class="GLOBAL_MENU">
-    <div class="left"><div>
-       <a href="/Curarium/curarium.html"><img src="img/miniicon.png"></a>
-       <div class="global_search"><input type="text" name="fname" value="Search Curarium"><img src="img/search_g.png"></div>
-    </div></div>
+    <div class="left">    <div class="toggle_curarium">
+		<a href="/Curarium/curarium.html"><img src="img/miniicon.png"></a><div class="global_search"><input type="text" name="fname" value="Search Curarium"><img src="img/search_g.png"></div>
+		<div class="dropdown_menu"><a href="/Curarium/about.html">About / Contact</a></div>
+	</div></div>  
     <div class="expandable">
     	<div class="tools">
-		<div class="toggle_user"><a href="/Curarium/user.html">Log In <img src="img/user_b.png"><img src="img/user_r.png"></a></div>
+		<!--<div class="toggle_user"><a href="/Curarium/user.html">Log In <img src="img/user_b.png"><img src="img/user_r.png"></a></div>-->
+		<div class="toggle_user">
+			<a href="/Curarium/user.html">Log In <img src="img/user_b.png"><img src="img/user_r.png"></a>
+			<div class="dropdown_menu"><a href="/Curarium/about.html">Logout</a></div>
+		</div>		
 		<div class="toggle_explore"><a href="/Curarium/explore.html">Explore <img src="img/explore_b.png"><img src="img/explore_r.png"></a></div>
 		<div class="toggle_spotlights"><a href="/Curarium/spotlights.html">Spotlights <img src="img/spotlight_b.png"><img src="img/spotlight_r.png"></a></div>	
 		<div class="toggle_collections"><a href="/Curarium/collections.html">Collections <img src="img/collection_b.png"><img src="img/collection_r.png"></a></div>
 		</div>
 	</div>
-</div><!--- END GLOBAL MENU --->		
+</div><!--- END GLOBAL MENU --->	
 
 
 <!--- BEGIN SUB MENU --->	
 <div class="SUB_MENU bubble_menu">
 	<table cellspacing="0" cellpadding="0"><tr>
-		<td valign="top" class="bub_menu1">
+		<td valign="top" class="bub_menu">
 			<div class="menu_piece">
 			<div class="button">Parsed Information<img src="img/pulldown_r.png"><img src="img/pullup_r.png"></div>
 			<div class="expand">
@@ -57,7 +61,7 @@
 				</br>This is where the parsed record information goes.</br>This is where the parsed record information goes.</br>This is where the parsed record information goes.
 			</div>
 			</div>
-		</td><td valign="top" class="bub_menu2">
+		</td><td valign="top" class="bub_menu surrogates">
 			<div class="menu_piece">
 			<div class="button">Surrogates<img src="img/pulldown_r.png"><img src="img/pullup_r.png"></div>
 			<div class="expand">
@@ -76,7 +80,7 @@
 			<div class="expand">
 			</div>
 			</div>
-		</td><td valign="top" class="bub_menu3">
+		</td><td valign="top" class="bub_menu">
 			<div class="menu_piece">
 			<div class="button">Add to Tray<img src="img/pulldown_r.png"><img src="img/pullup_r.png"></div>
 			<div class="expand">
@@ -88,7 +92,7 @@
 				<div class="tray">Tray 05<div class="add">add</div></div>
 			</div>
 			</div>
-		</td><td valign="top" class="bub_menu4">
+		</td><td valign="top" class="bub_menu">
 			<div class="menu_piece">
 			<div class="button">Annotate<img src="img/pulldown_r.png"><img src="img/pullup_r.png"></div>
 			<div class="expand">

@@ -5,178 +5,237 @@
 <meta content="utf-8" http-equiv="encoding">
 <title>Title of the document</title>
 <link rel="stylesheet" type="text/css" href="global.css">
-
 <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
 <script src="http://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
 </head>
 
+<body><div class="menulines"></div>
 
-<body>
-<!--- MENU START --->
-<table class="GLOBAL_MENU" cellspacing="0" cellpadding="0"><tr>
-	<td id="menu_name">
-		<div id="toggle_curarium">
-			<a href="/">Curarium</a>
-			<div id="dropdown_curarium"><a href="/about">About / Contact</a></div>
-		</div>
-	</td>
-	<td id="menu_tool">
-		<div id="toggle_user"><a href="/">Log In <img src="img/user_b.png"><img src="img/user_r.png"></a></div>
-		<div id="toggle_explore"><a href="/">Explore <img src="img/explore_b.png"><img src="img/explore_r.png"></a></div>
-		<div id="toggle_spotlights"><a href="/">Spotlights <img src="img/spotlight_b.png"><img src="img/spotlight_r.png"></a></div>	
-		<div id="toggle_collections"><a href="/">Collections <img src="img/collection_b.png"><img src="img/collection_r.png"></a></div>
-	</td>
-</tr>
-</table>
-<!--- MENU END --->
-<div class="CONTENT">
+<!-- RANDOM IMAGE HEADER -->
+<div class="about_header_lines" style="background: url('img/records/123123122.jpg') no-repeat center center; background-size: cover;"></div>
 
-<!--- INFO BAR START --->
-<table class="FRONTPAGE_INFOBAR" cellspacing="0" cellpadding="0"><tr valign="top">
-	<td><div id="hintbar_left">
-			<img id="hint_orig" src="img/icon.png">
-			<img id="hint_coll" src="img/hint_collection.png">
-			<img id="hint_spot" src="img/hint_spotlight.png">
-			<img id="hint_expl" src="img/hint_explore.png">
-			<img id="hint_user" src="img/hint_user.png">
-		</div></td>
-	<td width=100%><div id="hintbar_right">
-		<div id="hintbar_desc">
-			<span id="orig">
-			About Curarium
-			</span>
-			<span id="cura">
-			Curarium leverages the power of the crowd to annotate, curate, & augment works with the aim of constructing shareable, media-rich stories & elaborate arguments about individual items as well as groups of items.
-			</span>
-			<span id="coll">
-			Collections:
-			 Find and follow collections of interest to you OR ingest your own collection* of up to 30,000 records in just 5 minutes.
-			</span>
-			<span id="spot">
-			Spotlights:
-			 Tell stories by pulling directly from the content you’ve collected in your trays. 
-			Publish, share, and export your spotlights. 
-			</span>
-			<span id="expl">
-			Explore:
-			 Within any collection, browse, filter, search, and generate visualizations.
-				Annotate records and make additions to their metadata.
-				Save individual records, groups of records, or visualizations to a tray. 
-				Categorize what you save using as many trays as you need. 
-			</span>
-			<span id="user">
-			You:
-			Start or join user circles to share and collaborate on work within a specified collection or set of collections. 
-			When you explore any collections in your circles, you can use a social tray to work in real time with circle members to collect and order records. 
-			</span>
-		</div>
-		<div id="about_links">
-		<span id="what">What is Curarium?</span> 
-		</br><span id="vocab">Curarium Vocabulary</span>
-		</br><span id="how">How do I use Curarium?</span>
-		</br><span id="contact">Contact us</span>
-		</div>
-		<div id="hintbar_search">
-		<b>Search <img src="img/search_r.png"></b>		
-		</div>
-	</div></td>
-</tr>
-</table>
-<!--- INFO BAR END --->
-
-<!--- GALLERY START --->
-<div class="ABOUT">
+<!--- BEGIN HOLDER --->
+<div class="GLOBAL_HOLDER">
 	
-<table id="what" cellspacing="0" cellpadding="0"><tr valign="top">
-	<td><div id="hintbar_left">
-		What is Curarium?
-	</div></td>
-	<td width=100%><div id="hintbar_right">
-		<b>Curarium</b> showcases the latent storytelling possibilities of collections using item-level annotations through top-level visualizations to bring both objects and the communities to which they belong into dialogue with one another. 	
-	</div></td>
-</tr>
-</table>
-<table id="vocab" cellspacing="0" cellpadding="0"><tr valign="top">
-	<td><div id="hintbar_left">
-		Curarium Vocabulary
-	</div></td>
-	<td width=100%><div id="hintbar_right">
-<span id="vann">Annotation</span> | <span id="vcir">Circle</span> | <span id="vcoll">Collection</span> | <span id="ving">Ingest</span> | <span id="vrec">Record</span> | <span id="vstra">Social Tray</span> | <span id="vspo">Spotlight</span> | <span id="vtra">Tray</span>
-	</div></td>
-</tr>
-</table>
-<table id="how" cellspacing="0" cellpadding="0"><tr valign="top">
-	<td><div id="hintbar_left">
-		How do I use Curarium?
-	</div></td>
-	<td width=100%><div id="hintbar_right">
-				
-<table id="howitem" cellspacing="0" cellpadding="0"><tr valign="top">
-	<td><img id="hint_coll" src="img/hint_collection.png"></td>
-	<td>Collect<ul>
-	<li>Find and follow <span id="vcoll">collections</span> of interest to you </li>
-	<li>OR <span id="ving">ingest</span> your own <span id="vcoll">collection</span>* of up to 30,000 <span id="vrec">records</span> in just 5 minutes. *Requires JSON files and offsite hosting</li>
-	</ul></td>
-</tr></table>
-<table id="howitem" cellspacing="0" cellpadding="0"><tr valign="top">
-	<td><img id="hint_coll" src="img/hint_explore.png"></td>
-	<td>Explore<ul>
-<li>Within any <span id="vcoll">collection</span>, browse, filter, search, and generate visualizations.</li>
-<li><span id="vann">Annotate</span> <span id="vrec">records</span> and make additions to their metadata.</li>
-<li>Save individual <span id="vrec">records</span>, groups of <span id="vrec">records</span>, or visualizations to a <span id="vtra">tray</span>. </li>
-<li>Categorize what you save using as many <span id="vtra">trays</span> as you need.</li>
-</ul></td>
-</tr></table>
-<table id="howitem" cellspacing="0" cellpadding="0"><tr valign="top">
-	<td><img id="hint_coll" src="img/hint_spotlight.png"></td>
-	<td><span id="vspo">Spotlight</span><ul>
-<li>Tell stories by pulling directly from the content you’ve collected in your <span id="vtra">trays</span>.</li>
-<li>Publish, share, and export your <span id="vspo">spotlights</span>.</li>
-</ul></td>
-</tr></table>
-<table id="howitem" cellspacing="0" cellpadding="0"><tr valign="top">
-	<td><img id="hint_coll" src="img/hint_user.png"></td>
-	<td>User<ul>
-<li>Edit your <span id="vcoll">collections</span>, <span id="vtra">trays</span>, and <span id="vspo">spotlights</span>.</li>
-<li>Track <span id="vcoll">collections</span> and users you follow.</li>
-<li>Start or join user <span id="vcir">circles</span> to share and collaborate on work within a specified <span id="vcoll">collection</span> or set of <span id="vcoll">collections</span>.</li>
-<li>From your <span id="vcir">circle’s</span> splash page, access <span id="vcir">circle</span>-specific <span id="vcoll">collections</span>; check the newsfeed to find updated <span id="vcir">circle</span> annotations, <span id="vstra">social trays</span>, and <span id="vspo">spotlights</span>; post comments to your <span id="vcir">circle</span> members.</li>
-<li>When you explore any <span id="vcoll">collections</span> in your <span id="vcir">circles</span>, you can use a <span id="vstra">social tray</span> to work in real time with <span id="vcir">circle</span> members to collect and order <span id="vrec">records</span>.</li>
-</ul></td>
-</tr></table>
-
-
-	</div></td>
-</tr>
-</table>
-<table id="contact" cellspacing="0" cellpadding="0"><tr valign="top">
-	<td><div id="hintbar_left">
-		Contact us
-	</div></td>
-	<td width=100%><div id="hintbar_right">
-		We would be happy to answer any questions or concern you may have at: 
-		<p><b> curarium@metalab.harvard.edu	</b></p>
-	</div></td>
-</tr>
-</table>
-
-
-
-
+<!--- BEGIN GLOBAL MENU --->	
+<div class="GLOBAL_MENU">
+    <div class="left">    <div class="toggle_curarium">
+		<a href="/Curarium/curarium.html"><img src="img/miniicon.png"></a><div class="global_search"><input type="text" name="fname" value="Search Curarium"><img src="img/search_g.png"></div>
+		<div class="dropdown_menu"><a href="/Curarium/about.html">About / Contact</a></div>
+	</div></div>  
+    <div class="expandable">
+    	<div class="tools">
+		<!--<div class="toggle_user"><a href="/Curarium/user.html">Log In <img src="img/user_b.png"><img src="img/user_r.png"></a></div>-->
+		<div class="toggle_user">
+			<a href="/Curarium/user.html">Log In <img src="img/user_b.png"><img src="img/user_r.png"></a>
+			<div class="dropdown_menu"><a href="/Curarium/about.html">Logout</a></div>
+		</div>		
+		<div class="toggle_explore"><a href="/Curarium/explore.html">Explore <img src="img/explore_b.png"><img src="img/explore_r.png"></a></div>
+		<div class="toggle_spotlights"><a href="/Curarium/spotlights.html">Spotlights <img src="img/spotlight_b.png"><img src="img/spotlight_r.png"></a></div>	
+		<div class="toggle_collections"><a href="/Curarium/collections.html">Collections <img src="img/collection_b.png"><img src="img/collection_r.png"></a></div>
+		</div>
+	</div>
+</div><!--- END GLOBAL MENU --->	
+    
+    
+<!--- BEGIN HEADER BAR --->	
+<div class="about_header">
+<div class="page_title">Curarium</div>
 </div>
+<!--- END HEADER BAR --->	  
 
 
 
-<!--- GALLERY END --->
+<!--- BEGIN ABOUT CONTENT --->	
+<div class="about_content">
+	
+	<!-- left content -->
+    <div class="left"><div class="holder">
+    	<div class="titlebar main">97785 total records</div>
+		<div class="profile_img" style="background: url('img/animated_icon.gif') no-repeat center center; background-size: cover;">&nbsp;</div>   
+       <div class="stalking_menu_holder">
+        	<div class="stalking_menu stalking_menu_main">
+        	<div class="to_about">What is Curarium?</div>
+        	<div class="to_vocab">Curarium Vocabulary</div>
+        	<div class="to_how">How do I use Curarium?</div>
+        	<div class="to_contact">Contact Us</div>
+        	</div>
+        </div> 
+    </div></div><!-- end left content -->
+    
+    <!-- middle content -->
+    <div class="expandable"><div class="holder">
+			<!-- ABOUT CONTENT -->
+		<div class="titlebar to_about">What is Curarium?</div>
+		<div class="cont_about">
+		<u>Curarium</u> is a platform for exploring, analyzing, and making arguments about collections and the objects they comprise. It leverages the power of collections to tell stories by giving users tools ranging from item-level annotations to comprehensive, repository-wide visualizations, allowing them to bring both objects and the communities to which they belong into dialogue with one another.
+		<p>Curarium isn’t an online exhibition platform, but an environment for pursuing and sharing collections-based research nimbly, intuitively, and iteratively. Browse vast numbers of objects, using an expanding library of visualization tools to generate dynamic data portraits of collections. Annotate records and images, curating them to highlight relationships and juxtapositions. Assemble those records into trays of objects, images, and visualizations to share and work collaboratively with your social circles, and transform trays into published spotlights that unlock the stories and arguments bound up in collections.</p>		
+		</div>
+		
+	   	<!-- VOCAB CONTENT -->
+    	<div class="titlebar to_vocab">Curarium Vocabulary</div>
+		<div class="cont_vocab">	
+				<span class="vann">Annotation</span> | <span class="vcir">Circle</span> | <span class="vcoll">Collection</span> | <span class="ving">Ingest</span> | <span class="vrec">Record</span> | <span class="vstra">Social Tray</span> | <span class="vspo">Spotlight</span> | <span class="vtra">Tray</span>	
+		</div><!-- end vocab -->	
+		
+		
+   		<!-- HOW CONTENT -->
+    	<div class="titlebar to_how">How do I use Curarium?</div>
+		<div>		
+				<table class="howitem" cellspacing="0" cellpadding="0"><tr valign="top">
+					<td><img id="hint_coll" src="img/hint_collection.png"></td>
+					<td>Collect<ol>
+					<li>Find and follow <span class="vcoll">collections</span> of interest to you </li>
+					<li>OR <span class="ving">ingest</span> your own <span class="vcoll">collection</span>* of up to 30,000 <span class="vrec">records</span> in just 5 minutes. *Requires JSON files and offsite hosting</li>
+					</ol></td>
+				</tr></table>
+				<table class="howitem" cellspacing="0" cellpadding="0"><tr valign="top">
+					<td><img id="hint_coll" src="img/hint_explore.png"></td>
+					<td>Explore<ol>
+				<li>Within any <span class="vcoll">collection</span>, browse, filter, search, and generate visualizations.</li>
+				<li><span class="vann">Annotate</span> <span class="vrec">records</span> and make additions to their metadata.</li>
+				<li>Save individual <span class="vrec">records</span>, groups of <span class="vrec">records</span>, or visualizations to a <span class="vtra">tray</span>. </li>
+				<li>Categorize what you save using as many <span class="vtra">trays</span> as you need.</li>
+				</ol></td>
+				</tr></table>
+				<table class="howitem" cellspacing="0" cellpadding="0"><tr valign="top">
+					<td><img id="hint_coll" src="img/hint_spotlight.png"></td>
+					<td><span class="vspo">Spotlight</span><ol>
+				<li>Tell stories by pulling directly from the content you’ve collected in your <span class="vtra">trays</span>.</li>
+				<li>Publish, share, and export your <span class="vspo">spotlights</span>.</li>
+				</ol></td>
+				</tr></table>
+				<table class="howitem" cellspacing="0" cellpadding="0"><tr valign="top">
+					<td><img id="hint_coll" src="img/hint_user.png"></td>
+					<td>User<ol>
+				<li>Edit your <span class="vcoll">collections</span>, <span class="vtra">trays</span>, and <span class="vspo">spotlights</span>.</li>
+				<li>Track <span class="vcoll">collections</span> and users you follow.</li>
+				<li>Start or join user <span class="vcir">circles</span> to share and collaborate on work within a specified <span class="vcoll">collection</span> or set of <span class="vcoll">collections</span>.</li>
+				<li>From your <span class="vcir">circle’s</span> splash page, access <span class="vcir">circle</span>-specific <span class="vcoll">collections</span>; check the newsfeed to find updated <span class="vcir">circle</span> annotations, <span class="vstra">social trays</span>, and <span class="vspo">spotlights</span>; post comments to your <span class="vcir">circle</span> members.</li>
+				<li>When you explore any <span class="vcoll">collections</span> in your <span class="vcir">circles</span>, you can use a <span class="vstra">social tray</span> to work in real time with <span class="vcir">circle</span> members to collect and order <span class="vrec">records</span>.</li>
+				</ol></td>
+				</tr></table>        
+		</div><!-- end how -->
+		
+		
+   		<!-- CONTACT CONTENT -->
+    	<div class="titlebar to_contact">Contact Us<div class="more">more <img src="img/pulldown_r.png"></div></div>
+		<div>
+			We would be happy to answer any questions or concern you may have at: 
+			<p><b> curarium@metalab.harvard.edu	</b></p>		
+		</div><!-- end contact -->
 
-<!--- FOOTER START --->
+    </div></div><!-- end middle content -->
+
+	<!-- right content -->
+     <div class="right"><div class="holder">
+     	<div class="titlebar">News <div class="more">hide</div></div>
+     			<!--- an activity --->
+				<table cellspacing="0" cellpadding="0" class="activity_holder"><tr>
+				<td valign="top" class="date">
+					02.12&nbsp; - <img src="img/anounce_r.png">
+				</td><td valign="top" class="activity">
+					Curarium — what is it? Even if you pegged it as an aquarium for curating
+				</td></tr></table>
+     			<!--- an activity --->
+				<table cellspacing="0" cellpadding="0" class="activity_holder"><tr>
+				<td valign="top" class="date">
+					02.12&nbsp; - <img src="img/anounce_r.png">
+				</td><td valign="top" class="activity">
+					Curarium is, at its core, a platform for learning about and through digital objects and collections. It takes advantage of the unique affordances of digital interaction with a collection...
+				</td></tr></table>
+     			<!--- an activity --->
+				<table cellspacing="0" cellpadding="0" class="activity_holder"><tr>
+				<td valign="top" class="date">
+					02.12&nbsp; - <img src="img/icon_twitter_r.png">
+				</td><td valign="top" class="activity">
+					The development of Curarium is taking place at an interesting time in the history of databases.
+				</td></tr></table>
+     			<!--- an activity --->
+				<table cellspacing="0" cellpadding="0" class="activity_holder"><tr>
+				<td valign="top" class="date">
+					02.12&nbsp; - <img src="img/icon_twitter_r.png">
+				</td><td valign="top" class="activity">
+					Curarium is a platform that users can use to work with digital...
+				</td></tr></table>
+     			<!--- an activity --->
+				<table cellspacing="0" cellpadding="0" class="activity_holder"><tr>
+				<td valign="top" class="date">
+					02.13&nbsp; - <img src="img/anounce_r.png">
+				</td><td valign="top" class="activity">
+					Waku won’t be fully integrated with Curarium until post-beta launch, but we are already playing with Homeless Paintings
+				</td></tr></table>	
+     			<!--- an activity --->
+				<table cellspacing="0" cellpadding="0" class="activity_holder"><tr>
+				<td valign="top" class="date">
+					02.12&nbsp; - <img src="img/collection_r.png">
+				</td><td valign="top" class="activity">
+					A new collection has been added to Curarium. See it here. 
+				</td></tr></table>
+     			<!--- an activity --->
+				<table cellspacing="0" cellpadding="0" class="activity_holder"><tr>
+				<td valign="top" class="date">
+					02.12&nbsp; - <img src="img/anounce_r.png">
+				</td><td valign="top" class="activity">
+					Curarium — what is it? Even if you pegged it as an aquarium for curating
+				</td></tr></table>
+     			<!--- an activity --->
+				<table cellspacing="0" cellpadding="0" class="activity_holder"><tr>
+				<td valign="top" class="date">
+					02.12&nbsp; - <img src="img/anounce_r.png">
+				</td><td valign="top" class="activity">
+					Curarium is, at its core, a platform for learning about and through digital objects and collections. It takes advantage of the unique affordances of digital interaction with a collection...
+				</td></tr></table>
+     			<!--- an activity --->
+				<table cellspacing="0" cellpadding="0" class="activity_holder"><tr>
+				<td valign="top" class="date">
+					02.12&nbsp; - <img src="img/icon_twitter_r.png">
+				</td><td valign="top" class="activity">
+					The development of Curarium is taking place at an interesting time in the history of databases.
+				</td></tr></table>
+     			<!--- an activity --->
+				<table cellspacing="0" cellpadding="0" class="activity_holder"><tr>
+				<td valign="top" class="date">
+					02.12&nbsp; - <img src="img/icon_twitter_r.png">
+				</td><td valign="top" class="activity">
+					Curarium is a platform that users can use to work with digital...
+				</td></tr></table>
+     			<!--- an activity --->
+				<table cellspacing="0" cellpadding="0" class="activity_holder"><tr>
+				<td valign="top" class="date">
+					02.13&nbsp; - <img src="img/anounce_r.png">
+				</td><td valign="top" class="activity">
+					Waku won’t be fully integrated with Curarium until post-beta launch, but we are already playing with Homeless Paintings
+				</td></tr></table>	
+     			<!--- an activity --->
+				<table cellspacing="0" cellpadding="0" class="activity_holder"><tr>
+				<td valign="top" class="date">
+					02.12&nbsp; - <img src="img/collection_r.png">
+				</td><td valign="top" class="activity">
+					A new collection has been added to Curarium. See it here. 
+				</td></tr></table>
+     </div></div><!-- end right content -->
+     
+</div><!--- END ABOUT CONTENT --->	
+
+<!--- BEGIN GALLERY --->	
+
+	
+
 <div class="FOOTER">
 <div>
-	test
+<span>&copy; CURARIUM 2013</span>
+<a href="http://metalab.harvard.edu/">metaLAB (at) Harvard</a><span class="dot">&middot;</span><a href="http://itatti.harvard.edu/">Villa I Tatti</a>
 </div>
 </div>
-<!--- FOOTER END --->
-</div>
+
+
+</div><!--- END HOLDER --->
+
+
+
+
+
 </body>
 <script type="text/javascript" src="global.js"></script>
 </html>

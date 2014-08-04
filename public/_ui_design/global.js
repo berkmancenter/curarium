@@ -57,6 +57,8 @@ if(GLOBAL_HOLDER_h > winheight){$(".FOOTER").css({"position":"static"});}
 	$(".explore_bar .album ").css({"display":"none"});
 	$(".explore_bar .filter").css({"width":"630px"});
 	$(".about_content .right .holder").css({"width":"420px"});
+	/// ADDED 06.11.2014
+	$(".uploader_content .right .holder, .uploader_content .left .holder").css({"width":"420px"});
 	}
 	if(winwidth < 1320){
 	$(".INFO_BAR .expandable .hintbar_desc span").css({"font-size":"22px"});
@@ -65,6 +67,8 @@ if(GLOBAL_HOLDER_h > winheight){$(".FOOTER").css({"position":"static"});}
 	$(".explore_bar .album").css({"display":"none"});
 	$(".explore_bar .filter").css({"width":"420px"});
 	$(".about_content .right .holder").css({"width":"200px"});
+	/// ADDED 06.11.2014
+	$(".uploader_content .right .holder, .uploader_content .left .holder").css({"width":"200px"});
 	};
 	if(winwidth < 1100){
 	$(".INFO_BAR .expandable .hintbar_desc span").css({"font-size":"21px"});

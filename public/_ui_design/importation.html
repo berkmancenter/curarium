@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta content="text/html;charset=utf-8" http-equiv="Content-Type">
+<meta content="utf-8" http-equiv="encoding">
+<title>Title of the document</title>
+<link rel="stylesheet" type="text/css" href="global.css">
+<script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+<script src="http://code.jquery.com/ui/1.10.4/jquery-ui.js"></script>
+</head>
+
+<body><div class="menulines"></div>
+<span id="pageid"class="toggle_user" style="display: none"></span>
+
+<!--- BEGIN HOLDER --->
+<div class="GLOBAL_HOLDER">
+	
+<!--- BEGIN GLOBAL MENU --->	
+<div class="GLOBAL_MENU">
+    <div class="left">    <div class="toggle_curarium">
+		<a href="/Curarium/curarium.html"><img src="img/miniicon.png"></a><div class="global_search"><input type="text" name="fname" value="Search Curarium"><img src="img/search_g.png"></div>
+		<div class="dropdown_menu"><a href="/Curarium/about.html">About / Contact</a></div>
+	</div></div>  
+    <div class="expandable">
+    	<div class="tools">
+		<!--<div class="toggle_user"><a href="/Curarium/user.html">Log In <img src="img/user_b.png"><img src="img/user_r.png"></a></div>-->
+		<div class="toggle_user">
+			<a href="/Curarium/user.html">Log In <img src="img/user_b.png"><img src="img/user_r.png"></a>
+			<div class="dropdown_menu"><a href="/Curarium/about.html">Logout</a></div>
+		</div>		
+		<div class="toggle_explore"><a href="/Curarium/explore.html">Explore <img src="img/explore_b.png"><img src="img/explore_r.png"></a></div>
+		<div class="toggle_spotlights"><a href="/Curarium/spotlights.html">Spotlights <img src="img/spotlight_b.png"><img src="img/spotlight_r.png"></a></div>	
+		<div class="toggle_collections"><a href="/Curarium/collections.html">Collections <img src="img/collection_b.png"><img src="img/collection_r.png"></a></div>
+		</div>
+	</div>
+</div><!--- END GLOBAL MENU --->		
+    	
+<!--- BEGIN SUB MENU --->	
+<div class="SUB_MENU">
+			<div class="titlebar main bord">Collection Creator</div>
+			<div class="button submit">Upload Collection</div>
+</div><!--- END SUB MENU --->	
+
+
+<!--- BEGIN ABOUT CONTENT --->	
+<div class="uploader_content">
+	
+	<!-- left content -->
+    <div class="left"><div class="holder">
+    	<div class="titlebar">General Information</div> 	
+		Collection Name
+		<div class="input_box">
+			<input class="text" type="text" name="fname" value="Choose a name for your collection">
+		</div> 
+		Collection Description
+		<div class="input_box">
+			<textarea class="text" id="spotlight_body" name="spotlight[body]"></textarea>	
+		</div> 
+		Collection Provider
+		<div class="input_box">
+			<input class="text" type="text" name="fname" value="Identify the provider of this collection">
+		</div> 
+		Collection JSON Uploader<span class="uploadjson">Upload</span>
+		<div class="input_box">
+			<textarea class="text" id="spotlight_body" name="spotlight[body]"></textarea>	
+		</div> 
+    </div></div><!-- end left content -->
+    
+    <!-- middle content -->
+    <div class="expandable"><div class="holder">
+		<!-- ABOUT CONTENT -->
+		<div class="titlebar">Collection JSON File</div>
+		Parsed json file
+		<div class="json_holder">
+				No File - Please Upload a JSON file		
+		</div>
+    </div></div><!-- end middle content -->
+
+	<!-- right content -->
+     <div class="right"><div class="holder">
+     		<div class="titlebar">Active Fields</div>
+				Unique_id
+				<div class="field">blah blah</div> 
+				Title
+				<div class="field">blah blah</div> 
+				Image
+				<div class="field">blah blah</div> 
+				Thumbnail
+				<div class="field">blah blah</div> 
+				Add
+				<div class="field">blah blah<div class="close"><img src="img/close_b.png"></div></div> 
+     </div></div><!-- end right content -->
+     
+</div><!--- END ABOUT CONTENT --->	
+
+<!--- BEGIN GALLERY --->	
+
+	
+
+<div class="FOOTER">
+<div>
+<span>&copy; CURARIUM 2013</span>
+<a href="http://metalab.harvard.edu/">metaLAB (at) Harvard</a><span class="dot">&middot;</span><a href="http://itatti.harvard.edu/">Villa I Tatti</a>
+</div>
+</div>
+
+
+</div><!--- END HOLDER --->
+
+
+
+
+
+</body>
+<script type="text/javascript" src="global.js"></script>
+</html>

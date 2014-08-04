@@ -1117,6 +1117,64 @@ font-weight: bold;
 	bottom:0;
 	margin:auto;
 }
+/* UPLOADER */
+.uploader_content {
+	padding: 20px 0 0 0;
+	height: 100%;
+	overflow: hidden;
+}
+.uploader_content .left .holder, .uploader_content .right .holder {
+	width: 420px;
+}
+.uploader_content .expandable {
+	width: 100%;
+}
+.uploader_content .input_box input, .uploader_content .input_box textarea{
+	width: 100%;
+	font-family: arial;
+	font-size: 12px;
+}
+.uploader_content .input_box textarea{
+	height: 200px;
+}
+.uploader_content .uploadjson {
+	float: right;
+	font-weight: bold;
+	color: #d2232a;
+}
+.uploader_content .input_box,.uploader_content .json_holder{
+	margin: 5px 0 20px 0;
+}
+.uploader_content .json_holder{
+	max-height: 1000px;
+	overflow: auto;
+}
+.uploader_content .field {
+	border: 1px solid #ccc; 
+	padding: 3px;
+	margin: 5px 0 10px 0;
+}
+.uploader_content .field .close{
+	float: right;
+}
+.uploader_content .field .close img{
+	width: 10px;
+}
+.submit {
+	position: absolute;
+	top: 0;
+	right: 0;
+	padding: 5px 0;
+	width: 200px;
+	background: #d2232a;
+	color: #fff;
+	margin: 0 10px;
+}
+/*SEARCH */
+
+
+/*UPDATED 06.11.2014*/
+/*NEW ADDED STUFF*/
 .spotlight_viewedit  #subtitle img{
 		width: 15px;
 		height: 15px;
@@ -1126,10 +1184,21 @@ font-weight: bold;
 .spotlight_viewedit  #subtitle{
 		padding: 0 0 5px 0;
 }
-.spotlight_viewedit, .main {
-	padding: 0 10px;
+/*FIX */ 
+.spotlight_viewedit {
+	padding: 20px 10px 0 10px!important; 
+
 }
-.reference .bord, .reference #subtitle{
+.viewer .bord, .edit .reference .bord {
+	padding-left: 0!important;
+}
+.bord, .reference #subtitle{
 	padding: 0 10px; 
 }
+
+
+
+
+
+
 

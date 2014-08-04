@@ -1,7 +1,6 @@
 Curarium::Application.routes.draw do
 
   
-  #get 'embed' => 'visualizations#embed', as: 'embed'
   get 'trays/:id/add_records' => 'trays#add_records', as: 'add_records'
   get 'trays/:id/add_visualization' => 'trays#add_visualization', as: 'add_visualization'
   

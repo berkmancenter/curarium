@@ -1196,6 +1196,7 @@ font-weight: bold;
 	padding: 0 10px; 
 }
 
+
 /*LOGIN*/
 .login{
 	top: 90px;
@@ -1276,8 +1277,7 @@ font-weight: bold;
 }
 .collection_options_inner div img:last-child{
 	display: none;
-}
-
+}
 .object_id {
 	z-index: 10!important;
 }
@@ -1309,4 +1309,3 @@ font-weight: bold;
 	border: 1px solid #888;
 	background: #fff;
 }
-

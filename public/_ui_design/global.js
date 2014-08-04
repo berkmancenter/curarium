@@ -123,15 +123,19 @@ $('.toggle_curarium,.toggle_user').hover(
 	$(this).find(".dropdown_menu").stop().show('fadein');},
     function() {
     $(this).find(".dropdown_menu").stop().hide('fadeout');});  
-      
-$('.toggle_collections, .toggle_spotlights, .toggle_explore, .toggle_user').hover(
+
+
+///UPDATED 06.12.14      
+$('.toggle_collections, .toggle_spotlights, .toggle_explore, .toggle_user, .collection_options_inner div').hover(
 	function() {
     $(this).find("img").stop().fadeToggle(200);
     $(this).find("a").stop().animate({"color":infobar_css},200);
+    $(this).find("b").stop().animate({"color":infobar_css},200);
 	},
 	function() { 
 	$(this).find("img").stop().fadeToggle(200);
 	$(this).find("a").stop().animate({"color":"black"},200);
+	$(this).find("b").stop().animate({"color":"black"},200);
 	});
 
 
@@ -202,7 +206,7 @@ $('.layout_icon').hover(
 	
 
 // EXPLORE-PAGE
-$('.controls_toggle, .navigate, .orderby img').hover(
+$('.controls_toggle, .navigate, .orderby img, .collection_options .collection_options_inner div').hover(
 	function() {$(this).css({'cursor': 'pointer'});},
 	function() {$(this).css({'cursor': 'pointer'});});
 $('.controls_toggle').click(

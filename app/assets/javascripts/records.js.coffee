@@ -6,12 +6,11 @@ window.record = {}
 
 window.record.parsed = {}
 
-
 #THE FOLLOWING FUNCIONS DEAL WITH MODIFYING THE RECORD'S METADATA
 
 window.record.update = () ->
   window.record.parsed = read_parsed() #get the user edited values as a javascript object
-  
+
   #create save changes record and give it functionality
   save = $("<input type='submit' id='save_changes' value='Save Changes'>")
   $('#parsed_record').append(save)

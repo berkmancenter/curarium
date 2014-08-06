@@ -16,7 +16,6 @@
 //= require jquery.geo-1.0.0-test
 //= require jquery.ui.zoomify
 //= require d3
-//= require turbolinks
 //= require kinetic-v5.0.1.min
 //= require simple.js
 //= require wysihtml5-0.3.0.min

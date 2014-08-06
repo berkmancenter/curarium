@@ -18,12 +18,7 @@
 	    <%= render 'shared/header'%>
 	    <%= yield %>
 	      
-	    <% if (params[:controller] == 'visualizations' and action_name == 'index') %>
-
-	      <!-- BEGIN VISUALIZATION HOLDER -->	
-		  <div class="EXPLORE" id='visualization_container'></div>
-	      <!-- END VISUALIZATION HOLDER-->
-	    <% elsif (params[:controller] == 'records' and action_name == 'show') %>
+	    <% if (params[:controller] == 'records' and action_name == 'show') %>
 	      <!-- BEGIN RECORD HOLDER -->	
 		  <div  id='main-canvas' class="RECORD"></div>
 	      <!-- END RECORD HOLDER -->

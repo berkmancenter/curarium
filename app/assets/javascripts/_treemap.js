@@ -68,16 +68,8 @@ $( function() {
         return '';
       }
     } ).on('click', function(e) {
-      // this is broken but will change when we remove generate_visualization
-      // and use a more standard HTML form
-      var name, query, value;
-      query = window.collection.query;
-      value = d3.select(this).data()[0].parsed;
-      name = query.property + ":" + value;
-      if (query.include.indexOf(name) === -1) {
-        query.include.push(name);
-      }
-      window.collection.generate_visualization();
+      var value = d3.select(this).data()[0].parsed;
+      // TODO: handle click
       return false;
     } );
   }

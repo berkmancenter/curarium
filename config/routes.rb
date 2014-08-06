@@ -51,7 +51,6 @@ Curarium::Application.routes.draw do
     get "add" => "collections#add", as: "add"
     post "upload" => "collections#upload", as: "upload"
     resources :records
-    resources :visualizations
   end
 
   # The priority is based upon order of creation: first created -> highest priority.

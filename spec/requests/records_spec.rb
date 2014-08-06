@@ -311,6 +311,48 @@ describe 'records requests', :js => true do
               should_not have_css '.node', text: 'Joseph(1)'
               should have_css '.node', text: 'Joseph, Saint(1)'
             }
+
+            describe ( 'click node' ) {
+              before {
+                click_link 'death(1)'
+              }
+
+              it {
+                snap
+                # one woman dying in our test data
+                should have_css '.node', text: 'Women(1)'
+              }
+
+            }
+          }
+
+          describe ( 'treemap topics include one' ) {
+            before {
+              visit "#{collection_records_path col}?vis=treemap&property=topics&include[]=topics:women"
+            }
+
+            it {
+              should have_css '.node', count: 10 + 1
+            }
+
+            it {
+              should have_css '.node', text: 'Women(3)'
+            }
+          }
+
+          describe ( 'treemap topics include two' ) {
+            before {
+              visit "#{collection_records_path col}?vis=treemap&property=topics&include[]=topics:women&include[]=topics:portraits"
+            }
+
+            it {
+              # all topics from only records having both included topics: women & portraits
+              should have_css '.node', count: 5 + 1
+            }
+
+            it {
+              should have_css '.node', text: 'Women(2)'
+            }
           }
         }
       }

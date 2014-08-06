@@ -68,8 +68,17 @@ $( function() {
         return '';
       }
     } ).on('click', function(e) {
-      var value = d3.select(this).data()[0].parsed;
-      // TODO: handle click
+      var sel = 'topics'; //$( '#selprop' ).val();
+      var val = d3.select(this).data()[0].parsed;
+
+      if (val !== '') {
+        var className = 'include';
+        var value = sel+":"+val;
+        $( '#props' ).append( $.visControls.propHtml( className, value, val ) );
+        $( '#propval' ).val('');
+      }
+
+      $( '#vis-form' ).submit();
       return false;
     } );
   }

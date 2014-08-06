@@ -54,7 +54,7 @@
     width: 32.1%;
     border: 1px solid #d2233a;
     background: #fff;
-    height: 250px;
+    height: 160px;
     overflow: auto;
     display: inline-block;
     *display: inline;
@@ -62,21 +62,15 @@
   }
 
   .update {
-    display: table-caption;
-    caption-side: bottom;
     border: 1px solid #d2233a;
     background: #fff;
     height: 35px;
-    margin: 5px .7em;
+    line-height: 35px;
+    margin: .7em 0;
+    text-align: center;
+    width: 100%;
   }
   
-  .stretch {
-    width: 100%;
-    display: inline-block;
-    font-size: 0;
-    line-height: 0
-  }
-
   #go {
     background: #d2233a;
     border: 1px solid #d2233a;
@@ -84,6 +78,7 @@
     font-weight: bold;
     height: 25px;
     width: 31%;
+    margin: 0 auto;
   }
 
   #go:hover {

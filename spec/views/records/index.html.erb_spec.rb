@@ -14,7 +14,7 @@ describe ( 'records/index' ) {
     }
 
     it {
-      should have_css 'h1', text: 'Records'
+      should_not have_css 'h1', text: 'Records'
     }
 
     it {

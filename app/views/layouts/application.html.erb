@@ -10,16 +10,17 @@
 	  <div class="menulines"></div>
 	  <% if (params[:controller] == 'home' and action_name == 'about') or ( params[:controller] == 'collections' and action_name == 'show') %>
 	    <!-- RANDOM IMAGE HEADER -->
-	<% unless JSON.parse(@record.parsed['image']).nil? %>
-	    <div class="about_header_lines" style="background: url('<%= JSON.parse(@record.parsed['image'])[0]%>') repeat center center; "></div>
-	  <% end %><% end %>
+	    <% unless JSON.parse(@record.parsed['image']).nil? %>
+	      <div class="about_header_lines" style="background: url('<%= JSON.parse(@record.parsed['image'])[0]%>') repeat center center; "></div>
+      <% end %>
+    <% end %>
 	  <div class="GLOBAL_HOLDER">
 	    <%= render 'shared/header'%>
 	    <%= yield %>
 	      
 	    <% if (params[:controller] == 'records' and action_name == 'show') %>
 	      <!-- BEGIN RECORD HOLDER -->	
-		  <div  id='main-canvas' class="RECORD"></div>
+		    <div  id='main-canvas' class="RECORD"></div>
 	      <!-- END RECORD HOLDER -->
 	    <% elsif (params[:controller] == 'spotlights' and (action_name == 'new' || action_name == 'edit' || action_name == 'show' )) %>
 	      

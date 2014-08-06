@@ -5,8 +5,8 @@
     <%= image_tag 'pullup_r.png', id: 'up' %>
     <%= image_tag 'pulldown_r.png', id: 'down' %>
     <div class = 'dropdown'>
-    <div class = 'floatdivs'>
-      <%= form_tag(request.original_url, method: :get, id: 'vis-form') do |f| %>
+      <div class = 'floatdivs'>
+        <%= form_tag(request.original_url, method: :get, id: 'vis-form') do |f| %>
           <div class='dropcell'>
             <div class='subcell'>
               <%= label_tag 'vis', 'Visualization type' %><br>
@@ -24,8 +24,12 @@
             </div>
             <div class='subcell' id='incexc'>
               <%= text_field_tag 'propval', nil, :placeholder=>'Enter property' %>
-              <div class='wrap'><%= button_tag 'Include', 'id'=>'inc', :class=>'add-prop', 'data-cmd'=>'include', :type=>'button' %></div><div class='wrap'>
-              <%= button_tag 'Exclude', 'id'=>'exc', :class=>'add-prop', 'data-cmd'=>'exclude', :type=>'button' %></div>
+              <div class='wrap'>
+                <%= button_tag 'Include', 'id'=>'inc', :class=>'add-prop', 'data-cmd'=>'include', :type=>'button' %>
+              </div>
+              <div class='wrap'>
+                <%= button_tag 'Exclude', 'id'=>'exc', :class=>'add-prop', 'data-cmd'=>'exclude', :type=>'button' %>
+              </div>
             </div>
             <div id='props' class='subcell'></div>
           </div>
@@ -42,15 +46,14 @@
             </div>
           </div>
           <span class='stretch'></span>
-          </div>
-          <div class = 'update'>
-            <div style='line-height:35px;'>
-            <%= submit_tag 'Update Visualization', name: nil, id: 'go' %>
+          <div class='update'>
+            <div>
+              <%= submit_tag 'Update Visualization', name: nil, id: 'go' %>
             </div>
           </div>
-        </div>
-      <% end %>
+        <% end %>
+      </div>
     </div>
   </div>
 </section>
-  
+

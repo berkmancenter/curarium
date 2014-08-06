@@ -11,11 +11,9 @@
 	<div class="titlebar main bord">
 		<%= image_tag "spotlight_r.png" %>Spotlight Editor <!--<%= link_to 'Back', spotlights_path %>-->
 	</div>
-
 </div><!-- END SUB MENU -->
 
 <div class="spotlight_viewedit">
-
 	<div class="viewer">
 		<%= render 'form' %>
 	</div>
@@ -24,39 +22,43 @@
 		<div class="titlebar bord">
 			Your Trays
 		</div>
-		<div id="subtitle" ></div>
-		<div id='trays_wrapper'>
-			<% User.find(session[:user_id]).trays.each do |tray|%>
-			<div class='user_tray noscroll'>
+    <div id="subtitle" ></div>
+    <div id='trays_wrapper'>
+
+      <% User.find(session[:user_id]).trays.each do |tray|%>
+      <div class='user_tray noscroll'>
 				<h3><%= tray.name %></h3>
 				<div class='close_tray'></div>
 				<h4>Records:</h4>
 				<div class='tray_records'>
 					<% tray.records.each do |record|%>
-					<% @record = Record.find(record) %>
-					<%= render 'records/thumb', locals: {record: @record} %>
-					<% end %>
+            <% @record = Record.find(record) %>
+            <%= render 'records/thumb', locals: {record: @record} %>
+		      <% end %>
 				</div>
-				<h4>Visualizations:</h4>
-				<div class='tray_visualizations'>
-					<% tray.visualizations.each do |visualization|%>
-					<div class='visualization_preview' data-type='visualization' data-body='<%= visualization.to_json%>'>
-						<p>
-							type:<%= visualization['terms']['type']%>
-						</p>
-						<p>
-							property:<%= visualization['terms']['property']%>
-						</p>
-						<p>
-							include:<%= visualization['terms']['include']%>
-						</p>
-						<p>
-							exclude:<%= visualization['terms']['exclude']%>
-						</p>
-					</div>
-					<% end %>
-				</div>
-			</div>
-			<% end %>
-		</div>
+		  </div>
+
+      <h4>Visualizations:</h4>
+
+      <div class='tray_visualizations'>
+        <% tray.visualizations.each do |visualization|%>
+        <div class='visualization_preview' data-type='visualization' data-body='<%= visualization.to_json%>'>
+          <p>
+          type:<%= visualization['terms']['type']%>
+          </p>
+          <p>
+          property:<%= visualization['terms']['property']%>
+          </p>
+          <p>
+          include:<%= visualization['terms']['include']%>
+          </p>
+          <p>
+          exclude:<%= visualization['terms']['exclude']%>
+          </p>
+        </div>
+        <% end %>
+      </div>
+      <% end %>
+    </div>
 	</div>
+</div>

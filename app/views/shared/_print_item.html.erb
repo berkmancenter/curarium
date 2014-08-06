@@ -2,22 +2,42 @@
 <% big ||= false %>
 <% if item.class == Collection %>
   <% background = thumb_record_path(item.records.first) unless item.records.first.nil? %>
-  <a href='<%= collection_path(item) %>'><div class='gallery_item <%= "item_lrg" if big %>'>
-  <div class='stack1<%= " item_lrg" if big %>' style='background-image:url(<%= %>)'></div><div class='stack2<%= " item_lrg" if big %>' style='background-image:url(<%= %>)'></div>
-  <div class='stack3<%= " item_lrg" if big %>' style='background-image:url(<%= background %>)'>
-  <div class='object_id'><%= item.name %></div>
-  <div class='collection_options'><div class='collection_options_inner'>
-  <div><img src='/assets/collection_r.png'><img src='/assets/collection_w.png'> About</div><div><a href='<%= collection_records_path (item) %>'><img src='/assets/add_r.png'><img src='/assets/add_w.png'> Activate</div></a></div></div></div></div>
+  <a href='<%= collection_path(item) %>'>
+    <div class='gallery_item <%= "item_lrg" if big %>'>
+      <div class='stack1<%= " item_lrg" if big %>' style='background-image: none;'></div>
+      <div class='stack2<%= " item_lrg" if big %>' style='background-image: none;'></div>
+      <div class='stack3<%= " item_lrg" if big %>' style='background-image:url(<%= background %>)'>
+        <div class='object_id'><%= item.name %></div>
+      </div>
+    </div>
+  </a>
+  <div class='collection_options'>
+    <div class='collection_options_inner'>
+      <div>
+        <img src='/assets/collection_r.png'>
+        <img src='/assets/collection_w.png'> About
+      </div>
+      <div>
+        <a href='<%= collection_records_path (item) %>'><img src='/assets/add_r.png'><img src='/assets/add_w.png'> Activate</a>
+      </div>
+    </div>
+  </div>
 <% elsif item.class == Spotlight %>
   <a href='<%= spotlight_path(item) %>'><div class='gallery_item spotlight<%=" item_lrg" if big %>' >
-  <div class='object_id'><%= item.title %></div>
-  <div class='border'><div class='innertext'><%= item.body.gsub(/\<(\d+)\>/, "(see figure \\1)") %>...</div></div>
-      <%= image_tag "spotlight_tail.png" %>
-      <div class='name'><b><%= User.find(item.user_id).name %></b> <i>on <%= item.created_at.strftime("%d %b %y") %></i></div></div>
+    <div class='object_id'><%= item.title %></div>
+    <div class='border'>
+      <div class='innertext'><%= item.body.gsub(/\<(\d+)\>/, "(see figure \\1)") %>...</div>
+    </div>
+    <%= image_tag "spotlight_tail.png" %>
+    <div class='name'>
+      <b><%= User.find(item.user_id).name %></b> <i>on <%= item.created_at.strftime("%d %b %y") %></i>
+    </div>
+  </a>
 <% elsif item.class == Record %>
   <% background = thumb_record_path(item) %>
-  <a href='<%= record_path(item) %>'><div class='gallery_item<%=" item_lrg" if big %>' style='background-image:url(<%= background %>)'>
-  <div class='object_id'><%= item.id %></div>
-  </div>
+  <a href='<%= record_path(item) %>'>
+    <div class='gallery_item<%=" item_lrg" if big %>' style='background-image:url(<%= background %>)'>
+      <div class='object_id'><%= item.id %></div>
+    </div>
+  </a>
 <% end %>
-</a>

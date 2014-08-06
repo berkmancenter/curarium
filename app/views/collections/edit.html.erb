@@ -1,8 +1,8 @@
 <script>
-	$(document).ready(function() {
+	window.onload = function() {
 		window.collection.configure();
 		window.collection.populate_fields(<%= raw(@collection.configuration.to_json) %>);
-	});
+	};
 </script>
 
 <%= render 'form' %>

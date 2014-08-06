@@ -1,9 +1,9 @@
 <script>
-	$(document).ready(function(){
-		window.spotlights.components = [];
-		window.trays.show();
-		window.spotlights.update(<%=@spotlight.id%>);
-	});
+  window.onload = function(){
+    window.spotlights.components = [];
+    window.trays.show();
+    window.spotlights.update(<%=@spotlight.id%>);
+	};
 </script>
 <div id='new_spotlight_wrapper'>
 	<h1>Edit spotlight</h1>

@@ -14,11 +14,11 @@
   <div class='collection_options'>
     <div class='collection_options_inner'>
       <div>
-        <img src='/assets/collection_r.png'>
-        <img src='/assets/collection_w.png'> About
+        <img src='/assets/collection_r.png' alt="">
+        <img src='/assets/collection_w.png' alt=""> About
       </div>
       <div>
-        <a href='<%= collection_records_path (item) %>'><img src='/assets/add_r.png'><img src='/assets/add_w.png'> Activate</a>
+        <a href='<%= collection_records_path (item) %>'><img src='/assets/add_r.png' alt=""><img src='/assets/add_w.png' alt=""> Activate</a>
       </div>
     </div>
   </div>
@@ -28,7 +28,7 @@
     <div class='border'>
       <div class='innertext'><%= item.body.gsub(/\<(\d+)\>/, "(see figure \\1)") %>...</div>
     </div>
-    <%= image_tag "spotlight_tail.png" %>
+    <%= image_tag "spotlight_tail.png", alt: '' %>
     <div class='name'>
       <b><%= User.find(item.user_id).name %></b> <i>on <%= item.created_at.strftime("%d %b %y") %></i>
     </div>

@@ -9,11 +9,11 @@
 	<% else %>
 		<div class="toggle_curarium">
 		  <a href='<%=root_path%>' >
-		    <%= image_tag "miniicon.png" %>
-		  </a>
+		    <%= image_tag "miniicon.png", alt: '' %>
+      </a>
 		  <div class="global_search">
-		    <input type="text" name="fname" value="Search Curarium"><%= image_tag "search_g.png" %>
-		  </div>
+		    <input type="text" name="fname" value="Search Curarium"><%= image_tag "search_g.png", alt: '' %>
+      </div>
 		  <div class="dropdown_menu">
 		    <%= link_to "About / Contact", "/about" %>
 		  </div>
@@ -25,15 +25,15 @@
         <div class = 'menu_wrapper'>
 		      <div class="toggle_user toggle_tools">
 		    <% if session[:user_id] %>
-			<%= link_to  raw("Log Out#{image_tag("user_b.png", class: 'black')}#{image_tag("user_r.png",class: 'red')}"), logout_url, method: :delete %>
-			<!-- <a href='<%= logout_url %>'>Log Out <%= image_tag "user_b.png" %><%= image_tag "user_r.png" %></a> -->
+			<%= link_to  raw("Log Out#{image_tag("user_b.png", class: 'black', alt: '')}#{image_tag("user_r.png",class: 'red', alt: '')}"), logout_url, method: :delete %>
+        <!-- <a href='<%= logout_url %>'>Log Out <%= image_tag "user_b.png" %><%= image_tag "user_r.png" %></a> -->
 		    <% else %>
-			<a href='<%= login_url %>'>Log In <%= image_tag "user_b.png", class: 'black' %><%= image_tag "user_r.png", class: 'red' %></a>
+			<a href='<%= login_url %>'>Log In <%= image_tag "user_b.png", class: 'black', alt: '' %><%= image_tag "user_r.png", class: 'red', alt: '' %></a>
 		    <% end %>
 		      </div>
-		      <div class="toggle_explore toggle_tools"><a href="<%= @active_collection.nil? ? collections_path : collection_records_path(@active_collection) %>">Explore <%= image_tag "explore_b.png", class: 'black' %><%= image_tag "explore_r.png", class: 'red' %></a></div>
-      		<div class="toggle_spotlights toggle_tools"><a href="<%= spotlights_path %>">Spotlights <%= image_tag "spotlight_b.png", class: 'black' %> <%= image_tag "spotlight_r.png", class: 'red' %></a></div>	
-		      <div class="toggle_collections toggle_tools"><a href="<%= collections_path %>">Collections <%= image_tag "collection_b.png", class: 'black' %><%= image_tag "collection_r.png", class: 'red' %></a></div>
+		      <div class="toggle_explore toggle_tools"><a href="<%= @active_collection.nil? ? collections_path : collection_records_path(@active_collection) %>">Explore <%= image_tag "explore_b.png", class: 'black', alt: '' %><%= image_tag "explore_r.png", class: 'red', alt: '' %></a></div>
+      		<div class="toggle_spotlights toggle_tools"><a href="<%= spotlights_path %>">Spotlights <%= image_tag "spotlight_b.png", class: 'black', alt: '' %> <%= image_tag "spotlight_r.png", class: 'red', alt: '' %></a></div>	
+		      <div class="toggle_collections toggle_tools"><a href="<%= collections_path %>">Collections <%= image_tag "collection_b.png", class: 'black', alt: '' %><%= image_tag "collection_r.png", class: 'red', alt: '' %></a></div>
 		    </div>
 	  </div>
   </div>

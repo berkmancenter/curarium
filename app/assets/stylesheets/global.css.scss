@@ -413,10 +413,16 @@ a {
   width: 200px;
 }
 .about_content .right .activity_holder {
+  border-collapse: collapse;
+  border-spacing: 0;
   overflow: hidden;
   margin: 0 0 25px 0;
   color: #d2232a;
   position: relative;
+
+  td {
+    padding: 0;
+  }
 }
 .about_content .right .activity_holder .date {
   position: relative;
@@ -1074,6 +1080,19 @@ a {
     .menu_piece, .menu_piece * {
       pointer-events: auto;
     }
+  }
+
+  table {
+    border-collapse: collapse;
+    border-spacing: 0;
+
+    tbody {
+      vertical-align: top;
+    }
+
+    td {
+      padding: 0;
+    }    
   }
 }
 .bubble_menu .menu_piece{

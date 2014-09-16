@@ -32,7 +32,8 @@ describe ( 'records/index' ) {
     }
 
     it {
-      should have_css 'h1', text: "Records for #{collection.name}"
+      # just show the records
+      should_not have_css 'h1', text: "Records for #{collection.name}"
     }
   }
 

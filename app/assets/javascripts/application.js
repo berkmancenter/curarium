@@ -13,7 +13,7 @@
 //= require jquery
 //= require jquery.ui.all
 //= require jquery_ujs
-//= require jquery.geo-1.0.0-test
+//= require jquery.geo-1.0.0-b2.min
 //= require jquery.ui.zoomify
 //= require d3
 //= require kinetic-v5.0.1.min

@@ -36,29 +36,29 @@
             <%= render 'records/thumb', locals: {record: @record} %>
 		      <% end %>
 				</div>
-		  </div>
 
-      <h4>Visualizations:</h4>
+        <h4>Visualizations:</h4>
 
-      <div class='tray_visualizations'>
-        <% tray.visualizations.each do |visualization|%>
-        <div class='visualization_preview' data-type='visualization' data-body='<%= visualization.to_json%>'>
-          <p>
-          type:<%= visualization['terms']['type']%>
-          </p>
-          <p>
-          property:<%= visualization['terms']['property']%>
-          </p>
-          <p>
-          include:<%= visualization['terms']['include']%>
-          </p>
-          <p>
-          exclude:<%= visualization['terms']['exclude']%>
-          </p>
+        <div class='tray_visualizations'>
+          <% tray.visualizations.each do |visualization|%>
+          <div class='visualization_preview' data-type='visualization' data-body='<%= visualization.to_json%>'>
+            <p>
+            type:<%= visualization['terms']['type']%>
+            </p>
+            <p>
+            property:<%= visualization['terms']['property']%>
+            </p>
+            <p>
+            include:<%= visualization['terms']['include']%>
+            </p>
+            <p>
+            exclude:<%= visualization['terms']['exclude']%>
+            </p>
+          </div>
+          <% end %>
         </div>
-        <% end %>
-      </div>
       <% end %>
+      </div><%# user_tray %>
     </div>
 	</div>
 </div>

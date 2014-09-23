@@ -12,7 +12,6 @@
 		<div class="profile_img" style="background: url('<%= thumb_record_path(@collection.records.first) unless @collection.records.first.nil? %>') no-repeat center center; background-size: cover;">&nbsp;</div>   
        <div class="stalking_menu_holder">
         	<div class="stalking_menu">
-        	<div class="to_about"><%= image_tag "about_r.png", alt: '' %> About</div>
         	<div><%= image_tag "follow_r.png", alt: '' %> Follow this collection</div>
         	<div class="to_spot"><%= image_tag "spotlight_r.png", alt: '' %> Associated Spotlights</div>
         	<div><%= image_tag "explore_r.png", alt: '' %> <%= link_to "Explore", collection_records_path(@collection) %></div>
@@ -44,7 +43,7 @@
 
 	<!-- right content -->
      <div class="right"><div class="holder">
-     		<div class="titlebar">Latest Activity <div class="more">hide</div></div>
+     		<div class="titlebar">Latest Activity	</div>
      			<!-- an activity -->
 				<table class="activity_holder"><tr>
 				<td  class="date">

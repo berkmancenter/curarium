@@ -1,0 +1,13 @@
+<% require 'records_helper' %>
+<ul>
+  <% @trays.each { |tray| %>
+    <li>
+      <b><%= tray.name %></b>
+      <ul>
+        <% tray.records.each { |record_id| %>
+          <li><%= record_title Record.find( record_id ) %></li>
+        <% } %>
+      </ul>
+    </li>
+  <% } %>
+</ul>

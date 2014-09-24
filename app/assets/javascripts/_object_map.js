@@ -145,6 +145,7 @@ $( function() {
               $.get( '/records/' + recordIds[ indexes[ 0 ] ], function( popupHtml ) {
                 console.log( popupHtml );
                 $.magnificPopup.open( {
+                  showCloseBtn: false,
                   items: {
                     src: popupHtml,
                     type: 'inline'

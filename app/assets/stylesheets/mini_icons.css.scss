@@ -1,0 +1,21 @@
+.mini-icon {
+  display: inline-block;
+  height: 16px;
+  width: 16px;
+}
+
+.mini-icon-record {
+  background-image: url('record_b.png');
+
+  &:hover {
+    background-image: url('record_r.png');
+  }
+}
+
+.mini-icon-close {
+  background-image: url('close_b.png');
+
+  &:hover {
+    background-image: url('close_r.png');
+  }
+}

@@ -1,5 +1,5 @@
-<article class="records show-xhr">
-  <h1><%= @record.parsed[ 'title' ] %></h1>
+<article class="show-xhr">
+  <h1><%= record_title @record %></h1>
 
   <section class="parsed-info">
     <h2>Parsed Information</h2>
@@ -13,8 +13,12 @@
   </section>
 
   <section class="record-image">
+    <ul class="record-commands">
+      <li><%= link_to render( partial: 'shared/mini_icon', object: 'record' ), @record %></li>
+      <li><%= link_to render( partial: 'shared/mini_icon', object: 'close' ), '#', class: 'close' %></li>
+    </ul>
     <h2><%= record_title @record %></h2>
-    <%= image_tag "#{JSON.parse(@current_metadata['image'])[ 0 ]}?width=640", alt: '', class: 'record-image' %>
+    <%= image_tag "#{JSON.parse(@current_metadata['image'])[ 0 ]}?width=640", alt: '' %>
   </section>
 
   <% images = JSON.parse(@current_metadata['image']) %>

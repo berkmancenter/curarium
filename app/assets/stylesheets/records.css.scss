@@ -65,6 +65,15 @@
       display: inline-block;
       width: 55%;
 
+      .record-commands {
+        float: right;
+        list-style-type: none;
+
+        li {
+          display: inline;
+        }
+      }
+
       img {
         width: 100%;
       }

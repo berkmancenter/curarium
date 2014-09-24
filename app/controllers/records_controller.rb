@@ -112,7 +112,13 @@ class RecordsController < ApplicationController
        eval_parsed[key] = JSON.parse(value) unless value.to_s.empty?
      end
      respond_to do |format|
-       format.html { render layout: !request.xhr? }
+       format.html {
+         if request.xhr?
+           render partial: 'records/show_xhr', layout: false
+         else
+           render
+         end
+       }
        format.json { @record.parsed = eval_parsed }
        format.js { render action: "show" }
      end

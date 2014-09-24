@@ -142,7 +142,15 @@ $( function() {
             if ( indexes.length === 1 && indexes[ 0 ] < recordIds.length ) {
               //console.log( 'recordId: ' + recordIds[ indexes[ 0 ] ] );
 
-              window.location.href = '/records/' + recordIds[ indexes[ 0 ] ];
+              $.get( '/records/' + recordIds[ indexes[ 0 ] ], function( popupHtml ) {
+                console.log( popupHtml );
+                $.magnificPopup.open( {
+                  items: {
+                    src: popupHtml,
+                    type: 'inline'
+                  }
+                } );
+              } );
             }
           }
         }

@@ -8,7 +8,7 @@ describe ( 'records/show_xhr' ) {
     assign( :record, record )
     assign( :current_metadata, record.parsed )
     
-    render partial: 'records/show_xhr'
+    render template: 'records/show_xhr', layout: false
   }
 
   it {

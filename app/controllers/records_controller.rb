@@ -114,7 +114,7 @@ class RecordsController < ApplicationController
      respond_to do |format|
        format.html {
          if request.xhr?
-           render partial: 'records/show_xhr', layout: false
+           render 'show_xhr', layout: false
          else
            render
          end

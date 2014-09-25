@@ -2,7 +2,8 @@
 <html>
 	<head>
     <meta charset="utf-8">
-		<title>Curarium - <%= yield(:title) || "Home" %></title>
+    	<%= favicon_link_tag 'logo-01.png' %>
+		<title>Curarium<%= yield(:title) || "Home" %></title>
 		<%= stylesheet_link_tag    "application", media: "all" %>
 		<%= csrf_meta_tags %>
 	</head>
@@ -23,10 +24,7 @@
 	      <!-- BEGIN RECORD HOLDER -->	
 		    <div  id='main-canvas' class="RECORD"></div>
 	      <!-- END RECORD HOLDER -->
-	    <% elsif (params[:controller] == 'spotlights' and (action_name == 'new' || action_name == 'edit' || action_name == 'show' )) %>
-	      
-	    <% else %>
-	      <%= render 'shared/footer'%>
+	    <% elsif (params[:controller] == 'spotlights' and (action_name == 'new' || action_name == 'edit' || action_name == 'show' )) %>	      
 	    <% end %>
 	  </div>
 

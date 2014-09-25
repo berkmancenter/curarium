@@ -3,7 +3,7 @@ require 'zlib'
 
 class RecordsController < ApplicationController
   before_action :set_record, only: [:show, :thumb, :edit, :update, :destroy]
-  skip_before_action :authorize, only: [:show,:thumb]
+  skip_before_action :authorize, only: [:show,:thumb, :index]
 
   # GET /records
   # GET /records.json

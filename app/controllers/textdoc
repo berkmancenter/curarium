@@ -1,0 +1,20 @@
+		in collections/show
+    	<div class="titlebar to_spot">At a glance <div class="more">more <%= image_tag "pulldown_r.png", alt: '' %></div></div>
+		<div class="cont_spotlight">
+<% @all.each_with_index do |item,i| %>
+	   <%if i>1 %>
+	    <%= render :partial => 'shared/print_item', :locals=>{:item=>item} %>
+	   <% else %>
+    <%= render :partial => 'shared/print_item', :locals=>{:item=>item,:big=>true} %>
+	   <% end %>
+	<% end %>
+
+	in controller.rb
+
+	    #right now, the ONE collection is showing ALL spotlights in Curarium. This has to change as soon as there are more than one collections.
+    #@spotlights = Spotlight.all
+    @record =@collection.records.limit(1).order("RANDOM()").first
+    records = @collection.records.limit(5).order("RANDOM()")
+    spotlights = Spotlight.limit(5).order("RANDOM()")
+    @all = (records).shuffle
+    #@all = (records+spotlights).shuffle #for the time being we are removing records from spotlights

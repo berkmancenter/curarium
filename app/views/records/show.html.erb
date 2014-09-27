@@ -70,7 +70,7 @@
       <input type='checkbox' class='checkbox_hack' id='add_id'>
 			<label for='add_id'><span class="button">Add to Tray<%= image_tag "pulldown_r.png", alt: '' %><%= image_tag "pullup_r.png", alt: '' %></span></label>
 			<div class="expand">
-			      <% if session[:user_id] %>
+			      <% if session[:user_id] < 2%>
 
 			      <!-- THIS IS WHERE THE LIST OF TRAYS GOES -->
 

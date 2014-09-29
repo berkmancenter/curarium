@@ -29,7 +29,7 @@ describe ( 'records/show_xhr' ) {
 
   it {
     should have_css '.record-image .record-commands'
-    should have_css ".record-commands a[href*='#{record_path record}']"
+    should have_css ".record-commands a[href*='#{record_path record}'].show"
     should have_css '.record-commands a.close'
   }
 

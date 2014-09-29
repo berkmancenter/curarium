@@ -62,35 +62,41 @@ class RecordsController < ApplicationController
       where_clause << " AND NOT ( #{ActiveRecord::Base.send( :sanitize_sql_array, where_values )} )"
     end
 
+    # may want num in a few cases (this should be a fast query)
+    @num = Record.where( where_clause ).count( :id )
+
     if params[ :property ].present? && params[ :vis ] == 'treemap'
-      property = ActiveRecord::Base.send( :sanitize_sql_array, [ '%s', params[ :property ] ] )
+      if @num == 1
+        @record = Record.where( where_clause ).first
+        redirect_to @record
+      else
+        property = ActiveRecord::Base.send( :sanitize_sql_array, [ '%s', params[ :property ] ] )
 
-      # ["a", "b, b", "c"]
-      # ["a%SPLIT%b, b%SPLIT%c"]
-      # a%SPLIT%b, b%SPLIT%c
-      # a -- b, b -- c
-      sql = %[select values as parsed, count(values) as id from (
-        SELECT  trim(
-          both from unnest(
-            string_to_array(
-              regexp_replace(
+        # ["a", "b, b", "c"]
+        # ["a%SPLIT%b, b%SPLIT%c"]
+        # a%SPLIT%b, b%SPLIT%c
+        # a -- b, b -- c
+        sql = %[select values as parsed, count(values) as id from (
+          SELECT  trim(
+            both from unnest(
+              string_to_array(
                 regexp_replace(
-                  lower(parsed->'#{property}'), '", "', '%SPLIT%', 'g'
-                ), '[\\[\\]"]', '', 'g'
-              ), '%SPLIT%'
+                  regexp_replace(
+                    lower(parsed->'#{property}'), '", "', '%SPLIT%', 'g'
+                  ), '[\\[\\]"]', '', 'g'
+                ), '%SPLIT%'
+              )
             )
-          )
-        ) as values
-        FROM "records"
-        WHERE #{where_clause}
-      ) as subquery
-      group by values]
+          ) as values
+          FROM "records"
+          WHERE #{where_clause}
+        ) as subquery
+        group by values]
 
-      @records = ActiveRecord::Base.connection.execute(sql)
-
-    # Array of views that require paging
+        @records = ActiveRecord::Base.connection.execute(sql)
+      end
     elsif  ['thumbnails','list'].include? params[:vis]
-      @num = Record.where( where_clause ).count( :id )
+      # Array of views that require paging
       @perpage = (params[:per_page].to_i<=0) ? 200 : params[:per_page].to_i
       @page = (params[:page].to_i<=0 || params[:page].to_i > (@num.to_f/@perpage).ceil) ? 1 : params[:page].to_i
       @records = Record.where(where_clause).limit(@perpage).offset((@page-1)*@perpage)

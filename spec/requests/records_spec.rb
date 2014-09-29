@@ -338,6 +338,17 @@ describe 'records requests', :js => true do
             it {
               should have_css '.node', text: 'Women(3)'
             }
+
+            describe ( 'click to one record' ) {
+              # clicking a block that narrows to one record should forward to records/show
+              before {
+                click_link 'death(1)'
+              }
+
+              it {
+                should have_css 'body.records.show'
+              }
+            }
           }
 
           describe ( 'treemap topics include two' ) {

@@ -39,6 +39,18 @@ describe ( 'collections/show' ) {
       it { 
         should have_css '.latest-activity'
       }
+
+      it {
+        should have_css '.activity_holder'
+      }
+
+      it {
+        should have_css '.activity_holder .date', text: collection.created_at.strftime( '%d.%m.%y' )
+      }
+
+      it {
+        should have_css '.activity_holder .activity', text: 'Test User created this collection'
+      }
     }
   }
 }

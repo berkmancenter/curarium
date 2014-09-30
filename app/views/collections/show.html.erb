@@ -45,110 +45,11 @@
      			<!-- an activity -->
 				<table class="activity_holder"><tr>
 				<td  class="date">
-					02.12&nbsp; - <%= image_tag "collection_r.png", alt: '' %>
+          <%= @collection.created_at.strftime '%d.%m.%y' %>&nbsp; - <%= image_tag "collection_r.png", alt: '' %>
           </td><td  class="activity">
-					Paula added this collection to the circle Humanities Studio II
+          <%= User.find( @collection.admin[0] ).name %> created this collection
 				</td></tr></table>
      			<!-- an activity -->
-				<table class="activity_holder"><tr>
-				<td  class="date">
-					02.12&nbsp; - <%= image_tag "user_r.png", alt: '' %>
-          </td><td  class="activity">
-					Sara added an anotation to record #23423
-				</td></tr></table>
-     			<!-- an activity -->
-				<table class="activity_holder"><tr>
-				<td  class="date">
-					02.12&nbsp; - <%= image_tag "spotlight_r.png", alt: '' %>
-          </td><td  class="activity">
-					David mentioned record #12312 in their spotlight "The Sign of Three"
-				</td></tr></table>
-     			<!-- an activity -->
-				<table class="activity_holder"><tr>
-				<td  class="date">
-					02.12&nbsp; - <%= image_tag "user_r.png", alt: '' %>
-          </td><td  class="activity">
-					David started following this collection
-				</td></tr></table>
-     			<!-- an activity -->
-				<table class="activity_holder"><tr>
-				<td  class="date">
-					02.13&nbsp; - <%= image_tag "collection_r.png", alt: '' %>
-          </td><td  class="activity">
-					Jorge created this collection
-				</td></tr></table>
-     			<!-- an activity -->
-				<table class="activity_holder"><tr>
-				<td  class="date">
-					02.12&nbsp; - <%= image_tag "collection_r.png", alt: '' %>
-          </td><td  class="activity">
-					Paula added this collection to the circle Humanities Studio II
-				</td></tr></table>
-     			<!-- an activity -->
-				<table class="activity_holder"><tr>
-				<td  class="date">
-					02.12&nbsp; - <%= image_tag "user_r.png", alt: '' %>
-          </td><td  class="activity">
-					Sara added an anotation to record #23423
-				</td></tr></table>
-     			<!-- an activity -->
-				<table class="activity_holder"><tr>
-				<td  class="date">
-					02.12&nbsp; - <%= image_tag "spotlight_r.png", alt: '' %>
-          </td><td  class="activity">
-					David mentioned record #12312 in their spotlight "The Sign of Three"
-				</td></tr></table>
-     			<!-- an activity -->
-				<table class="activity_holder"><tr>
-				<td  class="date">
-					02.12&nbsp; - <%= image_tag "user_r.png", alt: '' %>
-          </td><td  class="activity">
-					David started following this collection
-				</td></tr></table>
-     			<!-- an activity -->
-				<table class="activity_holder"><tr>
-				<td  class="date">
-					02.13&nbsp; - <%= image_tag "collection_r.png", alt: '' %>
-          </td><td  class="activity">
-					Jorge created this collection
-				</td></tr></table>
-     			<!-- an activity -->
-				<table class="activity_holder"><tr>
-				<td  class="date">
-					02.12&nbsp; - <%= image_tag "collection_r.png", alt: '' %>
-          </td><td  class="activity">
-					Paula added this collection to the circle Humanities Studio II
-				</td></tr></table>
-     			<!-- an activity -->
-				<table class="activity_holder"><tr>
-				<td  class="date">
-					02.12&nbsp; - <%= image_tag "user_r.png", alt: '' %>
-          </td><td  class="activity">
-					Sara added an anotation to record #23423
-				</td></tr></table>
-     			<!-- an activity -->
-				<table class="activity_holder"><tr>
-				<td  class="date">
-					02.12&nbsp; - <%= image_tag "spotlight_r.png", alt: '' %>
-          </td><td  class="activity">
-					David mentioned record #12312 in their spotlight "The Sign of Three"
-				</td></tr></table>
-     			<!-- an activity -->
-				<table class="activity_holder"><tr>
-				<td  class="date">
-					02.12&nbsp; - <%= image_tag "user_r.png", alt: '' %>
-          </td><td  class="activity">
-					David started following this collection
-				</td></tr></table>
-     			<!-- an activity -->
-				<table class="activity_holder"><tr>
-				<td  class="date">
-					02.13&nbsp; - <%= image_tag "collection_r.png", alt: '' %>
-				</td><td  class="activity">
-					Jorge created this collection
-				</td></tr></table>
-				
-				
      </div></div><!-- end right content -->
      
 </div><!-- END ABOUT CONTENT -->	

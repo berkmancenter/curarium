@@ -65,6 +65,12 @@ describe ( 'Collection model' ) {
           Record.last.parsed[ 'title' ].should eq( '["Starry Night"]' )
         }
       }
+
+      describe ( 'return a record' ) {
+        it {
+          col.create_record_from_json( rec_json[ :original ] ).class.should eq( Record.first.class )
+        }
+      }
     }
 
     context ( 'from_parsed' ) {
@@ -80,6 +86,12 @@ describe ( 'Collection model' ) {
         expect {
           col.create_record_from_parsed( rec_json[ :original ], pr, 'fake_unique_id' )
         }.to change { col.records.count }.by( 1 )
+
+        describe ( 'return a record' ) {
+          it {
+            col.create_record_from_parsed( rec_json[ :original ], pr, 'fake_unique_id' ).class.should eq( Record.first.class )
+          }
+        }
       }
 
       context ( 'static function' ) {
@@ -87,6 +99,12 @@ describe ( 'Collection model' ) {
           expect {
             Collection.create_record_from_parsed( col.key, rec_json[ :original ], pr, 'fake_unique_id' )
           }.to change { col.records.count }.by( 1 )
+        }
+
+        describe ( 'return a record' ) {
+          it {
+            Collection.create_record_from_parsed( col.key, rec_json[ :original ], pr, 'fake_unique_id' ).class.should eq( Record.first.class )
+          }
         }
 
         describe ( 'cache thumbnail' ) {

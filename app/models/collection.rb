@@ -71,6 +71,7 @@ class Collection < ActiveRecord::Base
     else
       #puts "record #{r.id} already in cache"
     end
+    r
   end
   
   def create_record_from_json( original )

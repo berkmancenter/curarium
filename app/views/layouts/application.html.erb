@@ -12,7 +12,7 @@
 	  <div class="menulines"></div>
 	  <% if (params[:controller] == 'home' and action_name == 'about') or ( params[:controller] == 'collections' and action_name == 'show') %>
 	    <!-- RANDOM IMAGE HEADER -->
-	    <% unless JSON.parse(@record.parsed['image']).nil? %>
+	    <% if @record.present? && JSON.parse(@record.parsed['image']).present? %>
 	      <div class="about_header_lines" style="background: url('<%= JSON.parse(@record.parsed['image'])[0]%>') repeat center center; "></div>
       <% end %>
     <% end %>

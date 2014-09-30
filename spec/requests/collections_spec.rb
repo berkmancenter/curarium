@@ -20,33 +20,48 @@ describe 'collections requests', :js => true do
     }
 
     describe ( 'get /collections/:id' ) {
-      let( :col ) { Collection.first }
+      context ( 'test_col' ) {
+        let( :col ) { Collection.first }
 
-      before {
-        visit collection_path( col )
+        before {
+          visit collection_path( col )
+        }
+
+        it {
+          should have_title 'Curarium'
+        }
+
+        it {
+          should have_css 'body.collections.show'
+        }
+
+        it {
+          should have_css '.page_title', text: col.name
+        }
+
+        it {
+          # semantically, should be a p element instead of div
+          should have_css '.cont_about', text: col.description
+        }
+
+        it {
+          # records no longer shown on this view
+          # only possible as thumbnail visualization
+          should_not have_css '.record_thumbnail', count: col.records.count
+        }
       }
 
-      it {
-        should have_title 'Curarium'
-      }
+      context ( 'no records' ) {
+        let( :col ) { Collection.find_by_name 'via' }
 
-      it {
-        should have_css 'body.collections.show'
-      }
+        before {
+          visit collection_path( col )
+        }
 
-      it {
-        should have_css '.page_title', text: col.name
-      }
-
-      it {
-        # semantically, should be a p element instead of div
-        should have_css '.cont_about', text: col.description
-      }
-
-      it {
-        # records no longer shown on this view
-        # only possible as thumbnail visualization
-        should_not have_css '.record_thumbnail', count: col.records.count
+        it {
+          snap
+          should have_title 'Curarium'
+        }
       }
     }
   }

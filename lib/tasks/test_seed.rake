@@ -43,14 +43,25 @@ def seed
   japanese.admin = [ test_user.id ]
   japanese.save
 
+  # annotations
+  jesus = FactoryGirl.create :jesus
+  jesus.user = test_user
+  jesus.save
+
   # records
   crfj test_col, :starry_night
   crfj test_col, :mona_lisa
-  crfj test_col, :last_supper
+
+  # record with annotation
+  supper = crfj test_col, :last_supper
+  supper.annotations << jesus
+  supper.save
+
   crfj test_col, :lucrezia
 
   crfj not_approved, :aphrodite
 
   crfj multi_image, :crucifixion
+
 end
 

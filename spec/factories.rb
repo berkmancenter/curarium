@@ -1,4 +1,13 @@
 FactoryGirl.define do
+  factory :user do
+    factory :test_user do
+      name 'Test User'
+      email 'test@example.com'
+      password 't3stus3r'
+      password_confirmation 't3stus3r'
+    end
+  end
+
   factory :collection do
     factory :test_col do
       name 'test_col'
@@ -73,12 +82,19 @@ FactoryGirl.define do
     end
   end
 
-  factory :user do
-    factory :test_user do
-      name 'Test User'
-      email 'test@example.com'
-      password 't3stus3r'
-      password_confirmation 't3stus3r'
+  factory :annotation do
+    factory :jesus do
+      # user test_user
+      # record last_supper
+      content {{
+        'title' => 'jesus',
+        'body' => 'hey!',
+        'x' => '2592',
+        'y' => '1408.5127272727272',
+        'width' => '249',
+        'height'=>'308',
+        'image_url'=>'http://upload.wikimedia.org/wikipedia/commons/4/4b/%C3%9Altima_Cena_-_Da_Vinci_5.jpg'
+      }}
     end
   end
 end

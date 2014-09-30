@@ -34,7 +34,7 @@ class CollectionsController < ApplicationController
   # POST /collections.json
   def create
     @collection = Collection.new(collection_params)
-    @collection.approved = false
+    @collection.approved = true
     @collection.admin = [session[:user_id]]
     respond_to do |format|
       if @collection.save

@@ -59,7 +59,6 @@ describe 'collections requests', :js => true do
         }
 
         it {
-          snap
           should have_title 'Curarium'
         }
       }

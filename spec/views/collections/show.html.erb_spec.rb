@@ -34,5 +34,11 @@ describe ( 'collections/show' ) {
     it {
       should have_css '.cont_spotlight'
     }
+
+    describe ( 'latest activity' ) {
+      it { 
+        should have_css '.latest-activity'
+      }
+    }
   }
 }

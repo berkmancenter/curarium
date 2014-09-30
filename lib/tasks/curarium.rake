@@ -48,6 +48,58 @@ namespace :curarium do
     ActiveRecord::Base.logger = old_logger
   end
 
+  desc 'Cache un-cached thumbnails'
+  task :cache_thumbs, [:collection_name] => [ :environment ] do |task, args|
+    old_logger = ActiveRecord::Base.logger
+    ActiveRecord::Base.logger = nil
+
+    puts "Started at #{Time.now}"
+
+    curarium_cache_thumbs args[:collection_name]
+
+    puts "Ended at #{Time.now}"
+
+    ActiveRecord::Base.logger = old_logger
+  end
+
+  def curarium_cache_thumbs( collection_name )
+    usage = "usage: rake curarium:cache_thumbs['collection_name']"
+
+    if collection_name.nil?
+      puts usage
+      return
+    end
+
+    c = Collection.where( { name: collection_name } )
+
+    if c.count == 0
+      puts "Cannot find collection with name #{collection_name}"
+      return
+    end
+
+    c = c.first
+
+    not_cached = 0
+    total = c.records.count
+
+    c.records.each { |r|
+      thumb_url = JSON.parse( r.parsed[ 'thumbnail' ] )[0]
+      thumb_hash = Zlib.crc32 thumb_url
+
+      cache_date = Rails.cache.read "#{thumb_hash}-date"
+      cache_image = Rails.cache.read "#{thumb_hash}-image"
+      cache_type = Rails.cache.read "#{thumb_hash}-type"
+
+      if cache_date.nil? || cache_image.nil? || cache_type.nil?
+        r.cache_thumb
+        not_cached += 1
+      end
+    }
+
+    puts "  total: #{total}"
+    puts "  attemped to cache: #{not_cached} (#{not_cached.to_f / total.to_f * 100.0 unless total == 0}%)"
+  end
+
   def curarium_ingest( input_dir, collection_key )
     usage = "usage: rake curarium:ingest['path/to/input_dir,collection_key']"
 

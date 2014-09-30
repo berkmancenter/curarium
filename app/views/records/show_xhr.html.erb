@@ -14,7 +14,7 @@
 
   <section class="record-image">
     <ul class="record-commands">
-      <li><%= link_to render( partial: 'shared/mini_icon', object: 'record' ), @record %></li>
+      <li><%= link_to render( partial: 'shared/mini_icon', object: 'record' ), @record, class: 'show' %></li>
       <li><%= link_to render( partial: 'shared/mini_icon', object: 'close' ), '#', class: 'close' %></li>
     </ul>
     <h2><%= record_title @record %></h2>

@@ -40,4 +40,12 @@ describe ( 'records/show_xhr' ) {
   it {
     should have_css '.surrogates'
   }
+
+  it {
+    should have_css '.surrogates a'
+  }
+
+  it {
+    should have_css '.surrogates a img'
+  }
 }

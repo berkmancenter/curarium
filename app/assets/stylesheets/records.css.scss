@@ -84,6 +84,10 @@
       vertical-align: top;
       width: 18%;
 
+      a:hover {
+        outline: solid 1px $cred;
+      }
+
       img {
         height: 128px;
         width: 128px;

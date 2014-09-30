@@ -1,8 +1,28 @@
+@import "colors";
+
 .mini-icon {
   display: inline-block;
   height: 16px;
+  /* position: relative; */
   width: 16px;
+  
+  /* &:hover .mini-icon-title { display: block; } */
+
 }
+
+  .mini-icon-title {
+    /* background: $white; */
+    /* border: solid 1px $cred; */
+    /* display: none; */
+    display: inline-block;
+    /* left: 16px; */
+    line-height: 6px;
+    padding: 0 4px 0 4px;
+    /* position: absolute; */
+    /* top: 16px; */
+    white-space: nowrap;
+    vertical-align: text-top;
+  }
 
 .mini-icon-record {
   background-image: url('record_b.png');

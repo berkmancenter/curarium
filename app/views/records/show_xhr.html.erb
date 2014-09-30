@@ -25,8 +25,8 @@
   <% if images.any? %>
     <section class="surrogates">
       <h2>Surrogates</h2>
-      <% images.each do |image|%>
-        <img src='<%= image+'?width=128&height=128'%>' class='surrogate_thumbnail' alt="">
+      <% images.each_with_index do |image, i|%>
+        <a href="<%= record_path @record %><%= "?image=#{i}" unless i == 0 %>"><img src='<%= image+'?width=128&height=128'%>' class='surrogate_thumbnail' alt=""></a>
       <% end %>
     </section>
   <% end %>

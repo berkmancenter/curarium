@@ -86,11 +86,11 @@ describe ( 'Collection model' ) {
         expect {
           col.create_record_from_parsed( rec_json[ :original ], pr, 'fake_unique_id' )
         }.to change { col.records.count }.by( 1 )
+      }
 
-        describe ( 'return a record' ) {
-          it {
-            col.create_record_from_parsed( rec_json[ :original ], pr, 'fake_unique_id' ).class.should eq( Record.first.class )
-          }
+      describe ( 'return a record' ) {
+        it {
+          col.create_record_from_parsed( rec_json[ :original ], pr, 'fake_unique_id' ).class.should eq( Record.first.class )
         }
       }
 
@@ -107,19 +107,19 @@ describe ( 'Collection model' ) {
           }
         }
 
-        describe ( 'cache thumbnail' ) {
+        describe ( 'no longer caching thumbnail on record creation' ) {
           before {
             Rails.cache.clear
             Collection.create_record_from_parsed( col.key, rec_json[ :original ], pr, 'fake_unique_id' )
           }
 
-          it ( 'should cache today' ) {
+          it ( 'should not have cache date yet' ) {
             record = Record.last
             thumb_url = JSON.parse( record.parsed[ 'thumbnail' ] )[ 0 ]
             thumb_hash = Zlib.crc32 thumb_url
 
             cache_date = Rails.cache.fetch( "#{thumb_hash}-date" ) { Date.new }
-            cache_date.should eq( Date.today )
+            cache_date.should eq( Date.new )
           }
         }
       }

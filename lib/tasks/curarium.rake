@@ -29,6 +29,9 @@ namespace :curarium do
       total = c.records.count
 
       c.records.each { |r|
+        thumb_value = r.parsed[ 'thumbnail' ]
+        next unless thumb_value.present?
+
         thumb_url = JSON.parse( r.parsed[ 'thumbnail' ] )[0]
         thumb_hash = Zlib.crc32 thumb_url
 

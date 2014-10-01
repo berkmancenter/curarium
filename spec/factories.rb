@@ -34,16 +34,16 @@ FactoryGirl.define do
     end
 
     factory :via do
-      name 'via'
-      description 'via stuff'
+      name 'Homeless Paintings of the Italian Renaissance'
+      description 'In his photo archive at the Villa I Tatti, Bernard Berenson included images of works whose current locations were unknown to him—a collection of photographs of paintings he famously classified as “homeless.” Between 1929 and 1932, Berenson published some of his photographs of artworks “without homes” with hope that their owners, public or private, might make themselves known. In the same spirit, and with support from the Mellon and Kress Foundations, the Villa I Tatti developed a project to catalog, digitize and make available online the Fototeca’s images of "homeless" paintings. In collaboration with the Villa I Tatti, and with additional support from the Kress Foundation and the De Bosis Endowment for Italian Studies at Harvard, metaLAB Is developing Curarium as a platform for discovering, annotating, and telling stories about Berenson’s Homeless Paintings, and to bring this rich collection into dialogue not only with students, scholars, and lovers of art, but other collections around the world. In Curarium, you can search Berenson’s collection of homeless paintings, visualizing relationships of time, place, and subject matter among the works; combine subsets of the collection into trays, annotate individual works, weaving them into arguments and narratives using the Spotlight feature; and share trays and spotlights with colleagues and students. Curarium is in a soft launch phase, and we eagerly users to experiment with the platform. If Berenson’s collection intersects with your teaching, research, or general interests, or if you have another collection in mind that might benefit from activation using Curarium’s emerging toolkit, get in touch with us. Use Curarium in bringing new stories of these paintings to light. Let us know what you find. And pass the word. info@metalab.harvard.edu'
       approved true
       #admin test_user
       configuration '{"unique_identifier": ["recordIdentifier", 0, "content"], "title": ["titleInfo", 0, "title", 0], "image": ["relatedItem", "*", "content", "location", 0, "url", 0, "content"], "thumbnail": ["relatedItem", "*", "content", "location", 0, "url", 1, "content"], "date": ["originInfo", 0, "dateOther", 0, "content"], "names": ["name", "*", "namePart", 0], "creator": ["name", 0, "namePart", 0], "genre" :["genre", "*"], "topics": ["subject", "*", "topic", 0]}'
     end
 
     factory :japanese do
-      name 'japanese'
-      description 'japanese art'
+      name 'Harvard Art Museums: Japanese Culture'
+      description 'A subset of the Harvard Art Museums collection, including only works identified as Japanese.'
       approved true
       #admin test_user
       configuration '{"unique_identifier": ["id"], "title": ["title"], "image": ["primaryimageurl"], "thumbnail": ["primaryimageurl"], "creator": ["people", 0, "displayname"], "names": ["people", "*", "displayname"]}'

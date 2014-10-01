@@ -68,7 +68,7 @@ $( function() {
         return '';
       }
     } ).on('click', function(e) {
-      var sel = 'topics'; //$( '#selprop' ).val();
+      var sel = $( '#selprop' ).val();
       var val = d3.select(this).data()[0].parsed;
 
       if (val !== '') {

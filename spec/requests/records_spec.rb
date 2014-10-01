@@ -284,6 +284,28 @@ describe 'records requests', :js => true do
         }
 
         describe ( 'vis=treemap' ) {
+          context ( 'with title' ) {
+            before {
+              visit "#{collection_records_path col}?vis=treemap&property=title"
+            }
+
+            it {
+              should have_css '.node', text: 'Lucrezia(1)'
+            }
+
+            describe ( 'click node (10190)' ) {
+              before {
+                click_link 'lucrezia(1)'
+              }
+
+              it ( 'should move to single record page' ) {
+                snap
+                should have_css 'body.records.show'
+              }
+
+            }
+          }
+
           context ( 'with topics' ) {
             before {
               visit "#{collection_records_path col}?vis=treemap&property=topics"
@@ -314,13 +336,12 @@ describe 'records requests', :js => true do
 
             describe ( 'click node' ) {
               before {
-                click_link 'death(1)'
+                click_link 'portraits(2)'
               }
 
               it {
-                snap
-                # one woman dying in our test data
-                should have_css '.node', text: 'Women(1)'
+                # two women in portraits
+                should have_css '.node', text: 'Women(2)'
               }
 
             }

@@ -1,41 +1,46 @@
 @import "colors";
 
 .mini-icon {
-  display: inline-block;
   height: 16px;
-  /* position: relative; */
-  width: 16px;
+  margin: 0 1em;
+}
   
-  /* &:hover .mini-icon-title { display: block; } */
-
+.mini-icon-title {
+  color: $black;
+  line-height: 16px;
+  margin-right: .5em;
+  vertical-align: top;
+  white-space: nowrap;
 }
 
-  .mini-icon-title {
-    /* background: $white; */
-    /* border: solid 1px $cred; */
-    /* display: none; */
-    display: inline-block;
-    /* left: 16px; */
-    line-height: 6px;
-    padding: 0 4px 0 4px;
-    /* position: absolute; */
-    /* top: 16px; */
-    white-space: nowrap;
-    vertical-align: text-top;
-  }
+.mini-icon-icon {
+  background-image: url('icons.png');
+  display: inline-block;
+  height: 16px;
+  width: 16px;
+}
 
 .mini-icon-record {
-  background-image: url('record_b.png');
-
-  &:hover {
-    background-image: url('record_r.png');
-  }
+  background-position: -16px (-16px + 80px);
 }
 
 .mini-icon-close {
-  background-image: url('close_b.png');
+  background-position: -16px (-48px + 80px);
+}
 
-  &:hover {
-    background-image: url('close_r.png');
+a:hover {
+  .mini-icon-title {
+    color: $cred;
+  }
+
+  .mini-icon {
+    .mini-icon-record {
+      background-position: -16px (-16px + 0px);
+    }
+
+    .mini-icon-close {
+      background-position: -16px (-48px + 0px);
+    }
   }
 }
+

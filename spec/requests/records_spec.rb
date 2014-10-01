@@ -299,7 +299,6 @@ describe 'records requests', :js => true do
               }
 
               it ( 'should move to single record page' ) {
-                snap
                 should have_css 'body.records.show'
               }
 

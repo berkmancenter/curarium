@@ -14,16 +14,16 @@
             </div>
             <div class='subcell'>
               <%= label_tag 'selprop', 'Visualization property' %><br>
-              <%= select_tag 'property', options_for_select(@properties),:id=>'property' %>
+              <%= select_tag 'property', options_for_select(@properties), :id=>'property' %>
             </div>
           </div>
           <div class='dropcell'>
             <div class='subcell'>
               <%= label_tag 'selprop', 'Select property' %><br>
-              <%= select_tag 'selprop', options_for_select(@properties),:id=>'selprop' %>
+              <%= select_tag 'selprop', options_for_select(@properties),:id=>'selprop', :name=>nil %>
             </div>
             <div class='subcell' id='incexc'>
-              <%= text_field_tag 'propval', nil, :placeholder=>'Enter property' %>
+              <%= text_field_tag 'propval', nil, :placeholder=>'Enter property', :name=>nil %>
               <div class='wrap'>
                 <%= button_tag 'Include', 'id'=>'inc', :class=>'add-prop', 'data-cmd'=>'include', :type=>'button' %>
               </div>

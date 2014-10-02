@@ -343,6 +343,16 @@ describe 'records requests', :js => true do
                 should have_css '.node', text: 'Women(2)'
               }
 
+              describe ( 'click same node' ) {
+                before {
+                  click_link 'portraits(2)'
+                }
+
+                it ( 'should not add portraits to URL a second time' ) {
+                  current_url.scan(/(?=portraits)/).count.should eq( 1 )
+                }
+
+              }
             }
           }
 

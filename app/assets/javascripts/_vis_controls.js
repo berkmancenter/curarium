@@ -5,8 +5,8 @@
   var _options = { };
 
   function escapeSpecialChars ( str ) {
-    var from = ['<','>','\'','"'];
-    var to = ['&lt;','&gt;','&#39;','&quot;'];
+    var from = ['<','>','\'','"','+'];
+    var to = ['&lt;','&gt;','&#39;','&quot;',' '];
     for (var i = 0; i < from.length; i++) {
       str = str.replace( from[i], to[i] );
     }
@@ -86,7 +86,7 @@
     propHtml: function( className, value, text ) {
       className = escapeSpecialChars( className );
       value = escapeSpecialChars( value );
-      text = escapeSpecialChars ( text );
+      text = escapeSpecialChars( text );
       return '<span class="' + className + '"><a href="#">x</a> <input class="checkbox_hack" name="' + className + '[]" value="' + value + '">' + text + '</span>';
     }
   };

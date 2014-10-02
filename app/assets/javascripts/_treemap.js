@@ -59,7 +59,7 @@ $( function() {
         return Math.max(0, d.dy - 1) + "px";
       });
     };
-    node = div.datum(root).selectAll(".node").data(treemap.nodes).enter().append("a").attr("href", "#").attr("class", "node").call(position).style("background", function(d) {
+    node = div.datum(root).selectAll(".node").data(treemap.nodes).enter().append("a").attr("href", "javascript:void(0);").attr("class", "node").call(position).style("background", function(d) {
       if (d.id != null) {
         return color(d.id);
       }
@@ -75,11 +75,15 @@ $( function() {
       if (val !== '') {
         var className = 'include';
         var value = visProperty+":"+val;
-        $( '#props' ).append( $.visControls.propHtml( className, value, val ) );
-        $( '#propval' ).val('');
+
+        if ( $( '#props' ).find( 'input[name="include[]"][value="' + value + '"]' ).length === 0 ) {
+          $( '#props' ).append( $.visControls.propHtml( className, value, val ) );
+          $( '#propval' ).val('');
+
+          $( '#vis-form' ).submit();
+        }
       }
 
-      $( '#vis-form' ).submit();
       return false;
     } );
   }

@@ -8,7 +8,7 @@
     var from = ['<','>','\'','"','+'];
     var to = ['&lt;','&gt;','&#39;','&quot;',' '];
     for (var i = 0; i < from.length; i++) {
-      str = str.replace( from[i], to[i] );
+      str = str.replace( new RegExp('\\' + from[i], 'g'), to[i] );
     }
     return str;
   }

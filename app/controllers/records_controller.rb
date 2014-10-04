@@ -150,19 +150,17 @@ class RecordsController < ApplicationController
   def thumb
     # try to get the image from cache
     # if not in cache, send missing_thumb image & attempt to cache again
-    thumb_url = JSON.parse( @record.parsed[ 'thumbnail' ] )[0]
-
-    if thumb_url.nil?
-      send_data File.open( "#{Rails.public_path}/missing_thumb.png", 'rb' ).read, type: 'image/png', disposition: 'inline'
+    if @record.thumbnail_url.nil?
+      send_data File.open( "#{Rails.public_path}/missing_thumb.png", 'rb' ).read, type: 'image/png', disposition: 'inline', status: :not_found
     else
-      thumb_hash = Zlib.crc32 thumb_url
+      thumb_hash = Zlib.crc32 @record.thumbnail_url
 
       cache_date = Rails.cache.read "#{thumb_hash}-date"
       cache_image = Rails.cache.read "#{thumb_hash}-image"
       cache_type = Rails.cache.read "#{thumb_hash}-type"
 
       if ( cache_date.nil? || cache_image.nil? || cache_type.nil? )
-        send_data File.open( "#{Rails.public_path}/missing_thumb.png", 'rb' ).read, type: 'image/png', disposition: 'inline'
+        send_data File.open( "#{Rails.public_path}/missing_thumb.png", 'rb' ).read, type: 'image/png', disposition: 'inline', status: :accepted
         @record.cache_thumb
       else
         if stale?( etag: thumb_hash, last_modified: cache_date )

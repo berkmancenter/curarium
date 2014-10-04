@@ -18,17 +18,22 @@ class Parser
 
 
     j_count = 0
-    paths.each { |path| 
-      read_record( path, configuration )
-      t = Thread.new { read_record( path, configuration ) }
+    paths.each { |f| 
+      next if f.nil? || File.directory?(f) || File.extname(f) != '.json'
 
+      t = Thread.new { read_record( f, configuration ) }
       t.join
       
-      if Record.exists?(unique_identifier: t[ :unique_identifier ].to_s, collection_id: collection_id)
-        ok = Record.find_by(unique_identifier: t[ :unique_identifier ].to_s, collection_id: collection_id)
-        ok.update(parsed: t[:parsed], original: t[:original])
+      unique_identifier = t[ :parsed ][ 'unique_identifier'] unless t[ :parsed ].nil?
+      unique_identifier = unique_identifier.to_s unless unique_identifier.nil?
+
+      if unique_identifier.present? && Record.exists?( unique_identifier: unique_identifier, collection_id: collection.id )
+        r = Record.find_by( unique_identifier: unique_identifier, collection_id: collection.id )
+        r.update( original: t[:original], parsed: t[:parsed] )
+        ok = true
       else
-        ok = collection.create_record_from_parsed(t[ :original ], t[ :parsed ], t[ :unique_identifier ])# unless t[ :original ].nil?
+        ok = false
+        ok = collection.create_record_from_parsed t[ :original ], t[ :parsed ] unless t[ :parsed ].nil?
       end
       
       if ok
@@ -37,32 +42,29 @@ class Parser
       
       if j_count > 0 && j_count % 100 == 0
         puts j_count
-        File.delete(path)
+        #File.delete(path)
+
         GC.start
         puts "heap: #{GC.stat[ :heap_live_num ]}"
       end
     }
-    File.delete(zip_path)
+    #File.delete(zip_path)
     collection.approved = true
     collection.save
-    puts "Processed #{j_count} JSON files (out of #{paths.count} total files in directory)" 
+    puts "Processed #{j_count} JSON files (out of #{paths.count - 2} total files in directory)" 
   end
   
-  def read_record( path, configuration )
-    json_file = JSON.parse(File.open(path, 'r').read)
+  def read_record( f, configuration )
+    original = JSON.parse(File.open(f, 'r').read)
+
     pr = {}
-    unique_identifier = ''
+
     configuration.each do |field|
-      unless field[0] == 'unique_identifier'
-        pr[field[0]] = Collection.follow_json(json_file, field[1])
-      else
-        unique_identifier = Collection.follow_json(json_file, field[1])[0].to_s #make sure this is a string.
-      end
+      pr[ field[ 0 ] ] = Collection.follow_json original, field[ 1 ]
     end
     
-    Thread.current[ :original ] = json_file
+    Thread.current[ :original ] = original
     Thread.current[ :parsed ] = pr
-    Thread.current[:unique_identifier] = unique_identifier
   end
   
 end

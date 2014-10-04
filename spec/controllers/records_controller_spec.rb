@@ -39,12 +39,38 @@ describe ( RecordsController ) {
   }
 
   describe ( 'GET record/thumb' ) {
-    let ( :record ) { Record.first }
+    context ( 'normal record' ) {
+      let ( :record ) { Record.first }
 
-    it {
-      get :thumb, :id => record.id
+      describe ( 'before cache_thumbs' ) {
+        before {
+          Rails.cache.clear
+        }
 
-      response.code.should eq( '200' )
+        it {
+          get :thumb, :id => record.id
+
+          response.code.should eq( '202' )
+        }
+      }
+
+      describe ( 'after cache_thumbs' ) {
+        it {
+          get :thumb, :id => record.id
+
+          response.code.should eq( '200' )
+        }
+      }
+    }
+
+    context ( 'with missing thumbnail' ) {
+      let ( :record ) { Record.where( "parsed->'title' = '[\"empty_thumbnail\"]'" ).first }
+
+      it {
+        get :thumb, :id => record.id
+
+        response.code.should eq( '404' )
+      }
     }
   }
 

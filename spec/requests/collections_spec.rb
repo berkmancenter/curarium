@@ -52,7 +52,7 @@ describe 'collections requests', :js => true do
       }
 
       context ( 'no records' ) {
-        let( :col ) { Collection.find_by_name 'via' }
+        let( :col ) { Collection.find_by_name 'Homeless Paintings of the Italian Renaissance' }
 
         before {
           visit collection_path( col )

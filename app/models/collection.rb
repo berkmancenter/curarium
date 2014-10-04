@@ -8,10 +8,10 @@ class Collection < ActiveRecord::Base
   validates :description, presence: true
   validates :configuration, presence: true
   
-  def self.create_record_from_parsed( key, original, parsed, unique_identifier )
+  def self.create_record_from_parsed( key, original, parsed )
     # create a record from original JSON and pre-parsed version
     col = find_by_key key
-    col.create_record_from_parsed original, parsed, unique_identifier
+    col.create_record_from_parsed original, parsed
   end
 
   def self.follow_json( structure, path )
@@ -19,36 +19,46 @@ class Collection < ActiveRecord::Base
       structure = JSON.parse structure
     end
 
-    if structure[path[0]] != nil
+    if structure[path[0]].present?
       current = structure[path[0]]
+
       if path.length == 1
-        return [current]
+        [ current ]
       else
-        if (current.class == Array && path[1] == "*" )
+        if current.class == Array && path[1] == '*'
           field = []
           limit = current.length
           for c in 0..limit
-            npath = path.slice(1,path.length)
+            npath = path.slice 1, path.length
             npath[0] = c
-            partial = follow_json(current,npath)
-            if partial != nil
-              field.push(partial[0])
+            partial = follow_json current, npath
+            if partial.present?
+              field.push partial[ 0 ]
             end
           end
         else
-          field = follow_json(current, path.slice(1,path.length))
+          field = follow_json current, path.slice( 1, path.length )
         end
+
+        field.compact unless field.nil?
       end
-      field = field.class == Array ? field.compact : field
-      return field
     else
-      return nil
+      nil
     end
   end
 
-  def create_record_from_parsed( original, parsed, unique_identifier )
+  def self.follow_json_single( structure, path )
+    value = follow_json structure, path
+    value[ 0 ] unless value.nil?
+  end
+
+  def create_record_from_parsed( original, parsed )
     # create a record from original JSON and pre-parsed version
-    r = self.records.new({original: original, parsed: parsed, unique_identifier: unique_identifier})
+
+    r = self.records.new( {
+      original: original,
+      parsed: parsed
+    } )
     r.save
     r
   end
@@ -56,16 +66,11 @@ class Collection < ActiveRecord::Base
   def create_record_from_json( original )
     # create a record from original JSON, parse it & add it to this collection
     pr = {}
-    unique_identifier = ''
 
     self.configuration.each do |field|
-      if field[0] == 'unique_identifier'
-        unique_identifier = Collection.follow_json(original, field[1])[ 0 ]
-      else
-        pr[field[0]] = Collection.follow_json(original, field[1])
-      end
+      pr[field[0]] = Collection.follow_json(original, field[1])
     end
-    self.create_record_from_parsed original, pr, unique_identifier
+    self.create_record_from_parsed original, pr
   end
   
   def query_records(include, exclude)

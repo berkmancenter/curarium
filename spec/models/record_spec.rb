@@ -2,32 +2,41 @@ require 'spec_helper'
 
 describe ( 'Record model' ) {
   context ( 'with valid data' ) {
-    let ( :rec ) { Record.first }
+    let ( :r ) { Record.first }
 
-    it { rec.should be_valid }
+    it { r.should be_valid }
 
     it ( 'should have an original value' ) {
-      rec.original.should_not eq( nil )
+      r.original.should_not eq( nil )
     }
 
     it ( 'should have parsed values' ) {
-      rec.parsed.should_not eq( nil )
+      r.parsed.should_not eq( nil )
+    }
+
+    it {
+      r.parsed.class.should eq( Hash )
     }
 
     it ( 'should no longer store id in parsed' ) {
-      rec.parsed[ 'curarium' ].should eq( nil )
+      r.parsed[ 'curarium' ].should eq( nil )
     }
 
     it ( 'should have title parsed from original' ) {
-      rec.parsed[ 'title' ].should eq( '["Starry Night"]' )
+      r.parsed[ 'title' ].should eq( '["Starry Night"]' )
     }
 
-    it ( 'should have thumbnail parsed from original' ) {
-      rec.parsed[ 'thumbnail' ].should eq( '["http://upload.wikimedia.org/wikipedia/commons/thumb/e/ea/Van_Gogh_-_Starry_Night_-_Google_Art_Project.jpg/116px-Van_Gogh_-_Starry_Night_-_Google_Art_Project.jpg"]' )
+    it ( 'should no longer have thumbnail parsed from original' ) {
+      r.parsed[ 'thumbnail' ].should eq( nil )
+    }
+
+    it ( 'should have parsed out the thumbnail url to special attribute' ) {
+      r.should respond_to 'thumbnail_url'
+      r.thumbnail_url.should eq( 'http://upload.wikimedia.org/wikipedia/commons/thumb/e/ea/Van_Gogh_-_Starry_Night_-_Google_Art_Project.jpg/116px-Van_Gogh_-_Starry_Night_-_Google_Art_Project.jpg' )
     }
 
     it ( 'should have topics parsed from original with multiple values' ) {
-      rec.parsed[ 'topics' ].should eq( '["stars", "night", "churches"]' )
+      r.parsed[ 'topics' ].should eq( '["stars", "night", "churches"]' )
     }
   }
 }

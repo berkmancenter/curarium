@@ -58,6 +58,7 @@ def seed
   supper.save
 
   crfj test_col, :lucrezia
+  crfj test_col, :empty_thumbnail
 
   crfj not_approved, :aphrodite
 

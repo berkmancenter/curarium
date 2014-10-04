@@ -6,6 +6,8 @@ class Record < ActiveRecord::Base
   has_many :amendments, dependent: :destroy
   belongs_to :collection
 
+  before_save :extract_attributes
+
   def self.image_type( local_file_path )
     png = Regexp.new("\x89PNG".force_encoding("binary"))
     jpg = Regexp.new("\xff\xd8\xff\xe0\x00\x10JFIF".force_encoding("binary"))
@@ -23,11 +25,9 @@ class Record < ActiveRecord::Base
   end
     
   def cache_thumb
-    thumb_url = JSON.parse( parsed[ 'thumbnail' ] )[0]
-
-    if thumb_url.present?
-      thumb_hash = Zlib.crc32 thumb_url
-      cache_url = "#{thumb_url}#{thumb_url.include?( '?' ) ? '&' : '?'}width=256&height=256"
+    if thumbnail_url.present?
+      thumb_hash = Zlib.crc32 thumbnail_url
+      cache_url = "#{thumbnail_url}#{thumbnail_url.include?( '?' ) ? '&' : '?'}width=256&height=256"
       #puts cache_url
 
       begin
@@ -58,5 +58,18 @@ class Record < ActiveRecord::Base
         end
       end
     end
+  end
+
+  private
+
+  def extract_attributes
+    self.unique_identifier = parsed[ 'unique_identifier' ].to_s unless parsed[ 'unique_identifier' ].nil?
+
+    # can be nil
+    thumbnails = parsed[ 'thumbnail' ]
+    self.thumbnail_url = thumbnails.is_a?( Array ) ? thumbnails[ 0 ] : thumbnails
+
+    # remove the attributes we extracted
+    self.parsed.except! 'unique_identifier', 'thumbnail'
   end
 end

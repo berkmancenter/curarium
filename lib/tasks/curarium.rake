@@ -25,27 +25,30 @@ namespace :curarium do
     Collection.all.each { |c|
       puts "#{c.name}:"
 
+      not_present = 0
       not_cached = 0
       total = c.records.count
 
       c.records.each { |r|
-        thumb_value = r.parsed[ 'thumbnail' ]
-        next unless thumb_value.present?
+        if r.thumbnail_url.present?
+          thumb_hash = Zlib.crc32 r.thumbnail_url
 
-        thumb_url = JSON.parse( r.parsed[ 'thumbnail' ] )[0]
-        thumb_hash = Zlib.crc32 thumb_url
+          cache_date = Rails.cache.read "#{thumb_hash}-date"
+          cache_image = Rails.cache.read "#{thumb_hash}-image"
+          cache_type = Rails.cache.read "#{thumb_hash}-type"
 
-        cache_date = Rails.cache.read "#{thumb_hash}-date"
-        cache_image = Rails.cache.read "#{thumb_hash}-image"
-        cache_type = Rails.cache.read "#{thumb_hash}-type"
-
-        if cache_date.nil? || cache_image.nil? || cache_type.nil?
-          not_cached += 1
+          if cache_date.nil? || cache_image.nil? || cache_type.nil?
+            not_cached += 1
+          end
+        else
+          not_present += 1
         end
       }
 
       puts "  total: #{total}"
+      puts "  no thumbnail: #{not_present} (#{not_present.to_f / total.to_f * 100.0 unless total == 0}%)"
       puts "  not cached: #{not_cached} (#{not_cached.to_f / total.to_f * 100.0 unless total == 0}%)"
+      puts "  cached: #{total - not_present - not_cached} (#{( total - not_cached - not_present ).to_f / total.to_f * 100.0 unless total == 0}%)"
     }
 
     ActiveRecord::Base.logger = old_logger
@@ -86,8 +89,9 @@ namespace :curarium do
     total = c.records.count
 
     c.records.each { |r|
-      thumb_url = JSON.parse( r.parsed[ 'thumbnail' ] )[0]
-      thumb_hash = Zlib.crc32 thumb_url
+      next if r.thumbnail_url.nil?
+
+      thumb_hash = Zlib.crc32 r.thumbnail_url
 
       cache_date = Rails.cache.read "#{thumb_hash}-date"
       cache_image = Rails.cache.read "#{thumb_hash}-image"
@@ -125,20 +129,26 @@ namespace :curarium do
     puts "Ingesting #{ent.count - 2} records from #{input_dir}"
     puts "Ingesting into collection with key: #{collection_key}"
 
+    collection = Collection.find_by_key( collection_key )
+    configuration = collection.configuration
+
     j_count = 0
     ent.each { |f| 
-      collection = Collection.find_by_key( collection_key )
-      configuration = collection.configuration
+      next if f.nil? || File.directory?(f) || File.extname(f) != '.json'
+
       t = Thread.new { read_record( input_dir, f, configuration ) }
       t.join
 
-      if t[ :unique_identifier ] != '' && Record.exists?( unique_identifier: t[ :unique_identifier ].to_s, collection_id: collection.id )
-        r = Record.find_by( unique_identifier: t[ :unique_identifier ].to_s, collection_id: collection.id )
+      unique_identifier = t[ :parsed ][ 'unique_identifier'] unless t[ :parsed ].nil?
+      unique_identifier = unique_identifier.to_s unless unique_identifier.nil?
+
+      if unique_identifier.present? && Record.exists?( unique_identifier: unique_identifier, collection_id: collection.id )
+        r = Record.find_by( unique_identifier: unique_identifier, collection_id: collection.id )
         r.update( original: t[:original], parsed: t[:parsed] )
         ok = true
       else
-
-        ok = Collection.create_record_from_parsed collection_key, t[ :original ], t[ :parsed ], t[ :unique_identifier ] unless t[ :original ].nil?
+        ok = false
+        ok = Collection.create_record_from_parsed collection_key, t[ :original ], t[ :parsed ] unless t[ :parsed ].nil?
       end
 
       if ok
@@ -158,25 +168,16 @@ namespace :curarium do
 
   def read_record( input_dir, f, configuration )
     # thread to wait for file IO, return json
-    if f.present? && !File.directory?(f) && File.extname(f) == '.json'
-      filename = "./#{input_dir}/#{File.basename(f)}"
-      rec_json = IO.read filename
+    filename = "./#{input_dir}/#{File.basename(f)}"
+    original = JSON.parse IO.read( filename )
 
-      pr = {}
-      unique_identifier = ''
+    pr = {}
 
-      configuration.each do |field|
-        if field[0] == 'unique_identifier'
-          unique_identifier_obj = Collection.follow_json(rec_json, field[1])
-          unique_identifier = unique_identifier_obj[ 0 ] unless unique_identifier_obj.nil?
-        else
-          pr[field[0]] = Collection.follow_json(rec_json, field[1])
-        end
-      end
-
-      Thread.current[ :original ] = rec_json
-      Thread.current[ :parsed ] = pr
-      Thread.current[ :unique_identifier ] = unique_identifier
+    configuration.each do |field|
+      pr[ field[ 0 ] ] = Collection.follow_json original, field[ 1 ]
     end
+
+    Thread.current[ :original ] = original
+    Thread.current[ :parsed ] = pr
   end
 end

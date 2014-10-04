@@ -71,6 +71,11 @@ FactoryGirl.define do
       original '{"title":"Lucrezia","imageInfo":{"url":"http://upload.wikimedia.org/wikipedia/commons/d/d3/Parmigianino%2C_lucrezia_romana%2C_1540.jpg","thumbnail_url":"http://upload.wikimedia.org/wikipedia/commons/thumb/d/d3/Parmigianino%2C_lucrezia_romana%2C_1540.jpg/89px-Parmigianino%2C_lucrezia_romana%2C_1540.jpg"},"artist":"Parmigianino","subject":[{"topic":["death"]},{"topic":["portraits"]},{"topic":["women"]},{"topic":["breast"]}]}'
     end
 
+    factory :empty_thumbnail do
+      #collection test_col
+      original '{"title":"empty_thumbnail","imageInfo":{"url":"http://upload.wikimedia.org/wikipedia/commons/thumb/e/ec/Mona_Lisa%2C_by_Leonardo_da_Vinci%2C_from_C2RMF_retouched.jpg/687px-Mona_Lisa%2C_by_Leonardo_da_Vinci%2C_from_C2RMF_retouched.jpg"},"artist":"da Vinci","subject":[{"topic":["Mona"]},{"topic":["women"]},{"topic":["portraits"]}]}'
+    end
+
     factory :aphrodite do
       # collection not_approved
       original '{"title":"Aphrodite Pudica","imageInfo":{"url":"http://upload.wikimedia.org/wikipedia/commons/0/02/NAMA_Aphrodite_Syracuse.jpg","thumbnail_url":"http://upload.wikimedia.org/wikipedia/commons/thumb/0/02/NAMA_Aphrodite_Syracuse.jpg/110px-NAMA_Aphrodite_Syracuse.jpg"},"artist":"Copie de Praxitèle"}'
@@ -80,6 +85,7 @@ FactoryGirl.define do
       #collection multi_image
       original '{"titleInfo":[{"title":["Crucifixion"]}],"relatedItem":[{"content":{"location":[{"url":[{"displayLabel":"Full Image","note":"unrestricted","content":"http:\/\/nrs.harvard.edu\/urn-3:VIT.BB:4627197"},{"displayLabel":"Thumbnail","content":"http:\/\/nrs.harvard.edu\/urn-3:VIT.BB:4627197"}]}]}}],"recordIdentifier":[{"source":"VIA","content":"olvwork384182"}]}'
     end
+
   end
 
   factory :annotation do

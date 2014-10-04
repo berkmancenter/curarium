@@ -320,12 +320,12 @@ describe 'records requests', :js => true do
             }
                     
             it {
-              # 13 distinct topics in test data, extra .node for root
-              should have_css '.node', count: 13 + 1
+              # 14 distinct topics in test data, extra .node for root
+              should have_css '.node', count: 14 + 1
             }
 
             it {
-              should have_css '.node', text: 'Women(3)'
+              should have_css '.node', text: 'Women(4)'
             }
 
             it ( 'should not screw up values with commas' ) {
@@ -335,17 +335,17 @@ describe 'records requests', :js => true do
 
             describe ( 'click node' ) {
               before {
-                click_link 'portraits(2)'
+                click_link 'portraits(3)'
               }
 
               it {
                 # two women in portraits
-                should have_css '.node', text: 'Women(2)'
+                should have_css '.node', text: 'Women(3)'
               }
 
               describe ( 'click same node' ) {
                 before {
-                  click_link 'portraits(2)'
+                  click_link 'portraits(3)'
                 }
 
                 it ( 'should not add portraits to URL a second time' ) {
@@ -362,11 +362,11 @@ describe 'records requests', :js => true do
             }
 
             it {
-              should have_css '.node', count: 10 + 1
+              should have_css '.node', count: 11 + 1
             }
 
             it {
-              should have_css '.node', text: 'Women(3)'
+              should have_css '.node', text: 'Women(4)'
             }
 
             describe ( 'click to one record' ) {
@@ -388,11 +388,11 @@ describe 'records requests', :js => true do
 
             it {
               # all topics from only records having both included topics: women & portraits
-              should have_css '.node', count: 5 + 1
+              should have_css '.node', count: 6 + 1
             }
 
             it {
-              should have_css '.node', text: 'Women(2)'
+              should have_css '.node', text: 'Women(3)'
             }
           }
         }

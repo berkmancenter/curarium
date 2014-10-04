@@ -39,36 +39,68 @@ describe ( 'Collection model' ) {
   }
 
   describe ( 'Collection.follow_json' ) {
-    let ( :original ) { '{"title":"Starry Night"}' }
+    let ( :original ) { '{"title":"Starry Night","relatedItem":[{"image":"http://image.com/0","thumbnail":"http://thumbnail.com/0"},{"image":"http://image.com/1","thumbnail":"http://thumbnail.com/1"}]}' }
 
-    it {
-      Collection.follow_json( original, ['title'] ).should eq( ['Starry Night'] )
+    it ( 'should return array even for non-* config' ) {
+      value = Collection.follow_json( original, [ 'title' ] )
+      value.class.should eq( Array )
+      value[ 0 ].should eq( 'Starry Night' )
+    }
+
+    it ( 'should return array for * config' ) {
+      value = Collection.follow_json( original, [ 'relatedItem', '*', 'image' ] )
+      value.class.should eq( Array )
+      value[ 0 ].should eq( 'http://image.com/0' )
+      value[ 1 ].should eq( 'http://image.com/1' )
+    }
+
+    it ( 'should return nil for missing properties' ) {
+      Collection.follow_json( original, [ 'foo' ] ).should eq( nil )
+    }
+
+    describe ( 'follow_json_single' ) {
+      it ( 'should return single value for non-* config' ) {
+        Collection.follow_json_single( original, [ 'title' ] ).should eq( 'Starry Night' )
+      }
+
+      it ( 'should return first array value for * config' ) {
+        Collection.follow_json_single( original, [ 'relatedItem', '*', 'image' ] ).should eq( 'http://image.com/0' )
+      }
+
+      it ( 'should return nil for missing properties' ) {
+        Collection.follow_json_single( original, [ 'foo' ] ).should eq( nil )
+      }
     }
   }
 
   describe ( 'create_record' ) {
-    let ( :rec_json ) { FactoryGirl.attributes_for( :starry_night ) }
+    let ( :r ) { FactoryGirl.attributes_for( :starry_night ) }
 
     context ( 'from_json' ) {
       it {
         expect {
-          col.create_record_from_json( rec_json[ :original ] )
+          col.create_record_from_json( r[ :original ] )
         }.to change { col.records.count }.by( 1 )
       }
 
       describe ( 'create_record_from_json' ) {
         before {
-          col.create_record_from_json( rec_json[ :original ] )
+          col.create_record_from_json( r[ :original ] )
         }
 
         it {
           Record.last.parsed[ 'title' ].should eq( '["Starry Night"]' )
         }
+
+        it ( 'should extract thumbnail_url' ) {
+          Record.last.thumbnail_url.should eq( 'http://upload.wikimedia.org/wikipedia/commons/thumb/e/ea/Van_Gogh_-_Starry_Night_-_Google_Art_Project.jpg/116px-Van_Gogh_-_Starry_Night_-_Google_Art_Project.jpg' )
+          Record.last.parsed[ 'thumbnail' ].should eq( nil )
+        }
       }
 
       describe ( 'return a record' ) {
         it {
-          col.create_record_from_json( rec_json[ :original ] ).class.should eq( Record.first.class )
+          col.create_record_from_json( r[ :original ] ).class.should eq( Record.first.class )
         }
       }
     }
@@ -77,46 +109,45 @@ describe ( 'Collection model' ) {
       let ( :pr ) {
         pr = {}
         col.configuration.each do |field|
-          pr[field[0]] = Collection.follow_json(rec_json[ :original ], field[1])
+          pr[field[0]] = Collection.follow_json(r[ :original ], field[1])
         end
         pr
       }
 
       it {
         expect {
-          col.create_record_from_parsed( rec_json[ :original ], pr, 'fake_unique_id' )
+          col.create_record_from_parsed r[ :original ], pr
         }.to change { col.records.count }.by( 1 )
       }
 
       describe ( 'return a record' ) {
         it {
-          col.create_record_from_parsed( rec_json[ :original ], pr, 'fake_unique_id' ).class.should eq( Record.first.class )
+          col.create_record_from_parsed( r[ :original ], pr ).class.should eq( Record.first.class )
         }
       }
 
       context ( 'static function' ) {
         it {
           expect {
-            Collection.create_record_from_parsed( col.key, rec_json[ :original ], pr, 'fake_unique_id' )
+            Collection.create_record_from_parsed( col.key, r[ :original ], pr )
           }.to change { col.records.count }.by( 1 )
         }
 
         describe ( 'return a record' ) {
           it {
-            Collection.create_record_from_parsed( col.key, rec_json[ :original ], pr, 'fake_unique_id' ).class.should eq( Record.first.class )
+            Collection.create_record_from_parsed( col.key, r[ :original ], pr ).class.should eq( Record.first.class )
           }
         }
 
         describe ( 'no longer caching thumbnail on record creation' ) {
           before {
             Rails.cache.clear
-            Collection.create_record_from_parsed( col.key, rec_json[ :original ], pr, 'fake_unique_id' )
+            Collection.create_record_from_parsed( col.key, r[ :original ], pr )
           }
 
           it ( 'should not have cache date yet' ) {
-            record = Record.last
-            thumb_url = JSON.parse( record.parsed[ 'thumbnail' ] )[ 0 ]
-            thumb_hash = Zlib.crc32 thumb_url
+            r = Record.last
+            thumb_hash = Zlib.crc32 r.thumbnail_url
 
             cache_date = Rails.cache.fetch( "#{thumb_hash}-date" ) { Date.new }
             cache_date.should eq( Date.new )

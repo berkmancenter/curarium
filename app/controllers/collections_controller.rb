@@ -27,7 +27,6 @@ class CollectionsController < ApplicationController
 
   # GET /collections/1/edit
   def edit
-    @json_files = @collection.json_files.build
   end
 
   # POST /collections

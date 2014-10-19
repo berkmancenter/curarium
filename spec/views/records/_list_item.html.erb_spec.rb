@@ -35,7 +35,7 @@ describe ( 'records/list_item' ) {
     }
 
     it {
-      should have_css 'span', text: JSON.parse( record.parsed['title'] )[0]
+      should have_css 'span', text: record.title
     }
   }
 }

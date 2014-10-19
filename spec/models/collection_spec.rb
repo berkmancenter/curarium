@@ -89,7 +89,7 @@ describe ( 'Collection model' ) {
         }
 
         it {
-          Record.last.parsed[ 'title' ].should eq( '["Starry Night"]' )
+          Record.last.title.should eq( 'Starry Night' )
         }
 
         it ( 'should extract thumbnail_url' ) {

@@ -68,7 +68,7 @@ class TraysController < ApplicationController
       pr[:id] = id
       pr[:uri] = r['image'][0]
       pr[:thumbnail_url] = r['image'][0]
-      pr[:title] = r['title'][0]
+      pr[:title] = r.title
       pr[:media_type] = "Image"
       pr[:layer_type] = "Image"
       pr[:archive] = ""

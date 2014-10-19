@@ -22,8 +22,12 @@ describe ( 'Record model' ) {
       r.parsed[ 'curarium' ].should eq( nil )
     }
 
-    it ( 'should have title parsed from original' ) {
+    it ( 'should still have have title parsed from original (for filtering)' ) {
       r.parsed[ 'title' ].should eq( '["Starry Night"]' )
+    }
+
+    it ( 'should have parsed out the title to special attribute' ) {
+      r.title.should eq( 'Starry Night' )
     }
 
     it ( 'should no longer have thumbnail parsed from original' ) {
@@ -37,6 +41,15 @@ describe ( 'Record model' ) {
 
     it ( 'should have topics parsed from original with multiple values' ) {
       r.parsed[ 'topics' ].should eq( '["stars", "night", "churches"]' )
+    }
+  }
+
+  describe ( 'scope with_thumb' ) {
+    let ( :c ) { Collection.find_by_name 'test_col' }
+
+    it {
+      rs = c.records.with_thumb
+      rs.where( { title: 'empty_thumbnail' } ).count.should eq( 0 )
     }
   }
 }

@@ -8,6 +8,10 @@ class Record < ActiveRecord::Base
 
   before_save :extract_attributes
 
+  scope :with_thumb, -> {
+    where( 'not thumbnail_url is null' )
+  }
+
   def self.image_type( local_file_path )
     png = Regexp.new("\x89PNG".force_encoding("binary"))
     jpg = Regexp.new("\xff\xd8\xff\xe0\x00\x10JFIF".force_encoding("binary"))
@@ -69,7 +73,11 @@ class Record < ActiveRecord::Base
     thumbnails = parsed[ 'thumbnail' ]
     self.thumbnail_url = thumbnails.is_a?( Array ) ? thumbnails[ 0 ] : thumbnails
 
-    # remove the attributes we extracted
+    # maybe can be nil?
+    titles = parsed[ 'title' ]
+    self.title = titles.is_a?( Array ) ? titles[ 0 ] : titles
+
+    # remove the attributes we extracted (except for title)
     self.parsed.except! 'unique_identifier', 'thumbnail'
   end
 end

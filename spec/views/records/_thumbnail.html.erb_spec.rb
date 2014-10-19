@@ -20,7 +20,7 @@ describe ( 'records/thumbnail' ) {
     }
 
     it {
-      should have_css "a[title='#{JSON.parse( record.parsed['title'] )[0]}']"
+      should have_css "a[title='#{record.title}']"
     }
   }
 }

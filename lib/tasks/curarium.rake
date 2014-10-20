@@ -99,7 +99,10 @@ namespace :curarium do
 
     c = c.first
 
-    puts "tiling collection #{c.name}"
+    collection_tiles_path = Rails.root.join( 'app', 'assets', 'images', 'collection_tiles', c.id.to_s )
+    puts "tiling collection #{c.name} to #{collection_tiles_path}"
+
+    FileUtils.mkpath collection_tiles_path
 
     rs = c.records.with_thumb
     record_dimension = Math.sqrt( rs.count ).ceil
@@ -111,20 +114,34 @@ namespace :curarium do
       puts " rd: #{record_dimension}"
       break if record_dimension == 0
 
-      zoom_levels += 1
+      if zoom == 8
+        # most zoomed in, each quadkey is one image/thumbnail
+        for col in 0..(record_dimension-1)
+          for row in 0..(record_dimension-1)
+            puts "#{col}, #{row}"
 
-      for col in 0..(record_dimension-1)
-        for row in 0..(record_dimension-1)
-          puts "#{col}, #{row}"
+            quadkey = tile_to_quadkey col, row, zoom
+            puts "  quadkey: #{quadkey}"
 
-          quadkey = tile_to_quadkey col, row, zoom
-          puts "  quadkey: #{quadkey}"
+            indexes = quadkey_to_indexes quadkey
+            puts "  indexes: #{indexes.join( ',' )}"
 
-          indexes = quadkey_to_indexes quadkey
-          puts "  indexes: #{indexes.join( ',' )}"
+            indexes.each { |i|
+              if i < rs.count
+                r = rs[ i ]
+                thumb_hash = Zlib.crc32 r.thumbnail_url
+                cache_image = Rails.cache.read "#{thumb_hash}-image"
 
+                File.open( "#{collection_tiles_path}/#{quadkey}.png", 'wb' ) { |f|
+                  f.write cache_image
+                }
+              end
+            }
+          end
         end
       end
+
+      zoom_levels += 1
 
       record_dimension /= 2
     }
@@ -193,9 +210,7 @@ namespace :curarium do
     not_cached = 0
     total = c.records.count
 
-    c.records.each { |r|
-      next if r.thumbnail_url.nil?
-
+    c.records.with_thumb.each { |r|
       thumb_hash = Zlib.crc32 r.thumbnail_url
 
       cache_date = Rails.cache.read "#{thumb_hash}-date"

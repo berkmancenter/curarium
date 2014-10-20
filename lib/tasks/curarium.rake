@@ -68,6 +68,44 @@ namespace :curarium do
     ActiveRecord::Base.logger = old_logger
   end
 
+  desc 'Pre-render the collection as tiles for object map'
+  task :tile_collection, [:collection_id] => [ :environment ] do |task, args|
+    old_logger = ActiveRecord::Base.logger
+    ActiveRecord::Base.logger = nil
+
+    puts "Started at #{Time.now}"
+
+    tile_collection args[:collection_id]
+
+    puts "Ended at #{Time.now}"
+
+    ActiveRecord::Base.logger = old_logger
+  end
+
+  def tile_collection( collection_id )
+    usage = "usage: rake curarium:tile_collection['collection_id']"
+
+    if collection_id.nil?
+      puts usage
+      return
+    end
+
+    c = Collection.where( { id: collection_id } )
+
+    if c.count == 0
+      puts "Cannot find collection with id #{collection_id}"
+      return
+    end
+
+    c = c.first
+
+    puts "tiling collection #{c.name}"
+
+    rs = c.records.with_thumb
+    puts "tiling #{rs.count} records with thumbnails (of #{c.records.count})"
+
+  end
+
   def curarium_cache_thumbs( collection_name )
     usage = "usage: rake curarium:cache_thumbs['collection_name']"
 

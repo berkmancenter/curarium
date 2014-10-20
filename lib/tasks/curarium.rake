@@ -102,8 +102,75 @@ namespace :curarium do
     puts "tiling collection #{c.name}"
 
     rs = c.records.with_thumb
+    record_dimension = Math.sqrt( rs.count ).ceil
+    zoom_levels = 0
+
     puts "tiling #{rs.count} records with thumbnails (of #{c.records.count})"
 
+    (0..8).reverse_each { |zoom|
+      puts " rd: #{record_dimension}"
+      break if record_dimension == 0
+
+      zoom_levels += 1
+
+      for col in 0..(record_dimension-1)
+        for row in 0..(record_dimension-1)
+          puts "#{col}, #{row}"
+
+          quadkey = tile_to_quadkey col, row, zoom
+          puts "  quadkey: #{quadkey}"
+
+          indexes = quadkey_to_indexes quadkey
+          puts "  indexes: #{indexes.join( ',' )}"
+
+        end
+      end
+
+      record_dimension /= 2
+    }
+
+    puts "total zoom levels: #{zoom_levels}"
+  end
+
+  def tile_to_quadkey( column, row, zoom )
+    quadkey = ''
+
+    ( 1..zoom ).reverse_each { |i|
+      digit = 0
+      mask = 1 << (i - 1)
+
+      if ( column & mask ) != 0
+        digit += 1
+      end
+
+      if ( row & mask ) != 0
+        digit += 2
+      end
+
+      quadkey += digit.to_s
+    }
+
+    quadkey
+  end
+
+  def quadkey_to_indexes( quadkey )
+    if quadkey.length == 8
+      index = 0
+
+      ( 1..(quadkey.length - 1) ).reverse_each { |i|
+        digit = quadkey[ i ].to_i
+        index += 4 ** (8 - i) * digit / 4
+      }
+
+      [ index ]
+    else
+      [
+        quadkey_to_indexes( quadkey + '0' ),
+        quadkey_to_indexes( quadkey + '1' ),
+        quadkey_to_indexes( quadkey + '2' ),
+        quadkey_to_indexes( quadkey + '3' )
+      ]
+    end
   end
 
   def curarium_cache_thumbs( collection_name )

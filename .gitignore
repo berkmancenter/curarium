@@ -15,6 +15,9 @@
 /db/via
 /db/japanese
 
+# collection tiles
+/app/assets/images/collection_tiles
+
 # Ignore all logfiles and tempfiles.
 /log/*.log
 /tmp

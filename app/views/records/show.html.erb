@@ -31,9 +31,9 @@
   <table class="parsed-info"><tr>
     
     <td  class="bub_menu">
-      <div class="menu_piece">
+      <div class="menu_piecep">
       <input type='checkbox' class='checkbox_hack' id='parsed_id'>
-      <label for='parsed_id'><span class="button">Parsed Information<%= image_tag "pulldown_r.png", alt: '' %><%= image_tag "pullup_r.png", alt: '' %></span></label>
+      <label for='parsed_id'><span class="button">P</span></label>
       <div class="expand">
         <!-- THIS IS WHERE THE PARSED RECORD INFORMATION GOES -->
         <%= render :partial => 'shared/print_metadata', :locals=>{:original=>@record.parsed,:current=>@current_metadata,:class_name=>'printed_object',:id_name=>'parsed_record'} %>
@@ -42,9 +42,9 @@
     </td>
 
     <td  class="bub_menu surrogates">
-      <div class="menu_piece">
+      <div class="menu_pieces">
       <input type='checkbox' class='checkbox_hack' id='surrogates_id'>
-      <label for='surrogates_id'><span class="button">Surrogates<%= image_tag "pulldown_r.png", alt: '' %><%= image_tag "pullup_r.png", alt: '' %></span></label>
+      <label for='surrogates_id'><span class="button">S</span></label>
       <div class="expand">
         <!-- THIS IS WHERE THE SURROGATE IMAGES GO -->
       <nav>
@@ -54,21 +54,13 @@
           <% end %>
       </nav>
       </div>
-      </div>
-    </td>
-
-    <td  class="bub_dis nohover">
-      <div class="menu_piece">
-      <span class="button"><%=@record.id%><%= image_tag "edit_r.png", alt: '' %></span>
-      <div class="expand">
-      </div>
-      </div>
+      </div>s
     </td>
 
     <td  class="bub_menu">
-      <div class="menu_piece">
+      <div class="menu_piecet">
         <input type='checkbox' class='checkbox_hack' id='add_id'>
-        <label for='add_id'><span class="button">Add to Tray<%= image_tag "pulldown_r.png", alt: '' %><%= image_tag "pullup_r.png", alt: '' %></span></label>
+        <label for='add_id'><span class="button">T</span></label>
         <div class="expand">
           <% if session[:user_id].present? %>
             <!-- THIS IS WHERE THE LIST OF TRAYS GOES -->
@@ -85,9 +77,9 @@
     </td>
 
     <td  class="bub_menu">
-      <div class="menu_piece">
+      <div class="menu_piecea">
         <input type='checkbox' class='checkbox_hack' id = 'ann_id'>
-        <label for='ann_id'><span class="button">Annotate<%= image_tag "pulldown_r.png", alt: '' %><%= image_tag "pullup_r.png", alt: '' %></span></label>
+        <label for='ann_id'><span class="button">A</span></label>
         <div class="expand">
           <div id='annotations'>
 

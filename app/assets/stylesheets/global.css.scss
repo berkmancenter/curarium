@@ -565,27 +565,6 @@ a {
   overflow: hidden;
 }
 
-.about_header_lines {
-  position: absolute;
-  top: 38px;
-  left: 0;
-  height: 150px;
-  width: 100%;
-}
-.about_header {
-  position: relative;
-  height: 85px;
-  width: 100%;
-}
-.about_header .page_title {
-  position: absolute; 
-  bottom: 0; left: 0; 
-  font-size: 70px;
-  line-height: 70px;
-  color: #ffffff;
-  font-weight: bold;
-}
-
 /* FOOTER */
 .FOOTER {
   width: 100%;
@@ -1073,11 +1052,19 @@ a {
 .bubble_menu {
   overflow: visible;
   width: 100%;
-  top: 60px;
   background: transparent;
   * {
     pointer-events: none;
-    .menu_piece, .menu_piece * {
+    .menu_piecep, .menu_piecep * {
+      pointer-events: auto;
+    }
+    .menu_pieces, .menu_pieces * {
+      pointer-events: auto;
+    }
+    .menu_piecet, .menu_piecet * {
+      pointer-events: auto;
+    }
+    .menu_piecea, .menu_piecea * {
       pointer-events: auto;
     }
   }
@@ -1095,15 +1082,50 @@ a {
     }    
   }
 }
-.bubble_menu .menu_piece{
-  width: 200px;
+
+.bubble_menu .menu_piecep{
+  width: 25px;
   position: relative;
   margin: 0 10px;
+  top: 20px;
   border: 1px solid #d2232a;
   padding: 25px 0 0 0;
-  background: url('transbg.png');
   overflow:hidden;
 }
+
+.bubble_menu .menu_pieces{
+  width: 25px;
+  position: relative;
+  margin: 0 10px;
+  top: 60px;
+  right: 47px;
+  border: 1px solid #d2232a;
+  padding: 25px 0 0 0;
+  overflow:hidden;
+}
+
+.bubble_menu .menu_piecet{
+  width: 25px;
+  position: relative;
+  margin: 0 10px;
+  top: 100px;
+  right: 94px;
+  border: 1px solid #d2232a;
+  padding: 25px 0 0 0;
+  overflow:hidden;
+}
+
+.bubble_menu .menu_piecea{
+  width: 25px;
+  position: relative;
+  margin: 0 10px;
+  top: 140px;
+  right: 141px;
+  border: 1px solid #d2232a;
+  padding: 25px 0 0 0;
+  overflow:hidden;
+}
+
 .bubble_menu .button{
   border: 0;
   position: absolute;
@@ -1123,10 +1145,28 @@ a {
 .bubble_menu .bub_dis, .bubble_menu .bub_shr {
   width: 100%; 
 }
-.bubble_menu .bub_dis .menu_piece{
+.bubble_menu .bub_dis .menu_piecep{
   width: auto;
 }
-.bubble_menu .bub_shr .menu_piece{
+.bubble_menu .bub_shr .menu_piecep{
+  width: 50%;
+}
+.bubble_menu .bub_dis .menu_pieces{
+  width: auto;
+}
+.bubble_menu .bub_shr .menu_pieces{
+  width: 50%;
+}
+.bubble_menu .bub_dis .menu_piecet{
+  width: auto;
+}
+.bubble_menu .bub_shr .menu_piecet{
+  width: 50%;
+}
+.bubble_menu .bub_dis .menu_piecea{
+  width: auto;
+}
+.bubble_menu .bub_shr .menu_piecea{
   width: 50%;
 }
 
@@ -1147,7 +1187,16 @@ a {
   color: #ffffff;
   cursor: pointer;
 }
-.bubble_menu .bub_highlight .menu_piece:hover {
+.bubble_menu .bub_highlight .menu_piecep:hover {
+  border: 1px solid #000000;
+}
+.bubble_menu .bub_highlight .menu_pieces:hover {
+  border: 1px solid #000000;
+}
+.bubble_menu .bub_highlight .menu_piecet:hover {
+  border: 1px solid #000000;
+}
+.bubble_menu .bub_highlight .menu_piecea:hover {
   border: 1px solid #000000;
 }
 .bubble_menu .bub_text {
@@ -1158,19 +1207,43 @@ a {
   color: #d2232a;
   font-weight: bold;
 }
-.bubble_menu .bub_disable .menu_piece {
+.bubble_menu .bub_disable .menu_piecep {
   border: 0;
   padding: 0;
 }
-.bubble_menu .bub_disable .menu_piece .titlebar {
+.bubble_menu .bub_disable .menu_piecep .titlebar {
   border: 0;
   padding: 5px 0 0 0;
 }
-
+.bubble_menu .bub_disable .menu_pieces {
+  border: 0;
+  padding: 0;
+}
+.bubble_menu .bub_disable .menu_pieces .titlebar {
+  border: 0;
+  padding: 5px 0 0 0;
+}
+.bubble_menu .bub_disable .menu_piecet {
+  border: 0;
+  padding: 0;
+}
+.bubble_menu .bub_disable .menu_piecet .titlebar {
+  border: 0;
+  padding: 5px 0 0 0;
+}
+.bubble_menu .bub_disable .menu_piecea {
+  border: 0;
+  padding: 0;
+}
+.bubble_menu .bub_disable .menu_piecea .titlebar {
+  border: 0;
+  padding: 5px 0 0 0;
+}
 .expand {
   display: none;
   padding: 10px;
-  overflow:auto; 
+  overflow:auto;
+   
 
 }
 
@@ -1773,19 +1846,48 @@ dt:hover {
   bottom: 4px;
 }
 
-.bubble_menu .menu_piece .button {
+.bubble_menu .menu_piecep .button {
   background: transparent;
 }
 
-.bubble_menu .menu_piece .button:hover {
+.bubble_menu .menu_piecep .button:hover {
   background: #d2222a;
 }
 
-.bubble_menu .nohover .button:hover {
+.bubble_menu .menu_piecep .checkbox_hack:checked ~ .expand {
+  display: block;
+}
+.bubble_menu .menu_pieces .button {
   background: transparent;
 }
 
-.bubble_menu .menu_piece .checkbox_hack:checked ~ .expand {
+.bubble_menu .menu_pieces .button:hover {
+  background: #d2222a;
+}
+
+.bubble_menu .menu_pieces .checkbox_hack:checked ~ .expand {
+  display: block;
+}
+.bubble_menu .menu_piecet .button {
+  background: transparent;
+}
+
+.bubble_menu .menu_piecet .button:hover {
+  background: #d2222a;
+}
+
+.bubble_menu .menu_piecet .checkbox_hack:checked ~ .expand {
+  display: block;
+}
+.bubble_menu .menu_piecea .button {
+  background: transparent;
+}
+
+.bubble_menu .menu_piecea .button:hover {
+  background: #d2222a;
+}
+
+.bubble_menu .menu_piecea .checkbox_hack:checked ~ .expand {
   display: block;
 }
 

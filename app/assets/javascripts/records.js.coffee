@@ -98,11 +98,8 @@ collapse_parsed_information = ()->
   $('#parsed_record>ul>li>ul').each (i)->
     that = this
     $(this).hide(0)
-    $(this).find('li').click (e)->
-      e.stopPropagation()
     $(this).parent().find('span').click (e)->
       e.stopPropagation()
-      $('#parsed_record>ul>li>ul').hide(250)
       $(that).show(250)
       undefined
     undefined

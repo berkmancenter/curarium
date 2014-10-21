@@ -2,8 +2,6 @@
   
   position: absolute;
   top: 70px;
-  left: 5px;
-  right: 5px;
   text-align: center;
 
   .rec_menu {
@@ -40,7 +38,6 @@
   .dropdown {
     display: none;
     top: 300px;
-    width: 100%;
   }
   
   .floatdivs{
@@ -51,13 +48,10 @@
 
   .dropcell {
     text-align: left;
-    width: 32.1%;
     border: 1px solid #d2233a;
     background: #fff;
     height: 160px;
     overflow: auto;
-    display: inline-block;
-    *display: inline;
     zoom: 1
   }
 
@@ -100,7 +94,7 @@
   }
 
   #up, #down {
-    width: 13px;
+    width: 3px;
     height: auto;
     top: 7px;
     position: absolute;

@@ -1,9 +1,3 @@
-<!-- BEGIN HEADER BAR -->	
-<div class="about_header">
-<div class="page_title"><%= @collection.name %></div>
-</div>
-<!-- END HEADER BAR -->	  
-
 <!-- BEGIN ABOUT CONTENT -->	
 <div class="about_content">
 	<!-- left content -->
@@ -22,7 +16,7 @@
     <!-- middle content -->
     <div class="expandable"><div class="holder">
 			<!-- ABOUT CONTENT -->
-		<div class="titlebar to_about">About</div>
+		<div class="titlebar to_about"><%= @collection.name %></div>
 		<div class="cont_about">
 			<%= @collection.description %>
 		</div>

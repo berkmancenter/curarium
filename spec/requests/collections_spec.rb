@@ -36,7 +36,7 @@ describe 'collections requests', :js => true do
         }
 
         it {
-          should have_css '.page_title', text: col.name
+          should have_css '.titlebar', text: col.name
         }
 
         it {

@@ -14,7 +14,7 @@ describe ( 'records/vis_controls' ) {
     }
 
     it {
-      should have_css '.vis-controls label', text: 'Visualization Controls'
+      should have_css '.vis-controls label.toggle-vis-controls'
     }
 
     it {

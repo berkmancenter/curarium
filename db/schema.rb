@@ -32,9 +32,9 @@ ActiveRecord::Schema.define(version: 20141019015743) do
   create_table "annotations", force: true do |t|
     t.integer  "user_id"
     t.integer  "record_id"
+    t.json     "content"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.json     "content"
   end
 
   create_table "collections", force: true do |t|
@@ -82,12 +82,12 @@ ActiveRecord::Schema.define(version: 20141019015743) do
   end
 
   create_table "sections", force: true do |t|
-    t.integer  "users",      default: [],                                                                                 array: true
-    t.integer  "admins",     default: [],                                                                                 array: true
     t.datetime "created_at"
     t.datetime "updated_at"
     t.json     "resources",  default: {"Collection"=>[], "Spotlight"=>[], "Tray"=>[], "Visualization"=>[], "Record"=>[]}
     t.string   "title"
+    t.integer  "users",                                                                                                   array: true
+    t.integer  "admins",                                                                                                  array: true
   end
 
   create_table "spotlights", force: true do |t|

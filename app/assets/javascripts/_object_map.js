@@ -10,7 +10,7 @@ $( function() {
 
       var map = $( '.records-objectmap .geomap' ).geomap( {
         bbox: [ 256 * recordDimension / 2, 256 * recordDimension / 2, 1024, 768 ],
-        zoom: 8,
+        zoom: 7,
 
         zoomMin: 7,
         zoomMax: 8,

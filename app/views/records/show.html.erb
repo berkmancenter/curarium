@@ -35,7 +35,7 @@
       <input type='checkbox' class='checkbox_hack' id='parsed_id'>
       <label for='parsed_id'><span class="button">P</span></label>
       <div class="expand">
-        <!-- THIS IS WHERE THE PARSED RECORD INFORMATION GOES -->
+        <!-- THIS IS WHERE THE PARSED WORK INFORMATION GOES -->
         <%= render :partial => 'shared/print_metadata', :locals=>{:original=>@work.parsed,:current=>@current_metadata,:class_name=>'printed_object',:id_name=>'parsed_work'} %>
       </div>
       </div>

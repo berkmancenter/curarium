@@ -21,9 +21,9 @@
 	    <%= yield %>
 	      
 	    <% if (params[:controller] == 'works' and action_name == 'show') %>
-	      <!-- BEGIN RECORD HOLDER -->	
-		    <div  id='main-canvas' class="RECORD"></div>
-	      <!-- END RECORD HOLDER -->
+	      <!-- BEGIN WORK HOLDER -->	
+		    <div  id='main-canvas' class="WORK"></div>
+	      <!-- END WORK HOLDER -->
 		<% elsif (params[:controller] == 'spotlights' and (action_name == 'new' || action_name == 'edit' || action_name == 'show' )) %>
 		<% else %>
 		<%= render 'shared/footer'%>      

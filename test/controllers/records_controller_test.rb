@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class RecordsControllerTest < ActionController::TestCase
+class WorksControllerTest < ActionController::TestCase
   setup do
     @work = works(:one)
   end

@@ -262,8 +262,8 @@ namespace :curarium do
       unique_identifier = t[ :parsed ][ 'unique_identifier'] unless t[ :parsed ].nil?
       unique_identifier = unique_identifier.to_s unless unique_identifier.nil?
 
-      if unique_identifier.present? && Record.exists?( unique_identifier: unique_identifier, collection_id: collection.id )
-        r = Record.find_by( unique_identifier: unique_identifier, collection_id: collection.id )
+      if unique_identifier.present? && Work.exists?( unique_identifier: unique_identifier, collection_id: collection.id )
+        r = Work.find_by( unique_identifier: unique_identifier, collection_id: collection.id )
         r.update( original: t[:original], parsed: t[:parsed] )
         ok = true
       else

@@ -17,7 +17,7 @@ class RecordsControllerTest < ActionController::TestCase
   end
 
   test "should create record" do
-    assert_difference('Record.count') do
+    assert_difference('Work.count') do
       post :create, record: { belongs_to: @record.belongs_to, original: @record.original, parsed: @record.parsed }
     end
 
@@ -40,7 +40,7 @@ class RecordsControllerTest < ActionController::TestCase
   end
 
   test "should destroy record" do
-    assert_difference('Record.count', -1) do
+    assert_difference('Work.count', -1) do
       delete :destroy, id: @record
     end
 

@@ -3,7 +3,7 @@ require 'spec_helper'
 describe ( 'records/show_xhr' ) {
   subject { rendered }
 
-  let ( :work ) { Record.first }
+  let ( :work ) { Work.first }
   before {
     assign( :work, record )
     assign( :current_metadata, record.parsed )

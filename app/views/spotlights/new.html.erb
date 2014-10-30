@@ -24,7 +24,7 @@
 				<h4>Records:</h4>
 				<div class='tray_records'>
 					<% tray.records.each do |record|%>
-            <% @record = Record.find(record) %>
+            <% @record = Work.find(record) %>
             <%= render 'records/thumb', locals: {record: @record} %>
 		      <% end %>
 				</div>

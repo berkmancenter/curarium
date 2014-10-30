@@ -2,7 +2,7 @@ class HomeController < ApplicationController
   skip_before_action :authorize
   
   def index
-    @records = Record.limit(10).order("RANDOM()")
+    @records = Work.limit(10).order("RANDOM()")
     @collection = Collection.where(approved: true).limit(1).order("RANDOM()").first
     @spotlights = Spotlight.limit(10).order("RANDOM()")
     @all = (@records+@spotlights).shuffle
@@ -16,9 +16,9 @@ class HomeController < ApplicationController
   end
   
   def about
-    @record = Record.limit(1).order("RANDOM()").first
+    @record = Work.limit(1).order("RANDOM()").first
     while(@record.parsed['image'].nil?)
-      @record = Record.limit(1).order("RANDOM()").first
+      @record = Work.limit(1).order("RANDOM()").first
     end
   end
 

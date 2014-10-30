@@ -4,7 +4,7 @@ describe ( 'records/thumbnail' ) {
   subject { rendered }
 
   context ( 'normal record' ) {
-    let ( :work ) { Record.first }
+    let ( :work ) { Work.first }
 
     before {
       assign( :work, record )

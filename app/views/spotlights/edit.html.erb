@@ -19,7 +19,7 @@
 	<div class='user_tray'>
 		<h3><%= tray.name %></h3>
 		<% tray.records.each do |record|%>
-			<% @record = Record.find(record) %>
+			<% @record = Work.find(record) %>
 			<%= render 'records/thumb', locals: {record: @record} %>
 		<% end %>
 		<h3>Visualizations:</h3>

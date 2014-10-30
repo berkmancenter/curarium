@@ -9,7 +9,7 @@ describe ( 'records/index' ) {
 
   context ( 'all records' ) {
     before {
-      assign( :records, Record.all )
+      assign( :records, Work.all )
       render
     }
 
@@ -40,7 +40,7 @@ describe ( 'records/index' ) {
   describe ( 'vis_controls' ) {
     context( 'with default vis' ) {
       before {
-        assign( :records, Record.all )
+        assign( :records, Work.all )
         render
       }
 
@@ -69,7 +69,7 @@ describe ( 'records/index' ) {
 
     context( 'with list vis' ) {
       before {
-        assign( :records, Record.all )
+        assign( :records, Work.all )
         render template: 'records/index.html.erb', locals: { params: { 'vis' => 'list' } }
       }
 
@@ -86,7 +86,7 @@ describe ( 'records/index' ) {
 
     context( 'with thumbnails vis' ) {
       before {
-        assign( :records, Record.all )
+        assign( :records, Work.all )
         render template: 'records/index.html.erb', locals: { params: { 'vis' => 'thumbnails' } }
       }
 
@@ -103,7 +103,7 @@ describe ( 'records/index' ) {
 
     context( 'with objectmap vis' ) {
       before {
-        assign( :records, Record.all )
+        assign( :records, Work.all )
         render template: 'records/index.html.erb', locals: { params: { 'vis' => 'objectmap' } }
       }
 

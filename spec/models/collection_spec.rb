@@ -89,18 +89,18 @@ describe ( 'Collection model' ) {
         }
 
         it {
-          Record.last.title.should eq( 'Starry Night' )
+          Work.last.title.should eq( 'Starry Night' )
         }
 
         it ( 'should extract thumbnail_url' ) {
-          Record.last.thumbnail_url.should eq( 'http://upload.wikimedia.org/wikipedia/commons/thumb/e/ea/Van_Gogh_-_Starry_Night_-_Google_Art_Project.jpg/116px-Van_Gogh_-_Starry_Night_-_Google_Art_Project.jpg' )
-          Record.last.parsed[ 'thumbnail' ].should eq( nil )
+          Work.last.thumbnail_url.should eq( 'http://upload.wikimedia.org/wikipedia/commons/thumb/e/ea/Van_Gogh_-_Starry_Night_-_Google_Art_Project.jpg/116px-Van_Gogh_-_Starry_Night_-_Google_Art_Project.jpg' )
+          Work.last.parsed[ 'thumbnail' ].should eq( nil )
         }
       }
 
       describe ( 'return a record' ) {
         it {
-          col.create_record_from_json( r[ :original ] ).class.should eq( Record.first.class )
+          col.create_record_from_json( r[ :original ] ).class.should eq( Work.first.class )
         }
       }
     }
@@ -122,7 +122,7 @@ describe ( 'Collection model' ) {
 
       describe ( 'return a record' ) {
         it {
-          col.create_record_from_parsed( r[ :original ], pr ).class.should eq( Record.first.class )
+          col.create_record_from_parsed( r[ :original ], pr ).class.should eq( Work.first.class )
         }
       }
 
@@ -135,7 +135,7 @@ describe ( 'Collection model' ) {
 
         describe ( 'return a record' ) {
           it {
-            Collection.create_record_from_parsed( col.key, r[ :original ], pr ).class.should eq( Record.first.class )
+            Collection.create_record_from_parsed( col.key, r[ :original ], pr ).class.should eq( Work.first.class )
           }
         }
 
@@ -146,7 +146,7 @@ describe ( 'Collection model' ) {
           }
 
           it ( 'should not have cache date yet' ) {
-            r = Record.last
+            r = Work.last
             thumb_hash = Zlib.crc32 r.thumbnail_url
 
             cache_date = Rails.cache.fetch( "#{thumb_hash}-date" ) { Date.new }

@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe ( 'Record model' ) {
   context ( 'with valid data' ) {
-    let ( :r ) { Record.first }
+    let ( :r ) { Work.first }
 
     it { r.should be_valid }
 

@@ -22,7 +22,7 @@
 				<h3><%= tray.name %></h3>
 				<div class='close_tray'></div>
 				<h4>Records:</h4>
-				<div class='tray_records'>
+				<div class='tray_works'>
 					<% tray.works.each do |work|%>
             <% @work = Work.find(work) %>
             <%= render 'works/thumb', locals: {work: @work} %>

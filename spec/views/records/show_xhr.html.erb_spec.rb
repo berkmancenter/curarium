@@ -24,17 +24,17 @@ describe ( 'records/show_xhr' ) {
   }
 
   it {
-    should have_css '.record-image'
+    should have_css '.work-image'
   }
 
   it {
-    should have_css '.record-image .record-commands'
-    should have_css ".record-commands a[href*='#{record_path record}'].show"
-    should have_css '.record-commands a.close'
+    should have_css '.work-image .work-commands'
+    should have_css ".work-commands a[href*='#{record_path record}'].show"
+    should have_css '.work-commands a.close'
   }
 
   it {
-    should have_css '.record-image img'
+    should have_css '.work-image img'
   }
 
   it {

@@ -7,7 +7,7 @@
     // surrogates can be simple hyperlinks
 
     <% image = params[:image].to_i || 0%>
-    window.record.display('<%= JSON.parse(@current_metadata['image'])[image]%>');
+    window.work.display('<%= JSON.parse(@current_metadata['image'])[image]%>');
     $('img.surrogate_thumbnail').each( function(i){
       $(this).click(function(e){
         window.location = "?image="+i
@@ -20,7 +20,7 @@
   
     <% if session[:user_id] %>
     window.trays.add_record([<%= params[:id] %>],<%= session[:user_id].to_i%>);
-    window.record.update();
+    window.work.update();
     <% end %>
   
   };

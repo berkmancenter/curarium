@@ -19,7 +19,7 @@
 
   
     <% if session[:user_id] %>
-    window.trays.add_record([<%= params[:id] %>],<%= session[:user_id].to_i%>);
+    window.trays.add_work([<%= params[:id] %>],<%= session[:user_id].to_i%>);
     window.work.update();
     <% end %>
   
@@ -36,7 +36,7 @@
       <label for='parsed_id'><span class="button">P</span></label>
       <div class="expand">
         <!-- THIS IS WHERE THE PARSED RECORD INFORMATION GOES -->
-        <%= render :partial => 'shared/print_metadata', :locals=>{:original=>@work.parsed,:current=>@current_metadata,:class_name=>'printed_object',:id_name=>'parsed_record'} %>
+        <%= render :partial => 'shared/print_metadata', :locals=>{:original=>@work.parsed,:current=>@current_metadata,:class_name=>'printed_object',:id_name=>'parsed_work'} %>
       </div>
       </div>
     </td>

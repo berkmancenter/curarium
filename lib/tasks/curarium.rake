@@ -256,7 +256,7 @@ namespace :curarium do
     ent.each { |f| 
       next if f.nil? || File.directory?(f) || File.extname(f) != '.json'
 
-      t = Thread.new { read_record( input_dir, f, configuration ) }
+      t = Thread.new { read_work( input_dir, f, configuration ) }
       t.join
 
       unique_identifier = t[ :parsed ][ 'unique_identifier'] unless t[ :parsed ].nil?
@@ -286,7 +286,7 @@ namespace :curarium do
     puts "Processed #{j_count} JSON files (out of #{ent.count - 2} total files in directory)"
   end
 
-  def read_record( input_dir, f, configuration )
+  def read_work( input_dir, f, configuration )
     # thread to wait for file IO, return json
     filename = "./#{input_dir}/#{File.basename(f)}"
     original = JSON.parse IO.read( filename )

@@ -21,7 +21,7 @@ class Parser
     paths.each { |f| 
       next if f.nil? || File.directory?(f) || File.extname(f) != '.json'
 
-      t = Thread.new { read_record( f, configuration ) }
+      t = Thread.new { read_work( f, configuration ) }
       t.join
       
       unique_identifier = t[ :parsed ][ 'unique_identifier'] unless t[ :parsed ].nil?
@@ -54,7 +54,7 @@ class Parser
     puts "Processed #{j_count} JSON files (out of #{paths.count - 2} total files in directory)" 
   end
   
-  def read_record( f, configuration )
+  def read_work( f, configuration )
     original = JSON.parse(File.open(f, 'r').read)
 
     pr = {}

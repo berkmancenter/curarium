@@ -73,7 +73,7 @@ describe ( 'Collection model' ) {
     }
   }
 
-  describe ( 'create_record' ) {
+  describe ( 'create_work' ) {
     let ( :r ) { FactoryGirl.attributes_for( :starry_night ) }
 
     context ( 'from_json' ) {

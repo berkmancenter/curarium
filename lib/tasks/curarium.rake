@@ -108,7 +108,7 @@ namespace :curarium do
     record_dimension = Math.sqrt( rs.count ).ceil
     zoom_levels = 0
 
-    puts "tiling #{rs.count} records with thumbnails (of #{c.works.count})"
+    puts "tiling #{rs.count} works with thumbnails (of #{c.works.count})"
 
     (0..8).reverse_each { |zoom|
       puts " rd: #{record_dimension}"
@@ -246,7 +246,7 @@ namespace :curarium do
     end
 
     ent = Dir.entries input_dir
-    puts "Ingesting #{ent.count - 2} records from #{input_dir}"
+    puts "Ingesting #{ent.count - 2} works from #{input_dir}"
     puts "Ingesting into collection with key: #{collection_key}"
 
     collection = Collection.find_by_key( collection_key )

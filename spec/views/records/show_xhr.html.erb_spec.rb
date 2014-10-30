@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe ( 'records/show_xhr' ) {
+describe ( 'works/show_xhr' ) {
   subject { rendered }
 
   let ( :work ) { Work.first }
@@ -8,7 +8,7 @@ describe ( 'records/show_xhr' ) {
     assign( :work, work )
     assign( :current_metadata, work.parsed )
     
-    render template: 'records/show_xhr', layout: false
+    render template: 'works/show_xhr', layout: false
   }
 
   it {

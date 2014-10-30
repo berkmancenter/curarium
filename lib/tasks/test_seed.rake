@@ -48,7 +48,7 @@ def seed
   jesus.user = test_user
   jesus.save
 
-  # records
+  # works
   crfj test_col, :starry_night
   crfj test_col, :mona_lisa
 

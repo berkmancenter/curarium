@@ -18,7 +18,7 @@ class SpotlightsControllerTest < ActionController::TestCase
 
   test "should create spotlight" do
     assert_difference('Spotlight.count') do
-      post :create, spotlight: { body: @spotlight.body, records: @spotlight.works, title: @spotlight.title, type: @spotlight.type }
+      post :create, spotlight: { body: @spotlight.body, works: @spotlight.works, title: @spotlight.title, type: @spotlight.type }
     end
 
     assert_redirected_to spotlight_path(assigns(:spotlight))
@@ -35,7 +35,7 @@ class SpotlightsControllerTest < ActionController::TestCase
   end
 
   test "should update spotlight" do
-    patch :update, id: @spotlight, spotlight: { body: @spotlight.body, records: @spotlight.works, title: @spotlight.title, type: @spotlight.type }
+    patch :update, id: @spotlight, spotlight: { body: @spotlight.body, works: @spotlight.works, title: @spotlight.title, type: @spotlight.type }
     assert_redirected_to spotlight_path(assigns(:spotlight))
   end
 

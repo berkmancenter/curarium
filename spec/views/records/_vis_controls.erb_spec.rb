@@ -1,12 +1,12 @@
 require 'spec_helper'
 
-describe ( 'records/vis_controls' ) {
+describe ( 'works/vis_controls' ) {
   subject { rendered }
 
   context ( 'no arguments' ) {
     before {
       assign( :properties, [ 'title', 'artist', 'topics' ] )
-      render partial: 'records/vis_controls', request: { original_url: '/records/' }
+      render partial: 'works/vis_controls', request: { original_url: '/works/' }
     }
 
     it {

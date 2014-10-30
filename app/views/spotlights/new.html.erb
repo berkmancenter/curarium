@@ -25,7 +25,7 @@
 				<div class='tray_records'>
 					<% tray.works.each do |work|%>
             <% @work = Work.find(work) %>
-            <%= render 'records/thumb', locals: {work: @work} %>
+            <%= render 'works/thumb', locals: {work: @work} %>
 		      <% end %>
 				</div>
 

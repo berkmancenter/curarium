@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe ( 'records/thumbnail' ) {
+describe ( 'works/thumbnail' ) {
   subject { rendered }
 
   context ( 'normal work' ) {
@@ -8,7 +8,7 @@ describe ( 'records/thumbnail' ) {
 
     before {
       assign( :work, work )
-      render 'records/thumbnail', thumbnail: work
+      render 'works/thumbnail', thumbnail: work
     }
 
     it {

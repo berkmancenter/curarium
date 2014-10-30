@@ -45,13 +45,13 @@ describe 'collections requests', :js => true do
         }
 
         it {
-          # records no longer shown on this view
+          # works no longer shown on this view
           # only possible as thumbnail visualization
           should_not have_css '.record_thumbnail', count: col.works.count
         }
       }
 
-      context ( 'no records' ) {
+      context ( 'no works' ) {
         let( :col ) { Collection.find_by_name 'Homeless Paintings of the Italian Renaissance' }
 
         before {

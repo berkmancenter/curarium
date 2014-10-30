@@ -1,13 +1,13 @@
 require 'spec_helper'
 
-describe ( 'records/treemap' ) {
+describe ( 'works/treemap' ) {
   subject { rendered }
 
-  context ( 'all records' ) {
+  context ( 'all works' ) {
     let ( :works ) { Collection.first.works }
 
     before {
-      render partial: 'records/treemap', object: records
+      render partial: 'works/treemap', object: works
     }
 
     it {

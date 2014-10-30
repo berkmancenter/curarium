@@ -2,7 +2,7 @@ require 'test_helper'
 
 class RecordsControllerTest < ActionController::TestCase
   setup do
-    @work = records(:one)
+    @work = works(:one)
   end
 
   test "should get index" do

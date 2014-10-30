@@ -23,7 +23,7 @@ describe ( 'Collection model' ) {
       col.should_not respond_to 'properties'
     }
 
-    it ( 'should have records' ) {
+    it ( 'should have works' ) {
       col.works.count.should > 0
     }
   }

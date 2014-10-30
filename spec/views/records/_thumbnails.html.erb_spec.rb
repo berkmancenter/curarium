@@ -7,7 +7,7 @@ describe ( 'works/thumbnails' ) {
     let ( :works ) { Work.all }
 
     before {
-      render partial: 'records/thumbnails', object: records
+      render partial: 'works/thumbnails', object: works
     }
 
     it {
@@ -15,11 +15,11 @@ describe ( 'works/thumbnails' ) {
     }
 
     it {
-      should have_css 'a', count: records.count
+      should have_css 'a', count: works.count
     }
 
     it {
-      should have_css 'img', count: records.count
+      should have_css 'img', count: works.count
     }
   }
 }

@@ -1,13 +1,13 @@
 require 'spec_helper'
 
-describe ( 'records/index' ) {
+describe ( 'works/index' ) {
   subject { rendered }
 
   before {
     assign( :properties, [ 'title', 'artist', 'topics' ] )
   }
 
-  context ( 'all records' ) {
+  context ( 'all works' ) {
     before {
       assign( :works, Work.all )
       render
@@ -32,7 +32,7 @@ describe ( 'records/index' ) {
     }
 
     it {
-      # just show the records
+      # just show the works
       should_not have_css 'h1', text: "Records for #{collection.name}"
     }
   }
@@ -70,7 +70,7 @@ describe ( 'records/index' ) {
     context( 'with list vis' ) {
       before {
         assign( :works, Work.all )
-        render template: 'records/index.html.erb', locals: { params: { 'vis' => 'list' } }
+        render template: 'works/index.html.erb', locals: { params: { 'vis' => 'list' } }
       }
 
       it {
@@ -87,7 +87,7 @@ describe ( 'records/index' ) {
     context( 'with thumbnails vis' ) {
       before {
         assign( :works, Work.all )
-        render template: 'records/index.html.erb', locals: { params: { 'vis' => 'thumbnails' } }
+        render template: 'works/index.html.erb', locals: { params: { 'vis' => 'thumbnails' } }
       }
 
       it {
@@ -104,7 +104,7 @@ describe ( 'records/index' ) {
     context( 'with objectmap vis' ) {
       before {
         assign( :works, Work.all )
-        render template: 'records/index.html.erb', locals: { params: { 'vis' => 'objectmap' } }
+        render template: 'works/index.html.erb', locals: { params: { 'vis' => 'objectmap' } }
       }
 
       it {

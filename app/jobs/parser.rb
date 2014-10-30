@@ -13,7 +13,7 @@ class Parser
     end
     paths.shift
     collection = Collection.find(collection_id)
-    puts "Ingesting #{paths.count} records collection: #{collection.name}"
+    puts "Ingesting #{paths.count} works collection: #{collection.name}"
     configuration = collection.configuration
 
 

@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe 'records requests', :js => true do
+describe 'works requests', :js => true do
   let ( :col ) { Collection.first }
   let ( :recs ) { col.works.all }
   let ( :rec ) { recs.first }
@@ -8,7 +8,7 @@ describe 'records requests', :js => true do
   subject { page }
 
   context ( 'anonymous' ) {
-    describe ( 'get /records/:id' ) {
+    describe ( 'get /works/:id' ) {
       before {
         visit record_path( rec )
       }
@@ -36,7 +36,7 @@ describe 'records requests', :js => true do
         click_button 'Login'
       }
 
-      describe ( 'get records#index' ) {
+      describe ( 'get works#index' ) {
         describe( 'header' ) {
           before {
             visit records_path
@@ -370,7 +370,7 @@ describe 'records requests', :js => true do
             }
 
             describe ( 'click to one work' ) {
-              # clicking a block that narrows to one work should forward to records/show
+              # clicking a block that narrows to one work should forward to works/show
               before {
                 click_link 'death(1)'
               }
@@ -387,7 +387,7 @@ describe 'records requests', :js => true do
             }
 
             it {
-              # all topics from only records having both included topics: women & portraits
+              # all topics from only works having both included topics: women & portraits
               should have_css '.node', count: 6 + 1
             }
 
@@ -398,7 +398,7 @@ describe 'records requests', :js => true do
         }
       }
 
-      describe ( 'get /records/:id' ) {
+      describe ( 'get /works/:id' ) {
         before {
           visit record_path( rec )
         }
@@ -408,7 +408,7 @@ describe 'records requests', :js => true do
         }
       }
 
-      describe ( 'get /records/:id/thumb' ) {
+      describe ( 'get /works/:id/thumb' ) {
         before {
           visit thumb_record_path( rec )
         }

@@ -20,7 +20,7 @@
 		<h3><%= tray.name %></h3>
 		<% tray.works.each do |work|%>
 			<% @work = Work.find(work) %>
-			<%= render 'records/thumb', locals: {work: @work} %>
+			<%= render 'works/thumb', locals: {work: @work} %>
 		<% end %>
 		<h3>Visualizations:</h3>
 		<% tray.visualizations.each do |visualization|%>

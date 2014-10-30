@@ -1,13 +1,13 @@
 require 'spec_helper'
 
-describe ( 'records/list_item' ) {
+describe ( 'works/list_item' ) {
   subject { rendered }
 
   context ( 'normal work' ) {
     let ( :work ) { Work.first }
 
     before {
-      render partial: 'records/list_item', object: work
+      render partial: 'works/list_item', object: work
     }
 
     it {

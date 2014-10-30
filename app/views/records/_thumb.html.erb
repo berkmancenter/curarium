@@ -1,7 +1,7 @@
 <% if hstore_aray(@work.parsed, 'image')[0] != nil %>
-<a href='/records/<%= @work.id %>' target='_blank' class='record_thumbnail' style='background-image:url(<%= hstore_aray(@work.parsed, 'image')[0]+"?width=300&height=300" %>)' title='<%= hstore_aray(@work.parsed, 'title')[0] %>'>
+<a href='/works/<%= @work.id %>' target='_blank' class='record_thumbnail' style='background-image:url(<%= hstore_aray(@work.parsed, 'image')[0]+"?width=300&height=300" %>)' title='<%= hstore_aray(@work.parsed, 'title')[0] %>'>
 <% else %>
-<a href='/records/<%= @work.id %>' target='_blank'  class='record_thumbnail' style='background-color:#CCC' title='<%= hstore_aray(@work.parsed, 'title')[0] %>'>
+<a href='/works/<%= @work.id %>' target='_blank'  class='record_thumbnail' style='background-color:#CCC' title='<%= hstore_aray(@work.parsed, 'title')[0] %>'>
 <% end %>
 	<h3 class='record_thumbnail_title'><%= @work.title %></h3>
 </a>

@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe ( 'records/show' ) {
+describe ( 'works/show' ) {
   subject { rendered }
 
   let ( :work ) { Work.first }

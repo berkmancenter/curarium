@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe 'records requests', :js => true do
   let ( :col ) { Collection.first }
-  let ( :recs ) { col.records.all }
+  let ( :recs ) { col.works.all }
   let ( :rec ) { recs.first }
 
   subject { page }
@@ -18,7 +18,7 @@ describe 'records requests', :js => true do
       }
 
       it {
-        should have_css 'body.records.show'
+        should have_css 'body.works.show'
       }
     }
   }
@@ -47,7 +47,7 @@ describe 'records requests', :js => true do
           }
 
           it {
-            should have_css 'body.records.index'
+            should have_css 'body.works.index'
           }
         }
 
@@ -57,11 +57,11 @@ describe 'records requests', :js => true do
           }
 
           it {
-            should have_css '.records-objectmap'
+            should have_css '.works-objectmap'
           }
 
           it {
-            should have_css '.records-objectmap .geomap'
+            should have_css '.works-objectmap .geomap'
           }
 
           it {
@@ -69,7 +69,7 @@ describe 'records requests', :js => true do
           }
 
           it {
-            should have_css '.records-objectmap .minimap'
+            should have_css '.works-objectmap .minimap'
           }
 
           it {
@@ -84,11 +84,11 @@ describe 'records requests', :js => true do
             }
 
             it {
-              should have_css '.records-thumbnails'
+              should have_css '.works-thumbnails'
             }
 
             it {
-              should have_css '.records-thumbnails a', count: recs.count
+              should have_css '.works-thumbnails a', count: recs.count
             }
           }
 
@@ -98,7 +98,7 @@ describe 'records requests', :js => true do
             }
 
             it {
-              should have_css '.records-thumbnails a', count: 1
+              should have_css '.works-thumbnails a', count: 1
             }
           }
         }
@@ -110,27 +110,27 @@ describe 'records requests', :js => true do
             }
 
             it {
-              should have_css '.records-list'
+              should have_css '.works-list'
             }
 
             it {
-              should have_css '.records-list a', count: recs.count
+              should have_css '.works-list a', count: recs.count
             }
 
             it {
-              should have_css '.records-list a span', text: 'Starry Night'
+              should have_css '.works-list a span', text: 'Starry Night'
             }
 
             it {
-              should have_css '.records-list a span', text: 'Mona Lisa'
+              should have_css '.works-list a span', text: 'Mona Lisa'
             }
 
             it {
-              should have_css '.records-list a span', text: 'Last Supper'
+              should have_css '.works-list a span', text: 'Last Supper'
             }
 
             it {
-              should have_css '.records-list a span', text: 'Lucrezia'
+              should have_css '.works-list a span', text: 'Lucrezia'
             }
           }
 
@@ -140,15 +140,15 @@ describe 'records requests', :js => true do
             }
 
             it {
-              should have_css '.records-list a', count: 1
+              should have_css '.works-list a', count: 1
             }
 
             it {
-              should have_css '.records-list a span', text: 'Starry Night'
+              should have_css '.works-list a span', text: 'Starry Night'
             }
 
             it {
-              should_not have_css '.records-list a span', text: 'Mona Lisa'
+              should_not have_css '.works-list a span', text: 'Mona Lisa'
             }
           }
 
@@ -159,7 +159,7 @@ describe 'records requests', :js => true do
 
             it {
               # no record has two titles (multiple includes require all)
-              should_not have_css '.records-list a'
+              should_not have_css '.works-list a'
             }
           }
 
@@ -169,11 +169,11 @@ describe 'records requests', :js => true do
             }
 
             it {
-              should have_css '.records-list a', count: recs.count - 1
+              should have_css '.works-list a', count: recs.count - 1
             }
 
             it {
-              should_not have_css '.records-list a span', text: 'Starry Night'
+              should_not have_css '.works-list a span', text: 'Starry Night'
             }
           }
 
@@ -183,14 +183,14 @@ describe 'records requests', :js => true do
             }
 
             it {
-              should have_css '.records-list a', count: recs.count - 2
+              should have_css '.works-list a', count: recs.count - 2
             }
 
             it {
-              should_not have_css '.records-list a span', text: 'Starry Night'
+              should_not have_css '.works-list a span', text: 'Starry Night'
             }
             it {
-              should_not have_css '.records-list a span', text: 'Mona Lisa'
+              should_not have_css '.works-list a span', text: 'Mona Lisa'
             }
           }
 
@@ -200,19 +200,19 @@ describe 'records requests', :js => true do
             }
 
             it {
-              should_not have_css '.records-list a span', text: 'Starry Night'
+              should_not have_css '.works-list a span', text: 'Starry Night'
             }
 
             it {
-              should have_css '.records-list a span', text: 'Mona Lisa'
+              should have_css '.works-list a span', text: 'Mona Lisa'
             }
 
             it {
-              should have_css '.records-list a span', text: 'Last Supper'
+              should have_css '.works-list a span', text: 'Last Supper'
             }
 
             it {
-              should have_css '.records-list a span', text: 'Lucrezia'
+              should have_css '.works-list a span', text: 'Lucrezia'
             }
           }
           
@@ -222,19 +222,19 @@ describe 'records requests', :js => true do
             }
 
             it {
-              should_not have_css '.records-list a span', text: 'Starry Night'
+              should_not have_css '.works-list a span', text: 'Starry Night'
             }
 
             it {
-              should have_css '.records-list a span', text: 'Mona Lisa'
+              should have_css '.works-list a span', text: 'Mona Lisa'
             }
 
             it {
-              should_not have_css '.records-list a span', text: 'Last Supper'
+              should_not have_css '.works-list a span', text: 'Last Supper'
             }
 
             it {
-              should have_css '.records-list a span', text: 'Lucrezia'
+              should have_css '.works-list a span', text: 'Lucrezia'
             }
           }
 
@@ -244,19 +244,19 @@ describe 'records requests', :js => true do
             }
 
             it {
-              should have_css '.records-list a span', text: 'Starry Night'
+              should have_css '.works-list a span', text: 'Starry Night'
             }
 
             it {
-              should have_css '.records-list a span', text: 'Mona Lisa'
+              should have_css '.works-list a span', text: 'Mona Lisa'
             }
 
             it {
-              should_not have_css '.records-list a span', text: 'Last Supper'
+              should_not have_css '.works-list a span', text: 'Last Supper'
             }
 
             it {
-              should have_css '.records-list a span', text: 'Lucrezia'
+              should have_css '.works-list a span', text: 'Lucrezia'
             }
           }
 
@@ -266,19 +266,19 @@ describe 'records requests', :js => true do
             }
 
             it {
-              should have_css '.records-list a span', text: 'Starry Night'
+              should have_css '.works-list a span', text: 'Starry Night'
             }
 
             it {
-              should_not have_css '.records-list a span', text: 'Mona Lisa'
+              should_not have_css '.works-list a span', text: 'Mona Lisa'
             }
 
             it {
-              should_not have_css '.records-list a span', text: 'Last Supper'
+              should_not have_css '.works-list a span', text: 'Last Supper'
             }
 
             it {
-              should_not have_css '.records-list a span', text: 'Lucrezia'
+              should_not have_css '.works-list a span', text: 'Lucrezia'
             }
           }
         }
@@ -299,7 +299,7 @@ describe 'records requests', :js => true do
               }
 
               it ( 'should move to single record page' ) {
-                should have_css 'body.records.show'
+                should have_css 'body.works.show'
               }
 
             }
@@ -311,12 +311,12 @@ describe 'records requests', :js => true do
             }
 
             it ( 'should have topics encoded' ) {
-              should have_css %[.records-treemap[data-property-counts*="women"]]
-              should have_css %[.records-treemap[data-property-counts*="portraits"]]
+              should have_css %[.works-treemap[data-property-counts*="women"]]
+              should have_css %[.works-treemap[data-property-counts*="portraits"]]
             }
 
             it ( 'should not have other values' ) {
-              should_not have_css %[.records-treemap[data-property-counts*="gogh"]]
+              should_not have_css %[.works-treemap[data-property-counts*="gogh"]]
             }
                     
             it {
@@ -376,7 +376,7 @@ describe 'records requests', :js => true do
               }
 
               it {
-                should have_css 'body.records.show'
+                should have_css 'body.works.show'
               }
             }
           }

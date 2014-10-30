@@ -4,7 +4,7 @@
     <li>
       <b><%= tray.name %></b>
       <ul>
-        <% tray.records.each { |record_id| %>
+        <% tray.works.each { |record_id| %>
           <li><%= record_title Work.find( record_id ) %></li>
         <% } %>
       </ul>

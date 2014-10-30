@@ -1,7 +1,7 @@
 <% background = "" %>
 <% big ||= false %>
 <% if item.class == Collection %>
-  <% background = thumb_record_path(item.records.first) unless item.records.first.nil? %>
+  <% background = thumb_record_path(item.works.first) unless item.works.first.nil? %>
   <a href='<%= collection_path(item) %>'>
     <div class='gallery_item <%= "item_lrg" if big %>'>
       <div class='stack1<%= " item_lrg" if big %>' style='background-image: none;'></div>

@@ -27,7 +27,7 @@ describe ( 'records/index' ) {
 
     before {
       assign( :collection, collection )
-      assign( :works, collection.records )
+      assign( :works, collection.works )
       render
     }
 
@@ -63,7 +63,7 @@ describe ( 'records/index' ) {
       }
 
       it {
-        should have_css '.records-objectmap'
+        should have_css '.works-objectmap'
       }
     }
 
@@ -80,7 +80,7 @@ describe ( 'records/index' ) {
       }
 
       it {
-        should have_css '.records-list'
+        should have_css '.works-list'
       }
     }
 
@@ -97,7 +97,7 @@ describe ( 'records/index' ) {
       }
 
       it {
-        should have_css '.records-thumbnails'
+        should have_css '.works-thumbnails'
       }
     }
 
@@ -114,7 +114,7 @@ describe ( 'records/index' ) {
       }
 
       it {
-        should have_css '.records-objectmap'
+        should have_css '.works-objectmap'
       }
     }
   }

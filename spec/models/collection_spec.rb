@@ -24,7 +24,7 @@ describe ( 'Collection model' ) {
     }
 
     it ( 'should have records' ) {
-      col.records.count.should > 0
+      col.works.count.should > 0
     }
   }
 
@@ -80,7 +80,7 @@ describe ( 'Collection model' ) {
       it {
         expect {
           col.create_record_from_json( r[ :original ] )
-        }.to change { col.records.count }.by( 1 )
+        }.to change { col.works.count }.by( 1 )
       }
 
       describe ( 'create_record_from_json' ) {
@@ -117,7 +117,7 @@ describe ( 'Collection model' ) {
       it {
         expect {
           col.create_record_from_parsed r[ :original ], pr
-        }.to change { col.records.count }.by( 1 )
+        }.to change { col.works.count }.by( 1 )
       }
 
       describe ( 'return a record' ) {
@@ -130,7 +130,7 @@ describe ( 'Collection model' ) {
         it {
           expect {
             Collection.create_record_from_parsed( col.key, r[ :original ], pr )
-          }.to change { col.records.count }.by( 1 )
+          }.to change { col.works.count }.by( 1 )
         }
 
         describe ( 'return a record' ) {

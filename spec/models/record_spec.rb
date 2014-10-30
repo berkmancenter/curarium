@@ -48,7 +48,7 @@ describe ( 'Work model' ) {
     let ( :c ) { Collection.find_by_name 'test_col' }
 
     it {
-      rs = c.records.with_thumb
+      rs = c.works.with_thumb
       rs.where( { title: 'empty_thumbnail' } ).count.should eq( 0 )
     }
   }

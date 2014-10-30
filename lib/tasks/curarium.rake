@@ -27,9 +27,9 @@ namespace :curarium do
 
       not_present = 0
       not_cached = 0
-      total = c.records.count
+      total = c.works.count
 
-      c.records.each { |r|
+      c.works.each { |r|
         if r.thumbnail_url.present?
           thumb_hash = Zlib.crc32 r.thumbnail_url
 
@@ -104,11 +104,11 @@ namespace :curarium do
 
     FileUtils.mkpath collection_tiles_path
 
-    rs = c.records.with_thumb
+    rs = c.works.with_thumb
     record_dimension = Math.sqrt( rs.count ).ceil
     zoom_levels = 0
 
-    puts "tiling #{rs.count} records with thumbnails (of #{c.records.count})"
+    puts "tiling #{rs.count} records with thumbnails (of #{c.works.count})"
 
     (0..8).reverse_each { |zoom|
       puts " rd: #{record_dimension}"
@@ -208,9 +208,9 @@ namespace :curarium do
     c = c.first
 
     not_cached = 0
-    total = c.records.count
+    total = c.works.count
 
-    c.records.with_thumb.each { |r|
+    c.works.with_thumb.each { |r|
       thumb_hash = Zlib.crc32 r.thumbnail_url
 
       cache_date = Rails.cache.read "#{thumb_hash}-date"

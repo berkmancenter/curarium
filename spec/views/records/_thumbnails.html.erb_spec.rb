@@ -11,7 +11,7 @@ describe ( 'works/thumbnails' ) {
     }
 
     it {
-      should have_css 'section.records-thumbnails'
+      should have_css 'section.works-thumbnails'
     }
 
     it {

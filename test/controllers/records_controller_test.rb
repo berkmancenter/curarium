@@ -44,6 +44,6 @@ class RecordsControllerTest < ActionController::TestCase
       delete :destroy, id: @work
     end
 
-    assert_redirected_to records_path
+    assert_redirected_to works_path
   end
 end

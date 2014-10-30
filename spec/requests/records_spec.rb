@@ -39,7 +39,7 @@ describe 'works requests', :js => true do
       describe ( 'get works#index' ) {
         describe( 'header' ) {
           before {
-            visit records_path
+            visit works_path
           }
 
           it {
@@ -53,7 +53,7 @@ describe 'works requests', :js => true do
 
         describe ( 'vis=objectmap' ) {
           before {
-            visit "#{collection_records_path col}?vis=objectmap"
+            visit "#{collection_works_path col}?vis=objectmap"
           }
 
           it {
@@ -80,7 +80,7 @@ describe 'works requests', :js => true do
         describe ( 'vis=thumbnails' ) {
           context ( 'without filter' ) {
             before {
-              visit "#{collection_records_path col}?vis=thumbnails"
+              visit "#{collection_works_path col}?vis=thumbnails"
             }
 
             it {
@@ -94,7 +94,7 @@ describe 'works requests', :js => true do
 
           context ( 'with one include' ) {
             before {
-              visit "#{collection_records_path col}?vis=thumbnails&include[]=title:Starry Night"
+              visit "#{collection_works_path col}?vis=thumbnails&include[]=title:Starry Night"
             }
 
             it {
@@ -106,7 +106,7 @@ describe 'works requests', :js => true do
         describe ( 'vis=list' ) {
           context ( 'without filter' ) {
             before {
-              visit "#{collection_records_path col}?vis=list"
+              visit "#{collection_works_path col}?vis=list"
             }
 
             it {
@@ -136,7 +136,7 @@ describe 'works requests', :js => true do
 
           context ( 'with one title include' ) {
             before {
-              visit "#{collection_records_path col}?vis=list&include[]=title:Starry Night"
+              visit "#{collection_works_path col}?vis=list&include[]=title:Starry Night"
             }
 
             it {
@@ -154,7 +154,7 @@ describe 'works requests', :js => true do
 
           context ( 'with two title includes' ) {
             before {
-              visit "#{collection_records_path col}?vis=list&include[]=title:Starry Night&include[]=title:Mona Lisa"
+              visit "#{collection_works_path col}?vis=list&include[]=title:Starry Night&include[]=title:Mona Lisa"
             }
 
             it {
@@ -165,7 +165,7 @@ describe 'works requests', :js => true do
 
           context ( 'with one title exclude' ) {
             before {
-              visit "#{collection_records_path col}?vis=list&exclude[]=title:Starry Night"
+              visit "#{collection_works_path col}?vis=list&exclude[]=title:Starry Night"
             }
 
             it {
@@ -179,7 +179,7 @@ describe 'works requests', :js => true do
 
           context ( 'with two title excludes' ) {
             before {
-              visit "#{collection_records_path col}?vis=list&exclude[]=title:Starry Night&exclude[]=title:Mona Lisa"
+              visit "#{collection_works_path col}?vis=list&exclude[]=title:Starry Night&exclude[]=title:Mona Lisa"
             }
 
             it {
@@ -196,7 +196,7 @@ describe 'works requests', :js => true do
 
           describe ( 'with one topics include' ) {
             before {
-              visit "#{collection_records_path col}?vis=list&include[]=topics:women"
+              visit "#{collection_works_path col}?vis=list&include[]=topics:women"
             }
 
             it {
@@ -218,7 +218,7 @@ describe 'works requests', :js => true do
           
           describe ( 'with two topics includes' ) {
             before {
-              visit "#{collection_records_path col}?vis=list&include[]=topics:women&include[]=topics:portraits"
+              visit "#{collection_works_path col}?vis=list&include[]=topics:women&include[]=topics:portraits"
             }
 
             it {
@@ -240,7 +240,7 @@ describe 'works requests', :js => true do
 
           describe ( 'with one topics exclude' ) {
             before {
-              visit "#{collection_records_path col}?vis=list&exclude[]=topics:Jesus"
+              visit "#{collection_works_path col}?vis=list&exclude[]=topics:Jesus"
             }
 
             it {
@@ -262,7 +262,7 @@ describe 'works requests', :js => true do
 
           describe ( 'with two topics excludes' ) {
             before {
-              visit "#{collection_records_path col}?vis=list&exclude[]=topics:women&exclude[]=topics:Jesus"
+              visit "#{collection_works_path col}?vis=list&exclude[]=topics:women&exclude[]=topics:Jesus"
             }
 
             it {
@@ -286,7 +286,7 @@ describe 'works requests', :js => true do
         describe ( 'vis=treemap' ) {
           context ( 'with title' ) {
             before {
-              visit "#{collection_records_path col}?vis=treemap&property=title"
+              visit "#{collection_works_path col}?vis=treemap&property=title"
             }
 
             it {
@@ -307,7 +307,7 @@ describe 'works requests', :js => true do
 
           context ( 'with topics' ) {
             before {
-              visit "#{collection_records_path col}?vis=treemap&property=topics"
+              visit "#{collection_works_path col}?vis=treemap&property=topics"
             }
 
             it ( 'should have topics encoded' ) {
@@ -358,7 +358,7 @@ describe 'works requests', :js => true do
 
           describe ( 'treemap topics include one' ) {
             before {
-              visit "#{collection_records_path col}?vis=treemap&property=topics&include[]=topics:women"
+              visit "#{collection_works_path col}?vis=treemap&property=topics&include[]=topics:women"
             }
 
             it {
@@ -383,7 +383,7 @@ describe 'works requests', :js => true do
 
           describe ( 'treemap topics include two' ) {
             before {
-              visit "#{collection_records_path col}?vis=treemap&property=topics&include[]=topics:women&include[]=topics:portraits"
+              visit "#{collection_works_path col}?vis=treemap&property=topics&include[]=topics:women&include[]=topics:portraits"
             }
 
             it {

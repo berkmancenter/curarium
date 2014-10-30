@@ -4,7 +4,7 @@ describe ( 'records/treemap' ) {
   subject { rendered }
 
   context ( 'all records' ) {
-    let ( :records ) { Collection.first.records }
+    let ( :works ) { Collection.first.records }
 
     before {
       render partial: 'records/treemap', object: records

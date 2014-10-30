@@ -8,7 +8,7 @@ class RecordsControllerTest < ActionController::TestCase
   test "should get index" do
     get :index
     assert_response :success
-    assert_not_nil assigns(:records)
+    assert_not_nil assigns(:works)
   end
 
   test "should get new" do

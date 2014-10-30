@@ -21,7 +21,7 @@ class RecordsControllerTest < ActionController::TestCase
       post :create, record: { belongs_to: @record.belongs_to, original: @record.original, parsed: @record.parsed }
     end
 
-    assert_redirected_to record_path(assigns(:record))
+    assert_redirected_to record_path(assigns(:work))
   end
 
   test "should show record" do
@@ -36,7 +36,7 @@ class RecordsControllerTest < ActionController::TestCase
 
   test "should update record" do
     patch :update, id: @record, record: { belongs_to: @record.belongs_to, original: @record.original, parsed: @record.parsed }
-    assert_redirected_to record_path(assigns(:record))
+    assert_redirected_to record_path(assigns(:work))
   end
 
   test "should destroy record" do

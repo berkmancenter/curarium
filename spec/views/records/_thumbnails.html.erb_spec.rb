@@ -1,10 +1,10 @@
 require 'spec_helper'
 
-describe ( 'records/thumbnails' ) {
+describe ( 'works/thumbnails' ) {
   subject { rendered }
 
-  context ( 'all records' ) {
-    let ( :records ) { Record.all }
+  context ( 'all works' ) {
+    let ( :works ) { Work.all }
 
     before {
       render partial: 'records/thumbnails', object: records

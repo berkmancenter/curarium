@@ -4,7 +4,7 @@ describe ( 'records/list_item' ) {
   subject { rendered }
 
   context ( 'normal record' ) {
-    let ( :record ) { Record.first }
+    let ( :work ) { Record.first }
 
     before {
       render partial: 'records/list_item', object: record

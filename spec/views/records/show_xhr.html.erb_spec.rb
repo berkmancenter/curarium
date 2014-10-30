@@ -3,9 +3,9 @@ require 'spec_helper'
 describe ( 'records/show_xhr' ) {
   subject { rendered }
 
-  let ( :record ) { Record.first }
+  let ( :work ) { Record.first }
   before {
-    assign( :record, record )
+    assign( :work, record )
     assign( :current_metadata, record.parsed )
     
     render template: 'records/show_xhr', layout: false

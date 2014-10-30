@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe ( 'Record model' ) {
+describe ( 'Work model' ) {
   context ( 'with valid data' ) {
     let ( :r ) { Work.first }
 

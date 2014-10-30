@@ -33,7 +33,7 @@
       <b><%= User.find(item.user_id).name %></b> <i>on <%= item.created_at.strftime("%d %b %y") %></i>
     </div>
   </a>
-<% elsif item.class == Record %>
+<% elsif item.class == Work %>
   <% background = thumb_record_path(item) %>
   <a href='<%= record_path(item) %>'>
     <div class='gallery_item<%=" item_lrg" if big %>' style='background-image:url(<%= background %>)'>

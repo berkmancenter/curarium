@@ -1,33 +1,33 @@
 require 'spec_helper'
 
-describe ( 'records/objectmap' ) {
+describe ( 'works/objectmap' ) {
   subject { rendered }
 
-  context ( 'all records' ) {
-    let ( :records ) { Record.all }
+  context ( 'all works' ) {
+    let ( :works ) { Work.all }
 
     before {
-      render partial: 'records/objectmap', object: records
+      render partial: 'works/objectmap', object: works
     }
 
     it {
-      should have_css 'section.records-objectmap'
+      should have_css 'section.works-objectmap'
     }
 
     it {
-      should have_css '.records-objectmap[data-record-ids]'
+      should have_css '.works-objectmap[data-work-ids]'
     }
 
     it {
-      should have_css %[.records-objectmap[data-record-ids="[#{records.map { |r| r.id }.join(',')}]"]]
+      should have_css %[.works-objectmap[data-work-ids="[#{works.map { |r| r.id }.join(',')}]"]]
     }
 
     it {
-      should have_css '.records-objectmap div.geomap'
+      should have_css '.works-objectmap div.geomap'
     }
 
     it {
-      should have_css '.records-objectmap div.minimap'
+      should have_css '.works-objectmap div.minimap'
     }
   }
 }

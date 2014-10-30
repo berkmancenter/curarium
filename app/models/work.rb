@@ -1,7 +1,7 @@
 require 'open-uri'
 require 'zlib'
 
-class Record < ActiveRecord::Base
+class Work < ActiveRecord::Base
   has_many :annotations, dependent: :destroy
   has_many :amendments, dependent: :destroy
   belongs_to :collection
@@ -56,7 +56,7 @@ class Record < ActiveRecord::Base
         Rails.cache.write "#{thumb_hash}-image", thumb_connection.read
 
         if thumb_connection.is_a? Tempfile
-          Rails.cache.write "#{thumb_hash}-type", "image/#{Record.image_type thumb_connection.path}"
+          Rails.cache.write "#{thumb_hash}-type", "image/#{Work.image_type thumb_connection.path}"
         else
           Rails.cache.write "#{thumb_hash}-type", thumb_connection.meta[ 'content-type' ]
         end

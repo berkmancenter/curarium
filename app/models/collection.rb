@@ -1,17 +1,17 @@
 class Collection < ActiveRecord::Base
   before_create :generate_key
 
-  has_many :records, dependent: :destroy
+  has_many :works, dependent: :destroy
   has_many :spotlights, through: :highlights
   
   validates :name, presence: true, uniqueness: true
   validates :description, presence: true
   validates :configuration, presence: true
   
-  def self.create_record_from_parsed( key, original, parsed )
-    # create a record from original JSON and pre-parsed version
+  def self.create_work_from_parsed( key, original, parsed )
+    # create a work from original JSON and pre-parsed version
     col = find_by_key key
-    col.create_record_from_parsed original, parsed
+    col.create_work_from_parsed original, parsed
   end
 
   def self.follow_json( structure, path )
@@ -52,10 +52,10 @@ class Collection < ActiveRecord::Base
     value[ 0 ] unless value.nil?
   end
 
-  def create_record_from_parsed( original, parsed )
-    # create a record from original JSON and pre-parsed version
+  def create_work_from_parsed( original, parsed )
+    # create a work from original JSON and pre-parsed version
 
-    r = self.records.new( {
+    r = self.works.new( {
       original: original,
       parsed: parsed
     } )
@@ -63,47 +63,47 @@ class Collection < ActiveRecord::Base
     r
   end
   
-  def create_record_from_json( original )
-    # create a record from original JSON, parse it & add it to this collection
+  def create_work_from_json( original )
+    # create a work from original JSON, parse it & add it to this collection
     pr = {}
 
     self.configuration.each do |field|
       pr[field[0]] = Collection.follow_json(original, field[1])
     end
-    self.create_record_from_parsed original, pr
+    self.create_work_from_parsed original, pr
   end
   
-  def query_records(include, exclude)
-    records = self.records
+  def query_works(include, exclude)
+    works = self.works
     unless include == nil
       include.each do |term|
         parameters = term.split(':')
-        records = records.where("parsed->:field LIKE :tag",{field: parameters[0], tag: '%\"'+parameters[1]+'\"%'})
+        works = works.where("parsed->:field LIKE :tag",{field: parameters[0], tag: '%\"'+parameters[1]+'\"%'})
       end
     end
     unless exclude == nil
       exclude.each do |term|
         parameters = term.split(':')
-        records = records.where.not("parsed->:field LIKE :tag",{field: parameters[0], tag: '%\"'+parameters[1]+'\"%'})
+        works = works.where.not("parsed->:field LIKE :tag",{field: parameters[0], tag: '%\"'+parameters[1]+'\"%'})
       end
     end
-    return records
+    return works
   end
   
   def list_query(include, exclude)
-     query = self.query_records(include, exclude)
-     records = []
-     query.find_each(batch_size: 10000) do |record|
-       records.push(record.id)
+     query = self.query_works(include, exclude)
+     works = []
+     query.find_each(batch_size: 10000) do |work|
+       works.push(work.id)
      end
-     return records
+     return works
   end
   
   def sort_properties(include, exclude, property, minimum=0)
-    query = self.query_records(include, exclude)
+    query = self.query_works(include, exclude)
     properties = {}
-    query.find_each(batch_size: 10000) do |record|
-      parsed = record.parsed[property]
+    query.find_each(batch_size: 10000) do |work|
+      parsed = work.parsed[property]
       if parsed == nil
         next
       end

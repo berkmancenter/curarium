@@ -1,4 +1,4 @@
 class Annotation < ActiveRecord::Base
   belongs_to :user
-  #belongs_to :record
+  belongs_to :work
 end

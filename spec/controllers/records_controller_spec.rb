@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe ( RecordsController ) {
+describe ( WorksController ) {
   before {
     session[:user_id] = User.first.id
   }
@@ -8,18 +8,18 @@ describe ( RecordsController ) {
   describe ( 'GET index' ) {
     context ( 'no arguments' ) {
       it {
-        # Record gets a where '' now, even if no arguments sent to controller
-        #Record.should_receive( :where )
+        # Work gets a where '' now, even if no arguments sent to controller
+        #Work.should_receive( :where )
         get :index
         response.code.should eq( '200' )
       }
     }
 
-    context ( 'collection records' ) {
+    context ( 'collection works' ) {
       let ( :collection ) { Collection.first }
 
       it {
-        #Record.should_receive( :where ).with( collection_id: collection.id )
+        #Work.should_receive( :where ).with( collection_id: collection.id )
         #Collection.should_receive( :find ).with( "#{collection.id}" )
         get :index, :collection_id => collection.id
         response.code.should eq( '200' )
@@ -27,20 +27,20 @@ describe ( RecordsController ) {
     }
   }
 
-  describe ( 'GET record' ) {
-    let ( :record ) { Record.first }
+  describe ( 'GET work' ) {
+    let ( :work ) { Work.first }
 
     it {
-      get :show, :id => record.id
+      get :show, :id => work.id
 
       response.code.should eq( '200' )
 
     }
   }
 
-  describe ( 'GET record/thumb' ) {
-    context ( 'normal record' ) {
-      let ( :record ) { Record.first }
+  describe ( 'GET work/thumb' ) {
+    context ( 'normal work' ) {
+      let ( :work ) { Work.first }
 
       describe ( 'before cache_thumbs' ) {
         before {
@@ -48,7 +48,7 @@ describe ( RecordsController ) {
         }
 
         it {
-          get :thumb, :id => record.id
+          get :thumb, :id => work.id
 
           response.code.should eq( '202' )
         }
@@ -56,7 +56,7 @@ describe ( RecordsController ) {
 
       describe ( 'after cache_thumbs' ) {
         it {
-          get :thumb, :id => record.id
+          get :thumb, :id => work.id
 
           response.code.should eq( '200' )
         }
@@ -64,10 +64,10 @@ describe ( RecordsController ) {
     }
 
     context ( 'with missing thumbnail' ) {
-      let ( :record ) { Record.where( "parsed->'title' = '[\"empty_thumbnail\"]'" ).first }
+      let ( :work ) { Work.where( "parsed->'title' = '[\"empty_thumbnail\"]'" ).first }
 
       it {
-        get :thumb, :id => record.id
+        get :thumb, :id => work.id
 
         response.code.should eq( '404' )
       }

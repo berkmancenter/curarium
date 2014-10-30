@@ -1,12 +1,12 @@
 require 'open-uri'
 require 'zlib'
 
-class RecordsController < ApplicationController
-  before_action :set_record, only: [:show, :thumb, :edit, :update, :destroy]
+class WorksController < ApplicationController
+  before_action :set_work, only: [:show, :thumb, :edit, :update, :destroy]
   skip_before_action :authorize, only: [:show,:thumb, :index]
 
-  # GET /records
-  # GET /records.json
+  # GET /works
+  # GET /works.json
   def index
     where_clause = ''
 
@@ -63,12 +63,12 @@ class RecordsController < ApplicationController
     end
 
     # may want num in a few cases (this should be a fast query)
-    @num = Record.where( where_clause ).count( :id )
+    @num = Work.where( where_clause ).count( :id )
 
     if params[ :property ].present? && params[ :vis ] == 'treemap'
       if @num == 1
-        @record = Record.where( where_clause ).first
-        redirect_to @record
+        @work = Work.where( where_clause ).first
+        redirect_to @work
       else
         property = ActiveRecord::Base.send( :sanitize_sql_array, [ '%s', params[ :property ] ] )
 
@@ -88,30 +88,30 @@ class RecordsController < ApplicationController
               )
             )
           ) as values
-          FROM "records"
+          FROM "works"
           WHERE #{where_clause}
         ) as subquery
         group by values]
 
-        @records = ActiveRecord::Base.connection.execute(sql)
+        @works = ActiveRecord::Base.connection.execute(sql)
       end
     elsif  ['thumbnails','list'].include? params[:vis]
       # Array of views that require paging
       @perpage = (params[:per_page].to_i<=0) ? 200 : params[:per_page].to_i
       @page = (params[:page].to_i<=0 || params[:page].to_i > (@num.to_f/@perpage).ceil) ? 1 : params[:page].to_i
-      @records = Record.where(where_clause).limit(@perpage).offset((@page-1)*@perpage)
+      @works = Work.where(where_clause).limit(@perpage).offset((@page-1)*@perpage)
     else
-      @records = Record.where(where_clause)
+      @works = Work.where(where_clause)
     end
   end
 
-  # GET /records/1
-  # GET /records/1.json
+  # GET /works/1
+  # GET /works/1.json
   def show
-     if @record.amendments.length > 0
-       @current_metadata = @record.amendments.last.amended
+     if @work.amendments.length > 0
+       @current_metadata = @work.amendments.last.amended
      else
-       @current_metadata = @record.parsed
+       @current_metadata = @work.parsed
      end
      eval_parsed = {}
      @current_metadata.each do |key, value|
@@ -125,7 +125,7 @@ class RecordsController < ApplicationController
            render
          end
        }
-       format.json { @record.parsed = eval_parsed }
+       format.json { @work.parsed = eval_parsed }
        format.js { render action: "show" }
      end
   end
@@ -146,14 +146,14 @@ class RecordsController < ApplicationController
     end
   end
     
-  # GET /records/1/thumb
+  # GET /works/1/thumb
   def thumb
     # try to get the image from cache
     # if not in cache, send missing_thumb image & attempt to cache again
-    if @record.thumbnail_url.nil?
+    if @work.thumbnail_url.nil?
       send_data File.open( "#{Rails.public_path}/missing_thumb.png", 'rb' ).read, type: 'image/png', disposition: 'inline', status: :not_found
     else
-      thumb_hash = Zlib.crc32 @record.thumbnail_url
+      thumb_hash = Zlib.crc32 @work.thumbnail_url
 
       cache_date = Rails.cache.read "#{thumb_hash}-date"
       cache_image = Rails.cache.read "#{thumb_hash}-image"
@@ -161,7 +161,7 @@ class RecordsController < ApplicationController
 
       if ( cache_date.nil? || cache_image.nil? || cache_type.nil? )
         send_data File.open( "#{Rails.public_path}/missing_thumb.png", 'rb' ).read, type: 'image/png', disposition: 'inline', status: :accepted
-        @record.cache_thumb
+        @work.cache_thumb
       else
         if stale?( etag: thumb_hash, last_modified: cache_date )
           send_data cache_image, type: cache_type, disposition: 'inline'
@@ -170,72 +170,72 @@ class RecordsController < ApplicationController
     end
   end
 
-  # GET /records/new
+  # GET /works/new
   def new
-    @record = Record.new
+    @work = Work.new
   end
 
-  # GET /records/1/edit
+  # GET /works/1/edit
   def edit
   end
 
-  # POST /records
-  # POST /records.json
+  # POST /works
+  # POST /works.json
   def create
-    @record = Record.new(record_params)
+    @work = Work.new(work_params)
 
     respond_to do |format|
-      if @record.save
-        format.html { redirect_to @record, notice: 'Record was successfully created.' }
-        format.json { render action: 'show', status: :created, location: @record }
+      if @work.save
+        format.html { redirect_to @work, notice: 'Work was successfully created.' }
+        format.json { render action: 'show', status: :created, location: @work }
       else
         format.html { render action: 'new' }
-        format.json { render json: @record.errors, status: :unprocessable_entity }
+        format.json { render json: @work.errors, status: :unprocessable_entity }
       end
     end
   end
 
-  # PATCH/PUT /records/1
-  # PATCH/PUT /records/1.json
+  # PATCH/PUT /works/1
+  # PATCH/PUT /works/1.json
   def update
-    amended = params[:record][:parsed]
-    #@record.update(parsed: amended)
-    if @record.amendments.length > 0
-      last_amendment = @record.amendments.last.amended
+    amended = params[:work][:parsed]
+    #@work.update(parsed: amended)
+    if @work.amendments.length > 0
+      last_amendment = @work.amendments.last.amended
     else
-      last_amendment = @record.parsed
+      last_amendment = @work.parsed
     end
     
-    @amendment = @record.amendments.new
+    @amendment = @work.amendments.new
     @amendment.user_id = session[:user_id].to_i
     @amendment.previous = last_amendment
     @amendment.amended = amended
     @amendment.save
     
     respond_to do |format|
-      format.html { redirect_to @record }
+      format.html { redirect_to @work }
       format.json { render json: @amendment }
     end
   end
 
-  # DELETE /records/1
-  # DELETE /records/1.json
+  # DELETE /works/1
+  # DELETE /works/1.json
   def destroy
-    @record.destroy
+    @work.destroy
     respond_to do |format|
-      format.html { redirect_to records_url }
+      format.html { redirect_to works_url }
       format.json { head :no_content }
     end
   end
 
   private
     # Use callbacks to share common setup or constraints between actions.
-    def set_record
-      @record = Record.find(params[:id])
+    def set_work
+      @work = Work.find(params[:id])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
-    def record_params
-      params.require(:record).permit(:original, :parsed, :belongs_to)
+    def work_params
+      params.require(:work).permit(:original, :parsed, :belongs_to)
     end
 end

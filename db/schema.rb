@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141019015743) do
+ActiveRecord::Schema.define(version: 20141030204920) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -59,6 +59,15 @@ ActiveRecord::Schema.define(version: 20141019015743) do
     t.datetime "updated_at"
   end
 
+  create_table "json_files", force: true do |t|
+    t.string   "path"
+    t.integer  "collection_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "json_files", ["collection_id"], name: "index_json_files_on_collection_id", using: :btree
+
   create_table "messages", force: true do |t|
     t.string   "title"
     t.text     "body"
@@ -68,17 +77,6 @@ ActiveRecord::Schema.define(version: 20141019015743) do
     t.integer  "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-  end
-
-  create_table "records", force: true do |t|
-    t.json     "original"
-    t.hstore   "parsed"
-    t.integer  "collection_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.string   "unique_identifier"
-    t.string   "thumbnail_url"
-    t.string   "title"
   end
 
   create_table "sections", force: true do |t|
@@ -119,6 +117,24 @@ ActiveRecord::Schema.define(version: 20141019015743) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.boolean  "super",           default: false
+  end
+
+  create_table "viz_caches", force: true do |t|
+    t.text     "query"
+    t.json     "data"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "works", force: true do |t|
+    t.json     "original"
+    t.hstore   "parsed"
+    t.integer  "collection_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "unique_identifier"
+    t.string   "thumbnail_url"
+    t.string   "title"
   end
 
 end

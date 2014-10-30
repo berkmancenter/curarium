@@ -11,7 +11,7 @@ FactoryGirl.define do
   factory :collection do
     factory :test_col do
       name 'test_col'
-      description 'a generic, valid collection with a valid configuration & some records'
+      description 'a generic, valid collection with a valid configuration & some works'
       approved true
       #admin test_user
       configuration '{"title":["title"],"image":["imageInfo","url"],"thumbnail":["imageInfo","thumbnail_url"],"artist":["artist"],"topics":["subject","*","topic",0]}'
@@ -27,7 +27,7 @@ FactoryGirl.define do
 
     factory :multi_image do
       name 'multi_image'
-      description 'collection with more than one image per record'
+      description 'collection with more than one image per work'
       approved true
       #admin test_user
       configuration '{"unique_identifier": ["recordIdentifier", 0, "content"], "title": ["titleInfo", 0, "title", 0], "image": ["relatedItem", "*", "content", "location", 0, "url", 0, "content"], "thumbnail": ["relatedItem", "*", "content", "location", 0, "url", 1, "content"]}'
@@ -50,7 +50,7 @@ FactoryGirl.define do
     end
   end
 
-  factory :record do
+  factory :work do
     factory :starry_night do
       # collection test_col
       original '{"title":"Starry Night","imageInfo":{"url":"http://upload.wikimedia.org/wikipedia/commons/thumb/e/ea/Van_Gogh_-_Starry_Night_-_Google_Art_Project.jpg/1280px-Van_Gogh_-_Starry_Night_-_Google_Art_Project.jpg","thumbnail_url":"http://upload.wikimedia.org/wikipedia/commons/thumb/e/ea/Van_Gogh_-_Starry_Night_-_Google_Art_Project.jpg/116px-Van_Gogh_-_Starry_Night_-_Google_Art_Project.jpg"},"artist":"Van Gogh","subject":[{"topic":["stars"]},{"topic":["night"]},{"topic":["churches"]}]}'
@@ -91,7 +91,7 @@ FactoryGirl.define do
   factory :annotation do
     factory :jesus do
       # user test_user
-      # record last_supper
+      # work last_supper
       content {{
         'title' => 'jesus',
         'body' => 'hey!',

@@ -46,7 +46,7 @@ html, body {
 
 
 
-.record_thumbnail {
+.work_thumbnail {
     padding: 1px;
     width: 75px;
     height: 75px;
@@ -59,7 +59,7 @@ html, body {
 
   }
 
-.record_thumbnail h3{
+.work_thumbnail h3{
 	font-size: 6pt;
       position: absolute;
       background: #d2232a;

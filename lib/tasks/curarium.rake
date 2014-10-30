@@ -105,19 +105,19 @@ namespace :curarium do
     FileUtils.mkpath collection_tiles_path
 
     rs = c.works.with_thumb
-    record_dimension = Math.sqrt( rs.count ).ceil
+    work_dimension = Math.sqrt( rs.count ).ceil
     zoom_levels = 0
 
     puts "tiling #{rs.count} works with thumbnails (of #{c.works.count})"
 
     (0..8).reverse_each { |zoom|
-      puts " rd: #{record_dimension}"
-      break if record_dimension == 0
+      puts " rd: #{work_dimension}"
+      break if work_dimension == 0
 
       if zoom == 8
         # most zoomed in, each quadkey is one image/thumbnail
-        for col in 0..(record_dimension-1)
-          for row in 0..(record_dimension-1)
+        for col in 0..(work_dimension-1)
+          for row in 0..(work_dimension-1)
             puts "#{col}, #{row}"
 
             quadkey = tile_to_quadkey col, row, zoom
@@ -143,7 +143,7 @@ namespace :curarium do
 
       zoom_levels += 1
 
-      record_dimension /= 2
+      work_dimension /= 2
     }
 
     puts "total zoom levels: #{zoom_levels}"
@@ -268,7 +268,7 @@ namespace :curarium do
         ok = true
       else
         ok = false
-        ok = Collection.create_record_from_parsed collection_key, t[ :original ], t[ :parsed ] unless t[ :parsed ].nil?
+        ok = Collection.create_work_from_parsed collection_key, t[ :original ], t[ :parsed ] unless t[ :parsed ].nil?
       end
 
       if ok

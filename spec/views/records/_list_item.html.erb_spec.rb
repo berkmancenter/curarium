@@ -19,7 +19,7 @@ describe ( 'works/list_item' ) {
     }
 
     it {
-      should have_css "a[href*='#{record_path work}']" 
+      should have_css "a[href*='#{work_path work}']" 
     }
 
     it {

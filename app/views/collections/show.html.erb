@@ -3,7 +3,7 @@
 	<!-- left content -->
     <div class="left"><div class="holder col-sidebar">
     	<div class="titlebar main"><%= image_tag "collection_r.png", alt: '' %>Collection</div>
-		<div class="profile_img" style="background: url('<%= thumb_record_path(@collection.works.first) unless @collection.works.first.nil? %>') no-repeat center center; background-size: cover;">&nbsp;</div>   
+		<div class="profile_img" style="background: url('<%= thumb_work_path(@collection.works.first) unless @collection.works.first.nil? %>') no-repeat center center; background-size: cover;">&nbsp;</div>   
        <div class="stalking_menu_holder">
         	<div class="stalking_menu">
         	<div><%= image_tag "follow_r.png", alt: '' %> Follow this collection</div>

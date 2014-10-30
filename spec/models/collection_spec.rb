@@ -79,13 +79,13 @@ describe ( 'Collection model' ) {
     context ( 'from_json' ) {
       it {
         expect {
-          col.create_record_from_json( r[ :original ] )
+          col.create_work_from_json( r[ :original ] )
         }.to change { col.works.count }.by( 1 )
       }
 
-      describe ( 'create_record_from_json' ) {
+      describe ( 'create_work_from_json' ) {
         before {
-          col.create_record_from_json( r[ :original ] )
+          col.create_work_from_json( r[ :original ] )
         }
 
         it {
@@ -100,7 +100,7 @@ describe ( 'Collection model' ) {
 
       describe ( 'return a work' ) {
         it {
-          col.create_record_from_json( r[ :original ] ).class.should eq( Work.first.class )
+          col.create_work_from_json( r[ :original ] ).class.should eq( Work.first.class )
         }
       }
     }
@@ -116,33 +116,33 @@ describe ( 'Collection model' ) {
 
       it {
         expect {
-          col.create_record_from_parsed r[ :original ], pr
+          col.create_work_from_parsed r[ :original ], pr
         }.to change { col.works.count }.by( 1 )
       }
 
       describe ( 'return a work' ) {
         it {
-          col.create_record_from_parsed( r[ :original ], pr ).class.should eq( Work.first.class )
+          col.create_work_from_parsed( r[ :original ], pr ).class.should eq( Work.first.class )
         }
       }
 
       context ( 'static function' ) {
         it {
           expect {
-            Collection.create_record_from_parsed( col.key, r[ :original ], pr )
+            Collection.create_work_from_parsed( col.key, r[ :original ], pr )
           }.to change { col.works.count }.by( 1 )
         }
 
         describe ( 'return a work' ) {
           it {
-            Collection.create_record_from_parsed( col.key, r[ :original ], pr ).class.should eq( Work.first.class )
+            Collection.create_work_from_parsed( col.key, r[ :original ], pr ).class.should eq( Work.first.class )
           }
         }
 
         describe ( 'no longer caching thumbnail on work creation' ) {
           before {
             Rails.cache.clear
-            Collection.create_record_from_parsed( col.key, r[ :original ], pr )
+            Collection.create_work_from_parsed( col.key, r[ :original ], pr )
           }
 
           it ( 'should not have cache date yet' ) {

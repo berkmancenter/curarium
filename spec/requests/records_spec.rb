@@ -10,7 +10,7 @@ describe 'works requests', :js => true do
   context ( 'anonymous' ) {
     describe ( 'get /works/:id' ) {
       before {
-        visit record_path( rec )
+        visit work_path( rec )
       }
 
       it {
@@ -400,7 +400,7 @@ describe 'works requests', :js => true do
 
       describe ( 'get /works/:id' ) {
         before {
-          visit record_path( rec )
+          visit work_path( rec )
         }
 
         it {
@@ -410,7 +410,7 @@ describe 'works requests', :js => true do
 
       describe ( 'get /works/:id/thumb' ) {
         before {
-          visit thumb_record_path( rec )
+          visit thumb_work_path( rec )
         }
 
         it {

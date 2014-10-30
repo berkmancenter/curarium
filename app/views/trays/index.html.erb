@@ -4,8 +4,8 @@
     <li>
       <b><%= tray.name %></b>
       <ul>
-        <% tray.works.each { |record_id| %>
-          <li><%= record_title Work.find( record_id ) %></li>
+        <% tray.works.each { |work_id| %>
+          <li><%= work_title Work.find( work_id ) %></li>
         <% } %>
       </ul>
     </li>

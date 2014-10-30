@@ -47,7 +47,7 @@ describe 'collections requests', :js => true do
         it {
           # works no longer shown on this view
           # only possible as thumbnail visualization
-          should_not have_css '.record_thumbnail', count: col.works.count
+          should_not have_css '.work_thumbnail', count: col.works.count
         }
       }
 

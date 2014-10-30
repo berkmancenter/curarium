@@ -15,7 +15,7 @@ namespace :curarium do
 end
 
 def crfj( col, r )
-  col.create_record_from_json FactoryGirl.attributes_for( r )[ :original ]
+  col.create_work_from_json FactoryGirl.attributes_for( r )[ :original ]
 end
 
 def seed

@@ -33,7 +33,7 @@ class Parser
         ok = true
       else
         ok = false
-        ok = collection.create_record_from_parsed t[ :original ], t[ :parsed ] unless t[ :parsed ].nil?
+        ok = collection.create_work_from_parsed t[ :original ], t[ :parsed ] unless t[ :parsed ].nil?
       end
       
       if ok

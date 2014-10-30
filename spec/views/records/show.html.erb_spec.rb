@@ -5,8 +5,8 @@ describe ( 'records/show' ) {
 
   let ( :work ) { Work.first }
   before {
-    assign( :work, record )
-    assign( :current_metadata, record.parsed )
+    assign( :work, work )
+    assign( :current_metadata, work.parsed )
     
     render
   }

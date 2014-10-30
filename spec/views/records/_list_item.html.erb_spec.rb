@@ -3,11 +3,11 @@ require 'spec_helper'
 describe ( 'records/list_item' ) {
   subject { rendered }
 
-  context ( 'normal record' ) {
+  context ( 'normal work' ) {
     let ( :work ) { Work.first }
 
     before {
-      render partial: 'records/list_item', object: record
+      render partial: 'records/list_item', object: work
     }
 
     it {
@@ -19,7 +19,7 @@ describe ( 'records/list_item' ) {
     }
 
     it {
-      should have_css "a[href*='#{record_path record}']" 
+      should have_css "a[href*='#{record_path work}']" 
     }
 
     it {
@@ -35,7 +35,7 @@ describe ( 'records/list_item' ) {
     }
 
     it {
-      should have_css 'span', text: record.title
+      should have_css 'span', text: work.title
     }
   }
 }

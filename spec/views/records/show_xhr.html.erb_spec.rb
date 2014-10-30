@@ -5,8 +5,8 @@ describe ( 'records/show_xhr' ) {
 
   let ( :work ) { Work.first }
   before {
-    assign( :work, record )
-    assign( :current_metadata, record.parsed )
+    assign( :work, work )
+    assign( :current_metadata, work.parsed )
     
     render template: 'records/show_xhr', layout: false
   }
@@ -29,7 +29,7 @@ describe ( 'records/show_xhr' ) {
 
   it {
     should have_css '.work-image .work-commands'
-    should have_css ".work-commands a[href*='#{record_path record}'].show"
+    should have_css ".work-commands a[href*='#{record_path work}'].show"
     should have_css '.work-commands a.close'
   }
 

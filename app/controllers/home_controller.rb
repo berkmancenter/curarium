@@ -16,9 +16,9 @@ class HomeController < ApplicationController
   end
   
   def about
-    @record = Work.limit(1).order("RANDOM()").first
-    while(@record.parsed['image'].nil?)
-      @record = Work.limit(1).order("RANDOM()").first
+    @work = Work.limit(1).order("RANDOM()").first
+    while(@work.parsed['image'].nil?)
+      @work = Work.limit(1).order("RANDOM()").first
     end
   end
 

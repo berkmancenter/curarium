@@ -18,9 +18,9 @@
 	<% User.find(session[:user_id]).trays.each do |tray|%>
 	<div class='user_tray'>
 		<h3><%= tray.name %></h3>
-		<% tray.works.each do |record|%>
-			<% @record = Work.find(record) %>
-			<%= render 'records/thumb', locals: {record: @record} %>
+		<% tray.works.each do |work|%>
+			<% @work = Work.find(work) %>
+			<%= render 'records/thumb', locals: {work: @work} %>
 		<% end %>
 		<h3>Visualizations:</h3>
 		<% tray.visualizations.each do |visualization|%>

@@ -158,7 +158,7 @@ describe 'records requests', :js => true do
             }
 
             it {
-              # no record has two titles (multiple includes require all)
+              # no work has two titles (multiple includes require all)
               should_not have_css '.works-list a'
             }
           }
@@ -298,7 +298,7 @@ describe 'records requests', :js => true do
                 click_link 'lucrezia(1)'
               }
 
-              it ( 'should move to single record page' ) {
+              it ( 'should move to single work page' ) {
                 should have_css 'body.works.show'
               }
 
@@ -369,8 +369,8 @@ describe 'records requests', :js => true do
               should have_css '.node', text: 'Women(4)'
             }
 
-            describe ( 'click to one record' ) {
-              # clicking a block that narrows to one record should forward to records/show
+            describe ( 'click to one work' ) {
+              # clicking a block that narrows to one work should forward to records/show
               before {
                 click_link 'death(1)'
               }

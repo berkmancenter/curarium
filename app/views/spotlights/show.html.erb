@@ -30,7 +30,7 @@
 			  <div id='spotlight_reference_<%=i%>' class="reference">
 			
 			  <div class="scroll">
-			  	<% if c['type'] == 'record' %>
+			  	<% if c['type'] == 'work' %>
 			  		<a href='/records/<%=c['id']%>?image=<%=c['surrogate']%>' target='_blank'><div style="background-image:url('<%=c['image']%>')"></div></a>
 			  	<% elsif c['type'] == 'annotation' %>
 			  		<a href='/records/<%=c['id']%>?image=<%=c['surrogate']%>' target='_blank'><div id='annotation_wrapper_<%=i%>' ></div></a>

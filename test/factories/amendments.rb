@@ -5,6 +5,6 @@ FactoryGirl.define do
     previous ""
     amended ""
     user nil
-    record nil
+    work nil
   end
 end

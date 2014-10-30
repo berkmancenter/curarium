@@ -1,7 +1,7 @@
 module RecordsHelper
   
-  def record_title( record )
-    record.title
+  def record_title( work )
+    work.title
   end
   
 end

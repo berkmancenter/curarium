@@ -98,7 +98,7 @@ describe ( 'Collection model' ) {
         }
       }
 
-      describe ( 'return a record' ) {
+      describe ( 'return a work' ) {
         it {
           col.create_record_from_json( r[ :original ] ).class.should eq( Work.first.class )
         }
@@ -120,7 +120,7 @@ describe ( 'Collection model' ) {
         }.to change { col.works.count }.by( 1 )
       }
 
-      describe ( 'return a record' ) {
+      describe ( 'return a work' ) {
         it {
           col.create_record_from_parsed( r[ :original ], pr ).class.should eq( Work.first.class )
         }
@@ -133,13 +133,13 @@ describe ( 'Collection model' ) {
           }.to change { col.works.count }.by( 1 )
         }
 
-        describe ( 'return a record' ) {
+        describe ( 'return a work' ) {
           it {
             Collection.create_record_from_parsed( col.key, r[ :original ], pr ).class.should eq( Work.first.class )
           }
         }
 
-        describe ( 'no longer caching thumbnail on record creation' ) {
+        describe ( 'no longer caching thumbnail on work creation' ) {
           before {
             Rails.cache.clear
             Collection.create_record_from_parsed( col.key, r[ :original ], pr )

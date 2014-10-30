@@ -52,7 +52,7 @@ def seed
   crfj test_col, :starry_night
   crfj test_col, :mona_lisa
 
-  # record with annotation
+  # work with annotation
   supper = crfj test_col, :last_supper
   supper.annotations << jesus
   supper.save

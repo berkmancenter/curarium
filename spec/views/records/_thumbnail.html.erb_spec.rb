@@ -3,12 +3,12 @@ require 'spec_helper'
 describe ( 'records/thumbnail' ) {
   subject { rendered }
 
-  context ( 'normal record' ) {
+  context ( 'normal work' ) {
     let ( :work ) { Work.first }
 
     before {
-      assign( :work, record )
-      render 'records/thumbnail', thumbnail: record
+      assign( :work, work )
+      render 'records/thumbnail', thumbnail: work
     }
 
     it {
@@ -16,11 +16,11 @@ describe ( 'records/thumbnail' ) {
     }
 
     it {
-      should have_css "a[href*='#{record_path record}']" 
+      should have_css "a[href*='#{record_path work}']" 
     }
 
     it {
-      should have_css "a[title='#{record.title}']"
+      should have_css "a[title='#{work.title}']"
     }
   }
 }

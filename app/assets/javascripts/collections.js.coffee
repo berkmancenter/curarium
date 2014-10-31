@@ -1,4 +1,4 @@
-record = {}
+work = {}
 window.collection = {}
 
 
@@ -16,9 +16,9 @@ window.collection.configure = ->
     e.preventDefault()
     $('#parsed').empty()
     try
-      record = JSON.parse($("#json").val())
-      $('#parsed').append(printRecord(record))
-      #print record is the function that does the actual parsing.
+      work = JSON.parse($("#json").val())
+      $('#parsed').append(printRecord(work))
+      #print work is the function that does the actual parsing.
       $('#parsed dd').draggable
         helper : "clone"
       $('#parsed dd').attr('title', 'drag me to a field')
@@ -43,12 +43,12 @@ window.collection.configure = ->
    $('.new_collection, .edit_collection').submit (e) ->
      if (!submited)
        e.preventDefault()
-       record = {}
+       work = {}
        $('.field_wrapper').each ->
          field = $(this).attr('id')
          value = $(this).data('path')
-         record[field] = value
-       $("#collection_configuration").val(JSON.stringify(record))
+         work[field] = value
+       $("#collection_configuration").val(JSON.stringify(work))
        submited = !submited
        $(this).trigger('submit')
      undefined
@@ -88,7 +88,7 @@ window.collection.populate_fields = (configuration)->
                 path.push(val)
               else
                 path.push(parseInt(val, 10))
-            $(new_field).parent().parent().find('.value').html(traceField(record, path))
+            $(new_field).parent().parent().find('.value').html(traceField(work, path))
             $(new_field).parent().parent().data('path', path)
           option01 = $('<option>').attr('value', p).append(p)
           option02 = $('<option>').attr('value', "*").append("*")
@@ -96,11 +96,11 @@ window.collection.populate_fields = (configuration)->
         $(form).append(part)
         $(new_field).data('path', path)
     $(new_field).append(form)
-    value = $("<div class='value'>").append(traceField(record, path))
+    value = $("<div class='value'>").append(traceField(work, path))
     $(new_field).append(value)
   undefined
 
-#field_drop() specifies the "droppable" behavior when dragging fields from the original records into the custom curarium fields. 
+#field_drop() specifies the "droppable" behavior when dragging fields from the original works into the custom curarium fields. 
 #Reads the path, generates a form for modifying numeric values and gives a sample output.
 field_drop = (e, d) -> 
   path = $(d.draggable).data('path')
@@ -121,7 +121,7 @@ field_drop = (e, d) ->
               path.push(val)
             else
               path.push(parseInt(val, 10))
-          $(this).parent().parent().find('.value').html(traceField(record, path))
+          $(this).parent().parent().find('.value').html(traceField(work, path))
           $(this).parent().parent().data('path', path)
         option01 = $('<option>').attr('value', p).append(p)
         option02 = $('<option>').attr('value', "*").append("*")
@@ -129,7 +129,7 @@ field_drop = (e, d) ->
       $(field).append(part)
       $(this).data('path', path)
   $(this).append(field)
-  value = $("<div class='value'>").append(traceField(record, path))
+  value = $("<div class='value'>").append(traceField(work, path))
   $(this).append(value)
 
 #TraceField
@@ -152,7 +152,7 @@ traceField = (object, path) ->
   else
     return null
 
-#print_record takes a JSON structure and outputs a nested definition list. 
+#print_work takes a JSON structure and outputs a nested definition list. 
 #Keys and Array indexes are converted into Definition Terms(<dt>), 
 #Objects and Arrays into Definition Lists(dl),
 #numeric and string values into Definition Definitions(<dd>)

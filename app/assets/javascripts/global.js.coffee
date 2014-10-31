@@ -27,27 +27,27 @@ resizecontent = (winwidth, winheight) ->
 # Replaced with "max-width: 70%; max-height: 70%"
 # in global.css.scss
 #  #RECORD POPUP
-#  $('.record_img .record').css(
+#  $('.work_img .work').css(
 #    "max-width": winwidth*0.70
 #    "max-height": winheight*0.70
 #    ,1000)
   
 # Same as before
-#  $('.record_img').css(
-#    "width": $(".record_img .record").width()
-#    "height": $(".record_img .record").height()
+#  $('.work_img').css(
+#    "width": $(".work_img .work").width()
+#    "height": $(".work_img .work").height()
 #    ,1000)
 
-# Can't find record_popup, record_data,
-# record_surr, spotlight_viewedit,
+# Can't find work_popup, work_data,
+# work_surr, spotlight_viewedit,
 # last-child
-#  $('.record_popup').css(
-#    "width": $(".record_img .record").width()+320
-#    "height": $(".record_img .record").height()+20
+#  $('.work_popup').css(
+#    "width": $(".work_img .work").width()+320
+#    "height": $(".work_img .work").height()+20
 #    ,1000)
   
-#  $('.record_data, .record_surr').css(
-#    "height": $(".record_img .record").height()
+#  $('.work_data, .work_surr').css(
+#    "height": $(".work_img .work").height()
 #    ,1000)
   
 #  $('.spotlight_viewedit').css(
@@ -273,7 +273,7 @@ $(document).ready ()->
 #  )
   
 #  # RECORDS-PAGE
-#  $('.bub_menu, .record_popup .add_to_tray').click(()->
+#  $('.bub_menu, .work_popup .add_to_tray').click(()->
 #      $(this).find(".expand").stop().slideToggle(200)
 #      $(this).find(".button img").stop().fadeToggle(200)
 #    ()->

@@ -2,24 +2,24 @@
 # All this logic will automatically be available in application.js.
 # You can use CoffeeScript in this file: http://coffeescript.org/
 
-window.record = {}
+window.work = {}
 
-window.record.parsed = {}
+window.work.parsed = {}
 
 #THE FOLLOWING FUNCIONS DEAL WITH MODIFYING THE RECORD'S METADATA
 
-window.record.update = () ->
-  window.record.parsed = read_parsed() #get the user edited values as a javascript object
+window.work.update = () ->
+  window.work.parsed = read_parsed() #get the user edited values as a javascript object
 
-  #create save changes record and give it functionality
+  #create save changes work and give it functionality
   save = $("<input type='submit' id='save_changes' value='Save Changes'>")
-  $('#parsed_record').append(save)
+  $('#parsed_work').append(save)
   save.click(submit_update)
   
   #make fields editable by doubleclicking
   $('.parsed_value').dblclick(modify_field)
   
-  #create "add" button and append it to each of the parsed record keys
+  #create "add" button and append it to each of the parsed work keys
   add_field = $("<input type='submit' value='add'>").click ()->
     new_field = $("<li class='parsed_value'></li>")
     input = $("<input>")
@@ -31,7 +31,7 @@ window.record.update = () ->
       $(new_field).toggleClass('new',true)
       $(new_field).bind('dblclick', modify_field)
       $('#save_changes').css('background-color','red');
-      window.record.parsed = read_parsed()
+      window.work.parsed = read_parsed()
     cancel.click ()->
       new_field.remove()
     $(this).before(new_field)
@@ -39,8 +39,8 @@ window.record.update = () ->
   $('.parsed_field .parsed_values').append(add_field)
   undefined
 
-#read_parsed converts the parsed record (represented as a <UL>) into a javascript object
-#it is called everytime that UL is modified and stored on window.record.parsed
+#read_parsed converts the parsed work (represented as a <UL>) into a javascript object
+#it is called everytime that UL is modified and stored on window.work.parsed
 read_parsed = ()->
   parsed = {}
   $('.parsed_field').each (i) ->
@@ -60,8 +60,8 @@ submit_update = (e)->
       type: "PUT"
       url: window.location.href
       data: 
-        record:
-          parsed: window.record.parsed
+        work:
+          parsed: window.work.parsed
       success: (data)->
         $('.parsed_value new').css('background','#D3D3D3')
       dataType : 'json',
@@ -84,18 +84,18 @@ modify_field = (e) ->
       $(field).html($(input).val())
       $(field).toggleClass('new', true)
       $(field).bind('dblclick', modify_field)
-      window.record.parsed = read_parsed()
+      window.work.parsed = read_parsed()
     cancel.click ()->
       $(field).html(current)
       $(field).bind('dblclick', modify_field)
     del.click ()->
       $(field).remove()
-      window.record.parsed = read_parsed()
+      window.work.parsed = read_parsed()
     undefined
 
-#display the parsed record as an accordion like widget. gets called by record.display()
+#display the parsed work as an accordion like widget. gets called by work.display()
 collapse_parsed_information = ()->
-  $('#parsed_record>ul>li>ul').each (i)->
+  $('#parsed_work>ul>li>ul').each (i)->
     that = this
     $(this).hide(0)
     $(this).parent().find('span').click (e)->
@@ -109,8 +109,8 @@ collapse_parsed_information = ()->
 
 #THE FOLLOWING FUNCION DEALS WITH DISPLAYING, NAVIGATING AND ANNOTATING THE RECORD. HEAVY USE OF KINETIC.JS
 
-window.record.display = (image_url)->
-  main = document.getElementById('main-canvas') #get the div to be used for displaying the record
+window.work.display = (image_url)->
+  main = document.getElementById('main-canvas') #get the div to be used for displaying the work
   collapse_parsed_information()
   
   #Create the Kinetic Stage (canvas)
@@ -158,7 +158,7 @@ window.record.display = (image_url)->
     
     #add imgage to layer
     layer.add(image)
-    #this function retrieves and draws the record annotations(see below)
+    #this function retrieves and draws the work annotations(see below)
     get_annotations()
     undefined
   
@@ -276,7 +276,7 @@ window.record.display = (image_url)->
     undefined
   
   
-  #get record annotations, draw them on stage (if applicable) and connect them to annotations and metadata in html format
+  #get work annotations, draw them on stage (if applicable) and connect them to annotations and metadata in html format
   get_annotations = ()->
     $.getJSON(
       window.location.pathname+'/annotations' #annotations path
@@ -284,7 +284,7 @@ window.record.display = (image_url)->
         notes_layer = new Kinetic.Layer() #create new layer for annotations, represented as rectangles
         stage.add(notes_layer)
         for n in notes
-          if n.content.image_url == image_url #check that the annotation was added to this particular image. This is necessary if the record has more than one image
+          if n.content.image_url == image_url #check that the annotation was added to this particular image. This is necessary if the work has more than one image
             ID = "note_"+n.id #give rectangle note a unique id which matches that note's html representation
             rect = new Kinetic.Rect(
               id: ID

@@ -1,15 +1,15 @@
 $( function() {
-  var objectmap = $( '.records-objectmap' );
+  var objectmap = $( '.works-objectmap' );
   if ( objectmap.length === 1 ) {
-    var recordIds = objectmap.data( 'recordIds' );
-    var recordDimension = Math.ceil( Math.sqrt( recordIds.length ) );
+    var workIds = objectmap.data( 'workIds' );
+    var workDimension = Math.ceil( Math.sqrt( workIds.length ) );
     var timeoutMove = null;
 
-    if ( $.isArray( recordIds ) && recordIds.length > 0 ) {
+    if ( $.isArray( workIds ) && workIds.length > 0 ) {
       $.geo.proj = null;
 
-      var map = $( '.records-objectmap .geomap' ).geomap( {
-        bbox: [ 256 * recordDimension / 2, 256 * recordDimension / 2, 1024, 768 ],
+      var map = $( '.works-objectmap .geomap' ).geomap( {
+        bbox: [ 256 * workDimension / 2, 256 * workDimension / 2, 1024, 768 ],
         zoom: 7,
 
         zoomMin: 7,
@@ -42,7 +42,7 @@ $( function() {
                 var imageDeferreds = [];
 
                 $.each( indexes, function( tileImageIndex ) { 
-                  var recordIdIndex = this;
+                  var workIdIndex = this;
 
                   var x = imageSize * ( ( tileImageIndex % 2 ) ); //imageDepth );
                   var y = imageSize * Math.floor( tileImageIndex / imageDepth );
@@ -50,7 +50,7 @@ $( function() {
                   var xMini = miniSize * ( ( tileImageIndex % 2 ) ); //imageDepth );
                   var yMini = miniSize * Math.floor( tileImageIndex / miniDimension );
 
-                  if ( recordIdIndex >= 0 && recordIdIndex < recordIds.length ) {
+                  if ( workIdIndex >= 0 && workIdIndex < workIds.length ) {
                     //console.log( 'x: ' + x + ', y: ' + y );
 
 
@@ -59,7 +59,7 @@ $( function() {
 
                     var img = new Image();
 
-                    //console.log( '  id: ' + recordIds[ recordIdIndex ] );
+                    //console.log( '  id: ' + workIds[ workIdIndex ] );
                     img.onload = function( ) {
                       //context.clearRect( 0, 0, 256, 256 );
 
@@ -75,7 +75,7 @@ $( function() {
                       imageDefer.resolve();
                     };
 
-                    img.src = '/records/' + recordIds[ recordIdIndex ] + '/thumb';
+                    img.src = '/works/' + workIds[ workIdIndex ] + '/thumb';
 
                   } else {
                     //context.fillStyle = '#ff0000';
@@ -139,10 +139,10 @@ $( function() {
             //console.log( quadKey );
 
             var indexes = quadKeyToIndexes( quadKey );
-            if ( indexes.length === 1 && indexes[ 0 ] < recordIds.length ) {
-              //console.log( 'recordId: ' + recordIds[ indexes[ 0 ] ] );
+            if ( indexes.length === 1 && indexes[ 0 ] < workIds.length ) {
+              //console.log( 'workId: ' + workIds[ indexes[ 0 ] ] );
 
-              $.get( '/records/' + recordIds[ indexes[ 0 ] ], function( popupHtml ) {
+              $.get( '/works/' + workIds[ indexes[ 0 ] ], function( popupHtml ) {
                 console.log( popupHtml );
                 $.magnificPopup.open( {
                   showCloseBtn: false,
@@ -179,8 +179,8 @@ $( function() {
           map.geomap( 'empty', false );
 
           var indexes = quadKeyToIndexes( quadKey );
-          if ( indexes.length === 1 && indexes[ 0 ] < recordIds.length ) {
-            //console.log( 'recordId: ' + recordIds[ indexes[ 0 ] ] );
+          if ( indexes.length === 1 && indexes[ 0 ] < workIds.length ) {
+            //console.log( 'workId: ' + workIds[ indexes[ 0 ] ] );
 
             var pixelBbox = [ tileXY[ 0 ] * 256, tileXY[ 1 ] * 256, tileXY[ 0 ] * 256 + 256, tileXY[ 1 ] * 256 + 256 ];
             //console.log( 'pixelBbox: ' + pixelBbox );
@@ -195,7 +195,7 @@ $( function() {
       var miniCanvas = $( '<canvas width="256" height="256" />' );
       var miniContext = miniCanvas[0].getContext( '2d' );
 
-      var miniDimension = Math.ceil( recordDimension / 2 ) * 2;
+      var miniDimension = Math.ceil( workDimension / 2 ) * 2;
       var miniScale = 1 / miniDimension;
       var miniSize = 256 * miniScale;
 
@@ -209,7 +209,7 @@ $( function() {
       }
 
 
-      var miniMap = $( '.records-objectmap .minimap' ).geomap( {
+      var miniMap = $( '.works-objectmap .minimap' ).geomap( {
         bbox: [ 0, 0, 256, 256 ],
         bboxMax: [ 0, 0, 256, 256 ],
 

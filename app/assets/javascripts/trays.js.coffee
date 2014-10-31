@@ -5,7 +5,7 @@ THIS FUNCTIONS CONTROL BOTH THE ADDING OF RECORDS/VISUALIZATIONS TO THE TRAYS,
 THE DISPLAYING OF TRAYS WHEN EDITING RECORDS, AND THE ADDING OF RECORDS/VISUALIZATIONS
 FROM TRAYS TO SPOTLIGHTS
 
-Trays store records in an array of integers (the records id's), and they store visualizations
+Trays store works in an array of integers (the works id's), and they store visualizations
 in a json array, where each item is an object that stores the visualization's parameter.
 ###
 
@@ -52,8 +52,8 @@ window.trays.add_visualization = (user) ->
           'X-CSRF-Token': $("meta[name='csrf-token']").attr('content')
   undefined
 
-#function that initializes the adding of records to trays, in the explore page
-window.trays.add_records = (user) ->
+#function that initializes the adding of works to trays, in the explore page
+window.trays.add_works = (user) ->
   $("select[name=tray]").change (e)->
       if($(this).val() is 'new_tray')
         $(this).parent().find("input[name=new_tray]").show()
@@ -63,16 +63,16 @@ window.trays.add_records = (user) ->
   
   #THIS FUNCTION ADDS A GROUP OF RECORDS TO A TRAY. IT IS DESIGNED SO THAT, IF YOU NARROW YOUR SEARCH TERMS TO INCLUDE A SMALL SET OF RECORDS
   #YOU CAN DIRECTLY ADD THAT SET TO A TRAY. THIS GETS CALLED FROM THE VISUALIZATIONS INDEX VIEW.
-  $('#add_records_to_tray').submit (e)->
+  $('#add_works_to_tray').submit (e)->
     e.preventDefault()
-    add_record = this
-    option = $(add_record).find('select[name=tray]').val()
+    add_work = this
+    option = $(add_work).find('select[name=tray]').val()
     
-    #in order to get the record id's, a special action on the 'visualizations' controller is called
-    #first we add the current visualization mode to a placeholder variable, then we change the collection.query.type object to 'list records'
+    #in order to get the work id's, a special action on the 'visualizations' controller is called
+    #first we add the current visualization mode to a placeholder variable, then we change the collection.query.type object to 'list works'
     #and then we do a JSON requests.
     type_placeholder = window.collection.query.type
-    window.collection.query.type = 'list_records'
+    window.collection.query.type = 'list_works'
     $.getJSON(window.location.pathname + window.collection.query_terms(),
     
     #again, adding data to a tray works differently depending on whether you're creating a new tray or adding information to an existing one.
@@ -85,32 +85,32 @@ window.trays.add_records = (user) ->
             tray:
               owner_id: user
               owner_type: 'User'
-              records: data
-              visualizations: JSON.stringify([]) #when adding records to a new tray, we create an empty visualizations array as a placeholder for future viz storage.
-              name: $(add_record).find("input[name=new_tray]").val()
+              works: data
+              visualizations: JSON.stringify([]) #when adding works to a new tray, we create an empty visualizations array as a placeholder for future viz storage.
+              name: $(add_work).find("input[name=new_tray]").val()
           success: (data)->
-            alert('success: tray '+$(add_record).find("input[name=new_tray]").val()+' created and records added')
+            alert('success: tray '+$(add_work).find("input[name=new_tray]").val()+' created and works added')
           dataType: 'json'
           headers:
             'X-CSRF-Token': $("meta[name='csrf-token']").attr('content')
       else
         $.ajax
           type: "GET"
-          url: "/trays/#{option}/add_records/"
+          url: "/trays/#{option}/add_works/"
           data:
-            records: data
+            works: data
           success : (data)->
-            alert("success: records added to tray")
+            alert("success: works added to tray")
           dataType:'json'
           headers:
             'X-CSRF-Token' : $("meta[name='csrf-token']").attr('content')
-      window.collection.query.type = type_placeholder #set the visualization type to whatever it was before saving the records.
+      window.collection.query.type = type_placeholder #set the visualization type to whatever it was before saving the works.
       )
     undefined
 
 
 #ADD A SINGLE RECORD TO A TRAY. GETS CALLED FROM THE RECORD PAGE, AND SHOULD ALSO BE CALLED FROM THE RECORD POPUP IN THE VISUALIZATIONS INDEX PAGE.
- window.trays.add_record = (data,user) ->
+ window.trays.add_work = (data,user) ->
   #looks for the list of existing trays, and assigns an event handler to each one of them
   $('.tray .add').each ()->
     $(this).click (e)->
@@ -119,11 +119,11 @@ window.trays.add_records = (user) ->
       tray_name = $(this).parent().data('tray_name')
       $.ajax
         type: "GET" #should be PUT, couldn't make it work
-        url: "/trays/#{tray_id}/add_records/"
+        url: "/trays/#{tray_id}/add_works/"
         data:
-          records: data
+          works: data
         success: ()->
-          alert("success: records added to #{tray_name}")
+          alert("success: works added to #{tray_name}")
         dataType: 'json'
         headers:
           'X-CSRF-Token': $("meta[name='csrf-token']").attr('content')
@@ -140,7 +140,7 @@ window.trays.add_records = (user) ->
         tray:
           owner_id: user
           owner_type: 'User'
-          records: data,
+          works: data,
           visualizations: JSON.stringify([]) #add empty visualizations array
           name: name
       success: (data) ->
@@ -180,8 +180,8 @@ window.trays.show = () ->
     $(this).parent().find('*').show()
     $(this).parent().css('height','400px')
     $('.user_tray .surrogate').remove()
-    $('.user_tray .tray_record_images').remove()
-    $('.user_tray .tray_record_annotations').remove()
+    $('.user_tray .tray_work_images').remove()
+    $('.user_tray .tray_work_annotations').remove()
     
   #event handler for collapsing trays by clicking on the 'x' button.
   $('.close_tray').click (e) ->
@@ -189,37 +189,37 @@ window.trays.show = () ->
     $(this).hide()
     $('.user_tray').show()
     $('.surrogate').remove()
-    $(this).parent().find('h4, .tray_records, .tray_visualizations').hide()
+    $(this).parent().find('h4, .tray_works, .tray_visualizations').hide()
     undefined
   
   
-  #This function handles the display of individual records in trays. Since records can have many images, plus annotations, when an individual
-  #record thumbnail is clicked, that record data is fetched with a getSJON #and thumbnails of individual surrogates(images) and annotations are generated.
+  #This function handles the display of individual works in trays. Since works can have many images, plus annotations, when an individual
+  #work thumbnail is clicked, that work data is fetched with a getSJON #and thumbnails of individual surrogates(images) and annotations are generated.
   #The function also assigns dblclick event handlers to add individual images and annotations to the Spotlight
-  $('.user_tray .record_thumbnail').click (e) ->
+  $('.user_tray .work_thumbnail').click (e) ->
     e.preventDefault()
-    #hide other records in the tray
+    #hide other works in the tray
     host_tray = $(this).parent().parent()
     location = $(this).attr('href')
-    host_tray.find('.tray_records, .tray_visualizations, h4').hide()
+    host_tray.find('.tray_works, .tray_visualizations, h4').hide()
     $.getJSON(
       location
       (data) ->
-        images_div = $("<div class='tray_record_images'>")
+        images_div = $("<div class='tray_work_images'>")
         host_tray.append(images_div)
         images_div.append('<h4>Surrogates</h4>')
-        notes_div = $("<div class='tray_record_annotations'>")
+        notes_div = $("<div class='tray_work_annotations'>")
         host_tray.append(notes_div)
         notes_div.append('<h4>Annotations</h4>')
         #this loop renders the surrogate images, with their correspondent dblclick handler
         for image in data.parsed.image
           do (image) ->
-            frame = $("<div class='record_thumbnail surrogate'>").css('background-image', "url("+image+"?width=200&height=200)")
+            frame = $("<div class='work_thumbnail surrogate'>").css('background-image', "url("+image+"?width=200&height=200)")
             frame.data('id',data.id)
             frame.data('surrogate',data.parsed.image.indexOf(image))
             frame.data('image',image)
             frame.data('title',data.parsed.title[0])
-            frame.data('type','record')
+            frame.data('type','work')
             title = $('<h3>').append(data.parsed.image.indexOf(image))
             frame.append(title)
             images_div.append(frame)
@@ -231,7 +231,7 @@ window.trays.show = () ->
               current_body = $('#spotlight_body').val()
               $('#spotlight_body').val(current_body+"{#{window.spotlights.components.indexOf(d)}}")
               document.getElementsByTagName('iframe')[0].contentWindow.document.body.innerHTML += "{#{window.spotlights.components.indexOf(d)}}"
-              c_frame = $("<a class='record_thumbnail component'>").css('background-image', "url("+d.image+"?width=200&height=200)")
+              c_frame = $("<a class='work_thumbnail component'>").css('background-image', "url("+d.image+"?width=200&height=200)")
               c_title = $('<h3>').append(window.spotlights.components.indexOf(d))
               c_frame.append(c_title)
               $('#spotlight_components').append(c_frame)
@@ -244,7 +244,7 @@ window.trays.show = () ->
             content.width = parseInt(content.width)
             content.x = parseInt(content.x)
             content.y = parseInt(content.y)
-            frame = $("<div class='record_annotation surrogate'>")
+            frame = $("<div class='work_annotation surrogate'>")
             frame.data('id',data.id)
             frame.data('surrogate',data.parsed.image.indexOf(image))
             frame.data('image',content.image_url)
@@ -287,7 +287,7 @@ window.trays.show = () ->
               current_body = $('#spotlight_body').val()
               $('#spotlight_body').val(current_body+"{#{window.spotlights.components.indexOf(d)}}")
               document.getElementsByTagName('iframe')[0].contentWindow.document.body.innerHTML += "{#{window.spotlights.components.indexOf(d)}}"
-              c_frame = $("<a class='record_thumbnail component'>").css('background-image', "url("+d.image+"?width=200&height=200)")
+              c_frame = $("<a class='work_thumbnail component'>").css('background-image', "url("+d.image+"?width=200&height=200)")
               c_title = $('<h3>').append(window.spotlights.components.indexOf(d))
               c_frame.append(c_title)
               $('#spotlight_components').append(c_frame)

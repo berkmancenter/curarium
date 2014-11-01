@@ -17,7 +17,7 @@ window.collection.configure = ->
     $('#parsed').empty()
     try
       work = JSON.parse($("#json").val())
-      $('#parsed').append(printRecord(work))
+      $('#parsed').append(printWork(work))
       #print work is the function that does the actual parsing.
       $('#parsed dd').draggable
         helper : "clone"
@@ -156,7 +156,7 @@ traceField = (object, path) ->
 #Keys and Array indexes are converted into Definition Terms(<dt>), 
 #Objects and Arrays into Definition Lists(dl),
 #numeric and string values into Definition Definitions(<dd>)
-printRecord = (json, path=[]) -> 
+printWork = (json, path=[]) -> 
     localpath = path.slice(0)
     if typeof json is 'object'
       item = $('<dl>')
@@ -172,7 +172,7 @@ printRecord = (json, path=[]) ->
             localpath.push(i)
           else
             localpath.push(parseInt(i))
-          item.append(printRecord(json[i], localpath))
+          item.append(printWork(json[i], localpath))
           unless typeof json[i] is 'object'
             item.append("<br>")
           localpath = path.slice(0)

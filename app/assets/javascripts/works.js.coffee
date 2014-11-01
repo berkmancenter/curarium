@@ -6,7 +6,7 @@ window.work = {}
 
 window.work.parsed = {}
 
-#THE FOLLOWING FUNCIONS DEAL WITH MODIFYING THE RECORD'S METADATA
+#THE FOLLOWING FUNCIONS DEAL WITH MODIFYING THE WORK'S METADATA
 
 window.work.update = () ->
   window.work.parsed = read_parsed() #get the user edited values as a javascript object
@@ -107,7 +107,7 @@ collapse_parsed_information = ()->
 
 
 
-#THE FOLLOWING FUNCION DEALS WITH DISPLAYING, NAVIGATING AND ANNOTATING THE RECORD. HEAVY USE OF KINETIC.JS
+#THE FOLLOWING FUNCION DEALS WITH DISPLAYING, NAVIGATING AND ANNOTATING THE WORK. HEAVY USE OF KINETIC.JS
 
 window.work.display = (image_url)->
   main = document.getElementById('main-canvas') #get the div to be used for displaying the work

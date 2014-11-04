@@ -18,15 +18,14 @@
       <li><%= link_to render( partial: 'shared/mini_icon', object: 'close' ), '#', class: 'close' %></li>
     </ul>
     <h2><%= work_title @work %></h2>
-    <%= image_tag "#{JSON.parse(@current_metadata['image'])[ 0 ]}?width=640", alt: '' %>
+    <%= image_tag "#{@work.images.first.image_url}?width=640", alt: '' %>
   </section>
 
-  <% images = JSON.parse(@current_metadata['image']) %>
-  <% if images.any? %>
+  <% if @work.images.any? %>
     <section class="surrogates">
       <h2>Surrogates</h2>
-      <% images.each_with_index do |image, i|%>
-        <a href="<%= work_path @work %><%= "?image=#{i}" unless i == 0 %>"><img src='<%= image+'?width=128&height=128'%>' class='surrogate_thumbnail' alt=""></a>
+      <% @work.images.each_with_index do |image, i|%>
+        <a href="<%= work_path @work %><%= "?image=#{i}" unless i == 0 %>"><%= image_tag "#{image.image_url}?width=128&height=128", class: 'surrogate_thumbnail', alt: ''%></a>
       <% end %>
     </section>
   <% end %>

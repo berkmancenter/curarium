@@ -83,7 +83,7 @@ FactoryGirl.define do
 
     factory :crucifixion do
       #collection multi_image
-      original '{"titleInfo":[{"title":["Crucifixion"]}],"relatedItem":[{"content":{"location":[{"url":[{"displayLabel":"Full Image","note":"unrestricted","content":"http:\/\/nrs.harvard.edu\/urn-3:VIT.BB:4627197"},{"displayLabel":"Thumbnail","content":"http:\/\/nrs.harvard.edu\/urn-3:VIT.BB:4627197"}]}]}}],"recordIdentifier":[{"source":"VIA","content":"olvwork384182"}]}'
+      original '{"titleInfo":[{"title":["Crucifixion"]}],"relatedItem":[{"content":{"location":[{"url":[{"displayLabel":"Full Image","note":"unrestricted","content":"http:\/\/nrs.harvard.edu\/urn-3:VIT.BB:4627197"},{"displayLabel":"Thumbnail","content":"http:\/\/nrs.harvard.edu\/urn-3:VIT.BB:4627197"}]}]}},{"content":{"location":[{"url":[{"displayLabel":"Text","note":"unrestricted","content":"http://www.thedigitalwalters.org/Data/WaltersManuscripts/W102/data/W.102/sap/W102_000011_sap.jpg"},{"displayLabel":"Thumbnail","content":"http://ts3.mm.bing.net/th?id=HN.607998929429597709&w=116&h=176&c=7&rs=1&pid=1.7"}]}]}}],"recordIdentifier":[{"source":"VIA","content":"olvwork384182"}]}'
     end
 
   end

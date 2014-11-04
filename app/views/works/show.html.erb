@@ -7,7 +7,7 @@
     // surrogates can be simple hyperlinks
 
     <% image = params[:image].to_i || 0%>
-    window.work.display('<%= JSON.parse(@current_metadata['image'])[image]%>');
+    window.work.display('<%= @work.images[image].image_url %>');
     $('img.surrogate_thumbnail').each( function(i){
       $(this).click(function(e){
         window.location = "?image="+i
@@ -48,10 +48,9 @@
       <div class="expand">
         <!-- THIS IS WHERE THE SURROGATE IMAGES GO -->
       <nav>
-          <% images= JSON.parse(@current_metadata['image']) %>
-          <% images.each do |image|%>
-        <img src='<%= image+'?width=10000&height=10000'%>' class='surrogate_thumbnail' alt="">
-          <% end %>
+        <% @work.images.each { |i| %>
+          <%= image_tag i.thumbnail_url, class: 'surrogate_thumbnail', alt: '' %>
+        <% } %>
       </nav>
       </div>
       </div>s

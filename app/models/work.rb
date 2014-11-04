@@ -9,9 +9,11 @@ class Work < ActiveRecord::Base
   has_many :images, dependent: :destroy
 
   before_save :extract_attributes
+  after_save :create_images
 
   scope :with_thumb, -> {
-    where( 'not thumbnail_url is null' )
+    # joins( 'images' ).where( images.any? )
+    #where( 'not thumbnail_url is null' )
   }
 
   def self.image_type( local_file_path )
@@ -31,8 +33,8 @@ class Work < ActiveRecord::Base
   end
     
   def cache_thumb
-    if thumbnail_url.present?
-      thumb_hash = Zlib.crc32 thumbnail_url
+    if images.any?
+      thumb_hash = Zlib.crc32 images.first.thumbnail_url
       cache_url = "#{thumbnail_url}#{thumbnail_url.include?( '?' ) ? '&' : '?'}width=256&height=256"
       #puts cache_url
 
@@ -69,17 +71,29 @@ class Work < ActiveRecord::Base
   private
 
   def extract_attributes
-    self.unique_identifier = parsed[ 'unique_identifier' ].to_s unless parsed[ 'unique_identifier' ].nil?
+    if id.nil?
+      self.unique_identifier = parsed[ 'unique_identifier' ].to_s unless parsed[ 'unique_identifier' ].nil?
 
-    # can be nil
-    thumbnails = parsed[ 'thumbnail' ]
-    self.thumbnail_url = thumbnails.is_a?( Array ) ? thumbnails[ 0 ] : thumbnails
+      # can be nil
+      self.iurls = parsed[ 'image' ]
+      self.turls = parsed[ 'thumbnail' ]
 
-    # maybe can be nil?
-    titles = parsed[ 'title' ]
-    self.title = titles.is_a?( Array ) ? titles[ 0 ] : titles
+      # maybe can be nil?
+      titles = parsed[ 'title' ]
+      self.title = titles.is_a?( Array ) ? titles[ 0 ] : titles
 
-    # remove the attributes we extracted (except for title)
-    self.parsed.except! 'unique_identifier', 'thumbnail'
+      # remove the attributes we extracted (except for title)
+      self.parsed.except! 'unique_identifier', 'image', 'thumbnail'
+    end
   end
+
+  def create_images
+    iurls.each_with_index { |image_url, i|
+      thumbnail_url = turls[ i ] unless turls.nil?
+      self.images.create( image_url: image_url, thumbnail_url: thumbnail_url )
+    } unless iurls.nil?
+  end
+
+  attr_accessor :iurls
+  attr_accessor :turls
 end

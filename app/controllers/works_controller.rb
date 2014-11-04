@@ -24,8 +24,6 @@ class WorksController < ApplicationController
       end
     end
 
-    @properties -= ['thumbnail','image','unique_identifier']
-
     if params[:include].present?
       # break out values to avoid SQL injection
       where_values = ['']
@@ -150,10 +148,10 @@ class WorksController < ApplicationController
   def thumb
     # try to get the image from cache
     # if not in cache, send missing_thumb image & attempt to cache again
-    if @work.thumbnail_url.nil?
+    if @work.images.none?
       send_data File.open( "#{Rails.public_path}/missing_thumb.png", 'rb' ).read, type: 'image/png', disposition: 'inline', status: :not_found
     else
-      thumb_hash = Zlib.crc32 @work.thumbnail_url
+      thumb_hash = Zlib.crc32 @work.images.first.thumbnail_url
 
       cache_date = Rails.cache.read "#{thumb_hash}-date"
       cache_image = Rails.cache.read "#{thumb_hash}-image"

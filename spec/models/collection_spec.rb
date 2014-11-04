@@ -89,12 +89,12 @@ describe ( 'Collection model' ) {
         }
 
         it {
-          Work.last.title.should eq( 'Starry Night' )
+          Work.first.title.should eq( 'Starry Night' )
         }
 
         it ( 'should extract thumbnail_url' ) {
-          Work.last.thumbnail_url.should eq( 'http://upload.wikimedia.org/wikipedia/commons/thumb/e/ea/Van_Gogh_-_Starry_Night_-_Google_Art_Project.jpg/116px-Van_Gogh_-_Starry_Night_-_Google_Art_Project.jpg' )
-          Work.last.parsed[ 'thumbnail' ].should eq( nil )
+          Work.first.thumbnail_url.should eq( 'http://upload.wikimedia.org/wikipedia/commons/thumb/e/ea/Van_Gogh_-_Starry_Night_-_Google_Art_Project.jpg/116px-Van_Gogh_-_Starry_Night_-_Google_Art_Project.jpg' )
+          Work.first.parsed[ 'thumbnail' ].should eq( nil )
         }
       }
 

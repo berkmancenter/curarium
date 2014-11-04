@@ -2,9 +2,11 @@ require 'open-uri'
 require 'zlib'
 
 class Work < ActiveRecord::Base
+  belongs_to :collection
+
   has_many :annotations, dependent: :destroy
   has_many :amendments, dependent: :destroy
-  belongs_to :collection
+  has_many :images, dependent: :destroy
 
   before_save :extract_attributes
 

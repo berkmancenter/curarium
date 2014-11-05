@@ -103,6 +103,13 @@ FactoryGirl.define do
       }}
     end
   end
+
+  factory :tray do
+    factory :test_tray do
+      name 'test_tray'
+      #owner test_user
+    end
+  end
 end
 
 

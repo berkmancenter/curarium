@@ -64,5 +64,9 @@ def seed
 
   crfj multi_image, :crucifixion
 
+  # trays
+  test_tray = FactoryGirl.create :test_tray
+  test_tray.owner = test_user
+  test_tray.save
 end
 

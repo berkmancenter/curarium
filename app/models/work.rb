@@ -12,8 +12,7 @@ class Work < ActiveRecord::Base
   after_save :create_images
 
   scope :with_thumb, -> {
-    # joins( 'images' ).where( images.any? )
-    #where( 'not thumbnail_url is null' )
+    where( 'works.id in ( select distinct works.id from works inner join images on images.work_id = works.id where not images.thumbnail_url is null )' )
   }
 
   def self.image_type( local_file_path )
@@ -34,35 +33,38 @@ class Work < ActiveRecord::Base
     
   def cache_thumb
     if images.any?
-      thumb_hash = Zlib.crc32 images.first.thumbnail_url
-      cache_url = "#{thumbnail_url}#{thumbnail_url.include?( '?' ) ? '&' : '?'}width=256&height=256"
-      #puts cache_url
-
-      begin
-        thumb_connection = open cache_url, 'rb'
-      rescue Net, OpenURI::HTTPError => e
-        thumb_connection = nil
-      end
-
-      if thumb_connection.nil?
-        # sleep & try one more time
-        sleep 0.5
+      thumbnail_url = images.first.thumbnail_url
+      if thumbnail_url.present?
+        thumb_hash = Zlib.crc32 thumbnail_url
+        cache_url = "#{thumbnail_url}#{thumbnail_url.include?( '?' ) ? '&' : '?'}width=256&height=256"
+        #puts cache_url
 
         begin
           thumb_connection = open cache_url, 'rb'
         rescue Net, OpenURI::HTTPError => e
           thumb_connection = nil
         end
-      end
 
-      if thumb_connection.present?
-        Rails.cache.write "#{thumb_hash}-date", Date.today
-        Rails.cache.write "#{thumb_hash}-image", thumb_connection.read
+        if thumb_connection.nil?
+          # sleep & try one more time
+          sleep 0.5
 
-        if thumb_connection.is_a? Tempfile
-          Rails.cache.write "#{thumb_hash}-type", "image/#{Work.image_type thumb_connection.path}"
-        else
-          Rails.cache.write "#{thumb_hash}-type", thumb_connection.meta[ 'content-type' ]
+          begin
+            thumb_connection = open cache_url, 'rb'
+          rescue Net, OpenURI::HTTPError => e
+            thumb_connection = nil
+          end
+        end
+
+        if thumb_connection.present?
+          Rails.cache.write "#{thumb_hash}-date", Date.today
+          Rails.cache.write "#{thumb_hash}-image", thumb_connection.read
+
+          if thumb_connection.is_a? Tempfile
+            Rails.cache.write "#{thumb_hash}-type", "image/#{Work.image_type thumb_connection.path}"
+          else
+            Rails.cache.write "#{thumb_hash}-type", thumb_connection.meta[ 'content-type' ]
+          end
         end
       end
     end

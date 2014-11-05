@@ -127,10 +127,7 @@ ActiveRecord::Schema.define(version: 20141101170038) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "unique_identifier"
-    t.string   "thumbnail_url"
     t.string   "title"
-    t.text     "image_urls"
-    t.text     "thumbnail_urls"
   end
 
 end

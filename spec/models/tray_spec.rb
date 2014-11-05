@@ -26,4 +26,14 @@ describe ( 'Tray model' ) {
       t.owner.class.should eq( User )
     }
   }
+
+  describe ( 'tray_items' ) {
+    context ( 'Image' ) {
+      let ( :t ) { Tray.first }
+
+      it {
+        t.images.first.should eq( Image.first )
+      }
+    }
+  }
 }

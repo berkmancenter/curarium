@@ -47,15 +47,7 @@ describe ( WorksController ) {
           Rails.cache.clear
         }
 
-        it {
-          get :thumb, :id => work.id
-
-          response.code.should eq( '202' )
-        }
-      }
-
-      describe ( 'after cache_thumbs' ) {
-        it {
+        it ( 'should now wait for & return thumbnail' ) {
           get :thumb, :id => work.id
 
           response.code.should eq( '200' )

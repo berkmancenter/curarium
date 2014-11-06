@@ -24,8 +24,6 @@ class WorksController < ApplicationController
       end
     end
 
-    @properties -= ['thumbnail','image','unique_identifier']
-
     if params[:include].present?
       # break out values to avoid SQL injection
       where_values = ['']
@@ -130,42 +128,29 @@ class WorksController < ApplicationController
      end
   end
 
-  def image_type( local_file_path )
-    png = Regexp.new("\x89PNG".force_encoding("binary"))
-    jpg = Regexp.new("\xff\xd8\xff\xe0\x00\x10JFIF".force_encoding("binary"))
-
-    case IO.read(local_file_path, 10)
-    when /^GIF8/
-      'gif'
-    when /^#{png}/
-      'png'
-    when /^#{jpg}/
-      'jpeg'
-    else
-      '*'
-    end
-  end
-    
   # GET /works/1/thumb
   def thumb
     # try to get the image from cache
     # if not in cache, send missing_thumb image & attempt to cache again
-    if @work.thumbnail_url.nil?
+    if @work.images.none?
       send_data File.open( "#{Rails.public_path}/missing_thumb.png", 'rb' ).read, type: 'image/png', disposition: 'inline', status: :not_found
     else
-      thumb_hash = Zlib.crc32 @work.thumbnail_url
+      thumb_hash = Zlib.crc32 @work.images.first.thumbnail_url
+
+      cache_image = Rails.cache.read "#{thumb_hash}-image"
+
+      if cache_image.nil?
+        @work.cache_thumb
+      end
 
       cache_date = Rails.cache.read "#{thumb_hash}-date"
       cache_image = Rails.cache.read "#{thumb_hash}-image"
       cache_type = Rails.cache.read "#{thumb_hash}-type"
 
-      if ( cache_date.nil? || cache_image.nil? || cache_type.nil? )
-        send_data File.open( "#{Rails.public_path}/missing_thumb.png", 'rb' ).read, type: 'image/png', disposition: 'inline', status: :accepted
-        @work.cache_thumb
-      else
-        if stale?( etag: thumb_hash, last_modified: cache_date )
-          send_data cache_image, type: cache_type, disposition: 'inline'
-        end
+      if cache_image.nil?
+        send_data File.open( "#{Rails.public_path}/missing_thumb.png", 'rb' ).read, type: 'image/png', disposition: 'inline', status: :not_found
+      elsif stale?( etag: thumb_hash, last_modified: cache_date )
+        send_data cache_image, type: cache_type, disposition: 'inline'
       end
     end
   end

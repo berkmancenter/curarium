@@ -2,45 +2,50 @@ require 'spec_helper'
 
 describe ( 'Work model' ) {
   context ( 'with valid data' ) {
-    let ( :r ) { Work.first }
+    let ( :w ) { Work.first }
 
-    it { r.should be_valid }
+    it { w.should be_valid }
+
+    it { w.should respond_to 'images' }
 
     it ( 'should have an original value' ) {
-      r.original.should_not eq( nil )
+      w.original.should_not eq( nil )
     }
 
     it ( 'should have parsed values' ) {
-      r.parsed.should_not eq( nil )
+      w.parsed.should_not eq( nil )
     }
 
     it {
-      r.parsed.class.should eq( Hash )
+      w.parsed.class.should eq( Hash )
     }
 
     it ( 'should no longer store id in parsed' ) {
-      r.parsed[ 'curarium' ].should eq( nil )
+      w.parsed[ 'curarium' ].should eq( nil )
     }
 
     it ( 'should still have have title parsed from original (for filtering)' ) {
-      r.parsed[ 'title' ].should eq( '["Starry Night"]' )
+      w.parsed[ 'title' ].should eq( '["Starry Night"]' )
     }
 
     it ( 'should have parsed out the title to special attribute' ) {
-      r.title.should eq( 'Starry Night' )
+      w.title.should eq( 'Starry Night' )
+    }
+
+    it ( 'should no longer have image parsed from original' ) {
+      w.parsed[ 'image' ].should eq( nil )
     }
 
     it ( 'should no longer have thumbnail parsed from original' ) {
-      r.parsed[ 'thumbnail' ].should eq( nil )
+      w.parsed[ 'thumbnail' ].should eq( nil )
     }
 
-    it ( 'should have parsed out the thumbnail url to special attribute' ) {
-      r.should respond_to 'thumbnail_url'
-      r.thumbnail_url.should eq( 'http://upload.wikimedia.org/wikipedia/commons/thumb/e/ea/Van_Gogh_-_Starry_Night_-_Google_Art_Project.jpg/116px-Van_Gogh_-_Starry_Night_-_Google_Art_Project.jpg' )
+    it ( 'should no longer have thumbnail (moved to Image model)' ) {
+      w.should_not respond_to 'thumbnail_url'
     }
 
     it ( 'should have topics parsed from original with multiple values' ) {
-      r.parsed[ 'topics' ].should eq( '["stars", "night", "churches"]' )
+      w.parsed[ 'topics' ].should eq( '["stars", "night", "churches"]' )
     }
   }
 

@@ -31,9 +31,9 @@
 			
 			  <div class="scroll">
 			  	<% if c['type'] == 'work' %>
-			  		<a href='/works/<%=c['id']%>?image=<%=c['surrogate']%>' target='_blank'><div style="background-image:url('<%=c['image']%>')"></div></a>
+            <a href='<%= work_path Work.find( c['id'] ) %>' target='_blank'><div style="background-image:url('<%= thumb_record_path Work.find( c['id'] ) %>')"></div></a>
 			  	<% elsif c['type'] == 'annotation' %>
-			  		<a href='/works/<%=c['id']%>?image=<%=c['surrogate']%>' target='_blank'><div id='annotation_wrapper_<%=i%>' ></div></a>
+			  		<a href='<%= work_path Work.find( c['id'] ) %>' target='_blank'><div id='annotation_wrapper_<%=i%>' ></div></a>
 			  		<script>
               window.onload = function() {
                 window.spotlights.display_annotation('annotation_wrapper_<%=i%>', <%= raw(c['content'].to_json) %>);

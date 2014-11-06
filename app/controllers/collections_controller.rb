@@ -37,11 +37,11 @@ class CollectionsController < ApplicationController
     @collection.admin = [session[:user_id]]
     respond_to do |format|
       if @collection.save
-        f = File.new("#{Rails.root}/tmp/#{params[:file].original_filename}", 'wb')
-        f.write params[:file].read
-        f.close
-        Parser.new.async.perform(@collection.id, "#{Rails.root}/tmp/#{params[:file].original_filename}")
-        #Parser.new.async.perform(@collection.id)
+#        f = File.new("#{Rails.root}/tmp/#{params[:file].original_filename}", 'wb')
+#        f.write params[:file].read
+#        f.close
+#        Parser.new.async.perform(@collection.id, "#{Rails.root}/tmp/#{params[:file].original_filename}")
+#        #Parser.new.async.perform(@collection.id)
         format.html { redirect_to collections_path, notice: 'Your collection is currently uploading, please check back within the hour.' }
         format.json { render action: 'show', status: :created, location: @collection }
       else
@@ -56,10 +56,10 @@ class CollectionsController < ApplicationController
   def update
     respond_to do |format|
       if @collection.update(collection_params)
-        f = File.new("#{Rails.root}/tmp/#{params[:file].original_filename}", 'wb')
-        f.write params[:file].read
-        f.close
-        Parser.new.async.perform(@collection.id, "#{Rails.root}/tmp/#{params[:file].original_filename}")
+#        f = File.new("#{Rails.root}/tmp/#{params[:file].original_filename}", 'wb')
+#        f.write params[:file].read
+#        f.close
+#        Parser.new.async.perform(@collection.id, "#{Rails.root}/tmp/#{params[:file].original_filename}")
         format.html { redirect_to @collection, notice: 'Collection was successfully updated.' }
         format.json { head :no_content }
       else

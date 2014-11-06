@@ -1,0 +1,151 @@
+<script>
+
+  window.onload = function() {
+
+    // TODO: This should not be handled in JavaScript
+    // view can do this on server
+    // surrogates can be simple hyperlinks
+
+    <% image = params[:image].to_i || 0%>
+    window.work.display('<%= JSON.parse(@current_metadata['image'])[image]%>');
+    $('img.surrogate_thumbnail').each( function(i){
+      $(this).click(function(e){
+        window.location = "?image="+i
+      });    
+    });
+    
+    // TODO: Move this stuff to its own JavaScript file in assets
+    // or attempt to make it more HTML-based
+
+  
+    <% if session[:user_id] %>
+    window.trays.add_work([<%= params[:id] %>],<%= session[:user_id].to_i%>);
+    window.work.update();
+    <% end %>
+  
+  };
+</script>
+
+<!-- BEGIN SUB MENU -->  
+<div class="SUB_MENU bubble_menu">
+  <table class="parsed-info"><tr>
+    
+    <td  class="bub_menu">
+      <div class="menu_piecep">
+      <input type='checkbox' class='checkbox_hack' id='parsed_id'>
+      <label for='parsed_id'><span class="button">P</span></label>
+      <div class="expand">
+        <!-- THIS IS WHERE THE PARSED WORK INFORMATION GOES -->
+        <%= render :partial => 'shared/print_metadata', :locals=>{:original=>@work.parsed,:current=>@current_metadata,:class_name=>'printed_object',:id_name=>'parsed_work'} %>
+      </div>
+      </div>
+    </td>
+
+    <td  class="bub_menu surrogates">
+      <div class="menu_pieces">
+      <input type='checkbox' class='checkbox_hack' id='surrogates_id'>
+      <label for='surrogates_id'><span class="button">S</span></label>
+      <div class="expand">
+        <!-- THIS IS WHERE THE SURROGATE IMAGES GO -->
+      <nav>
+          <% images= JSON.parse(@current_metadata['image']) %>
+          <% images.each do |image|%>
+        <img src='<%= image+'?width=10000&height=10000'%>' class='surrogate_thumbnail' alt="">
+          <% end %>
+      </nav>
+      </div>
+      </div>s
+    </td>
+
+    <td  class="bub_menu">
+      <div class="menu_piecet">
+        <input type='checkbox' class='checkbox_hack' id='add_id'>
+        <label for='add_id'><span class="button">T</span></label>
+        <div class="expand">
+          <% if session[:user_id].present? %>
+            <!-- THIS IS WHERE THE LIST OF TRAYS GOES -->
+
+            <div class="new_tray"> <input type='text' placeholder='new tray'><div class="add">add</div></div>
+            <% User.find(session[:user_id]).trays.each do |tray| %>
+              <div class="tray" data-tray='<%= tray.id%>' data-tray_name='<%= tray.name%>'><%= tray.name %><div class="add">add</div></div>
+            <% end %>
+
+            <!-- missing create new tray -->
+          <% end %>
+        </div>
+      </div>
+    </td>
+
+    <td  class="bub_menu">
+      <div class="menu_piecea">
+        <input type='checkbox' class='checkbox_hack' id = 'ann_id'>
+        <label for='ann_id'><span class="button">A</span></label>
+        <div class="expand">
+          <div id='annotations'>
+
+            <% if session[:user_id] %>
+              <h4 class='window_header'>ANNOTATE IMAGE</h4>
+              <div class='window_body'>
+                <div id='preview_window'></div>
+                <%= form_for([@work, @work.annotations.build]) do |f| %>
+                  <%= f.fields_for :content do |content|%><br>
+                    <div>
+                      <%= content.label :title%><br>
+                      <%= content.text_field :title%>
+                    </div>
+                    <div>
+                      <%= content.label :body%><br>
+                      <%= content.text_area :body%>
+                    </div>
+                    <%= content.hidden_field :x, id: 'content_x'%>
+                    <%= content.hidden_field :y, id: 'content_y'%>
+                    <%= content.hidden_field :width, id: 'content_width'%>
+                    <%= content.hidden_field :height, id: 'content_height'%>
+                    <%= content.hidden_field :image_url, id: 'content_url'%>
+                  <% end %>    
+                  <%= tag_selector @current_metadata %>
+                  <p>
+                  <%= f.submit %>
+                  </p>
+                <% end %>
+              </div>
+            <% end %>
+
+            <div id='work_annotations'>
+              <% @work.annotations.each do |annotation|%>
+                <% if annotation.content %>
+                  <div class='annotation_wrapper' id='note_<%= annotation.id%>'>
+                    <p class='annotation_title'>
+                    <%= annotation.content['title'] %>
+                    </p>
+                    <p class='annotation_body'>
+                    <%= annotation.content['body'] %>
+                    </p>
+                    <%unless annotation.content['tags'].nil? %>
+                      <div class='annotation_tags'>
+                        <% annotation.content['tags'].each do |tag| %>
+                          <p class='annotation_tag'>
+                          <%= tag%>
+                          </p>
+                        <% end %>
+                      </div>
+                    <% end %>
+                    <p class='annotation_attribution'>
+                    by <%= annotation.user.name %> on <%= annotation.created_at %>
+                    </p>
+                  </div>
+                <% end %>
+              <% end %>
+            </div>
+
+          </div>
+        </div>
+      </div>
+        </td>
+  </tr></table>
+
+</div><!-- END SUB MENU -->  
+
+<!-- BEGIN COLLECTION CREDIT -->
+    <div class="credit"><a href="">Collection provided by <%= @work.collection.source%></a></div>
+<!-- END COLLECTION CREDIT -->

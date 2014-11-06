@@ -1,5 +1,5 @@
 $( function() {
-  var container = '.records-treemap';
+  var container = '.works-treemap';
   var treemapContainer = $( container );
 
   var click, selected, tree;

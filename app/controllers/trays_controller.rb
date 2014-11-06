@@ -1,5 +1,5 @@
 class TraysController < ApplicationController
-  before_action :set_tray, only: [:show, :edit, :update, :destroy, :add_records, :add_visualization, :external]
+  before_action :set_tray, only: [:show, :edit, :update, :destroy, :add_works, :add_visualization, :external]
   skip_before_action :authorize, only: [:external, :show]
 
   def index
@@ -11,14 +11,14 @@ class TraysController < ApplicationController
     render json: @tray
   end
   
-  def add_records
-    old_records = @tray.records
-    request_records = params[:records]
-    new_records = []
-    request_records.each do |r|
-      new_records.push(r.to_i)
+  def add_works
+    old_works = @tray.works
+    request_works = params[:works]
+    new_works = []
+    request_works.each do |r|
+      new_works.push(r.to_i)
     end
-    @tray.records = (old_records+new_records).uniq
+    @tray.works = (old_works+new_works).uniq
     @tray.save
     render json: @tray
   end
@@ -41,14 +41,14 @@ class TraysController < ApplicationController
     
   def create
     @tray = Tray.new(tray_params)
-    records = []
-    if (params[:tray][:records])
-      params[:tray][:records].each do |r|
-        records.push(r.to_i)
+    works = []
+    if (params[:tray][:works])
+      params[:tray][:works].each do |r|
+        works.push(r.to_i)
       end
     end
     @tray.visualizations = params[:tray][:visualizations]
-    @tray.records = records
+    @tray.works = works
     @tray.save
     render json: @tray
   end
@@ -58,8 +58,8 @@ class TraysController < ApplicationController
     tray[:name] =  @tray.name
     tray[:id] = @tray.id
     tray[:child_items] = [] #using the 'child_items' key to emulate the JDArchive and avoid potential conflicts with Waku as-built.
-    @tray.records.each do |id|
-      r = Record.find(id)
+    @tray.works.each do |id|
+      r = Work.find(id)
       r = r.parsed
       r.each do |key, value|
         r[key] = JSON.parse(value)

@@ -13,7 +13,7 @@ class Parser
     end
     paths.shift
     collection = Collection.find(collection_id)
-    puts "Ingesting #{paths.count} records collection: #{collection.name}"
+    puts "Ingesting #{paths.count} works collection: #{collection.name}"
     configuration = collection.configuration
 
 
@@ -21,19 +21,19 @@ class Parser
     paths.each { |f| 
       next if f.nil? || File.directory?(f) || File.extname(f) != '.json'
 
-      t = Thread.new { read_record( f, configuration ) }
+      t = Thread.new { read_work( f, configuration ) }
       t.join
       
       unique_identifier = t[ :parsed ][ 'unique_identifier'] unless t[ :parsed ].nil?
       unique_identifier = unique_identifier.to_s unless unique_identifier.nil?
 
-      if unique_identifier.present? && Record.exists?( unique_identifier: unique_identifier, collection_id: collection.id )
-        r = Record.find_by( unique_identifier: unique_identifier, collection_id: collection.id )
+      if unique_identifier.present? && Work.exists?( unique_identifier: unique_identifier, collection_id: collection.id )
+        r = Work.find_by( unique_identifier: unique_identifier, collection_id: collection.id )
         r.update( original: t[:original], parsed: t[:parsed] )
         ok = true
       else
         ok = false
-        ok = collection.create_record_from_parsed t[ :original ], t[ :parsed ] unless t[ :parsed ].nil?
+        ok = collection.create_work_from_parsed t[ :original ], t[ :parsed ] unless t[ :parsed ].nil?
       end
       
       if ok
@@ -54,7 +54,7 @@ class Parser
     puts "Processed #{j_count} JSON files (out of #{paths.count - 2} total files in directory)" 
   end
   
-  def read_record( f, configuration )
+  def read_work( f, configuration )
     original = JSON.parse(File.open(f, 'r').read)
 
     pr = {}

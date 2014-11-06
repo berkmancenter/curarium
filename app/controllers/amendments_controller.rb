@@ -1,5 +1,5 @@
 class AmendmentsController < ApplicationController
   def index
-    @amendments = Record.find(params[:record_id]).amendments
+    @amendments = Work.find(params[:work_id]).amendments
   end
 end

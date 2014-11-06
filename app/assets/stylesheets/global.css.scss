@@ -53,9 +53,9 @@ a {
       width: 100%;
       height: 100%;
       display: block;
-      
     }
   }
+
   .item_lrg {
     width: 420px;
     height: 420px;
@@ -69,6 +69,7 @@ a {
   width:100%;
   padding: 0 0 70px 0;
 }
+
 .createnew {
   border: 2px solid #d2232a;
   font-weight: bold;
@@ -91,7 +92,7 @@ a {
 .left, .right, .expandable {display:table-cell;}
 .left {padding: 0 10px; width:200px;}
 .expandable {padding: 0 10px;}
-.right {padding: 0 10px;width:420px;}
+.right {padding: 0 10px; width:420px;}
 
 .button {
   border: 1px solid #d2232a;
@@ -1633,23 +1634,37 @@ dt:hover {
 .object_id {
 	z-index: 10!important;
 }
-.stack1,.stack2,.stack3{
+.stack1,.stack2 {
 	position: absolute;
 }
+
 .stack3{
+  position: relative;
 	width: 192px;
 	height:192px;
 	top: 0;
 	left: 0;
 	z-index: 1;
-	background-repeat: no-repeat;
-	background-position: center center; 
+  background-image: url('collection_w.png');
+  background-repeat: no-repeat;
+  background-position: center center;
 	background-size: cover;
 	&.item_lrg {
 	  width: 412px;
 	  height: 412px;
 	}
 }
+
+.stack3:hover{
+  position: absolute;
+  opacity: 0.4;
+  cursor: pointer;
+  background-image: url('collection_r.png');
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: cover; 
+}
+
 .stack2{
 	width: 191px;
 	height:191px;

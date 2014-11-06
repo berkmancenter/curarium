@@ -22,12 +22,13 @@
       
 <!-- BEGIN GALLERY -->	     
 <div class="GALLERY">
-  <% @collections.each do |collection| %>
+    <% @collections.each do |collection| %>
     <% if collection.approved  %>
-      <%= render :partial=>'shared/print_item', :locals=>{:item=>collection} %>
+    <%= render :partial=>'shared/print_item', :locals=>{:item=>collection} %>
     <% end %>
   <% end %>
-  <div class="gallery_item">
+
+   <div class="gallery_item">
     <div class="createnew"> <%= link_to 'New Collection', new_collection_path %> </div>
   </div>
 	      

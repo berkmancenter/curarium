@@ -3,8 +3,7 @@ module ApplicationHelper
     content_for(:title) { page_title }
     return page_title
   end
-
-  
+ 
   def tag_selector(hstore_object)
     tags = "<select class='tag_selector'>"
     hstore_object.each do |key, value|
@@ -23,6 +22,14 @@ module ApplicationHelper
       return JSON.parse(hstore[field])
     else
       return []
+    end
+  end
+
+  def active_collection
+    unless @active_collection.nil?
+      return link_to @active_collection.name, collection_path(@active_collection)
+    else
+      return link_to "...choose a collection", collections_path
     end
   end
   

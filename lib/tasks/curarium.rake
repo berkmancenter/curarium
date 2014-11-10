@@ -228,7 +228,7 @@ namespace :curarium do
   end
 
   def curarium_ingest( input_dir, collection_key )
-    usage = "usage: rake curarium:ingest['path/to/input_dir,collection_key']"
+    usage = "usage: rake curarium:ingest['path/to/input_dir,collection_key_or_id']"
 
     if input_dir.nil? || collection_key.nil?
       puts usage
@@ -238,6 +238,16 @@ namespace :curarium do
     if !Dir.exists? input_dir
       puts "#{input_dir} does not exist"
       return
+    end
+
+    if collection_key.length < 20
+      c = Collection.where id: collection_key.to_i
+      if c.any?
+        collection_key = c.first.key
+      else
+        puts "Cannot find collection with id #{collection_key}"
+        return
+      end
     end
 
     if Collection.where( { key: collection_key } ).count == 0

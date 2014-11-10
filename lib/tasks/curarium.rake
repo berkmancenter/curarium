@@ -23,15 +23,15 @@ namespace :curarium do
     ActiveRecord::Base.logger = nil
 
     Collection.all.each { |c|
-      puts "#{c.name}:"
+      puts "#{c.name} (#{c.id}):"
 
       not_present = 0
       not_cached = 0
       total = c.works.count
 
-      c.works.each { |r|
-        if r.thumbnail_url.present?
-          thumb_hash = Zlib.crc32 r.thumbnail_url
+      c.works.each { |w|
+        if w.images.any? && w.images.first.thumbnail_url.present?
+          thumb_hash = Zlib.crc32 w.images.first.thumbnail_url
 
           cache_date = Rails.cache.read "#{thumb_hash}-date"
           cache_image = Rails.cache.read "#{thumb_hash}-image"
@@ -55,13 +55,13 @@ namespace :curarium do
   end
 
   desc 'Cache un-cached thumbnails'
-  task :cache_thumbs, [:collection_name] => [ :environment ] do |task, args|
+  task :cache_thumbs, [:collection_id] => [ :environment ] do |task, args|
     old_logger = ActiveRecord::Base.logger
     ActiveRecord::Base.logger = nil
 
     puts "Started at #{Time.now}"
 
-    curarium_cache_thumbs args[:collection_name]
+    curarium_cache_thumbs args[:collection_id]
 
     puts "Ended at #{Time.now}"
 
@@ -104,11 +104,11 @@ namespace :curarium do
 
     FileUtils.mkpath collection_tiles_path
 
-    rs = c.works.with_thumb
-    work_dimension = Math.sqrt( rs.count ).ceil
+    ws = c.works.with_thumb
+    work_dimension = Math.sqrt( ws.count ).ceil
     zoom_levels = 0
 
-    puts "tiling #{rs.count} works with thumbnails (of #{c.works.count})"
+    puts "tiling #{ws.count} works with thumbnails (of #{c.works.count})"
 
     (0..8).reverse_each { |zoom|
       puts " rd: #{work_dimension}"
@@ -127,14 +127,16 @@ namespace :curarium do
             puts "  indexes: #{indexes.join( ',' )}"
 
             indexes.each { |i|
-              if i < rs.count
-                r = rs[ i ]
-                thumb_hash = Zlib.crc32 r.thumbnail_url
-                cache_image = Rails.cache.read "#{thumb_hash}-image"
+              if i < ws.count
+                w = ws[ i ]
+                if w.images.any? && w.images.first.thumbnail_url.present?
+                  thumb_hash = Zlib.crc32 w.images.first.thumbnail_url
+                  cache_image = Rails.cache.read "#{thumb_hash}-image"
 
-                File.open( "#{collection_tiles_path}/#{quadkey}.png", 'wb' ) { |f|
-                  f.write cache_image
-                }
+                  File.open( "#{collection_tiles_path}/#{quadkey}.png", 'wb' ) { |f|
+                    f.write cache_image
+                  }
+                end
               end
             }
           end
@@ -190,18 +192,18 @@ namespace :curarium do
     end
   end
 
-  def curarium_cache_thumbs( collection_name )
-    usage = "usage: rake curarium:cache_thumbs['collection_name']"
+  def curarium_cache_thumbs( collection_id )
+    usage = "usage: rake curarium:cache_thumbs['collection_id']"
 
-    if collection_name.nil?
+    if collection_id.nil?
       puts usage
       return
     end
 
-    c = Collection.where( { name: collection_name } )
+    c = Collection.where( { id: collection_id } )
 
     if c.count == 0
-      puts "Cannot find collection with name #{collection_name}"
+      puts "Cannot find collection with id #{collection_id}"
       return
     end
 
@@ -210,15 +212,15 @@ namespace :curarium do
     not_cached = 0
     total = c.works.count
 
-    c.works.with_thumb.each { |r|
-      thumb_hash = Zlib.crc32 r.thumbnail_url
+    c.works.with_thumb.each { |w|
+      thumb_hash = Zlib.crc32 w.images.first.thumbnail_url
 
       cache_date = Rails.cache.read "#{thumb_hash}-date"
       cache_image = Rails.cache.read "#{thumb_hash}-image"
       cache_type = Rails.cache.read "#{thumb_hash}-type"
 
       if cache_date.nil? || cache_image.nil? || cache_type.nil?
-        r.cache_thumb
+        w.cache_thumb
         not_cached += 1
       end
     }
@@ -273,8 +275,8 @@ namespace :curarium do
       unique_identifier = unique_identifier.to_s unless unique_identifier.nil?
 
       if unique_identifier.present? && Work.exists?( unique_identifier: unique_identifier, collection_id: collection.id )
-        r = Work.find_by( unique_identifier: unique_identifier, collection_id: collection.id )
-        r.update( original: t[:original], parsed: t[:parsed] )
+        w = Work.find_by( unique_identifier: unique_identifier, collection_id: collection.id )
+        w.update( original: t[:original], parsed: t[:parsed] )
         ok = true
       else
         ok = false

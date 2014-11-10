@@ -132,10 +132,10 @@ class WorksController < ApplicationController
   def thumb
     # try to get the image from cache
     # if not in cache, send missing_thumb image & attempt to cache again
-    if @work.images.none?
+    if @work.thumbnail_url.nil?
       send_data File.open( "#{Rails.public_path}/missing_thumb.png", 'rb' ).read, type: 'image/png', disposition: 'inline', status: :not_found
     else
-      thumb_hash = Zlib.crc32 @work.images.first.thumbnail_url
+      thumb_hash = Zlib.crc32 @work.thumbnail_url
 
       cache_image = Rails.cache.read "#{thumb_hash}-image"
 

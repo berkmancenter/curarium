@@ -26,4 +26,12 @@ describe ( 'Image model' ) {
     }
 
   }
+
+  context ( 'with multiple images' ) {
+    let ( :w ) { Work.find_by_title 'Crucifixion' }
+
+    it ( 'should have primary thumbnail as first ' ) {
+      w.thumbnail_url.should eq( 'http://nrs.harvard.edu/urn-3:VIT.BB:4627197' )
+    }
+  }
 }

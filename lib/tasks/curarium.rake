@@ -30,8 +30,8 @@ namespace :curarium do
       total = c.works.count
 
       c.works.each { |w|
-        if w.images.any? && w.images.first.thumbnail_url.present?
-          thumb_hash = Zlib.crc32 w.images.first.thumbnail_url
+        if w.thumbnail_url.present?
+          thumb_hash = Zlib.crc32 w.thumbnail_url
 
           cache_date = Rails.cache.read "#{thumb_hash}-date"
           cache_image = Rails.cache.read "#{thumb_hash}-image"
@@ -129,8 +129,8 @@ namespace :curarium do
             indexes.each { |i|
               if i < ws.count
                 w = ws[ i ]
-                if w.images.any? && w.images.first.thumbnail_url.present?
-                  thumb_hash = Zlib.crc32 w.images.first.thumbnail_url
+                if w.thumbnail_url.present?
+                  thumb_hash = Zlib.crc32 w.thumbnail_url
                   cache_image = Rails.cache.read "#{thumb_hash}-image"
 
                   File.open( "#{collection_tiles_path}/#{quadkey}.png", 'wb' ) { |f|
@@ -213,7 +213,7 @@ namespace :curarium do
     total = c.works.count
 
     c.works.with_thumb.each { |w|
-      thumb_hash = Zlib.crc32 w.images.first.thumbnail_url
+      thumb_hash = Zlib.crc32 w.thumbnail_url
 
       cache_date = Rails.cache.read "#{thumb_hash}-date"
       cache_image = Rails.cache.read "#{thumb_hash}-image"

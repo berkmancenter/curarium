@@ -25,30 +25,27 @@ namespace :curarium do
     Collection.all.each { |c|
       puts "#{c.name} (#{c.id}):"
 
-      not_present = 0
-      not_cached = 0
       total = c.works.count
 
-      c.works.each { |w|
-        if w.thumbnail_url.present?
-          thumb_hash = Zlib.crc32 w.thumbnail_url
+      works = c.works.with_thumb
 
-          cache_date = Rails.cache.read "#{thumb_hash}-date"
-          cache_image = Rails.cache.read "#{thumb_hash}-image"
-          cache_type = Rails.cache.read "#{thumb_hash}-type"
+      no_thumb = total - works.count
+      not_cached = 0
 
-          if cache_date.nil? || cache_image.nil? || cache_type.nil?
-            not_cached += 1
-          end
-        else
-          not_present += 1
+      works.each { |w|
+        thumb_hash = Zlib.crc32 w.thumbnail_url
+
+        cache_image = Rails.cache.read "#{thumb_hash}-image"
+
+        if cache_image.nil?
+          not_cached += 1
         end
       }
 
       puts "  total: #{total}"
-      puts "  no thumbnail: #{not_present} (#{not_present.to_f / total.to_f * 100.0 unless total == 0}%)"
+      puts "  no thumbnail: #{no_thumb } (#{no_thumb.to_f / total.to_f * 100.0 unless total == 0}%)"
       puts "  not cached: #{not_cached} (#{not_cached.to_f / total.to_f * 100.0 unless total == 0}%)"
-      puts "  cached: #{total - not_present - not_cached} (#{( total - not_cached - not_present ).to_f / total.to_f * 100.0 unless total == 0}%)"
+      puts "  cached: #{total - no_thumb - not_cached} (#{( total - not_cached - no_thumb ).to_f / total.to_f * 100.0 unless total == 0}%)"
     }
 
     ActiveRecord::Base.logger = old_logger
@@ -212,6 +209,10 @@ namespace :curarium do
     not_cached = 0
     total = c.works.count
 
+    puts "  total: #{total}"
+
+    j_count = 0
+
     c.works.with_thumb.each { |w|
       thumb_hash = Zlib.crc32 w.thumbnail_url
 
@@ -222,10 +223,15 @@ namespace :curarium do
       if cache_date.nil? || cache_image.nil? || cache_type.nil?
         w.cache_thumb
         not_cached += 1
+
+        j_count += 1
+
+        if j_count > 0 && j_count % 100 == 0
+          puts j_count
+        end
       end
     }
 
-    puts "  total: #{total}"
     puts "  attemped to cache: #{not_cached} (#{not_cached.to_f / total.to_f * 100.0 unless total == 0}%)"
   end
 

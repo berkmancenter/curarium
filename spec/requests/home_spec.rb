@@ -7,6 +7,7 @@ describe 'home requests', :js => true do
     describe ( 'get home/index' ) {
       before {
         visit root_path
+        page.execute_script( "window.localStorage.removeItem('betaPopupClosed');" )
       }
 
       describe ( 'beta popup' ) {

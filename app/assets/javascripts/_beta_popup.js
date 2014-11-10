@@ -1,18 +1,27 @@
 $( function() {
-  var betaPopupHtml = $( '.beta-popup' );
+  var betaPopupClosed = window.localStorage.getItem( 'betaPopupClosed' );
 
-  if ( betaPopupHtml.length ) {
-    betaPopupHtml.show().on( 'click', '.close', function() {
-      $.magnificPopup.instance.close();
-    } );
+  if ( betaPopupClosed !== 'y' ) {
+    var betaPopupHtml = $( '.beta-popup' );
 
-    $.magnificPopup.open( {
-      items: {
-        src: betaPopupHtml,
-        type: 'inline'
-      },
-      showCloseBtn: false
-    } );
+    if ( betaPopupHtml.length ) {
+      betaPopupHtml.show().on( 'click', '.close', function() {
+        $.magnificPopup.instance.close();
+      } );
 
+      $.magnificPopup.open( {
+        items: {
+          src: betaPopupHtml,
+          type: 'inline'
+        },
+        showCloseBtn: false,
+
+        callbacks: {
+          close: function( ) {
+            window.localStorage.setItem( 'betaPopupClosed', 'y' );
+          }
+        }
+      } );
+    }
   }
 } );

@@ -31,40 +31,43 @@ class Work < ActiveRecord::Base
     end
   end
     
-  def cache_thumb
+  def thumbnail_url
     if images.any?
-      thumbnail_url = images.first.thumbnail_url
-      if thumbnail_url.present?
-        thumb_hash = Zlib.crc32 thumbnail_url
-        cache_url = "#{thumbnail_url}#{thumbnail_url.include?( '?' ) ? '&' : '?'}width=256&height=256"
-        #puts cache_url
+      images.first.thumbnail_url
+    end
+  end
+
+  def cache_thumb
+    if thumbnail_url.present?
+      thumb_hash = Zlib.crc32 thumbnail_url
+      cache_url = "#{thumbnail_url}#{thumbnail_url.include?( '?' ) ? '&' : '?'}width=256&height=256"
+      #puts cache_url
+
+      begin
+        thumb_connection = open cache_url, 'rb'
+      rescue Net, OpenURI::HTTPError => e
+        thumb_connection = nil
+      end
+
+      if thumb_connection.nil?
+        # sleep & try one more time
+        sleep 0.5
 
         begin
           thumb_connection = open cache_url, 'rb'
         rescue Net, OpenURI::HTTPError => e
           thumb_connection = nil
         end
+      end
 
-        if thumb_connection.nil?
-          # sleep & try one more time
-          sleep 0.5
+      if thumb_connection.present?
+        Rails.cache.write "#{thumb_hash}-date", Date.today
+        Rails.cache.write "#{thumb_hash}-image", thumb_connection.read
 
-          begin
-            thumb_connection = open cache_url, 'rb'
-          rescue Net, OpenURI::HTTPError => e
-            thumb_connection = nil
-          end
-        end
-
-        if thumb_connection.present?
-          Rails.cache.write "#{thumb_hash}-date", Date.today
-          Rails.cache.write "#{thumb_hash}-image", thumb_connection.read
-
-          if thumb_connection.is_a? Tempfile
-            Rails.cache.write "#{thumb_hash}-type", "image/#{Work.image_type thumb_connection.path}"
-          else
-            Rails.cache.write "#{thumb_hash}-type", thumb_connection.meta[ 'content-type' ]
-          end
+        if thumb_connection.is_a? Tempfile
+          Rails.cache.write "#{thumb_hash}-type", "image/#{Work.image_type thumb_connection.path}"
+        else
+          Rails.cache.write "#{thumb_hash}-type", thumb_connection.meta[ 'content-type' ]
         end
       end
     end
@@ -91,8 +94,8 @@ class Work < ActiveRecord::Base
 
   def create_images
     iurls.each_with_index { |image_url, i|
-      thumbnail_url = turls[ i ] unless turls.nil?
-      self.images.create( image_url: image_url, thumbnail_url: thumbnail_url )
+      turl = turls[ i ] unless turls.nil?
+      self.images.create( image_url: image_url, thumbnail_url: turl )
     } unless iurls.nil?
   end
 

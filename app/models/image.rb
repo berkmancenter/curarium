@@ -3,5 +3,8 @@ class Image < ActiveRecord::Base
 
   has_many :tray_items
   has_many :trays, through: :tray_items
-  
+
+  default_scope {
+    order( 'id ASC' )
+  }
 end

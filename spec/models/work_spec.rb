@@ -40,8 +40,12 @@ describe ( 'Work model' ) {
       w.parsed[ 'thumbnail' ].should eq( nil )
     }
 
-    it ( 'should no longer have thumbnail (moved to Image model)' ) {
-      w.should_not respond_to 'thumbnail_url'
+    it ( 'should have thumbnail_url again (as shortcut to .images)' ) {
+      w.should respond_to 'thumbnail_url'
+    }
+
+    it ( 'should have thumb' ) {
+      w.thumbnail_url.should_not eq( nil )
     }
 
     it ( 'should have topics parsed from original with multiple values' ) {

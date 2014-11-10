@@ -15,7 +15,7 @@ namespace :curarium do
 end
 
 def crfj( col, r )
-  col.create_record_from_json FactoryGirl.attributes_for( r )[ :original ]
+  col.create_work_from_json FactoryGirl.attributes_for( r )[ :original ]
 end
 
 def seed
@@ -48,11 +48,11 @@ def seed
   jesus.user = test_user
   jesus.save
 
-  # records
+  # works
   crfj test_col, :starry_night
   crfj test_col, :mona_lisa
 
-  # record with annotation
+  # work with annotation
   supper = crfj test_col, :last_supper
   supper.annotations << jesus
   supper.save
@@ -64,5 +64,10 @@ def seed
 
   crfj multi_image, :crucifixion
 
+  # trays
+  test_tray = FactoryGirl.create :test_tray
+  test_tray.owner = test_user
+  test_tray.images << Image.first
+  test_tray.save
 end
 

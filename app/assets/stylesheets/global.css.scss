@@ -464,7 +464,7 @@ a {
   font-weight: bold;
   color: #d2232a;
 }
-.about_content .featured_spotlight_record{
+.about_content .featured_spotlight_work{
 }
 .about_content .featured_spotlight_text{
   font-size: 12px;
@@ -855,7 +855,7 @@ a {
 .explore_bar .drop_down img {
   width: 15px;
 }
-.record_popup {	
+.work_popup {	
   position: absolute;
   top: 80px;
   bottom: 0px;
@@ -866,7 +866,7 @@ a {
   right: 0;
   padding: 10px 20px;
 }
-.record_popup .titlebar{
+.work_popup .titlebar{
   padding: 0 0 5px 0;
   border: 0;
   margin: 0;
@@ -875,54 +875,54 @@ a {
   position: relative;
   height: 15px;
 }
-.record_popup .titlebar .navigate{
+.work_popup .titlebar .navigate{
   position: relative;
   margin: 0 30px 0 0;
   padding: 0 20px 0 0;
   color: #d2232a;
 }
-.record_popup .titlebar .close{
+.work_popup .titlebar .close{
   position: absolute;
   right: 0;
   margin: 0!important;
 }
-.record_popup .titlebar .navigate img{
+.work_popup .titlebar .navigate img{
   width: 14px;
   position: absolute;
   right: 0px;
 }
-.record_popup .titlebar .add_to_tray{
+.work_popup .titlebar .add_to_tray{
   position: absolute;
   top: 0;
   left: 110px;
   width: 200px;
 }
-.record_popup .titlebar .add_to_tray .expand{
+.work_popup .titlebar .add_to_tray .expand{
   background: #ffffff;
   position: relative;
   margin: 10px 0 0 0;
   left: -60px;
 }
-.record_data {	
+.work_data {	
   position: absolute;
   left: 10px;
   top: 10px;
   width: 220px;
 }
-.record_cont_holder {
+.work_cont_holder {
   overflow: auto;
   height: 100%;
 }
-.record_img {	
+.work_img {	
   margin: 0 100px 0 220px;
 }
-.record_surr {	
+.work_surr {	
   position: absolute;
   right: 10px;
   top: 10px;
   width: 100px;
 }
-.record_surr img{	
+.work_surr img{	
   width: 100px;
   padding: 0 0 10px 0;
 }
@@ -994,8 +994,9 @@ a {
 .credit a:hover,.return a:hover{
   font-weight: bold;
 }
-/*RECORDS PAGE*/
-.RECORD {
+
+/* WORKS PAGE*/
+.WORK {
   -webkit-box-sizing: border-box;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
@@ -1011,7 +1012,7 @@ a {
 }
 
 
-#record_annotations{
+#work_annotations{
   div.annotation_wrapper{
     background: lightgray;
     border: 1px solid black;
@@ -1038,13 +1039,13 @@ a {
 
 
 /*HACKING*/
-.record_img {
+.work_img {
   position: relative;
   max-width: 100%;
   height: 100%;
 }
 
-.record {
+.work {
   max-width: 100%;
   max-height: 100%;
 }
@@ -1503,7 +1504,7 @@ dt:hover {
       height: 10px;
     }
     
-    .tray_records, .tray_visualizations {
+    .tray_works, .tray_visualizations {
       height: 180px;
       overflow: auto;
       display: none;
@@ -1700,12 +1701,12 @@ dt:hover {
 
 /* Replace global.js.coffe */
 
-.record_img .record {
+.work_img .work {
   max-width: 70%;
   max-height: 70%;
 }
 
-.record_img {
+.work_img {
   width: 70%;
   height: 70%;
 }

@@ -23,8 +23,8 @@ describe ( 'Collection model' ) {
       col.should_not respond_to 'properties'
     }
 
-    it ( 'should have records' ) {
-      col.records.count.should > 0
+    it ( 'should have works' ) {
+      col.works.count.should > 0
     }
   }
 
@@ -73,34 +73,34 @@ describe ( 'Collection model' ) {
     }
   }
 
-  describe ( 'create_record' ) {
+  describe ( 'create_work' ) {
     let ( :r ) { FactoryGirl.attributes_for( :starry_night ) }
 
     context ( 'from_json' ) {
       it {
         expect {
-          col.create_record_from_json( r[ :original ] )
-        }.to change { col.records.count }.by( 1 )
+          col.create_work_from_json( r[ :original ] )
+        }.to change { col.works.count }.by( 1 )
       }
 
-      describe ( 'create_record_from_json' ) {
+      describe ( 'create_work_from_json' ) {
         before {
-          col.create_record_from_json( r[ :original ] )
+          col.create_work_from_json( r[ :original ] )
         }
 
         it {
-          Record.last.title.should eq( 'Starry Night' )
+          Work.last.title.should eq( 'Starry Night' )
         }
 
         it ( 'should extract thumbnail_url' ) {
-          Record.last.thumbnail_url.should eq( 'http://upload.wikimedia.org/wikipedia/commons/thumb/e/ea/Van_Gogh_-_Starry_Night_-_Google_Art_Project.jpg/116px-Van_Gogh_-_Starry_Night_-_Google_Art_Project.jpg' )
-          Record.last.parsed[ 'thumbnail' ].should eq( nil )
+          Work.last.images.first.thumbnail_url.should eq( 'http://upload.wikimedia.org/wikipedia/commons/thumb/e/ea/Van_Gogh_-_Starry_Night_-_Google_Art_Project.jpg/116px-Van_Gogh_-_Starry_Night_-_Google_Art_Project.jpg' )
+          Work.last.parsed[ 'thumbnail' ].should eq( nil )
         }
       }
 
-      describe ( 'return a record' ) {
+      describe ( 'return a work' ) {
         it {
-          col.create_record_from_json( r[ :original ] ).class.should eq( Record.first.class )
+          col.create_work_from_json( r[ :original ] ).class.should eq( Work.first.class )
         }
       }
     }
@@ -116,38 +116,38 @@ describe ( 'Collection model' ) {
 
       it {
         expect {
-          col.create_record_from_parsed r[ :original ], pr
-        }.to change { col.records.count }.by( 1 )
+          col.create_work_from_parsed r[ :original ], pr
+        }.to change { col.works.count }.by( 1 )
       }
 
-      describe ( 'return a record' ) {
+      describe ( 'return a work' ) {
         it {
-          col.create_record_from_parsed( r[ :original ], pr ).class.should eq( Record.first.class )
+          col.create_work_from_parsed( r[ :original ], pr ).class.should eq( Work.first.class )
         }
       }
 
       context ( 'static function' ) {
         it {
           expect {
-            Collection.create_record_from_parsed( col.key, r[ :original ], pr )
-          }.to change { col.records.count }.by( 1 )
+            Collection.create_work_from_parsed( col.key, r[ :original ], pr )
+          }.to change { col.works.count }.by( 1 )
         }
 
-        describe ( 'return a record' ) {
+        describe ( 'return a work' ) {
           it {
-            Collection.create_record_from_parsed( col.key, r[ :original ], pr ).class.should eq( Record.first.class )
+            Collection.create_work_from_parsed( col.key, r[ :original ], pr ).class.should eq( Work.first.class )
           }
         }
 
-        describe ( 'no longer caching thumbnail on record creation' ) {
+        describe ( 'no longer caching thumbnail on work creation' ) {
           before {
             Rails.cache.clear
-            Collection.create_record_from_parsed( col.key, r[ :original ], pr )
+            Collection.create_work_from_parsed( col.key, r[ :original ], pr )
           }
 
           it ( 'should not have cache date yet' ) {
-            r = Record.last
-            thumb_hash = Zlib.crc32 r.thumbnail_url
+            r = Work.last
+            thumb_hash = Zlib.crc32 r.images.first.thumbnail_url
 
             cache_date = Rails.cache.fetch( "#{thumb_hash}-date" ) { Date.new }
             cache_date.should eq( Date.new )

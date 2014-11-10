@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141019015743) do
+ActiveRecord::Schema.define(version: 20141105213313) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -21,17 +21,17 @@ ActiveRecord::Schema.define(version: 20141019015743) do
     t.hstore   "previous"
     t.hstore   "amended"
     t.integer  "user_id"
-    t.integer  "record_id"
+    t.integer  "work_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
-  add_index "amendments", ["record_id"], name: "index_amendments_on_record_id", using: :btree
   add_index "amendments", ["user_id"], name: "index_amendments_on_user_id", using: :btree
+  add_index "amendments", ["work_id"], name: "index_amendments_on_work_id", using: :btree
 
   create_table "annotations", force: true do |t|
     t.integer  "user_id"
-    t.integer  "record_id"
+    t.integer  "work_id"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.json     "content"
@@ -59,6 +59,18 @@ ActiveRecord::Schema.define(version: 20141019015743) do
     t.datetime "updated_at"
   end
 
+  create_table "images", force: true do |t|
+    t.text     "image_url"
+    t.text     "thumbnail_url"
+    t.integer  "work_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "tray_item_id"
+  end
+
+  add_index "images", ["tray_item_id"], name: "index_images_on_tray_item_id", using: :btree
+  add_index "images", ["work_id"], name: "index_images_on_work_id", using: :btree
+
   create_table "messages", force: true do |t|
     t.string   "title"
     t.text     "body"
@@ -68,17 +80,6 @@ ActiveRecord::Schema.define(version: 20141019015743) do
     t.integer  "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-  end
-
-  create_table "records", force: true do |t|
-    t.json     "original"
-    t.hstore   "parsed"
-    t.integer  "collection_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.string   "unique_identifier"
-    t.string   "thumbnail_url"
-    t.string   "title"
   end
 
   create_table "sections", force: true do |t|
@@ -102,14 +103,22 @@ ActiveRecord::Schema.define(version: 20141019015743) do
 
   add_index "spotlights", ["user_id"], name: "index_spotlights_on_user_id", using: :btree
 
+  create_table "tray_items", force: true do |t|
+    t.integer  "tray_id"
+    t.integer  "image_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "tray_items", ["image_id"], name: "index_tray_items_on_image_id", using: :btree
+  add_index "tray_items", ["tray_id"], name: "index_tray_items_on_tray_id", using: :btree
+
   create_table "trays", force: true do |t|
     t.integer  "owner_id"
     t.string   "owner_type"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "name"
-    t.integer  "records",        default: [], array: true
-    t.json     "visualizations", default: []
   end
 
   create_table "users", force: true do |t|
@@ -119,6 +128,16 @@ ActiveRecord::Schema.define(version: 20141019015743) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.boolean  "super",           default: false
+  end
+
+  create_table "works", force: true do |t|
+    t.json     "original"
+    t.hstore   "parsed"
+    t.integer  "collection_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.string   "unique_identifier"
+    t.string   "title"
   end
 
 end

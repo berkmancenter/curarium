@@ -1,0 +1,7 @@
+<% if @work.images.any? %>
+  <a href='/works/<%= @work.id %>' target='_blank' class='work_thumbnail' style='background-image:url(<%= image_tag thumb_record_path( @work ) %>)' title='<%= @work.title %>'>
+<% else %>
+  <a href='/works/<%= @work.id %>' target='_blank' class='work_thumbnail' style='background-color:#CCC' title='<%= @work.title %>'>
+<% end %>
+	<h3 class='work_thumbnail_title'><%= @work.title %></h3>
+</a>

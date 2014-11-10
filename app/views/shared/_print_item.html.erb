@@ -1,7 +1,7 @@
 <% background = "" %>
 <% big ||= false %>
 <% if item.class == Collection %>
-  <% background = thumb_record_path(item.records.first) unless item.records.first.nil? %>
+  <% background = thumb_work_path(item.works.first) unless item.works.first.nil? %>
   <a href='<%= collection_path(item) %>'>
     <div class='gallery_item <%= "item_lrg" if big %>'>
       <div class='stack1<%= " item_lrg" if big %>' style='background-image: none;'></div>
@@ -18,7 +18,7 @@
         <img src='/assets/collection_w.png' alt=""> About
       </div>
       <div>
-        <a href='<%= collection_records_path (item) %>'><img src='/assets/add_r.png' alt=""><img src='/assets/add_w.png' alt=""> Activate</a>
+        <a href='<%= collection_works_path (item) %>'><img src='/assets/add_r.png' alt=""><img src='/assets/add_w.png' alt=""> Activate</a>
       </div>
     </div>
   </div>
@@ -33,9 +33,9 @@
       <b><%= User.find(item.user_id).name %></b> <i>on <%= item.created_at.strftime("%d %b %y") %></i>
     </div>
   </a>
-<% elsif item.class == Record %>
-  <% background = thumb_record_path(item) %>
-  <a href='<%= record_path(item) %>'>
+<% elsif item.class == Work %>
+  <% background = thumb_work_path(item) %>
+  <a href='<%= work_path(item) %>'>
     <div class='gallery_item<%=" item_lrg" if big %>' style='background-image:url(<%= background %>)'>
       <div class='object_id'><%= item.id %></div>
     </div>

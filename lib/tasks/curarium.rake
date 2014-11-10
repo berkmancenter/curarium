@@ -27,9 +27,9 @@ namespace :curarium do
 
       not_present = 0
       not_cached = 0
-      total = c.records.count
+      total = c.works.count
 
-      c.records.each { |r|
+      c.works.each { |r|
         if r.thumbnail_url.present?
           thumb_hash = Zlib.crc32 r.thumbnail_url
 
@@ -104,20 +104,20 @@ namespace :curarium do
 
     FileUtils.mkpath collection_tiles_path
 
-    rs = c.records.with_thumb
-    record_dimension = Math.sqrt( rs.count ).ceil
+    rs = c.works.with_thumb
+    work_dimension = Math.sqrt( rs.count ).ceil
     zoom_levels = 0
 
-    puts "tiling #{rs.count} records with thumbnails (of #{c.records.count})"
+    puts "tiling #{rs.count} works with thumbnails (of #{c.works.count})"
 
     (0..8).reverse_each { |zoom|
-      puts " rd: #{record_dimension}"
-      break if record_dimension == 0
+      puts " rd: #{work_dimension}"
+      break if work_dimension == 0
 
       if zoom == 8
         # most zoomed in, each quadkey is one image/thumbnail
-        for col in 0..(record_dimension-1)
-          for row in 0..(record_dimension-1)
+        for col in 0..(work_dimension-1)
+          for row in 0..(work_dimension-1)
             puts "#{col}, #{row}"
 
             quadkey = tile_to_quadkey col, row, zoom
@@ -143,7 +143,7 @@ namespace :curarium do
 
       zoom_levels += 1
 
-      record_dimension /= 2
+      work_dimension /= 2
     }
 
     puts "total zoom levels: #{zoom_levels}"
@@ -208,9 +208,9 @@ namespace :curarium do
     c = c.first
 
     not_cached = 0
-    total = c.records.count
+    total = c.works.count
 
-    c.records.with_thumb.each { |r|
+    c.works.with_thumb.each { |r|
       thumb_hash = Zlib.crc32 r.thumbnail_url
 
       cache_date = Rails.cache.read "#{thumb_hash}-date"
@@ -246,7 +246,7 @@ namespace :curarium do
     end
 
     ent = Dir.entries input_dir
-    puts "Ingesting #{ent.count - 2} records from #{input_dir}"
+    puts "Ingesting #{ent.count - 2} works from #{input_dir}"
     puts "Ingesting into collection with key: #{collection_key}"
 
     collection = Collection.find_by_key( collection_key )
@@ -256,19 +256,19 @@ namespace :curarium do
     ent.each { |f| 
       next if f.nil? || File.directory?(f) || File.extname(f) != '.json'
 
-      t = Thread.new { read_record( input_dir, f, configuration ) }
+      t = Thread.new { read_work( input_dir, f, configuration ) }
       t.join
 
       unique_identifier = t[ :parsed ][ 'unique_identifier'] unless t[ :parsed ].nil?
       unique_identifier = unique_identifier.to_s unless unique_identifier.nil?
 
-      if unique_identifier.present? && Record.exists?( unique_identifier: unique_identifier, collection_id: collection.id )
-        r = Record.find_by( unique_identifier: unique_identifier, collection_id: collection.id )
+      if unique_identifier.present? && Work.exists?( unique_identifier: unique_identifier, collection_id: collection.id )
+        r = Work.find_by( unique_identifier: unique_identifier, collection_id: collection.id )
         r.update( original: t[:original], parsed: t[:parsed] )
         ok = true
       else
         ok = false
-        ok = Collection.create_record_from_parsed collection_key, t[ :original ], t[ :parsed ] unless t[ :parsed ].nil?
+        ok = Collection.create_work_from_parsed collection_key, t[ :original ], t[ :parsed ] unless t[ :parsed ].nil?
       end
 
       if ok
@@ -286,7 +286,7 @@ namespace :curarium do
     puts "Processed #{j_count} JSON files (out of #{ent.count - 2} total files in directory)"
   end
 
-  def read_record( input_dir, f, configuration )
+  def read_work( input_dir, f, configuration )
     # thread to wait for file IO, return json
     filename = "./#{input_dir}/#{File.basename(f)}"
     original = JSON.parse IO.read( filename )

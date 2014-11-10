@@ -5,15 +5,15 @@ describe ( 'collections/show' ) {
 
   context ( 'normal collection' ) {
     let ( :collection ) { Collection.first }
-    let ( :record ) { collection.records.limit(1).order("RANDOM()").first }
-    let ( :records ) { collection.records.limit(5).order("RANDOM()") }
+    let ( :work ) { collection.works.limit(1).order("RANDOM()").first }
+    let ( :works ) { collection.works.limit(5).order("RANDOM()") }
     let ( :spotlights ) { Spotlight.limit(5).order("RANDOM()") }
-    let ( :all ) { (records + spotlights).shuffle }
+    let ( :all ) { (works + spotlights).shuffle }
 
     before {
       assign( :collection, collection )
-      assign( :record, record )
-      assign( :records, records )
+      assign( :work, work )
+      assign( :works, works )
       assign( :spotlights, spotlights )
       assign( :all, all )
       render
@@ -28,7 +28,7 @@ describe ( 'collections/show' ) {
       should have_css '.col-sidebar'
     }
 
-    it { should have_css %Q|.col-sidebar a[href*="#{collection_records_path collection}"]| }
+    it { should have_css %Q|.col-sidebar a[href*="#{collection_works_path collection}"]| }
     it { should have_css '.col-sidebar a', text: 'Explore' }
 
     it {

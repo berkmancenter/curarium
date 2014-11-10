@@ -22,10 +22,10 @@
 				<h3><%= tray.name %></h3>
 				<div class='close_tray'></div>
 				<h4>Records:</h4>
-				<div class='tray_records'>
-					<% tray.records.each do |record|%>
-            <% @record = Record.find(record) %>
-            <%= render 'records/thumb', locals: {record: @record} %>
+				<div class='tray_works'>
+					<% tray.works.each do |work|%>
+            <% @work = Work.find(work) %>
+            <%= render 'works/thumb', locals: {work: @work} %>
 		      <% end %>
 				</div>
 

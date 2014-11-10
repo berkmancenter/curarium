@@ -1,0 +1,32 @@
+<article class="show-xhr">
+  <h1><%= work_title @work %></h1>
+
+  <section class="parsed-info">
+    <h2>Parsed Information</h2>
+
+    <%= render :partial => 'shared/print_metadata', locals: {
+      original: @work.parsed,
+      current: @current_metadata,
+      class_name: 'printed_object',
+      id_name: 'parsed_work'
+    } %>
+  </section>
+
+  <section class="work-image">
+    <ul class="work-commands">
+      <li><%= link_to render( partial: 'shared/mini_icon', object: 'work' ), @work, class: 'show' %></li>
+      <li><%= link_to render( partial: 'shared/mini_icon', object: 'close' ), '#', class: 'close' %></li>
+    </ul>
+    <h2><%= work_title @work %></h2>
+    <%= image_tag "#{@work.images.first.image_url}?width=640", alt: '' %>
+  </section>
+
+  <% if @work.images.any? %>
+    <section class="surrogates">
+      <h2>Surrogates</h2>
+      <% @work.images.each_with_index do |image, i|%>
+        <a href="<%= work_path @work %><%= "?image=#{i}" unless i == 0 %>"><%= image_tag "#{image.image_url}?width=128&height=128", class: 'surrogate_thumbnail', alt: ''%></a>
+      <% end %>
+    </section>
+  <% end %>
+</article>

@@ -12,18 +12,18 @@
 	  <div class="menulines"></div>
 	  <% if (params[:controller] == 'home' and action_name == 'about') or ( params[:controller] == 'collections' and action_name == 'show') %>
 	    <!-- RANDOM IMAGE HEADER -->
-	    <% if @record.present? && JSON.parse(@record.parsed['image']).present? %>
-	      <div class="about_header_lines" style="background: url('<%= JSON.parse(@record.parsed['image'])[0]%>') repeat center center; "></div>
+	    <% if @work.present? && @work.images.any? %>
+	      <div class="about_header_lines" style="background: url('<%= @work.images.first %>') repeat center center; "></div>
       <% end %>
     <% end %>
 	  <div class="GLOBAL_HOLDER">
 	    <%= render 'shared/header'%>
 	    <%= yield %>
 	      
-	    <% if (params[:controller] == 'records' and action_name == 'show') %>
-	      <!-- BEGIN RECORD HOLDER -->	
-		    <div  id='main-canvas' class="RECORD"></div>
-	      <!-- END RECORD HOLDER -->
+	    <% if (params[:controller] == 'works' and action_name == 'show') %>
+	      <!-- BEGIN WORK HOLDER -->	
+		    <div  id='main-canvas' class="WORK"></div>
+	      <!-- END WORK HOLDER -->
 		<% elsif (params[:controller] == 'spotlights' and (action_name == 'new' || action_name == 'edit' || action_name == 'show' )) %>
 		<% else %>
 		<%= render 'shared/footer'%>      

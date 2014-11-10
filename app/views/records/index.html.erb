@@ -1,5 +1,0 @@
-<% provide :title, 'Records' %>
-
-<%= render partial: "records/#{params['vis'] || 'objectmap'}", object: @records %>
-
-<%=render partial: 'records/vis_controls', locals: { params: params } %>

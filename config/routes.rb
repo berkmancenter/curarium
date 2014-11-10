@@ -1,7 +1,7 @@
 Curarium::Application.routes.draw do
 
   
-  get 'trays/:id/add_records' => 'trays#add_records', as: 'add_records'
+  get 'trays/:id/add_works' => 'trays#add_works', as: 'add_works'
   get 'trays/:id/add_visualization' => 'trays#add_visualization', as: 'add_visualization'
   
   get 'trays/:id' => 'trays#external', as: 'external'
@@ -37,7 +37,7 @@ Curarium::Application.routes.draw do
 
   resources :spotlights
 
-  resources :records do
+  resources :works do
     member do
       get 'thumb'
     end
@@ -50,7 +50,7 @@ Curarium::Application.routes.draw do
     post "ingest" => "collections#ingest", as: "ingest"
     get "add" => "collections#add", as: "add"
     post "upload" => "collections#upload", as: "upload"
-    resources :records
+    resources :works
   end
 
   # The priority is based upon order of creation: first created -> highest priority.

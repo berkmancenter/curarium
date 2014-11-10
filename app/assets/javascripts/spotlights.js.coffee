@@ -110,8 +110,8 @@ window.spotlights.display_annotation = (wrapper, content)->
 #THIS FUNCTION TAKES A COMPONENT AND RENDERS IT ON THE PAGE ACCORDING TO ITS TYPE. IT'S CALLED BY THE SPOTLIGHT UPDATE FUNCTION
 render_thumbnail = (data, i) ->
   switch data.type
-    when 'record'
-      frame = $("<div class='record_thumbnail surrogate'>").css('background-image', "url("+data.image+"?width=200&height=200)")
+    when 'work'
+      frame = $("<div class='work_thumbnail surrogate'>").css('background-image', "url("+data.image+"?width=200&height=200)")
       title = $('<h3>').append(i)
       frame.append(title)
       $('#spotlight_components').append(frame)
@@ -121,7 +121,7 @@ render_thumbnail = (data, i) ->
       content.width = parseInt(content.width)
       content.x = parseInt(content.x)
       content.y = parseInt(content.y)
-      frame = $("<div class='record_annotation surrogate'>")
+      frame = $("<div class='work_annotation surrogate'>")
       stage = new Kinetic.Stage({
         container: frame[0]
         width: if content.width > content.height then 150 else content.width * 150 / content.height

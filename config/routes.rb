@@ -1,16 +1,5 @@
 Curarium::Application.routes.draw do
-
-  
-  get 'trays/:id/add_works' => 'trays#add_works', as: 'add_works'
-  get 'trays/:id/add_visualization' => 'trays#add_visualization', as: 'add_visualization'
-  
-  get 'trays/:id' => 'trays#external', as: 'external'
-  
   get 'about' => 'home#about', as: 'about'
-  
-  concern :tray_owner do
-    resources :trays
-  end
   
   controller :sessions do
     get  'login' => :new
@@ -18,21 +7,22 @@ Curarium::Application.routes.draw do
     delete 'logout' => :destroy
   end
 
-  get "sessions/create"
-  get "sessions/destroy"
+#  get "sessions/create"
+#  get "sessions/destroy"
 
-  post 'users/message' => 'users#message', as: 'user_message'
-  post 'sections/message' => 'sections#message', as: 'section_message'
+#  post 'users/message' => 'users#message', as: 'user_message'
+#  post 'sections/message' => 'sections#message', as: 'section_message'
 
   resources :users do
-    concerns :tray_owner
+    resources :trays
   end
 
   resources :sections do
-    concerns :tray_owner
-    resources :messages do
-      resources :comments
-    end
+    resources :trays
+
+#    resources :messages do
+#      resources :comments
+#    end
   end
 
   resources :spotlights
@@ -50,6 +40,7 @@ Curarium::Application.routes.draw do
     post "ingest" => "collections#ingest", as: "ingest"
     get "add" => "collections#add", as: "add"
     post "upload" => "collections#upload", as: "upload"
+
     resources :works
   end
 

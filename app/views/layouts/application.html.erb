@@ -2,8 +2,12 @@
 <html>
 	<head>
     <meta charset="utf-8">
-    	<%= favicon_link_tag 'logo-01.png' %>
+
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,600' rel='stylesheet' type='text/css'>
+    <%= favicon_link_tag 'logo-01.png' %>
+
 		<title>Curarium<%= yield(:title) || "Home" %></title>
+
 		<%= stylesheet_link_tag    "application", media: "all" %>
 		<%= csrf_meta_tags %>
 	</head>

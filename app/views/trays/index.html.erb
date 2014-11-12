@@ -1,12 +1,15 @@
-<% require 'works_helper' %>
+<%# require 'works_helper' %>
+
+<h1 class="collection-header">Tray Manager</h1>
+
 <ul>
   <% @trays.each { |tray| %>
     <li>
       <b><%= tray.name %></b>
       <ul>
-        <% tray.works.each { |work_id| %>
-          <li><%= work_title Work.find( work_id ) %></li>
-        <% } %>
+        <%# tray.works.each { |work_id| %>
+          <%# <li><!= work_title Work.find( work_id ) !></li> %>
+        <%# } %>
       </ul>
     </li>
   <% } %>

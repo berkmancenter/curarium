@@ -11,6 +11,10 @@
 h1 {
   color: $cred;
   font-size: $fontSize3;
+
+  &.collection-header {
+    border-bottom: 1px solid $cred;
+  }
 }
 
 select {

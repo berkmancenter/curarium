@@ -17,14 +17,24 @@ select {
   background-color: white;
 }
 
-input[type=text], input[type=password], textarea {
+input[type=text], input[type=password], textarea, .login-button {
+  background: $white;
   border: 1px solid $cred;
+  color: $cred;
+  font-size: $fontSize1;
+  height: 20px;
+  padding: 0 4px;
+  width: 160px;
 }
 
 a {
   color: $cred;
   cursor: pointer;
-  text-decoration: none !important;
+  text-decoration: none;
+
+  &:hover {
+    text-decoration: underline;
+  }
 }
 
 /* GLOBAL HOLDER */
@@ -138,7 +148,7 @@ a {
 }
 .dropdown_menu a {
   color: #000000!important;
-  font-size: $fontSize1!important;
+  font-size: $fontSize1 !important;
   font-weight: normal!important;
   text-transform:none!important;
   text-shadow:
@@ -187,7 +197,7 @@ a {
   height: 35px;
   position: relative;
   a {
-    text-transform:uppercase;
+    text-transform: uppercase;
   }
   .curarium_name{
     position: absolute;
@@ -289,9 +299,8 @@ a {
     }
     .hintbar_desc {
       span{
-	position: absolute;
 	whitespace: nowrap;
-	font-size: 28px;
+	font-size: $fontSize3;
 	color: #d2232a;
 	&:nth-child(n+2) {
 	  display: none;
@@ -580,8 +589,7 @@ a {
   color: #d2232a;
 }
 .INFO_BAR #hintbar_links,.INFO_BAR #hintbar_search {
-  position: absolute; 
-  font-size: $fontSize2;
+  font-size: $fontSize1;
   text-transform:uppercase;
 }
 .INFO_BAR #hintbar_links {
@@ -1547,44 +1555,6 @@ dt:hover {
     }
 }
 
-
-/*LOGIN*/
-.login{
-	top: 90px;
-}
-.signup{
-	top: 55px;
-}
-.login_signup {
-	padding: 0 0 10px 0; 
-	position: relative;
-	width: 420px;
-}
-.login_signup b{
-	color: #d2232a;
-}
-.login_signup input, .login_signup:last-child {
-	position: absolute;
-	left: 120px;
-	bottom: 7px;
-	padding: 0;
-	margin: 0;
-}
-.login_signup input {
-	padding: 2px 0;
-	margin: 0;
-	width: 200px;
-}
-.login_signup:last-child{
-	bottom: -25px;
-}
-.login_signup:last-child div{
-	float: left;
-}
-
-.login_signup .button{	
-	width: 200px;	
-}
 .switch {
 	text-transform: none;
 	padding: 4px 0 0 10px;

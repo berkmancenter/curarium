@@ -10,13 +10,18 @@
   <div class="expandable">
     <div class="info_text">
       <div class="hintbar_desc">
-        <span>
-          Sign up! Join the community<br>
-        </span>
+        <h1>Sign up! Join the Curarium community</h1>
+        <p class="switch">Already a member? <%= link_to 'Sign in!', login_path %></p>
       </div>
 
       <div id="hintbar_links" class="signup">
         <%= render 'form' %>
+
+        <div class="signup-info">
+          <p>This is a <a href="javascript:void(0);">beta</a> version of Curarium, which is undergoing final testing before its official release and full public deployment. Please be aware that the current public release is subject to change at any time and that upcoming versions could alter or delete user content.</p>
+
+          <p>* Enter your email address and click here to receive the Secret Word that will allow you to create an account.</p>
+        </div>
       </div>
     </div>
   </div>

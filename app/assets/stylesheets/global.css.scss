@@ -277,7 +277,7 @@ a {
 
 /* INFO BAR  */
 .INFO_BAR{
-  height: 200px;
+  min-height: 200px;
   position: relative;
   .shifter{
     img{
@@ -293,7 +293,7 @@ a {
   }
   .expandable {
     .info_text {
-      height: 200px;
+      min-height: 200px;
       border-bottom: 1px solid #d2232a;
       position: relative;
     }

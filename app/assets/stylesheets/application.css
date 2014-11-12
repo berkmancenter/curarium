@@ -44,42 +44,10 @@ html, body {
   font-size: 12px;
 }
 
-
-
-.work_thumbnail {
-    padding: 1px;
-    width: 75px;
-    height: 75px;
-    margin: 0.1em;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
-    float: left;
-    position: relative;
-
-  }
-
-.work_thumbnail h3{
-	font-size: 6pt;
-      position: absolute;
-      background: #d2232a;
-      color: white;
-      width: 100%;
-      bottom: 0;
-      left: 0;
-      height: 3em;
-      overflow: hidden;
-
-}
-
 select {
    background-color: white;
 }
 
 input[type=text], input[type=password], textarea {
   border: 1px solid #CCC !important;
-}
-
-.tag_selector {
-  width: 100%;
 }

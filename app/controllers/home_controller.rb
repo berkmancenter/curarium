@@ -16,7 +16,6 @@ class HomeController < ApplicationController
   end
   
   def about
-    image = I
     @work = Work.limit(1).order("RANDOM()").first
     while @work.images.none?
       @work = Work.limit(1).order("RANDOM()").first

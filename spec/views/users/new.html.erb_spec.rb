@@ -12,11 +12,23 @@ describe ( 'users/new' ) {
     should have_css 'h1', text: 'Sign up!'
   }
 
-  it {
-    should have_css 'p a', text: 'beta'
+  describe ( 'signup-info' ) {
+    it {
+      should have_css 'p a', text: 'beta'
+    }
+
+    it {
+      should have_css 'p a', text: 'click here'
+    }
   }
 
-  it {
-    should have_css 'p a', text: 'click here'
+  describe ( 'signup form' ) {
+    it {
+      should have_css '.signup form'
+    }
+
+    it {
+      should have_css 'form input[type="hidden"][name="send_secret"]'
+    }
   }
 }

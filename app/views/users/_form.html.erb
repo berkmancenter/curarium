@@ -12,12 +12,14 @@
   <% end %>
 
   <div class="login_signup">
+    <input type="hidden" name="send_secret">
+
     <div>
-      <%= f.label :name, "username" %>
-      <%= f.text_field :name, placeholder: 'username' %>
+      <%= f.label :name, 'username' %>
+      <%= f.text_field :name, placeholder: 'username', value: @user.name %>
 
       <%= f.label :email %>
-      <%= f.text_field :email, placeholder: 'email' %>
+      <%= f.text_field :email, placeholder: 'email', value: @user.email %>
     </div>
 
     <div>

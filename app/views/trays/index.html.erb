@@ -2,15 +2,13 @@
 
 <h1 class="collection-header">Tray Manager</h1>
 
-<ul>
-  <% @trays.each { |tray| %>
-    <li>
-      <b><%= tray.name %></b>
-      <ul>
-        <%# tray.works.each { |work_id| %>
-          <%# <li><!= work_title Work.find( work_id ) !></li> %>
-        <%# } %>
-      </ul>
-    </li>
-  <% } %>
-</ul>
+<% @trays.each { |tray| %>
+  <div class="GALLERY">
+    <h2 class="titlebar"><%= tray.name %></h2>
+    <ul>
+      <% tray.images.each { |image| %>
+        <li class="gallery_item"><%= image_tag image.thumbnail_url %></li>
+      <% } %>
+    </ul>
+  </div>
+<% } %>

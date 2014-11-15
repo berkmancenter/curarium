@@ -6,6 +6,7 @@ describe ( 'trays/index' ) {
   context ( 'user with tray' ) {
     let ( :user ) { User.first }
     let ( :trays ) { user.trays }
+    let ( :image ) { trays.tray_items.first }
 
     before {
       assign( :owner, user )
@@ -14,7 +15,19 @@ describe ( 'trays/index' ) {
     }
 
     it {
-      should have_css 'h1', text: 'Tray Manager'
+      should have_css 'h1.collection-header', text: 'Tray Manager'
+    }
+
+    it {
+      should have_css '.GALLERY'
+    }
+
+    it {
+      should have_css '.GALLERY h2.titlebar', text: trays.first.name
+    }
+
+    it {
+      should have_css '.gallery_item'
     }
   }
 }

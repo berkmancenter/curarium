@@ -30,10 +30,10 @@ describe 'works requests', :js => true do
 
     describe ( 'sign in' ) {
       before {
-        fill_in 'Email:', with: 'test@example.com'
-        fill_in 'Password:', with: 't3stus3r'
+        fill_in 'email:', with: 'test@example.com'
+        fill_in 'password:', with: 't3stus3r'
 
-        click_button 'Login'
+        click_button 'login'
       }
 
       describe ( 'get works#index' ) {

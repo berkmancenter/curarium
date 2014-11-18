@@ -14,6 +14,7 @@
 # seed data
 /db/via
 /db/japanese
+/db/Japanese
 
 # collection tiles
 /app/assets/images/collection_tiles

@@ -17,7 +17,7 @@ class UsersController < ApplicationController
 
   # GET /users/new
   def new
-    @user = User.new
+    @user = User.new( user_params )
   end
 
   # GET /users/1/edit
@@ -27,15 +27,18 @@ class UsersController < ApplicationController
   # POST /users
   # POST /users.json
   def create
-    @user = User.new(user_params)
+    if params[ 'send_secret' ] == 'y'
+      ActionMailer::Base.mail(:from => 'curarium@metalab.harvard.edu', :to => params[ :email ], :subject => 'Curarium beta secret word', :body => 'The secret word needed to create a beta account is: Berenson2014').deliver
 
-    respond_to do |format|
-      if params[:magic_word]=='Berenson2014' and @user.save #patch solution to control user authentication 
-        format.html { redirect_to root_url, notice: 'User was successfully created.' }
-        format.json { render action: 'show', status: :created, location: @user }
+      @user = User.new(user_params)
+      render :new
+    else
+      @user = User.new(user_params)
+
+      if params[ :magic_word ] == 'Berenson2014' && @user.save
+        redirect_to login_path, notice: 'User was successfully created.'
       else
-        format.html { render action: 'new' }
-        format.json { render json: @user.errors, status: :unprocessable_entity }
+        render :new
       end
     end
   end
@@ -83,12 +86,12 @@ class UsersController < ApplicationController
 
   # Never trust parameters from the scary internet, only allow the white list through.
   def user_params
-    params.require(:user).permit(:name, :email, :password, :password_confirmation)
+    params.require(:user).permit(:name, :email, :password, :password_confirmation) unless params[ :user ].nil?
   end
   
   def super?
     unless User.find(session[:user_id]).super
-      redirect_to root_url
+      redirect_to root_path
     end
   end
   

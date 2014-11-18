@@ -1,0 +1,51 @@
+@import "colors";
+@import "fonts";
+
+/* users & sessions */
+
+.users {
+  form {
+    display: inline-block;
+  }
+
+  .signup-info {
+    display: inline-block;
+    margin-left: 1em;
+    max-width: 320px;
+    text-transform: none;
+
+    p {
+      margin: 1em 0;
+    }
+
+    a {
+      font-weight: bold;
+    }
+  }
+}
+
+.login_signup {
+  &>div {
+    margin: 1em 0;
+
+    &:last-child {
+      margin-top: 2em;
+    }
+  }
+
+  label {
+    color: $cred;
+    display: none;
+    font-weight: bold;
+    width: 80px;
+  }
+
+  input {
+    display: inline-block;
+  }
+
+  .login-button {
+    height: 22px;
+    width: 170px;
+  }
+}

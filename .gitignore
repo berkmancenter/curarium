@@ -12,9 +12,7 @@
 /db/*.sqlite3-journal
 
 # seed data
-/db/via
-/db/japanese
-/db/Japanese
+/db/collection_data
 
 # collection tiles
 /app/assets/images/collection_tiles

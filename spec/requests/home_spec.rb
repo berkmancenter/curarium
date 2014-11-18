@@ -7,17 +7,17 @@ describe 'home requests', :js => true do
     describe ( 'get home/index' ) {
       before {
         visit root_path
-        page.execute_script( "window.localStorage.removeItem('betaPopupClosed');" )
       }
 
       describe ( 'beta popup' ) {
         it {
+          snap
           should have_css '.beta-popup'
         }
 
         describe ( 'click continue' ) {
           before {
-            click_button 'continue'
+            page.execute_script( "$( '.beta-popup .close' ).click();" )
           }
 
           it {

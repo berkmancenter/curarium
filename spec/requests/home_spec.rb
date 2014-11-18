@@ -11,7 +11,6 @@ describe 'home requests', :js => true do
 
       describe ( 'beta popup' ) {
         it {
-          snap
           should have_css '.beta-popup'
         }
 

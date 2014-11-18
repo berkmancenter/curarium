@@ -30,5 +30,9 @@ describe ( 'users/new' ) {
     it {
       should have_css 'form input[type="hidden"][name="send_secret"]'
     }
+
+    it {
+      should have_css 'a.beta'
+    }
   }
 }

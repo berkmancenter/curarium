@@ -11,6 +11,16 @@
 h1 {
   color: $cred;
   font-size: $fontSize3;
+
+  &.collection-header {
+    border-bottom: 1px solid $cred;
+  }
+}
+
+h2 {
+  color: $cred;
+  font-size: $fontSize2;
+  margin-top: 1em;
 }
 
 select {

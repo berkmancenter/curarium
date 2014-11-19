@@ -3,7 +3,7 @@
     <div class="left">
 	<% if params[:controller] == 'home'  and action_name == 'index' %>
 		<div class="toggle_curarium">
-			<%= link_to 'Curarium', root_url, class:'curarium_name' %>
+      <%= link_to raw( 'Curarium<sup class="beta">beta</sup>' ), root_url, class:'curarium_name' %>
 			<div class="dropdown_menu"><%= link_to 'About / Contact', '/about' %></div>
 		</div>
 	<% else %>

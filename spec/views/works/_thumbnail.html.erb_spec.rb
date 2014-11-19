@@ -12,7 +12,7 @@ describe ( 'works/thumbnail' ) {
     }
 
     it {
-      should have_css "a"
+      should have_css 'a.thumbnail'
     }
 
     it {
@@ -21,6 +21,10 @@ describe ( 'works/thumbnail' ) {
 
     it {
       should have_css "a[title='#{work.title}']"
+    }
+
+    it {
+      should_not have_css 'a img'
     }
   }
 }

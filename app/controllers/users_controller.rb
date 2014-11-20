@@ -28,7 +28,7 @@ class UsersController < ApplicationController
   # POST /users.json
   def create
     if params[ 'send_secret' ] == 'y'
-      ActionMailer::Base.mail(:from => 'curarium@metalab.harvard.edu', :to => params[ :email ], :subject => 'Curarium beta secret word', :body => 'The secret word needed to create a beta account is: Berenson2014').deliver
+      ActionMailer::Base.mail(:from => 'curarium@metalab.harvard.edu', :to => params[ :user ][ :email ], :subject => 'Curarium beta secret word', :body => 'The secret word needed to create a beta account is: Berenson2014').deliver
 
       @user = User.new(user_params)
       render :new

@@ -28,4 +28,8 @@ describe ( 'home/index' ) {
     # 1 gallery_item for collection + the other random selection
     should have_css '.GALLERY .gallery_item', count: 1 + (works + spotlights).count
   }
+
+  it {
+    should have_css '.beta-popup'
+  }
 }

@@ -1,0 +1,18 @@
+@import "colors";
+
+.tray-preview {
+  background: $cgray1;
+  display: block;
+  margin-left: 10px;
+  overflow: hidden;
+  width: 98%;
+
+  img {
+    height: 100px;
+    margin: 10px;
+  }
+
+  &:hover {
+    outline: 2px solid $cred;
+  }
+}

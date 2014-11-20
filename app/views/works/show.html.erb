@@ -30,11 +30,11 @@
 <div class="SUB_MENU bubble_menu">
   <table class="parsed-info"><tr>
     <td  class="bub_menu">
-      <div class="menu_piece">
+      <div class="menu_piecep">
       <label for='parsed_id'><span class="button">P</span></label>
       </div>
       <input type='checkbox' class='checkbox_hack' id='parsed_id'>
-      <div class="expand">
+      <div class="expand_pi">
         <!-- THIS IS WHERE THE PARSED WORK INFORMATION GOES -->
         <%= render :partial => 'shared/print_metadata', :locals=>{:original=>@work.parsed,:current=>@current_metadata,:class_name=>'printed_object',:id_name=>'parsed_work'} %>
       </div>
@@ -42,11 +42,11 @@
     
     <tr>
     <td  class="bub_menu surrogates">
-      <div class="menu_piece">
+      <div class="menu_pieces">
       <label for='surrogates_id'><span class="button">S</span></label>
       </div>
       <input type='checkbox' class='checkbox_hack' id='surrogates_id'>
-      <div class="expand">
+      <div class="expand_surr">
         <!-- THIS IS WHERE THE SURROGATE IMAGES GO -->
       <nav>
         <% @work.images.each { |i| %>
@@ -58,17 +58,19 @@
     
     <tr>
     <td  class="bub_menu">
-      <div class="menu_piece">
+      <div class="menu_piecet">
         <label for='add_id'><span class="button">T</span></label>
         </div>
         <input type='checkbox' class='checkbox_hack' id='add_id'>
-        <div class="expand">
+        <div class="expand_tray">
           <% if session[:user_id].present? %>
 
             <!-- THIS IS WHERE THE LIST OF TRAYS GOES -->
             <div class="new_tray"> <input type='text' placeholder='new tray'><div class="add">add</div></div>
             <% User.find(session[:user_id]).trays.each do |tray| %>
-              <div class="tray" data-tray='<%= tray.id%>' data-tray_name='<%= tray.name%>'><%= tray.name %><div class="add">add</div></div>
+              <div class="tray" data-tray='<%= tray.id%>' data-tray_name='<%= tray.name%>'>
+              <%= tray.name %><div class="add">add</div>
+              </div>
             <% end %>
 
             <!-- missing create new tray -->
@@ -77,11 +79,11 @@
     </td></tr>
 
     <tr><td  class="bub_menu">
-      <div class="menu_piece">
+      <div class="menu_piecea">
         <label for='ann_id'><span class="button">A</span></label>
         </div>
         <input type='checkbox' class='checkbox_hack' id = 'ann_id'>
-        <div class="expand">
+        <div class="expand_anno">
           <div id='annotations'>
 
             <% if session[:user_id] %>

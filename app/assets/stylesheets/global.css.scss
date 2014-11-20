@@ -188,18 +188,19 @@ a {
   margin-bottom: 5px;
   padding: 3px 0;
   height: 10px;
-  width: 100%;
+  width: 90%;
   position: relative;
   input[type=text] {
     width: 80%;
   }
   .add{
-    right: 0;
+    left: 88px;
     top: 5px;
     font-weight: bold;
     color: #d2232a;
     position: absolute;
     cursor: pointer;
+    border: 1px solid #d2232a;
   }
 }
 
@@ -920,6 +921,7 @@ a {
   margin: 10px 0 0 0;
   left: -60px;
 }
+
 .work_data {	
   position: absolute;
   left: 10px;
@@ -1074,7 +1076,16 @@ a {
   background: transparent;
   * {
     pointer-events: none;
-    .menu_piece, .menu_piece * {
+    .menu_piecep, .menu_piecep * {
+      pointer-events: auto;
+    }
+    .menu_pieces, .menu_pieces * {
+      pointer-events: auto;
+    }
+    .menu_piecet, .menu_piecet * {
+      pointer-events: auto;
+    }
+    .menu_piecea, .menu_piecea * {
       pointer-events: auto;
     }
   }
@@ -1082,13 +1093,14 @@ a {
   table {
     border-collapse: collapse;
     border-spacing: 0;
-
+    height: 200px;
     tbody {
       vertical-align: top;
     }
 
     tr{
       padding: 10px;
+      position: absolute;
     }
 
     td {
@@ -1097,11 +1109,41 @@ a {
   }
 }
 
-.bubble_menu .menu_piece{
+.bubble_menu .menu_piecep{
   width: 25px;
   position: relative;
   margin: 0 10px;
   top: 20px;
+  border: 1px solid #d2232a;
+  padding: 25px 0 0 0;
+  overflow: hidden;
+}
+
+.bubble_menu .menu_pieces{
+  width: 25px;
+  position: relative;
+  margin: 0 10px;
+  top: 60px;
+  border: 1px solid #d2232a;
+  padding: 25px 0 0 0;
+  overflow: hidden;
+}
+
+.bubble_menu .menu_piecet{
+  width: 25px;
+  position: relative;
+  margin: 0 10px;
+  top: 100px;
+  border: 1px solid #d2232a;
+  padding: 25px 0 0 0;
+  overflow: hidden;
+}
+
+.bubble_menu .menu_piecea{
+  width: 25px;
+  position: relative;
+  margin: 0 10px;
+  top: 140px;
   border: 1px solid #d2232a;
   padding: 25px 0 0 0;
   overflow: hidden;
@@ -1128,10 +1170,28 @@ a {
 .bubble_menu .bub_dis, .bubble_menu .bub_shr {
   width: 100%; 
 }
-.bubble_menu .bub_dis .menu_piece{
+.bubble_menu .bub_dis .menu_piecep{
   width: auto;
 }
-.bubble_menu .bub_shr .menu_piece{
+.bubble_menu .bub_shr .menu_piecep{
+  width: 50%;
+}
+.bubble_menu .bub_dis .menu_pieces{
+  width: auto;
+}
+.bubble_menu .bub_shr .menu_pieces{
+  width: 50%;
+}
+.bubble_menu .bub_dis .menu_piecet{
+  width: auto;
+}
+.bubble_menu .bub_shr .menu_piecet{
+  width: 50%;
+}
+.bubble_menu .bub_dis .menu_piecea{
+  width: auto;
+}
+.bubble_menu .bub_shr .menu_piecea{
   width: 50%;
 }
 
@@ -1152,7 +1212,16 @@ a {
   color: #ffffff;
   cursor: pointer;
 }
-.bubble_menu .bub_highlight .menu_piece:hover {
+.bubble_menu .bub_highlight .menu_piecep:hover {
+  border: 1px solid #000000;
+}
+.bubble_menu .bub_highlight .menu_pieces:hover {
+  border: 1px solid #000000;
+}
+.bubble_menu .bub_highlight .menu_piecet:hover {
+  border: 1px solid #000000;
+}
+.bubble_menu .bub_highlight .menu_piecea:hover {
   border: 1px solid #000000;
 }
 
@@ -1164,28 +1233,79 @@ a {
   color: #d2232a;
   font-weight: bold;
 }
-.bubble_menu .bub_disable .menu_piece {
+.bubble_menu .bub_disable .menu_piecep {
   border: 0;
   padding: 0;
 }
-.bubble_menu .bub_disable .menu_piece .titlebar {
+.bubble_menu .bub_disable .menu_piecep .titlebar {
+  border: 0;
+  padding: 5px 0 0 0;
+}
+.bubble_menu .bub_disable .menu_pieces {
+  border: 0;
+  padding: 0;
+}
+.bubble_menu .bub_disable .menu_pieces .titlebar {
+  border: 0;
+  padding: 5px 0 0 0;
+}
+.bubble_menu .bub_disable .menu_piecet {
+  border: 0;
+  padding: 0;
+}
+.bubble_menu .bub_disable .menu_piecet .titlebar {
+  border: 0;
+  padding: 5px 0 0 0;
+}
+.bubble_menu .bub_disable .menu_piecea {
+  border: 0;
+  padding: 0;
+}
+.bubble_menu .bub_disable .menu_piecea .titlebar {
   border: 0;
   padding: 5px 0 0 0;
 }
 
-.expand {
+.expand_pi {
   display: none;
-  padding: 10px 10px 0 10px;
+  padding: 10px 47px 10px 48px;
+  margin: -7px 50px 0 50px;
+  width: 120px !important;
+  height: 80px;
+  max-width: none !important;
+}
+.expand_surr {
+  display: none;
+  padding: 40px 10px 0 10px;
   margin: -7px 50px 0 50px;
   width: 100px !important;
   height: 80px;
   max-width: none !important;
 }
+.expand_tray {
+  display: none;
+  padding: 10px 45px 10px 45px;
+  margin: 73px 50px 0 50px;
+  border: 1px solid #d2232a;
+  width: 100px !important;
+  height: 80px;
+  max-width: none !important;
+}
 
-.bubble_menu .surrogates .expand img {
+.expand_anno {
+  display: none;
+  padding: 10px 10px 0 10px;
+  margin: 113px 50px 0 50px;
+  width: 100px !important;
+  height: 80px;
+  max-width: none !important;
+}
+
+.bubble_menu .surrogates .expand_surr img {
   width: 50px;
   float: left;
-  padding: 5px;
+  padding: 5px 68px 5px 67px;
+  border: 1px solid #d2232a;
 }
 
 /* UPLOADER */
@@ -1762,22 +1882,73 @@ dt:hover {
   bottom: 4px;
 }
 
-.bubble_menu .menu_piece .button {
+.bubble_menu .menu_piecep .button {
   background: transparent;
 }
 
-.bubble_menu .menu_piece .button:hover {
+.bubble_menu .menu_piecep .button:hover {
   background: #d2222a;
 }
 
-.bubble_menu .menu_piece {
+.bubble_menu .menu_piecep {
+  display: block;
+}
+.bubble_menu .menu_pieces .button {
+  background: transparent;
+}
+
+.bubble_menu .menu_pieces .button:hover {
+  background: #d2222a;
+}
+
+.bubble_menu .menu_pieces {
+  display: block;
+}
+.bubble_menu .menu_piecet .button {
+  background: transparent;
+}
+
+.bubble_menu .menu_piecet .button:hover {
+  background: #d2222a;
+}
+
+.bubble_menu .menu_piecet {
+  display: block;
+}
+.bubble_menu .menu_piecea .button {
+  background: transparent;
+}
+
+.bubble_menu .menu_piecea .button:hover {
+  background: #d2222a;
+}
+
+.bubble_menu .menu_piecea {
   display: block;
 }
 
-.bubble_menu .checkbox_hack:checked ~ .expand {
+.bubble_menu .checkbox_hack:checked ~ .expand_pi {
   display: block;
   width: 100px !important;
   max-width: none !important;
   border: 1px solid #d2232a;
 }
+.bubble_menu .checkbox_hack:checked ~ .expand_surr {
+  display: block;
+  width: 100px !important;
+  max-width: none !important;
 
+}
+.bubble_menu .checkbox_hack:checked ~ .expand_tray {
+  display: block;
+  width: 105px !important;
+  height: auto;
+  max-width: none !important;
+}
+.bubble_menu .checkbox_hack:checked ~ .expand_anno {
+  display: block;
+  width: 175px !important;
+  height: auto;
+  max-width: none !important;
+  border: 1px solid #d2232a;
+}

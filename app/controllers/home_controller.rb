@@ -21,5 +21,4 @@ class HomeController < ApplicationController
       @work = Work.limit(1).order("RANDOM()").first
     end
   end
-
 end

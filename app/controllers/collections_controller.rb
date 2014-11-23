@@ -28,7 +28,7 @@ class CollectionsController < ApplicationController
   # GET /collections/1/edit
   def edit
   end
-
+  
   # POST /collections
   # POST /collections.json
   def create
@@ -80,7 +80,6 @@ class CollectionsController < ApplicationController
   end
 
   # importations
-  
   
   private
     # Use callbacks to share common setup or constraints between actions.

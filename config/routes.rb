@@ -26,7 +26,6 @@ Curarium::Application.routes.draw do
   end
 
   resources :spotlights
-
   resources :works do
     member do
       get 'thumb'
@@ -43,6 +42,9 @@ Curarium::Application.routes.draw do
 
     resources :works
   end
+  
+get "/help" => "pages#help"
+get "/importhelp" => "pages#importhelp"
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

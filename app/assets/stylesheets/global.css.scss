@@ -1679,7 +1679,14 @@ dt:hover {
 	}
 }
 
-.button{
+.act_button {
+  display: none;
+  width: 100%;
+  cursor: pointer;
+  border: 2px solid #E60000;
+  color: #E60000;
+}
+.abo_button {
   display: none;
   width: 100%;
   cursor: pointer;
@@ -1697,13 +1704,23 @@ dt:hover {
   cursor: default;
 }
 
-.stack3:hover button{
+.stack3:hover .act_button {
     display:block;
     bottom: 10px;
     margin: 125px 10px -120px 0;
     bottom: -15px;
 }
-.stack3:hover button:hover {
+.stack3:hover .act_button:hover {
+  color: #FFFFFF;
+  background: #D2232A;
+}
+.stack3:hover .abo_button {
+    display:block;
+    bottom: 10px;
+    margin: 125px 10px -120px 0;
+    bottom: -15px;
+}
+.stack3:hover .abo_button:hover {
   color: #FFFFFF;
   background: #D2232A;
 }

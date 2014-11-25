@@ -1,5 +1,41 @@
 @import "colors";
 
 .help .instructions{
-	color: red;
+	color: #D2232A;
+	padding: 1em;
+	font-size: 150%;
 }
+
+.inst_list {
+	width: 1100;
+	height: 280;
+}
+
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+    width: 100%;
+    height: 350px;
+    tbody {
+      vertical-align: top;
+      height: 280px;
+    }
+
+    tr{
+      padding: 10px;
+      margin: 0 0 50px 0;
+      position: absolute;
+    }
+
+    .image_side {
+      padding: 20px;
+      color: #D2232A;
+      width: 500px;
+      height: 281px;
+    } 
+    .text_side {
+      padding: 15px;
+      color: #D2232A;
+      font-size: 100%
+    }    
+  }

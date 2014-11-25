@@ -1213,6 +1213,36 @@ a {
   color: #ffffff;
   cursor: pointer;
 }
+
+.show_p {
+  display: none;
+  margin: -7px 0 0 45px;
+  color: #CCCCCC;
+  border: 1px solid #CCCCCC;
+  padding: 4px 3px;
+}
+.show_s {
+  display: none;
+  margin: 33px 0 0 45px;
+  color: #CCCCCC;
+  border: 1px solid #CCCCCC;
+  padding: 4px 3px;
+}
+.show_t {
+  display: none;
+  margin: 73px 0 0 45px;
+  color: #CCCCCC;
+  border: 1px solid #CCCCCC;
+  padding: 4px 3px;
+}
+.show_a {
+  display: none;
+  margin: 113px 0 0 45px;
+  color: #CCCCCC;
+  border: 1px solid #CCCCCC;
+  padding: 4px 3px;
+}
+
 .bubble_menu .bub_highlight .menu_piecep:hover {
   border: 1px solid #000000;
 }
@@ -1224,6 +1254,19 @@ a {
 }
 .bubble_menu .bub_highlight .menu_piecea:hover {
   border: 1px solid #000000;
+}
+
+.menu_piecep:hover + .show_p {
+  display: block;
+}
+.menu_pieces:hover + .show_s {
+  display: block;
+}
+.menu_piecet:hover + .show_t {
+  display: block;
+}
+.menu_piecea:hover + .show_a {
+  display: block;
 }
 
 .bubble_menu .bub_text {
@@ -1684,11 +1727,12 @@ button{
 
 .stack3:hover{
   position: absolute;
-  opacity: 0.5;
+  opacity: 0.7;
   background-image: url('collection_r.png');
   background-repeat: no-repeat;
   background-position: center center;
   background-size: cover;
+  cursor: default;
 }
 
 .stack3:hover button{
@@ -1696,6 +1740,10 @@ button{
     bottom: 10px;
     margin: 125px 10px -120px 0;
     bottom: -15px;
+}
+.stack3:hover button:hover {
+  color: #FFFFFF;
+  background: #D2232A;
 }
 
 .stack2{

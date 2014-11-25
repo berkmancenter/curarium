@@ -34,6 +34,7 @@
     <div class='name'>
       <b><%= User.find(item.user_id).name %></b> <i>on <%= item.created_at.strftime("%d %b %y") %></i>
     </div>
+  </div>
   </a>
 <% elsif item.class == Work %>
   <% background = thumb_work_path(item) %>

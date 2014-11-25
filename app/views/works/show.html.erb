@@ -33,7 +33,6 @@
       <div class="menu_piecep">
       <label for='parsed_id'><span class="button">P</span></label>
       </div>
-      <div class="show_p">Parsed Information</div>
       <input type='checkbox' class='checkbox_hack' id='parsed_id'>
       <div class="expand_pi">
         <!-- THIS IS WHERE THE PARSED WORK INFORMATION GOES -->
@@ -46,7 +45,6 @@
       <div class="menu_pieces">
       <label for='surrogates_id'><span class="button">S</span></label>
       </div>
-      <div class="show_s">Surrogates</div>
       <input type='checkbox' class='checkbox_hack' id='surrogates_id'>
       <div class="expand_surr">
         <!-- THIS IS WHERE THE SURROGATE IMAGES GO -->
@@ -63,7 +61,6 @@
       <div class="menu_piecet">
         <label for='add_id'><span class="button">T</span></label>
         </div>
-        <div class="show_t">Add to tray</div>
         <input type='checkbox' class='checkbox_hack' id='add_id'>
         <div class="expand_tray">
           <% if session[:user_id].present? %>
@@ -85,7 +82,6 @@
       <div class="menu_piecea">
         <label for='ann_id'><span class="button">A</span></label>
         </div>
-        <div class="show_a">Annotate</div>
         <input type='checkbox' class='checkbox_hack' id = 'ann_id'>
         <div class="expand_anno">
           <div id='annotations'>

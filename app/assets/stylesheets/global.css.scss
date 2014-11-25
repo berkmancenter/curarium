@@ -132,7 +132,7 @@ a {
   font-size: 16px;
   color: #d2232a;
   padding: 0 0 10px 0;
-  border-bottom: 1px solid #cccccc;
+  border-bottom: 1px solid #CCCCCC;
   margin: 80px 0 20px 0;
   font-weight: bold;
 }
@@ -141,7 +141,7 @@ a {
 }
 .menulines {
   border-top: 3px solid #d2232a;
-  border-bottom: 1px solid #cccccc;
+  border-bottom: 1px solid #CCCCCC;
   height: 34px;
   width: 100%;
   background: white;
@@ -1043,6 +1043,7 @@ a {
     }
     .annotation_body {
       font-size: 10pt;
+      margin: 1px;
     }
     .annotation_attribution {
       font-size: 7pt;
@@ -1214,35 +1215,6 @@ a {
   cursor: pointer;
 }
 
-.show_p {
-  display: none;
-  margin: -7px 0 0 45px;
-  color: #CCCCCC;
-  border: 1px solid #CCCCCC;
-  padding: 4px 3px;
-}
-.show_s {
-  display: none;
-  margin: 33px 0 0 45px;
-  color: #CCCCCC;
-  border: 1px solid #CCCCCC;
-  padding: 4px 3px;
-}
-.show_t {
-  display: none;
-  margin: 73px 0 0 45px;
-  color: #CCCCCC;
-  border: 1px solid #CCCCCC;
-  padding: 4px 3px;
-}
-.show_a {
-  display: none;
-  margin: 113px 0 0 45px;
-  color: #CCCCCC;
-  border: 1px solid #CCCCCC;
-  padding: 4px 3px;
-}
-
 .bubble_menu .bub_highlight .menu_piecep:hover {
   border: 1px solid #000000;
 }
@@ -1254,19 +1226,6 @@ a {
 }
 .bubble_menu .bub_highlight .menu_piecea:hover {
   border: 1px solid #000000;
-}
-
-.menu_piecep:hover + .show_p {
-  display: block;
-}
-.menu_pieces:hover + .show_s {
-  display: block;
-}
-.menu_piecet:hover + .show_t {
-  display: block;
-}
-.menu_piecea:hover + .show_a {
-  display: block;
 }
 
 .bubble_menu .bub_text {
@@ -1459,25 +1418,26 @@ dt:hover {
   @include rounded-corners(3px);
 }
 .bord {
-  padding: 0;
+  padding: 5px;
   border: 0;
-  
 }
 .spotlight_viewedit .titlebar .text{
   font-size: 16px;
   color: #d2232a;
-  border: 0;
+  border: 1px solid #CCCCCC;
   font-weight: bold;
-  width: 100%;
+  width: 90%;
+  padding: 5px;
 }
 .spotlight_viewedit #subtitle {
   height: 20px;
   width: 100%;
 }
 .spotlight_viewedit #spotlight_body {
-  border: 0;
-  width: 100%;
+  border: 1px solid #CCCCCC;
+  width: 90%;
   height: 200px;
+  margin: 5px 0 5px 0;
   
 }
 .spotlight_viewedit{
@@ -1485,6 +1445,7 @@ dt:hover {
   .titlebar {
     margin: 0px;
     margin-right: 20px;
+    padding: 10px 0 10px 0;
   }
   form {
     width: 100%;
@@ -1553,8 +1514,9 @@ dt:hover {
 }
 .noscroll {
   border: 1px solid #ccc;
-  margin: 0 20px 0 0;
+  margin: 0 20px 10px 0;
   padding: 10px;
+  width: 85%;
 }
 .spotlight_viewedit .reference img{
   max-height: 100%;
@@ -1946,44 +1908,52 @@ button{
 }
 
 .bubble_menu .menu_piecep .button {
-  background: transparent;
+  background: #ffffff url('icon_parsed.png') no-repeat center center;
+  color: transparent;
 }
 
 .bubble_menu .menu_piecep .button:hover {
-  background: #d2222a;
+  background: #d2222a url('icon_parsedw.png') no-repeat center center;
+  color: transparent;
 }
 
 .bubble_menu .menu_piecep {
   display: block;
 }
 .bubble_menu .menu_pieces .button {
-  background: transparent;
+  background: #ffffff url('icon_surr.png') no-repeat center center;
+  color: transparent;
 }
 
 .bubble_menu .menu_pieces .button:hover {
-  background: #d2222a;
+  background: #d2222a url('icon_surrw.png') no-repeat center center;
+  color: transparent;
 }
 
 .bubble_menu .menu_pieces {
   display: block;
 }
 .bubble_menu .menu_piecet .button {
-  background: transparent;
+  background: #ffffff url('icon_tray.png') no-repeat center center;
+  color: transparent;
 }
 
 .bubble_menu .menu_piecet .button:hover {
-  background: #d2222a;
+  background: #d2222a url('icon_trayw.png') no-repeat center center;
+  color: transparent;
 }
 
 .bubble_menu .menu_piecet {
   display: block;
 }
 .bubble_menu .menu_piecea .button {
-  background: transparent;
+  background: #ffffff url('icon_anno.png') no-repeat center center;
+  color: transparent;
 }
 
 .bubble_menu .menu_piecea .button:hover {
-  background: #d2222a;
+  background: #d2222a url('icon_annow.png') no-repeat center center;
+  color: transparent;
 }
 
 .bubble_menu .menu_piecea {
@@ -1996,11 +1966,11 @@ button{
   max-width: none !important;
   border: 1px solid #d2232a;
 }
+
 .bubble_menu .checkbox_hack:checked ~ .expand_surr {
   display: block;
   width: 100px !important;
   max-width: none !important;
-
 }
 .bubble_menu .checkbox_hack:checked ~ .expand_tray {
   display: block;

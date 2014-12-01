@@ -1,4 +1,5 @@
 require 'spec_helper'
+require 'zlib'
 
 describe ( 'Work model' ) {
   context ( 'with valid data' ) {
@@ -48,8 +49,26 @@ describe ( 'Work model' ) {
       w.thumbnail_url.should_not eq( nil )
     }
 
+    it ( 'should have thumb cache path' ) {
+      thumb_hash = Zlib.crc32 w.thumbnail_url
+      w.thumbnail_cache_path.should eq( Rails.root.join( 'public', 'thumbnails', "#{thumb_hash}.png" ).to_s )
+    }
+
+    it ( 'should have thumb cache url' ) {
+      thumb_hash = Zlib.crc32 w.thumbnail_url
+      w.thumbnail_cache_url.should eq( "/thumbnails/#{thumb_hash}.png" )
+    }
+
     it ( 'should have topics parsed from original with multiple values' ) {
       w.parsed[ 'topics' ].should eq( '["stars", "night", "churches"]' )
+    }
+  }
+
+  context ( 'with empty_thumbnail' ) {
+    let ( :w ) { Work.find_by_title 'empty_thumbnail' }
+
+    it ( 'should have missing thumb cache url' ) {
+      w.thumbnail_cache_url.should eq( '/missing_thumb.png' )
     }
   }
 

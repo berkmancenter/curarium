@@ -1,7 +1,7 @@
 <% background = "" %>
 <% big ||= false %>
 <% if item.class == Collection %>
-  <% background = thumb_work_path(item.works.first) unless item.works.first.nil? %>
+  <% background = item.works.first.thumbnail_cache_url unless item.works.first.nil? %>
   <a href='<%= collection_path(item) %>'>
     <div class='gallery_item <%= "item_lrg" if big %>'>
       <div class='stack1<%= " item_lrg" if big %>' style='background-image: none;'></div>
@@ -37,7 +37,7 @@
   </div>
   </a>
 <% elsif item.class == Work %>
-  <% background = thumb_work_path(item) %>
+  <% background = item.thumbnail_cache_url %>
   <a href='<%= work_path(item) %>'>
     <div class='gallery_item<%=" item_lrg" if big %>' style='background-image:url(<%= background %>)'>
       <div class='object_id'><%= item.id %></div>

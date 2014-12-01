@@ -51,6 +51,50 @@ namespace :curarium do
     ActiveRecord::Base.logger = old_logger
   end
 
+  desc 'Export thumbnails from Rails.cache to /public'
+  task :export_cache => [ :environment ] do 
+    old_logger = ActiveRecord::Base.logger
+    ActiveRecord::Base.logger = nil
+
+    collection_thumbs_path = Rails.public_path.join( 'thumbnails' )
+
+    FileUtils.mkpath collection_thumbs_path
+
+    Collection.all.each { |c|
+      puts "#{c.name} (#{c.id}):"
+
+      total = c.works.count
+
+      works = c.works.with_thumb
+
+      no_thumb = total - works.count
+      not_cached = 0
+      exported = 0
+
+      works.each { |w|
+        cache_image = Rails.cache.read "#{w.thumb_hash}-image"
+
+        if cache_image.present?
+          File.open( collection_thumbs_path.join( "#{w.thumb_hash}.png" ).to_s, 'wb' ) { |file|
+            file.write cache_image
+          }
+
+          exported += 1
+        else
+          not_cached += 1
+        end
+      }
+
+      puts "  total: #{total}"
+      puts "  no thumbnail: #{no_thumb } (#{no_thumb.to_f / total.to_f * 100.0 unless total == 0}%)"
+      puts "  not_cached: #{not_cached} (#{not_cached.to_f / total.to_f * 100.0 unless total == 0}%)"
+      puts "  exported: #{exported} (#{exported.to_f / total.to_f * 100.0 unless total == 0}%)"
+      puts "  cached: #{total - no_thumb - not_cached - exported} (#{( total - not_cached - no_thumb - exported ).to_f / total.to_f * 100.0 unless total == 0}%)"
+    }
+
+    ActiveRecord::Base.logger = old_logger
+  end
+
   desc 'Cache un-cached thumbnails'
   task :cache_thumbs, [:collection_id] => [ :environment ] do |task, args|
     old_logger = ActiveRecord::Base.logger

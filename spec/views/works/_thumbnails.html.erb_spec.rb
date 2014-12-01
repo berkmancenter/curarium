@@ -18,8 +18,8 @@ describe ( 'works/thumbnails' ) {
       should have_css 'a', count: works.count
     }
 
-    it {
-      should have_css 'img', count: works.count
+    it ( 'should use a background for thumbnail' )  {
+      should_not have_css 'img', count: works.count
     }
   }
 }

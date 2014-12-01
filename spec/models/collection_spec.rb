@@ -74,18 +74,18 @@ describe ( 'Collection model' ) {
   }
 
   describe ( 'create_work' ) {
-    let ( :r ) { FactoryGirl.attributes_for( :starry_night ) }
+    let ( :w ) { FactoryGirl.attributes_for( :starry_night ) }
 
     context ( 'from_json' ) {
       it {
         expect {
-          col.create_work_from_json( r[ :original ] )
+          col.create_work_from_json( w[ :original ] )
         }.to change { col.works.count }.by( 1 )
       }
 
       describe ( 'create_work_from_json' ) {
         before {
-          col.create_work_from_json( r[ :original ] )
+          col.create_work_from_json( w[ :original ] )
         }
 
         it {
@@ -100,7 +100,7 @@ describe ( 'Collection model' ) {
 
       describe ( 'return a work' ) {
         it {
-          col.create_work_from_json( r[ :original ] ).class.should eq( Work.first.class )
+          col.create_work_from_json( w[ :original ] ).class.should eq( Work.first.class )
         }
       }
     }
@@ -109,45 +109,45 @@ describe ( 'Collection model' ) {
       let ( :pr ) {
         pr = {}
         col.configuration.each do |field|
-          pr[field[0]] = Collection.follow_json(r[ :original ], field[1])
+          pr[field[0]] = Collection.follow_json(w[ :original ], field[1])
         end
         pr
       }
 
       it {
         expect {
-          col.create_work_from_parsed r[ :original ], pr
+          col.create_work_from_parsed w[ :original ], pr
         }.to change { col.works.count }.by( 1 )
       }
 
       describe ( 'return a work' ) {
         it {
-          col.create_work_from_parsed( r[ :original ], pr ).class.should eq( Work.first.class )
+          col.create_work_from_parsed( w[ :original ], pr ).class.should eq( Work.first.class )
         }
       }
 
       context ( 'static function' ) {
         it {
           expect {
-            Collection.create_work_from_parsed( col.key, r[ :original ], pr )
+            Collection.create_work_from_parsed( col.key, w[ :original ], pr )
           }.to change { col.works.count }.by( 1 )
         }
 
         describe ( 'return a work' ) {
           it {
-            Collection.create_work_from_parsed( col.key, r[ :original ], pr ).class.should eq( Work.first.class )
+            Collection.create_work_from_parsed( col.key, w[ :original ], pr ).class.should eq( Work.first.class )
           }
         }
 
         describe ( 'no longer caching thumbnail on work creation' ) {
           before {
             Rails.cache.clear
-            Collection.create_work_from_parsed( col.key, r[ :original ], pr )
+            Collection.create_work_from_parsed( col.key, w[ :original ], pr )
           }
 
-          it ( 'should not have cache date yet' ) {
-            r = Work.last
-            thumb_hash = Zlib.crc32 r.images.first.thumbnail_url
+          it ( 'should not have cache date' ) {
+            w = Work.last
+            thumb_hash = Zlib.crc32 w.thumbnail_url
 
             cache_date = Rails.cache.fetch( "#{thumb_hash}-date" ) { Date.new }
             cache_date.should eq( Date.new )

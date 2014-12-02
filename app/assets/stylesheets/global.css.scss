@@ -55,9 +55,9 @@ a {
   min-width: 882px;
   position: relative;
   border: 0px solid black;
-   pointer-events: none;
+
   * {
-    pointer-events: auto;
+
   }
   .gallery_item {
     width: 200px;
@@ -1077,18 +1077,13 @@ a {
   width: 100%;
   background: transparent;
   * {
-    pointer-events: none;
     .menu_piecep, .menu_piecep * {
-      pointer-events: auto;
     }
     .menu_pieces, .menu_pieces * {
-      pointer-events: auto;
     }
     .menu_piecet, .menu_piecet * {
-      pointer-events: auto;
     }
     .menu_piecea, .menu_piecea * {
-      pointer-events: auto;
     }
   }
 
@@ -1307,8 +1302,12 @@ a {
 .bubble_menu .surrogates .expand_surr img {
   width: 50px;
   float: left;
+  height: auto;
   padding: 5px 68px 5px 67px;
   border: 1px solid #d2232a;
+  background: white;
+  max-height: 100px;
+  overflow: scroll;
 }
 
 /* UPLOADER */
@@ -1980,25 +1979,32 @@ dt:hover {
 .bubble_menu .checkbox_hack:checked ~ .expand_pi {
   display: block;
   width: 100px !important;
-  max-width: none !important;
+  height: auto;
+  max-height: 100px;
+  overflow: scroll;
   border: 1px solid #d2232a;
+  background: white;
 }
 
 .bubble_menu .checkbox_hack:checked ~ .expand_surr {
   display: block;
   width: 100px !important;
-  max-width: none !important;
+  height: auto;
 }
 .bubble_menu .checkbox_hack:checked ~ .expand_tray {
   display: block;
   width: 105px !important;
   height: auto;
-  max-width: none !important;
+  background: white;
+  max-height: 100px;
+  overflow: scroll;
 }
 .bubble_menu .checkbox_hack:checked ~ .expand_anno {
   display: block;
   width: 175px !important;
   height: auto;
-  max-width: none !important;
   border: 1px solid #d2232a;
+  background: white;
+  max-height: 100px;
+  overflow: scroll;
 }

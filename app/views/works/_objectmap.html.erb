@@ -1,4 +1,12 @@
-<section class="works-objectmap" data-work-ids="[<%= objectmap.map { |r| r.id }.join( ',' ) %>]">
+<%
+  ids = []
+  thumbs = []
+  objectmap.each { |o|
+    ids << o.id
+    thumbs << o.thumb_hash
+  }
+%>
+<section class="works-objectmap" data-work-ids="<%= ids.to_json %>" data-work-thumbs="<%= thumbs.to_json %>">
 <div class="geomap"></div>
 <div class="minimap"></div>
 </section>

@@ -15,22 +15,6 @@ class Work < ActiveRecord::Base
     where( 'works.id in ( select distinct works.id from works inner join images on images.work_id = works.id where not images.thumbnail_url is null )' )
   }
 
-  def self.image_type( local_file_path )
-    png = Regexp.new("\x89PNG".force_encoding("binary"))
-    jpg = Regexp.new("\xff\xd8\xff\xe0\x00\x10JFIF".force_encoding("binary"))
-
-    case IO.read(local_file_path, 10)
-    when /^GIF8/
-      'image/gif'
-    when /^#{png}/
-      'image/png'
-    when /^#{jpg}/
-      'image/jpeg'
-    else
-      'image/*'
-    end
-  end
-
   def thumbnail_url
     if images.any?
       images.first.thumbnail_url
@@ -42,16 +26,12 @@ class Work < ActiveRecord::Base
   end
 
   def thumbnail_cache_path
-    Rails.public_path.join( 'thumbnails', "#{thumb_hash}.png" ).to_s
-  end
-
-  def thumbnail_cache_type
-    Work.image_type Rails.public_path.join( 'thumbnails', "#{thumb_hash}.png" )
+    Rails.public_path.join( 'thumbnails', thumb_hash.to_s ).to_s
   end
 
   def thumbnail_cache_url
     if thumbnail_url.present?
-      "/thumbnails/#{thumb_hash}.png"
+      "/thumbnails/#{thumb_hash}"
     else
       '/missing_thumb.png'
     end

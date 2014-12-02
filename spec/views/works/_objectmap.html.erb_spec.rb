@@ -19,7 +19,15 @@ describe ( 'works/objectmap' ) {
     }
 
     it {
-      should have_css %[.works-objectmap[data-work-ids="[#{works.map { |r| r.id }.join(',')}]"]]
+      should have_css %[.works-objectmap[data-work-ids="[#{works.map { |w| w.id }.join(',')}]"]]
+    }
+
+    it {
+      should have_css '.works-objectmap[data-work-thumbs]'
+    }
+
+    it {
+      should have_css %[.works-objectmap[data-work-thumbs="[#{works.map { |w| w.thumb_hash }.join(',')}]"]]
     }
 
     it {

@@ -2,6 +2,7 @@ $( function() {
   var objectmap = $( '.works-objectmap' );
   if ( objectmap.length === 1 ) {
     var workIds = objectmap.data( 'workIds' );
+    var workThumbs = objectmap.data( 'workThumbs' );
     var workDimension = Math.ceil( Math.sqrt( workIds.length ) );
     var timeoutMove = null;
 
@@ -75,7 +76,7 @@ $( function() {
                       imageDefer.resolve();
                     };
 
-                    img.src = '/works/' + workIds[ workIdIndex ] + '/thumb';
+                    img.src = '/thumbnails/' + workThumbs[ workIdIndex ];
 
                   } else {
                     //context.fillStyle = '#ff0000';

@@ -32,4 +32,35 @@ Curarium::Application.configure do
 
   config.action_mailer.delivery_method = :sendmail
   config.action_mailer.perform_deliveries = true
+
+  config.middleware.insert_before ActionDispatch::Static, 'ThumbnailHeaders'
+end
+
+class ThumbnailHeaders
+  def self.image_type( local_file_path )
+    png = Regexp.new("\x89PNG".force_encoding("binary"))
+
+    case IO.read(local_file_path, 10)
+    when /^GIF8/
+      'image/gif'
+    when /^#{png}/
+      'image/png'
+    else
+      'image/jpeg'
+    end
+  end
+
+  def initialize(app)
+    @app = app
+  end
+
+  def call(env)
+    status, headers, body = @app.call(env)
+
+    if env[ 'REQUEST_PATH' ] =~ /^\/thumbnails\//
+      headers[ 'Content-Type' ] = ThumbnailHeaders.image_type( Rails.public_path.to_s + env[ 'REQUEST_PATH' ] )
+    end
+
+    return [status, headers, body]
+  end
 end

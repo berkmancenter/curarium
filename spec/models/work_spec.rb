@@ -50,13 +50,11 @@ describe ( 'Work model' ) {
     }
 
     it ( 'should have thumb cache path' ) {
-      thumb_hash = Zlib.crc32 w.thumbnail_url
-      w.thumbnail_cache_path.should eq( Rails.root.join( 'public', 'thumbnails', "#{thumb_hash}.png" ).to_s )
+      w.thumbnail_cache_path.should eq( Rails.root.join( 'public', 'thumbnails', w.thumb_hash.to_s ).to_s )
     }
 
     it ( 'should have thumb cache url' ) {
-      thumb_hash = Zlib.crc32 w.thumbnail_url
-      w.thumbnail_cache_url.should eq( "/thumbnails/#{thumb_hash}.png" )
+      w.thumbnail_cache_url.should eq( "/thumbnails/#{w.thumb_hash}" )
     }
 
     it ( 'should have topics parsed from original with multiple values' ) {

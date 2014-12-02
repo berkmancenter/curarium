@@ -75,7 +75,7 @@ namespace :curarium do
         cache_image = Rails.cache.read "#{w.thumb_hash}-image"
 
         if cache_image.present?
-          File.open( collection_thumbs_path.join( "#{w.thumb_hash}.png" ).to_s, 'wb' ) { |file|
+          File.open( collection_thumbs_path.join( w.thumb_hash.to_s ).to_s, 'wb' ) { |file|
             file.write cache_image
           }
 

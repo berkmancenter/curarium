@@ -6,7 +6,8 @@ describe ( 'trays/index' ) {
   context ( 'user with tray' ) {
     let ( :user ) { User.first }
     let ( :trays ) { user.trays }
-    let ( :image ) { trays.first.tray_items.first }
+    let ( :tray ) { trays.first }
+    let ( :image ) { tray.tray_items.first }
 
     before {
       assign( :owner, user )
@@ -27,11 +28,15 @@ describe ( 'trays/index' ) {
     }
 
     it {
-      should have_css 'h2.titlebar', text: trays.first.name
+      should have_css 'h2.titlebar', text: tray.name
     }
 
     it {
       should have_css 'a.tray-preview'
+    }
+
+    it {
+      should have_css %Q|a.tray-preview[href*="#{user_tray_path user, tray}"]|
     }
 
     it {

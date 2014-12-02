@@ -7,13 +7,7 @@
   <% @trays.each { |tray| %>
     <h2 class="titlebar"><%= tray.name %></h2>
 
-    <a class="tray-preview">
-      <ul>
-        <% tray.images.each { |image| %>
-          <li><%= image_tag image.thumbnail_url, alt: '' %></li>
-        <% } %>
-      </ul>
-    </a>
+    <%= link_to render( partial: 'trays/tray_preview', object: tray ), user_tray_path( tray.owner, tray ), class: 'tray-preview' %>
   <% } %>
 
 </div>

@@ -1,0 +1,5 @@
+<ul>
+  <% tray_preview.images.each { |image| %>
+    <li><%= image_tag image.thumbnail_url, alt: '' %></li>
+  <% } %>
+</ul>

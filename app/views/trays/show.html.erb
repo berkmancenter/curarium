@@ -1,0 +1,17 @@
+<h1 class="collection-header">Tray: <%= @tray.name %></h1>
+
+<!-- BEGIN GALLERY -->	     
+<div class="GALLERY">
+
+  <% @tray.tray_items.each { |tray_item| %>
+    <%= render partial: 'shared/print_item', locals: {
+          item: tray_item.image.work
+    } %>
+
+  <% } %>
+
+  <div class="gallery_item">
+    <div class="createnew"> <%= link_to 'add record', new_collection_path %> </div>
+  </div>
+
+</div><!-- END GALLERY -->  

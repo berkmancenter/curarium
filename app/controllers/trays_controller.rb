@@ -1,6 +1,6 @@
 class TraysController < ApplicationController
   before_action :set_tray, only: [:show, :edit, :update, :destroy, :add_works, :add_visualization, :external]
-  skip_before_action :authorize, only: [:external, :show]
+  skip_before_action :authorize, only: [:external]
 
   def index
     @owner = User.find( params[ :user_id ] )
@@ -8,7 +8,8 @@ class TraysController < ApplicationController
   end
   
   def show
-    render json: @tray
+    @owner = User.find( params[ :user_id ] )
+    @trays = @owner.trays
   end
   
   def add_works

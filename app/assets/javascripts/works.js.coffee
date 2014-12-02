@@ -12,15 +12,15 @@ window.work.update = () ->
   window.work.parsed = read_parsed() #get the user edited values as a javascript object
 
   #create save changes work and give it functionality
-  save = $("<input type='submit' id='save_changes' value='Save Changes'>")
-  $('#parsed_work').append(save)
-  save.click(submit_update)
+  #save = $("<input type='submit' id='save_changes' value='Save Changes'>")
+  #$('#parsed_work').append(save)
+  #save.click(submit_update)
   
   #make fields editable by doubleclicking
   $('.parsed_value').dblclick(modify_field)
   
   #create "add" button and append it to each of the parsed work keys
-  add_field = $("<input type='submit' value='add'>").click ()->
+###add_field = $("<input type='submit' value='add'>").click ()->
     new_field = $("<li class='parsed_value'></li>")
     input = $("<input>")
     add = $("<input type='submit' value='add'>")
@@ -38,7 +38,7 @@ window.work.update = () ->
     undefined
   $('.parsed_field .parsed_values').append(add_field)
   undefined
-
+  ###
 #read_parsed converts the parsed work (represented as a <UL>) into a javascript object
 #it is called everytime that UL is modified and stored on window.work.parsed
 read_parsed = ()->
@@ -96,11 +96,11 @@ modify_field = (e) ->
 #display the parsed work as an accordion like widget. gets called by work.display()
 collapse_parsed_information = ()->
   $('#parsed_work>ul>li>ul').each (i)->
-    that = this
-    $(this).hide(0)
-    $(this).parent().find('span').click (e)->
-      e.stopPropagation()
-      $(that).show(250)
+    #that = this
+    #$(this).hide(0)
+    #$(this).parent().find('span').click (e)->
+    #  e.stopPropagation()
+      $(this).show(250)
       undefined
     undefined
   undefined

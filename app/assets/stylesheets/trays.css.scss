@@ -16,3 +16,22 @@
     outline: 2px solid $cred;
   }
 }
+
+.tray-popup {
+  background: $white;
+  border: solid 1px $cred;
+  color: $cred;
+  display: none;
+  font-size: 11px;
+  margin: 0 auto;
+  max-width: 40%;
+  padding: 4em;
+  position: relative;
+
+  h1 {
+    font-size: 11px;
+    font-weight: normal;
+    text-transform: uppercase;
+  }
+
+}

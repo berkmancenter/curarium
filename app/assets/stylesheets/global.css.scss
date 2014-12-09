@@ -1161,7 +1161,7 @@ a {
   width: 13px;
 }
 
-.bubble_menu .button img:nth-child(n+2){
+.bubble_menu .button img:nth-child(n+2) {
   display: none;
 }
 .bubble_menu .bub_dis, .bubble_menu .bub_shr {
@@ -1195,7 +1195,7 @@ a {
 .bubble_menu .bub_dis div .button, .bubble_menu .bub_shr div .button{
   width: 100%; 
 }
-.bubble_menu .nohover .button:hover{
+.bubble_menu .nohover .button:hover {
   background: transparent;
   color: #d2232a;
   cursor: default;
@@ -1693,7 +1693,7 @@ dt:hover {
   color: #E60000;
 }
 
-.stack3:hover{
+.stack3:hover {
   position: absolute;
   opacity: 0.7;
   background-image: url('collection_r.png');

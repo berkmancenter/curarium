@@ -32,8 +32,8 @@ describe ( 'trays/show' ) {
       should have_css '.gallery_item.commandnail'
     }
 
-    it ( 'should have tray item commandnail & buttons' ) {
-      should have_css '.commandnail:first a', count: 3
+    it ( 'should have a list of all trays' ) {
+      should have_css '.tray-popup'
     }
   }
 }

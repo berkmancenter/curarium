@@ -110,6 +110,12 @@ FactoryGirl.define do
       #owner test_user
       #images starry_night
     end
+
+    factory :empty_tray do
+      name 'empty_tray'
+      #owner test_user
+      #images 
+    end
   end
 end
 

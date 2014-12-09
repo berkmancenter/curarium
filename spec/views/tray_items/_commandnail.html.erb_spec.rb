@@ -20,7 +20,23 @@ describe ( 'tray_items/commandnail' ) {
     }
 
     it {
-      should have_css '.gallery_item a', count: 3
+      should have_css '.commandnail a', count: 4
+    }
+
+    it {
+      should have_css '.commandnail a.view-item'
+    }
+
+    it {
+      should have_css '.commandnail a.copy-item'
+    }
+
+    it {
+      should have_css '.commandnail a.move-item'
+    }
+
+    it {
+      should have_css '.commandnail a.remove-item'
     }
   }
 }

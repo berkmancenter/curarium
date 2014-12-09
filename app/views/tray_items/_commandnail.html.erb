@@ -1,0 +1,16 @@
+<%#= link_to '', thumbnail, title: thumbnail.title, class: 'thumbnail', style: "background-image: url(#{thumb_work_path(thumbnail)});" -%>
+<%
+  background_image = '/missing_thumb.png'
+
+  if commandnail.image.present?
+    background_image = thumb_work_path( commandnail.image.work )
+  end
+%>
+
+<div class="gallery_item commandnail" style="background-image: url(<%= background_image %>);">
+  <ul>
+    <li><a href="javascript:void(0);">View</a></li>
+    <li><a href="javascript:void(0);">Move</a></li>
+    <li><a href="javascript:void(0);">Copy</a></li>
+  </ul>
+</div>

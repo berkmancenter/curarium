@@ -4,9 +4,7 @@
 <div class="GALLERY">
 
   <% @tray.tray_items.each { |tray_item| %>
-    <%= render partial: 'shared/print_item', locals: {
-          item: tray_item.image.work
-    } %>
+    <%= render partial: 'tray_items/commandnail', object: tray_item %>
 
   <% } %>
 

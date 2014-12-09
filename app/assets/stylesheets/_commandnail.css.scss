@@ -1,0 +1,33 @@
+@import "colors";
+@import "fonts";
+
+.commandnail {
+  ul {
+    list-style-type: none;
+  }
+
+  a {
+    background: $white;
+    box-sizing: border-box;
+    display: none !important;
+    height: 20px !important;
+    margin: 8px auto;
+    outline: solid 1px $cred;
+    padding: 2px 0;
+    text-align: center;
+    text-decoration: none;
+    width: 160px !important;
+  }
+
+  &:hover {
+    a {
+      display: block !important;
+
+      &:hover {
+        background: $cred;
+        color: $white;
+        text-decoration: none;
+      }
+    }
+  }
+}

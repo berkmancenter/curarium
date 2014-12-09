@@ -32,8 +32,9 @@ describe ( 'trays/show' ) {
       should have_css '.gallery_item.commandnail'
     }
 
-    it ( 'should have a list of all trays' ) {
-      should have_css '.tray-popup'
+    it ( 'should not have a list of all trays' ) {
+      # now retrieved through ajax
+      should_not have_css '.tray-popup'
     }
   }
 }

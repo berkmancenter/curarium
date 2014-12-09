@@ -8,15 +8,15 @@ $( function() {
 
   var trayPopupHtml = $( '.tray-popup' );
 
-  $( '.move-item, .copy-item' ).click( function( ) {
-    $.magnificPopup.open( {
-      items: {
-        src: trayPopupHtml.show(),
-        type: 'inline'
-      }
+  $( '.trays.show .tray-item' )
+  .on( 'click', '.move-item, .copy-item', function( ) {
+    $.get( window.location.href + '/..', function( popupHtml ) {
+      $.magnificPopup.open( {
+        items: {
+          src: popupHtml,
+          type: 'inline'
+        }
+      } );
     } );
-
   } );
-
-
 } );

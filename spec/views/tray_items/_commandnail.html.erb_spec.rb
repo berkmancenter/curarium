@@ -20,6 +20,10 @@ describe ( 'tray_items/commandnail' ) {
     }
 
     it {
+      should have_css '.tray-item.commandnail'
+    }
+
+    it {
       should have_css '.commandnail a', count: 4
     }
 

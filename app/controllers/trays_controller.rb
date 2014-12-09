@@ -5,6 +5,16 @@ class TraysController < ApplicationController
   def index
     @owner = User.find( params[ :user_id ] )
     @trays = @owner.trays
+
+    respond_to { |format|
+      format.html {
+        if request.xhr?
+          render 'popup', layout: false
+        else
+          render
+        end
+      }
+    }
   end
   
   def show

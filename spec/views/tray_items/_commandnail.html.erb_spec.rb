@@ -36,15 +36,15 @@ describe ( 'tray_items/commandnail' ) {
     }
 
     it {
-      should have_css '.commandnail a.copy-item'
+      should have_css '.commandnail a[data-action="copy"]'
     }
 
     it {
-      should have_css '.commandnail a.move-item'
+      should have_css '.commandnail a[data-action="move"]'
     }
 
     it {
-      should have_css '.commandnail a.remove-item'
+      should have_css '.commandnail a[data-action="remove"]'
     }
   }
 }

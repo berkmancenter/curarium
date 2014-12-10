@@ -9,11 +9,11 @@ $( function() {
   var trayPopupHtml = $( '.tray-popup' );
 
   $( '.trays.show .tray-item' )
-  .on( 'click', '.move-item, .copy-item', function( ) {
+  .on( 'click', '[data-action]', function( ) {
     $.ajax( {
       url: window.location.href + '/..',
       data: {
-        popup_action: $( this ).hasClass( 'move-item' ) ? 'move' : 'copy',
+        popup_action: $( this ).data( 'action' ),
         popup_action_item_id: $( this ).closest( '.commandnail' ).data( 'trayItemId' )
       },
       success: function( popupHtml ) {

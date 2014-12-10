@@ -11,8 +11,8 @@
 <div class="gallery_item tray-item commandnail" style="background-image: url(<%= background_image %>);" data-tray-item-id="<%= commandnail.id %>">
   <ul>
     <li><%= link_to 'View', view_link, class: 'view-item' %></li>
-    <li><a href="javascript:void(0);" class="move-item">Move</a></li>
-    <li><a href="javascript:void(0);" class="copy-item">Copy</a></li>
-    <li><a href="javascript:void(0);" class="remove-item">Remove</a></li>
+    <li><a href="javascript:void(0);" data-action="move">Move</a></li>
+    <li><a href="javascript:void(0);" data-action="copy">Copy</a></li>
+    <li><a href="javascript:void(0);" data-action="remove">Remove</a></li>
   </ul>
 </div>

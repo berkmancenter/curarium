@@ -21,16 +21,29 @@
   background: $white;
   border: solid 1px $cred;
   color: $cred;
+  display: inline-block;
   font-size: 11px;
-  margin: 0 auto;
-  max-width: 40%;
-  padding: 4em;
+  margin-left: 40%;
+  padding: 1em;
   position: relative;
 
   h1 {
     font-size: 11px;
     font-weight: normal;
+    margin-bottom: 20px;
     text-transform: uppercase;
+  }
+  
+  .tray-popup-button {
+    cursor: pointer;
+    display: block;
+    margin: 4px 0;
+    width: 240px;
+
+    &:hover {
+      background: $cred;
+      color: $white;
+    }
   }
 
 }

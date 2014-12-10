@@ -24,6 +24,10 @@ describe ( 'tray_items/commandnail' ) {
     }
 
     it {
+      should have_css %Q|.commandnail[data-tray-item-id="#{ti.id}"]|
+    }
+
+    it {
       should have_css '.commandnail a', count: 4
     }
 

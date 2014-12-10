@@ -9,6 +9,8 @@ class TraysController < ApplicationController
     respond_to { |format|
       format.html {
         if request.xhr?
+          @popup_action = params[ 'popup_action' ]
+          @popup_action_item = TrayItem.find( params[ 'popup_action_item_id' ] )
           render 'popup', layout: false
         else
           render

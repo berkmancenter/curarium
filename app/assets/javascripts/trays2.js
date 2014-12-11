@@ -15,8 +15,9 @@ $( function() {
       data: {
         popup_action: $( this ).data( 'action' ),
         popup_action_item_id: $( this ).closest( '.commandnail' ).data( 'trayItemId' )
-      },
-      success: function( popupHtml ) {
+      }
+    } )
+    .done( function( popupHtml ) {
         $.magnificPopup.open( {
           items: {
             src: popupHtml,
@@ -24,12 +25,27 @@ $( function() {
           }
         } );
       }
-    } );
+    );
   } );
 
   $( '.trays.show' )
   .on( 'click', '.tray-popup-button', function( ) {
+    var actionTypes = {
+      move: 'PUT',
+      copy: 'POST'
+    };
+
     var popup = $( this ).closest( '.tray-popup' );
-    alert( popup.data( 'action' ) + ' tray_item ' + popup.data( 'actionItemId' ) + ' to tray ' + $( this ).data( 'trayId' ) );
+    console.log( popup.data( 'action' ) + ' tray_item ' + popup.data( 'actionItemId' ) + ' to tray ' + $( this ).data( 'trayId' ) );
+    $.ajax( {
+      type: actionTypes[ popup.data( 'action' ) ],
+      url: '/tray_items/' + popup.data( 'actionItemId' ) + '/' + popup.data( 'action' ),
+      data: {
+        tray_id: $( this ).data( 'trayId' )
+      }
+    } )
+    .done( function( result ) {
+      console.log( result );
+    } );
   } );
 } );

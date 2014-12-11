@@ -1,4 +1,4 @@
-<div class="tray-popup" data-action="<%= @popup_action %>" data-action-item-id="<%= @popup_action_item.id %>">
+<div class="tray-popup" data-action="<%= @popup_action %>" data-action-item-id="<%= @popup_action_item.id unless @popup_action.nil? %>">
   <h1>Your Trays</h1>
 
 <% @trays.each { |tray| %>

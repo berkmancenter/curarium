@@ -29,7 +29,6 @@ Curarium::Application.routes.draw do
     member do
       put 'move' => :move
       post 'copy' => :copy
-      delete 'destroy' => :destroy
     end
   end
 

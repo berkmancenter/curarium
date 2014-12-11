@@ -11,11 +11,11 @@ $( function() {
   $( '.trays.show .tray-item' )
   .on( 'click', '[data-action]', function( ) {
     var action = $( this ).data( 'action' );
-    if ( action === 'remove' ) {
+    if ( action === 'destroy' ) {
       if ( confirm( 'Remove this item from the tray?' ) ) {
         $.ajax( {
           type: 'DELETE',
-          url: '/tray_items/' + $( this ).closest( '.commandnail' ).data( 'trayItemId' ) + '/destroy',
+          url: '/tray_items/' + $( this ).closest( '.commandnail' ).data( 'trayItemId' ),
         } )
         .done( function( result ) {
           window.location.reload();
@@ -52,7 +52,7 @@ $( function() {
       type: actionTypes[ popup.data( 'action' ) ],
       url: '/tray_items/' + popup.data( 'actionItemId' ) + '/' + popup.data( 'action' ),
       data: {
-        tray_id: $( this ).data( 'trayId' )
+        'tray_item[tray_id]': $( this ).data( 'trayId' )
       }
     } )
     .done( function( result ) {

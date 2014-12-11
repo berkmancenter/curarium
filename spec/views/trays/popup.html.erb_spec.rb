@@ -31,19 +31,19 @@ describe ( 'trays/popup' ) {
       }
     }
 
-    context ( 'with move action & item params' ) {
+    context ( 'with put action & item params' ) {
       let( :item ) { trays.first.tray_items.first }
 
       before {
         assign( :owner, user )
         assign( :trays, trays )
-        assign( :popup_action, 'move' )
+        assign( :popup_action, 'put' )
         assign( :popup_action_item, item )
         render
       }
 
       it {
-        should have_css '.tray-popup[data-action="move"]'
+        should have_css '.tray-popup[data-action="put"]'
       }
 
       it {

@@ -44,7 +44,7 @@ describe ( 'tray_items/commandnail' ) {
     }
 
     it {
-      should have_css '.commandnail a[data-action="remove"]'
+      should have_css '.commandnail a[data-action="destroy"]'
     }
   }
 }

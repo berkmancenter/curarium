@@ -27,7 +27,6 @@ describe ( TrayItemsController ) {
 
   describe ( 'POST tray_item/copy' ) {
     let ( :tray_src ) { tray_item.tray }
-    let ( :tray_item_count ) { TrayItem.count }
 
     it ( 'should not modify the original item' ) {
       post :copy, id: tray_item.id, tray_id: tray_dst.id
@@ -41,6 +40,19 @@ describe ( TrayItemsController ) {
       expect {
         post :copy, id: tray_item.id, tray_id: tray_dst.id
       }.to change( TrayItem, :count ).by( 1 )
+    }
+  }
+
+  describe ( 'DELETE tray_item/destroy' ) {
+    it ( 'should return ok' ) {
+      delete :destroy, id: tray_item.id
+      response.code.should eq( '200' )
+    }
+
+    it ( 'should delete the item' ) {
+      expect {
+        delete :destroy, id: tray_item.id
+      }.to change( TrayItem, :count ).by( -1 )
     }
   }
 

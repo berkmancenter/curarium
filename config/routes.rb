@@ -27,8 +27,9 @@ Curarium::Application.routes.draw do
 
   resources :tray_items do
     member do
-      put 'move' => 'tray_items#move', as: 'move'
-      post 'copy' => 'tray_items#copy', as: 'copy'
+      put 'move' => :move
+      post 'copy' => :copy
+      delete 'destroy' => :destroy
     end
   end
 

@@ -21,4 +21,12 @@ class TrayItemsController < ApplicationController
 
     render text: '200 OK', status: 200
   end
+
+  # DELETE /tray_items/1
+  def destroy
+    @tray_item = TrayItem.find params[ :id ]
+    @tray_item.delete
+    render text: '200 OK', status: 200
+  end
+
 end

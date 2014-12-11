@@ -10,22 +10,34 @@ $( function() {
 
   $( '.trays.show .tray-item' )
   .on( 'click', '[data-action]', function( ) {
-    $.ajax( {
-      url: window.location.href + '/..',
-      data: {
-        popup_action: $( this ).data( 'action' ),
-        popup_action_item_id: $( this ).closest( '.commandnail' ).data( 'trayItemId' )
+    var action = $( this ).data( 'action' );
+    if ( action === 'remove' ) {
+      if ( confirm( 'Remove this item from the tray?' ) ) {
+        $.ajax( {
+          type: 'DELETE',
+          url: '/tray_items/' + $( this ).closest( '.commandnail' ).data( 'trayItemId' ) + '/destroy',
+        } )
+        .done( function( result ) {
+          window.location.reload();
+        } );
       }
-    } )
-    .done( function( popupHtml ) {
+    } else {
+      $.ajax( {
+        url: window.location.href + '/..',
+        data: {
+          popup_action: action,
+          popup_action_item_id: $( this ).closest( '.commandnail' ).data( 'trayItemId' )
+        }
+      } )
+      .done( function( popupHtml ) {
         $.magnificPopup.open( {
           items: {
             src: popupHtml,
             type: 'inline'
           }
         } );
-      }
-    );
+      } );
+    }
   } );
 
   $( '.trays.show' )
@@ -36,7 +48,6 @@ $( function() {
     };
 
     var popup = $( this ).closest( '.tray-popup' );
-    console.log( popup.data( 'action' ) + ' tray_item ' + popup.data( 'actionItemId' ) + ' to tray ' + $( this ).data( 'trayId' ) );
     $.ajax( {
       type: actionTypes[ popup.data( 'action' ) ],
       url: '/tray_items/' + popup.data( 'actionItemId' ) + '/' + popup.data( 'action' ),
@@ -45,7 +56,12 @@ $( function() {
       }
     } )
     .done( function( result ) {
-      console.log( result );
+      $.magnificPopup.instance.close();
+      window.location.reload();
+    } )
+    .fail( function( result ) {
+      $.magnificPopup.instance.close();
+      alert( result );
     } );
   } );
 } );

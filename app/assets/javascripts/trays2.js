@@ -72,8 +72,15 @@ $( function() {
       url: $form.attr( 'action' ),
       data: $form.serialize()
     } )
-    .done( function( result ) {
-      $form.closest( '.mfp-content' ).html( result );
+    .done( function( popupHtml ) {
+      $.magnificPopup.instance.close();
+      $.magnificPopup.open( {
+        items: {
+          src: popupHtml,
+          type: 'inline'
+        }
+      } );
+      //$form.closest( '.mfp-content' ).html( result );
     } );
     return false;
   } );

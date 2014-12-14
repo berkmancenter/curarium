@@ -6,6 +6,9 @@
 <% } %>
 
 <%= form_for Tray.new, url: { action: 'create' } { |f| %>
+  <input type="hidden" name="popup_action" value="<%= @popup_action %>">
+  <input type="hidden" name="popup_action_item_id" value="<%= @popup_action_item.id unless @popup_action.nil? %>">
+
   <%= f.hidden_field :owner_id, value: @owner.id %>
   <%= f.hidden_field :owner_type, value: 'User' %>
   <%= f.text_field :name, placeholder: 'Create New Tray' %>

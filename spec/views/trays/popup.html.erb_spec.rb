@@ -69,6 +69,15 @@ describe ( 'trays/popup' ) {
         should have_css %Q|.tray-popup[data-action-item-id="#{item.id}"]|
       }
 
+      describe ( 'new tray form' ) {
+        it {
+          should have_css 'input[type="hidden"][name="popup_action"][value="put"]'
+        }
+
+        it {
+          should have_css %Q|input[type="hidden"][name="popup_action_item_id"][value="#{item.id}"]|
+        }
+      }
     }
   }
 }

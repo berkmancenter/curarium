@@ -1,10 +1,10 @@
 source 'https://rubygems.org'
-ruby '2.1.2'
+ruby '2.1.5'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.0.2'
 
 #use postgresql
-gem 'pg'
+gem 'pg', '~> 0.18.0.pre20141117110243'
 
 group :test do
   gem 'rspec-rails', '2.14.2'
@@ -46,6 +46,8 @@ group :doc do
 end
 
 # Use ActiveModel has_secure_password
+# bcrypt-ruby was renamed to bcrypt, has_secure_password seems to want both?
+gem 'bcrypt'
 gem 'bcrypt-ruby', '~> 3.1.2'
 
 #running jobs as back processes 

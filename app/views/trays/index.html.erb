@@ -2,6 +2,13 @@
 
 <h1 class="collection-header">Tray Manager</h1>
 
+<%= form_for Tray.new, url: { action: 'create' } { |f| %>
+  <%= f.hidden_field :owner_id, value: @owner.id %>
+  <%= f.hidden_field :owner_type, value: 'User' %>
+  <%= f.text_field :name, placeholder: 'Create New Tray' %>
+  <%= f.button 'create', type: 'submit', name: nil %>
+<% } %>
+
 <!-- BEGIN GALLERY -->	     
 <div class="GALLERY">
 

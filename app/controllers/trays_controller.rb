@@ -53,17 +53,10 @@ class TraysController < ApplicationController
   end
     
   def create
-    @tray = Tray.new(tray_params)
-    works = []
-    if (params[:tray][:works])
-      params[:tray][:works].each do |r|
-        works.push(r.to_i)
-      end
-    end
-    @tray.visualizations = params[:tray][:visualizations]
-    @tray.works = works
-    @tray.save
-    render json: @tray
+    @tray = Tray.create(tray_params)
+    
+    @user = User.find( params[ :user_id ] )
+    redirect_to user_trays_path user: @user
   end
   
   def external #this is a provisional api like method for interacting with the WAKU editor.
@@ -100,7 +93,7 @@ class TraysController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def tray_params
-      params.require(:tray).permit(:name, :owner_id, :owner_type, visualizations:[:url, terms:[:type,:property,:length]])
+      params.require(:tray).permit(:name, :owner_id, :owner_type) #, visualizations:[:url, terms:[:type,:property,:length]])
     end
   
 end

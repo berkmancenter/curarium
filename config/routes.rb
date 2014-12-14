@@ -13,6 +13,8 @@ Curarium::Application.routes.draw do
 #  post 'users/message' => 'users#message', as: 'user_message'
 #  post 'sections/message' => 'sections#message', as: 'section_message'
 
+  resources :trays
+
   resources :users do
     resources :trays
   end

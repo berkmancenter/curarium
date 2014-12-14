@@ -185,25 +185,6 @@ a {
 .expandable .dropdown_menu a {
   padding: 3px 37px 3px 20px!important;
 }
-.tray,.new_tray {
-  margin-bottom: 5px;
-  padding: 2px 0;
-  height: 10px;
-  width: 110px;
-  position: relative;
-  input[type=text] {
-    width: 80%;
-  }
-  .add{
-    left: 108px;
-    top: 3px;
-    font-weight: bold;
-    color: #d2232a;
-    position: absolute;
-    cursor: pointer;
-    border: 1px solid #d2232a;
-  }
-}
 
 /* GLOBAL MENU */
 .GLOBAL_MENU{

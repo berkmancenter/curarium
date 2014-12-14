@@ -19,6 +19,24 @@ describe ( 'trays/index' ) {
       should have_css 'h1.collection-header', text: 'Tray Manager'
     }
 
+    describe ( 'new tray form' ) {
+      it {
+        should have_css 'form[action*="trays"][method="post"]'
+      }
+
+      it {
+        should have_css 'input[type="hidden"][name="tray[owner_id]"]'
+      }
+
+      it {
+        should have_css 'input[type="hidden"][name="tray[owner_type]"]'
+      }
+
+      it {
+        should have_css 'input[name="tray[name]"]'
+      }
+    }
+
     it {
       should have_css '.GALLERY'
     }

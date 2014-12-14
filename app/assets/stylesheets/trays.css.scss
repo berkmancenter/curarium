@@ -1,5 +1,21 @@
 @import "colors";
 
+.trays.index {
+  .new_tray {
+    margin-top: 1px;
+
+    button {
+      background: $white;
+      border: solid 1px $cred;
+      color: $cred;
+      height: 22px;
+      padding: 0 4px;
+      margin-bottom: 1px;
+      vertical-align: middle;
+    }
+  }
+}
+
 .tray-preview {
   background: $cgray1;
   display: block;

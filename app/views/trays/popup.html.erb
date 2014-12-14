@@ -4,4 +4,12 @@
 <% @trays.each { |tray| %>
   <button type="button" class="tray-popup-button" data-tray-id="<%= tray.id %>"><%= tray.name %></button>
 <% } %>
+
+<%= form_for Tray.new, url: { action: 'create' } { |f| %>
+  <%= f.hidden_field :owner_id, value: @owner.id %>
+  <%= f.hidden_field :owner_type, value: 'User' %>
+  <%= f.text_field :name, placeholder: 'Create New Tray' %>
+  <%= f.button 'create', type: 'submit', name: nil %>
+<% } %>
+
 </div>

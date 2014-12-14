@@ -63,5 +63,18 @@ $( function() {
       $.magnificPopup.instance.close();
       alert( result );
     } );
+  } )
+  .on( 'submit', '.new_tray', function( e ) {
+    var $form = $( this );
+    //alert( $( this ).serialize() );
+    $.ajax( {
+      type: 'POST',
+      url: $form.attr( 'action' ),
+      data: $form.serialize()
+    } )
+    .done( function( result ) {
+      $form.closest( '.mfp-content' ).html( result );
+    } );
+    return false;
   } );
 } );

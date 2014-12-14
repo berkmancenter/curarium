@@ -53,10 +53,17 @@ class TraysController < ApplicationController
   end
     
   def create
-    @tray = Tray.create(tray_params)
+    @owner = User.find( params[ :user_id ] )
     
-    @user = User.find( params[ :user_id ] )
-    redirect_to user_trays_path user: @user
+    @tray = Tray.create(tray_params)
+
+    if request.xhr?
+      @trays = @owner.trays
+      render 'popup', layout: false
+    else
+      redirect_to user_trays_path user: @owner
+    end
+
   end
   
   def external #this is a provisional api like method for interacting with the WAKU editor.

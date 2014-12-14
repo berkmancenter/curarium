@@ -19,7 +19,8 @@ describe ( 'trays/popup' ) {
       }
 
       it {
-        should have_css 'button', count: 2
+        # two trays and a create tray button
+        should have_css 'button', count: 3
       }
 
       it {
@@ -28,6 +29,24 @@ describe ( 'trays/popup' ) {
 
       it {
         should have_css 'button[data-tray-id="1"]'
+      }
+
+      describe ( 'new tray form' ) {
+        it {
+          should have_css 'form[action*="trays"][method="post"]'
+        }
+
+        it {
+          should have_css 'input[type="hidden"][name="tray[owner_id]"]'
+        }
+
+        it {
+          should have_css 'input[type="hidden"][name="tray[owner_type]"]'
+        }
+
+        it {
+          should have_css 'input[name="tray[name]"]'
+        }
       }
     }
 

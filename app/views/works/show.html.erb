@@ -18,10 +18,10 @@
     // or attempt to make it more HTML-based
 
   
-    <% if session[:user_id] %>
-    window.trays.add_work([<%= params[:id] %>],<%= session[:user_id].to_i%>);
-    window.work.update();
-    <% end %>
+    <%# if session[:user_id] %>
+    //window.trays.add_work([<%= params[:id] %>],<%= session[:user_id].to_i%>);
+    //window.work.update();
+    <%# end %>
   
   };
 </script>

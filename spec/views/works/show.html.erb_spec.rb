@@ -14,4 +14,8 @@ describe ( 'works/show' ) {
   it {
     should have_css '.parsed-info', visible: false
   }
+
+  it {
+    should have_css '.expand_tray', visible: false
+  }
 }

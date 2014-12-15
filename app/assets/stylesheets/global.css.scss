@@ -47,6 +47,21 @@ a {
   }
 }
 
+dl {
+  margin: 4px 0;
+}
+
+dt {
+  color: $cred;
+  display: inline-block;
+  font-weight: bold;
+  padding-right: 8px;
+}
+
+dd {
+  display: inline-block;
+}
+
 /* GLOBAL HOLDER */
 .GLOBAL_HOLDER {
   overflow: hidden;

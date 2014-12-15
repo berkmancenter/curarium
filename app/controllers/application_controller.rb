@@ -3,11 +3,12 @@ class ApplicationController < ActionController::Base
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
   before_action :authorize
+  before_action :load_user
   before_action :set_active_collection
   
   private
   def authorize
-    unless User.find_by(id: session[:user_id])
+    unless User.find_by( id: session[ :user_id ] ).present?
       redirect_to login_url, notice: "Please log in"
     end
   end
@@ -18,4 +19,8 @@ class ApplicationController < ActionController::Base
     end
   end
   
+  private
+  def load_user
+    @user = User.find_by id: session[ :user_id ]
+  end
 end

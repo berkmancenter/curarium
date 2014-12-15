@@ -24,11 +24,10 @@
     	<div class="tools">
         <div class = 'menu_wrapper'>
 		      <div class="toggle_user toggle_tools">
-		    <% if session[:user_id] %>
-			<%= link_to  raw("Log Out#{image_tag("user_b.png", class: 'black', alt: '')}#{image_tag("user_r.png",class: 'red', alt: '')}"), logout_url, method: :delete %>
-        <!-- <a href='<%= logout_url %>'>Log Out <%= image_tag "user_b.png" %><%= image_tag "user_r.png" %></a> -->
+		    <% if @user.present? %>
+          <%= link_to render( partial: 'users/mini_icon', object: @user ), @user %>
 		    <% else %>
-			<a href='<%= login_url %>'>Log In <%= image_tag "user_b.png", class: 'black', alt: '' %><%= image_tag "user_r.png", class: 'red', alt: '' %></a>
+          <a href='<%= login_url %>'><span>Log In</span> <%= image_tag "user_b.png", class: 'black', alt: '' %><%= image_tag "user_r.png", class: 'red', alt: '' %></a>
 		    <% end %>
 		      </div>
 		      <div class="toggle_explore toggle_tools"><a href="<%= @active_collection.nil? ? collections_path : collection_works_path(@active_collection) %>">Explore <%= image_tag "explore_b.png", class: 'black', alt: '' %><%= image_tag "explore_r.png", class: 'red', alt: '' %></a></div>

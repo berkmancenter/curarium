@@ -7,29 +7,41 @@ describe ( 'home/index' ) {
   let( :collection ) { Collection.limit(1).order("RANDOM()").first }
   let( :spotlights ) { Spotlight.limit(10).order("RANDOM()") }
 
-  before {
-    assign( :works, works )
-    assign( :collection, collection )
-    assign( :spotlights, spotlights )
-    assign( :all, (works + spotlights).shuffle )
+  context ( 'with anonymous' ) {
+    before {
+      assign( :works, works )
+      assign( :collection, collection )
+      assign( :spotlights, spotlights )
+      assign( :all, (works + spotlights).shuffle )
 
-    render
+      render
+    }
+
+    it {
+      should have_css '.INFO_BAR'
+    }
+
+    it {
+      should have_css '.GALLERY'
+    }
+
+    it {
+      # 1 gallery_item for collection + the other random selection
+      should have_css '.GALLERY .gallery_item', count: 1 + (works + spotlights).count
+    }
+
+    it {
+      should have_css '.beta-popup'
+    }
   }
 
-  it {
-    should have_css '.INFO_BAR'
-  }
+  context ( 'with signed in user' ) {
+    let ( :user ) { User.first }
 
-  it {
-    should have_css '.GALLERY'
-  }
+    before {
+      session[ :user_id ] = user.id
+      render
+    }
 
-  it {
-    # 1 gallery_item for collection + the other random selection
-    should have_css '.GALLERY .gallery_item', count: 1 + (works + spotlights).count
-  }
-
-  it {
-    should have_css '.beta-popup'
   }
 }

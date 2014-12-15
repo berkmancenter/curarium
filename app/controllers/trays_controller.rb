@@ -10,7 +10,7 @@ class TraysController < ApplicationController
       format.html {
         if request.xhr?
           @popup_action = params[ 'popup_action' ]
-          @popup_action_item = TrayItem.find( params[ 'popup_action_item_id' ] )
+          @popup_action_item_id = params[ 'popup_action_item_id' ]
           render 'popup', layout: false
         else
           render
@@ -60,7 +60,7 @@ class TraysController < ApplicationController
     if request.xhr?
       @trays = @owner.trays
       @popup_action = params[ 'popup_action' ]
-      @popup_action_item = TrayItem.find( params[ 'popup_action_item_id' ] )
+      @popup_action_item_id = params[ 'popup_action_item_id' ]
       render 'popup', layout: false
     else
       redirect_to user_trays_path user: @owner

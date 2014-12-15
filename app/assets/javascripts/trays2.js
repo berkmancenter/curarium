@@ -57,6 +57,18 @@ $( function() {
     .fail( function( result ) {
       alert( result );
     } );
+  } )
+  .on( 'submit', '.new_tray', function( e ) {
+    var $form = $( this );
+    $.ajax( {
+      type: 'POST',
+      url: $form.attr( 'action' ),
+      data: $form.serialize()
+    } )
+    .done( function( popupHtml ) {
+      $form.closest( '.expand_tray' ).html( popupHtml );
+    } );
+    return false;
   } );
 
   $( '.trays.show' )

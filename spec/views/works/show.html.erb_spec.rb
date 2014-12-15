@@ -33,7 +33,7 @@ describe ( 'works/show' ) {
       assign( :trays, owner.trays )
       assign( :popup_action, 'add' )
       assign( :popup_action_type, 'Image' )
-      assign( :popup_action_item, work.images.first )
+      assign( :popup_action_item_id, work.images.first.id )
       
       render
     }

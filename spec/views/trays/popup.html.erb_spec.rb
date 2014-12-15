@@ -57,7 +57,7 @@ describe ( 'trays/popup' ) {
         assign( :owner, user )
         assign( :trays, trays )
         assign( :popup_action, 'put' )
-        assign( :popup_action_item, item )
+        assign( :popup_action_item_id, item.id )
         render
       }
 
@@ -70,6 +70,10 @@ describe ( 'trays/popup' ) {
       }
 
       describe ( 'new tray form' ) {
+        it {
+          should have_css 'form[action*="trays"]'
+        }
+
         it {
           should have_css 'input[type="hidden"][name="popup_action"][value="put"]'
         }

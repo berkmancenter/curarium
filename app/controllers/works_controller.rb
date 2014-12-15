@@ -111,7 +111,7 @@ class WorksController < ApplicationController
     @trays = @owner.trays unless @owner.nil?
     @popup_action = 'add'
     @popup_action_type = 'Image'
-    @popup_action_item = @work.images.first
+    @popup_action_item_id = @work.images.first.id
 
      if @work.amendments.length > 0
        @current_metadata = @work.amendments.last.amended

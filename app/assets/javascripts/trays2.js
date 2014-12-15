@@ -88,7 +88,17 @@ $( function() {
       data: $form.serialize()
     } )
     .done( function( popupHtml ) {
-      $form.closest( '.expand_tray' ).html( popupHtml );
+      if ( $( '.mfp-content' ).length ) {
+        $.magnificPopup.instance.close();
+        $.magnificPopup.open( {
+          items: {
+            src: popupHtml,
+            type: 'inline'
+          }
+        } );
+      } else {
+        $form.closest( '.expand_tray' ).html( popupHtml );
+      }
     } );
     return false;
   } );

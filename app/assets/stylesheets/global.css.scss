@@ -1261,14 +1261,12 @@ a {
   height: 80px;
   max-width: none !important;
 }
+
 .expand_tray {
   display: none;
-  padding: 10px 45px 10px 45px;
+  padding: 0;
   margin: 73px 50px 0 50px;
   border: 1px solid #d2232a;
-  width: 100px !important;
-  height: 80px;
-  max-width: none !important;
 }
 
 .expand_anno {
@@ -1974,11 +1972,8 @@ dt:hover {
 }
 .bubble_menu .checkbox_hack:checked ~ .expand_tray {
   display: block;
-  width: 105px !important;
-  height: auto;
   background: white;
-  max-height: 100px;
-  overflow: scroll;
+  overflow: auto;
 }
 .bubble_menu .checkbox_hack:checked ~ .expand_anno {
   display: block;

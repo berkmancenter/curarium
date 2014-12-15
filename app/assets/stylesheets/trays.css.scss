@@ -1,6 +1,6 @@
 @import "colors";
 
-.trays.index, .trays.show {
+.works.show, .trays.index, .trays.show {
   .new_tray {
     margin-top: 1px;
 
@@ -22,6 +22,10 @@
   margin-left: 10px;
   overflow: hidden;
   width: 98%;
+
+  li {
+    display: inline-block;
+  }
 
   img {
     height: 100px;
@@ -61,5 +65,9 @@
       color: $white;
     }
   }
+}
 
+.expand_tray .tray-popup {
+  border: none;
+  margin: 0;
 }

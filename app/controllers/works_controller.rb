@@ -106,6 +106,13 @@ class WorksController < ApplicationController
   # GET /works/1
   # GET /works/1.json
   def show
+    # for add to tray popout
+    @owner = User.find( session[ :user_id ] ) unless session[ :user_id ].nil?
+    @trays = @owner.trays unless @owner.nil?
+    @popup_action = 'add'
+    @popup_action_type = 'Image'
+    @popup_action_item = @work.images.first
+
      if @work.amendments.length > 0
        @current_metadata = @work.amendments.last.amended
      else

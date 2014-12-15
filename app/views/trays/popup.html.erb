@@ -1,18 +1,20 @@
-<div class="tray-popup" data-action="<%= @popup_action %>" data-action-item-id="<%= @popup_action_item.id unless @popup_action.nil? %>">
+<div class="tray-popup" data-action="<%= @popup_action %>" data-action-item-type="<%= @popup_action_type unless @popup_action_type.nil? %>" data-action-item-id="<%= @popup_action_item.id unless @popup_action_item.nil? %>">
   <h1>Your Trays</h1>
 
 <% @trays.each { |tray| %>
   <button type="button" class="tray-popup-button" data-tray-id="<%= tray.id %>"><%= tray.name %></button>
-<% } %>
+<% } unless @trays.nil? %>
 
-<%= form_for Tray.new, url: { action: 'create' } { |f| %>
-  <input type="hidden" name="popup_action" value="<%= @popup_action %>">
-  <input type="hidden" name="popup_action_item_id" value="<%= @popup_action_item.id unless @popup_action.nil? %>">
+<% if @owner.present? %>
+  <%= form_for Tray.new, url: { action: 'create' } { |f| %>
+    <input type="hidden" name="popup_action" value="<%= @popup_action %>">
+    <input type="hidden" name="popup_action_item_id" value="<%= @popup_action_item.id unless @popup_action_item.nil? %>">
 
-  <%= f.hidden_field :owner_id, value: @owner.id %>
-  <%= f.hidden_field :owner_type, value: 'User' %>
-  <%= f.text_field :name, placeholder: 'Create New Tray' %>
-  <%= f.button 'create', type: 'submit', name: nil %>
-<% } %>
+    <%= f.hidden_field :owner_id, value: @owner.id %>
+    <%= f.hidden_field :owner_type, value: 'User' %>
+    <%= f.text_field :name, placeholder: 'Create New Tray' %>
+    <%= f.button 'create', type: 'submit', name: nil %>
+  <% } %>
+<% end %>
 
 </div>

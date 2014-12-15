@@ -25,6 +25,21 @@ describe ( TrayItemsController ) {
     }
   }
 
+  describe ( 'POST tray_items' ) {
+    let ( :work ) { Work.find_by_title 'Aphrodite Pudica' }
+
+    it ( 'should return ok' ) {
+      post :create, tray_item: { tray_id: tray_dst.id, image_id: work.images.first.id }
+      response.code.should eq( '200' )
+    }
+
+    it ( 'should create a new item' ) {
+      expect {
+        post :create, tray_item: { tray_id: tray_dst.id, image_id: work.images.first.id }
+      }.to change( TrayItem, :count ).by( 1 )
+    }
+  }
+
   describe ( 'POST tray_items/:id/copy' ) {
     let ( :tray_src ) { tray_item.tray }
 

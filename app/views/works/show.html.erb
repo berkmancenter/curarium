@@ -65,15 +65,8 @@
         <div class="expand_tray">
           <% if session[:user_id].present? %>
 
-            <!-- THIS IS WHERE THE LIST OF TRAYS GOES -->
-            <div class="new_tray"> <input type='text' placeholder='new tray'><div class="add">add</div></div>
-            <% User.find(session[:user_id]).trays.each do |tray| %>
-              <div class="tray" data-tray='<%= tray.id%>' data-tray_name='<%= tray.name%>'>
-              <%= tray.name %><div class="add">add</div>
-              </div>
-            <% end %>
+            <%= render template: 'trays/popup', layout: false %>
 
-            <!-- missing create new tray -->
           <% end %>
         </div>
     </td></tr>

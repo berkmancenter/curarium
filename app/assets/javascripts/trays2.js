@@ -40,6 +40,25 @@ $( function() {
     }
   } );
 
+  $( '.works.show' )
+  .on( 'click', '.tray-popup-button', function( ) {
+    var popup = $( this ).closest( '.tray-popup' );
+    $.ajax( {
+      type: 'POST',
+      url: '/tray_items',
+      data: {
+        'tray_item[tray_id]': $( this ).data( 'trayId' ),
+        'tray_item[image_id]': popup.data( 'actionItemId' )
+      }
+    } )
+    .done( function( result ) {
+      window.location.reload();
+    } )
+    .fail( function( result ) {
+      alert( result );
+    } );
+  } );
+
   $( '.trays.show' )
   .on( 'click', '.tray-popup-button', function( ) {
     var actionTypes = {

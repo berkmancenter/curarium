@@ -1,10 +1,10 @@
-source 'https://rubygems.org'
-ruby '2.1.5'
+source 'http://rubygems.org'
+ruby '2.0.0'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.0.2'
 
 #use postgresql
-gem 'pg', '~> 0.18.0.pre20141117110243'
+gem 'pg'#, '~> 0.18.0.pre20141117110243'
 
 group :test do
   gem 'rspec-rails', '2.14.2'

@@ -1,5 +1,5 @@
 GEM
-  remote: https://rubygems.org/
+  remote: http://rubygems.org/
   specs:
     actionmailer (4.0.2)
       actionpack (= 4.0.2)
@@ -81,8 +81,8 @@ GEM
       mini_portile (= 0.6.0)
     nokogiri (1.6.2.1-x86-mingw32)
       mini_portile (= 0.6.0)
-    pg (0.18.0.pre20141117110243)
-    pg (0.18.0.pre20141117110243-x86-mingw32)
+    pg (0.17.1)
+    pg (0.17.1-x86-mingw32)
     poltergeist (1.5.1)
       capybara (~> 2.1)
       cliver (~> 0.3.1)
@@ -175,7 +175,7 @@ DEPENDENCIES
   jbuilder (~> 1.2)
   jquery-rails
   jquery-ui-rails
-  pg (~> 0.18.0.pre20141117110243)
+  pg
   poltergeist (= 1.5.1)
   rails (= 4.0.2)
   rails_12factor

@@ -28,6 +28,10 @@ describe ( 'works/show_xhr' ) {
   }
 
   it {
+    should have_css %Q|.work-image[data-action-item-id="#{work.images.first.id}"]|
+  }
+
+  it {
     should have_css '.work-image .work-commands'
     should have_css ".work-commands a[href*='#{work_path work}'].show"
     should have_css '.work-commands a.close'

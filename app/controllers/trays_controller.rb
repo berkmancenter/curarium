@@ -3,7 +3,7 @@ class TraysController < ApplicationController
   skip_before_action :authorize, only: [:external]
 
   def index
-    @owner = User.find( params[ :user_id ] )
+    @owner = User.find( params[ :user_id ] || session[ :user_id ] )
     @trays = @owner.trays
 
     respond_to { |format|

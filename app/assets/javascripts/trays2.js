@@ -40,7 +40,28 @@ $( function() {
     }
   } );
 
-  $( '.works.show' )
+  $( '.works.index' )
+  .on( 'click', '.work-commands .tray', function( ) {
+    $.ajax( {
+      url: '/trays',
+      data: {
+        popup_action: 'add',
+        popup_action_item_type: 'Image',
+        popup_action_item_id: $( this ).closest( '.work-image' ).data( 'actionItemId' )
+      }
+    } )
+    .done( function( popupHtml ) {
+      $.magnificPopup.open( {
+        items: {
+          src: popupHtml,
+          type: 'inline'
+        }
+      } );
+    } );
+  } );
+
+
+  $( '.works.index, .works.show' )
   .on( 'click', '.tray-popup-button', function( ) {
     var popup = $( this ).closest( '.tray-popup' );
     $.ajax( {
@@ -52,7 +73,8 @@ $( function() {
       }
     } )
     .done( function( result ) {
-      window.location.reload();
+      popup.closest( '.bub_menu' ).find( '.checkbox_hack' ).click( );
+      $.magnificPopup.instance.close();
     } )
     .fail( function( result ) {
       alert( result );
@@ -70,6 +92,8 @@ $( function() {
     } );
     return false;
   } );
+
+
 
   $( '.trays.show' )
   .on( 'click', '.tray-popup-button', function( ) {

@@ -24,6 +24,10 @@
   background-position: -16px (-16px + 80px);
 }
 
+.mini-icon-tray {
+  background-position: -48px (-16px + 80px);
+}
+
 .mini-icon-close {
   background-position: -16px (-48px + 80px);
 }
@@ -36,6 +40,10 @@ a:hover {
   .mini-icon {
     .mini-icon-work {
       background-position: -16px (-16px + 0px);
+    }
+
+    .mini-icon-tray {
+      background-position: -48px (-16px + 0px);
     }
 
     .mini-icon-close {

@@ -23,3 +23,5 @@ en:
   mini_icons:
     close: ''
     record: 'View record page'
+    tray: 'Add to tray'
+    work: 'Record'

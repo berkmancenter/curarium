@@ -1,28 +1,2 @@
-<p id="notice"><%= notice %></p>
-
-<p>
-  <strong>Name:</strong>
-  <%= @user.name %>
-</p>
-
-<p>
-  <strong>Email:</strong>
-  <%= @user.email %>
-</p>
-
-<form method='post' action='message'>
-	<input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>">
-	<input type='hidden' name='message[sender]' value='<%= session[:user_id] %>'>
-	<input type='hidden' name='message[receiver]' value='<%= @user.id %>'>
-	<input name='message[subject]' placeholder="message subject"></input>
-	<br>
-	<textarea name='message[content]' placeholder="message body"></textarea>
-	<br>
-	<input type="submit">	
-</form>
-
-<% if owner?%>
-	<%= link_to 'Edit', edit_user_path(@user) %> |
-<% end %>
-<%= link_to 'Back', :back %>
+<h1 class="collection-header"><%= @user.name %></h1>
 

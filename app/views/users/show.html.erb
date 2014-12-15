@@ -5,3 +5,21 @@
   <dd><%= @user.created_at %></dd>
 </dl>
 
+<section class="user-trays">
+  <h1 class="collection-header">Trays</h1>
+
+<%= render partial: 'trays/tray_preview_gallery', object: @user.trays %>
+
+</section>
+
+<section class="user-collections">
+  <h1 class="collection-header">Collections</h1>
+
+  <div class="GALLERY">
+    <% Collection.administered_by( @user ).each do |collection| %>
+      <%= render :partial=>'shared/print_item', :locals=>{:item=>collection} %>
+    <% end %>
+  </div><!-- END GALLERY -->  
+
+</section>
+

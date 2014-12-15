@@ -20,10 +20,8 @@
       
 <!-- BEGIN GALLERY -->	     
 <div class="GALLERY">
-    <% @collections.each do |collection| %>
-    <% if collection.approved  %>
+  <% @collections.each do |collection| %>
     <%= render :partial=>'shared/print_item', :locals=>{:item=>collection} %>
-    <% end %>
   <% end %>
 
    <div class="gallery_item">

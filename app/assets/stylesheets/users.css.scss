@@ -4,6 +4,12 @@
 /* users & sessions */
 
 .users {
+  &.show {
+    section h1 {
+      font-size: $fontSize2;
+    }
+  }
+
   form {
     display: inline-block;
   }

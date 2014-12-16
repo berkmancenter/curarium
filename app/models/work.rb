@@ -4,7 +4,6 @@ require 'zlib'
 class Work < ActiveRecord::Base
   belongs_to :collection
 
-  has_many :annotations, dependent: :destroy
   has_many :amendments, dependent: :destroy
   has_many :images, dependent: :destroy
 
@@ -71,6 +70,11 @@ class Work < ActiveRecord::Base
         end
       end
     end
+  end
+
+  def annotations
+    # shortcut to first image's annotations
+    images.first.annotations
   end
 
   private

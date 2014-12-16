@@ -8,6 +8,11 @@ describe ( 'Work model' ) {
 
     it { w.should respond_to 'images' }
 
+    it {
+      # "work" annotations is a shortcut to the annotations on the work's first image
+      w.should respond_to :annotations
+    }
+
     it ( 'should have an original value' ) {
       w.original.should_not eq( nil )
     }

@@ -625,7 +625,6 @@ dd {
   background: white;
   position: absolute;
   top: 70px;
-  width: 100%;
   height: 15px;
 /*  overflow: hidden; */
   padding: 6px 0;
@@ -1008,13 +1007,10 @@ dd {
   -moz-box-sizing: border-box;
   box-sizing: border-box;
   position: absolute;
-  position: absolute;
-  top: 0;
+  top: 38px;
   left: 0;
-  width: 100%;
-  height: 100%;
-  padding-top: 38px;
-  z-index: -3;
+  right: 0;
+  bottom: 35px;
   margin: auto;
 }
 
@@ -1061,7 +1057,6 @@ dd {
 /*HACKING*/
 .bubble_menu {
   overflow: visible;
-  width: 100%;
   background: transparent;
   * {
     .menu_piecep, .menu_piecep * {

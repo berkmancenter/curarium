@@ -25,6 +25,7 @@ describe ( 'shared/header' ) {
     let ( :user ) { User.first }
 
     before {
+      assign( :user, user )
       session[ :user_id ] = user.id
       render 'shared/header'
     }
@@ -35,6 +36,14 @@ describe ( 'shared/header' ) {
 
     it {
       should have_css '.toggle_user span', text: user.name
+    }
+
+    it {
+      should have_css '.toggle_user .dropdown_menu'
+    }
+
+    it {
+      should have_css %Q|.toggle_user .dropdown_menu a[href*="#{logout_path}"]|, text: 'Log Out'
     }
   }
 }

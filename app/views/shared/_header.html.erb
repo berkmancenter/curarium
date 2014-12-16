@@ -26,6 +26,7 @@
 		      <div class="toggle_user toggle_tools">
 		    <% if @user.present? %>
           <%= link_to render( partial: 'users/mini_icon', object: @user ), @user %>
+			    <div class="dropdown_menu"><%= link_to 'Log Out', logout_path, method: :delete %></div>
 		    <% else %>
           <a href='<%= login_url %>'><span>Log In</span> <%= image_tag "user_b.png", class: 'black', alt: '' %><%= image_tag "user_r.png", class: 'red', alt: '' %></a>
 		    <% end %>

@@ -50,6 +50,10 @@ describe ( 'trays/index' ) {
     }
 
     it {
+      should have_css 'h2.titlebar .mini-icon'
+    }
+
+    it {
       should have_css 'a.tray-preview'
     }
 

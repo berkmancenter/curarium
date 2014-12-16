@@ -6,6 +6,24 @@ $( function() {
     window.spotlights.create();
   }
 
+  $( '.trays.index' )
+  .on( 'click', '[data-action]', function( ) {
+    var action = $( this ).data( 'action' );
+    if ( action === 'destroy' ) {
+      if ( confirm( 'Delete this tray?' ) ) {
+        $.ajax( {
+          type: 'DELETE',
+          url: $( this ).attr( 'href' ),
+        } )
+        .done( function( result ) {
+          window.location.reload();
+        } );
+      }
+    }
+
+    return false;
+  } );
+
   var trayPopupHtml = $( '.tray-popup' );
 
   $( '.trays.show .tray-item' )

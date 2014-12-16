@@ -68,6 +68,16 @@ class TraysController < ApplicationController
 
   end
   
+  # DELETE /trays/1
+  def destroy
+    @tray = Tray.find params[ :id ]
+    @tray.delete
+    render text: '200 OK', status: 200
+  end
+
+
+
+
   def external #this is a provisional api like method for interacting with the WAKU editor.
     tray = {}
     tray[:name] =  @tray.name

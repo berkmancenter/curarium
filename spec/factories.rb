@@ -91,16 +91,13 @@ FactoryGirl.define do
   factory :annotation do
     factory :jesus do
       # user test_user
-      # work last_supper
-      content {{
-        'title' => 'jesus',
-        'body' => 'hey!',
-        'x' => '2592',
-        'y' => '1408.5127272727272',
-        'width' => '249',
-        'height'=>'308',
-        'image_url'=>'http://upload.wikimedia.org/wikipedia/commons/4/4b/%C3%9Altima_Cena_-_Da_Vinci_5.jpg'
-      }}
+      # image last_supper.images.first
+      title 'jesus'
+      body 'hey!'
+      x 2592
+      y 1408.5127272727272
+      width 249
+      height 308
     end
   end
 

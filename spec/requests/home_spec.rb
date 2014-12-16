@@ -32,6 +32,10 @@ describe 'home requests', :js => true do
               should_not have_css '.beta-popup'
             }
           }
+
+          after {
+            page.execute_script( "window.localStorage.clear( );" )
+          }
         }
       }
     }

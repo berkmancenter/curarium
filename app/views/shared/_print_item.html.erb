@@ -13,17 +13,6 @@
         </div>
     </div>
   </a>
-  <div class='collection_options'>
-    <div class='collection_options_inner'>
-      <div>
-        <img src='/assets/collection_r.png' alt="">
-        <img src='/assets/collection_w.png' alt=""> About
-      </div>
-      <div>
-        <a href='<%= collection_works_path (item) %>'><img src='/assets/add_r.png' alt=""><img src='/assets/add_w.png' alt=""> Activate</a>
-      </div>
-    </div>
-  </div>
 <% elsif item.class == Spotlight %>
   <a href='<%= spotlight_path(item) %>'><div class='gallery_item spotlight<%=" item_lrg" if big %>' >
     <div class='object_id'><%= item.title %></div>

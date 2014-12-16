@@ -8,7 +8,7 @@
 <section class="user-trays">
   <h1 class="collection-header">Trays</h1>
 
-<%= render partial: 'trays/tray_preview_gallery', object: @user.trays %>
+  <%= render partial: 'trays/tray_preview_gallery', object: @user.trays.limit(2) %>
 
 </section>
 

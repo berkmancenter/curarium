@@ -7,5 +7,7 @@
     <%= link_to render( partial: 'trays/tray_preview', object: tray ), user_tray_path( tray.owner, tray ), class: 'tray-preview' %>
   <% } %>
 
+  <%= link_to raw( '<h2>tray manager</h2>' ), user_trays_path( @user ) unless params[ :controller ] == 'trays' %>
+
 </div>
 <!-- END GALLERY -->  

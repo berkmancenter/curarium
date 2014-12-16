@@ -30,6 +30,10 @@ describe ( 'users/show' ) {
   }
 
   it {
+    should have_css %Q|a[href*="#{user_trays_path user}"]|, text: 'tray manager'
+  }
+
+  it {
     should have_css 'section.user-collections'
   }
 

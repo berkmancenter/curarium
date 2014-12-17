@@ -65,7 +65,7 @@ class AnnotationsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def annotation_params
-      params.require(:annotation).permit(content: [:id, :work_id, :user_id, :title, :body, :x, :y, :width, :height, :image_url, tags: []])
+      params.require(:annotation).permit( :id, :work_id, :user_id, :title, :body, :x, :y, :width, :height, :image_url, :tags )
     end
   
 end

@@ -254,7 +254,7 @@ window.work.display = (image_url)->
       $("#content_y").val(clipping.y)
       $("#content_width").val(clipping.width)
       $("#content_height").val(clipping.height)
-      $("#content_url").val(image_url)
+      $("#content_image_url").val(image_url)
       
       #create a second kinetic stage for previewing your annotation
       preview = new Kinetic.Stage(
@@ -376,8 +376,8 @@ window.work.display = (image_url)->
   
   #event handler for dropdown menu that adds tags to annotations
   $('.tag_selector').change ()->
-    div = $("<input type='text'class='annotation_tag' readonly='readonly' name='annotation[content][tags][]'>").val($(this).val())
-    $(this).before(div)
+    current_note = $(this).parent()
+    $(current_note).find('.content_tags').val($(this).val())
     undefined
   
   #THIS IS FUNCTIONALITY THAT IS NO LONGER IMPLEMENTED, BUT THAT SHOULD BE REIMPLEMENTED IN THE FUTURE

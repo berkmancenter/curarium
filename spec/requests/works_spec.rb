@@ -2,9 +2,10 @@ require 'spec_helper'
 
 describe 'works requests', :js => true do
   let ( :col ) { Collection.first }
-  let ( :recs ) { col.works.all }
-  let ( :rec ) { recs.first }
-  let ( :anno_rec ) { Work.find_by_title 'Last Supper' }
+  let ( :works ) { col.works.all }
+  let ( :work ) { works.first }
+  let ( :last_supper ) { Work.find_by_title 'Last Supper' }
+  let ( :star_attr ) { FactoryGirl.attributes_for :star }
 
   subject { page }
 
@@ -12,7 +13,7 @@ describe 'works requests', :js => true do
     describe ( 'get /works/:id' ) {
       context ( 'simple' ) {
         before {
-          visit work_path( rec )
+          visit work_path( work )
         }
 
         it {
@@ -24,9 +25,9 @@ describe 'works requests', :js => true do
         }
       }
 
-      context ( 'with annootation' ) {
+      context ( 'with annotation' ) {
         before {
-          visit work_path( anno_rec )
+          visit work_path( last_supper )
         }
 
         it {
@@ -38,14 +39,16 @@ describe 'works requests', :js => true do
   }
 
   context ( 'with signed in user' ) {
+    let ( :user ) { FactoryGirl.attributes_for :test_user }
+
     before {
       visit login_path
     }
 
     describe ( 'sign in' ) {
       before {
-        fill_in 'email:', with: 'test@example.com'
-        fill_in 'password:', with: 't3stus3r'
+        fill_in 'email:', with: user[ :email ]
+        fill_in 'password:', with: user[ :password ]
 
         click_button 'login'
       }
@@ -102,7 +105,7 @@ describe 'works requests', :js => true do
             }
 
             it {
-              should have_css '.works-thumbnails a', count: recs.count
+              should have_css '.works-thumbnails a', count: works.count
             }
           }
 
@@ -128,7 +131,7 @@ describe 'works requests', :js => true do
             }
 
             it {
-              should have_css '.works-list a', count: recs.count
+              should have_css '.works-list a', count: works.count
             }
 
             it {
@@ -183,7 +186,7 @@ describe 'works requests', :js => true do
             }
 
             it {
-              should have_css '.works-list a', count: recs.count - 1
+              should have_css '.works-list a', count: works.count - 1
             }
 
             it {
@@ -197,7 +200,7 @@ describe 'works requests', :js => true do
             }
 
             it {
-              should have_css '.works-list a', count: recs.count - 2
+              should have_css '.works-list a', count: works.count - 2
             }
 
             it {
@@ -414,17 +417,48 @@ describe 'works requests', :js => true do
 
       describe ( 'get /works/:id' ) {
         before {
-          visit work_path( rec )
+          visit work_path( work )
         }
 
         it {
           should have_title 'Curarium'
         }
+
+        describe ( 'post /works/annotations' ) {
+          before {
+            sleep 1
+            execute_script %Q|$( '.expand_anno' ).show();|
+
+            fill_in 'Title', with: star_attr[ :title ]
+            fill_in 'Body', with: star_attr[ :body ]
+
+            execute_script %Q|$( '#content_x' ).val( #{star_attr[ :x ] } );|
+            execute_script %Q|$( '#content_y' ).val( #{star_attr[ :y ] } );|
+            execute_script %Q|$( '#content_width' ).val( #{star_attr[ :width ] } );|
+            execute_script %Q|$( '#content_height' ).val( #{star_attr[ :height ] } );|
+            execute_script %Q|$( '#content_image_url' ).val( '#{star_attr[ :image_url ] }' );|
+          }
+
+          it ( 'should open annotation popout' ) {
+            should have_css '.expand_anno'
+          }
+
+          describe ( 'click create' ) {
+            before {
+              click_button 'Create Annotation'
+            }
+
+            it {
+              a = Annotation.last
+              a.title.should eq( star_attr[ :title ] )
+            }
+          }
+        }
       }
 
       describe ( 'get /works/:id/thumb' ) {
         before {
-          visit thumb_work_path( rec )
+          visit thumb_work_path( work )
         }
 
         it {

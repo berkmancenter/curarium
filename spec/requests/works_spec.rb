@@ -4,21 +4,35 @@ describe 'works requests', :js => true do
   let ( :col ) { Collection.first }
   let ( :recs ) { col.works.all }
   let ( :rec ) { recs.first }
+  let ( :anno_rec ) { Work.find_by_title 'Last Supper' }
 
   subject { page }
 
   context ( 'anonymous' ) {
     describe ( 'get /works/:id' ) {
-      before {
-        visit work_path( rec )
+      context ( 'simple' ) {
+        before {
+          visit work_path( rec )
+        }
+
+        it {
+          should have_title 'Curarium'
+        }
+
+        it {
+          should have_css 'body.works.show'
+        }
       }
 
-      it {
-        should have_title 'Curarium'
-      }
+      context ( 'with annootation' ) {
+        before {
+          visit work_path( anno_rec )
+        }
 
-      it {
-        should have_css 'body.works.show'
+        it {
+          sleep 1
+          should have_title 'Curarium'
+        }
       }
     }
   }

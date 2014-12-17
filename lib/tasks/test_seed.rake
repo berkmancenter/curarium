@@ -56,6 +56,7 @@ def seed
   supper = crfj test_col, :last_supper
   supper.images.first.annotations << jesus
   supper.images.first.save
+  supper.save
 
   crfj test_col, :lucrezia
   crfj test_col, :empty_thumbnail

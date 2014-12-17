@@ -41,6 +41,7 @@ ActiveRecord::Schema.define(version: 20141216182620) do
     t.integer  "y"
     t.integer  "width"
     t.integer  "height"
+    t.string   "image_url"
   end
 
   add_index "annotations", ["image_id"], name: "index_annotations_on_image_id", using: :btree

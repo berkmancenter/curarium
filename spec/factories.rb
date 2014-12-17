@@ -94,10 +94,12 @@ FactoryGirl.define do
       # image last_supper.images.first
       title 'jesus'
       body 'hey!'
+      tags 'Jesus'
       x 2592
       y 1408.5127272727272
       width 249
       height 308
+      image_url 'http://upload.wikimedia.org/wikipedia/commons/4/4b/%C3%9Altima_Cena_-_Da_Vinci_5.jpg'
     end
   end
 

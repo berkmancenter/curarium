@@ -12,5 +12,7 @@ class UpdateAnnotation < ActiveRecord::Migration
     add_column :annotations, :y, :integer
     add_column :annotations, :width, :integer
     add_column :annotations, :height, :integer
+
+    add_column :annotations, :image_url, :string
   end
 end

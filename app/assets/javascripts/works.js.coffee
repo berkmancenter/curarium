@@ -284,18 +284,21 @@ window.work.display = (image_url)->
         notes_layer = new Kinetic.Layer() #create new layer for annotations, represented as rectangles
         stage.add(notes_layer)
         for n in notes
-          if n.content.image_url == image_url #check that the annotation was added to this particular image. This is necessary if the work has more than one image
+          if n.image_url == image_url #check that the annotation was added to this particular image. This is necessary if the work has more than one image
             ID = "note_"+n.id #give rectangle note a unique id which matches that note's html representation
             rect = new Kinetic.Rect(
               id: ID
-              x: parseInt(n.content.x) + (main.offsetWidth/min_scale - surrogate.width)/2 #add picture offset for display purposes
-              y: parseInt(n.content.y) + (main.offsetHeight/min_scale - surrogate.height)/2 #add picture offset for display purposes
+              x: parseInt(n.x) + (main.offsetWidth/min_scale - surrogate.width)/2 #add picture offset for display purposes
+              y: parseInt(n.y) + (main.offsetHeight/min_scale - surrogate.height)/2 #add picture offset for display purposes
               stroke:'red'
               strokeWidth: 1
-              width: n.content.width
-              height: n.content.height
+              width: n.width
+              height: n.height
             )
-            rect.tags = n.content.tags
+            if n.tags
+              rect.tags = n.tags.split( ',' )
+            else
+              rect.tags = ''
             
             #THE FOLLOWING ARE INTERFACE RELATED FUNCTIONS FOR INTERACTION BETWEEN NOTES, IMAGE CROPPINGS AND TAGS
             

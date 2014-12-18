@@ -83,54 +83,53 @@
               <h4 class='window_header'>ANNOTATE IMAGE</h4>
               <div class='window_body'>
                 <div id='preview_window'></div>
-                <%= form_for([@work, @work.annotations.build]) do |f| %>
-                  <%= f.fields_for :content do |content|%><br>
-                    <div>
-                      <%= content.label :title%><br>
-                      <%= content.text_field :title%>
-                    </div>
-                    <div>
-                      <%= content.label :body%><br>
-                      <%= content.text_area :body%>
-                    </div>
-                    <%= content.hidden_field :x, id: 'content_x'%>
-                    <%= content.hidden_field :y, id: 'content_y'%>
-                    <%= content.hidden_field :width, id: 'content_width'%>
-                    <%= content.hidden_field :height, id: 'content_height'%>
-                    <%= content.hidden_field :image_url, id: 'content_url'%>
-                  <% end %>    
+                <%= form_for([@work, Annotation.new]) do |f| %>
+                  <div>
+                    <%= f.label :title%><br>
+                    <%= f.text_field :title%>
+                  </div>
+                  <div>
+                    <%= f.label :body%><br>
+                    <%= f.text_area :body%>
+                  </div>
+                  <%= f.hidden_field :tags, id: 'content_tags' %>
+
+                  <%= f.hidden_field :x, id: 'content_x' %>
+                  <%= f.hidden_field :y, id: 'content_y'%>
+                  <%= f.hidden_field :width, id: 'content_width'%>
+                  <%= f.hidden_field :height, id: 'content_height'%>
+                  <%= f.hidden_field :image_url, id: 'content_image_url'%>
+
                   <%= tag_selector @current_metadata %>
                   <p>
                   <%= f.submit %>
                   </p>
-                <% end %>
+                <% end %>    
               </div>
             <% end %>
 
             <div id='work_annotations'>
-              <% @work.annotations.each do |annotation|%>
-                <% if annotation.content %>
-                  <div class='annotation_wrapper' id='note_<%= annotation.id%>'>
-                    <p class='annotation_title'>
-                    <%= annotation.content['title'] %>
-                    </p>
-                    <p class='annotation_body'>
-                    <%= annotation.content['body'] %>
-                    </p>
-                    <%unless annotation.content['tags'].nil? %>
-                      <div class='annotation_tags'>
-                        <% annotation.content['tags'].each do |tag| %>
-                          <p class='annotation_tag'>
-                          <%= tag%>
-                          </p>
-                        <% end %>
-                      </div>
-                    <% end %>
-                    <p class='annotation_attribution'>
-                    by <%= annotation.user.name %> on <%= annotation.created_at %>
-                    </p>
-                  </div>
-                <% end %>
+              <% @work.annotations.each do |annotation| %>
+                <div class='annotation_wrapper' id='note_<%= annotation.id%>'>
+                  <p class='annotation_title'>
+                  <%= annotation.title %>
+                  </p>
+                  <p class='annotation_body'>
+                  <%= annotation.body %>
+                  </p>
+                  <% unless annotation.tags.nil? %>
+                    <div class='annotation_tags'>
+                      <% annotation.tags.split( ',' ).each do |tag| %>
+                        <p class='annotation_tag'>
+                        <%= tag %>
+                        </p>
+                      <% end %>
+                    </div>
+                  <% end %>
+                  <p class='annotation_attribution'>
+                  by <%= annotation.user.name unless annotation.user.nil? %> on <%= annotation.created_at %>
+                  </p>
+                </div>
               <% end %>
             </div>
 

@@ -54,7 +54,8 @@ def seed
 
   # work with annotation
   supper = crfj test_col, :last_supper
-  supper.annotations << jesus
+  supper.images.first.annotations << jesus
+  supper.images.first.save
   supper.save
 
   crfj test_col, :lucrezia

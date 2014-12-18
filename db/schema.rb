@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141110160125) do
+ActiveRecord::Schema.define(version: 20141216182620) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -31,11 +31,20 @@ ActiveRecord::Schema.define(version: 20141110160125) do
 
   create_table "annotations", force: true do |t|
     t.integer  "user_id"
-    t.integer  "work_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.json     "content"
+    t.integer  "image_id"
+    t.string   "title"
+    t.string   "tags"
+    t.text     "body"
+    t.integer  "x"
+    t.integer  "y"
+    t.integer  "width"
+    t.integer  "height"
+    t.string   "image_url"
   end
+
+  add_index "annotations", ["image_id"], name: "index_annotations_on_image_id", using: :btree
 
   create_table "collections", force: true do |t|
     t.string   "name"

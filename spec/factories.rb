@@ -53,37 +53,37 @@ FactoryGirl.define do
   factory :work do
     factory :starry_night do
       # collection test_col
-      original '{"title":"Starry Night","imageInfo":{"url":"http://upload.wikimedia.org/wikipedia/commons/thumb/e/ea/Van_Gogh_-_Starry_Night_-_Google_Art_Project.jpg/1280px-Van_Gogh_-_Starry_Night_-_Google_Art_Project.jpg","thumbnail_url":"http://upload.wikimedia.org/wikipedia/commons/thumb/e/ea/Van_Gogh_-_Starry_Night_-_Google_Art_Project.jpg/116px-Van_Gogh_-_Starry_Night_-_Google_Art_Project.jpg"},"artist":"Van Gogh","subject":[{"topic":["stars"]},{"topic":["night"]},{"topic":["churches"]}]}'
+      original '{"title":"Starry Night","imageInfo":{"url":"/test/starry_night.jpg","thumbnail_url":"http://upload.wikimedia.org/wikipedia/commons/thumb/e/ea/Van_Gogh_-_Starry_Night_-_Google_Art_Project.jpg/116px-Van_Gogh_-_Starry_Night_-_Google_Art_Project.jpg"},"artist":"Van Gogh","subject":[{"topic":["stars"]},{"topic":["night"]},{"topic":["churches"]}]}'
     end
 
     factory :mona_lisa do
       # collection test_col
-      original '{"title":"Mona Lisa","imageInfo":{"url":"http://upload.wikimedia.org/wikipedia/commons/thumb/e/ec/Mona_Lisa%2C_by_Leonardo_da_Vinci%2C_from_C2RMF_retouched.jpg/687px-Mona_Lisa%2C_by_Leonardo_da_Vinci%2C_from_C2RMF_retouched.jpg","thumbnail_url":"http://upload.wikimedia.org/wikipedia/commons/thumb/e/ec/Mona_Lisa%2C_by_Leonardo_da_Vinci%2C_from_C2RMF_retouched.jpg/80px-Mona_Lisa%2C_by_Leonardo_da_Vinci%2C_from_C2RMF_retouched.jpg"},"artist":"da Vinci","subject":[{"topic":["Lisa"]},{"topic":["women"]},{"topic":["portraits"]}]}'
+      original '{"title":"Mona Lisa","imageInfo":{"url":"/test/mona_lisa.jpg","thumbnail_url":"http://upload.wikimedia.org/wikipedia/commons/thumb/e/ec/Mona_Lisa%2C_by_Leonardo_da_Vinci%2C_from_C2RMF_retouched.jpg/80px-Mona_Lisa%2C_by_Leonardo_da_Vinci%2C_from_C2RMF_retouched.jpg"},"artist":"da Vinci","subject":[{"topic":["Lisa"]},{"topic":["women"]},{"topic":["portraits"]}]}'
     end
 
     factory :last_supper do
       # collection test_col
-      original '{"title":"Last Supper","imageInfo":{"url":"http://upload.wikimedia.org/wikipedia/commons/4/4b/%C3%9Altima_Cena_-_Da_Vinci_5.jpg","thumbnail_url":"http://upload.wikimedia.org/wikipedia/commons/thumb/6/62/%C3%9Altima_CenaII.jpg/120px-%C3%9Altima_CenaII.jpg"},"artist":"da Vinci","subject":[{"topic":["Jesus"]},{"topic":["Mary"]},{"topic":["men"]},{"topic":["supper"]},{"topic":["women"]},{"topic":["Joseph, Saint"]}]}'
+      original '{"title":"Last Supper","imageInfo":{"url":"/test/last_supper.jpg","thumbnail_url":"http://upload.wikimedia.org/wikipedia/commons/thumb/6/62/%C3%9Altima_CenaII.jpg/120px-%C3%9Altima_CenaII.jpg"},"artist":"da Vinci","subject":[{"topic":["Jesus"]},{"topic":["Mary"]},{"topic":["men"]},{"topic":["supper"]},{"topic":["women"]},{"topic":["Joseph, Saint"]}]}'
     end
 
     factory :lucrezia do
       # collection test_col
-      original '{"title":"Lucrezia","imageInfo":{"url":"http://upload.wikimedia.org/wikipedia/commons/d/d3/Parmigianino%2C_lucrezia_romana%2C_1540.jpg","thumbnail_url":"http://upload.wikimedia.org/wikipedia/commons/thumb/d/d3/Parmigianino%2C_lucrezia_romana%2C_1540.jpg/89px-Parmigianino%2C_lucrezia_romana%2C_1540.jpg"},"artist":"Parmigianino","subject":[{"topic":["death"]},{"topic":["portraits"]},{"topic":["women"]},{"topic":["breast"]}]}'
+      original '{"title":"Lucrezia","imageInfo":{"url":"/test/lucrezia.jpg","thumbnail_url":"http://upload.wikimedia.org/wikipedia/commons/thumb/d/d3/Parmigianino%2C_lucrezia_romana%2C_1540.jpg/89px-Parmigianino%2C_lucrezia_romana%2C_1540.jpg"},"artist":"Parmigianino","subject":[{"topic":["death"]},{"topic":["portraits"]},{"topic":["women"]},{"topic":["breast"]}]}'
     end
 
     factory :empty_thumbnail do
       #collection test_col
-      original '{"title":"empty_thumbnail","imageInfo":{"url":"http://upload.wikimedia.org/wikipedia/commons/thumb/e/ec/Mona_Lisa%2C_by_Leonardo_da_Vinci%2C_from_C2RMF_retouched.jpg/687px-Mona_Lisa%2C_by_Leonardo_da_Vinci%2C_from_C2RMF_retouched.jpg"},"artist":"da Vinci","subject":[{"topic":["Mona"]},{"topic":["women"]},{"topic":["portraits"]}]}'
+      original '{"title":"empty_thumbnail","imageInfo":{"url":"/test/mona_lisa.jpg"},"artist":"da Vinci","subject":[{"topic":["Mona"]},{"topic":["women"]},{"topic":["portraits"]}]}'
     end
 
     factory :aphrodite do
       # collection not_approved
-      original '{"title":"Aphrodite Pudica","imageInfo":{"url":"http://upload.wikimedia.org/wikipedia/commons/0/02/NAMA_Aphrodite_Syracuse.jpg","thumbnail_url":"http://upload.wikimedia.org/wikipedia/commons/thumb/0/02/NAMA_Aphrodite_Syracuse.jpg/110px-NAMA_Aphrodite_Syracuse.jpg"},"artist":"Copie de Praxitèle"}'
+      original '{"title":"Aphrodite Pudica","imageInfo":{"url":"/test/aphrodite.jpg","thumbnail_url":"http://upload.wikimedia.org/wikipedia/commons/thumb/0/02/NAMA_Aphrodite_Syracuse.jpg/110px-NAMA_Aphrodite_Syracuse.jpg"},"artist":"Copie de Praxitèle"}'
     end
 
     factory :crucifixion do
       #collection multi_image
-      original '{"titleInfo":[{"title":["Crucifixion"]}],"relatedItem":[{"content":{"location":[{"url":[{"displayLabel":"Full Image","note":"unrestricted","content":"http:\/\/nrs.harvard.edu\/urn-3:VIT.BB:4627197"},{"displayLabel":"Thumbnail","content":"http:\/\/nrs.harvard.edu\/urn-3:VIT.BB:4627197"}]}]}},{"content":{"location":[{"url":[{"displayLabel":"Text","note":"unrestricted","content":"http://www.thedigitalwalters.org/Data/WaltersManuscripts/W102/data/W.102/sap/W102_000011_sap.jpg"},{"displayLabel":"Thumbnail","content":"http://ts3.mm.bing.net/th?id=HN.607998929429597709&w=116&h=176&c=7&rs=1&pid=1.7"}]}]}}],"recordIdentifier":[{"source":"VIA","content":"olvwork384182"}]}'
+      original '{"titleInfo":[{"title":["Crucifixion"]}],"relatedItem":[{"content":{"location":[{"url":[{"displayLabel":"Full Image","note":"unrestricted","content":"/test/crucifixion_1.jpg"},{"displayLabel":"Thumbnail","content":"http:\/\/nrs.harvard.edu\/urn-3:VIT.BB:4627197"}]}]}},{"content":{"location":[{"url":[{"displayLabel":"Text","note":"unrestricted","content":"/test/crucifixion_2.jpg"},{"displayLabel":"Thumbnail","content":"http://ts3.mm.bing.net/th?id=HN.607998929429597709&w=116&h=176&c=7&rs=1&pid=1.7"}]}]}}],"recordIdentifier":[{"source":"VIA","content":"olvwork384182"}]}'
     end
 
   end
@@ -91,16 +91,29 @@ FactoryGirl.define do
   factory :annotation do
     factory :jesus do
       # user test_user
-      # work last_supper
-      content {{
-        'title' => 'jesus',
-        'body' => 'hey!',
-        'x' => '2592',
-        'y' => '1408.5127272727272',
-        'width' => '249',
-        'height'=>'308',
-        'image_url'=>'http://upload.wikimedia.org/wikipedia/commons/4/4b/%C3%9Altima_Cena_-_Da_Vinci_5.jpg'
-      }}
+      # image last_supper.images.first
+      title 'jesus'
+      body 'hey!'
+      tags 'Jesus'
+      x 2592
+      y 1408.5127272727272
+      width 249
+      height 308
+      image_url '/test/last_supper.jpg'
+    end
+
+    # used as attributes for creating new annotations in tests
+    factory :star do
+      # user test_user
+      # image starry_night.images.first
+      title 'star'
+      body 'One of the many stars.'
+      tags 'stars'
+      x 343.47368421052635
+      y 447
+      width 209
+      height 179
+      image_url '/test/starry_night.jpg'
     end
   end
 

@@ -1007,7 +1007,7 @@ dd {
   -moz-box-sizing: border-box;
   box-sizing: border-box;
   position: absolute;
-  top: 38px;
+  top: 64px;
   left: 0;
   right: 0;
   bottom: 35px;
@@ -1271,12 +1271,13 @@ dd {
 }
 
 .expand_anno {
+  background: white;
+  border: 1px solid $cred;
   display: none;
+  overflow: auto;
   padding: 10px 10px 5px 10px;
   margin: 113px 50px 0 50px;
-  width: 100px !important;
-  height: 80px;
-  max-width: none !important;
+  max-height: 50%;
 }
 
 .bubble_menu .surrogates .expand_surr img {
@@ -1978,10 +1979,4 @@ dt:hover {
 }
 .bubble_menu .checkbox_hack:checked ~ .expand_anno {
   display: block;
-  width: 175px !important;
-  height: auto;
-  border: 1px solid #d2232a;
-  background: white;
-  max-height: 100px;
-  overflow: scroll;
 }

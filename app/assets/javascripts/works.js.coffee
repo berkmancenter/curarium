@@ -254,7 +254,7 @@ window.work.display = (image_url)->
       $("#content_y").val(clipping.y)
       $("#content_width").val(clipping.width)
       $("#content_height").val(clipping.height)
-      $("#content_url").val(image_url)
+      $("#content_image_url").val(image_url)
       
       #create a second kinetic stage for previewing your annotation
       preview = new Kinetic.Stage(
@@ -284,18 +284,21 @@ window.work.display = (image_url)->
         notes_layer = new Kinetic.Layer() #create new layer for annotations, represented as rectangles
         stage.add(notes_layer)
         for n in notes
-          if n.content.image_url == image_url #check that the annotation was added to this particular image. This is necessary if the work has more than one image
+          if n.image_url == image_url #check that the annotation was added to this particular image. This is necessary if the work has more than one image
             ID = "note_"+n.id #give rectangle note a unique id which matches that note's html representation
             rect = new Kinetic.Rect(
               id: ID
-              x: parseInt(n.content.x) + (main.offsetWidth/min_scale - surrogate.width)/2 #add picture offset for display purposes
-              y: parseInt(n.content.y) + (main.offsetHeight/min_scale - surrogate.height)/2 #add picture offset for display purposes
+              x: parseInt(n.x) + (main.offsetWidth/min_scale - surrogate.width)/2 #add picture offset for display purposes
+              y: parseInt(n.y) + (main.offsetHeight/min_scale - surrogate.height)/2 #add picture offset for display purposes
               stroke:'red'
               strokeWidth: 1
-              width: n.content.width
-              height: n.content.height
+              width: n.width
+              height: n.height
             )
-            rect.tags = n.content.tags
+            if n.tags
+              rect.tags = n.tags.split( ',' )
+            else
+              rect.tags = ''
             
             #THE FOLLOWING ARE INTERFACE RELATED FUNCTIONS FOR INTERACTION BETWEEN NOTES, IMAGE CROPPINGS AND TAGS
             
@@ -373,8 +376,8 @@ window.work.display = (image_url)->
   
   #event handler for dropdown menu that adds tags to annotations
   $('.tag_selector').change ()->
-    div = $("<input type='text'class='annotation_tag' readonly='readonly' name='annotation[content][tags][]'>").val($(this).val())
-    $(this).before(div)
+    current_note = $(this).parent()
+    $(current_note).find('.content_tags').val($(this).val())
     undefined
   
   #THIS IS FUNCTIONALITY THAT IS NO LONGER IMPLEMENTED, BUT THAT SHOULD BE REIMPLEMENTED IN THE FUTURE

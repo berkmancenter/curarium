@@ -69,6 +69,7 @@ def seed
   test_tray = FactoryGirl.create :test_tray
   test_tray.owner = test_user
   test_tray.images << Image.first
+  test_tray.annotations << Annotation.first
   test_tray.save
 
   empty_tray = FactoryGirl.create :empty_tray

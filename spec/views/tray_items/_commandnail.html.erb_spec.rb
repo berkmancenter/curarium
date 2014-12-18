@@ -3,7 +3,7 @@ require 'spec_helper'
 describe ( 'tray_items/commandnail' ) {
   subject { rendered }
 
-  context ( 'image tray item' ) {
+  context ( 'base tray item' ) {
     let ( :ti ) { TrayItem.first }
 
     before {
@@ -45,6 +45,32 @@ describe ( 'tray_items/commandnail' ) {
 
     it {
       should have_css '.commandnail a[data-action="destroy"]'
+    }
+  }
+
+  context ( 'image tray item' ) {
+    let ( :ti ) { TrayItem.find 1 }
+
+    before {
+      assign( :tray, ti.tray )
+      render 'tray_items/commandnail', commandnail: ti
+    }
+
+    it {
+      should have_css %Q|.commandnail a.view-item[href*="#{work_path( ti.image.work )}"]|
+    }
+  }
+
+  context ( 'annotation tray item' ) {
+    let ( :ti ) { TrayItem.find 2 }
+
+    before {
+      assign( :tray, ti.tray )
+      render 'tray_items/commandnail', commandnail: ti
+    }
+
+    it {
+      should have_css %Q|.commandnail a.view-item[href*="#{work_path( ti.annotation.work )}"]|
     }
   }
 }

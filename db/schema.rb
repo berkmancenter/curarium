@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141216182620) do
+ActiveRecord::Schema.define(version: 20141218174404) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -42,9 +42,11 @@ ActiveRecord::Schema.define(version: 20141216182620) do
     t.integer  "width"
     t.integer  "height"
     t.string   "image_url"
+    t.integer  "tray_item_id"
   end
 
   add_index "annotations", ["image_id"], name: "index_annotations_on_image_id", using: :btree
+  add_index "annotations", ["tray_item_id"], name: "index_annotations_on_tray_item_id", using: :btree
 
   create_table "collections", force: true do |t|
     t.string   "name"
@@ -117,8 +119,10 @@ ActiveRecord::Schema.define(version: 20141216182620) do
     t.integer  "image_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "annotation_id"
   end
 
+  add_index "tray_items", ["annotation_id"], name: "index_tray_items_on_annotation_id", using: :btree
   add_index "tray_items", ["image_id"], name: "index_tray_items_on_image_id", using: :btree
   add_index "tray_items", ["tray_id"], name: "index_tray_items_on_tray_id", using: :btree
 

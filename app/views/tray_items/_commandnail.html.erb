@@ -5,6 +5,8 @@
   if commandnail.image.present?
     background_image = thumb_work_path( commandnail.image.work )
     view_link = work_path( commandnail.image.work )
+  elsif commandnail.annotation.present?
+    view_link = work_path( commandnail.annotation.work )
   end
 %>
 

@@ -24,8 +24,8 @@ describe ( 'trays/show' ) {
       should have_css '.GALLERY'
     }
 
-    it ( 'should have tray item and add record button' ) {
-      should have_css '.gallery_item', count: 2
+    it ( 'should have tray items and add record button' ) {
+      should have_css '.gallery_item', count: tray.tray_items.count + 1
     }
 
     it ( 'should have tray item commandnail' ) {

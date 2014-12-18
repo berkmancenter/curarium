@@ -13,7 +13,7 @@ describe ( 'Image model' ) {
     it { i.should respond_to 'work' }
 
     it ( 'should have image parsed from work' ) {
-      i.image_url.should eq( 'http://upload.wikimedia.org/wikipedia/commons/thumb/e/ea/Van_Gogh_-_Starry_Night_-_Google_Art_Project.jpg/1280px-Van_Gogh_-_Starry_Night_-_Google_Art_Project.jpg' )
+      i.image_url.should eq( '/test/starry_night.jpg' )
     }
 
     it ( 'should have thumbnail parsed from work' ) {

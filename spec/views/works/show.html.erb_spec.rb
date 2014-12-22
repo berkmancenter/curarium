@@ -3,7 +3,7 @@ require 'spec_helper'
 describe ( 'works/show' ) {
   subject { rendered }
 
-  let ( :work ) { Work.find_by_title 'Aphrodite Pudica' }
+  let ( :work ) { Work.find_by_title 'Last Supper' }
 
   context ( 'with anonymous' ) {
     before {
@@ -40,11 +40,46 @@ describe ( 'works/show' ) {
 
     describe ( 'add to tray' ) {
       it {
-        should have_css '.expand_tray', visible: false
+        should have_css '.expand_tray .tray-popup', visible: false
       }
 
       it {
-        should have_css %Q|.expand_tray .tray-popup[data-action="add"][data-action-item-type="Image"][data-action-item-id="#{work.images.first.id}"]|, visible: false
+        should have_css %Q|.tray-popup[data-action="add"][data-action-item-type="Image"][data-action-item-id="#{work.images.first.id}"]|, visible: false
+      }
+    }
+
+    describe ( 'annotations' ) {
+      describe ( 'form' ) {
+        it {
+          should have_css '.expand_anno #annotations', visible: false
+        }
+
+        it {
+          should have_css '#annotations form#new_annotation', visible: false
+        }
+
+        it {
+          should have_css %Q|#new_annotation[action="#{work_annotations_path( work )}"]|, visible: false
+        }
+
+        it {
+          should have_css '#new_annotation input[type="text"][name="annotation[title]"]', visible: false
+        }
+
+        it {
+          should have_css '#new_annotation input[type="hidden"][name="annotation[tags]"]', visible: false
+          should have_css '#new_annotation input[type="hidden"][name="annotation[image_url]"]', visible: false
+        }
+
+        it {
+          should have_css '#new_annotation input[type="hidden"][name="annotation[thumbnail_url]"]', visible: false
+        }
+      }
+    }
+
+    describe ( 'list' ) {
+      it {
+        
       }
     }
   }

@@ -19,6 +19,10 @@ describe ( Annotation ) {
     }
 
     it {
+      a.should respond_to( :thumbnail_url )
+    }
+
+    it {
       a.title.should eq( 'jesus' )
     }
   }

@@ -8,6 +8,10 @@ class Collection < ActiveRecord::Base
   validates :description, presence: true
   validates :configuration, presence: true
   
+  scope :administered_by, ->( user ) {
+    where( "#{user.id} = ANY( admin )" )
+  }
+
   def self.create_work_from_parsed( key, original, parsed )
     # create a work from original JSON and pre-parsed version
     col = find_by_key key

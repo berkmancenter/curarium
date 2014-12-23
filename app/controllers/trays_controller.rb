@@ -1,14 +1,27 @@
 class TraysController < ApplicationController
   before_action :set_tray, only: [:show, :edit, :update, :destroy, :add_works, :add_visualization, :external]
-  skip_before_action :authorize, only: [:external, :show]
+  skip_before_action :authorize, only: [:external]
 
   def index
-    @owner = User.find( params[ :user_id ] )
+    @owner = User.find( params[ :user_id ] || session[ :user_id ] )
     @trays = @owner.trays
+
+    respond_to { |format|
+      format.html {
+        if request.xhr?
+          @popup_action = params[ 'popup_action' ]
+          @popup_action_item_id = params[ 'popup_action_item_id' ]
+          render 'popup', layout: false
+        else
+          render
+        end
+      }
+    }
   end
   
   def show
-    render json: @tray
+    @owner = User.find( params[ :user_id ] )
+    @trays = @owner.trays
   end
   
   def add_works
@@ -40,19 +53,31 @@ class TraysController < ApplicationController
   end
     
   def create
-    @tray = Tray.new(tray_params)
-    works = []
-    if (params[:tray][:works])
-      params[:tray][:works].each do |r|
-        works.push(r.to_i)
-      end
+    @owner = User.find( params[ :user_id ] )
+    
+    @tray = Tray.create(tray_params)
+
+    if request.xhr?
+      @trays = @owner.trays
+      @popup_action = params[ 'popup_action' ]
+      @popup_action_item_id = params[ 'popup_action_item_id' ]
+      render 'popup', layout: false
+    else
+      redirect_to user_trays_path user: @owner
     end
-    @tray.visualizations = params[:tray][:visualizations]
-    @tray.works = works
-    @tray.save
-    render json: @tray
+
   end
   
+  # DELETE /trays/1
+  def destroy
+    @tray = Tray.find params[ :id ]
+    @tray.delete
+    render text: '200 OK', status: 200
+  end
+
+
+
+
   def external #this is a provisional api like method for interacting with the WAKU editor.
     tray = {}
     tray[:name] =  @tray.name
@@ -87,7 +112,7 @@ class TraysController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def tray_params
-      params.require(:tray).permit(:name, :owner_id, :owner_type, visualizations:[:url, terms:[:type,:property,:length]])
+      params.require(:tray).permit(:name, :owner_id, :owner_type) #, visualizations:[:url, terms:[:type,:property,:length]])
     end
   
 end

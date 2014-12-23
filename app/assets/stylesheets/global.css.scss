@@ -27,7 +27,7 @@ select {
   background-color: white;
 }
 
-input[type=text], input[type=password], textarea, .login-button {
+input[type=text], input[type=password], textarea, .login-button, .tray-popup-button {
   background: $white;
   border: 1px solid $cred;
   color: $cred;
@@ -45,6 +45,21 @@ a {
   &:hover {
     text-decoration: underline;
   }
+}
+
+dl {
+  margin: 4px 0;
+}
+
+dt {
+  color: $cred;
+  display: inline-block;
+  font-weight: bold;
+  padding-right: 8px;
+}
+
+dd {
+  display: inline-block;
 }
 
 /* GLOBAL HOLDER */
@@ -139,15 +154,6 @@ a {
 .titlebar:first-child {
   margin: 0 0 20px 0;
 }
-.menulines {
-  border-top: 3px solid #d2232a;
-  border-bottom: 1px solid #CCCCCC;
-  height: 34px;
-  width: 100%;
-  background: white;
-  position: absolute; top: 0; left: 0;
-  background: #ffffff;
-}
 .toggle_curarium {
   position: relative;
 }
@@ -184,25 +190,6 @@ a {
 }
 .expandable .dropdown_menu a {
   padding: 3px 37px 3px 20px!important;
-}
-.tray,.new_tray {
-  margin-bottom: 5px;
-  padding: 2px 0;
-  height: 10px;
-  width: 110px;
-  position: relative;
-  input[type=text] {
-    width: 80%;
-  }
-  .add{
-    left: 108px;
-    top: 3px;
-    font-weight: bold;
-    color: #d2232a;
-    position: absolute;
-    cursor: pointer;
-    border: 1px solid #d2232a;
-  }
 }
 
 /* GLOBAL MENU */
@@ -638,7 +625,6 @@ a {
   background: white;
   position: absolute;
   top: 70px;
-  width: 100%;
   height: 15px;
 /*  overflow: hidden; */
   padding: 6px 0;
@@ -1021,13 +1007,10 @@ a {
   -moz-box-sizing: border-box;
   box-sizing: border-box;
   position: absolute;
-  position: absolute;
-  top: 0;
+  top: 64px;
   left: 0;
-  width: 100%;
-  height: 100%;
-  padding-top: 38px;
-  z-index: -3;
+  right: 0;
+  bottom: 35px;
   margin: auto;
 }
 
@@ -1074,7 +1057,6 @@ a {
 /*HACKING*/
 .bubble_menu {
   overflow: visible;
-  width: 100%;
   background: transparent;
   * {
     .menu_piecep, .menu_piecep * {
@@ -1161,7 +1143,7 @@ a {
   width: 13px;
 }
 
-.bubble_menu .button img:nth-child(n+2){
+.bubble_menu .button img:nth-child(n+2) {
   display: none;
 }
 .bubble_menu .bub_dis, .bubble_menu .bub_shr {
@@ -1195,7 +1177,7 @@ a {
 .bubble_menu .bub_dis div .button, .bubble_menu .bub_shr div .button{
   width: 100%; 
 }
-.bubble_menu .nohover .button:hover{
+.bubble_menu .nohover .button:hover {
   background: transparent;
   color: #d2232a;
   cursor: default;
@@ -1280,23 +1262,22 @@ a {
   height: 80px;
   max-width: none !important;
 }
+
 .expand_tray {
   display: none;
-  padding: 10px 45px 10px 45px;
+  padding: 0;
   margin: 73px 50px 0 50px;
   border: 1px solid #d2232a;
-  width: 100px !important;
-  height: 80px;
-  max-width: none !important;
 }
 
 .expand_anno {
+  background: white;
+  border: 1px solid $cred;
   display: none;
+  overflow: auto;
   padding: 10px 10px 5px 10px;
   margin: 113px 50px 0 50px;
-  width: 100px !important;
-  height: 80px;
-  max-width: none !important;
+  max-height: 50%;
 }
 
 .bubble_menu .surrogates .expand_surr img {
@@ -1693,7 +1674,7 @@ dt:hover {
   color: #E60000;
 }
 
-.stack3:hover{
+.stack3:hover {
   position: absolute;
   opacity: 0.7;
   background-image: url('collection_r.png');
@@ -1993,18 +1974,9 @@ dt:hover {
 }
 .bubble_menu .checkbox_hack:checked ~ .expand_tray {
   display: block;
-  width: 105px !important;
-  height: auto;
   background: white;
-  max-height: 100px;
-  overflow: scroll;
+  overflow: auto;
 }
 .bubble_menu .checkbox_hack:checked ~ .expand_anno {
   display: block;
-  width: 175px !important;
-  height: auto;
-  border: 1px solid #d2232a;
-  background: white;
-  max-height: 100px;
-  overflow: scroll;
 }

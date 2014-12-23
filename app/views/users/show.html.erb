@@ -1,28 +1,25 @@
-<p id="notice"><%= notice %></p>
+<h1 class="collection-header"><%= @user.name %></h1>
 
-<p>
-  <strong>Name:</strong>
-  <%= @user.name %>
-</p>
+<dl>
+  <dt>Member since</dt>
+  <dd><%= @user.created_at %></dd>
+</dl>
 
-<p>
-  <strong>Email:</strong>
-  <%= @user.email %>
-</p>
+<section class="user-trays">
+  <h1 class="collection-header">Trays</h1>
 
-<form method='post' action='message'>
-	<input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>">
-	<input type='hidden' name='message[sender]' value='<%= session[:user_id] %>'>
-	<input type='hidden' name='message[receiver]' value='<%= @user.id %>'>
-	<input name='message[subject]' placeholder="message subject"></input>
-	<br>
-	<textarea name='message[content]' placeholder="message body"></textarea>
-	<br>
-	<input type="submit">	
-</form>
+  <%= render partial: 'trays/tray_preview_gallery', object: @user.trays.limit(2) %>
 
-<% if owner?%>
-	<%= link_to 'Edit', edit_user_path(@user) %> |
-<% end %>
-<%= link_to 'Back', :back %>
+</section>
+
+<section class="user-collections">
+  <h1 class="collection-header">Collections</h1>
+
+  <div class="GALLERY">
+    <% Collection.administered_by( @user ).each do |collection| %>
+      <%= render :partial=>'shared/print_item', :locals=>{:item=>collection} %>
+    <% end %>
+  </div><!-- END GALLERY -->  
+
+</section>
 

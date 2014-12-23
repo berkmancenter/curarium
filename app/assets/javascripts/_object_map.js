@@ -143,7 +143,6 @@ $( function() {
               //console.log( 'workId: ' + workIds[ indexes[ 0 ] ] );
 
               $.get( '/works/' + workIds[ indexes[ 0 ] ], function( popupHtml ) {
-                console.log( popupHtml );
                 $.magnificPopup.open( {
                   showCloseBtn: false,
                   items: {

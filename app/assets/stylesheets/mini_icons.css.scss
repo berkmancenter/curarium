@@ -20,8 +20,16 @@
   width: 16px;
 }
 
+.mini-icon-user {
+  background-position: -64px (-0px + 80px);
+}
+
 .mini-icon-work {
   background-position: -16px (-16px + 80px);
+}
+
+.mini-icon-tray {
+  background-position: -48px (-16px + 80px);
 }
 
 .mini-icon-close {
@@ -34,8 +42,15 @@ a:hover {
   }
 
   .mini-icon {
+    .mini-icon-user {
+      background-position: -64px (-0px + 0px);
+    }
     .mini-icon-work {
       background-position: -16px (-16px + 0px);
+    }
+
+    .mini-icon-tray {
+      background-position: -48px (-16px + 0px);
     }
 
     .mini-icon-close {

@@ -13,6 +13,7 @@ describe ( 'Tray model' ) {
     it { t.should respond_to 'tray_items' }
 
     it { t.should respond_to 'images' } # through tray_items
+    it { t.should respond_to 'annotations' } # through tray_items
 
     it ( 'should no longer have visualizations attribute' ) {
       t.should_not respond_to 'visualizations'
@@ -28,11 +29,17 @@ describe ( 'Tray model' ) {
   }
 
   describe ( 'tray_items' ) {
-    context ( 'Image' ) {
-      let ( :t ) { Tray.first }
+    let ( :t ) { Tray.first }
 
+    context ( 'Image' ) {
       it {
         t.images.first.should eq( Image.first )
+      }
+    }
+
+    context ( 'Annotation' ) {
+      it {
+        t.annotations.first.should eq( Annotation.first )
       }
     }
   }

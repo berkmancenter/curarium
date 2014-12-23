@@ -13,6 +13,8 @@ Curarium::Application.routes.draw do
 #  post 'users/message' => 'users#message', as: 'user_message'
 #  post 'sections/message' => 'sections#message', as: 'section_message'
 
+  resources :trays
+
   resources :users do
     resources :trays
   end
@@ -25,7 +27,15 @@ Curarium::Application.routes.draw do
 #    end
   end
 
+  resources :tray_items do
+    member do
+      put 'move' => :move
+      post 'copy' => :copy
+    end
+  end
+
   resources :spotlights
+
   resources :works do
     member do
       get 'thumb'
@@ -43,8 +53,8 @@ Curarium::Application.routes.draw do
     resources :works
   end
   
-get "/help" => "pages#help"
-get "/importhelp" => "pages#importhelp"
+  get "/help" => "pages#help"
+  get "/importhelp" => "pages#importhelp"
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

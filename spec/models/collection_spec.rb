@@ -157,5 +157,11 @@ describe ( 'Collection model' ) {
     }
 
   }
+
+  describe ( 'scope administered_by' ) {
+    it ( 'should have administered_by scope' ) {
+      Collection.administered_by( User.first ).count.should eq( 5 )
+    }
+  }
 }
 

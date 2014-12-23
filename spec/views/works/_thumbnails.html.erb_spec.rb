@@ -19,7 +19,8 @@ describe ( 'works/thumbnails' ) {
     }
 
     it {
-      should have_css 'img', count: works.count
+      # now background-images on a elements
+      should_not have_css 'a img'
     }
   }
 }

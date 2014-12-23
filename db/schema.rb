@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141110160125) do
+ActiveRecord::Schema.define(version: 20141222204756) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -31,11 +31,23 @@ ActiveRecord::Schema.define(version: 20141110160125) do
 
   create_table "annotations", force: true do |t|
     t.integer  "user_id"
-    t.integer  "work_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.json     "content"
+    t.integer  "image_id"
+    t.string   "title"
+    t.string   "tags"
+    t.text     "body"
+    t.integer  "x"
+    t.integer  "y"
+    t.integer  "width"
+    t.integer  "height"
+    t.string   "image_url"
+    t.integer  "tray_item_id"
+    t.string   "thumbnail_url"
   end
+
+  add_index "annotations", ["image_id"], name: "index_annotations_on_image_id", using: :btree
+  add_index "annotations", ["tray_item_id"], name: "index_annotations_on_tray_item_id", using: :btree
 
   create_table "collections", force: true do |t|
     t.string   "name"
@@ -108,8 +120,10 @@ ActiveRecord::Schema.define(version: 20141110160125) do
     t.integer  "image_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "annotation_id"
   end
 
+  add_index "tray_items", ["annotation_id"], name: "index_tray_items_on_annotation_id", using: :btree
   add_index "tray_items", ["image_id"], name: "index_tray_items_on_image_id", using: :btree
   add_index "tray_items", ["tray_id"], name: "index_tray_items_on_tray_id", using: :btree
 

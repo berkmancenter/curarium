@@ -25,6 +25,10 @@ describe 'users requests', :js => true do
           }
         }
       }
+
+      after {
+        page.execute_script( "window.localStorage.clear( );" )
+      }
     }
   }
 

@@ -233,46 +233,52 @@ window.work.display = (image_url)->
   canvas_mouseup = (event) ->
     if(event.which==1)
       
-      stage.setAttr('draggable', true)
-      
-      clipping =
-        x: Math.floor(crop.getAttr('x')) - (main.offsetWidth/min_scale - surrogate.width)/2 #remove picture offset for clipping purposes
-        y: Math.floor(crop.getAttr('y')) - (main.offsetHeight/min_scale - surrogate.height)/2 #remove picture offset for clipping purposes
-        width: Math.floor(crop.getAttr('width'))
-        height: Math.floor(crop.getAttr('height'))
-      
-      clipping =
-        x: if clipping.width > 0 then clipping.x else clipping.x+clipping.width
-        y: if clipping.height > 0 then clipping.y else clipping.y+clipping.height
-        width: Math.abs(clipping.width)
-        height: Math.abs(clipping.height)
-      
-      #remove mousemove event
-      $(this).unbind('mousemove')
-      #populate hidden form fields
-      $("#content_x").val(clipping.x)
-      $("#content_y").val(clipping.y)
-      $("#content_width").val(clipping.width)
-      $("#content_height").val(clipping.height)
-      $("#content_url").val(image_url)
-      
-      #create a second kinetic stage for previewing your annotation
-      preview = new Kinetic.Stage(
-        container: 'preview_window'
-        width: if clipping.width > clipping.height then 180 else clipping.width * 180 / clipping.height
-        height: if clipping.width > clipping.height then clipping.height * 180 / clipping.width else 180
-      )
-      preview_layer = new Kinetic.Layer()
-      preview_image = new Kinetic.Image(
-        image: surrogate
-        crop: clipping
-        scale:
-          x: preview.getAttr('width')/surrogate.width
-          y: preview.getAttr('height')/surrogate.height
-      )
-      preview_layer.add(preview_image)
-      preview.add(preview_layer)
-      crop.destroy()
+      if ( !stage.getAttr( 'draggable' ) )
+        stage.setAttr('draggable', true)
+        
+        #remove mousemove event
+        $(this).unbind('mousemove')
+
+        clipping =
+          x: Math.floor(crop.getAttr('x')) - (main.offsetWidth/min_scale - surrogate.width)/2 #remove picture offset for clipping purposes
+          y: Math.floor(crop.getAttr('y')) - (main.offsetHeight/min_scale - surrogate.height)/2 #remove picture offset for clipping purposes
+          width: Math.floor(crop.getAttr('width'))
+          height: Math.floor(crop.getAttr('height'))
+
+        if ( clipping.width != 0 && clipping.height != 0 )
+          clipping =
+            x: if clipping.width > 0 then clipping.x else clipping.x+clipping.width
+            y: if clipping.height > 0 then clipping.y else clipping.y+clipping.height
+            width: Math.abs(clipping.width)
+            height: Math.abs(clipping.height)
+          
+          #populate hidden form fields
+          $("#content_x").val(clipping.x)
+          $("#content_y").val(clipping.y)
+          $("#content_width").val(clipping.width)
+          $("#content_height").val(clipping.height)
+          $("#content_image_url").val(image_url)
+          
+          #create a second kinetic stage for previewing your annotation
+          preview = new Kinetic.Stage(
+            container: 'preview_window'
+            width: if clipping.width > clipping.height then 180 else clipping.width * 180 / clipping.height
+            height: if clipping.width > clipping.height then clipping.height * 180 / clipping.width else 180
+          )
+          preview_layer = new Kinetic.Layer()
+          preview_image = new Kinetic.Image(
+            image: surrogate
+            crop: clipping
+            scale:
+              x: preview.getAttr('width')/surrogate.width
+              y: preview.getAttr('height')/surrogate.height
+          )
+          preview_layer.add(preview_image)
+          preview.add(preview_layer)
+          crop.destroy()
+
+          if ( !$( '.expand_anno' ).is( ':visible' ) )
+            $( 'label[for="ann_id"]' ).click()
     undefined
   
   
@@ -284,18 +290,21 @@ window.work.display = (image_url)->
         notes_layer = new Kinetic.Layer() #create new layer for annotations, represented as rectangles
         stage.add(notes_layer)
         for n in notes
-          if n.content.image_url == image_url #check that the annotation was added to this particular image. This is necessary if the work has more than one image
+          if n.image_url == image_url #check that the annotation was added to this particular image. This is necessary if the work has more than one image
             ID = "note_"+n.id #give rectangle note a unique id which matches that note's html representation
             rect = new Kinetic.Rect(
               id: ID
-              x: parseInt(n.content.x) + (main.offsetWidth/min_scale - surrogate.width)/2 #add picture offset for display purposes
-              y: parseInt(n.content.y) + (main.offsetHeight/min_scale - surrogate.height)/2 #add picture offset for display purposes
+              x: parseInt(n.x) + (main.offsetWidth/min_scale - surrogate.width)/2 #add picture offset for display purposes
+              y: parseInt(n.y) + (main.offsetHeight/min_scale - surrogate.height)/2 #add picture offset for display purposes
               stroke:'red'
               strokeWidth: 1
-              width: n.content.width
-              height: n.content.height
+              width: n.width
+              height: n.height
             )
-            rect.tags = n.content.tags
+            if n.tags
+              rect.tags = n.tags.split( ',' )
+            else
+              rect.tags = ''
             
             #THE FOLLOWING ARE INTERFACE RELATED FUNCTIONS FOR INTERACTION BETWEEN NOTES, IMAGE CROPPINGS AND TAGS
             
@@ -373,8 +382,8 @@ window.work.display = (image_url)->
   
   #event handler for dropdown menu that adds tags to annotations
   $('.tag_selector').change ()->
-    div = $("<input type='text'class='annotation_tag' readonly='readonly' name='annotation[content][tags][]'>").val($(this).val())
-    $(this).before(div)
+    current_note = $(this).parent()
+    $(current_note).find('.content_tags').val($(this).val())
     undefined
   
   #THIS IS FUNCTIONALITY THAT IS NO LONGER IMPLEMENTED, BUT THAT SHOULD BE REIMPLEMENTED IN THE FUTURE
@@ -427,7 +436,7 @@ window.work.display = (image_url)->
       $(current_note).find('.content_height').val(clipping.height)
       
       $(this).unbind()
-      $(this).on('dblclick', canvas_dblclick )    
+      $(this).on('dblclick', canvas_dblclick )
       $(this).on('mouseup', canvas_mouseup )
       stage.setAttr('draggable', true)
       stage.add(notes_layer)

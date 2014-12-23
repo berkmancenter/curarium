@@ -1,0 +1,20 @@
+<%
+  background_image = '/missing_thumb.png'
+  view_link = 'javascript:void(0);'
+
+  if commandnail.image.present?
+    background_image = thumb_work_path( commandnail.image.work )
+    view_link = work_path( commandnail.image.work )
+  elsif commandnail.annotation.present?
+    view_link = work_path( commandnail.annotation.work )
+  end
+%>
+
+<div class="gallery_item tray-item commandnail" style="background-image: url(<%= background_image %>);" data-tray-item-id="<%= commandnail.id %>">
+  <ul>
+    <li><%= link_to 'View', view_link, class: 'view-item' %></li>
+    <li><a href="javascript:void(0);" data-action="move">Move</a></li>
+    <li><a href="javascript:void(0);" data-action="copy">Copy</a></li>
+    <li><a href="javascript:void(0);" data-action="destroy">Remove</a></li>
+  </ul>
+</div>

@@ -5,7 +5,7 @@ class CollectionsController < ApplicationController
   # GET /collections
   # GET /collections.json
   def index
-    @collections = Collection.all
+    @collections = Collection.where approved: true
   end
 
   # GET /collections/1

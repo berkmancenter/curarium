@@ -67,12 +67,21 @@ describe ( 'works/show' ) {
         }
 
         it {
-          should have_css '#new_annotation input[type="hidden"][name="annotation[tags]"]', visible: false
+          #10915 removing tags for now
+          should_not have_css '#new_annotation input[type="hidden"][name="annotation[tags]"]', visible: false
+        }
+
+        it {
           should have_css '#new_annotation input[type="hidden"][name="annotation[image_url]"]', visible: false
         }
 
         it {
           should have_css '#new_annotation input[type="hidden"][name="annotation[thumbnail_url]"]', visible: false
+        }
+
+        it {
+          #10915 removing tags for now
+          should_not have_css 'select.tag_selector'
         }
       }
     }

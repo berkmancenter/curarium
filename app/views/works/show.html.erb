@@ -67,6 +67,10 @@
 
             <%= render template: 'trays/popup', layout: false %>
 
+          <% else %>
+
+            <%= link_to render( partial: 'shared/mini_icon', object: 'user' ), login_path %>
+
           <% end %>
         </div>
     </td></tr>

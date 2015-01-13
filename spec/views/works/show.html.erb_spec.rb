@@ -18,6 +18,16 @@ describe ( 'works/show' ) {
         should have_css '.parsed-info', visible: false
       }
     }
+
+    describe ( 'tray sign in' ) {
+      it {
+        should have_css '.expand_tray', visible: false
+      }
+
+      it {
+        should have_css %Q|.expand_tray a[href*="#{login_path}"]|, visible: false
+      }
+    }
   }
 
   context ( 'with signed in user' ) {

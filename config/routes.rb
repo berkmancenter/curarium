@@ -2,7 +2,6 @@ Curarium::Application.routes.draw do
   get 'about' => 'home#about', as: 'about'
   
   controller :sessions do
-    get  'login' => :new
     post 'login' => :create
     delete 'logout' => :destroy
   end

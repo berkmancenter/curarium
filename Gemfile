@@ -1,5 +1,5 @@
 source 'http://rubygems.org'
-ruby '2.1.2'
+ruby '2.0.0'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.0.12'
 
@@ -19,6 +19,7 @@ gem 'rails_12factor'
 
 #use Devise for authentication (not implemented yet)
 #gem 'devise'
+gem 'browserid-rails', :git => 'git@github.com:dbp/browserid-rails.git'
 
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 4.0.0'

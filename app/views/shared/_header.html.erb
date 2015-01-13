@@ -26,9 +26,10 @@
 		      <div class="toggle_user toggle_tools">
 		    <% if @user.present? %>
           <%= link_to render( partial: 'users/mini_icon', object: @user ), @user %>
-			    <div class="dropdown_menu"><%= link_to 'Log Out', logout_path, method: :delete %></div>
+			    <div class="dropdown_menu"><%= logout_link %></div>
 		    <% else %>
-          <a href='<%= login_url %>'><span>Log In</span> <%= image_tag "user_b.png", class: 'black', alt: '' %><%= image_tag "user_r.png", class: 'red', alt: '' %></a>
+          <%= login_link 'Log In' %>
+          
 		    <% end %>
 		      </div>
 		      <div class="toggle_explore toggle_tools"><a href="<%= @active_collection.nil? ? collections_path : collection_works_path(@active_collection) %>">Explore <%= image_tag "explore_b.png", class: 'black', alt: '' %><%= image_tag "explore_r.png", class: 'red', alt: '' %></a></div>

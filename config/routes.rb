@@ -3,11 +3,8 @@ Curarium::Application.routes.draw do
   
   controller :sessions do
     post 'login' => :create
-    delete 'logout' => :destroy
+    post 'logout' => :destroy
   end
-
-#  get "sessions/create"
-#  get "sessions/destroy"
 
 #  post 'users/message' => 'users#message', as: 'user_message'
 #  post 'sections/message' => 'sections#message', as: 'section_message'

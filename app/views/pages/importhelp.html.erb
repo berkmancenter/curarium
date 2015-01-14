@@ -1,7 +1,10 @@
 <div class="instructions"> Instructions for Import</div>
 	<div class="imp_list" id="imp_list">
 		<table class="impitem" cellspacing="0" cellpadding="0"><tr>
-			<td class="image_side"><%= image_tag "ic1.png", id: "hint_coll" %></td>
+			<td class="image_side">
+				<span class="close"><a href="#">X</a></span>
+				<%= link_to(image_tag("ic1.png", id: "hint_coll"), image_path("big_ic1.png")) %>
+			</td>
 			<td class="text_side"><ol>
 				<li>Name of the collection</li>
 				<li>A short description of the collection</li>
@@ -18,7 +21,10 @@
 
 	<div class="imp_list" id="imp_list">
 		<table class="impitem" cellspacing="0" cellpadding="0"><tr>
-			<td class="image_side"><%= image_tag "ic2.png", id: "hint_coll" %></td>
+			<td class="image_side">
+				<span class="close"><a href="#">X</a></span>
+					<%= link_to(image_tag("ic2.png", id: "hint_coll"), image_path("big_ic2.png")) %>
+			</td>
 			<td class="text_side"><ol>
 				<li>Populate General Information</li>
 			</ol></td></tr>
@@ -27,7 +33,10 @@
 
 	<div class="imp_list" id="imp_list">
 		<table class="impitem" cellspacing="0" cellpadding="0"><tr>
-			<td class="image_side"><%= image_tag "ic3.png", id: "hint_coll" %></td>
+			<td class="image_side">
+				<span class="close"><a href="#">X</a></span>
+					<%= link_to(image_tag("ic3.png", id: "hint_coll"), image_path("big_ic3.png")) %>
+			</td>
 			<td class="text_side"><ol>
 			<li> Upload zipped Json files (1 per record)</li>
 			<li>Paste the contents of one sample JSON record</li>
@@ -37,7 +46,10 @@
 
 	<div class="imp_list" id="imp_list">
 		<table class="impitem" cellspacing="0" cellpadding="0"><tr>
-			<td class="image_side"><%= image_tag "ic4.png", id: "hint_coll" %></td>
+			<td class="image_side">
+				<span class="close"><a href="#">X</a></span>
+					<%= link_to(image_tag("ic4.png", id: "hint_coll"), image_path("big_ic4.png")) %>
+			</td>
 			<td class="text_side"><ol>
 				<li>Click to Parse the record</li>
 				<li>Structured representation of the record will appear in the central area</li>
@@ -49,7 +61,10 @@
 
 	<div class="imp_list" id="imp_list">
 		<table class="impitem" cellspacing="0" cellpadding="0"><tr>
-			<td class="image_side"><%= image_tag "ic5.png", id: "hint_coll" %></td>
+			<td class="image_side">
+				<span class="close"><a href="#">X</a></span>
+					<%= link_to(image_tag("ic5.png", id: "hint_coll"), image_path("big_ic5.png")) %>
+			</td>
 			<td class="text_side"><ol>	
 			<li> Value in the original record.</li>
 			<li>Drag the value to its correspondent Active Field.</li>
@@ -64,7 +79,10 @@
 
 	<div class="imp_list" id="imp_list">
 		<table class="impitem" cellspacing="0" cellpadding="0">(treemap example)<tr>
-			<td class="image_side"><%= image_tag "ic6.png", id: "hint_coll" %></td>
+			<td class="image_side">
+				<span class="close"><a href="#">X</a></span>
+					<%= link_to(image_tag("ic6.png", id: "hint_coll"), image_path("big_ic6.png")) %>
+			</td>
 			<td class="text_side"><ol>
 			<li> Name of the Active Field (“title”)</li>
 			<li>Path to the corresponding field within JSON representation (“titleInfo[0].recordIdentifier[0].content”)</li>
@@ -77,7 +95,10 @@
 
 	<div class="imp_list" id="imp_list">
 		<table class="impitem" cellspacing="0" cellpadding="0"><tr>
-			<td class="image_side"><%= image_tag "ic7.png", id: "hint_coll" %></td>
+			<td class="image_side">
+				<span class="close"><a href="#">X</a></span>
+					<%= link_to(image_tag("ic7.png", id: "hint_coll"), image_path("big_ic7.png")) %>
+			</td>
 			<td class="text_side"><ol>
 			<li> Value being added to a custom Active Field</li>
 			<li>Drag to the corresponding custom field</li>
@@ -90,7 +111,10 @@
 
 	<div class="imp_list" id="imp_list">
 		<table class="impitem" cellspacing="0" cellpadding="0"><tr>
-			<td class="image_side"><%= image_tag "ic8.png", id: "hint_coll" %></td>
+			<td class="image_side">
+				<span class="close"><a href="#">X</a></span>
+					<%= link_to(image_tag("ic8.png", id: "hint_coll"), image_path("big_ic8.png")) %>
+			</td>
 			<td class="text_side"><ol>
 			<li> Once all fields have been configured, click Upload Collection to begin importing the data.</li>
 			<li>As long as the data structure is consistent for all JSON files, each one will be parsed to an equivalent of the sample values on the right side. Original JSON data will also be stored for reference.</li>

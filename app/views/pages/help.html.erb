@@ -1,8 +1,11 @@
-<article class="help">
+	<article class="help">
 	<div class="instructions"> Curarium help and navigation</div>
 		<div class="inst_list">
 		<table class="institem" cellspacing="50" cellpadding="50"><tr>
-			<td class="image_side"><%= image_tag "inst501_main.png", id: "hint_coll" %></td>
+			<td class="image_side">
+				<span class="close"><a href="#">X</a></span>
+					<%= link_to(image_tag("main1.png", id: "hint_coll"), image_path("big_main1.png")) %>
+			</td>
 			<td class="text_side"><ol>HOME PAGE
 			<li> Main Menu: Contains links to sign in, browse and explore collections, and view spotlights.</li>
 			<li> Blurb: Important information about Curarium.</li>
@@ -13,7 +16,10 @@
 
 	<div class="inst_list">
 		<table class="institem" cellspacing="50" cellpadding="50"><tr>
-			<td class="image_side"><%= image_tag "inst504_cindex.png", id: "hint_coll" %></td>
+			<td class="image_side">
+				<span class="close"><a href="#">X</a></span>
+					<%= link_to(image_tag("main2.png", id: "hint_coll"), image_path("big_main2.png")) %>
+			</td>
 			<td class="text_side"><ol>COLLECTIONS INDEX
 			<li> Sub Menu: displays active collection and sorting/filtering options</li>
 			<li> Collections Gallery: displays all collections within curarium.</li>
@@ -26,7 +32,10 @@
 
 	<div class="inst_list">
 		<table class="institem" cellspacing="50" cellpadding="50"><tr>
-			<td class="image_side"><%= image_tag "inst502_cabout.png", id: "hint_coll" %></td>
+			<td class="image_side">
+				<span class="close"><a href="#">X</a></span>
+					<%= link_to(image_tag("main3.png", id: "hint_coll"), image_path("big_main3.png")) %>
+			</td>
 			<td class="text_side"><ol>COLLECTION ABOUT PAGE
 			<li> Collection title</li>
 			<li> Collection description</li>
@@ -40,7 +49,10 @@
 
 	<div class="inst_list">
 		<table class="institem" cellspacing="50" cellpadding="50"><tr>
-			<td class="image_side"><%= image_tag "inst507_objmap.png", id: "hint_coll" %></td>
+			<td class="image_side">
+				<span class="close"><a href="#">X</a></span>
+					<%= link_to(image_tag("main4.png", id: "hint_coll"), image_path("big_main4.png")) %>
+			</td>
 			<td class="text_side"><ol>EXPLORE PAGE
 			<li> Zoomed in Object Map (mousewheel)</li>
 			<li> Zoomed out Object Map (mousewheel)</li>
@@ -51,7 +63,10 @@
 
 	<div class="inst_list">
 		<table class="institem" cellspacing="50" cellpadding="50"><tr>
-			<td class="image_side"><%= image_tag "inst509_viz.png", id: "hint_coll" %></td>
+			<td class="image_side">
+				<span class="close"><a href="#">X</a></span>
+					<%= link_to(image_tag("main5.png", id: "hint_coll"), image_path("big_main5.png")) %>
+			</td>
 			<td class="text_side"><ol>VISUALIZATION CONTROLS
 			<li> Choose Visualization mode </li>
 			<li> Choose property to visualize </li>
@@ -67,7 +82,10 @@
 
 	<div class="inst_list">
 		<table class="institem" cellspacing="50" cellpadding="50"><tr>
-			<td class="image_side"><%= image_tag "inst508_treemap.png", id: "hint_coll" %></td>
+			<td class="image_side">
+				<span class="close"><a href="#">X</a></span>
+					<%= link_to(image_tag("main6.png", id: "hint_coll"), image_path("big_main6.png")) %>
+			</td>
 			<td class="text_side"><ol>TREEMAP VISUALIZATION
 			<li> Visualization Type: Treemap </li>
 			<li> Visualization Type: names</li>
@@ -78,7 +96,10 @@
 
 	<div class="inst_list">
 		<table class="institem" cellspacing="50" cellpadding="50"><tr>
-			<td class="image_side"><%= image_tag "inst150_popup.png", id: "hint_coll" %></td>
+			<td class="image_side">
+			<span class="close"><a href="#">X</a></span>
+				<%= link_to(image_tag("main7.png", id: "hint_coll"), image_path("big_main7.png")) %>
+			</td>
 			<td class="text_side"><ol>RECORD POP-UP
 			<li> Record image</li>
 			<li> Record metadata (non-editable)</li>
@@ -90,7 +111,10 @@
 
 	<div class="inst_list">
 		<table class="institem" cellspacing="50" cellpadding="50"><tr>
-			<td class="image_side"><%= image_tag "inst11_works.png", id: "hint_coll" %></td>
+			<td class="image_side">
+				<span class="close"><a href="#">X</a></span>
+					<%= link_to(image_tag("main8.png", id: "hint_coll"), image_path("big_main8.png")) %>
+			</td>
 			<td class="text_side"><ol>RECORD
 			<li> Parsed Information (information made available in Curarium)</li>
 			<li> Record Surrogates</li>
@@ -104,7 +128,10 @@
 
 	<div class="inst_list">
 		<table class="institem" cellspacing="50" cellpadding="50"><tr>
-			<td class="image_side"><%= image_tag "inst12_pi.png", id: "hint_coll" %></td>
+			<td class="image_side">
+				<span class="close"><a href="#">X</a></span>
+					<%= link_to(image_tag("main9.png", id: "hint_coll"), image_path("big_main9.png")) %>
+			</td>
 			<td class="text_side"><ol>RECORD METADATA
 			<li> List of fields made available in Curarium, each can have a number of values.</li>
 			<li> Click to expand field and view its values.</li>
@@ -116,7 +143,10 @@
 
 	<div class="inst_list">
 		<table class="institem" cellspacing="50" cellpadding="50"><tr>
-			<td class="image_side"><%= image_tag "inst14_recsurr.png", id: "hint_coll" %></td>
+			<td class="image_side">
+				<span class="close"><a href="#">X</a></span>
+					<%= link_to(image_tag("main10.png", id: "hint_coll"), image_path("big_main10.png")) %>
+			</td>
 			<td class="text_side"><ol>RECORD SURROGATES
 			<li> List of available surrogate images.</li>
 			<li> Clicking in a surrogate brings it up in the record display space.</li></ol></td></tr>
@@ -125,7 +155,10 @@
 
 	<div class="inst_list">
 		<table class="institem" cellspacing="50" cellpadding="50"><tr>
-			<td class="image_side"><%= image_tag "inst13_add.png", id: "hint_coll" %></td>
+			<td class="image_side">
+				<span class="close"><a href="#">X</a></span>
+					<%= link_to(image_tag("main11.png", id: "hint_coll"), image_path("big_main11.png")) %>
+			</td>
 			<td class="text_side"><ol>ADD RECORD TO A TRAY
 			<li> Clicking in a given tray ‘add’ button will add the record to it. All surrogates and annotations will be available.</li>
 			<li> Alternatively, type in the name of a new tray and then click add to create that tray and add the record to it.</li></ol></td></tr>
@@ -134,7 +167,10 @@
 
 	<div class="inst_list">
 		<table class="institem" cellspacing="50" cellpadding="50"><tr>
-			<td class="image_side"><%= image_tag "inst15_anno.png", id: "hint_coll" %></td>
+			<td class="image_side">
+				<span class="close"><a href="#">X</a></span>
+					<%= link_to(image_tag("main12.png", id: "hint_coll"), image_path("big_main12.png")) %>
+			</td>
 			<td class="text_side"><ol>RECORD ANNOTATION
 			<li> Double click the record image to start selecting a piece of the image. Click to accept.</li>
 			<li> A preview of the clipping is displayed here.</li>

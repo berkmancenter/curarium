@@ -1,6 +1,5 @@
 class SpotlightsController < ApplicationController
   before_action :set_spotlight, only: [:show, :edit, :update, :destroy]
-  skip_before_action :authorize, only: [:index, :show]
 
   # GET /spotlights
   # GET /spotlights.json

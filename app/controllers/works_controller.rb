@@ -3,7 +3,6 @@ require 'zlib'
 
 class WorksController < ApplicationController
   before_action :set_work, only: [:show, :thumb, :edit, :update, :destroy]
-  skip_before_action :authorize, only: [:show,:thumb, :index]
 
   # GET /works
   # GET /works.json

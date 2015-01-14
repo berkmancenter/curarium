@@ -5,12 +5,15 @@
   <dd><%= @user.created_at %></dd>
 </dl>
 
+<% if authenticated? && @user == @current_user %>
 <section class="user-trays">
   <h1 class="collection-header">Trays</h1>
 
   <%= render partial: 'trays/tray_preview_gallery', object: @user.trays.limit(2) %>
 
+  <%= link_to raw( '<h2>tray manager</h2>' ), user_trays_path( @user ) %>
 </section>
+<% end %>
 
 <section class="user-collections">
   <h1 class="collection-header">Collections</h1>

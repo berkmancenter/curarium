@@ -1,6 +1,5 @@
 class AnnotationsController < ApplicationController
   before_action :set_annotation, only: [:show, :edit, :update, :destroy]
-  skip_before_action :authorize, only: [:index]
 
   def new
     @annotation = Annotation.new

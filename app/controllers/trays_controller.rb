@@ -1,6 +1,5 @@
 class TraysController < ApplicationController
   before_action :set_tray, only: [:show, :edit, :update, :destroy, :add_works, :add_visualization, :external]
-  skip_before_action :authorize, only: [:external]
 
   def index
     @owner = User.find( params[ :user_id ] || session[ :user_id ] )

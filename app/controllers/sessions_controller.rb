@@ -1,6 +1,4 @@
 class SessionsController < ApplicationController
-  skip_before_action :authorize
-  
   # POST /login
   def create
     if Rails.const_defined? 'Server'

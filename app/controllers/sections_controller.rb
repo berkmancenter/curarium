@@ -35,7 +35,7 @@ class SectionsController < ApplicationController
       end
     end    
     @section.admins = [@current_user.id] #admins is an array, hence the brackets
-    if not users.include? session[:user_id]
+    if not users.include? @current_user.id
       users.push(@current_user.id) #add the admin to the users array if it is not already in it
     end
     @section.users = users #assign the users array to @section.users
@@ -85,7 +85,7 @@ class SectionsController < ApplicationController
     @message[:sender] = User.find(params[:message][:sender])
     @message[:members] = []
     @section.users.each do |member_id|
-      if member_id != session[:user_id]
+      if member_id != @current_user.id
         @message[:members].push(User.find(member_id).email)
       end
     end
@@ -102,7 +102,7 @@ class SectionsController < ApplicationController
     end
 
     def is_member
-      unless @section.users.include?(session[:user_id].to_i) || @section.users.include?(session[:user_id].to_s)
+      unless @section.users.include?(@current_user.id) || @section.users.include?(@current_user.id.to_s)
         redirect_to root_url, notice: 'you are not part of this group'
       end
     end

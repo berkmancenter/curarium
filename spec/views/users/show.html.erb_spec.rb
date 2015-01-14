@@ -7,7 +7,8 @@ describe ( 'users/show' ) {
 
   before {
     assign( :user, user )
-    session[ :user_id ] = user.id
+    session[ :browserid_email ] = user.email
+    assign( :current_user, user )
 
     assign( :trays, user.trays )
     render

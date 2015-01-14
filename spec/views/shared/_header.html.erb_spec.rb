@@ -1,4 +1,5 @@
 require 'spec_helper'
+require 'browserid-rails'
 
 describe ( 'shared/header' ) {
   subject { rendered }
@@ -26,7 +27,8 @@ describe ( 'shared/header' ) {
 
     before {
       assign( :user, user )
-      session[ :user_id ] = user.id
+      session[ :browserid_email ] = user.email
+      assign( :current_user, user )
       render 'shared/header'
     }
 
@@ -43,7 +45,7 @@ describe ( 'shared/header' ) {
     }
 
     it {
-      should have_css %Q|.toggle_user .dropdown_menu a[href*="#{logout_path}"]|, text: 'Log Out'
+      should have_css %Q|.toggle_user .dropdown_menu a[href*="#{logout_path}"]|, text: 'Logout'
     }
   }
 }

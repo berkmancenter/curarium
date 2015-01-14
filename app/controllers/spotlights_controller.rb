@@ -26,7 +26,7 @@ class SpotlightsController < ApplicationController
   def create
     
     @spotlight = Spotlight.new(spotlight_params)
-    @spotlight.user_id = session[:user_id].to_i
+    @spotlight.user_id = @current_user.id
     respond_to do |format|
       if @spotlight.save
         format.html { redirect_to @spotlight, notice: 'Spotlight was successfully created.' }

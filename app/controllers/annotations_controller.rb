@@ -19,7 +19,7 @@ class AnnotationsController < ApplicationController
   def create
     @work = Work.find(params[:work_id])
     @annotation = @work.annotations.new(annotation_params)
-    @annotation.user_id = session[:user_id]
+    @annotation.user_id = @current_user.id
     respond_to do |format|
       if @annotation.save
         format.html { redirect_to @work, notice: 'Annoation was successfully created.' }

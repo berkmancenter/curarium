@@ -13,16 +13,6 @@
         window.location = "?image="+i
       });    
     });
-    
-    // TODO: Move this stuff to its own JavaScript file in assets
-    // or attempt to make it more HTML-based
-
-  
-    <%# if session[:user_id] %>
-    //window.trays.add_work([<%= params[:id] %>],<%= session[:user_id].to_i%>);
-    //window.work.update();
-    <%# end %>
-  
   };
 </script>
 
@@ -63,14 +53,10 @@
         </div>
         <input type='checkbox' class='checkbox_hack' id='add_id'>
         <div class="expand_tray">
-          <% if session[:user_id].present? %>
-
+          <% if authenticated? %>
             <%= render template: 'trays/popup', layout: false %>
-
           <% else %>
-
             <%= link_to render( partial: 'shared/mini_icon', object: 'user' ), login_path %>
-
           <% end %>
         </div>
     </td></tr>
@@ -83,7 +69,7 @@
         <div class="expand_anno">
           <div id='annotations'>
 
-            <% if session[:user_id] %>
+            <% if authenticated? %>
               <h4 class='window_header'>ANNOTATE IMAGE</h4>
               <div class='window_body'>
                 <div id='preview_window'></div>

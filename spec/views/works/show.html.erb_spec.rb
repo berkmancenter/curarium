@@ -31,10 +31,12 @@ describe ( 'works/show' ) {
   }
 
   context ( 'with signed in user' ) {
+    let ( :user ) { User.first }
     let ( :owner ) { User.first }
 
     before {
-      session[ :user_id ] = owner.id
+      session[ :browserid_email ] = user.email
+      assign( :current_user, user )
 
       assign( :work, work )
       assign( :current_metadata, work.parsed )

@@ -17,7 +17,7 @@
 
 <section id='section_feed'>
 	<!-- TEMPORARY FIX FOR A BUG. IN HEROKU THE ADMIN # IS RETURNED AS A STRING AND IN LOCALHOST AS AN INT -->
-	<% if @s.admins.include?(session[:user_id]) || @s.admins.include?(session[:user_id].to_s) %>
+	<% if @s.admins.include?(@current_user.id) || @s.admins.include?(@current_user.id.to_s) %>
 	<div id='new_message'>
 		<h3>NEW MESSAGE:</h3>
 		<%= form_for([@s, @s.messages.build]) do |f| %>
@@ -38,7 +38,7 @@
 			<p class='message_body'>
 				<%= message.body%>
 			</p>
-			<% if message.user_id == session[:user_id]%>
+			<% if message.user_id == @current_user.id%>
 			<a class='edit_link'>edit</a><%= link_to 'delete', section_message_path(@section.id, message.id), method: :delete, data: { confirm: 'Are you sure?' }, class: 'edit_link' %>
 			<% end %>
 		</div>
@@ -47,7 +47,7 @@
 			<p class='comment_author'>
 				<%= comment.user.name %>
 			</p>
-			<% if session[:user_id]==comment.user_id%>
+			<% if @current_user.id==comment.user_id%>
 			<%= link_to 'delete', section_message_comment_path(@section.id, message.id, comment.id), method: :delete, data: { confirm: 'Are you sure?' }, class: 'edit_link' %>
 			<% end %>
 			<p class='comment_body'>
@@ -82,11 +82,11 @@
 	</p>
 	<% end %>
 	
-	<% if @s.admins.include?(session[:user_id]) || @s.admins.include?(session[:user_id].to_s) %>
-	<h4>Send message to the section</h4>>
+	<% if @s.admins.include?(@current_user.id) || @s.admins.include?(@current_user.id.to_s) %>
+	<h4>Send message to the section</h4>
 	<form method='post' action='message'>
 		<input name="authenticity_token" type="hidden" value="<%= form_authenticity_token %>">
-		<input type='hidden' name='message[sender]' value='<%= session[:user_id] %>'>
+		<input type='hidden' name='message[sender]' value='<%= @current_user.id %>'>
 		<input type='hidden' name='id' value='<%= @section.id %>'>
 		<input type='hidden' name='message[members]' value='<%= @section.users %>'>
 		<input name='message[subject]' placeholder="message subject"></input>

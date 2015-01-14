@@ -31,8 +31,11 @@ describe 'works requests', :js => true do
         }
 
         it {
-          sleep 1
           should have_title 'Curarium'
+        }
+
+        it {
+          should have_css '.annotation_title', text: 'jesus', visible: false
         }
       }
     }

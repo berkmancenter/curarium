@@ -205,7 +205,7 @@ window.work.display = (image_url)->
   
   #dblclick handler, it adds a translucent rectangle on screen which controls which part of the image gets cropped for annotations.
   canvas_dblclick = (event) ->
-    if(event.which==1)
+    if(event.which==1 && $( '#new_annotation' ).length > 0)
       event.preventDefault()
       stage.setAttr('draggable', false)
       canvas_x = (event.clientX - $(this).offset().left)-stage.getAttr('x')

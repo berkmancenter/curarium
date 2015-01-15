@@ -30,7 +30,7 @@ describe ( 'users/show' ) {
   }
 
   it {
-    should have_css %Q|a[href*="#{user_trays_path user}"]|, text: 'tray manager'
+    should have_css %Q|a[href*="#{user_trays_path user}"]|, text: 'Tray Manager'
   }
 
   it {

@@ -1,9 +1,9 @@
 source 'http://rubygems.org'
-ruby '2.1.2'
+ruby '2.0.0'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.0.12'
 
-#use postgresql
+# Use postgresql
 gem 'pg'#, '~> 0.18.0.pre20141117110243'
 
 group :test do
@@ -14,11 +14,7 @@ end
 
 gem 'factory_girl_rails' #breaks rake if its only in test group
 
-#required for Heroku
-gem 'rails_12factor'
-
-#use Devise for authentication (not implemented yet)
-#gem 'devise'
+# Use browserid for authentication
 gem 'browserid-rails', :git => 'git@github.com:dbp/browserid-rails.git'
 
 # Use SCSS for stylesheets
@@ -37,9 +33,6 @@ gem 'jquery-ui-rails'
 
 #Use d3 for visualizations
 gem 'd3-rails'
-
-# Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
-gem 'jbuilder', '~> 1.2'
 
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.

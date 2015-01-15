@@ -1,6 +1,5 @@
 class CollectionsController < ApplicationController
   before_action :set_collection, only: [:show, :edit, :update, :destroy]
-  skip_before_action :authorize, only: [:index, :show, :import]
 
   # GET /collections
   # GET /collections.json
@@ -34,7 +33,7 @@ class CollectionsController < ApplicationController
   def create
     @collection = Collection.new(collection_params)
     @collection.approved = true
-    @collection.admin = [session[:user_id]]
+    @collection.admin = [ @current_user.id ]
     respond_to do |format|
       if @collection.save
 #        f = File.new("#{Rails.root}/tmp/#{params[:file].original_filename}", 'wb')

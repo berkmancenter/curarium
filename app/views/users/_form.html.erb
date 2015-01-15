@@ -19,21 +19,10 @@
       <%= f.text_field :name, placeholder: 'username', value: @user.name %>
 
       <%= f.label :email %>
-      <%= f.text_field :email, placeholder: 'email', value: @user.email %>
+      <%= @user.email %>
     </div>
 
     <div>
-      <%= f.label :password %>
-      <%= f.password_field :password, placeholder: 'password' %>
-
-      <%= f.label :password_confirmation, 'verify password' %>
-      <%= f.password_field :password_confirmation, placeholder: 'verify password' %>
-    </div>
-
-    <div>
-      <label for="magic_word">Secret Word</label>
-      <input type="text" name="magic_word" id="magic_word" placeholder="secret word*">
-
       <%= f.button 'sign up', type: 'submit', class: 'login-button' %>
     </div>
   </div>

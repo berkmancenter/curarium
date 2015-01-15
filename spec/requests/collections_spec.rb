@@ -66,17 +66,9 @@ describe 'collections requests', :js => true do
   }
 
   context ( 'with signed in user' ) {
-    before {
-      visit login_path
-
-      fill_in 'email:', with: 'test@example.com'
-      fill_in 'password:', with: 't3stus3r'
-
-      click_button 'login'
-    }
-
     describe ( 'get /collections index' ) {
       before {
+        post login_path
         visit collections_path
       }
 

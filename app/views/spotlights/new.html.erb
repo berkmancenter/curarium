@@ -17,7 +17,7 @@
     <div id="subtitle" ></div>
     <div id='trays_wrapper'>
 
-      <% User.find(session[:user_id]).trays.each do |tray|%>
+      <% @current_user.trays.each do |tray|%>
       <div class='user_tray noscroll'>
 				<h3><%= tray.name %></h3>
 				<div class='close_tray'></div>

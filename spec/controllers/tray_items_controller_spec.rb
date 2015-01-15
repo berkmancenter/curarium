@@ -5,7 +5,7 @@ describe ( TrayItemsController ) {
   let ( :tray_dst ) { Tray.find_by_name( 'empty_tray' ) }
 
   before {
-    session[:user_id] = User.first.id
+    controller.login_browserid User.first.email 
   }
 
   describe ( 'GET index' ) {

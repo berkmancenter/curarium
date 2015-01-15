@@ -91,4 +91,6 @@ Curarium::Application.configure do
   config.action_mailer.delivery_method = :sendmail
   config.action_mailer.perform_deliveries = true
   
+  # Setup browserid-rails
+  config.browserid.audience = 'https://www.curarium.com:443'
 end

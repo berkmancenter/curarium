@@ -3,7 +3,6 @@ require 'zlib'
 
 class WorksController < ApplicationController
   before_action :set_work, only: [:show, :thumb, :edit, :update, :destroy]
-  skip_before_action :authorize, only: [:show,:thumb, :index]
 
   # GET /works
   # GET /works.json
@@ -106,8 +105,8 @@ class WorksController < ApplicationController
   # GET /works/1
   # GET /works/1.json
   def show
-    # for add to tray popout
-    @owner = User.find( session[ :user_id ] ) unless session[ :user_id ].nil?
+    # for add to tray popout, will have to include cirlce trays later
+    @owner = @current_user
     @trays = @owner.trays unless @owner.nil?
     @popup_action = 'add'
     @popup_action_type = 'Image'
@@ -199,7 +198,7 @@ class WorksController < ApplicationController
     end
     
     @amendment = @work.amendments.new
-    @amendment.user_id = session[:user_id].to_i
+    @amendment.user_id = @current_user.id
     @amendment.previous = last_amendment
     @amendment.amended = amended
     @amendment.save

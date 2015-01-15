@@ -34,5 +34,8 @@
 	  </div>
 
 		<%= javascript_include_tag "application" %>
+
+    <!-- Setup BrowserID with alert debugging -->
+    <%= setup_browserid debug: true unless Rails.env.test? %>
 	</body>
 </html>

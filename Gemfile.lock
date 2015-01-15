@@ -1,3 +1,11 @@
+GIT
+  remote: git@github.com:dbp/browserid-rails.git
+  revision: a3cbb2bb60a23be717b4f206c9afe75341911edb
+  specs:
+    browserid-rails (0.5.2)
+      jquery-rails
+      railties (~> 4.0)
+
 GEM
   remote: http://rubygems.org/
   specs:
@@ -163,6 +171,7 @@ PLATFORMS
 DEPENDENCIES
   bcrypt
   bcrypt-ruby (~> 3.1.2)
+  browserid-rails!
   capybara (= 2.3.0)
   coffee-rails (~> 4.0.0)
   d3-rails

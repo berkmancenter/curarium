@@ -39,7 +39,8 @@ describe ( 'home/index' ) {
     let ( :user ) { User.first }
 
     before {
-      session[ :user_id ] = user.id
+      session[ :browserid_email ] = user.email
+      assign( :current_user, user )
       render
     }
 

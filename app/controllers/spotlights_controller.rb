@@ -1,6 +1,5 @@
 class SpotlightsController < ApplicationController
   before_action :set_spotlight, only: [:show, :edit, :update, :destroy]
-  skip_before_action :authorize, only: [:index, :show]
 
   # GET /spotlights
   # GET /spotlights.json
@@ -27,7 +26,7 @@ class SpotlightsController < ApplicationController
   def create
     
     @spotlight = Spotlight.new(spotlight_params)
-    @spotlight.user_id = session[:user_id].to_i
+    @spotlight.user_id = @current_user.id
     respond_to do |format|
       if @spotlight.save
         format.html { redirect_to @spotlight, notice: 'Spotlight was successfully created.' }

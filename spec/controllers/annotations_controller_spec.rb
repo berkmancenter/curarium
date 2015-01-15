@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe ( AnnotationsController ) {
   before {
-    session[:user_id] = User.first.id
+    controller.login_browserid User.first.email 
   }
 
   describe ( 'POST annotations' ) {

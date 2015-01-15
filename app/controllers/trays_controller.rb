@@ -1,11 +1,8 @@
 class TraysController < ApplicationController
   before_action :set_tray, only: [:show, :edit, :update, :destroy, :add_works, :add_visualization, :external]
-  skip_before_action :authorize, only: [:external]
+  before_action :set_trays, only: [ :index, :show ]
 
   def index
-    @owner = User.find( params[ :user_id ] || session[ :user_id ] )
-    @trays = @owner.trays
-
     respond_to { |format|
       format.html {
         if request.xhr?
@@ -20,8 +17,6 @@ class TraysController < ApplicationController
   end
   
   def show
-    @owner = User.find( params[ :user_id ] )
-    @trays = @owner.trays
   end
   
   def add_works
@@ -70,13 +65,9 @@ class TraysController < ApplicationController
   
   # DELETE /trays/1
   def destroy
-    @tray = Tray.find params[ :id ]
     @tray.delete
     render text: '200 OK', status: 200
   end
-
-
-
 
   def external #this is a provisional api like method for interacting with the WAKU editor.
     tray = {}
@@ -105,14 +96,25 @@ class TraysController < ApplicationController
   end
   
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_tray
-      @tray = Tray.find(params[:id])
+
+  # Use callbacks to share common setup or constraints between actions.
+  def set_tray
+    @tray = Tray.find(params[:id])
+  end
+
+  def set_trays
+    if params[ :user_id ].present?
+      @owner = User.find( params[ :user_id ] )
+    else
+      @owner = @current_user
     end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def tray_params
-      params.require(:tray).permit(:name, :owner_id, :owner_type) #, visualizations:[:url, terms:[:type,:property,:length]])
-    end
-  
+    @trays = @owner.trays
+  end
+
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def tray_params
+    params.require(:tray).permit(:name, :owner_id, :owner_type) #, visualizations:[:url, terms:[:type,:property,:length]])
+  end
+
 end

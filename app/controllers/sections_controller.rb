@@ -17,7 +17,6 @@ class SectionsController < ApplicationController
   # GET /sections/new
   def new
     @section = Section.new
-    @user = User.find(session[:user_id])
   end
 
   # GET /sections/1/edit
@@ -35,10 +34,9 @@ class SectionsController < ApplicationController
         users.push(value.to_i) #populate placeholder array with the value of the :users parameter, which is sadly a Hash.
       end
     end    
-    @user = User.find(session[:user_id]) #find the current user, who will be the administrator of the section
-    @section.admins = [@user.id] #admins is an array, hence the brackets
-    if not users.include? session[:user_id]
-      users.push(@user.id) #add the admin to the users array if it is not already in it
+    @section.admins = [@current_user.id] #admins is an array, hence the brackets
+    if not users.include? @current_user.id
+      users.push(@current_user.id) #add the admin to the users array if it is not already in it
     end
     @section.users = users #assign the users array to @section.users
     resources = params[:resources] #retrieve the :resources param, which is a bunch of nested hashes
@@ -87,7 +85,7 @@ class SectionsController < ApplicationController
     @message[:sender] = User.find(params[:message][:sender])
     @message[:members] = []
     @section.users.each do |member_id|
-      if member_id != session[:user_id]
+      if member_id != @current_user.id
         @message[:members].push(User.find(member_id).email)
       end
     end
@@ -104,7 +102,7 @@ class SectionsController < ApplicationController
     end
 
     def is_member
-      unless @section.users.include?(session[:user_id].to_i) || @section.users.include?(session[:user_id].to_s)
+      unless @section.users.include?(@current_user.id) || @section.users.include?(@current_user.id.to_s)
         redirect_to root_url, notice: 'you are not part of this group'
       end
     end

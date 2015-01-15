@@ -19,6 +19,7 @@ gem 'rails_12factor'
 
 #use Devise for authentication (not implemented yet)
 #gem 'devise'
+gem 'browserid-rails', :git => 'git@github.com:dbp/browserid-rails.git'
 
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 4.0.0'

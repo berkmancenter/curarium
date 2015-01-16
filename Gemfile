@@ -31,8 +31,12 @@ gem 'jquery-rails'
 # Use jquery-ui
 gem 'jquery-ui-rails'
 
-#Use d3 for visualizations
+# Use d3 for visualizations
 gem 'd3-rails'
+
+# Use rabl for JSON API
+gem 'rabl'
+gem 'oj'
 
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.

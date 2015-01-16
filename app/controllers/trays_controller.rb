@@ -13,6 +13,7 @@ class TraysController < ApplicationController
           render
         end
       }
+      format.any( :xml, :json )
     }
   end
   

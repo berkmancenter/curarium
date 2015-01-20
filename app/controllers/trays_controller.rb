@@ -3,18 +3,27 @@ class TraysController < ApplicationController
   before_action :set_trays, only: [ :index, :show ]
 
   def index
-    respond_to { |format|
-      format.html {
-        if request.xhr?
-          @popup_action = params[ 'popup_action' ]
-          @popup_action_item_id = params[ 'popup_action_item_id' ]
-          render 'popup', layout: false
-        else
-          render
-        end
-      }
-      format.any( :xml, :json )
-    }
+    if authenticated?
+      if @current_user == @owner
+        respond_to { |format|
+          format.html {
+            if request.xhr?
+              @popup_action = params[ 'popup_action' ]
+              @popup_action_item_id = params[ 'popup_action_item_id' ]
+              render 'popup', layout: false
+            else
+              render
+            end
+          }
+          format.any( :xml, :json )
+        }
+      else
+        render text: '403 Forbidden', status: 403
+      end
+    else
+      response.headers[ 'WWW-Authenticate' ] = 'Negotiate'
+      render text: '401 Unauthroized', status: 401
+    end
   end
   
   def show

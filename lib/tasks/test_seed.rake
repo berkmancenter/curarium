@@ -21,6 +21,7 @@ end
 def seed
   # user
   test_user = FactoryGirl.create :test_user
+  user_two = FactoryGirl.create :user_two
 
   # collections
   test_col = FactoryGirl.create :test_col

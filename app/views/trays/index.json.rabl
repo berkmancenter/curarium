@@ -1,11 +1,21 @@
 collection @trays
 attributes :id, :name, :owner_id, :owner_type
 child :tray_items do
+  node(:type) { |ti|
+    if ti.image.present?
+      'Image'
+    elsif ti.annotation.present?
+      'Annotation'
+    end
+  }
   child :image do
     attributes :id, :image_url, :thumbnail_url, :work_id
   end
   child :annotation do
-    attributes :id
+    attributes :id, :title, :body, :x, :y, :width, :height, :thumbnail_url
+    child :image do
+      attributes :id, :image_url, :thumbnail_url, :work_id
+    end
   end
 end
 

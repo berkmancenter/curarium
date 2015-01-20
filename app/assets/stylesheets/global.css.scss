@@ -1128,6 +1128,82 @@ dd {
   overflow: hidden;
 }
 
+.p_info {
+  z-index: -1;
+    position: relative;
+}
+
+.p_info:hover::after {
+    position: absolute;
+    top: 33px;
+    left: 50px;
+    display: block;
+    width: 125px;
+    text-align: center;
+    padding: 3px;
+    background-color: #FFFFFF;
+    color: #888888;
+    border: 1px solid #888888;
+    content: attr(title);
+}
+
+.s_info {
+  z-index: -1;
+    position: relative;
+}
+
+.s_info:hover::after {
+    position: absolute;
+    top: 75px;
+    left: 50px;
+    display: block;
+    width: 125px;
+    text-align: center;
+    padding: 3px;
+    background-color: #FFFFFF;
+    color: #888888;
+    border: 1px solid #888888;
+    content: attr(title);
+}
+
+.t_info {
+    z-index: -1;
+    position: relative;
+}
+
+.t_info:hover::after {
+    position: absolute;
+    top: 115px;
+    left: 50px;
+    display: block;
+    width: 125px;
+    text-align: center;
+    padding: 3px;
+    background-color: #FFFFFF;
+    color: #888888;
+    border: 1px solid #888888;
+    content: attr(title);
+}
+
+.a_info {
+    z-index: -1;
+    position: relative;
+}
+
+.a_info:hover::after {
+    position: absolute;
+    top: 152px;
+    left: 50px;
+    display: block;
+    width: 125px;
+    text-align: center;
+    padding: 3px;
+    background-color: #FFFFFF;
+    color: #888888;
+    border: 1px solid #888888;
+    content: attr(title);
+}
+
 .bubble_menu .button{
   border: 0;
   position: absolute;
@@ -1248,12 +1324,13 @@ dd {
 
 .expand_pi {
   display: none;
-  padding: 10px 47px 10px 48px;
+  padding: 10px 25px 10px 25px;
   margin: -7px 50px 0 50px;
   width: 120px !important;
   height: 80px;
   max-width: none !important;
 }
+
 .expand_surr {
   display: none;
   padding: 40px 10px 0 10px;
@@ -1938,12 +2015,16 @@ dt:hover {
 
 .bubble_menu .checkbox_hack:checked ~ .expand_pi {
   display: block;
-  width: 100px !important;
+  width: 120px !important;
   height: auto;
   max-height: 100px;
   overflow: scroll;
   border: 1px solid #d2232a;
   background: white;
+}
+
+.bubble_menu .checkbox_hack:checked ~ .expand_pi + .piecep_hover {
+  display: none;
 }
 
 .bubble_menu .checkbox_hack:checked ~ .expand_surr {

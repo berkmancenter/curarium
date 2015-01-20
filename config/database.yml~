@@ -1,0 +1,17 @@
+development:
+  adapter: postgresql
+  encoding: utf8
+  database: curarium
+  host: localhost
+  pool: 5
+  username: postgres
+  password: hibp1694
+
+test:
+  adapter: postgresql
+  database: curarium_test
+  username: postgres
+  password: hibp1694
+  encoding: utf8
+  pool: 5
+  timeout: 5000

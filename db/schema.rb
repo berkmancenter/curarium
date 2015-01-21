@@ -106,7 +106,6 @@ ActiveRecord::Schema.define(version: 20150121155903) do
   create_table "spotlights", force: true do |t|
     t.string   "title"
     t.text     "body"
-    t.string   "type"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "user_id"

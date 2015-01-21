@@ -133,6 +133,15 @@ FactoryGirl.define do
       #images 
     end
   end
+
+  factory :spotlight do
+    factory :test_spotlight do
+      #user test_user
+      title 'test_spotlight'
+      body 'This is a test spotlight'
+      waku_url 'http://waku.curarium.com/en/collection/31337'
+    end
+  end
 end
 
 

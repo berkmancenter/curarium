@@ -40,6 +40,10 @@ describe ( TraysController ) {
         response.code.should eq( '403' )
       }
     }
+
+    after {
+      controller.logout_browserid
+    }
   }
 }
 

@@ -9,7 +9,10 @@ class SessionsController < ApplicationController
       head :ok 
     else
       respond_to_browserid
-      User.find_or_create_by_email browserid_email
+      u = User.where email: browserid_email
+      if u.empty?
+        User.create email: browserid_email, name: browserid_email.split( '@' ).first
+      end
     end
   end
   

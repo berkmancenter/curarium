@@ -1753,12 +1753,12 @@ dt:hover {
 
 .stack3:hover {
   position: absolute;
-  opacity: 0.7;
+  opacity: 1;
   background-image: url('collection_r.png');
   background-repeat: no-repeat;
   background-position: center center;
   background-size: cover;
-  cursor: default;
+  cursor: pointer;
 }
 
 .stack2{
@@ -1811,7 +1811,7 @@ dt:hover {
 }
 
 .about_content .expandable {
-  width: 55%;
+  width: 70%;
 }
 
 

@@ -4,6 +4,11 @@ FactoryGirl.define do
       name 'Test User'
       email 'test@example.com'
     end
+
+    factory :user_two do
+      name 'User Two'
+      email 'two@example.com'
+    end
   end
 
   factory :collection do

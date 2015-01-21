@@ -15,7 +15,10 @@ class TraysController < ApplicationController
               render
             end
           }
-          format.any( :xml, :json )
+          format.any( :xml, :json ) {
+            response.headers[ 'Access-Control-Allow-Origin' ] = '*'
+            render
+          }
         }
       else
         render text: '403 Forbidden', status: 403

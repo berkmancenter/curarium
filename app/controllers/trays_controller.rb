@@ -122,7 +122,7 @@ class TraysController < ApplicationController
       @owner = @current_user
     end
 
-    @trays = @owner.trays
+    @trays = @owner.trays unless @owner.nil?
   end
 
   # Never trust parameters from the scary internet, only allow the white list through.

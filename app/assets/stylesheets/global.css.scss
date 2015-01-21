@@ -424,10 +424,10 @@ dd {
   border-collapse: collapse;
   border-spacing: 0;
   overflow: hidden;
-  margin: 0 0 25px 0;
   color: #d2232a;
   position: relative;
-
+  width: 100%;
+  height: 100px;
   td {
     padding: 0;
   }
@@ -603,7 +603,16 @@ dd {
 .howitem {
   font-weight: bold;
   color: #000!important;
+  width: 100%;
 }
+.howitem tbody {
+  width: 100%;
+}
+
+.howitem tr {
+  width: 56%;
+}
+
 .howitem td {
   padding: 10px 0;
 }
@@ -616,6 +625,7 @@ dd {
   font-weight: normal;
   list-style-type: ordered;
   padding: 10px 0 0 16px;
+  width: 100%;
   margin: 0px;
   color: #000!important;
 }

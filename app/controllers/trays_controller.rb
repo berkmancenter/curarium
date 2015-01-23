@@ -3,8 +3,9 @@ class TraysController < ApplicationController
   before_action :set_trays, only: [ :index, :show ]
 
   def index
-    if authenticated?
-      if @current_user == @owner
+    response.headers[ 'Access-Control-Allow-Origin' ] = '*'
+#    if authenticated?
+#      if @current_user == @owner
         respond_to { |format|
           format.html {
             if request.xhr?
@@ -16,17 +17,16 @@ class TraysController < ApplicationController
             end
           }
           format.any( :xml, :json ) {
-            response.headers[ 'Access-Control-Allow-Origin' ] = '*'
             render
           }
         }
-      else
-        render text: '403 Forbidden', status: 403
-      end
-    else
-      response.headers[ 'WWW-Authenticate' ] = 'Negotiate'
-      render text: '401 Unauthroized', status: 401
-    end
+#      else
+#        render text: '403 Forbidden', status: 403
+#      end
+#    else
+#      response.headers[ 'WWW-Authenticate' ] = 'Negotiate'
+#      render text: '401 Unauthroized', status: 401
+#    end
   end
   
   def show
@@ -117,7 +117,7 @@ class TraysController < ApplicationController
 
   def set_trays
     if params[ :user_id ].present?
-      @owner = User.find( params[ :user_id ] )
+      @owner = User.friendly.find( params[ :user_id ] )
     else
       @owner = @current_user
     end

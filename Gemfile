@@ -34,6 +34,9 @@ gem 'jquery-ui-rails'
 # Use d3 for visualizations
 gem 'd3-rails'
 
+# Use friendly id to make it easier to find users
+gem 'friendly_id'
+
 # Use rabl for JSON API
 gem 'rabl'
 gem 'oj'

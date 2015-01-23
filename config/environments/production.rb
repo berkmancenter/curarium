@@ -92,5 +92,5 @@ Curarium::Application.configure do
   config.action_mailer.perform_deliveries = true
   
   # Setup browserid-rails
-  config.browserid.audience = 'https://www.curarium.com:443'
+  config.browserid.audience = 'curarium.dev.berkmancenter.org'
 end

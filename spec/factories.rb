@@ -139,7 +139,15 @@ FactoryGirl.define do
       #user test_user
       title 'test_spotlight'
       body 'This is a test spotlight'
-      waku_url 'http://waku.curarium.com/en/collection/31337'
+      waku_id 31337
+      waku_url 'http://wacurarium.herokuapp.com/en/collection/31337'
+    end
+
+    factory :spotlight_two do
+      title 'spotlight_two'
+      body 'Used as attributes for testing spotlight creation'
+      waku_id 31338
+      waku_url 'http://wacurarium.herokuapp.com/en/collection/31338'
     end
   end
 end

@@ -10,6 +10,6 @@ describe ( 'Spotlight model' ) {
 
     it { s.should respond_to :user }
 
-    it { s.should respond_to :waku_url }
+    it { s.should respond_to :waku_id, :waku_url }
   }
 }

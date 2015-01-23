@@ -6,6 +6,7 @@
 </dl>
 
 <% if authenticated? && @user == @current_user %>
+
 <section class="user-trays">
   <h1 class="collection-header">Trays</h1>
 
@@ -13,7 +14,19 @@
 
   <%= link_to raw( '<h2>Tray Manager</h2>' ), user_trays_path( @user ) %>
 </section>
+
+<section class="user-circles">
+  <h1 class="collection-header">Circles</h1>
+
+  <div class="GALLERY circle-gallery">
+  <%= render partial: 'circles/thumbnail', collection: @user.circles %>
+  </div><!-- END GALLERY -->  
+
+  <%= link_to raw( '<h2>Circle Manager</h2>' ), circles_path %>
+</section>
+
 <% end %>
+
 
 <section class="user-collections">
   <h1 class="collection-header">Collections</h1>

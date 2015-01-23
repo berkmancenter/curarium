@@ -5,6 +5,8 @@ class User < ActiveRecord::Base
 
   validates :email, presence: true, uniqueness: true
 
+  has_and_belongs_to_many :circles
+
   has_many :annotations
   has_many :messages
   has_many :comments

@@ -120,17 +120,33 @@ FactoryGirl.define do
     end
   end
 
+  factory :circle do
+    factory :test_circle do
+      title 'test_circle'
+      description 'A test circle for testing'
+      #admin test_user
+      #users [test_user]
+    end
+  end
+
   factory :tray do
     factory :test_tray do
       name 'test_tray'
       #owner test_user
       #images starry_night
+      #annotations jesus
     end
 
     factory :empty_tray do
       name 'empty_tray'
       #owner test_user
       #images 
+    end
+
+    factory :circle_tray do
+      name 'circle_tray'
+      #owner test_circle
+      #images aphrodite
     end
   end
 end

@@ -1,4 +1,6 @@
 Curarium::Application.routes.draw do
+  resources :circles
+
   get 'about' => 'home#about', as: 'about'
   
   controller :sessions do

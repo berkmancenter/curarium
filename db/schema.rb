@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150123001216) do
+ActiveRecord::Schema.define(version: 20150123173109) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -48,6 +48,22 @@ ActiveRecord::Schema.define(version: 20150123001216) do
 
   add_index "annotations", ["image_id"], name: "index_annotations_on_image_id", using: :btree
   add_index "annotations", ["tray_item_id"], name: "index_annotations_on_tray_item_id", using: :btree
+
+  create_table "circles", force: true do |t|
+    t.string   "title"
+    t.string   "description"
+    t.integer  "admin_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "circles_users", id: false, force: true do |t|
+    t.integer "circle_id"
+    t.integer "user_id"
+  end
+
+  add_index "circles_users", ["circle_id"], name: "index_circles_users_on_circle_id", using: :btree
+  add_index "circles_users", ["user_id"], name: "index_circles_users_on_user_id", using: :btree
 
   create_table "collections", force: true do |t|
     t.string   "name"

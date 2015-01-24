@@ -36,6 +36,14 @@ describe ( SpotlightsController ) {
         response.code.should eq( '200' )
         Spotlight.first.title.should eq( 'updated' )
       }
+
+      context ( 'with waku_id' ) {
+        it ( 'should return ok' ) {
+          put :update, id: s.waku_id, spotlight: { title: 'updated' }, format: :json
+          response.code.should eq( '200' )
+          Spotlight.first.title.should eq( 'updated' )
+        }
+      }
     }
 
 
@@ -45,10 +53,18 @@ describe ( SpotlightsController ) {
         response.code.should eq( '204' )
       }
 
-      it ( 'should create a new item' ) {
+      it ( 'should delete an item' ) {
         expect {
           post :destroy, id: s.id, format: :json
         }.to change( Spotlight, :count ).by( -1 )
+      }
+
+      context ( 'with waku_id' ) {
+        it ( 'should delete an item' ) {
+          expect {
+            post :destroy, id: s.waku_id, format: :json
+          }.to change( Spotlight, :count ).by( -1 )
+        }
       }
     }
 

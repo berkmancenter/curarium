@@ -2,7 +2,7 @@ class SessionsController < ApplicationController
   # POST /login
   # creates User object if one desn't exist for email
   def create
-    if Rails.const_defined? 'Server' || Rails.env.test?
+    if Rails.const_defined?( 'Server' ) || Rails.env.test?
       # use test user on local dev server or while testing
       u = User.first
       login_browserid u.email 

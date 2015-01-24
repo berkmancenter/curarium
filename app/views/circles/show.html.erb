@@ -1,19 +1,15 @@
-<p id="notice"><%= notice %></p>
+<h1 class="collection-header"><%= @circle.title %></h1>
 
-<p>
-  <strong>Title:</strong>
-  <%= @circle.title %>
-</p>
+<dl>
+  <dt>Created on</dt>
+  <dd><%= @circle.created_at %></dd>
+</dl>
 
-<p>
-  <strong>Description:</strong>
-  <%= @circle.description %>
-</p>
+<section class="circle-trays">
+  <h1 class="collection-header">Trays</h1>
 
-<p>
-  <strong>Users:</strong>
-  <%= @circle.users %>
-</p>
+  <%= render partial: 'trays/tray_preview_gallery', object: @circle.trays.limit(2) %>
 
-<%= link_to 'Edit', edit_circle_path(@circle) %> |
-<%= link_to 'Back', circles_path %>
+  <%= link_to raw( '<h2>Tray Manager</h2>' ), circle_trays_path( @circle ) %>
+</section>
+

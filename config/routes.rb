@@ -1,5 +1,4 @@
 Curarium::Application.routes.draw do
-  resources :circles
 
   get 'about' => 'home#about', as: 'about'
   
@@ -14,6 +13,10 @@ Curarium::Application.routes.draw do
   resources :trays
 
   resources :users do
+    resources :trays
+  end
+
+  resources :circles do
     resources :trays
   end
 

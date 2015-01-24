@@ -38,35 +38,9 @@ describe ( 'trays/index' ) {
     }
 
     it {
-      should have_css '.GALLERY'
+      should have_css '.GALLERY.tray-preview-gallery'
     }
 
-    it {
-      should_not have_css '.gallery_item'
-    }
-
-    it {
-      should have_css 'h2.titlebar', text: tray.name
-    }
-
-    it {
-      should have_css 'h2.titlebar .mini-icon'
-    }
-
-    it {
-      should have_css 'a.tray-preview'
-    }
-
-    it {
-      should have_css %Q|a.tray-preview[href*="#{user_tray_path user, tray}"]|
-    }
-
-    it {
-      should have_css '.titlebar~.tray-preview'
-    }
-
-    it {
-      should have_css '.tray-preview img'
-    }
+    # further tests moved to tray_preview_gallery
   }
 }

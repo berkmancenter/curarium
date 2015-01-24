@@ -1,10 +1,10 @@
 <!-- BEGIN GALLERY -->	     
-<div class="GALLERY">
+<div class="GALLERY tray-preview-gallery">
 
   <% tray_preview_gallery.each { |tray| %>
     <h2 class="titlebar"><%= tray.name %> <%= link_to( render( partial: 'shared/mini_icon', object: 'close' ), tray, 'data-action' => 'destroy' ) %></h2>
 
-    <%= link_to render( partial: 'trays/tray_preview', object: tray ), user_tray_path( tray.owner, tray ), class: 'tray-preview' %>
+    <%= link_to render( partial: 'trays/tray_preview', object: tray ), x_tray_path( tray ), class: 'tray-preview' %>
   <% } %>
 
 </div>

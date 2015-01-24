@@ -25,7 +25,7 @@ describe ( 'circles/show' ) {
     }
 
     it {
-      should have_css '.col-sidebar .profile_img'
+      should have_css '.col-sidebar .thumbnail'
     }
 
     it {

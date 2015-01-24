@@ -4,7 +4,7 @@ describe ( 'circles/index' ) {
   subject { rendered }
 
   before {
-    assign( :cs, Circle.all )
+    assign( :circles, Circle.all )
     render
   }
 
@@ -13,7 +13,7 @@ describe ( 'circles/index' ) {
   }
 
   it {
-    should have_css '.circles .GALLERY.circle-gallery'
+    should have_css '.GALLERY.circle-gallery'
   }
 
   it {

@@ -18,6 +18,14 @@ describe ( 'circles/thumbnail' ) {
   }
 
   it {
+    should have_css '.thumbnail span.title'
+  }
+
+  it {
+    should have_css '.circle-thumbnail'
+  }
+
+  it {
     should have_css %Q|a[href="#{circle_path c}"]|
   }
 

@@ -1,1 +1,1 @@
-<%= link_to image_tag( thumbnail.thumbnail_url ), circle_path( thumbnail ), class: 'gallery_item thumbnail' %>
+<%= link_to render( partial: 'circles/thumbnail_image_title', object: thumbnail ), circle_path( thumbnail ), class: 'gallery_item thumbnail circle-thumbnail' %>

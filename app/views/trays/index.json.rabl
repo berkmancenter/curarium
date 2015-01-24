@@ -1,4 +1,5 @@
 collection @trays
+node(:owner_id) { |t| t.owner.id }
 attributes :id, :name, :owner_id, :owner_type
 child :tray_items do
   node(:type) { |ti|

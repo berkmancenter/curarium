@@ -149,6 +149,23 @@ FactoryGirl.define do
       #images aphrodite
     end
   end
+
+  factory :spotlight do
+    factory :test_spotlight do
+      #user test_user
+      title 'test_spotlight'
+      body 'This is a test spotlight'
+      waku_id 31337
+      waku_url 'http://wacurarium.herokuapp.com/en/collection/31337'
+    end
+
+    factory :spotlight_two do
+      title 'spotlight_two'
+      body 'Used as attributes for testing spotlight creation'
+      waku_id 31338
+      waku_url 'http://wacurarium.herokuapp.com/en/collection/31338'
+    end
+  end
 end
 
 

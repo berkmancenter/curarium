@@ -87,5 +87,9 @@ def seed
   circle_tray.owner = test_circle
   circle_tray.images << Work.find_by_title( 'Aphrodite Pudica' ).images.first
   circle_tray.save
+  # spotlights
+  test_spotlight = FactoryGirl.create :test_spotlight
+  test_spotlight.user = test_user
+  test_spotlight.save
 end
 

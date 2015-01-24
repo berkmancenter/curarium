@@ -118,6 +118,8 @@ class TraysController < ApplicationController
   def set_trays
     if params[ :user_id ].present?
       @owner = User.friendly.find( params[ :user_id ] )
+    elsif params[ :circle_id ].present?
+      @owner = Circle.find( params[ :circle_id ] )
     else
       @owner = @current_user
     end

@@ -1,5 +1,11 @@
 @import "colors";
 
+body.circles {
+  .expandable {
+    width: 100%;
+  }
+}
+
 .circle-thumbnail {
   border: solid 1px $cred;
   position: relative;
@@ -31,3 +37,4 @@
     }
   }
 }
+

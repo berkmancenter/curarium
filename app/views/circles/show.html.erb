@@ -1,15 +1,31 @@
-<h1 class="collection-header"><%= @circle.title %></h1>
+<div class="left">
+  <div class="holder col-sidebar">
+    <div class="titlebar main">Circle</div>
+    <%= render partial: 'thumbnail', object: @circle, class: 'profile_img' %>
+    <div class="stalking_menu_holder">
+      <div class="stalking_menu">
+        <% if authenticated? %>
+          <a href="javascript:void(0);">Join Circle</a>
+        <% end %>
 
-<dl>
-  <dt>Created on</dt>
-  <dd><%= @circle.created_at %></dd>
-</dl>
+      </div>
+    </div>
+  </div>
+</div>
 
-<section class="circle-trays">
-  <h1 class="collection-header">Trays</h1>
+<div class="expandable">
+  <h1 class="collection-header"><%= @circle.title %></h1>
 
-  <%= render partial: 'trays/tray_preview_gallery', object: @circle.trays.limit(2) %>
+  <dl>
+    <dt>Created on</dt>
+    <dd><%= @circle.created_at %></dd>
+  </dl>
 
-  <%= link_to raw( '<h2>Tray Manager</h2>' ), circle_trays_path( @circle ) %>
-</section>
+  <section class="circle-trays">
+    <h1 class="collection-header">Trays</h1>
 
+    <%= render partial: 'trays/tray_preview_gallery', object: @circle.trays.limit(2) %>
+
+    <%= link_to raw( '<h2>Tray Manager</h2>' ), circle_trays_path( @circle ) %>
+  </section>
+</div>

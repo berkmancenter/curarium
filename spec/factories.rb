@@ -127,6 +127,12 @@ FactoryGirl.define do
       #admin test_user
       #users [test_user]
     end
+
+    # used as attributes for creating new circles in tests
+    factory :circle_two do
+      title 'circle_two'
+      description 'Circle data to test creating new cirlces'
+    end
   end
 
   factory :tray do

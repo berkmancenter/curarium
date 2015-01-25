@@ -1,4 +1,6 @@
 <%= form_for(@circle) do |f| %>
+  <%= f.hidden_field :admin_id, value: @current_user %>
+
   <% if @circle.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@circle.errors.count, "error") %> prohibited this circle from being saved:</h2>
@@ -17,13 +19,9 @@
   </div>
   <div class="field">
     <%= f.label :description %><br>
-    <%= f.text_field :description %>
-  </div>
-  <div class="field">
-    <%= f.label :users_id %><br>
-    <%= f.text_field :users_id %>
+    <%= f.text_area :description, size: '40x10' %>
   </div>
   <div class="actions">
-    <%= f.submit %>
+    <%= f.submit class: 'button' %>
   </div>
 <% end %>

@@ -17,7 +17,7 @@ describe ( SpotlightsController ) {
       controller.login_browserid u.email 
     }
 
-    describe ( 'POST spotlight' ) {
+    describe ( 'POST spotlights' ) {
       it ( 'should return ok' ) {
         post :create, spotlight: s_attr, format: :json
         response.code.should eq( '200' )

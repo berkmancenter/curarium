@@ -40,8 +40,11 @@ input[type=text], input[type=password], textarea, .login-button, .tray-popup-but
   border: 1px solid $cred;
   color: $cred;
   font-size: $fontSize1;
-  height: 20px;
   padding: 0 4px;
+}
+
+input[type=text], input[type=password], .login-button, .tray-popup-button {
+  height: 20px;
   width: 160px;
 }
 

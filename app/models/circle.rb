@@ -5,6 +5,9 @@ class Circle < ActiveRecord::Base
 
   has_many :trays, as: :owner
 
+  validates :title, presence: true, uniqueness: true
+  validates :description, presence: true
+
   def thumbnail_url
     url = '/missing_thumb.png'
 

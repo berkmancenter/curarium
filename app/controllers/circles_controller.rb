@@ -12,7 +12,11 @@ class CirclesController < ApplicationController
 
   # GET /circles/new
   def new
-    @circle = Circle.new
+    if authenticated?
+      @circle = Circle.new
+    else
+      render nothing: true, status: 401
+    end
   end
 
   # GET /circles/1/edit

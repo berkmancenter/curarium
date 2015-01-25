@@ -54,6 +54,10 @@ describe ( 'circles/show' ) {
       }
 
       it {
+        should have_css '.stalking_menu a.edit-circle', text: 'Edit Description'
+      }
+
+      it {
         should have_css '.stalking_menu a.delete-circle', text: 'Delete Circle'
       }
     }

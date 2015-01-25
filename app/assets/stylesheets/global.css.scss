@@ -1067,6 +1067,8 @@ dd {
 /*HACKING*/
 .bubble_menu {
   overflow: visible;
+  width: 300px;
+  height: 300px;
   background: transparent;
   * {
     .menu_piecep, .menu_piecep * {
@@ -1079,30 +1081,45 @@ dd {
     }
   }
 
-  table {
+   .works-info{
     border-collapse: collapse;
     border-spacing: 0;
-    height: 200px;
-    tbody {
+    width: 300px;
+    height: 300px;
+  }
+  
+  .works-info  tbody {
       vertical-align: top;
     }
 
-    tr{
-      padding: 10px;
+  .works-info .metadata-info{
+      position: absolute;
+    }
+  .works-info .surrogates-inf{
+      position: absolute;
+    }
+    .works-info .trays{
+      position: absolute;
+      width: 0;
+    }
+      .works-info tr{
       position: absolute;
     }
 
-    td {
-      padding: 1px;
-    }    
-  }
-}
+
+  .works-info .parsed_info{
+      top: 30px;
+      width: 200px;
+      left: 57px;
+      position: absolute;
+    }
+}   
 
 .bubble_menu .menu_piecep{
   width: 25px;
   position: relative;
   margin: 0 10px;
-  top: 20px;
+  top: 30px;
   border: 1px solid #d2232a;
   padding: 25px 0 0 0;
   overflow: hidden;
@@ -1112,7 +1129,7 @@ dd {
   width: 25px;
   position: relative;
   margin: 0 10px;
-  top: 60px;
+  top: 70px;
   border: 1px solid #d2232a;
   padding: 25px 0 0 0;
   overflow: hidden;
@@ -1122,7 +1139,7 @@ dd {
   width: 25px;
   position: relative;
   margin: 0 10px;
-  top: 100px;
+  top: 110px;
   border: 1px solid #d2232a;
   padding: 25px 0 0 0;
   overflow: hidden;
@@ -1132,7 +1149,7 @@ dd {
   width: 25px;
   position: relative;
   margin: 0 10px;
-  top: 140px;
+  top: 150px;
   border: 1px solid #d2232a;
   padding: 25px 0 0 0;
   overflow: hidden;
@@ -1335,7 +1352,6 @@ dd {
 .expand_pi {
   display: none;
   padding: 10px 25px 10px 25px;
-  margin: -7px 50px 0 50px;
   width: 120px !important;
   height: 80px;
   max-width: none !important;
@@ -1344,7 +1360,7 @@ dd {
 .expand_surr {
   display: none;
   padding: 40px 10px 0 10px;
-  margin: -7px 50px 0 50px;
+  top: 20px;
   width: 100px !important;
   height: 80px;
   max-width: none !important;
@@ -1353,7 +1369,7 @@ dd {
 .expand_tray {
   display: none;
   padding: 0;
-  margin: 73px 50px 0 50px;
+  margin: 110px 0 0 10px;
   border: 1px solid #d2232a;
 }
 
@@ -1362,8 +1378,8 @@ dd {
   border: 1px solid $cred;
   display: none;
   overflow: auto;
-  padding: 10px 10px 5px 10px;
-  margin: 113px 50px 0 50px;
+  padding: 15px 15px 10px 10px;
+  margin: 150px 50px 0 10px;
   max-height: 50%;
 }
 
@@ -1371,6 +1387,7 @@ dd {
   width: 50px;
   float: left;
   height: auto;
+  margin-top: 30px;
   padding: 5px 68px 5px 67px;
   border: 1px solid #d2232a;
   background: white;
@@ -2039,7 +2056,7 @@ dt:hover {
 
 .bubble_menu .checkbox_hack:checked ~ .expand_surr {
   display: block;
-  width: 100px !important;
+  top: 50px;
   height: auto;
 }
 .bubble_menu .checkbox_hack:checked ~ .expand_tray {

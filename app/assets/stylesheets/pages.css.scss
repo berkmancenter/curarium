@@ -21,32 +21,34 @@
 	height: 280;
 }
 
-table {
+.institem {
     border-collapse: collapse;
     border-spacing: 0;
-    height: 250px;
-    tbody {
+    height: 350px;
+    }
+
+.institem tbody {
       vertical-align: top;
     }
 
-    tr{
+.institem tr{
       padding: 10px;
       margin: 0 0 50px 0;
       position: absolute;
     }
 
-    .image_side {
+.institem .image_side {
       padding: 20px;
       color: #D2232A;
       width: 500px;
       height: 281px;
     } 
-    .text_side {
-      padding: 15px;
+    
+.institem .text_side {
+      padding: 25px 5px 20px 5px;
       color: #D2232A;
       font-size: 100%
     }    
-  }
 
 #images-box {
     /* The total width of the image-box, mainly for centering */

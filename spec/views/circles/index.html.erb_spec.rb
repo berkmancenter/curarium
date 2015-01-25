@@ -20,5 +20,8 @@ describe ( 'circles/index' ) {
     should have_css '.circle-gallery .gallery_item'
   }
 
+  it {
+    should have_css %Q|a[href="#{new_circle_path}"]|
+  }
 }
 

@@ -85,6 +85,11 @@ describe ( 'circles/show' ) {
     }
 
     it {
+      should have_css 'dt', text: 'Members:'
+      should have_css 'dd', text: c.users.count
+    }
+
+    it {
       should have_css 'p', text: c.description
     }
 

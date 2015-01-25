@@ -4,6 +4,21 @@ body.circles {
   .expandable {
     width: 100%;
   }
+
+  dl {
+    overflow: hidden;
+    width: 33em;
+  }
+
+  dt {
+    float: left;
+    width: 8em;
+  }
+  
+  dd {
+    float: left;
+    width: 24em;
+  }
 }
 
 .circle-thumbnail {

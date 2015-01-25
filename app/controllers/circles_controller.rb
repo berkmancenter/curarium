@@ -26,6 +26,7 @@ class CirclesController < ApplicationController
   # POST /circles
   def create
     @circle = Circle.new(circle_params)
+    @circle.admin = @current_user
 
     if @circle.save
       redirect_to @circle, notice: 'Circle was successfully created.'

@@ -5,9 +5,12 @@
     <div class="stalking_menu_holder">
       <div class="stalking_menu">
         <% if authenticated? %>
-          <a href="javascript:void(0);">Join Circle</a>
+          <% if @circle.admin == @current_user %>
+            <a href="javascript:void(0);">Delete Circle</a>
+          <% else %>
+            <a href="javascript:void(0);">Join Circle</a>
+          <% end %>
         <% end %>
-
       </div>
     </div>
   </div>

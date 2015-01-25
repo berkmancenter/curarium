@@ -54,7 +54,7 @@ describe ( 'circles/show' ) {
       }
 
       it {
-        should have_css '.stalking_menu a', text: 'Delete Circle'
+        should have_css '.stalking_menu a.delete-circle', text: 'Delete Circle'
       }
     }
 
@@ -66,7 +66,7 @@ describe ( 'circles/show' ) {
       }
 
       it {
-        should have_css '.stalking_menu a', text: 'Join Circle'
+        should have_css '.stalking_menu a.join-circle', text: 'Join Circle'
       }
     }
   }

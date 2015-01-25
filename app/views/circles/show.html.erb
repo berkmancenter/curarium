@@ -6,9 +6,11 @@
       <div class="stalking_menu">
         <% if authenticated? %>
           <% if @circle.admin == @current_user %>
-            <a href="javascript:void(0);">Delete Circle</a>
+            <%= form_for( @circle, html: { method: :delete } ) { |f| %>
+              <a href="javascript:void(0);" class="delete-circle">Delete Circle</a>
+            <% } %>
           <% else %>
-            <a href="javascript:void(0);">Join Circle</a>
+            <a href="javascript:void(0);" class="join-circle">Join Circle</a>
           <% end %>
         <% end %>
       </div>

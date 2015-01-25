@@ -3,6 +3,8 @@ require 'spec_helper'
 describe ( 'circles/index' ) {
   subject { rendered }
 
+  let ( :user ) { User.first }
+
   before {
     assign( :circles, Circle.all )
     render
@@ -21,7 +23,19 @@ describe ( 'circles/index' ) {
   }
 
   it {
-    should have_css %Q|a[href="#{new_circle_path}"]|
+    should_not have_css '.createnew'
+  }
+
+  context ( 'with user' ) {
+    before {
+      session[ :browserid_email ] = user.email
+      assign( :current_user, user )
+      render
+    }
+
+    it {
+      should have_css '.createnew'
+    }
   }
 }
 

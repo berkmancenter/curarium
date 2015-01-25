@@ -81,6 +81,10 @@ describe ( 'circles/show' ) {
     }
 
     it {
+      should have_css 'p', text: c.description
+    }
+
+    it {
       should have_css 'section.circle-trays'
     }
 

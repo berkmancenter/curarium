@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe 'works requests', :js => true do
   let ( :col ) { Collection.first }
-  let ( :works ) { col.works.all }
+  let ( :works ) { col.works }
   let ( :work ) { works.first }
   let ( :last_supper ) { Work.find_by_title 'Last Supper' }
   let ( :star_attr ) { FactoryGirl.attributes_for :star }
@@ -463,6 +463,10 @@ describe 'works requests', :js => true do
       it {
         page.status_code.should eq( 200 )
       }
+    }
+
+    after {
+      post logout_path
     }
   }
 end

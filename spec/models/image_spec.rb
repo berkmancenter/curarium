@@ -7,8 +7,7 @@ describe ( 'Image model' ) {
 
     it { i.should be_valid }
 
-    it { i.should respond_to 'image_url' }
-    it { i.should respond_to 'thumbnail_url' }
+    it { i.should respond_to :image_url, :thumbnail_url }
 
     it { i.should respond_to 'work' }
 

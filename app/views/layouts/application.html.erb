@@ -36,6 +36,6 @@
 		<%= javascript_include_tag "application" %>
 
     <!-- Setup BrowserID with alert debugging -->
-    <%= setup_browserid debug: true unless Rails.env.test? %>
+    <%= setup_browserid debug: Rails.const_defined?( 'Server' ) %>
 	</body>
 </html>

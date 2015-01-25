@@ -76,5 +76,10 @@ def seed
   empty_tray = FactoryGirl.create :empty_tray
   empty_tray.owner = test_user
   empty_tray.save
+
+  # spotlights
+  test_spotlight = FactoryGirl.create :test_spotlight
+  test_spotlight.user = test_user
+  test_spotlight.save
 end
 

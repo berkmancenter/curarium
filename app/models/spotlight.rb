@@ -1,4 +1,7 @@
 class Spotlight < ActiveRecord::Base
-  belongs_to :collection
+  extend FriendlyId
+
+  friendly_id :waku_id
+
   belongs_to :user
 end

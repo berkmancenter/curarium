@@ -1,25 +1,25 @@
 require 'spec_helper'
 
-describe ( 'circles/index' ) {
+describe ( 'spotlights/index' ) {
   subject { rendered }
 
   let ( :user ) { User.first }
 
   before {
-    assign( :circles, Circle.all )
+    assign( :spotlights, Spotlight.all )
     render
   }
 
   it {
-    should have_css 'h1.collection-header', text: 'Circles'
+    should have_css 'h1.collection-header', text: 'Spotlights'
   }
 
   it {
-    should have_css '.GALLERY.circle-gallery'
+    should have_css '.GALLERY.spotlight-gallery'
   }
 
   it {
-    should have_css '.circle-gallery .gallery_item'
+    should have_css '.spotlight-gallery .gallery_item'
   }
 
   it {
@@ -39,6 +39,10 @@ describe ( 'circles/index' ) {
 
     it {
       should have_css '.createnew a'
+    }
+
+    it {
+      should have_css %Q|.createnew a[href*="#{Waku::URL}"]|
     }
   }
 }

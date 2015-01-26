@@ -24,6 +24,11 @@ describe ( TraysController ) {
         get :index, user_id: user.id
         response.code.should eq( '200' )
       }
+
+      it ( 'should return ok' ) {
+        get :index, user_id: user.id
+        assigns( :trays ).count.should == 3 # two owned, one from circle
+      }
     }
 
     describe ( 'GET users/:id/trays.json' ) {

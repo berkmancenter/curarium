@@ -77,7 +77,16 @@ class TraysController < ApplicationController
   end
 
   def set_trays
-    @trays = @owner.trays unless @owner.nil?
+    if @owner.present?
+      if @owner.is_a? Circle
+        @trays = @owner.trays
+      else # User + Circle trays
+        ctids = @owner.circles.map { |c| c.trays.pluck :id if c.trays.any? }.compact.flatten
+        utids = @owner.trays.pluck :id
+        tids = (ctids + utids).uniq
+        @trays = Tray.find tids
+      end
+    end
   end
 
   # Never trust parameters from the scary internet, only allow the white list through.

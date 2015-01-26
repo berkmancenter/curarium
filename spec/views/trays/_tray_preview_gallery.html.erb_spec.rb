@@ -31,10 +31,6 @@ describe ( 'trays/tray_preview_gallery' ) {
     }
 
     it {
-      should have_css 'a.tray-preview'
-    }
-
-    it {
       should have_css %Q|a.tray-preview[href*="#{user_tray_path user, tray}"]|
     }
 

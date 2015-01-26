@@ -7,6 +7,7 @@ describe ( 'trays/tray_preview_gallery' ) {
     let ( :user ) { User.first }
     let ( :trays ) { user.trays }
     let ( :tray ) { trays.first }
+    let ( :circle_tray ) { user.circles.first.trays.first }
 
     before {
       assign( :owner, user )
@@ -23,7 +24,11 @@ describe ( 'trays/tray_preview_gallery' ) {
     }
 
     it {
-      should have_css 'h2.titlebar', text: tray.name
+      should have_css 'h2.titlebar'
+    }
+
+    it {
+      should have_css %Q|h2.titlebar a[href*="#{user_tray_path user, tray}"]|, text: tray.name
     }
 
     it {

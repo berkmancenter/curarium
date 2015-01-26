@@ -2,7 +2,7 @@
 <div class="GALLERY tray-preview-gallery">
 
   <% tray_preview_gallery.each { |tray| %>
-    <h2 class="titlebar"><%= tray.name %> <%= link_to( render( partial: 'shared/mini_icon', object: 'close' ), tray, 'data-action' => 'destroy' ) %></h2>
+    <h2 class="titlebar"><%= link_to tray.name, x_tray_path( tray ) %> <%= link_to( render( partial: 'shared/mini_icon', object: 'close' ), tray, 'data-action' => 'destroy' ) %></h2>
 
     <%= link_to render( partial: 'trays/tray_preview', object: tray ), x_tray_path( tray ), class: 'tray-preview' %>
   <% } %>

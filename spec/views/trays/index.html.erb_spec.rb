@@ -19,7 +19,7 @@ describe ( 'trays/index' ) {
 
     describe ( 'new tray form' ) {
       it {
-        should have_css 'form[action*="trays"][method="post"]'
+        should have_css %Q|form[action*="#{user_trays_path user}"][method="post"]|
       }
 
       it {
@@ -27,7 +27,7 @@ describe ( 'trays/index' ) {
       }
 
       it {
-        should have_css 'input[type="hidden"][name="tray[owner_type]"]'
+        should have_css 'input[type="hidden"][name="tray[owner_type]"][value="User"]'
       }
 
       it {
@@ -58,7 +58,7 @@ describe ( 'trays/index' ) {
 
     describe ( 'new tray form' ) {
       it {
-        should have_css 'form[action*="trays"][method="post"]'
+        should have_css %Q|form[action*="#{circle_trays_path c}"][method="post"]|
       }
 
       it {
@@ -66,7 +66,7 @@ describe ( 'trays/index' ) {
       }
 
       it {
-        should have_css 'input[type="hidden"][name="tray[owner_type]"]'
+        should have_css 'input[type="hidden"][name="tray[owner_type]"][value="Circle"]'
       }
 
       it {

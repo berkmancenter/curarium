@@ -4,6 +4,7 @@ describe ( 'spotlights/index' ) {
   subject { rendered }
 
   let ( :user ) { User.first }
+  let ( :s ) { Spotlight.first }
 
   before {
     assign( :spotlights, Spotlight.all )
@@ -20,6 +21,10 @@ describe ( 'spotlights/index' ) {
 
   it {
     should have_css '.spotlight-gallery .gallery_item'
+  }
+
+  it {
+    should have_css %Q|.spotlight-gallery a[href*="#{s.waku_url}"]|
   }
 
   it {

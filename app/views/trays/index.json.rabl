@@ -11,11 +11,17 @@ child :tray_items do
   }
   child :image do
     attributes :id, :image_url, :thumbnail_url, :work_id
+    node(:work_title) { |i|
+      i.work.title
+    }
   end
   child :annotation do
     attributes :id, :title, :body, :x, :y, :width, :height, :thumbnail_url
     child :image do
       attributes :id, :image_url, :thumbnail_url, :work_id
+      node(:work_title) { |i|
+        i.work.title
+      }
     end
   end
 end

@@ -29,7 +29,7 @@
   <% background = thumb_work_path(item) %>
   <a href='<%= work_path(item) %>'>
     <div class='gallery_item<%=" item_lrg" if big %>' style='background-image:url(<%= background %>)'>
-      <div class='object_id'><%= item.id %></div>
+      <div class='object_id'><%= item.unique_identifier %></div>
     </div>
   </a>
 <% end %>

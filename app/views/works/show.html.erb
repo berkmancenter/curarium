@@ -18,11 +18,13 @@
 
 <!-- BEGIN SUB MENU -->  
 <div class="SUB_MENU bubble_menu">
-  <table class="parsed-info"><tr>
-    <td class="bub_menu">
-      <abbr class="p_info" title="Parsed information"><div class="menu_piecep"></abbr>
+  <table class="works-info">
+  <tr class="metadata-info">
+    <td class="parsed_button">
+      <div class="menu_piecep">
       <label for='parsed_id'><span class="button">P</span></label>
-      </div>
+      </div></td>
+      <td class="parsed_info">
       <input type='checkbox' class='checkbox_hack' id='parsed_id'>
       <div class="expand_pi">
         <!-- THIS IS WHERE THE PARSED WORK INFORMATION GOES -->
@@ -30,11 +32,12 @@
       </div>
     </td></tr>
     
-    <tr>
+    <tr class="surrogates">
     <td  class="bub_menu surrogates">
-      <abbr class="s_info" title="Surrogates"><div class="menu_pieces"></abbr>
+      <div class="menu_pieces">
       <label for='surrogates_id'><span class="button">S</span></label>
-      </div>
+      </div></td>
+      <td class="surrogate_info">
       <input type='checkbox' class='checkbox_hack' id='surrogates_id'>
       <div class="expand_surr">
         <!-- THIS IS WHERE THE SURROGATE IMAGES GO -->
@@ -46,11 +49,12 @@
       </div>
     </td></tr>
     
-    <tr>
+    <tr class="trays">
     <td  class="bub_menu">
-      <abbr class="t_info" title="Add to tray"><div class="menu_piecet"></abbr>
+      <div class="menu_piecet">
         <label for='add_id'><span class="button">T</span></label>
-        </div>
+        </div></td>
+      <td class="tray_info">
         <input type='checkbox' class='checkbox_hack' id='add_id'>
         <div class="expand_tray">
           <% if authenticated? %>
@@ -62,9 +66,10 @@
     </td></tr>
 
     <tr><td  class="bub_menu">
-      <abbr class="a_info" title="Annotate"><div class="menu_piecea"></abbr>
+      <div class="menu_piecea">
         <label for='ann_id'><span class="button">A</span></label>
-        </div>
+        </div></td>
+      <td class="annotation_info">
         <input type='checkbox' class='checkbox_hack' id = 'ann_id'>
         <div class="expand_anno">
           <div id='annotations'>

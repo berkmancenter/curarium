@@ -18,6 +18,10 @@ Curarium::Application.routes.draw do
 
   resources :circles do
     resources :trays
+
+    member do
+      put 'join' => :join
+    end
   end
 
   resources :sections do

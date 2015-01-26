@@ -125,12 +125,19 @@ FactoryGirl.define do
       title 'test_circle'
       description 'A test circle for testing'
       #admin test_user
-      #users [test_user]
+      #users [test_user, user_two]
+    end
+
+    factory :circle_two do
+      title 'circle_two'
+      description 'A circle whose admin is user_two'
+      #admin user_two
+      #users [user_two]
     end
 
     # used as attributes for creating new circles in tests
-    factory :circle_two do
-      title 'circle_two'
+    factory :circle_three do
+      title 'circle_three'
       description 'Circle data to test creating new cirlces'
     end
   end

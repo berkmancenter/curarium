@@ -1,5 +1,5 @@
 class CirclesController < ApplicationController
-  before_action :set_circle, only: [:show, :edit, :update, :destroy]
+  before_action :set_circle, only: [:show, :edit, :update, :join, :destroy]
 
   # GET /circles
   def index
@@ -27,6 +27,7 @@ class CirclesController < ApplicationController
   def create
     @circle = Circle.new(circle_params)
     @circle.admin = @current_user
+    @circle.users << @current_user
 
     if @circle.save
       redirect_to @circle, notice: 'Circle was successfully created.'
@@ -42,6 +43,12 @@ class CirclesController < ApplicationController
     else
       render action: 'edit'
     end
+  end
+
+  # PUT /circles/1
+  def join
+    @circle.users << @current_user unless @circle.users.include? @current_user
+    render action: 'show'
   end
 
   # DELETE /circles/1

@@ -18,6 +18,7 @@ FactoryGirl.define do
       approved true
       #admin test_user
       configuration '{"title":["title"],"image":["imageInfo","url"],"thumbnail":["imageInfo","thumbnail_url"],"artist":["artist"],"topics":["subject","*","topic",0]}'
+      source 'test_col source'
     end
 
     factory :not_approved do

@@ -11,7 +11,7 @@ class UsersController < ApplicationController
   # GET /users/1
   # GET /users/1.json
   def show
-    response.headers[ 'Access-Control-Allow-Origin' ] = 'http://wacurarium.herokuapp.com'
+    response.headers[ 'Access-Control-Allow-Origin' ] = Waku::URL
   end
 
   # GET /users/new

@@ -6,7 +6,7 @@ class TraysController < ApplicationController
   before_action :set_trays, only: [ :index, :show ]
 
   def index
-    response.headers[ 'Access-Control-Allow-Origin' ] = 'http://wacurarium.herokuapp.com'
+    response.headers[ 'Access-Control-Allow-Origin' ] = Waku::URL
 #    if authenticated?
 #      if @current_user == @owner
         respond_to { |format|

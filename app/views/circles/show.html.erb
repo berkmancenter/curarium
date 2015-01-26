@@ -12,7 +12,15 @@
               <a href="javascript:void(0);" class="delete-circle">Delete Circle</a>
             <% } %>
           <% else %>
-            <a href="javascript:void(0);" class="join-circle">Join Circle</a>
+            <% if @circle.users.include? @current_user %>
+              <%= form_for( @circle, url: leave_circle_path( @circle ), html: { method: :put } ) { |f| %>
+                <a href="javascript:void(0);" class="leave-circle">Leave Circle</a>
+              <% } %>
+            <% else %>
+              <%= form_for( @circle, url: join_circle_path( @circle ), html: { method: :put } ) { |f| %>
+                <a href="javascript:void(0);" class="join-circle">Join Circle</a>
+              <% } %>
+            <% end %>
           <% end %>
         <% end %>
       </div>

@@ -1,5 +1,5 @@
 class CirclesController < ApplicationController
-  before_action :set_circle, only: [:show, :edit, :update, :join, :destroy]
+  before_action :set_circle, only: [:show, :edit, :update, :join, :leave, :destroy]
 
   # GET /circles
   def index
@@ -48,7 +48,13 @@ class CirclesController < ApplicationController
   # PUT /circles/1
   def join
     @circle.users << @current_user unless @circle.users.include? @current_user
-    render action: 'show'
+    redirect_to @circle
+  end
+
+  # PUT /circles/1
+  def leave
+    @circle.users.delete @current_user if @circle.users.include? @current_user
+    redirect_to @circle
   end
 
   # DELETE /circles/1

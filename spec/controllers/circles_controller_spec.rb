@@ -65,6 +65,14 @@ describe ( CirclesController ) {
       }
     }
 
+    describe ( 'PUT leave' ) {
+      it ( 'should remove from users if in circle' ) {
+        expect {
+          put :leave, id: c.id
+        }.to change( c.users, :count ).by( -1 )
+      }
+    }
+
     after {
       controller.logout_browserid
     }

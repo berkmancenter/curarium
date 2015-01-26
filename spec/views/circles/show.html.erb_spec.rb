@@ -7,6 +7,7 @@ describe ( 'circles/show' ) {
   let ( :user_two ) { User.find_by_name 'User Two' }
 
   let ( :c ) { Circle.first }
+  let ( :c_two ) { Circle.last }
 
   before {
     assign( :circle, c )
@@ -58,19 +59,37 @@ describe ( 'circles/show' ) {
       }
 
       it {
-        should have_css '.stalking_menu a.delete-circle', text: 'Delete Circle'
+        should have_css '.stalking_menu form a.delete-circle', text: 'Delete Circle'
       }
     }
 
     context ( 'with non-admin user' ) {
-      before {
-        session[ :browserid_email ] = user_two.email
-        assign( :current_user, user_two )
-        render
+      context ( 'with circle already joined' ) {
+        before {
+          session[ :browserid_email ] = user_two.email
+          assign( :current_user, user_two )
+
+          assign( :circle, c )
+          render
+        }
+
+        it {
+          should have_css '.stalking_menu form a.leave-circle', text: 'Leave Circle'
+        }
       }
 
-      it {
-        should have_css '.stalking_menu a.join-circle', text: 'Join Circle'
+      context ( 'with circle not joined' ) {
+        before {
+          session[ :browserid_email ] = user.email
+          assign( :current_user, user )
+
+          assign( :circle, c_two )
+          render
+        }
+
+        it {
+          should have_css '.stalking_menu form a.join-circle', text: 'Join Circle'
+        }
       }
     }
   }

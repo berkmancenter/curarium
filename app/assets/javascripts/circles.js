@@ -1,5 +1,5 @@
 $( function( ) {
-  $( '.join-circle' ).click( function( ) {
+  $( '.join-circle,.leave-circle' ).click( function( ) {
     $( this ).closest( 'form' ).submit();
     return false;
   } );

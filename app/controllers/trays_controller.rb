@@ -81,10 +81,7 @@ class TraysController < ApplicationController
       if @owner.is_a? Circle
         @trays = @owner.trays
       else # User + Circle trays
-        ctids = @owner.circles.map { |c| c.trays.pluck :id if c.trays.any? }.compact.flatten
-        utids = @owner.trays.pluck :id
-        tids = (ctids + utids).uniq
-        @trays = Tray.find tids
+        @trays = @owner.all_trays
       end
     end
   end

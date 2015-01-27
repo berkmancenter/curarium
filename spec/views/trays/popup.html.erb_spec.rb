@@ -5,7 +5,7 @@ describe ( 'trays/popup' ) {
 
   context ( 'user with tray' ) {
     let ( :user ) { User.first }
-    let ( :trays ) { user.trays }
+    let ( :trays ) { user.all_trays }
 
     context ( 'with default popup' ) {
       before {
@@ -20,11 +20,11 @@ describe ( 'trays/popup' ) {
 
       it {
         # two trays and a create tray button
-        should have_css 'button', count: 3
+        should have_css 'button', count: 4
       }
 
       it {
-        should have_css 'button.tray-popup-button', count: 2
+        should have_css 'button.tray-popup-button', count: 3
       }
 
       it {

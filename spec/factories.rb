@@ -27,6 +27,7 @@ FactoryGirl.define do
       approved false
       #admin test_user
       configuration '{"title":["title"],"image":["imageInfo","url"],"thumbnail":["imageInfo","thumbnail_url"]}'
+      source 'not_approved source'
     end
 
     factory :multi_image do
@@ -35,6 +36,7 @@ FactoryGirl.define do
       approved true
       #admin test_user
       configuration '{"unique_identifier": ["recordIdentifier", 0, "content"], "title": ["titleInfo", 0, "title", 0], "image": ["relatedItem", "*", "content", "location", 0, "url", 0, "content"], "thumbnail": ["relatedItem", "*", "content", "location", 0, "url", 1, "content"]}'
+      source 'multi_image source'
     end
 
     factory :via do
@@ -43,6 +45,7 @@ FactoryGirl.define do
       approved true
       #admin test_user
       configuration '{"unique_identifier": ["recordIdentifier", 0, "content"], "title": ["titleInfo", 0, "title", 0], "image": ["relatedItem", "*", "content", "location", 0, "url", 0, "content"], "thumbnail": ["relatedItem", "*", "content", "location", 0, "url", 1, "content"], "date": ["originInfo", 0, "dateOther", 0, "content"], "names": ["name", "*", "namePart", 0], "creator": ["name", 0, "namePart", 0], "genre" :["genre", "*"], "topics": ["subject", "*", "topic", 0]}'
+      source 'Villa I Tatti'
     end
 
     factory :japanese do
@@ -51,6 +54,7 @@ FactoryGirl.define do
       approved true
       #admin test_user
       configuration '{"unique_identifier": ["id"], "title": ["title"], "image": ["primaryimageurl"], "thumbnail": ["primaryimageurl"], "creator": ["people", 0, "displayname"], "names": ["people", "*", "displayname"]}'
+      source 'Harvard Art Museums'
     end
   end
 

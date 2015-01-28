@@ -25,7 +25,7 @@ describe ( 'trays/show' ) {
     }
 
     it ( 'should have tray items and add record button' ) {
-      should have_css '.gallery_item', count: tray.tray_items.count + 1
+      should have_css '.gallery_item', count: tray.tray_items.count
     }
 
     it ( 'should have tray item commandnail' ) {
@@ -33,7 +33,8 @@ describe ( 'trays/show' ) {
     }
 
     it ( 'should have new tray item button' ) {
-      should have_css '.gallery_item .createnew'
+      #10952 removed for now
+      should_not have_css '.gallery_item .createnew'
     }
 
     it ( 'should not have a list of all trays' ) {

@@ -1,11 +1,8 @@
-<%# require 'works_helper' %>
-
 <h1 class="collection-header">Tray Manager</h1>
 
-<%= form_for [ @owner, Tray.new ], url: user_trays_path( user_id: @owner.id ), method: :post do |f| %>
-<%#= form_for Tray.new, url: { action: 'create' } { |f| %>
+<%= form_for [ @owner, Tray.new ], url: x_trays_path( @owner ), method: :post do |f| %>
   <%= f.hidden_field :owner_id, value: @owner.id %>
-  <%= f.hidden_field :owner_type, value: 'User' %>
+  <%= f.hidden_field :owner_type, value: @owner.class.name %>
   <%= f.text_field :name, placeholder: 'Create New Tray' %>
   <%= f.button 'create', type: 'submit', name: nil %>
 <% end %>

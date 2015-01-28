@@ -3,11 +3,9 @@ require 'spec_helper'
 describe ( 'trays/index' ) {
   subject { rendered }
 
-  context ( 'user with tray' ) {
+  context ( 'user with trays' ) {
     let ( :user ) { User.first }
     let ( :trays ) { user.trays }
-    let ( :tray ) { trays.first }
-    let ( :image ) { tray.tray_items.first }
 
     before {
       assign( :owner, user )
@@ -21,7 +19,7 @@ describe ( 'trays/index' ) {
 
     describe ( 'new tray form' ) {
       it {
-        should have_css 'form[action*="trays"][method="post"]'
+        should have_css %Q|form[action*="#{user_trays_path user}"][method="post"]|
       }
 
       it {
@@ -29,7 +27,7 @@ describe ( 'trays/index' ) {
       }
 
       it {
-        should have_css 'input[type="hidden"][name="tray[owner_type]"]'
+        should have_css 'input[type="hidden"][name="tray[owner_type]"][value="User"]'
       }
 
       it {
@@ -38,35 +36,48 @@ describe ( 'trays/index' ) {
     }
 
     it {
-      should have_css '.GALLERY'
+      should have_css '.GALLERY.tray-preview-gallery'
+    }
+
+    # further tests moved to tray_preview_gallery
+  }
+
+  context ( 'circle with trays' ) {
+    let ( :c ) { Circle.first }
+    let ( :trays ) { c.trays }
+
+    before {
+      assign( :owner, c )
+      assign( :trays, trays )
+      render
     }
 
     it {
-      should_not have_css '.gallery_item'
+      should have_css 'h1.collection-header', text: 'Tray Manager'
+    }
+
+    describe ( 'new tray form' ) {
+      it {
+        should have_css %Q|form[action*="#{circle_trays_path c}"][method="post"]|
+      }
+
+      it {
+        should have_css 'input[type="hidden"][name="tray[owner_id]"]'
+      }
+
+      it {
+        should have_css 'input[type="hidden"][name="tray[owner_type]"][value="Circle"]'
+      }
+
+      it {
+        should have_css 'input[name="tray[name]"]'
+      }
     }
 
     it {
-      should have_css 'h2.titlebar', text: tray.name
+      should have_css '.GALLERY.tray-preview-gallery'
     }
 
-    it {
-      should have_css 'h2.titlebar .mini-icon'
-    }
-
-    it {
-      should have_css 'a.tray-preview'
-    }
-
-    it {
-      should have_css %Q|a.tray-preview[href*="#{user_tray_path user, tray}"]|
-    }
-
-    it {
-      should have_css '.titlebar~.tray-preview'
-    }
-
-    it {
-      should have_css '.tray-preview img'
-    }
+    # further tests moved to tray_preview_gallery
   }
 }

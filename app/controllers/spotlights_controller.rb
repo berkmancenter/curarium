@@ -1,4 +1,5 @@
 class SpotlightsController < ApplicationController
+  before_action :cors
   before_action :set_spotlight, only: [:show, :edit, :update, :destroy]
 
   # GET /spotlights
@@ -89,6 +90,10 @@ class SpotlightsController < ApplicationController
   end
 
   private
+    def cors
+      response.headers[ 'Access-Control-Allow-Origin' ] = Waku::URL
+    end
+
     # Use callbacks to share common setup or constraints between actions.
     def set_spotlight
       @spotlight = Spotlight.friendly.find(params[:id])

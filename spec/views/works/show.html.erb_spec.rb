@@ -15,7 +15,7 @@ describe ( 'works/show' ) {
 
     describe ( 'parsed info' ) {
       it {
-        should have_css '.parsed-info', visible: false
+        should have_css '.parsed_info', visible: false
       }
     }
 

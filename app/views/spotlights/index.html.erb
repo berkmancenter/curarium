@@ -1,7 +1,5 @@
 <!-- BEGIN SUB MENU  (this will maybe become a partial)-->	
 <div class="SUB_MENU">
-  <div class="expandable"><%= link_to 'Click for instructions', '/help', target:"_blank" %></div>
-
   <!-- Remove order-by buttons until functionality is decided #9731
   <div class="right">
     <div class="orderby"><span>Order:</span><span><%= image_tag "clock_r.png", alt: '' %><%= image_tag "up_r.png", alt: '' %><%= image_tag "down_r.png", alt: '' %></span></div>
@@ -9,14 +7,24 @@
 </div>
 <!-- END SUB MENU -->	
 
-<!-- BEGIN GALLERY -->	     
-<div class="GALLERY">
-  <% @spotlights.each do |spotlight| %>
+<div class="expandable">
+  <h1 class="collection-header">Spotlights</h1>
+
+  <%= link_to 'Click for instructions', '/help', target:"_blank" %>
+
+  <!-- BEGIN GALLERY -->	     
+  <div class="GALLERY spotlight-gallery">
+    <% @spotlights.each do |spotlight| %>
       <%= render :partial => 'shared/print_item', :locals=>{:item=>spotlight} %>
-  <% end %>
-  <div class="gallery_item">
-      <div class="createnew"> <%= link_to 'New Spolight', new_spotlight_path %> </div>
+    <% end %>
+
+    <% if authenticated? %>
+    <div class="gallery_item">
+      <div class="createnew"> <%= link_to 'New Spolight', Waku::URL %> </div>
+    </div>
+    <% end %>
+          
   </div>
-	      
+  <!-- END GALLERY -->  
+
 </div>
-<!-- END GALLERY -->  

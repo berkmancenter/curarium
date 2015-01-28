@@ -15,7 +15,9 @@
   <section class="work-image" data-action-item-id="<%= @work.images.first.id %>">
     <ul class="work-commands">
       <li><%= link_to render( partial: 'shared/mini_icon', object: 'work' ), @work, class: 'show' %></li>
-      <li><%= link_to render( partial: 'shared/mini_icon', object: 'tray' ), '#', class: 'tray' %></li>
+      <% if authenticated? %>
+        <li><%= link_to render( partial: 'shared/mini_icon', object: 'tray' ), '#', class: 'tray' %></li>
+      <% end %>
       <li><%= link_to render( partial: 'shared/mini_icon', object: 'close' ), '#', class: 'close' %></li>
     </ul>
     <h2><%= work_title @work %></h2>

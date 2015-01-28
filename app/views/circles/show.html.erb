@@ -1,0 +1,49 @@
+<div class="left">
+  <div class="holder col-sidebar">
+    <div class="titlebar main">Circle</div>
+    <%= render partial: 'thumbnail', object: @circle %>
+    <div class="stalking_menu_holder">
+      <div class="stalking_menu">
+        <% if authenticated? %>
+          <% if @circle.admin == @current_user %>
+            <%= link_to 'Edit Description', edit_circle_path( @circle ), class: 'edit-circle' %>
+
+            <%= form_for( @circle, html: { method: :delete } ) { |f| %>
+              <a href="javascript:void(0);" class="delete-circle">Delete Circle</a>
+            <% } %>
+          <% else %>
+            <% if @circle.users.include? @current_user %>
+              <%= form_for( @circle, url: leave_circle_path( @circle ), html: { method: :put } ) { |f| %>
+                <a href="javascript:void(0);" class="leave-circle">Leave Circle</a>
+              <% } %>
+            <% else %>
+              <%= form_for( @circle, url: join_circle_path( @circle ), html: { method: :put } ) { |f| %>
+                <a href="javascript:void(0);" class="join-circle">Join Circle</a>
+              <% } %>
+            <% end %>
+          <% end %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="expandable">
+  <h1 class="collection-header"><%= @circle.title %></h1>
+
+  <dl>
+    <dt>Created on:</dt> <dd><%= @circle.created_at %></dd>
+
+    <dt>Members:</dt> <dd><%= @circle.users.count %></dd>
+  </dl>
+
+  <p><%= @circle.description %></p>
+
+  <section class="circle-trays">
+    <h1 class="collection-header">Trays</h1>
+
+    <%= render partial: 'trays/tray_preview_gallery', object: @circle.trays.limit(2) %>
+
+    <%= link_to raw( '<h2>Tray Manager</h2>' ), circle_trays_path( @circle ) %>
+  </section>
+</div>

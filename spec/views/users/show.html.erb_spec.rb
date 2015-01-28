@@ -35,6 +35,26 @@ describe ( 'users/show' ) {
   }
 
   it {
+    should have_css 'section.user-circles'
+  }
+
+  it {
+    should have_css 'h1.collection-header', text: 'Circles'
+  }
+
+  it {
+    should have_css %Q|a[href*="#{circles_path}"]|, text: 'Circle Manager'
+  }
+
+  it {
+    should have_css '.user-circles .GALLERY.circle-gallery'
+  }
+
+  it {
+    should have_css '.circle-gallery .gallery_item'
+  }
+
+  it {
     should have_css 'section.user-collections'
   }
 

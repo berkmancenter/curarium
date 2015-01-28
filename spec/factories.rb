@@ -18,6 +18,7 @@ FactoryGirl.define do
       approved true
       #admin test_user
       configuration '{"title":["title"],"image":["imageInfo","url"],"thumbnail":["imageInfo","thumbnail_url"],"artist":["artist"],"topics":["subject","*","topic",0]}'
+      source 'test_col source'
     end
 
     factory :not_approved do
@@ -26,6 +27,7 @@ FactoryGirl.define do
       approved false
       #admin test_user
       configuration '{"title":["title"],"image":["imageInfo","url"],"thumbnail":["imageInfo","thumbnail_url"]}'
+      source 'not_approved source'
     end
 
     factory :multi_image do
@@ -34,6 +36,7 @@ FactoryGirl.define do
       approved true
       #admin test_user
       configuration '{"unique_identifier": ["recordIdentifier", 0, "content"], "title": ["titleInfo", 0, "title", 0], "image": ["relatedItem", "*", "content", "location", 0, "url", 0, "content"], "thumbnail": ["relatedItem", "*", "content", "location", 0, "url", 1, "content"]}'
+      source 'multi_image source'
     end
 
     factory :via do
@@ -42,6 +45,7 @@ FactoryGirl.define do
       approved true
       #admin test_user
       configuration '{"unique_identifier": ["recordIdentifier", 0, "content"], "title": ["titleInfo", 0, "title", 0], "image": ["relatedItem", "*", "content", "location", 0, "url", 0, "content"], "thumbnail": ["relatedItem", "*", "content", "location", 0, "url", 1, "content"], "date": ["originInfo", 0, "dateOther", 0, "content"], "names": ["name", "*", "namePart", 0], "creator": ["name", 0, "namePart", 0], "genre" :["genre", "*"], "topics": ["subject", "*", "topic", 0]}'
+      source 'Villa I Tatti'
     end
 
     factory :japanese do
@@ -50,6 +54,7 @@ FactoryGirl.define do
       approved true
       #admin test_user
       configuration '{"unique_identifier": ["id"], "title": ["title"], "image": ["primaryimageurl"], "thumbnail": ["primaryimageurl"], "creator": ["people", 0, "displayname"], "names": ["people", "*", "displayname"]}'
+      source 'Harvard Art Museums'
     end
   end
 
@@ -120,17 +125,46 @@ FactoryGirl.define do
     end
   end
 
+  factory :circle do
+    factory :test_circle do
+      title 'test_circle'
+      description 'A test circle for testing'
+      #admin test_user
+      #users [test_user, user_two]
+    end
+
+    factory :circle_two do
+      title 'circle_two'
+      description 'A circle whose admin is user_two'
+      #admin user_two
+      #users [user_two]
+    end
+
+    # used as attributes for creating new circles in tests
+    factory :circle_three do
+      title 'circle_three'
+      description 'Circle data to test creating new cirlces'
+    end
+  end
+
   factory :tray do
     factory :test_tray do
       name 'test_tray'
       #owner test_user
       #images starry_night
+      #annotations jesus
     end
 
     factory :empty_tray do
       name 'empty_tray'
       #owner test_user
       #images 
+    end
+
+    factory :circle_tray do
+      name 'circle_tray'
+      #owner test_circle
+      #images aphrodite
     end
   end
 

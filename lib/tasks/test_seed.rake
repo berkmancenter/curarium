@@ -66,6 +66,17 @@ def seed
 
   crfj multi_image, :crucifixion
 
+  # circles
+  test_circle = FactoryGirl.create :test_circle
+  test_circle.admin = test_user
+  test_circle.users << [ test_user, user_two ]
+  test_circle.save
+
+  circle_two = FactoryGirl.create :circle_two
+  circle_two.admin = user_two
+  circle_two.users << user_two
+  circle_two.save
+
   # trays
   test_tray = FactoryGirl.create :test_tray
   test_tray.owner = test_user
@@ -76,6 +87,11 @@ def seed
   empty_tray = FactoryGirl.create :empty_tray
   empty_tray.owner = test_user
   empty_tray.save
+
+  circle_tray = FactoryGirl.create :circle_tray
+  circle_tray.owner = test_circle
+  circle_tray.images << Work.find_by_title( 'Aphrodite Pudica' ).images.first
+  circle_tray.save
 
   # spotlights
   test_spotlight = FactoryGirl.create :test_spotlight

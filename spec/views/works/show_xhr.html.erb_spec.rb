@@ -33,6 +33,7 @@ describe ( 'works/show_xhr' ) {
 
   it {
     should have_css '.work-image .work-commands'
+    should_not have_css ".work-commands a.tray"
     should have_css ".work-commands a[href*='#{work_path work}'].show"
     should have_css '.work-commands a.close'
   }
@@ -51,5 +52,20 @@ describe ( 'works/show_xhr' ) {
 
   it {
     should have_css '.surrogates a img'
+  }
+
+  context ( 'with signed in user' ) {
+    let ( :user ) { User.first }
+
+    before {
+      session[ :browserid_email ] = user.email
+      assign( :current_user, user )
+
+      render template: 'works/show_xhr', layout: false
+    }
+
+    it {
+      should have_css ".work-commands a.tray"
+    }
   }
 }

@@ -1,4 +1,5 @@
 Curarium::Application.routes.draw do
+
   get 'about' => 'home#about', as: 'about'
   
   controller :sessions do
@@ -13,6 +14,15 @@ Curarium::Application.routes.draw do
 
   resources :users do
     resources :trays
+  end
+
+  resources :circles do
+    resources :trays
+
+    member do
+      put 'join' => :join
+      put 'leave' => :leave
+    end
   end
 
   resources :sections do

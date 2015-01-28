@@ -1,0 +1,7 @@
+<h1 class="collection-header">Circles</h1>
+
+<div class="GALLERY circle-gallery">
+  <%= render partial: 'circles/thumbnail', collection: @circles %>
+
+  <%= render partial: 'shared/newnail', object: Circle unless !authenticated? %>
+</div><!-- END GALLERY -->  

@@ -23,6 +23,14 @@ h2 {
   margin-top: 1em;
 }
 
+section h1 {
+  margin-top: 0;
+}
+
+section h2 {
+  margin-bottom: 1em;
+}
+
 select {
   background-color: white;
 }
@@ -32,8 +40,11 @@ input[type=text], input[type=password], textarea, .login-button, .tray-popup-but
   border: 1px solid $cred;
   color: $cred;
   font-size: $fontSize1;
-  height: 20px;
   padding: 0 4px;
+}
+
+input[type=text], input[type=password], .login-button, .tray-popup-button {
+  height: 20px;
   width: 160px;
 }
 
@@ -101,7 +112,7 @@ dd {
   display:table;
   border-spacing:0;
   width:100%;
-  padding: 0 0 70px 0;
+  padding: 0 0 48px 0;
 }
 
 .createnew {
@@ -113,14 +124,20 @@ dd {
   text-align: center;
   vertical-align: middle;
   line-height: 260px;  
-  color: #d2232a; 
   background: #ffffff url('add_r.png') no-repeat center center;
+  a {
+    color: #d2232a;
+    text-decoration: none;
+  }
 }
+
 .createnew:hover {
   border: 2px solid #d2232a;
   cursor: pointer;
-  color: #ffffff;
   background: #d2232a url('add_w.png') no-repeat center center;
+  a {
+    color: $white;
+  }
 }
 
 .left, .right, .expandable {display:table-cell;}

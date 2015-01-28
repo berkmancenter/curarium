@@ -5,6 +5,10 @@
   <dd><%= @user.created_at %></dd>
 </dl>
 
+<dl>
+  <dt>About <%=@user.name %> </dt>
+  <dd></dd>
+</dl>
 <% if authenticated? && @user == @current_user %>
 <section class="user-trays">
   <h1 class="collection-header">Trays</h1>

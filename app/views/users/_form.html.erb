@@ -20,6 +20,9 @@
 
       <%= f.label :email %>
       <%= @user.email %>
+
+      <%= f.label :bio, 'bio' %>
+      <%= f.text_field :bio, placeholder: 'bio', value: @user.bio %>
     </div>
 
     <div>

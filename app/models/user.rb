@@ -4,6 +4,7 @@ class User < ActiveRecord::Base
   friendly_id :email, :use => :slugged
 
   validates :email, presence: true, uniqueness: true
+  validates :bio, presence: true
 
   has_many :annotations
   has_many :messages
@@ -12,3 +13,5 @@ class User < ActiveRecord::Base
   has_many :spotlights
   has_many :amendments
 end
+
+

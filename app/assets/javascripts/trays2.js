@@ -81,6 +81,29 @@ $( function() {
     return false;
   } );
 
+  $( '.works.show .tray_info' )
+  .on( 'click', '#add_id', function( ) {
+    // TODO: use .works-image here
+    var workImage = $( this ).closest( '.work-image' );
+
+    $.ajax( {
+      url: '/trays',
+      data: {
+        popup_action: 'add',
+        popup_action_item_type: workImage.data( 'actionItemType' ),
+        popup_action_item_id: workImage.data( 'actionItemId' )
+      }
+    } )
+    .done( function( popupHtml ) {
+      $.magnificPopup.open( {
+        items: {
+          src: popupHtml,
+          type: 'inline'
+        }
+      } );
+    } );
+    return false;
+  } );
 
   $( '.works.index, .works.show' )
   .on( 'click', '.tray-popup-button', function( ) {

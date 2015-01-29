@@ -1372,6 +1372,7 @@ dd {
   width: 120px !important;
   height: 80px;
   max-width: none !important;
+  right: 50px;
 }
 
 .expand_surr {
@@ -1405,12 +1406,14 @@ dd {
   float: left;
   height: auto;
   margin-top: 30px;
+  margin-bottom: -25px;
   padding: 5px 68px 5px 67px;
   border: 1px solid #d2232a;
   background: white;
   max-height: 100px;
   overflow: scroll;
 }
+
 
 /* UPLOADER */
 .uploader_content {
@@ -2060,6 +2063,7 @@ dt:hover {
 .bubble_menu .checkbox_hack:checked ~ .expand_pi {
   display: block;
   width: 120px !important;
+  right: 50px;
   height: auto;
   max-height: 100px;
   overflow: scroll;

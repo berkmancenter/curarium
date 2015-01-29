@@ -1,141 +1,135 @@
 <script>
-
-  window.onload = function() {
-
+    window.onload = function() {
     // TODO: This should not be handled in JavaScript
     // view can do this on server
     // surrogates can be simple hyperlinks
-
-    <% image = params[:image].to_i || 0%>
-    window.work.display('<%= @work.images[image].image_url %>');
-    $('img.surrogate_thumbnail').each( function(i){
-      $(this).click(function(e){
+        <% image = params[:image].to_i || 0%>
+        window.work.display('<%= @work.images[image].image_url %>');
+        $('img.surrogate_thumbnail').each( function(i){
+        $(this).click(function(e){
         window.location = "?image="+i
-      });    
-    });
-  };
+          });
+        });
+    };
 </script>
 
-<!-- BEGIN SUB MENU -->  
+
+<!-- BEGIN SUB MENU -->
 <div class="SUB_MENU bubble_menu">
-  <table class="works-info">
-  <tr class="metadata-info">
-    <td class="parsed_button">
-      <div class="menu_piecep">
-      <label for='parsed_id'><span class="button">P</span></label>
-      </div></td>
-      <td class="parsed_info">
-      <input type='checkbox' class='checkbox_hack' id='parsed_id'>
-      <div class="expand_pi">
-        <!-- THIS IS WHERE THE PARSED WORK INFORMATION GOES -->
-        <%= render :partial => 'shared/print_metadata', :locals=>{:original=>@work.parsed,:current=>@current_metadata,:class_name=>'printed_object',:id_name=>'parsed_work'} %>
-      </div>
-    </td></tr>
-    
-    <tr class="surrogates">
-    <td  class="bub_menu surrogates">
-      <div class="menu_pieces">
-      <label for='surrogates_id'><span class="button">S</span></label>
-      </div></td>
-      <td class="surrogate_info">
-      <input type='checkbox' class='checkbox_hack' id='surrogates_id'>
-      <div class="expand_surr">
-        <!-- THIS IS WHERE THE SURROGATE IMAGES GO -->
-      <nav>
-        <% @work.images.each { |i| %>
-          <%= image_tag i.thumbnail_url, class: 'surrogate_thumbnail', alt: '' %>
-        <% } %>
-      </nav>
-      </div>
-    </td></tr>
-    
-    <tr class="trays">
-    <td  class="bub_menu">
-      <div class="menu_piecet">
-        <label for='add_id'><span class="button">T</span></label>
-        </div></td>
-      <td class="tray_info">
-        <input type='checkbox' class='checkbox_hack' id='add_id'>
-        <div class="expand_tray">
-          <% if authenticated? %>
-            <%= render template: 'trays/popup', layout: false %>
-          <% else %>
-            <%= link_to render( partial: 'shared/mini_icon', object: 'user' ), login_path %>
-          <% end %>
-        </div>
-    </td></tr>
-
-    <tr><td  class="bub_menu">
-      <div class="menu_piecea">
-        <label for='ann_id'><span class="button">A</span></label>
-        </div></td>
-      <td class="annotation_info">
-        <input type='checkbox' class='checkbox_hack' id = 'ann_id'>
-        <div class="expand_anno">
-          <div id='annotations'>
-
-            <% if authenticated? %>
-              <h4 class='window_header'>ANNOTATE IMAGE</h4>
-              <div class='window_body'>
-                <div id='preview_window'></div>
-                <%= form_for([@work, Annotation.new]) do |f| %>
-                  <div>
-                    <%= f.label :title%><br>
-                    <%= f.text_field :title%>
-                  </div>
-                  <div>
-                    <%= f.label :body%><br>
-                    <%= f.text_area :body%>
-                  </div>
-                  <%#= f.hidden_field :tags, id: 'content_tags' %>
-
-                  <%= f.hidden_field :x, id: 'content_x' %>
-                  <%= f.hidden_field :y, id: 'content_y'%>
-                  <%= f.hidden_field :width, id: 'content_width'%>
-                  <%= f.hidden_field :height, id: 'content_height'%>
-                  <%= f.hidden_field :image_url, id: 'content_image_url'%>
-                  <%= f.hidden_field :thumbnail_url, id: 'content_thumbnail_url'%>
-
-                  <%#= tag_selector @current_metadata %>
-                  <p>
-                  <%= f.submit %>
-                  </p>
-                <% end %>    
-              </div>
-            <% end %>
-
-            <div id='work_annotations'>
-              <% @work.annotations.each do |annotation| %>
-                <div class='annotation_wrapper' id='note_<%= annotation.id%>'>
-                  <p class='annotation_title'>
-                  <%= annotation.title %>
-                  </p>
-                  <p class='annotation_body'>
-                  <%= annotation.body %>
-                  </p>
-                  <% unless annotation.tags.nil? %>
-                    <div class='annotation_tags'>
-                      <% annotation.tags.split( ',' ).each do |tag| %>
+    <table class="works-info">
+        <tr class="metadata-info">
+            <td class="parsed_button">
+            <div class="menu_piecep">
+                <label for='parsed_id'><span class="button">P</span></label>
+            </div></td>
+            <td class="parsed_info">
+                <input type='checkbox' class='checkbox_hack' id='parsed_id'>
+                <div class="expand_pi">
+                <!-- THIS IS WHERE THE PARSED WORK INFORMATION GOES -->
+                <%= render :partial => 'shared/print_metadata', :locals=>{:original=>@work.parsed,:current=>@current_metadata,:class_name=>'printed_object',:id_name=>'parsed_work'} %>
+                </div>
+            </td>
+        </tr>
+        <tr class="surrogates">
+            <td class="bub_menu surrogates">
+            <div class="menu_pieces">
+                <label for='surrogates_id'><span class="button">S</span></label>
+            </div></td>
+            <td class="surrogate_info">
+                <input type='checkbox' class='checkbox_hack' id='surrogates_id'>
+                <div class="expand_surr">
+                <!-- THIS IS WHERE THE SURROGATE IMAGES GO -->
+                    <nav>
+                    <% @work.images.each { |i| %>
+                    <%= image_tag i.thumbnail_url, class: 'surrogate_thumbnail', alt: '' %>
+                    <% } %>
+                    </nav>
+                </div>
+            </td>
+        </tr>
+        <tr class="trays">
+            <td class="bub_menu">
+            <div class="menu_piecet">
+                <label for='add_id'><span class="button">T</span></label>
+            </div></td>
+            <td class="tray_info">
+                <input type='checkbox' class='checkbox_hack' id='add_id'>
+                <div class="expand_tray">
+                <% if authenticated? %>
+                <%= render template: 'trays/popup', layout: false %>
+                <% else %>
+                <%= link_to render( partial: 'shared/mini_icon', object: 'user' ), login_path %>
+                <% end %>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td class="bub_menu">
+            <div class="menu_piecea">
+                <label for='ann_id'><span class="button">A</span></label>
+            </div></td>
+            <td class="annotation_info">
+                <input type='checkbox' class='checkbox_hack' id = 'ann_id'>
+                <div class="expand_anno">
+                    <div id='annotations'>
+                    <% if authenticated? %>
+                    <h4 class='window_header'>ANNOTATE IMAGE</h4>
+                    <div class='window_body'>
+                    <div id='preview_window'></div>
+                    <%= form_for([@work, Annotation.new]) do |f| %>
+                        <div>
+                        <%= f.label :title%><br>
+                        <%= f.text_field :title%>
+                        </div>
+                        <div>
+                        <%= f.label :body%><br>
+                        <%= f.text_area :body%>
+                        </div>
+                        <%#= f.hidden_field :tags, id: 'content_tags' %>
+                        <%= f.hidden_field :x, id: 'content_x' %>
+                        <%= f.hidden_field :y, id: 'content_y'%>
+                        <%= f.hidden_field :width, id: 'content_width'%>
+                        <%= f.hidden_field :height, id: 'content_height'%>
+                        <%= f.hidden_field :image_url, id: 'content_image_url'%>
+                        <%= f.hidden_field :thumbnail_url, id: 'content_thumbnail_url'%>
+                        <%#= tag_selector @current_metadata %>
+                        <p>
+                        <%= f.submit %>
+                        </p>
+                        <% end %>
+                    </div>
+                    <% end %>
+                <div id='work_annotations'>
+                <% @work.annotations.each do |annotation| %>
+                    <div class='annotation_wrapper' id='note_<%= annotation.id%>'>
+                    <p class='annotation_title'>
+                    <%= annotation.title %>
+                    </p>
+                    <p class='annotation_body'>
+                    <%= annotation.body %>
+                    </p>
+                    <% unless annotation.tags.nil? %>
+                        <div class='annotation_tags'>
+                        <% annotation.tags.split( ',' ).each do |tag| %>
                         <p class='annotation_tag'>
                         <%= tag %>
                         </p>
-                      <% end %>
+                        <% end %>
+                        </div>
+                    <% end %>
+                    <p class='annotation_attribution'>
+                    by <%= annotation.user.name unless annotation.user.nil? %> on <%= annotation.created_at %>
+                    </p>
                     </div>
-                  <% end %>
-                  <p class='annotation_attribution'>
-                  by <%= annotation.user.name unless annotation.user.nil? %> on <%= annotation.created_at %>
-                  </p>
+                <% end %>
                 </div>
-              <% end %>
-            </div>
-
-          </div> 
-        </div>
-        </td>
-  </tr></table>
-
-</div><!-- END SUB MENU -->  
-
+                    </div>
+                </div>
+            </td>
+        </tr>
+    </table>
+</div><!-- END SUB MENU -->
 <!-- BEGIN COLLECTION CREDIT -->
-    <div class="credit"><a href="">Collection provided by <%= @work.collection.source %></a></div>
+<div class="credit"><a href="">Collection provided by <%= @work.collection.source %></a></div>
 <!-- END COLLECTION CREDIT -->
+

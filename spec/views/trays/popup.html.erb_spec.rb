@@ -48,6 +48,38 @@ describe ( 'trays/popup' ) {
           should have_css 'input[name="tray[name]"]'
         }
       }
+
+      context ( 'with image_id' ) {
+      }
+    }
+
+    context ( 'with add action & item params' ) {
+      let( :item ) { trays.first.tray_items.first }
+
+      before {
+        assign( :owner, user )
+        assign( :trays, trays )
+        assign( :popup_action, 'add' )
+        assign( :popup_action_item_id, Image.first.id ) # image_id since no tray_item yet
+        render
+      }
+
+      it {
+        should have_css '.tray-popup[data-action="add"]'
+      }
+
+      it {
+        should have_css '.tray-popup button', text: 'test_tray'
+        should have_css '.tray-popup button', text: 'empty_tray'
+      }
+
+      it {
+        should have_css 'button.item-in', text: 'test_tray'
+      }
+
+      it {
+        should have_css 'button.item-out', text: 'empty_tray'
+      }
     }
 
     context ( 'with put action & item params' ) {

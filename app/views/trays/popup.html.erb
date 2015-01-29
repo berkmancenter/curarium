@@ -2,7 +2,7 @@
   <h1>Your Trays</h1>
 
 <% @trays.each { |tray| %>
-  <button type="button" class="tray-popup-button" data-tray-id="<%= tray.id %>"><%= tray.name %></button>
+  <button type="button" class="tray-popup-button <%= include_target_class( tray, @popup_action_item_id ) %>" data-tray-id="<%= tray.id %>"><%= tray.name %></button>
 <% } unless @trays.nil? %>
 
 <% if @owner.present? %>

@@ -19,4 +19,17 @@ module TraysHelper
     end
   end
   
+  def include_target_class( tray, image_or_annotation_id )
+    if tray.tray_items.where( 'image_id = ? OR annotation_id = ?', image_or_annotation_id, image_or_annotation_id ).count > 0
+      'item-in'
+    end
+    'item-out'
+  end
+  
+  def include_class( tray, item_id )
+    if tray.tray_items.pluck( :id ).include?( item_id )
+      'item-in'
+    end
+    'item-out'
+  end
 end

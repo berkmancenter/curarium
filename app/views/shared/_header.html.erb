@@ -27,7 +27,10 @@
 
 		    <% if authenticated? %>
           <%= link_to render( partial: 'users/mini_icon', object: @current_user ), @current_user %>
-			    <div class="dropdown_menu"><%= logout_link %></div>
+          <div class="dropdown_menu">
+            <%= link_to 'Edit Profile', edit_user_path( @current_user ) %>
+            <%= logout_link %>
+          </div>
 		    <% else %>
           <%= login_link 'Log In' %>
 		    <% end %>

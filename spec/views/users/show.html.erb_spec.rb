@@ -19,6 +19,10 @@ describe ( 'users/show' ) {
   }
 
   it {
+    should have_css 'dd', text: user.bio
+  }
+
+  it {
     should have_css 'section.user-trays'
   }
 

@@ -4,7 +4,6 @@ class User < ActiveRecord::Base
   friendly_id :email, :use => :slugged
 
   validates :email, presence: true, uniqueness: true
-  validates :bio, presence: true
 
   has_and_belongs_to_many :circles
 

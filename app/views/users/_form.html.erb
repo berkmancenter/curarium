@@ -15,18 +15,17 @@
     <input type="hidden" name="send_secret">
 
     <div>
+      <b><%= @user.email %></b>
+
       <%= f.label :name, 'username' %>
       <%= f.text_field :name, placeholder: 'username', value: @user.name %>
 
-      <%= f.label :email %>
-      <%= @user.email %>
-
       <%= f.label :bio, 'bio' %>
-      <%= f.text_field :bio, placeholder: 'bio', value: @user.bio %>
+      <%= f.text_area :bio, placeholder: 'bio', value: @user.bio, rows: 5, cols: 40 %>
     </div>
 
     <div>
-      <%= f.button 'sign up', type: 'submit', class: 'login-button' %>
+      <%= f.button 'save', type: 'submit', class: 'login-button' %>
     </div>
   </div>
     

@@ -16,6 +16,7 @@ class UsersController < ApplicationController
 
   # GET /users/new
   def new
+    render text: '400 Bad Request', status: 400
     # not allowed
   end
 

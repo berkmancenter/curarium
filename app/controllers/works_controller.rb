@@ -107,7 +107,7 @@ class WorksController < ApplicationController
   def show
     # for add to tray popout, will have to include cirlce trays later
     @owner = @current_user
-    @trays = @owner.trays unless @owner.nil?
+    @trays = @owner.all_trays unless @owner.nil?
     @popup_action = 'add'
     @popup_action_type = 'Image'
     @popup_action_item_id = @work.images.first.id

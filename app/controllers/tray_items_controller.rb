@@ -27,7 +27,7 @@ class TrayItemsController < ApplicationController
     end
 
     @owner = @current_user
-    @trays = @owner.trays unless @owner.nil?
+    @trays = @owner.all_trays unless @owner.nil?
     @popup_action = 'add'
     @popup_action_type = 'Image'
     @popup_action_item_id = tip[ :image_id ]

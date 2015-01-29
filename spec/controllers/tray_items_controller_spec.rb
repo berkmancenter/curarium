@@ -1,6 +1,7 @@
 require 'spec_helper'
 
 describe ( TrayItemsController ) {
+  let ( :test_tray ) { Tray.find_by_name( 'test_tray' ) }
   let ( :tray_item ) { TrayItem.first }
   let ( :tray_dst ) { Tray.find_by_name( 'empty_tray' ) }
 
@@ -26,17 +27,34 @@ describe ( TrayItemsController ) {
   }
 
   describe ( 'POST tray_items' ) {
-    let ( :work ) { Work.find_by_title 'Aphrodite Pudica' }
+    context ( 'with item not in tray' ) {
+      let ( :work ) { Work.find_by_title 'Aphrodite Pudica' }
 
-    it ( 'should return ok' ) {
-      post :create, tray_item: { tray_id: tray_dst.id, image_id: work.images.first.id }
-      response.code.should eq( '200' )
+      it ( 'should return ok' ) {
+        post :create, tray_item: { tray_id: tray_dst.id, image_id: work.images.first.id }
+        response.code.should eq( '200' )
+      }
+
+      it ( 'should create a new item' ) {
+        expect {
+          post :create, tray_item: { tray_id: tray_dst.id, image_id: work.images.first.id }
+        }.to change( TrayItem, :count ).by( 1 )
+      }
     }
 
-    it ( 'should create a new item' ) {
-      expect {
-        post :create, tray_item: { tray_id: tray_dst.id, image_id: work.images.first.id }
-      }.to change( TrayItem, :count ).by( 1 )
+    context ( 'with item in tray' ) {
+      let ( :work ) { Work.first }
+
+      it ( 'should return ok' ) {
+        post :create, tray_item: { tray_id: test_tray.id, image_id: work.images.first.id }
+        response.code.should eq( '200' )
+      }
+
+      it ( 'should remove item' ) {
+        expect {
+          post :create, tray_item: { tray_id: test_tray.id, image_id: work.images.first.id }
+        }.to change( TrayItem, :count ).by( -1 )
+      }
     }
   }
 

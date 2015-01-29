@@ -7,6 +7,6 @@ class Image < ActiveRecord::Base
   has_many :annotations
 
   default_scope {
-    order( 'id ASC' )
+    order( 'images.id ASC' )
   }
 end

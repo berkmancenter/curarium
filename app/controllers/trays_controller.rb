@@ -13,6 +13,7 @@ class TraysController < ApplicationController
           format.html {
             if request.xhr?
               @popup_action = params[ 'popup_action' ]
+              @popup_action_type = params[ 'popup_action_item_type' ]
               @popup_action_item_id = params[ 'popup_action_item_id' ]
               render 'popup', layout: false
             else

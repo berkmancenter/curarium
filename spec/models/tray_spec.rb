@@ -8,9 +8,7 @@ describe ( 'Tray model' ) {
 
     it { should be_valid }
 
-    it { should respond_to :name }
-
-    it { should respond_to :owner }
+    it { should respond_to :name, :owner }
 
     it { should respond_to :tray_items }
 
@@ -31,10 +29,21 @@ describe ( 'Tray model' ) {
 
   describe ( 'tray_items' ) {
     let ( :t ) { Tray.first }
+    let ( :i ) { Image.first }
+
+    subject { t }
 
     context ( 'Image' ) {
       it {
-        t.images.first.should eq( Image.first )
+        t.images.first.should eq( i )
+      }
+
+      it {
+        should respond_to :has_image_id?
+      }
+
+      it {
+        t.has_image_id?( i.id ).should be_true
       }
     }
 

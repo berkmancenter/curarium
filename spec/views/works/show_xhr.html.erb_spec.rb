@@ -4,8 +4,15 @@ describe ( 'works/show_xhr' ) {
   subject { rendered }
 
   let ( :work ) { Work.first }
+
   before {
     assign( :work, work )
+    assign( :owner, User.first )
+    assign( :trays, User.first.trays )
+    assign( :popup_action, 'add' )
+    assign( :popup_action_type, 'Image' )
+    assign( :popup_action_item_id, work.images.first.id )
+
     assign( :current_metadata, work.parsed )
     
     render template: 'works/show_xhr', layout: false
@@ -25,6 +32,10 @@ describe ( 'works/show_xhr' ) {
 
   it {
     should have_css '.work-image'
+  }
+
+  it {
+    should have_css %Q|.work-image[data-action-item-type="Image"]|
   }
 
   it {

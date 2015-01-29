@@ -53,19 +53,26 @@ describe ( 'trays/popup' ) {
       }
     }
 
-    context ( 'with add action & item params' ) {
-      let( :item ) { trays.first.tray_items.first }
-
+    context ( 'with add action & Image item params' ) {
       before {
         assign( :owner, user )
         assign( :trays, trays )
         assign( :popup_action, 'add' )
-        assign( :popup_action_item_id, Image.first.id ) # image_id since no tray_item yet
+        assign( :popup_action_type, 'Image' )
+        assign( :popup_action_item_id, Image.first.id )
         render
       }
 
       it {
         should have_css '.tray-popup[data-action="add"]'
+      }
+
+      it {
+        should have_css '.tray-popup[data-action-item-type="Image"]'
+      }
+
+      it {
+        should have_css %Q|.tray-popup[data-action-item-id="#{Image.first.id}"]|
       }
 
       it {

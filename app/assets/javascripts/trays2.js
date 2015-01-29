@@ -60,12 +60,14 @@ $( function() {
 
   $( '.works.index' )
   .on( 'click', '.work-commands .tray', function( ) {
+    var workImage = $( this ).closest( '.work-image' );
+
     $.ajax( {
       url: '/trays',
       data: {
         popup_action: 'add',
-        popup_action_item_type: 'Image',
-        popup_action_item_id: $( this ).closest( '.work-image' ).data( 'actionItemId' )
+        popup_action_item_type: workImage.data( 'actionItemType' ),
+        popup_action_item_id: workImage.data( 'actionItemId' )
       }
     } )
     .done( function( popupHtml ) {
@@ -98,6 +100,7 @@ $( function() {
     .fail( function( result ) {
       alert( result );
     } );
+    return false;
   } )
   .on( 'submit', '.new_tray', function( e ) {
     var $form = $( this );

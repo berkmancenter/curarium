@@ -26,10 +26,11 @@ module TraysHelper
     'item-out'
   end
   
-  def include_class( tray, item_id )
-    if tray.tray_items.pluck( :id ).include?( item_id )
+  def item_included_class( tray, item_type, item_id )
+    if item_type == 'Image' && tray.has_image_id?( item_id )
       'item-in'
+    else
+      'item-out'
     end
-    'item-out'
   end
 end

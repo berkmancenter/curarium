@@ -7,7 +7,7 @@
 
 <dl>
   <dt>About <%=@user.name %> </dt>
-  <dd></dd>
+  <dd><%= @user.bio %></dd>
 </dl>
 <% if authenticated? && @user == @current_user %>
 

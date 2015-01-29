@@ -158,6 +158,7 @@ ActiveRecord::Schema.define(version: 20150125015228) do
     t.datetime "updated_at"
     t.boolean  "super",      default: false
     t.string   "slug"
+    t.text     "bio"
   end
 
   create_table "works", force: true do |t|

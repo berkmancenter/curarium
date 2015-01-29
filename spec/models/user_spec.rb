@@ -9,7 +9,7 @@ describe ( User ) {
     it { should be_valid }
 
     it {
-      should respond_to :name, :email
+      should respond_to :name, :email, :bio
     }
 
     it {
@@ -52,6 +52,14 @@ describe ( User ) {
       it {
         u.all_trays.include?( u.circles.first.trays.first ).should be_true
       }
+    }
+  }
+
+  describe ( 'create user' ) {
+    it {
+      expect {
+        User.create email: 'create@user.com', name: 'create'
+      }.to change( User, :count ).by( 1 )
     }
   }
 }

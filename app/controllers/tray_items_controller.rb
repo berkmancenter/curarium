@@ -18,21 +18,26 @@ class TrayItemsController < ApplicationController
   # adds or removes an item from the tray
   def create
     tip = tray_item_params
+
     @tray = Tray.find tip[ :tray_id ]
     if @tray.has_image_id?( tip[ :image_id ] )
       @tray.tray_items.where( image_id: tip[ :image_id ] ).delete_all
     else
-      @tray_item_image = Image.find tip[ :image_id ]
-      TrayItem.create tray: @tray, image: @tray_item_image
+      TrayItem.create tray: @tray, image: Image.find( tip[ :image_id ] )
     end
 
-    render text: '200 OK', status: 200
+    @owner = @current_user
+    @trays = @owner.trays unless @owner.nil?
+    @popup_action = 'add'
+    @popup_action_type = 'Image'
+    @popup_action_item_id = tip[ :image_id ]
+    render template: 'trays/popup', layout: false
   end
   
   # POST /tray_items/1/copy
   def copy
     @tray_item = TrayItem.find params[ :id ]
-    @tray = Tray.find tip[ :tray_id ]
+    @tray = Tray.find tray_item_params[ :tray_id ]
 
     TrayItem.create tray: @tray, image: @tray_item.image
 

@@ -16,6 +16,7 @@ class UsersController < ApplicationController
 
   # GET /users/new
   def new
+    render text: '400 Bad Request', status: 400
     # not allowed
   end
 
@@ -59,5 +60,6 @@ class UsersController < ApplicationController
   # Never trust parameters from the scary internet, only allow the white list through.
   def user_params
     params.require(:user).permit(:name) unless params[ :user ].nil?
+    params.require(:user).permit(:bio) unless params[ :user ].nil?
   end
 end

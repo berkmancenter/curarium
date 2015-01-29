@@ -41,13 +41,12 @@
 
   label {
     color: $cred;
-    display: none;
+    display: block;
     font-weight: bold;
-    width: 80px;
   }
 
-  input {
-    display: inline-block;
+  b, input, textarea {
+    display: block;
   }
 
   .login-button {

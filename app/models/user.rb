@@ -21,3 +21,5 @@ class User < ActiveRecord::Base
     Tray.find (ctids + utids).uniq
   end
 end
+
+

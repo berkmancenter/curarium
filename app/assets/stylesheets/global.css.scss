@@ -176,10 +176,9 @@ dd {
 }
 .dropdown_menu {
   display: none; 
-  width: 200px;
   position: absolute;
   padding: 20px 0px 20px 0px!important;
-  width: 100%!important;
+  width: 100%;
 }
 .dropdown_menu a {
   color: #000000!important;
@@ -196,16 +195,18 @@ dd {
   z-index: 200;
 }
 .left .dropdown_menu {
-  left: -20px!important;
+  left: -20px !important;
 }
 .left .dropdown_menu a {
   padding: 3px 20px;
 }
 .expandable .dropdown_menu {
   right: -10px!important;
-  top: -3px!important;
+  top: -3px !important;
+  width: 192px;
 }
 .expandable .dropdown_menu a {
+  display: block;
   padding: 3px 37px 3px 20px!important;
 }
 
@@ -1927,7 +1928,7 @@ dt:hover {
 
 .GLOBAL_MENU {
   padding: 0px;
-  height: 105px;
+  height: 120px;
 }
 
 .toggle_tools a {

@@ -73,14 +73,16 @@
   .show-xhr {
     background: #fff;
     padding: 1em;
+    margin: 150px;
 
     h1 {
       display: none;
     }
 
     h2 {
-      font-size: 14px;
-      padding-bottom: .5em;
+      padding-bottom: -10px;
+      font-size: 12px;
+      width: 400px;
     }
 
     .parsed-info {
@@ -99,6 +101,10 @@
         list-style-type: none;
 
         li {
+          border: 1px solid #D2232A;
+          padding: 3px 1px 0 0;
+          margin-right: 3px;
+          top: 10px;
           display: inline;
         }
       }
@@ -109,9 +115,14 @@
     }
 
     .surrogates {
+      bottom: 50px;
       display: inline-block;
       vertical-align: top;
       width: 18%;
+      
+      .surrogates_title {
+
+      }
 
       a:hover {
         outline: solid 1px $cred;

@@ -45,6 +45,10 @@ describe ( 'shared/header' ) {
     }
 
     it {
+      should have_css %Q|.toggle_user .dropdown_menu a[href*="#{edit_user_path user}"]|, text: 'Edit Profile'
+    }
+
+    it {
       should have_css %Q|.toggle_user .dropdown_menu a[href*="#{logout_path}"]|, text: 'Logout'
     }
   }

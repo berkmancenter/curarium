@@ -94,7 +94,7 @@ $( function() {
       }
     } )
     .done( function( result ) {
-      popup.closest( '.bub_menu' ).find( '.checkbox_hack' ).click( );
+      popup.closest( '.tray_info' ).find( '.checkbox_hack' ).click( );
       $.magnificPopup.instance.close();
     } )
     .fail( function( result ) {

@@ -179,10 +179,12 @@ dd {
   position: relative;
 }
 .dropdown_menu {
+  background: $white;
   display: none; 
   position: absolute;
   padding: 20px 0px 20px 0px!important;
   width: 100%;
+  z-index: 100;
 }
 .dropdown_menu a {
   color: #000000!important;
@@ -196,7 +198,6 @@ dd {
   1px 1px 1px #fff;  
   font-weight: bold!important;
   color: #d2232a!important;
-  z-index: 200;
 }
 .left .dropdown_menu {
   left: -20px !important;

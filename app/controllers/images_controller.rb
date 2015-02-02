@@ -8,8 +8,11 @@ class ImagesController < ApplicationController
     # proxy the image through this app
   
     begin
-      #connection = open @image.image_url, 'rb'
-      connection = open 'http://upload.wikimedia.org/wikipedia/commons/7/73/Eris_Antikensammlung_Berlin_F1775.jpg', 'rb'
+      if @image.image_url.start_with?( '/test' ) && ( Rails.env.development? || Rails.env.test? )
+        connection = File.open Rails.public_path.join( @image.image_url[ 1..-1 ] ), 'rb'
+      else
+        connection = open @image.image_url, 'rb'
+      end
     rescue Net, OpenURI::HTTPError => e
       connection = nil
     end

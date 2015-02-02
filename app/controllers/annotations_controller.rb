@@ -3,16 +3,20 @@ require 'base64'
 class AnnotationsController < ApplicationController
   before_action :set_annotation, only: [:show, :edit, :update, :destroy]
 
+  def index
+    @work = Work.find(params[:work_id])
+    @annotations = @work.annotations
+    respond_to do |format|
+      format.html { render }
+      format.json {render json: @work.annotations}
+    end
+  end
+  
   def new
     @annotation = Annotation.new
   end
 
   def show
-    respond_to do |format|
-       format.html { }
-       format.json { }
-       format.js { render action: "show" }
-     end
   end
 
   def edit
@@ -65,17 +69,10 @@ class AnnotationsController < ApplicationController
     end
   end
 
-  def index
-    @work = Work.find(params[:work_id])
-    respond_to do |format|
-      format.html {redirect_to @work }
-      format.json {render json: @work.annotations}
-    end
-  end
-  
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_annotation
+      @work = Work.find params[ :work_id ]
       @annotation = Annotation.find(params[:id])
     end
 

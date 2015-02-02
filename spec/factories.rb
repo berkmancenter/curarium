@@ -104,12 +104,13 @@ FactoryGirl.define do
       # image last_supper.images.first
       title 'jesus'
       body 'hey!'
-      tags 'Jesus'
+      #tags 'Jesus' # removed for now
       x 2592
       y 1408.5127272727272
       width 249
       height 308
-      image_url '/test/last_supper.jpg'
+      image_url '/works/3/images/0'
+      thumbnail_url '/test/annotation_thumbnails/1.png'
     end
 
     # used as attributes for creating new annotations in tests

@@ -285,6 +285,28 @@ window.work.display = (image_url)->
   
   
   #get work annotations, draw them on stage (if applicable) and connect them to annotations and metadata in html format
+  notes_layer = null
+
+  annotation_hover_in = ( id )->
+    $('#'+id).addClass( 'hover' )
+
+    note = notes_layer.find('#'+id)
+    note.setAttrs
+      stroke: 'red'
+      strokeWidth: 4
+    notes_layer.draw()
+    undefined
+
+  annotation_hover_out = ( id )->
+    $('#'+id).removeClass( 'hover' )
+
+    note = notes_layer.find('#'+id)
+    note.setAttrs
+      stroke: 'red'
+      strokeWidth: 1
+    notes_layer.draw()
+    undefined
+
   get_annotations = ()->
     $.getJSON(
       window.location.pathname+'/annotations' #annotations path
@@ -311,18 +333,12 @@ window.work.display = (image_url)->
             #THE FOLLOWING ARE INTERFACE RELATED FUNCTIONS FOR INTERACTION BETWEEN NOTES, IMAGE CROPPINGS AND TAGS
             
             #make the html annotation turn red when mouse goes over its corresponding canvas annotation
-            rect.on('mouseover',
-            () ->
-              $('#'+this.getAttr('id')).css
-                background: 'red'
-              undefined
+            rect.on('mouseover', () ->
+              annotation_hover_in( this.getAttr('id') )
             )
             
-            rect.on('mouseout',
-            () ->
-              $('#'+this.getAttr('id')).css
-                background: '#C3C3C3'
-              undefined
+            rect.on('mouseout', () ->
+              annotation_hover_out( this.getAttr('id') )
             )
             
             #make the canvas annotations turn green when mouse hovers over one of their tags.
@@ -333,7 +349,7 @@ window.work.display = (image_url)->
                 if note.tags and note.tags.indexOf(tag) > -1
                   note.setAttrs
                     stroke: 'green'
-                    strokeWidth: 3
+                    strokeWidth: 2
                   note.draw()
               undefined
             
@@ -346,22 +362,12 @@ window.work.display = (image_url)->
               notes_layer.draw()
               undefined
             
-            #make the canvas annotation turn green when mouse goes over its corresponding html annotation
+            #make the canvas annotation border thicker when mouse goes over its corresponding html annotation
             $("#"+ID).mouseover ()->
-              note = notes_layer.find('#'+$(this).attr('id'))
-              note.setAttrs
-                stroke: 'green'
-                strokeWidth: 4
-              notes_layer.draw()
-              undefined
+              annotation_hover_in( $(this).attr('id') )
               
             $("#"+ID).mouseout ()->
-              note = notes_layer.find('#'+$(this).attr('id'))
-              note.setAttrs
-                stroke: 'red'
-                strokeWidth: 1
-              notes_layer.draw()
-              undefined
+              annotation_hover_out( $(this).attr('id') )
               
             #END OF INTERFACE RELATED FUNCTIONS
             
@@ -448,3 +454,5 @@ window.work.display = (image_url)->
     undefined
   
   undefined
+
+

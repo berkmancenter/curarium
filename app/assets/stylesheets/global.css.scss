@@ -1047,34 +1047,6 @@ dd {
   margin: auto;
 }
 
-
-#work_annotations{
-  div.annotation_wrapper{
-    background: lightgray;
-    border: 1px solid black;
-    padding: 0.5em;
-    margin-top: 0.25em;
-    .annotation_title {
-      font-size: 12pt;
-    }
-    .annotation_body {
-      font-size: 10pt;
-      margin: 1px;
-    }
-    .annotation_attribution {
-      font-size: 7pt;
-    }
-    .annotation_tag {
-      font-size: 8pt;
-      font-weight: bold;
-      background: red;
-      padding: 2px;
-      @include rounded-corners(2px);
-    }    
-  }
-}
-
-
 /*HACKING*/
 .work_img {
   position: relative;

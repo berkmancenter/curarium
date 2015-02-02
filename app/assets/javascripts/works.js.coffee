@@ -277,6 +277,8 @@ window.work.display = (image_url)->
           preview.add(preview_layer)
           crop.destroy()
 
+          $("#content_thumbnail_url").val( $( '#preview_window canvas' )[0].toDataURL() )
+
           if ( !$( '.expand_anno' ).is( ':visible' ) )
             $( 'label[for="ann_id"]' ).click()
     undefined

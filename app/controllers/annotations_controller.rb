@@ -1,3 +1,5 @@
+require 'base64'
+
 class AnnotationsController < ApplicationController
   before_action :set_annotation, only: [:show, :edit, :update, :destroy]
 
@@ -22,7 +24,22 @@ class AnnotationsController < ApplicationController
     @annotation.user_id = @current_user.id
     respond_to do |format|
       if @annotation.save
-        format.html { redirect_to @work, notice: 'Annoation was successfully created.' }
+        if params[ :annotation ][ :thumbnail_url ].present?
+          begin
+            thumbnail_base64 = params[ :annotation ][ :thumbnail_url ].split( ',' )[1]
+            thumbnail_data = Base64.decode64 thumbnail_base64
+            thumbnail_filename = "#{@annotation.id.to_s}.png"
+            thumbnail_path = Curarium::ANNOTATION_THUMBNAILS_PATH.join thumbnail_filename
+            File.open( thumbnail_path, 'wb' ) { |f|
+              f.write thumbnail_data
+            }
+            @annotation.update_attributes thumbnail_url: "#{root_url}#{Curarium::ANNOTATION_THUMBNAILS_FOLDER}/#{thumbnail_filename}"
+          rescue
+            # ignore, not worth stopping the action for
+          end
+        end
+
+        format.html { redirect_to @work, notice: 'Annotation was successfully created.' }
         format.json { render action: 'show', status: :created, location: @annotation }
       else
         format.html { render action: 'new' }
@@ -39,7 +56,7 @@ class AnnotationsController < ApplicationController
     @annotation.update(annotation_params)
     respond_to do |format|
       if @annotation.save
-        format.html { redirect_to @work, notice: 'Annoation was successfully created.' }
+        format.html { redirect_to @work, notice: 'Annotation was successfully created.' }
         format.json { render action: 'show', status: :created, location: @annotation }
       else
         format.html { render action: 'new' }
@@ -64,7 +81,7 @@ class AnnotationsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def annotation_params
-      params.require(:annotation).permit( :id, :work_id, :user_id, :title, :body, :x, :y, :width, :height, :image_url, :tags )
+      params.require(:annotation).permit( :id, :title, :body, :x, :y, :width, :height, :image_url, :tags )
     end
   
 end

@@ -27,8 +27,8 @@ Curarium::Application.configure do
   # number of complex assets.
   config.assets.debug = true
 
-  config.action_mailer.default_url_options = { :host => 'curarium.com' }
-  Rails.application.routes.default_url_options[:host] = 'curarium.com'
+  config.action_mailer.default_url_options = { :host => 'curarium.dev.berkmancenter.org' }
+  Rails.application.routes.default_url_options[:host] = 'curarium.dev.berkmancenter.org'
 
   config.action_mailer.delivery_method = :sendmail
   config.action_mailer.perform_deliveries = true

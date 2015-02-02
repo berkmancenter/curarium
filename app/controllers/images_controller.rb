@@ -11,7 +11,7 @@ class ImagesController < ApplicationController
       if @image.image_url.start_with?( '/test' ) && ( Rails.env.development? || Rails.env.test? )
         connection = File.open Rails.public_path.join( @image.image_url[ 1..-1 ] ), 'rb'
       else
-        connection = open @image.image_url, 'rb'
+        connection = open "#{@image.image_url}?width=10000&height=10000", 'rb'
       end
     rescue Net, OpenURI::HTTPError => e
       connection = nil
@@ -28,9 +28,10 @@ class ImagesController < ApplicationController
 
   private
 
+  # zero-based image index
   def set_image
     @work = Work.find(params[:work_id])
-    @image = @work.images[ params[:index].to_i - 1 ]
+    @image = @work.images[ params[:index].to_i ]
   end
 end
 

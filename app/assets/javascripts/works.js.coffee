@@ -128,7 +128,7 @@ window.work.display = (image_url)->
   min_scale = 0
   #set the Image url (starts loading the image). The string was a workaround to get the largest image possible from VIA or other similar type API's.
   #In the future it should become part of the importation process.
-  surrogate.src = image_url+'?width=10000&height=10000'  
+  surrogate.src = image_url
   
   #event handler for twhen the image loads
   surrogate.onload = ->

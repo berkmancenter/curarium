@@ -7,7 +7,7 @@
     // surrogates can be simple hyperlinks
 
     <% image = params[:image].to_i || 0%>
-    window.work.display('<%= @work.images[image].image_url %>');
+    window.work.display('<%= work_image_path @work, image %>');
     $('img.surrogate_thumbnail').each( function(i){
       $(this).click(function(e){
         window.location = "?image="+i

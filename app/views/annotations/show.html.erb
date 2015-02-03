@@ -1,0 +1,31 @@
+<div class="left">
+  <div class="holder col-sidebar">
+    <div class="titlebar main">Annotation</div>
+    <%= render partial: 'thumbnail', object: @annotation %>
+    <div class="stalking_menu_holder">
+      <div class="stalking_menu">
+        <%= link_to 'View Record', work_path( @work ), class: 'show-annotation-work' %>
+
+        <% if authenticated? %>
+          <% if @annotation.user == @current_user %>
+            <%= link_to 'Edit Annotation', edit_work_annotation_path( @work, @annotation ), class: 'edit-annotation' %>
+
+            <%= form_for( [ @work, @annotation ], html: { method: :delete } ) { |f| %>
+              <a href="javascript:void(0);" class="delete-annotation">Delete Annotation</a>
+            <% } %>
+          <% end %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="expandable">
+  <h1 class="collection-header"><%= @annotation.title %></h1>
+
+  <dl>
+    <dt>Created on:</dt> <dd><%= @annotation.created_at %></dd>
+  </dl>
+
+  <p><%= @annotation.body %></p>
+</div>

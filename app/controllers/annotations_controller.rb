@@ -53,6 +53,8 @@ class AnnotationsController < ApplicationController
   end
 
   def destroy
+    @annotation.delete
+    redirect_to work_annotations_path( @work )
   end
 
   def update

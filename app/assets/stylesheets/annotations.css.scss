@@ -1,5 +1,11 @@
 @import "colors";
 
+.annotations.show {
+  .stalking_menu a {
+    display: block;
+  }
+}
+
 .annotation-thumbnail {
   border: solid 1px $cred;
 

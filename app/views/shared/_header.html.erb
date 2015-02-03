@@ -1,45 +1,56 @@
-<!-- BEGIN GLOBAL MENU -->	
+<!-- BEGIN GLOBAL MENU -->  
 <div class="GLOBAL_MENU">
-    <div class="left">
-	<% if params[:controller] == 'home'  and action_name == 'index' %>
-		<div class="toggle_curarium">
-      <%= link_to raw( 'Curarium<sup class="beta">beta</sup>' ), root_url, class:'curarium_name' %>
-			<div class="dropdown_menu"><%= link_to 'About / Contact', '/about' %></div>
-		</div>
-	<% else %>
-		<div class="toggle_curarium">
-		  <a href='<%=root_path%>' >
-		    <%= image_tag "miniicon.png", alt: '' %>
-      </a>
-		  <div class="global_search">
-		    <input type="text" name="fname" value="Search Curarium"><%= image_tag "search_g.png", alt: '' %>
-      </div>
-		  <div class="dropdown_menu">
-		    <%= link_to "About / Contact", "/about" %>
-		  </div>
-		</div>
-	<% end %>
-    </div>
-    <div class="expandable">
-    	<div class="tools">
-        <div class = 'menu_wrapper'>
-		      <div class="toggle_user toggle_tools">
 
-		    <% if authenticated? %>
+  <div class="left">
+  <% if params[:controller] == 'home' && action_name == 'index' %>
+
+    <div class="toggle_curarium">
+      <%= link_to raw( 'Curarium<sup class="beta">beta</sup>' ), root_url, class:'curarium_name' %>
+      <div class="dropdown_menu"><%= link_to 'About / Contact', '/about' %></div>
+    </div>
+
+  <% else %>
+
+    <div class="toggle_curarium">
+      <a href='<%=root_path%>' ><%= image_tag "miniicon.png", alt: '' %></a>
+      <div class="global_search">
+        <input type="text" name="fname" value="Search Curarium"><%= image_tag "search_g.png", alt: '' %>
+      </div>
+      <div class="dropdown_menu">
+        <%= link_to "About / Contact", "/about" %>
+      </div>
+    </div>
+
+  <% end %>
+  </div>
+
+  <div class="expandable">
+    <div class="tools">
+      <div class = 'menu_wrapper'>
+
+        <div class="toggle_user toggle_tools">
+        <% if authenticated? %>
+
           <%= link_to render( partial: 'users/mini_icon', object: @current_user ), @current_user %>
           <div class="dropdown_menu">
             <%= link_to 'Edit Profile', edit_user_path( @current_user ) %>
             <%= logout_link %>
           </div>
-		    <% else %>
-          <%= login_link 'Log In' %>
-		    <% end %>
 
-		      </div>
-		      <div class="toggle_explore toggle_tools"><a href="<%= @active_collection.nil? ? collections_path : collection_works_path(@active_collection) %>">Explore <%= image_tag "explore_b.png", class: 'black', alt: '' %><%= image_tag "explore_r.png", class: 'red', alt: '' %></a></div>
-      		<div class="toggle_spotlights toggle_tools"><a href="<%= spotlights_path %>">Spotlights <%= image_tag "spotlight_b.png", class: 'black', alt: '' %> <%= image_tag "spotlight_r.png", class: 'red', alt: '' %></a></div>	
-		      <div class="toggle_collections toggle_tools"><a href="<%= collections_path %>">Collections <%= image_tag "collection_b.png", class: 'black', alt: '' %><%= image_tag "collection_r.png", class: 'red', alt: '' %></a></div>
-		    </div>
-	  </div>
+        <% else %>
+
+          <%= login_link 'Log In' %>
+
+        <% end %>
+        </div>
+
+        <div class="toggle_explore toggle_tools"><a href="<%= @active_collection.nil? ? collections_path : collection_works_path(@active_collection) %>">Explore <%= image_tag "explore_b.png", class: 'black', alt: '' %><%= image_tag "explore_r.png", class: 'red', alt: '' %></a></div>
+
+        <div class="toggle_spotlights toggle_tools"><a href="<%= spotlights_path %>">Spotlights <%= image_tag "spotlight_b.png", class: 'black', alt: '' %> <%= image_tag "spotlight_r.png", class: 'red', alt: '' %></a></div>  
+
+        <div class="toggle_collections toggle_tools"><a href="<%= collections_path %>">Collections <%= image_tag "collection_b.png", class: 'black', alt: '' %><%= image_tag "collection_r.png", class: 'red', alt: '' %></a></div>
+
+      </div>
+    </div>
   </div>
-</div><!-- END GLOBAL MENU -->	
+</div><!-- END GLOBAL MENU -->  

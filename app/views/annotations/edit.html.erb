@@ -1,0 +1,14 @@
+<div class="left">
+  <div class="holder col-sidebar">
+    <div class="titlebar main">Annotation</div>
+    <%= render partial: 'thumbnail', object: @annotation %>
+  </div>
+</div>
+
+<div class="expandable">
+  <h1 class="collection-header">Edit Annotation</h1>
+
+  <%= render 'form' %>
+
+  <%= link_to 'Cancel', work_annotations_path( @work ) %>
+</div>

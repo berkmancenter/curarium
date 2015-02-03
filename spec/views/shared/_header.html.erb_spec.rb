@@ -16,7 +16,7 @@ describe ( 'shared/header' ) {
 
     describe ( 'explore' ) {
       it {
-        should have_css '.toggle_explore'
+        should have_css %Q|.toggle_explore a[href*="#{collections_path}"]|
       }
 
       it {
@@ -28,7 +28,7 @@ describe ( 'shared/header' ) {
       }
 
       it {
-        should have_css %Q|.toggle_explore a[href="#{collection_works_path Collection.first}"]|, visible: false
+        should have_css %Q|.toggle_explore a[href*="#{collection_works_path Collection.first}"]|, visible: false
       }
     }
 

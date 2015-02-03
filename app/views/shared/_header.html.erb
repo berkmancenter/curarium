@@ -45,7 +45,7 @@
         </div>
 
         <div class="toggle_explore toggle_tools">
-          <a href="<%= @active_collection.nil? ? collections_path : collection_works_path(@active_collection) %>">Explore <%= image_tag "explore_b.png", class: 'black', alt: '' %><%= image_tag "explore_r.png", class: 'red', alt: '' %></a>
+          <a href="javascript:void(0);">Explore <%= image_tag "explore_b.png", class: 'black', alt: '' %><%= image_tag "explore_r.png", class: 'red', alt: '' %></a>
 
           <div class="dropdown_menu">
             <% @header_collections.each { |c| %>

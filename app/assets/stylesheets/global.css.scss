@@ -1808,6 +1808,7 @@ dt:hover {
 
 .GLOBAL_MENU .expandable .tools .menu_wrapper {
   display: table-row;
+  position: absolute;
   width: 100%;
 
   a {
@@ -1847,6 +1848,10 @@ dt:hover {
 }
 
 .toggle_user:hover .dropdown_menu {
+  display: block;
+}
+
+.toggle_explore:hover .dropdown_menu {
   display: block;
 }
 

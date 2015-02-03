@@ -23,13 +23,13 @@
    		
    		<!-- COLLECTION CONTENT -->
     	<div class="titlebar to_spot">At a glance</div>
-		<div class="cont_spotlight">
+		<div class="GALLERY">
 		<!--The new thing goes here-->
 		<% @all.each do |item| %>
 	    <%= render :partial => 'shared/print_item', :locals=>{:item=>item} %>
 		<% end %>
 
-			</div><!-- end cont_spotlight --> 
+			</div><!-- end GALLERY --> 
     </div></div><!-- end middle content -->
 
 	<!-- right content -->

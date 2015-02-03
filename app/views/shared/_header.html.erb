@@ -44,7 +44,15 @@
         <% end %>
         </div>
 
-        <div class="toggle_explore toggle_tools"><a href="<%= @active_collection.nil? ? collections_path : collection_works_path(@active_collection) %>">Explore <%= image_tag "explore_b.png", class: 'black', alt: '' %><%= image_tag "explore_r.png", class: 'red', alt: '' %></a></div>
+        <div class="toggle_explore toggle_tools">
+          <a href="<%= @active_collection.nil? ? collections_path : collection_works_path(@active_collection) %>">Explore <%= image_tag "explore_b.png", class: 'black', alt: '' %><%= image_tag "explore_r.png", class: 'red', alt: '' %></a>
+
+          <div class="dropdown_menu">
+            <% @header_collections.each { |c| %>
+              <%= link_to c.name, collection_works_path( c ) %>
+            <% } %>
+          </div>
+        </div>
 
         <div class="toggle_spotlights toggle_tools"><a href="<%= spotlights_path %>">Spotlights <%= image_tag "spotlight_b.png", class: 'black', alt: '' %> <%= image_tag "spotlight_r.png", class: 'red', alt: '' %></a></div>  
 

@@ -3,7 +3,7 @@ class ApplicationController < ActionController::Base
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
   before_action :load_user
-  before_action :set_active_collection
+  before_action :set_active_collection, :load_header_collections
   
   private
 
@@ -11,6 +11,10 @@ class ApplicationController < ActionController::Base
     unless cookies[:active_collection].nil?
       @active_collection = Collection.find(cookies[:active_collection])
     end
+  end
+
+  def load_header_collections
+    @header_collections = Collection.where approved: true
   end
   
   def load_user

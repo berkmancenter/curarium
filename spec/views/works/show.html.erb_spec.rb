@@ -99,7 +99,11 @@ describe ( 'works/show' ) {
 
       describe ( 'list' ) {
         it {
-          should have_css '.annotation-thumbnail'
+          should have_css '#work_annotations'
+        }
+
+        it {
+          should have_css '#work_annotations .annotation-thumbnail'
         }
       }
     }

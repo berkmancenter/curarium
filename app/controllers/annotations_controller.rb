@@ -17,6 +17,8 @@ class AnnotationsController < ApplicationController
   end
 
   def show
+    @xhr = request.xhr?
+    render template: 'annotations/show', layout: !@xhr
   end
 
   def edit
@@ -54,7 +56,7 @@ class AnnotationsController < ApplicationController
 
   def destroy
     @annotation.delete
-    redirect_to work_annotations_path( @work )
+    redirect_to work_path( @work )
   end
 
   def update

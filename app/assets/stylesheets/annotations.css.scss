@@ -1,10 +1,5 @@
 @import "colors";
-
-.annotations.show {
-  .stalking_menu a {
-    display: block;
-  }
-}
+@import "fonts";
 
 .annotation-thumbnail {
   border: solid 1px $cred;
@@ -34,3 +29,22 @@
   }
 }
 
+.annotations.show {
+  .stalking_menu a {
+    display: block;
+  }
+
+}
+
+.works.show {
+  .annotation-xhr {
+    background: $white;
+    padding: 1em;
+    margin: 150px;
+
+    .popup-commands {
+      float: right;
+      list-style-type: none;
+    }
+  }
+}

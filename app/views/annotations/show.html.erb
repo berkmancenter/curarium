@@ -1,10 +1,20 @@
+<% if @xhr %>
+<section class="annotation-xhr" data-action-item-type="<%= @popup_action_type %>" data-action-item-id="<%= @popup_action_item_id %>">
+  <ul class="popup-commands">
+    <li>
+      <%= link_to render( partial: 'shared/mini_icon', object: 'close' ), '#', class: 'close' %>
+
+    </li>
+  </ul>
+<% end %>
+
 <div class="left">
   <div class="holder col-sidebar">
     <div class="titlebar main">Annotation</div>
     <%= render partial: 'thumbnail', object: @annotation %>
     <div class="stalking_menu_holder">
       <div class="stalking_menu">
-        <%= link_to 'View Record', work_path( @work ), class: 'show-annotation-work' %>
+        <%= link_to 'View Record', work_path( @work ), class: 'show-annotation-work' unless @xhr %>
 
         <% if authenticated? %>
           <% if @annotation.user == @current_user %>
@@ -29,3 +39,7 @@
 
   <p><%= @annotation.body %></p>
 </div>
+
+<% if @xhr %>
+</section>
+<% end %>

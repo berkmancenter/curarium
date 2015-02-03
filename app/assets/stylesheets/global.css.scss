@@ -889,60 +889,13 @@ dd {
   background: #000000;
   color: #fff;
 }
-.explore_bar .drop_down .include:hover{
+.explore_bar .drop_down .include:hover {
   background: #d2232a;
   color: #fff;
 }
+
 .explore_bar .drop_down img {
   width: 15px;
-}
-.work_popup {	
-  position: absolute;
-  top: 80px;
-  bottom: 0px;
-  overflow: hidden;
-  background: #fff;
-  margin: auto;
-  left: 0;
-  right: 0;
-  padding: 10px 20px;
-}
-.work_popup .titlebar{
-  padding: 0 0 5px 0;
-  border: 0;
-  margin: 0;
-  font-size: $fontSize1;
-  color: #000;
-  position: relative;
-  height: 15px;
-}
-.work_popup .titlebar .navigate{
-  position: relative;
-  margin: 0 30px 0 0;
-  padding: 0 20px 0 0;
-  color: #d2232a;
-}
-.work_popup .titlebar .close{
-  position: absolute;
-  right: 0;
-  margin: 0!important;
-}
-.work_popup .titlebar .navigate img{
-  width: 14px;
-  position: absolute;
-  right: 0px;
-}
-.work_popup .titlebar .add_to_tray{
-  position: absolute;
-  top: 0;
-  left: 110px;
-  width: 200px;
-}
-.work_popup .titlebar .add_to_tray .expand {
-  background: #ffffff;
-  position: relative;
-  margin: 10px 0 0 0;
-  left: -60px;
 }
 
 .work_data {	

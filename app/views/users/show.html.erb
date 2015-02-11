@@ -1,3 +1,15 @@
+<div class="left">
+  <div class="holder col-sidebar">
+    <div class="titlebar main">User</div>
+    <%= render partial: 'thumbnail', object: @user %>
+    <div class="stalking_menu_holder">
+      <div class="stalking_menu">
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="expandable">
 <h1 class="collection-header"><%= @user.name %></h1>
 
 <dl>

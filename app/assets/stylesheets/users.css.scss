@@ -3,11 +3,24 @@
 
 /* users & sessions */
 
-.users {
-  &.show {
-    section h1 {
-      font-size: $fontSize2;
-    }
+body.users {
+  .expandable {
+    width: 100%;
+  }
+
+  dl {
+    overflow: hidden;
+    width: 48em;
+  }
+
+  dt {
+    float: left;
+    width: 12em;
+  }
+  
+  dd {
+    float: left;
+    width: 32em;
   }
 
   form {
@@ -26,6 +39,37 @@
 
     a {
       font-weight: bold;
+    }
+  }
+}
+
+.user-thumbnail {
+  border: solid 1px $cred;
+  position: relative;
+
+  img {
+    height: 75%;
+    margin: 12.5%;
+    width: 75%;
+  }
+
+  .title {
+    background-color: $cred;
+    color: $white;
+    padding: 0 .5em .25em .5em;
+    position: absolute;
+    right: 0;
+    top: 0;
+  }
+
+  &:hover {
+    outline: solid 2px $cred;
+
+    .title {
+      background-color: $white;
+      color: $cred;
+      font-weight: bold;
+      outline: solid 2px $cred;
     }
   }
 }

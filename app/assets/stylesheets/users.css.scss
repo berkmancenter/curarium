@@ -8,6 +8,10 @@ body.users {
     width: 100%;
   }
 
+  section h1 {
+    font-size: $fontSize2;
+  }
+
   dl {
     overflow: hidden;
     width: 48em;

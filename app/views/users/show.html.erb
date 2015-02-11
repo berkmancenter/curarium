@@ -4,13 +4,15 @@
     <%= render partial: 'thumbnail', object: @user %>
     <div class="stalking_menu_holder">
       <div class="stalking_menu">
+        <%= link_to render( partial: 'shared/mini_icon', object: 'user', locals: { icon_title: 'Biography' } ), '#user-bio' %>
+        <%= link_to render( partial: 'shared/mini_icon', object: 'collections' ), '#user-collections' %>
       </div>
     </div>
   </div>
 </div>
 
 <div class="expandable">
-<h1 class="collection-header"><%= @user.name %></h1>
+<h1 id="user-bio" class="collection-header"><%= @user.name %></h1>
 
 <dl>
   <dt>Member since</dt>
@@ -45,7 +47,7 @@
 
 
 <section class="user-collections">
-  <h1 class="collection-header">Collections</h1>
+  <h1 id="user-collections" class="collection-header">Collections</h1>
 
   <div class="GALLERY">
     <% Collection.administered_by( @user ).each do |collection| %>

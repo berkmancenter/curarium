@@ -1,1 +1,3 @@
-<span class="mini-icon"><span class="mini-icon-title"><%= t "mini_icons.#{mini_icon}" %></span><span class="mini-icon-icon mini-icon-<%= mini_icon %>"></span></span>
+<% side = side || :left %>
+<% if defined?( icon_title ).nil? %><% icon_title = t( "mini_icons.#{mini_icon}" ) %><% end %>
+<span class="mini-icon"><%= render( partial: 'shared/mini_icon_icon', object: mini_icon ) if side == :left %><% if icon_title.present? %><span class="mini-icon-title"><%= icon_title %></span><% end %><%= render( partial: 'shared/mini_icon_icon', object: mini_icon ) if side == :right %></span>

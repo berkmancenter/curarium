@@ -1888,13 +1888,11 @@ dt:hover {
   display: none;
 }
 
-.stalking_menu div:hover {
-  text-decoration: underline;
-  cursor: pointer;
-}
-
 .stalking_menu a {
   color: #D2232A;
+  display: block;
+  margin: .5em 0;
+  text-decoration: none;
 }
 
 .cont_vocab span:hover {

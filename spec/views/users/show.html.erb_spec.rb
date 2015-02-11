@@ -34,6 +34,14 @@ describe ( 'users/show' ) {
     it {
       should have_css '.stalking_menu_holder .stalking_menu'
     }
+
+    it {
+      should have_css '.stalking_menu a[href="#user-bio"]'
+    }
+
+    it {
+      should have_css '.stalking_menu a[href="#user-collections"]'
+    }
   }
 
   describe ( 'main content' ) {
@@ -42,7 +50,7 @@ describe ( 'users/show' ) {
     }
 
     it {
-      should have_css 'h1.collection-header', text: user.name
+      should have_css 'h1#user-bio.collection-header', text: user.name
     }
 
     it {
@@ -62,7 +70,7 @@ describe ( 'users/show' ) {
     }
 
     it {
-      should have_css 'h1.collection-header', text: 'Collections'
+      should have_css 'h1#user-collections.collection-header', text: 'Collections'
     }
 
     context ( 'with user signed in' ) {

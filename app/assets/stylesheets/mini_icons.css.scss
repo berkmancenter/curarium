@@ -20,6 +20,10 @@
   width: 16px;
 }
 
+.mini-icon-collections {
+  background-position: -16px (-0px + 80px);
+}
+
 .mini-icon-user {
   background-position: -64px (-0px + 80px);
 }
@@ -42,9 +46,14 @@ a:hover {
   }
 
   .mini-icon {
+    .mini-icon-collections {
+      background-position: -16px (-0px + 0px);
+    }
+
     .mini-icon-user {
       background-position: -64px (-0px + 0px);
     }
+
     .mini-icon-work {
       background-position: -16px (-16px + 0px);
     }

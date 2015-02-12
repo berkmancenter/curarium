@@ -1396,18 +1396,6 @@ dd {
   width: 80%;
 }
 
-.uploader_content .field .close{
-	position: absolute;
-	top: 0;
-	right: 0;
-	width: 10px;
-	height: 10px;
-	background-image: url('close_b.png');
-	background-size: contain;
-}
-.uploader_content .field .close img{
-	width: 10px;
-}
 .submit {
 	top: 475px;
 	right: 0;
@@ -1586,37 +1574,6 @@ dt:hover {
 }
 
 /*trays */
-
-#trays_wrapper {
-  height: 450px;
-  .user_tray {
-    height: 20px;
-    overflow: auto;
-    position: relative;
-    .close_tray {
-      position: absolute;
-      top: 0;
-      right: 0;
-      background-image: url('close_b.png');
-      background-size: contain;
-      width: 10px;
-      height: 10px;
-    }
-    
-    .tray_works, .tray_visualizations {
-      height: 180px;
-      overflow: auto;
-      display: none;
-    }
-    
-    h3{
-      cursor: pointer;
-    }
-    h4{
-      display: none;
-    }
-  }
-}
 
 .visualization_preview, .visualization_component {
   position: relative;

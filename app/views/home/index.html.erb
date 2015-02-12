@@ -35,13 +35,10 @@
 		</span>
 		</div>
     	
-    	<div id="hintbar_links">
-		<b><%= link_to "Learn more", '/about'%></b>
-		<br><b><%= link_to "Sign Up",  new_user_path  %></b>, Join the Community
-		</div>
-		<div id="hintbar_search">
-		<b><%= link_to "Search", '/about'%> <%= image_tag "search_r.png", alt: '' %></b>		
-		</div>
+    <div id="hintbar_links">
+      <span><b><%= link_to "Learn more", '/about'%></b></span>
+      <span><%= login_link 'SIGN UP' %>, Join the Community</span>
+    </div>
     
     </div></div>
 

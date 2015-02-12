@@ -611,9 +611,12 @@ dd {
 }
 
 /*CURARIUM INDEX*/
-.INFO_BAR #hintbar_links a,.INFO_BAR #hintbar_search a{
-  color: #d2232a;
+.INFO_BAR #hintbar_links > span {
+  display: block;
+  margin: 1em 0;
+  vertical-align: middle;
 }
+
 .INFO_BAR #hintbar_links,.INFO_BAR #hintbar_search {
   font-size: $fontSize1;
   text-transform:uppercase;

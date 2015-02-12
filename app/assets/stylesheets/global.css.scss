@@ -203,6 +203,7 @@ dd {
   color: #d2232a!important;
 }
 .left .dropdown_menu {
+  top: 16px;
   left: -20px !important;
 }
 .left .dropdown_menu a {
@@ -235,16 +236,16 @@ dd {
       font-weight: bold;
       color: #d2232a;
       font-size: $fontSize2;
-      img { 
+	    left: 0;
+	    position: absolute;
+
+      .mini_icon { 
 	padding: 0;
 	margin: 0;
-	position: absolute;
-	top: -3px;
-	left: 0;
 	height: 22px;
       }
     }
-    div {
+    &>div {
       width: 200px; 
       padding: 0 0 0 20px;
       position: absolute;

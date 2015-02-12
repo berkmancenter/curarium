@@ -1,9 +1,18 @@
 @import "colors";
 
+.mini-icon {
+  margin: 0 1em;
+
+  &.mini-icon-no-title {
+    margin: 0;
+  }
+}
+  
 .mini-icon-title {
   color: $black;
+  display: inline-block;
   line-height: 16px;
-  margin-right: .5em;
+  margin: 0 .25em;
   vertical-align: top;
   white-space: nowrap;
 }
@@ -16,9 +25,6 @@
 }
 
 .mini-icon {
-  height: 16px;
-  margin: 0 1em;
-  
   .mini-icon-logo {
     background-position: -0px (-0px + 96px);
   }
@@ -27,7 +33,7 @@
     background-position: -16px (-0px + 96px);
   }
 
-  .mini-icon-spotlight {
+  .mini-icon-spotlight, .mini-icon-spotlights {
     background-position: -32px (-0px + 96px);
   }
 
@@ -162,7 +168,7 @@ a:hover {
       background-position: -16px (-0px + 0px);
     }
 
-    .mini-icon-spotlight {
+    .mini-icon-spotlight, .mini-icon-spotlights {
       background-position: -32px (-0px + 0px);
     }
 

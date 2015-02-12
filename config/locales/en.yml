@@ -21,9 +21,14 @@
 
 en:
   mini_icons:
-    close: ''
-    record: 'View record page'
-    tray: 'Add to tray'
+    collection: 'Collection'
+    collections: 'Collections'
+    spotlights: 'Spotlights'
+    explore: 'Explore'
     user: 'Log In'
     work: 'Record'
-    collections: 'Collections'
+    record: 'View record page'
+    tray: 'Tray'
+    addtotray: 'Add to tray'
+    follow: 'Follow this collection'
+    close: ''

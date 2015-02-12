@@ -13,7 +13,7 @@ describe ( 'shared/mini_icon' ) {
     }
 
     it {
-      should have_css '.mini-icon .mini-icon-title', text: 'Add to tray'
+      should have_css '.mini-icon .mini-icon-title', text: 'Tray'
     }
 
     it {
@@ -56,6 +56,10 @@ describe ( 'shared/mini_icon' ) {
   context ( 'with no title' ) {
     before {
       render partial: 'shared/mini_icon', object: 'tray', locals: { icon_title: nil }
+    }
+
+    it {
+      should have_css '.mini-icon.mini-icon-no-title'
     }
 
     it {

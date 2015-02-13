@@ -58,3 +58,16 @@ body.circles {
   }
 }
 
+
+.circles.show {
+  .members {
+    width: 180px;
+
+    ul {
+      list-style: none;
+    }
+
+    li {
+    }
+  }
+}

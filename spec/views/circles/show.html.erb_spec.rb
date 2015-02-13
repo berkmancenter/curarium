@@ -104,6 +104,14 @@ describe ( 'circles/show' ) {
     }
 
     it {
+      should have_css 'dt', text: 'Created by:'
+      should have_css 'dd', text: user.name
+    }
+    it {
+      should have_css 'dt', text: 'Created on:'
+    }
+
+    it {
       should have_css 'dt', text: 'Members:'
       should have_css 'dd', text: 2
     }

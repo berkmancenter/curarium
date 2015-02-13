@@ -32,8 +32,8 @@
   <h1 class="collection-header"><%= @circle.title %></h1>
 
   <dl>
+    <dt>Created by:</dt> <dd><%= @circle.admin.name %></dd>
     <dt>Created on:</dt> <dd><%= @circle.created_at %></dd>
-
     <dt>Members:</dt> <dd><%= @circle.users.count %></dd>
   </dl>
 

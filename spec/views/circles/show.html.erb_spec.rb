@@ -104,6 +104,14 @@ describe ( 'circles/show' ) {
     }
 
     it {
+      should have_css 'dt', text: 'Created by:'
+      should have_css 'dd', text: user.name
+    }
+    it {
+      should have_css 'dt', text: 'Created on:'
+    }
+
+    it {
       should have_css 'dt', text: 'Members:'
       should have_css 'dd', text: 2
     }
@@ -126,6 +134,36 @@ describe ( 'circles/show' ) {
 
     it {
       should have_css %Q|a[href*="#{circle_trays_path c}"]|, text: 'Tray Manager'
+    }
+  }
+
+  describe ( 'right content' ) {
+    it {
+      should have_css '.right'
+    }
+
+    it {
+      should have_css '.right .holder.members'
+    }
+
+    it {
+      should have_css '.members .titlebar', text: 'Members'
+    }
+
+    it {
+      should have_css '.members ul'
+    }
+
+    it {
+      should have_css '.members li a'
+    }
+
+    it {
+      should have_css '.members a .mini-icon'
+    }
+
+    it {
+      should have_css '.members a span.mini-icon-title', text: user.name
     }
   }
 }

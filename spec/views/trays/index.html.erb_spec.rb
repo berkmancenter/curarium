@@ -52,32 +52,56 @@ describe ( 'trays/index' ) {
       render
     }
 
-    it {
-      should have_css 'h1.collection-header', text: 'Tray Manager'
-    }
-
-    describe ( 'new tray form' ) {
+    describe ( 'left bar' ) {
       it {
-        should have_css %Q|form[action*="#{circle_trays_path c}"][method="post"]|
+        should have_css '.left'
       }
 
       it {
-        should have_css 'input[type="hidden"][name="tray[owner_id]"]'
+        should have_css '.left .holder.col-sidebar'
       }
 
       it {
-        should have_css 'input[type="hidden"][name="tray[owner_type]"][value="Circle"]'
+        should have_css '.col-sidebar .titlebar.main', text: 'Circle'
       }
 
       it {
-        should have_css 'input[name="tray[name]"]'
+        should have_css '.col-sidebar .thumbnail'
       }
     }
 
-    it {
-      should have_css '.GALLERY.tray-preview-gallery'
-    }
+    describe ( 'main content' ) {
+      it {
+        should have_css '.expandable h1'
+      }
 
-    # further tests moved to tray_preview_gallery
+      it {
+        should have_css 'h1.collection-header', text: 'Tray Manager'
+      }
+
+      describe ( 'new tray form' ) {
+        it {
+          should have_css %Q|form[action*="#{circle_trays_path c}"][method="post"]|
+        }
+
+        it {
+          should have_css 'input[type="hidden"][name="tray[owner_id]"]'
+        }
+
+        it {
+          should have_css 'input[type="hidden"][name="tray[owner_type]"][value="Circle"]'
+        }
+
+        it {
+          should have_css 'input[name="tray[name]"]'
+        }
+      }
+
+      it {
+        should have_css '.GALLERY.tray-preview-gallery'
+      }
+
+      # further tests moved to tray_preview_gallery
+    }
   }
 }

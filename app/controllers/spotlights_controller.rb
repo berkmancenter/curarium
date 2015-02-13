@@ -15,7 +15,7 @@ class SpotlightsController < ApplicationController
 
   # GET /spotlights/new
   def new
-    @spotlight = Spotlight.new
+    redirect_to Waku::URL
   end
 
   # GET /spotlights/1/edit

@@ -6,7 +6,7 @@ class TrayItemsController < ApplicationController
   # PUT /tray_items/1/move
   def move
     @tray_item = TrayItem.find params[ :id ]
-    @tray = Tray.find params[ :tray_item ][ :tray_id ]
+    @tray = Tray.find tray_item_params[ :tray_id ]
 
     @tray_item.tray = @tray
     @tray_item.save
@@ -15,18 +15,29 @@ class TrayItemsController < ApplicationController
   end
 
   # POST /tray_items
+  # adds or removes an item from the tray
   def create
-    @tray = Tray.find params[ :tray_item ][ :tray_id ]
-    @tray_item_image = Image.find params[ :tray_item ][ :image_id ]
+    tip = tray_item_params
 
-    TrayItem.create tray: @tray, image: @tray_item_image
-    render text: '200 OK', status: 200
+    @tray = Tray.find tip[ :tray_id ]
+    if @tray.has_image_id?( tip[ :image_id ] )
+      @tray.tray_items.where( image_id: tip[ :image_id ] ).delete_all
+    else
+      TrayItem.create tray: @tray, image: Image.find( tip[ :image_id ] )
+    end
+
+    @owner = @current_user
+    @trays = @owner.all_trays unless @owner.nil?
+    @popup_action = 'add'
+    @popup_action_type = 'Image'
+    @popup_action_item_id = tip[ :image_id ]
+    render template: 'trays/popup', layout: false
   end
   
   # POST /tray_items/1/copy
   def copy
     @tray_item = TrayItem.find params[ :id ]
-    @tray = Tray.find params[ :tray_item ][ :tray_id ]
+    @tray = Tray.find tray_item_params[ :tray_id ]
 
     TrayItem.create tray: @tray, image: @tray_item.image
 
@@ -38,6 +49,11 @@ class TrayItemsController < ApplicationController
     @tray_item = TrayItem.find params[ :id ]
     @tray_item.delete
     render text: '200 OK', status: 200
+  end
+
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def tray_item_params
+    params.require(:tray_item).permit(:tray_id, :image_id, :annotation_id)
   end
 
 end

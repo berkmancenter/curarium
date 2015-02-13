@@ -96,11 +96,15 @@ describe ( 'works/show' ) {
           should_not have_css 'select.tag_selector'
         }
       }
-    }
 
-    describe ( 'list' ) {
-      it {
-        
+      describe ( 'list' ) {
+        it {
+          should have_css '#work_annotations'
+        }
+
+        it {
+          should have_css '#work_annotations .annotation-thumbnail'
+        }
       }
     }
   }

@@ -21,8 +21,17 @@
 
 en:
   mini_icons:
-    close: ''
-    record: 'View record page'
-    tray: 'Add to tray'
+    collection: 'Collection'
+    collections: 'Collections'
+    spotlights: 'Spotlights'
+    explore: 'Explore'
     user: 'Log In'
+    circle: 'Circle'
+    circles: 'Circles'
     work: 'Record'
+    record: 'View record page'
+    tray: 'Tray'
+    trays: 'Trays'
+    addtotray: 'Add to tray'
+    follow: 'Follow this collection'
+    close: ''

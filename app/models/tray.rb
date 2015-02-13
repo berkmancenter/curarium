@@ -5,4 +5,8 @@ class Tray < ActiveRecord::Base
 
   has_many :images, through: :tray_items
   has_many :annotations, through: :tray_items
+
+  def has_image_id?( id )
+    tray_items.where( image_id: id ).count > 0
+  end
 end

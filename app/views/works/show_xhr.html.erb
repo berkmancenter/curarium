@@ -12,9 +12,9 @@
     } %>
   </section>
 
-  <section class="work-image" data-action-item-id="<%= @work.images.first.id %>">
+  <section class="work-image" data-action-item-type="<%= @popup_action_type %>" data-action-item-id="<%= @popup_action_item_id %>">
     <ul class="work-commands">
-      <li><%= link_to render( partial: 'shared/mini_icon', object: 'work' ), @work, class: 'show' %></li>
+      <li><%= link_to render( partial: 'shared/mini_icon', object: 'record' ), @work, class: 'show' %></li>
       <% if authenticated? %>
         <li><%= link_to render( partial: 'shared/mini_icon', object: 'tray' ), '#', class: 'tray' %></li>
       <% end %>

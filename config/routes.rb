@@ -50,6 +50,8 @@ Curarium::Application.routes.draw do
     resources :amendments
     resources :annotations
   end
+
+  get 'works/:work_id/images/:index' => 'images#show', as: :work_image
   
   resources :collections do
     post "ingest" => "collections#ingest", as: "ingest"

@@ -5,7 +5,7 @@ describe ( 'trays/popup' ) {
 
   context ( 'user with tray' ) {
     let ( :user ) { User.first }
-    let ( :trays ) { user.trays }
+    let ( :trays ) { user.all_trays }
 
     context ( 'with default popup' ) {
       before {
@@ -20,11 +20,11 @@ describe ( 'trays/popup' ) {
 
       it {
         # two trays and a create tray button
-        should have_css 'button', count: 3
+        should have_css 'button', count: 4
       }
 
       it {
-        should have_css 'button.tray-popup-button', count: 2
+        should have_css 'button.tray-popup-button', count: 3
       }
 
       it {
@@ -47,6 +47,45 @@ describe ( 'trays/popup' ) {
         it {
           should have_css 'input[name="tray[name]"]'
         }
+      }
+
+      context ( 'with image_id' ) {
+      }
+    }
+
+    context ( 'with add action & Image item params' ) {
+      before {
+        assign( :owner, user )
+        assign( :trays, trays )
+        assign( :popup_action, 'add' )
+        assign( :popup_action_type, 'Image' )
+        assign( :popup_action_item_id, Image.first.id )
+        render
+      }
+
+      it {
+        should have_css '.tray-popup[data-action="add"]'
+      }
+
+      it {
+        should have_css '.tray-popup[data-action-item-type="Image"]'
+      }
+
+      it {
+        should have_css %Q|.tray-popup[data-action-item-id="#{Image.first.id}"]|
+      }
+
+      it {
+        should have_css '.tray-popup button', text: 'test_tray'
+        should have_css '.tray-popup button', text: 'empty_tray'
+      }
+
+      it {
+        should have_css 'button.item-in', text: 'test_tray'
+      }
+
+      it {
+        should have_css 'button.item-out', text: 'empty_tray'
       }
     }
 

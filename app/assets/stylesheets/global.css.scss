@@ -35,6 +35,10 @@ select {
   background-color: white;
 }
 
+.persona-button {
+  white-space: nowrap;
+}
+
 input[type=text], input[type=password], textarea, .login-button, .tray-popup-button {
   background: $white;
   border: 1px solid $cred;
@@ -85,25 +89,28 @@ dd {
   * {
 
   }
-  .gallery_item {
-    width: 200px;
-    height: 200px;
-    float: left;
-    margin: 10px;  
-    background-repeat: no-repeat;
-    background-position: center center; 
-    background-size: cover;
-    list-style-type: none;
-    a{
-      width: 100%;
-      height: 100%;
-      display: block;
-    }
-  }
 
-  .item_lrg {
-    width: 420px;
-    height: 420px;
+  .GALLERY {
+    .gallery_item {
+      width: 200px;
+      height: 200px;
+      float: left;
+      margin: 10px;  
+      background-repeat: no-repeat;
+      background-position: center center; 
+      background-size: cover;
+      list-style-type: none;
+      a{
+        width: 100%;
+        height: 100%;
+        display: block;
+      }
+    }
+
+    .item_lrg {
+      width: 420px;
+      height: 420px;
+    }
   }
 }
 
@@ -175,10 +182,12 @@ dd {
   position: relative;
 }
 .dropdown_menu {
+  background: $white;
   display: none; 
   position: absolute;
   padding: 20px 0px 20px 0px!important;
   width: 100%;
+  z-index: 100;
 }
 .dropdown_menu a {
   color: #000000!important;
@@ -192,9 +201,9 @@ dd {
   1px 1px 1px #fff;  
   font-weight: bold!important;
   color: #d2232a!important;
-  z-index: 200;
 }
 .left .dropdown_menu {
+  top: 16px;
   left: -20px !important;
 }
 .left .dropdown_menu a {
@@ -227,16 +236,16 @@ dd {
       font-weight: bold;
       color: #d2232a;
       font-size: $fontSize2;
-      img { 
+	    left: 0;
+	    position: absolute;
+
+      .mini_icon { 
 	padding: 0;
 	margin: 0;
-	position: absolute;
-	top: -3px;
-	left: 0;
 	height: 22px;
       }
     }
-    div {
+    &>div {
       width: 200px; 
       padding: 0 0 0 20px;
       position: absolute;
@@ -603,9 +612,12 @@ dd {
 }
 
 /*CURARIUM INDEX*/
-.INFO_BAR #hintbar_links a,.INFO_BAR #hintbar_search a{
-  color: #d2232a;
+.INFO_BAR #hintbar_links > span {
+  display: block;
+  margin: 1em 0;
+  vertical-align: middle;
 }
+
 .INFO_BAR #hintbar_links,.INFO_BAR #hintbar_search {
   font-size: $fontSize1;
   text-transform:uppercase;
@@ -881,60 +893,13 @@ dd {
   background: #000000;
   color: #fff;
 }
-.explore_bar .drop_down .include:hover{
+.explore_bar .drop_down .include:hover {
   background: #d2232a;
   color: #fff;
 }
+
 .explore_bar .drop_down img {
   width: 15px;
-}
-.work_popup {	
-  position: absolute;
-  top: 80px;
-  bottom: 0px;
-  overflow: hidden;
-  background: #fff;
-  margin: auto;
-  left: 0;
-  right: 0;
-  padding: 10px 20px;
-}
-.work_popup .titlebar{
-  padding: 0 0 5px 0;
-  border: 0;
-  margin: 0;
-  font-size: $fontSize1;
-  color: #000;
-  position: relative;
-  height: 15px;
-}
-.work_popup .titlebar .navigate{
-  position: relative;
-  margin: 0 30px 0 0;
-  padding: 0 20px 0 0;
-  color: #d2232a;
-}
-.work_popup .titlebar .close{
-  position: absolute;
-  right: 0;
-  margin: 0!important;
-}
-.work_popup .titlebar .navigate img{
-  width: 14px;
-  position: absolute;
-  right: 0px;
-}
-.work_popup .titlebar .add_to_tray{
-  position: absolute;
-  top: 0;
-  left: 110px;
-  width: 200px;
-}
-.work_popup .titlebar .add_to_tray .expand {
-  background: #ffffff;
-  position: relative;
-  margin: 10px 0 0 0;
-  left: -60px;
 }
 
 .work_data {	
@@ -1041,34 +1006,6 @@ dd {
   bottom: 35px;
   margin: auto;
 }
-
-
-#work_annotations{
-  div.annotation_wrapper{
-    background: lightgray;
-    border: 1px solid black;
-    padding: 0.5em;
-    margin-top: 0.25em;
-    .annotation_title {
-      font-size: 12pt;
-    }
-    .annotation_body {
-      font-size: 10pt;
-      margin: 1px;
-    }
-    .annotation_attribution {
-      font-size: 7pt;
-    }
-    .annotation_tag {
-      font-size: 8pt;
-      font-weight: bold;
-      background: red;
-      padding: 2px;
-      @include rounded-corners(2px);
-    }    
-  }
-}
-
 
 /*HACKING*/
 .work_img {
@@ -1399,7 +1336,6 @@ dd {
   overflow: auto;
   padding: 15px 15px 10px 10px;
   margin: 150px 50px 0 10px;
-  max-height: 50%;
 }
 
 .bubble_menu .surrogates .expand_surr img {
@@ -1463,18 +1399,6 @@ dd {
   width: 80%;
 }
 
-.uploader_content .field .close{
-	position: absolute;
-	top: 0;
-	right: 0;
-	width: 10px;
-	height: 10px;
-	background-image: url('close_b.png');
-	background-size: contain;
-}
-.uploader_content .field .close img{
-	width: 10px;
-}
 .submit {
 	top: 475px;
 	right: 0;
@@ -1653,37 +1577,6 @@ dt:hover {
 }
 
 /*trays */
-
-#trays_wrapper {
-  height: 450px;
-  .user_tray {
-    height: 20px;
-    overflow: auto;
-    position: relative;
-    .close_tray {
-      position: absolute;
-      top: 0;
-      right: 0;
-      background-image: url('close_b.png');
-      background-size: contain;
-      width: 10px;
-      height: 10px;
-    }
-    
-    .tray_works, .tray_visualizations {
-      height: 180px;
-      overflow: auto;
-      display: none;
-    }
-    
-    h3{
-      cursor: pointer;
-    }
-    h4{
-      display: none;
-    }
-  }
-}
 
 .visualization_preview, .visualization_component {
   position: relative;
@@ -1879,6 +1772,7 @@ dt:hover {
 
 .GLOBAL_MENU .expandable .tools .menu_wrapper {
   display: table-row;
+  position: absolute;
   width: 100%;
 
   a {
@@ -1921,6 +1815,10 @@ dt:hover {
   display: block;
 }
 
+.toggle_explore:hover .dropdown_menu {
+  display: block;
+}
+
 .toggle_curarium:hover .dropdown_menu {
   display: block;
 }
@@ -1954,13 +1852,11 @@ dt:hover {
   display: none;
 }
 
-.stalking_menu div:hover {
-  text-decoration: underline;
-  cursor: pointer;
-}
-
 .stalking_menu a {
   color: #D2232A;
+  display: block;
+  margin: .5em 0;
+  text-decoration: none;
 }
 
 .cont_vocab span:hover {

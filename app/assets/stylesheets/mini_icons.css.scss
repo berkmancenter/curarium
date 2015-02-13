@@ -1,14 +1,18 @@
 @import "colors";
 
 .mini-icon {
-  height: 16px;
   margin: 0 1em;
+
+  &.mini-icon-no-title {
+    margin: 0;
+  }
 }
   
 .mini-icon-title {
   color: $black;
+  display: inline-block;
   line-height: 16px;
-  margin-right: .5em;
+  margin: 0 .25em;
   vertical-align: top;
   white-space: nowrap;
 }
@@ -20,20 +24,134 @@
   width: 16px;
 }
 
-.mini-icon-user {
-  background-position: -64px (-0px + 80px);
-}
+.mini-icon {
+  .mini-icon-logo {
+    background-position: -0px (-0px + 96px);
+  }
 
-.mini-icon-work {
-  background-position: -16px (-16px + 80px);
-}
+  .mini-icon-collection, .mini-icon-collections {
+    background-position: -16px (-0px + 96px);
+  }
 
-.mini-icon-tray {
-  background-position: -48px (-16px + 80px);
-}
+  .mini-icon-spotlight, .mini-icon-spotlights {
+    background-position: -32px (-0px + 96px);
+  }
 
-.mini-icon-close {
-  background-position: -16px (-48px + 80px);
+  .mini-icon-explore {
+    background-position: -48px (-0px + 96px);
+  }
+
+  .mini-icon-user {
+    background-position: -64px (-0px + 96px);
+  }
+
+  .mini-icon-circle, .mini-icon-circles {
+    background-position: -80px (-0px + 96px);
+  }
+
+  .mini-icon-twitter {
+    background-position: -0px (-16px + 96px);
+  }
+
+  .mini-icon-record {
+    background-position: -16px (-16px + 96px);
+  }
+
+  .mini-icon-surrogate {
+    background-position: -32px (-16px + 96px);
+  }
+
+  .mini-icon-tray, .mini-icon-trays {
+    background-position: -48px (-16px + 96px);
+  }
+
+  .mini-icon-addtotray {
+    background-position: -64px (-16px + 96px);
+  }
+
+  .mini-icon-about {
+    background-position: -80px (-16px + 96px);
+  }
+
+  .mini-icon-announce {
+    background-position: -0px (-32px + 96px);
+  }
+
+  .mini-icon-annotate {
+    background-position: -16px (-32px + 96px);
+  }
+
+  .mini-icon-search {
+    background-position: -32px (-32px + 96px);
+  }
+
+  .mini-icon-parsed {
+    background-position: -48px (-32px + 96px);
+  }
+
+  .mini-icon-follow {
+    background-position: -64px (-32px + 96px);
+  }
+
+  .mini-icon-clock {
+    background-position: -80px (-32px + 96px);
+  }
+
+  .mini-icon-text {
+    background-position: -0px (-48px + 96px);
+  }
+
+  .mini-icon-close {
+    background-position: -16px (-48px + 96px);
+  }
+
+  .mini-icon-zoomin {
+    background-position: -32px (-48px + 96px);
+  }
+
+  .mini-icon-zoomout {
+    background-position: -48px (-48px + 96px);
+  }
+
+  .mini-icon-hclose {
+    background-position: -64px (-48px + 96px);
+  }
+
+  .mini-icon-vopen {
+    background-position: -80px (-48px + 96px);
+  }
+
+  .mini-icon-connected {
+    background-position: -0px (-64px + 96px);
+  }
+
+  .mini-icon-disconnect {
+    background-position: -16px (-64px + 96px);
+  }
+
+  .mini-icon-connect {
+    background-position: -32px (-64px + 96px);
+  }
+
+  .mini-icon-discussions {
+    background-position: -48px (-64px + 96px);
+  }
+
+  .mini-icon-rows {
+    background-position: -64px (-64px + 96px);
+  }
+
+  .mini-icon-grid {
+    background-position: -80px (-64px + 96px);
+  }
+
+  .mini-icon-hopen {
+    background-position: -64px (-80px + 96px);
+  }
+
+  .mini-icon-vclose {
+    background-position: -80px (-80px + 96px);
+  }
 }
 
 a:hover {
@@ -42,19 +160,132 @@ a:hover {
   }
 
   .mini-icon {
+    .mini-icon-logo {
+      background-position: -0px (-0px + 0px);
+    }
+
+    .mini-icon-collection, .mini-icon-collections {
+      background-position: -16px (-0px + 0px);
+    }
+
+    .mini-icon-spotlight, .mini-icon-spotlights {
+      background-position: -32px (-0px + 0px);
+    }
+
+    .mini-icon-explore {
+      background-position: -48px (-0px + 0px);
+    }
+
     .mini-icon-user {
       background-position: -64px (-0px + 0px);
     }
-    .mini-icon-work {
+
+    .mini-icon-circle, .mini-icon-circles {
+      background-position: -80px (-0px + 0px);
+    }
+
+    .mini-icon-twitter {
+      background-position: -0px (-16px + 0px);
+    }
+
+    .mini-icon-record {
       background-position: -16px (-16px + 0px);
     }
 
-    .mini-icon-tray {
+    .mini-icon-surrogate {
+      background-position: -32px (-16px + 0px);
+    }
+
+    .mini-icon-tray, .mini-icon-trays {
       background-position: -48px (-16px + 0px);
+    }
+
+    .mini-icon-addtotray {
+      background-position: -64px (-16px + 0px);
+    }
+
+    .mini-icon-about {
+      background-position: -80px (-16px + 0px);
+    }
+
+    .mini-icon-announce {
+      background-position: -0px (-32px + 0px);
+    }
+
+    .mini-icon-annotate {
+      background-position: -16px (-32px + 0px);
+    }
+
+    .mini-icon-search {
+      background-position: -32px (-32px + 0px);
+    }
+
+    .mini-icon-parsed {
+      background-position: -48px (-32px + 0px);
+    }
+
+    .mini-icon-follow {
+      background-position: -64px (-32px + 0px);
+    }
+
+    .mini-icon-clock {
+      background-position: -80px (-32px + 0px);
+    }
+
+    .mini-icon-text {
+      background-position: -0px (-48px + 0px);
     }
 
     .mini-icon-close {
       background-position: -16px (-48px + 0px);
+    }
+
+    .mini-icon-zoomin {
+      background-position: -32px (-48px + 0px);
+    }
+
+    .mini-icon-zoomout {
+      background-position: -48px (-48px + 0px);
+    }
+
+    .mini-icon-hclose {
+      background-position: -64px (-48px + 0px);
+    }
+
+    .mini-icon-vopen {
+      background-position: -80px (-48px + 0px);
+    }
+
+    .mini-icon-connected {
+      background-position: -0px (-64px + 0px);
+    }
+
+    .mini-icon-disconnect {
+      background-position: -16px (-64px + 0px);
+    }
+
+    .mini-icon-connect {
+      background-position: -32px (-64px + 0px);
+    }
+
+    .mini-icon-discussions {
+      background-position: -48px (-64px + 0px);
+    }
+
+    .mini-icon-rows {
+      background-position: -64px (-64px + 0px);
+    }
+
+    .mini-icon-grid {
+      background-position: -80px (-64px + 0px);
+    }
+
+    .mini-icon-hopen {
+      background-position: -64px (-80px + 0px);
+    }
+
+    .mini-icon-vclose {
+      background-position: -80px (-80px + 0px);
     }
   }
 }

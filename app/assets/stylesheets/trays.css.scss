@@ -60,9 +60,14 @@
     margin: 4px 0;
     width: 240px;
 
-    &:hover {
+    &.item-in, &:hover {
       background: $cred;
       color: $white;
+    }
+
+    &.item-in:hover {
+      background: $white;
+      color: $cred;
     }
   }
 }

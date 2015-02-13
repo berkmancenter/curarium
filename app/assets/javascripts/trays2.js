@@ -60,12 +60,14 @@ $( function() {
 
   $( '.works.index' )
   .on( 'click', '.work-commands .tray', function( ) {
+    var workImage = $( this ).closest( '.work-image' );
+
     $.ajax( {
       url: '/trays',
       data: {
         popup_action: 'add',
-        popup_action_item_type: 'Image',
-        popup_action_item_id: $( this ).closest( '.work-image' ).data( 'actionItemId' )
+        popup_action_item_type: workImage.data( 'actionItemType' ),
+        popup_action_item_id: workImage.data( 'actionItemId' )
       }
     } )
     .done( function( popupHtml ) {
@@ -79,7 +81,6 @@ $( function() {
     return false;
   } );
 
-
   $( '.works.index, .works.show' )
   .on( 'click', '.tray-popup-button', function( ) {
     var popup = $( this ).closest( '.tray-popup' );
@@ -91,13 +92,18 @@ $( function() {
         'tray_item[image_id]': popup.data( 'actionItemId' )
       }
     } )
-    .done( function( result ) {
-      popup.closest( '.bub_menu' ).find( '.checkbox_hack' ).click( );
-      $.magnificPopup.instance.close();
+    .done( function( popupHtml ) {
+      if ( $( '.mfp-content' ).length ) {
+        $.magnificPopup.instance.close();
+      } else {
+        popup.closest( '.expand_tray' ).html( popupHtml );
+        popup.closest( '.tray_info' ).find( '.checkbox_hack' ).click( );
+      }
     } )
     .fail( function( result ) {
       alert( result );
     } );
+    return false;
   } )
   .on( 'submit', '.new_tray', function( e ) {
     var $form = $( this );

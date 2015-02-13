@@ -1,14 +1,16 @@
 <!-- BEGIN ABOUT CONTENT -->	
 <div class="about_content">
 	<!-- left content -->
-    <div class="left"><div class="holder col-sidebar">
-    	<div class="titlebar main"><%= image_tag "collection_r.png", alt: '' %>Collection</div>
+  <div class="left"><div class="holder col-sidebar">
+    <div class="titlebar main"><%= render partial: 'shared/mini_icon', object: 'collection' %></div>
 		<div class="profile_img" style="background: url('<%= thumb_work_path(@collection.works.first) unless @collection.works.first.nil? %>') no-repeat center center; background-size: cover;">&nbsp;</div>   
        <div class="stalking_menu_holder">
         	<div class="stalking_menu">
-        	<div><%= image_tag "follow_r.png", alt: '' %> Follow this collection</div>
-        	<div class="to_spot"><%= image_tag "spotlight_r.png", alt: '' %> Associated spotlights</div>
-        	<div><%= image_tag "explore_r.png", alt: '' %> <%= link_to "Explore", collection_works_path(@collection) %></div>
+            <ul>
+              <li><%#= link_to render( partial: 'shared/mini_icon', object: 'follow' ), '#' %></li>
+              <li><%= link_to render( partial: 'shared/mini_icon', object: 'spotlight', locals: { icon_title: 'Associated spotlights' } ), spotlights_path %></li>
+              <li><%= link_to render( partial: 'shared/mini_icon', object: 'explore' ), collection_works_path( @collection ) %></li>
+            </ul>
         	</div>
         </div> 
     </div></div><!-- end left content -->
@@ -23,13 +25,13 @@
    		
    		<!-- COLLECTION CONTENT -->
     	<div class="titlebar to_spot">At a glance</div>
-		<div class="cont_spotlight">
+		<div class="GALLERY">
 		<!--The new thing goes here-->
 		<% @all.each do |item| %>
 	    <%= render :partial => 'shared/print_item', :locals=>{:item=>item} %>
 		<% end %>
 
-			</div><!-- end cont_spotlight --> 
+			</div><!-- end GALLERY --> 
     </div></div><!-- end middle content -->
 
 	<!-- right content -->
@@ -39,7 +41,7 @@
      			<!-- an activity -->
 				<table class="activity_holder"><tr>
 				<td  class="date">
-          <%= @collection.created_at.strftime '%d.%m.%y' %>&nbsp; - <%= image_tag "collection_r.png", alt: '' %>
+          <%= @collection.created_at.strftime '%d.%m.%y' %>&nbsp; - <%= render partial: 'shared/mini_icon', object: 'collection', locals: { icon_title: nil } %>
           </td><td  class="activity">
           <%= User.find( @collection.admin[0] ).name %> created this collection
 				</td></tr></table>

@@ -2,7 +2,7 @@
 <div class="SUB_MENU">
   <!-- Remove order-by buttons until functionality is decided #9731
   <div class="right">
-    <div class="orderby"><span>Order:</span><span><%= image_tag "clock_r.png", alt: '' %><%= image_tag "up_r.png", alt: '' %><%= image_tag "down_r.png", alt: '' %></span></div>
+    <div class="orderby"><span>Order:</span><span><%= link_to render( partial: 'shared/mini_icon', object: 'clock', locals: { icon_title: nil } ), '#' %></span></div>
   </div>-->
 </div>
 <!-- END SUB MENU -->	
@@ -18,12 +18,7 @@
       <%= render :partial => 'shared/print_item', :locals=>{:item=>spotlight} %>
     <% end %>
 
-    <% if authenticated? %>
-    <div class="gallery_item">
-      <div class="createnew"> <%= link_to 'New Spolight', Waku::URL %> </div>
-    </div>
-    <% end %>
-          
+    <%= render partial: 'shared/newnail', object: Spotlight unless !authenticated? %>
   </div>
   <!-- END GALLERY -->  
 

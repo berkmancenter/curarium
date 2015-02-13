@@ -1,8 +1,13 @@
 @import "colors";
+@import "fonts";
 
 body.circles {
   .expandable {
     width: 100%;
+  }
+
+  section h1 {
+    font-size: $fontSize2;
   }
 
   dl {
@@ -53,3 +58,16 @@ body.circles {
   }
 }
 
+
+.circles.show {
+  .members {
+    width: 180px;
+
+    ul {
+      list-style: none;
+    }
+
+    li {
+    }
+  }
+}

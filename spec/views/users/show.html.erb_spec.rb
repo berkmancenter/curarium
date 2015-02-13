@@ -44,6 +44,14 @@ describe ( 'users/show' ) {
       }
 
       it {
+        should_not have_css '.stalking_menu a[href="#user-circles"]'
+      }
+
+      it {
+        should_not have_css '.stalking_menu a[href="#user-trays"]'
+      }
+
+      it {
         should have_css '.stalking_menu a[href="#user-collections"]'
       }
     }

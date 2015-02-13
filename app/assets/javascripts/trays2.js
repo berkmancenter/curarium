@@ -6,19 +6,16 @@ $( function() {
     window.spotlights.create();
   }
 
-  $( '.trays.index' )
-  .on( 'click', '[data-action]', function( ) {
-    var action = $( this ).data( 'action' );
-    if ( action === 'destroy' ) {
-      if ( confirm( 'Delete this tray?' ) ) {
-        $.ajax( {
-          type: 'DELETE',
-          url: $( this ).attr( 'href' ),
-        } )
-        .done( function( result ) {
-          window.location.reload();
-        } );
-      }
+  $( '.tray-preview-gallery,.trays.index' )
+  .on( 'click', '[data-action="destroy"]', function( ) {
+    if ( confirm( 'Delete this tray?' ) ) {
+      $.ajax( {
+        type: 'DELETE',
+        url: $( this ).attr( 'href' ),
+      } )
+      .done( function( result ) {
+        window.location.reload();
+      } );
     }
 
     return false;

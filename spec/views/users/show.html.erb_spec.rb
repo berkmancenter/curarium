@@ -7,94 +7,99 @@ describe ( 'users/show' ) {
 
   before {
     assign( :user, user )
-    render
   }
 
-  describe ( 'left bar' ) {
-    it {
-      should have_css '.left'
+  describe ( 'with user not signed in' ) {
+    before {
+      render
     }
 
-    it {
-      should have_css '.left .holder.col-sidebar'
-    }
-
-    it {
-      should have_css '.col-sidebar .titlebar.main', text: 'User'
-    }
-
-    it {
-      should have_css '.col-sidebar .thumbnail'
-    }
-
-    it {
-      should have_css '.col-sidebar .stalking_menu_holder'
-    }
-
-    it {
-      should have_css '.stalking_menu_holder .stalking_menu'
-    }
-
-    it {
-      should have_css '.stalking_menu a[href="#user-bio"]'
-    }
-
-    it {
-      should have_css '.stalking_menu a[href="#user-collections"]'
-    }
-  }
-
-  describe ( 'main content' ) {
-    it {
-      should have_css '.expandable h1'
-    }
-
-    it {
-      should have_css 'h1#user-bio.collection-header', text: user.name
-    }
-
-    it {
-      should have_css 'dd', text: user.bio
-    }
-
-    it {
-      should_not have_css 'section.user-trays'
-    }
-
-    it {
-      should_not have_css 'section.user-circles'
-    }
-
-    it {
-      should have_css 'section.user-collections'
-    }
-
-    it {
-      should have_css 'h1#user-collections.collection-header', text: 'Collections'
-    }
-
-    context ( 'with user signed in' ) {
-      before {
-        session[ :browserid_email ] = user.email
-        assign( :current_user, user )
-
-        render
+    describe ( 'left bar' ) {
+      it {
+        should have_css '.left'
       }
 
+      it {
+        should have_css '.left .holder.col-sidebar'
+      }
+
+      it {
+        should have_css '.col-sidebar .titlebar.main', text: 'User'
+      }
+
+      it {
+        should have_css '.col-sidebar .thumbnail'
+      }
+
+      it {
+        should have_css '.col-sidebar .stalking_menu_holder'
+      }
+
+      it {
+        should have_css '.stalking_menu_holder .stalking_menu'
+      }
+
+      it {
+        should have_css '.stalking_menu a[href="#user-bio"]'
+      }
+
+      it {
+        should have_css '.stalking_menu a[href="#user-collections"]'
+      }
+    }
+
+    describe ( 'main content' ) {
+      it {
+        should have_css '.expandable h1'
+      }
+
+      it {
+        should have_css 'h1#user-bio.collection-header', text: user.name
+      }
+
+      it {
+        should have_css 'dd', text: user.bio
+      }
+
+      it {
+        should_not have_css 'section.user-circles'
+      }
+
+      it {
+        should_not have_css 'section.user-trays'
+      }
+
+      it {
+        should have_css 'section.user-collections'
+      }
+
+      it {
+        should have_css 'h1#user-collections.collection-header', text: 'Collections'
+      }
+    }
+  }
+
+  context ( 'with user signed in' ) {
+    before {
+      session[ :browserid_email ] = user.email
+      assign( :current_user, user )
+
+      render
+    }
+
+    describe ( 'left bar' ) {
+      it {
+        should have_css '.stalking_menu a[href="#user-circles"]'
+      }
+
+      it {
+        should have_css '.stalking_menu a[href="#user-trays"]'
+      }
+    }
+
+    describe ( 'main content' ) {
       it {
         should have_css 'section.user-trays'
-      }
-
-      it {
-        should have_css 'h1.collection-header', text: 'Trays'
-      }
-
-      it {
-        should have_css '.tray-preview'
-      }
-
-      it {
-        should have_css %Q|a[href*="#{user_trays_path user}"]|, text: 'Tray Manager'
       }
 
       it {
@@ -102,7 +107,7 @@ describe ( 'users/show' ) {
       }
 
       it {
-        should have_css 'h1.collection-header', text: 'Circles'
+        should have_css 'h1#user-circles.collection-header', text: 'Circles'
       }
 
       it {
@@ -115,6 +120,18 @@ describe ( 'users/show' ) {
 
       it {
         should have_css '.circle-gallery .gallery_item'
+      }
+
+      it {
+        should have_css 'h1#user-trays.collection-header', text: 'Trays'
+      }
+
+      it {
+        should have_css '.tray-preview'
+      }
+
+      it {
+        should have_css %Q|a[href*="#{user_trays_path user}"]|, text: 'Tray Manager'
       }
     }
   }

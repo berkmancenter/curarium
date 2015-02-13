@@ -5,6 +5,8 @@
     <div class="stalking_menu_holder">
       <div class="stalking_menu">
         <%= link_to render( partial: 'shared/mini_icon', object: 'user', locals: { icon_title: 'Biography' } ), '#user-bio' %>
+        <%= link_to render( partial: 'shared/mini_icon', object: 'circles' ), '#user-circles' %>
+        <%= link_to render( partial: 'shared/mini_icon', object: 'trays' ), '#user-trays' %>
         <%= link_to render( partial: 'shared/mini_icon', object: 'collections' ), '#user-collections' %>
       </div>
     </div>
@@ -25,22 +27,22 @@
 </dl>
 <% if authenticated? && @user == @current_user %>
 
-<section class="user-trays">
-  <h1 class="collection-header">Trays</h1>
-
-  <%= render partial: 'trays/tray_preview_gallery', object: @user.trays.limit(2) %>
-
-  <%= link_to raw( '<h2>Tray Manager</h2>' ), user_trays_path( @user ) %>
-</section>
-
 <section class="user-circles">
-  <h1 class="collection-header">Circles</h1>
+  <h1 id="user-circles" class="collection-header">Circles</h1>
 
   <div class="GALLERY circle-gallery">
   <%= render partial: 'circles/thumbnail', collection: @user.circles %>
   </div><!-- END GALLERY -->  
 
   <%= link_to raw( '<h2>Circle Manager</h2>' ), circles_path %>
+</section>
+
+<section class="user-trays">
+  <h1 id="user-trays" class="collection-header">Trays</h1>
+
+  <%= render partial: 'trays/tray_preview_gallery', object: @user.trays.limit(2) %>
+
+  <%= link_to raw( '<h2>Tray Manager</h2>' ), user_trays_path( @user ) %>
 </section>
 
 <% end %>

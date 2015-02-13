@@ -26,7 +26,7 @@ class SpotlightsController < ApplicationController
   # POST /spotlights.json
   def create
     @spotlight = Spotlight.new(spotlight_params)
-    @spotlight.user_id = @current_user.id
+    @spotlight.user_id = @current_user.id if authenticated?
     respond_to { |format|
       if @spotlight.save
         format.json {
@@ -101,6 +101,6 @@ class SpotlightsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def spotlight_params
-      params.require(:spotlight).permit(:title, :body, :type, :components)
+      params.require(:spotlight).permit(:title, :body, :waku_id, :waku_url)
     end
 end

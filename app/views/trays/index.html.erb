@@ -1,10 +1,19 @@
-<h1 class="collection-header">Tray Manager</h1>
+<div class="left">
+  <div class="holder col-sidebar">
+    <div class="titlebar main"><%= @owner.class.to_s %></div>
+    <%= render partial: "#{@owner.class.to_s.downcase.pluralize}/thumbnail", object: @owner %>
+  </div>
+</div>
 
-<%= form_for [ @owner, Tray.new ], url: x_trays_path( @owner ), method: :post do |f| %>
-  <%= f.hidden_field :owner_id, value: @owner.id %>
-  <%= f.hidden_field :owner_type, value: @owner.class.name %>
-  <%= f.text_field :name, placeholder: 'Create New Tray' %>
-  <%= f.button 'create', type: 'submit', name: nil %>
-<% end %>
+<div class="expandable">
+  <h1 class="collection-header"><%= @owner.name if @owner.is_a? User %><%= @owner.title if @owner.is_a? Circle %> Tray Manager</h1>
 
-<%= render partial: 'trays/tray_preview_gallery', object: @trays %>
+  <%= form_for [ @owner, Tray.new ], url: x_trays_path( @owner ), method: :post do |f| %>
+    <%= f.hidden_field :owner_id, value: @owner.id %>
+    <%= f.hidden_field :owner_type, value: @owner.class.name %>
+    <%= f.text_field :name, placeholder: 'Create New Tray' %>
+    <%= f.button 'create', type: 'submit', name: nil %>
+  <% end %>
+
+  <%= render partial: 'trays/tray_preview_gallery', object: @trays %>
+</div>

@@ -6,7 +6,7 @@
 </div>
 
 <div class="expandable">
-  <h1 class="collection-header"><%= @owner.name if @owner.is_a? User %><%= @owner.title if @owner.is_a? Circle %> Tray Manager</h1>
+  <h1 class="collection-header">Tray Manager: <%= @owner.name if @owner.is_a? User %><%= @owner.title if @owner.is_a? Circle %></h1>
 
   <%= form_for [ @owner, Tray.new ], url: x_trays_path( @owner ), method: :post do |f| %>
     <%= f.hidden_field :owner_id, value: @owner.id %>

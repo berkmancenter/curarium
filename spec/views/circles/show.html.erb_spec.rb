@@ -45,28 +45,6 @@ describe ( 'circles/show' ) {
       }
     }
 
-    context ( 'with admin user' ) {
-      before {
-        session[ :browserid_email ] = user.email
-        assign( :current_user, user )
-
-        assign( :circle, c )
-        render
-      }
-
-      it {
-        should_not have_css '.stalking_menu a', text: 'Join Circle'
-      }
-
-      it {
-        should have_css '.stalking_menu a.edit-circle', text: 'Edit Description'
-      }
-
-      it {
-        should have_css '.stalking_menu form a.delete-circle', text: 'Delete Circle'
-      }
-    }
-
     context ( 'with non-admin user' ) {
       context ( 'with circle already joined' ) {
         before {
@@ -96,6 +74,28 @@ describe ( 'circles/show' ) {
         }
       }
     }
+
+    context ( 'with admin user' ) {
+      before {
+        session[ :browserid_email ] = user.email
+        assign( :current_user, user )
+
+        assign( :circle, c )
+        render
+      }
+
+      it {
+        should_not have_css '.stalking_menu a', text: 'Join Circle'
+      }
+
+      it {
+        should have_css '.stalking_menu a.edit-circle', text: 'Edit Description'
+      }
+
+      it {
+        should have_css '.stalking_menu form a.delete-circle', text: 'Delete Circle'
+      }
+    }
   }
 
   describe ( 'main content' ) {
@@ -117,6 +117,7 @@ describe ( 'circles/show' ) {
         should have_css 'dt', text: 'Created by:'
         should have_css 'dd', text: user.name
       }
+
       it {
         should have_css 'dt', text: 'Created on:'
       }

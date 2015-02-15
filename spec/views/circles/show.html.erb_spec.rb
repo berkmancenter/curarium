@@ -9,44 +9,48 @@ describe ( 'circles/show' ) {
   let ( :c ) { Circle.first }
   let ( :c_two ) { Circle.last }
 
-  before {
-    assign( :circle, c )
-    render
-  }
-
   describe ( 'left bar' ) {
-    it {
-      should have_css '.left'
-    }
+    context ( 'with everyone' ) {
+      before {
+        assign( :circle, c )
+        render
+      }
 
-    it {
-      should have_css '.left .holder.col-sidebar'
-    }
+      it {
+        should have_css '.left'
+      }
 
-    it {
-      should have_css '.col-sidebar .titlebar.main', text: 'Circle'
-    }
+      it {
+        should have_css '.left .holder.col-sidebar'
+      }
 
-    it {
-      should have_css '.col-sidebar .thumbnail'
-    }
+      it {
+        should have_css '.col-sidebar .titlebar.main', text: 'Circle'
+      }
 
-    it {
-      should have_css '.col-sidebar .stalking_menu_holder'
-    }
+      it {
+        should have_css '.col-sidebar .thumbnail'
+      }
 
-    it {
-      should have_css '.stalking_menu_holder .stalking_menu'
-    }
+      it {
+        should have_css '.col-sidebar .stalking_menu_holder'
+      }
 
-    it {
-      should_not have_css '.stalking_menu a', text: 'Join Circle'
+      it {
+        should have_css '.stalking_menu_holder .stalking_menu'
+      }
+
+      it {
+        should_not have_css '.stalking_menu a', text: 'Join Circle'
+      }
     }
 
     context ( 'with admin user' ) {
       before {
         session[ :browserid_email ] = user.email
         assign( :current_user, user )
+
+        assign( :circle, c )
         render
       }
 
@@ -95,75 +99,89 @@ describe ( 'circles/show' ) {
   }
 
   describe ( 'main content' ) {
-    it {
-      should have_css '.expandable h1'
-    }
+    context ( 'with everyone' ) {
+      before {
+        assign( :circle, c )
+        render
+      }
 
-    it {
-      should have_css 'h1.collection-header', text: c.title
-    }
+      it {
+        should have_css '.expandable h1'
+      }
 
-    it {
-      should have_css 'dt', text: 'Created by:'
-      should have_css 'dd', text: user.name
-    }
-    it {
-      should have_css 'dt', text: 'Created on:'
-    }
+      it {
+        should have_css 'h1.collection-header', text: c.title
+      }
 
-    it {
-      should have_css 'dt', text: 'Members:'
-      should have_css 'dd', text: 2
-    }
+      it {
+        should have_css 'dt', text: 'Created by:'
+        should have_css 'dd', text: user.name
+      }
+      it {
+        should have_css 'dt', text: 'Created on:'
+      }
 
-    it {
-      should have_css 'p', text: c.description
-    }
+      it {
+        should have_css 'dt', text: 'Members:'
+        should have_css 'dd', text: 2
+      }
 
-    it {
-      should have_css 'section.circle-trays'
-    }
+      it {
+        should have_css 'p', text: c.description
+      }
 
-    it {
-      should have_css 'h1.collection-header', text: 'Trays'
-    }
+      it {
+        should have_css 'section.circle-trays'
+      }
 
-    it {
-      should have_css '.tray-preview'
-    }
+      it {
+        should have_css 'h1.collection-header', text: 'Trays'
+      }
 
-    it {
-      should have_css %Q|a[href*="#{circle_trays_path c}"]|, text: 'Tray Manager'
+      it {
+        should have_css '.tray-preview'
+      }
+
+      it {
+        should have_css %Q|a[href*="#{circle_trays_path c}"]|, text: 'Tray Manager'
+      }
     }
   }
 
   describe ( 'right content' ) {
-    it {
-      should have_css '.right'
-    }
+    context ( 'with everyone' ) {
+      before {
+        assign( :circle, c )
+        render
+      }
 
-    it {
-      should have_css '.right .holder.members'
-    }
+      it {
+        should have_css '.right'
+      }
 
-    it {
-      should have_css '.members .titlebar', text: 'Members'
-    }
+      it {
+        should have_css '.right .holder.members'
+      }
 
-    it {
-      should have_css '.members ul'
-    }
+      it {
+        should have_css '.members .titlebar', text: 'Members'
+      }
 
-    it {
-      should have_css '.members li a'
-    }
+      it {
+        should have_css '.members ul'
+      }
 
-    it {
-      should have_css '.members a .mini-icon'
-    }
+      it {
+        should have_css '.members li a'
+      }
 
-    it {
-      should have_css '.members a span.mini-icon-title', text: user.name
+      it {
+        should have_css '.members a .mini-icon'
+      }
+
+      it {
+        should have_css '.members a span.mini-icon-title', text: user.name
+      }
     }
   }
 }

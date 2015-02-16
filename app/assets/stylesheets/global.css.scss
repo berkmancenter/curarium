@@ -86,13 +86,7 @@ dd {
   position: relative;
   border: 0px solid black;
 
-  * {
-
-  }
-
   .GALLERY {
-    margin-bottom: -225px;
-
     .gallery_item {
       width: 200px;
       height: 200px;
@@ -114,7 +108,17 @@ dd {
       height: 420px;
     }
   }
-  margin-bottom: -256px;
+
+}
+
+.home.index {
+  .GLOBAL_HOLDER {
+    margin-bottom: -256px;
+
+    .GALLERY {
+      margin-bottom: -225px;
+    }
+  }
 }
 
 /* GLOBAL MISC */

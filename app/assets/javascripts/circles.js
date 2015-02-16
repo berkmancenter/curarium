@@ -10,4 +10,15 @@ $( function( ) {
     }
     return false;
   } );
+
+  var circleCollectionsPopupHtml = $( '#circle-collections-popup' );
+  $( '.circle-collections .createnew' ).click( function( ) {
+    $.magnificPopup.open( {
+      items: {
+        src: circleCollectionsPopupHtml.css( 'display', 'inline-block' ),
+        type: 'inline'
+      }
+    } );
+    return false;
+  } );
 } );

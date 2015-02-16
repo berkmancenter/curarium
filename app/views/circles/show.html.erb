@@ -54,7 +54,17 @@
     <div class="GALLERY">
       <%= render partial: 'collections/thumbnail', collection: @circle.collections %>
 
-      <%= render( partial: 'shared/newnail', object: Collection, locals: { verb: :add } ) if @circle.admin == @current_user %>
+      <% if @circle.admin == @current_user %>
+      <%= render( partial: 'shared/newnail', object: Collection, locals: { verb: :add } ) %>
+
+      <div id="circle-collections-popup" class="ccs-popup">
+        <h1>Available Collections</h1>
+
+        <% Collection.where.not( id: @circle.collections.pluck( :id ) ).each { |c| %>
+          <button type="button" data-collection-id="<%= c.id %>" class="ccs-button"><%= c.name %></button>
+        <% } %>
+      </div>
+      <% end %>
     </div>
   </section>
   <% end %>

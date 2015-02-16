@@ -361,7 +361,7 @@ window.work.display = (image_url)->
                   strokeWidth: 1
               notes_layer.draw()
               undefined
-            
+
             #make the canvas annotation border thicker when mouse goes over its corresponding html annotation
             $("#"+ID).mouseover ()->
               annotation_hover_in( $(this).attr('id') )
@@ -375,7 +375,7 @@ window.work.display = (image_url)->
             notes_layer.add(rect)
         
         #toggle annotations on or off with a checkbox. Not being used right now, but should be very easy to reimplement.
-        $('#annotation_toggle').change ()->
+        $('#hide_anno').change ()->
           notes_layer.setAttr('visible', $(this).prop('checked'))
           undefined
         

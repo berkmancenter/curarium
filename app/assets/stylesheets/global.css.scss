@@ -305,6 +305,10 @@ dd {
   }
 }
 
+#hide-an{
+  padding-right: 80px;
+}
+
 /* INFO BAR  */
 .INFO_BAR{
   min-height: 200px;
@@ -1199,6 +1203,14 @@ dd {
   @include rounded-corners(0px);
 }
 
+#annoindex {
+  border: 0;
+  position: absolute;
+  top: 30;
+  width: 100%;
+  @include rounded-corners(0px);
+}
+
 .bubble_menu .button img{
   position: absolute;
   right: 10px;
@@ -1338,7 +1350,8 @@ dd {
   background: white;
   border: 1px solid $cred;
   display: none;
-  overflow: auto;
+  max-height: 200px;
+  overflow: scroll;
   padding: 15px 15px 10px 10px;
   margin: 150px 50px 0 10px;
 }

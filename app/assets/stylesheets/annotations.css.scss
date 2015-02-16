@@ -18,8 +18,8 @@
   }
 
   &:hover, &.hover {
-    outline: solid 2px $cred;
-
+    outline: solid 4px $cred;
+    display: block;
     .title {
       background-color: $white;
       color: $cred;
@@ -41,3 +41,4 @@
     }
   }
 }
+

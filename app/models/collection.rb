@@ -137,6 +137,12 @@ class Collection < ActiveRecord::Base
     return {length: query.length, properties: properties}
   end
   
+  def thumbnail_url
+    if works.any?
+      works.first.thumbnail_url
+    end
+  end
+
   private
 
   def generate_key

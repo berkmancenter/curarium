@@ -22,6 +22,8 @@ Curarium::Application.routes.draw do
     member do
       put 'join' => :join
       put 'leave' => :leave
+
+      put 'addcol' => :addcol
     end
   end
 

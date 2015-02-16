@@ -1,5 +1,5 @@
 class CirclesController < ApplicationController
-  before_action :set_circle, only: [:show, :edit, :update, :join, :leave, :destroy]
+  before_action :set_circle, only: [:show, :addcol, :edit, :update, :join, :leave, :destroy]
 
   # GET /circles
   def index
@@ -8,6 +8,13 @@ class CirclesController < ApplicationController
 
   # GET /circles/1
   def show
+  end
+
+  def addcol
+    col = Collection.where( id: params[ :circle ][ :collections ] )
+    @circle.collections << col
+    @circle.save
+    redirect_to @circle
   end
 
   # GET /circles/new

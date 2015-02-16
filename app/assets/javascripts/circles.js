@@ -21,4 +21,9 @@ $( function( ) {
     } );
     return false;
   } );
+
+  $( '#circle-collections-popup .ccs-button' ).click( function( ) {
+    var colBtn = $( this );
+    colBtn.parent().find( 'input[name="circle[collections]"]' ).val( colBtn.data( 'collectionId' ) );
+  } );
 } );

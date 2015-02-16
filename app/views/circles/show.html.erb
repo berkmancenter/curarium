@@ -60,8 +60,11 @@
       <div id="circle-collections-popup" class="ccs-popup">
         <h1>Available Collections</h1>
 
-        <% Collection.where.not( id: @circle.collections.pluck( :id ) ).each { |c| %>
-          <button type="button" data-collection-id="<%= c.id %>" class="ccs-button"><%= c.name %></button>
+        <%= form_for( @circle, url: addcol_circle_path( @circle ), html: { method: :put } ) { |f| %>
+          <%= f.hidden_field :collections, value: nil %>
+          <% Collection.where.not( id: @circle.collections.pluck( :id ) ).each { |c| %>
+            <button type="submit" data-collection-id="<%= c.id %>" class="ccs-button"><%= c.name %></button>
+          <% } %>
         <% } %>
       </div>
       <% end %>

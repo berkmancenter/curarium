@@ -5,8 +5,8 @@
     <div class="stalking_menu_holder">
       <div class="stalking_menu">
         <%= link_to render( partial: 'shared/mini_icon', object: 'user', locals: { icon_title: 'Biography' } ), '#user-bio' %>
-        <%= link_to render( partial: 'shared/mini_icon', object: 'circles' ), '#user-circles' %>
-        <%= link_to render( partial: 'shared/mini_icon', object: 'trays' ), '#user-trays' %>
+        <%= link_to render( partial: 'shared/mini_icon', object: 'circles' ), '#user-circles' if @user == @current_user %>
+        <%= link_to render( partial: 'shared/mini_icon', object: 'trays' ), '#user-trays' if @user == @current_user %>
         <%= link_to render( partial: 'shared/mini_icon', object: 'collections' ), '#user-collections' %>
       </div>
     </div>
@@ -25,7 +25,7 @@
   <dt>About <%=@user.name %> </dt>
   <dd><%= @user.bio %></dd>
 </dl>
-<% if authenticated? && @user == @current_user %>
+<% if @user == @current_user %>
 
 <section class="user-circles">
   <h1 id="user-circles" class="collection-header">Circles</h1>

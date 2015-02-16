@@ -1,12 +1,20 @@
-<h1 class="collection-header">Tray: <%= @tray.name %></h1>
+<div class="left">
+  <div class="holder col-sidebar">
+    <div class="titlebar main"><%= @owner.class.to_s %></div>
+    <%= render partial: "#{@owner.class.to_s.downcase.pluralize}/thumbnail", object: @owner %>
+  </div>
+</div>
 
-<!-- BEGIN GALLERY -->	     
-<div class="GALLERY">
+<div class="expandable">
+  <h1 class="collection-header"><%= @owner.class.to_s %> Tray: <%= @tray.name %></h1>
 
-  <% @tray.tray_items.each { |tray_item| %>
-    <%= render partial: 'tray_items/commandnail', object: tray_item %>
+  <!-- BEGIN GALLERY -->	     
+  <div class="GALLERY">
 
-  <% } %>
+    <% @tray.tray_items.each { |tray_item| %>
+      <%= render partial: 'tray_items/commandnail', object: tray_item %>
 
-</div><!-- END GALLERY -->  
+    <% } %>
 
+  </div><!-- END GALLERY -->  
+</div>

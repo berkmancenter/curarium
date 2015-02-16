@@ -16,8 +16,26 @@ describe ( 'trays/show' ) {
       render
     }
 
+    describe ( 'left bar' ) {
+      it {
+        should have_css '.left'
+      }
+
+      it {
+        should have_css '.left .holder.col-sidebar'
+      }
+
+      it {
+        should have_css '.col-sidebar .titlebar.main', text: 'User'
+      }
+
+      it {
+        should have_css '.col-sidebar .thumbnail'
+      }
+    }
+
     it {
-      should have_css 'h1.collection-header', text: "Tray: #{tray.name}"
+      should have_css 'h1.collection-header', text: "User Tray: #{tray.name}"
     }
 
     it {
@@ -25,7 +43,8 @@ describe ( 'trays/show' ) {
     }
 
     it ( 'should have tray items and add record button' ) {
-      should have_css '.gallery_item', count: tray.tray_items.count
+      # one extra for user/circle thumbnail
+      should have_css '.gallery_item', count: tray.tray_items.count + 1
     }
 
     it ( 'should have tray item commandnail' ) {

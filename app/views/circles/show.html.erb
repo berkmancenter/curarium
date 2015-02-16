@@ -46,6 +46,18 @@
 
     <%= link_to raw( '<h2>Tray Manager</h2>' ), circle_trays_path( @circle ) %>
   </section>
+
+  <% if @circle.users.include? @current_user %>
+  <section class="circle-collections">
+    <h1 class="collection-header">Collections</h1>
+
+    <div class="GALLERY">
+      <%= render partial: 'collections/thumbnail', collection: @circle.collections %>
+
+      <%= render( partial: 'shared/newnail', object: Collection, locals: { verb: :add } ) if @circle.admin == @current_user %>
+    </div>
+  </section>
+  <% end %>
 </div>
 
 <div class="right">

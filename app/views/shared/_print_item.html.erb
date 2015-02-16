@@ -21,7 +21,7 @@
     </div>
     <%= image_tag "spotlight_tail.png", alt: '' %>
     <div class='name'>
-      <b><%= User.find(item.user_id).name %></b> <i>on <%= item.created_at.strftime("%d %b %y") %></i>
+      <b><%= User.find(item.user_id).name if item.user.present? %></b> <i>on <%= item.created_at.strftime("%d %b %y") %></i>
     </div>
   </div>
   </a>

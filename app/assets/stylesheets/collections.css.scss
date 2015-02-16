@@ -1,0 +1,32 @@
+@import "colors";
+@import "fonts";
+
+.collection-thumbnail {
+  border: solid 1px $cred;
+  position: relative;
+
+  img {
+    height: 100%;
+    width: 100%;
+  }
+
+  .title {
+    background-color: $cred;
+    color: $white;
+    padding: 0 .5em .25em .5em;
+    position: absolute;
+    right: 0;
+    top: 0;
+  }
+
+  &:hover {
+    outline: solid 2px $cred;
+
+    .title {
+      background-color: $white;
+      color: $cred;
+      font-weight: bold;
+      outline: solid 2px $cred;
+    }
+  }
+}

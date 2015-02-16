@@ -46,20 +46,6 @@ describe ( 'circles/show' ) {
     }
 
     context ( 'with non-admin user' ) {
-      context ( 'with circle already joined' ) {
-        before {
-          session[ :browserid_email ] = user_two.email
-          assign( :current_user, user_two )
-
-          assign( :circle, c )
-          render
-        }
-
-        it {
-          should have_css '.stalking_menu form a.leave-circle', text: 'Leave Circle'
-        }
-      }
-
       context ( 'with circle not joined' ) {
         before {
           session[ :browserid_email ] = user.email
@@ -71,6 +57,20 @@ describe ( 'circles/show' ) {
 
         it {
           should have_css '.stalking_menu form a.join-circle', text: 'Join Circle'
+        }
+      }
+
+      context ( 'with circle already joined' ) {
+        before {
+          session[ :browserid_email ] = user_two.email
+          assign( :current_user, user_two )
+
+          assign( :circle, c )
+          render
+        }
+
+        it {
+          should have_css '.stalking_menu form a.leave-circle', text: 'Leave Circle'
         }
       }
     }
@@ -145,6 +145,62 @@ describe ( 'circles/show' ) {
 
       it {
         should have_css %Q|a[href*="#{circle_trays_path c}"]|, text: 'Tray Manager'
+      }
+
+      it {
+        should_not have_css 'section.circle-collections'
+      }
+    }
+
+    context ( 'with non-admin user' ) {
+      context ( 'with circle not joined' ) {
+        before {
+          session[ :browserid_email ] = user.email
+          assign( :current_user, user )
+
+          assign( :circle, c_two )
+          render
+        }
+
+        it {
+          should_not have_css 'section.circle-collections'
+        }
+      }
+
+      context ( 'with circle already joined' ) {
+        before {
+          session[ :browserid_email ] = user_two.email
+          assign( :current_user, user_two )
+
+          assign( :circle, c )
+          render
+        }
+
+        it {
+          should have_css 'section.circle-collections'
+        }
+
+        it {
+          should have_css '.circle-collections .GALLERY'
+        }
+
+        it {
+          should have_css '.circle-collections .GALLERY .gallery_item.thumbnail.collection-thumbnail'
+        }
+      }
+    }
+
+    context ( 'with admin user' ) {
+      before {
+        session[ :browserid_email ] = user.email
+        assign( :current_user, user )
+
+        assign( :circle, c )
+        render
+      }
+
+      it {
+        should have_css 'section.circle-collections'
       }
     }
   }

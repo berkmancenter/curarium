@@ -5,6 +5,9 @@ class Circle < ActiveRecord::Base
 
   has_many :trays, as: :owner
 
+  has_many :circle_collections
+  has_many :collections, through: :circle_collections
+
   validates :title, presence: true, uniqueness: true
   validates :description, presence: true
 

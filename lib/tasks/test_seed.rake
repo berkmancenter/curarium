@@ -70,6 +70,7 @@ def seed
   test_circle = FactoryGirl.create :test_circle
   test_circle.admin = test_user
   test_circle.users << [ test_user, user_two ]
+  test_circle.collections << test_col
   test_circle.save
 
   circle_two = FactoryGirl.create :circle_two

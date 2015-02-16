@@ -3,6 +3,9 @@ class Collection < ActiveRecord::Base
 
   has_many :works, dependent: :destroy
   has_many :spotlights, through: :highlights
+
+  has_many :circle_collections
+  has_many :circles, through: :circle_collections
   
   validates :name, presence: true, uniqueness: true
   validates :description, presence: true

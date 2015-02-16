@@ -26,6 +26,16 @@ describe ( Circle ) {
       }
     }
 
+    describe ( 'collections' ) {
+      it {
+        should respond_to :collections
+      }
+
+      it {
+        c.collections.first.name.should eq( 'test_col' )
+      }
+    }
+
     describe ( 'thumbnail' ) {
       it {
         should respond_to :thumbnail_url

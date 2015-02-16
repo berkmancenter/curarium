@@ -134,6 +134,8 @@ FactoryGirl.define do
       description 'A test circle for testing'
       #admin test_user
       #users [test_user, user_two]
+      #trays [circle_tray]
+      #collections [test_col]
     end
 
     factory :circle_two do

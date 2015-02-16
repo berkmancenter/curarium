@@ -65,6 +65,11 @@
 
       $( '#vis' ).trigger('change')
 
+
+      $( '#property' ).change( function() {
+        $( '#selprop' ).val( $( this ).val( ) );
+      } );
+
       $( '.add-prop' ).click( function() {
         var sel = $( '#selprop' ).val();
         var val = $( '#propval' ).val();

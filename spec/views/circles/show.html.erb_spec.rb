@@ -187,6 +187,10 @@ describe ( 'circles/show' ) {
         it {
           should have_css '.circle-collections .GALLERY .gallery_item.thumbnail.collection-thumbnail'
         }
+
+        it {
+          should_not have_css '.circle-collections .createnew'
+        }
       }
     }
 
@@ -201,6 +205,11 @@ describe ( 'circles/show' ) {
 
       it {
         should have_css 'section.circle-collections'
+      }
+
+      it {
+        should have_css '.circle-collections .createnew'
+        should have_css '.createnew a', text: 'add collection'
       }
     }
   }

@@ -1,5 +1,6 @@
+<% verb = verb || :new %>
 <div class="gallery_item">
   <div class="createnew">
-    <%= link_to "new #{newnail.to_s.downcase}", "#{new_polymorphic_path newnail}" %>
+    <%= link_to "#{verb.to_s} #{newnail.to_s.downcase}", "#{new_polymorphic_path newnail}" %>
   </div>
 </div>

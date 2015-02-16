@@ -53,6 +53,8 @@
 
     <div class="GALLERY">
       <%= render partial: 'collections/thumbnail', collection: @circle.collections %>
+
+      <%= render( partial: 'shared/newnail', object: Collection, locals: { verb: :add } ) if @circle.admin == @current_user %>
     </div>
   </section>
   <% end %>

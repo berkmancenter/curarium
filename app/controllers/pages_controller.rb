@@ -5,4 +5,7 @@ class PagesController < ApplicationController
   def importhelp
   end
   
+  def terms
+  end
+  
 end

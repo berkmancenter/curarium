@@ -91,6 +91,8 @@ dd {
   }
 
   .GALLERY {
+    margin-bottom: -225px;
+
     .gallery_item {
       width: 200px;
       height: 200px;
@@ -112,6 +114,7 @@ dd {
       height: 420px;
     }
   }
+  margin-bottom: -256px;
 }
 
 /* GLOBAL MISC */
@@ -435,7 +438,7 @@ dd {
 
 /* ABOUT  */
 .about_content {
-  padding: 20px 0 300px 0;
+  padding: 20px 0 100px 0;
 }
 .about_content .left {
 }
@@ -603,6 +606,8 @@ dd {
 /* FOOTER */
 .FOOTER {
   width: 100%;
+  background-color: #FFFFFF;
+  z-index: 13;
 }
 
 .FOOTER div {

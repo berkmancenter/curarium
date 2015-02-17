@@ -20,4 +20,5 @@
 //= require simple.js
 //= require wysihtml5-0.3.0.min
 //= require browserid
-//= require_tree .
+//= require_tree 
+//= require autocomplete-rails

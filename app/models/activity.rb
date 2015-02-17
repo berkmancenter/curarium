@@ -1,5 +1,5 @@
 class Activity < ActiveRecord::Base
-  belongs_to :activitiable
+  belongs_to :activitiable, polymorphic: true
 
   belongs_to :circle
   belongs_to :user

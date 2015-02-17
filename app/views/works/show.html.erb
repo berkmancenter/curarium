@@ -101,14 +101,13 @@
                   </p>
                 <% end %>    
               </div>
-            <% else %>
-            <%= login_link 'Log in' %>
-            <% end %>
-
             <div id='work_annotations'>
               <%= render partial: 'annotations/thumbnail', collection: @work.annotations %>
             </div>
 
+            <% else %>
+            <%= login_link 'Log in' %>
+          <% end %>
           </div> 
         </div>
         </td>

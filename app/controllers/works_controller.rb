@@ -2,11 +2,12 @@ require 'open-uri'
 require 'zlib'
 
 class WorksController < ApplicationController
+  autocomplete :works, :title, :full=> true
   before_action :set_work, only: [:show, :thumb, :edit, :update, :destroy]
-
   # GET /works
   # GET /works.json
   def index
+
     where_clause = ''
 
     if params[ :collection_id ].present?

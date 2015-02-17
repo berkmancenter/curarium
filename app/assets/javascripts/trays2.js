@@ -78,6 +78,29 @@ $( function() {
     return false;
   } );
 
+  $( '.works.show' )
+  .on( 'click', '.annotation-commands .tray', function( ) {
+    var annotationImage = $( this ).closest( '.annotation-image' );
+
+    $.ajax( {
+      url: '/trays',
+      data: {
+        popup_action: 'add',
+        popup_action_item_type: annotationImage.data( 'actionItemType' ),
+        popup_action_item_id: annotationImage.data( 'actionItemId' )
+      }
+    } )
+    .done( function( popupHtml ) {
+      $.magnificPopup.open( {
+        items: {
+          src: popupHtml,
+          type: 'inline'
+        }
+      } );
+    } );
+    return false;
+  } );
+
   $( '.works.index, .works.show' )
   .on( 'click', '.tray-popup-button', function( ) {
     var popup = $( this ).closest( '.tray-popup' );

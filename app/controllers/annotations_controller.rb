@@ -17,6 +17,10 @@ class AnnotationsController < ApplicationController
   end
 
   def show
+    @popup_action = 'add'
+    @popup_action_type = 'Annotation'
+    @popup_action_item_id = @annotation.id
+
     @xhr = request.xhr?
     render template: 'annotations/show', layout: !@xhr
   end

@@ -1,5 +1,5 @@
 <ul>
-  <% tray_preview.images.each { |image| %>
-    <li><%= image_tag image.thumbnail_url, alt: '' %></li>
+  <% tray_preview.tray_items.each { |item| %>
+    <li><%= image_tag item.thumbnail_url, alt: '' %></li>
   <% } %>
 </ul>

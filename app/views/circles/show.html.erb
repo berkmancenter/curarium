@@ -40,11 +40,11 @@
   <p><%= @circle.description %></p>
 
   <section class="circle-trays">
-    <h1 class="collection-header">Trays</h1>
+    <h1 class="collection-header">Recent Trays</h1>
 
     <%= render partial: 'trays/tray_preview_gallery', object: @circle.trays.limit(2) %>
 
-    <%= link_to raw( '<h2>Tray Manager</h2>' ), circle_trays_path( @circle ) %>
+    <%= link_to raw( '<h2>Tray Manager</h2>' ), circle_trays_path( @circle ), { title: 'Manage all trays' } %>
   </section>
 
   <% if @circle.users.include? @current_user %>

@@ -11,11 +11,23 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150216221010) do
+ActiveRecord::Schema.define(version: 20150217205634) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
   enable_extension "hstore"
+
+  create_table "activities", force: true do |t|
+    t.string   "activity_type"
+    t.string   "body"
+    t.integer  "activitiable_id"
+    t.string   "activitiable_type"
+    t.integer  "creator_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "activities", ["activitiable_id", "activitiable_type"], name: "index_activities_on_activitiable_id_and_activitiable_type", using: :btree
 
   create_table "amendments", force: true do |t|
     t.hstore   "previous"

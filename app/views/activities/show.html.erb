@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Creator:</strong>
+  <%= @activity.creator.name unless @activity.creator.nil? %>
+</p>
+
+<p>
+  <strong>Activity type:</strong>
+  <%= @activity.activity_type %>
+</p>
+
+<p>
+  <strong>Body:</strong>
+  <%= @activity.body %>
+</p>
+
+<%= link_to 'Edit', edit_activity_path(@activity) %> |
+<%= link_to 'Back', activities_path %>

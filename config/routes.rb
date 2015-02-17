@@ -14,10 +14,12 @@ Curarium::Application.routes.draw do
 
   resources :users do
     resources :trays
+    resources :activities
   end
 
   resources :circles do
     resources :trays
+    resources :activities
 
     member do
       put 'join' => :join
@@ -26,6 +28,8 @@ Curarium::Application.routes.draw do
       put 'addcol' => :addcol
     end
   end
+
+  resources :activities
 
   resources :sections do
     resources :trays

@@ -1,2 +1,2 @@
-<span class="activity"><span class="activity-type"><%= activity.activity_type %></span><span class="activity-body"><%= activity.body %></span></span>
+<span class="activity"><%= render partial: 'shared/mini_icon', object: activity.activity_type, locals: { icon_title: nil } %><span class="activity-date"><%= activity.created_at.strftime '%b %d' %></span><span class="activity-body"><%= activity.body %></span></span>
 

@@ -1,3 +1,19 @@
-// Place all the styles related to the Activities controller here.
-// They will automatically be included in application.css.
-// You can use Sass (SCSS) here: http://sass-lang.com/
+span.activity {
+  display: block;
+  margin-bottom: 1em;
+
+  .mini-icon {
+    display: inline;
+    margin-right: 1.5em;
+  }
+
+  .activity-date {
+    font-weight: bold;
+    vertical-align: top;
+  }
+
+  .activity-body {
+    display: block;
+    margin-left: 3em;
+  }
+}

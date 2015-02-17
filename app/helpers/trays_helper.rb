@@ -27,7 +27,7 @@ module TraysHelper
   end
   
   def item_included_class( tray, item_type, item_id )
-    if item_type == 'Image' && tray.has_image_id?( item_id )
+    if ( item_type == 'Image' && tray.has_image_id?( item_id ) ) || ( item_type == 'Annotation' && tray.has_annotation_id?( item_id ) )
       'item-in'
     else
       'item-out'

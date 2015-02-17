@@ -19,18 +19,29 @@ class TrayItemsController < ApplicationController
   def create
     tip = tray_item_params
 
+    @popup_action_type = params[ :type ]
+
     @tray = Tray.find tip[ :tray_id ]
-    if @tray.has_image_id?( tip[ :image_id ] )
-      @tray.tray_items.where( image_id: tip[ :image_id ] ).delete_all
-    else
-      TrayItem.create tray: @tray, image: Image.find( tip[ :image_id ] )
+
+    if @popup_action_type == 'Image'
+      @popup_action_item_id = tip[ :image_id ]
+      if @tray.has_image_id?( tip[ :image_id ] )
+        @tray.tray_items.where( image_id: tip[ :image_id ] ).delete_all
+      else
+        TrayItem.create tray: @tray, image: Image.find( tip[ :image_id ] )
+      end
+    elsif @popup_action_type == 'Annotation'
+      @popup_action_item_id = tip[ :annotation_id ]
+      if @tray.has_annotation_id?( tip[ :annotation_id ] )
+        @tray.tray_items.where( annotation_id: tip[ :annotation_id ] ).delete_all
+      else
+        TrayItem.create tray: @tray, annotation: Annotation.find( tip[ :annotation_id ] )
+      end
     end
 
     @owner = @current_user
     @trays = @owner.all_trays unless @owner.nil?
     @popup_action = 'add'
-    @popup_action_type = 'Image'
-    @popup_action_item_id = tip[ :image_id ]
     render template: 'trays/popup', layout: false
   end
   

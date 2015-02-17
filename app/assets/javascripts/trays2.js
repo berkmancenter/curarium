@@ -104,13 +104,20 @@ $( function() {
   $( '.works.index, .works.show' )
   .on( 'click', '.tray-popup-button', function( ) {
     var popup = $( this ).closest( '.tray-popup' );
+    var actionItemType = popup.data( 'actionItemType' );
+
+    var data = {
+      'type': actionItemType,
+      'tray_item[tray_id]': $( this ).data( 'trayId' )
+    };
+
+    var actionItemParam = 'tray_item[' + actionItemType.toLowerCase() + '_id]';
+    data[ actionItemParam ] = popup.data( 'actionItemId' );
+
     $.ajax( {
       type: 'POST',
       url: '/tray_items',
-      data: {
-        'tray_item[tray_id]': $( this ).data( 'trayId' ),
-        'tray_item[image_id]': popup.data( 'actionItemId' )
-      }
+      data: data
     } )
     .done( function( popupHtml ) {
       if ( $( '.mfp-content' ).length ) {

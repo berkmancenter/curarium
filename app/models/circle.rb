@@ -11,6 +11,10 @@ class Circle < ActiveRecord::Base
   validates :title, presence: true, uniqueness: true
   validates :description, presence: true
 
+  scope :for_user, ->( user ) {
+    where( "admin_id = ? OR NOT ( privacy = 'private' )", user.id )
+  }
+
   def thumbnail_url
     url = '/missing_thumb.png'
 

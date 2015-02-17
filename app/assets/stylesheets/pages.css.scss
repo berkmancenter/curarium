@@ -12,6 +12,13 @@
 	font-size: 150%;
 }
 
+.pages.terms {
+  .FOOTER {
+    bottom: auto;
+    position: static;
+  }
+}
+
 .inst_list {
 	width: 1100;
 	height: 280;
@@ -71,3 +78,5 @@ div[id^=image]:target .expand {
 }
  
 div#image-1:target, div#image-2:target, div#image-3:target { left: 200px; }
+
+

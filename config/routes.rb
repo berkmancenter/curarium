@@ -22,6 +22,8 @@ Curarium::Application.routes.draw do
     member do
       put 'join' => :join
       put 'leave' => :leave
+
+      put 'addcol' => :addcol
     end
   end
 
@@ -66,6 +68,7 @@ Curarium::Application.routes.draw do
   
   get "/help" => "pages#help"
   get "/importhelp" => "pages#importhelp"
+  get "/terms" => "pages#terms"
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

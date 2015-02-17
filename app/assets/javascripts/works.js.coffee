@@ -340,6 +340,19 @@ window.work.display = (image_url)->
             rect.on('mouseout', () ->
               annotation_hover_out( this.getAttr('id') )
             )
+
+            rect.on( 'mousedown', () ->
+              if stage.getAttr('draggable')
+                thumbnail = $( '#' + this.getAttr( 'id' ) )
+
+                $.get( thumbnail.attr( 'href' ), ( popupHtml ) ->
+                  $.magnificPopup.open(
+                    items:
+                      src: popupHtml
+                      type: 'inline'
+                  )
+                )
+            )
             
             #make the canvas annotations turn green when mouse hovers over one of their tags.
             $('.parsed_value').mouseover () ->

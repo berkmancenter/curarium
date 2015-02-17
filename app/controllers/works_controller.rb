@@ -91,7 +91,12 @@ class WorksController < ApplicationController
         ) as subquery
         group by values]
 
-        @works = ActiveRecord::Base.connection.execute(sql)
+        all = ActiveRecord::Base.connection.execute(sql)
+        @works = []
+        all.each { |w|
+          @works << w if w[ 'id' ].to_i > 1
+        }
+        @works << { parsed: 'Other', id: all.count - @works.count }
       end
     elsif  ['thumbnails','list'].include? params[:vis]
       # Array of views that require paging

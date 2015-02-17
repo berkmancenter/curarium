@@ -78,16 +78,46 @@ $( function() {
     return false;
   } );
 
+  $( '.works.show' )
+  .on( 'click', '.annotation-commands .tray', function( ) {
+    var annotationImage = $( this ).closest( '.annotation-image' );
+
+    $.ajax( {
+      url: '/trays',
+      data: {
+        popup_action: 'add',
+        popup_action_item_type: annotationImage.data( 'actionItemType' ),
+        popup_action_item_id: annotationImage.data( 'actionItemId' )
+      }
+    } )
+    .done( function( popupHtml ) {
+      $.magnificPopup.open( {
+        items: {
+          src: popupHtml,
+          type: 'inline'
+        }
+      } );
+    } );
+    return false;
+  } );
+
   $( '.works.index, .works.show' )
   .on( 'click', '.tray-popup-button', function( ) {
     var popup = $( this ).closest( '.tray-popup' );
+    var actionItemType = popup.data( 'actionItemType' );
+
+    var data = {
+      'type': actionItemType,
+      'tray_item[tray_id]': $( this ).data( 'trayId' )
+    };
+
+    var actionItemParam = 'tray_item[' + actionItemType.toLowerCase() + '_id]';
+    data[ actionItemParam ] = popup.data( 'actionItemId' );
+
     $.ajax( {
       type: 'POST',
       url: '/tray_items',
-      data: {
-        'tray_item[tray_id]': $( this ).data( 'trayId' ),
-        'tray_item[image_id]': popup.data( 'actionItemId' )
-      }
+      data: data
     } )
     .done( function( popupHtml ) {
       if ( $( '.mfp-content' ).length ) {

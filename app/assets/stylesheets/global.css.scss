@@ -984,8 +984,10 @@ dd {
   left: 0;
 }
 .credit {
+  color: $cred;
   position: absolute;
   bottom: 20px;
+  font-weight: bold;
   right: 0;
   padding: 2px 5px;
 }
@@ -994,17 +996,6 @@ dd {
   bottom: 20px;
   left: 0;
   padding: 2px 5px;
-}
-.credit a,.return a{
-  color: #d2232a;
-  text-shadow:
-  -1px -1px 0 #fff,
-  1px -1px 0 #fff,
-  -1px 1px 0 #fff,
-  1px 1px 0 #fff;  
-}
-.credit a:hover,.return a:hover{
-  font-weight: bold;
 }
 
 /* WORKS PAGE*/

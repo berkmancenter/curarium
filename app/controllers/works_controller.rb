@@ -8,18 +8,22 @@ class WorksController < ApplicationController
   # GET /works.json
   def index
 
+    exclude_props = [ 'unique_identifier', 'image', 'thumbnail' ]
+
+    @properties = []
     where_clause = ''
 
     if params[ :collection_id ].present?
       where_clause << ActiveRecord::Base.send( :sanitize_sql_array, [ ' collection_id = %s', params[:collection_id] ] )
       @collection = Collection.find(params[:collection_id])
-      @properties = @collection.configuration.keys
+      @collection.configuration.keys.each do |p|
+        @properties << p unless exclude_props.include? p
+      end
     else 
       coll = Collection.all
-      @properties = []
       coll.each do |c|
         c.configuration.keys.each do |p|
-          @properties << p unless @properties.include? p
+          @properties << p unless ( exclude_props.include?( p ) || @properties.include?( p ) )
         end
       end
     end
@@ -93,10 +97,20 @@ class WorksController < ApplicationController
 
         all = ActiveRecord::Base.connection.execute(sql)
         @works = []
+        other_works = []
         all.each { |w|
-          @works << w if w[ 'id' ].to_i > 1
+          if w[ 'id' ].to_i > 1
+            @works << w
+          else
+            other_works << w
+          end
         }
-        @works << { parsed: 'Other', id: all.count - @works.count }
+        
+        if other_works.count < 10 # add them anyway
+          @works += other_works
+        else
+          @works << { parsed: 'Other', id: other_works.count }
+        end
       end
     elsif  ['thumbnails','list'].include? params[:vis]
       # Array of views that require paging

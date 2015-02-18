@@ -7,7 +7,7 @@ class WorksController < ApplicationController
   # GET /works
   # GET /works.json
   def index
-
+    vis = params[ :vis ] || 'objectmap'
     exclude_props = [ 'unique_identifier', 'image', 'thumbnail' ]
 
     @properties = []
@@ -67,7 +67,7 @@ class WorksController < ApplicationController
     # may want num in a few cases (this should be a fast query)
     @num = Work.where( where_clause ).count( :id )
 
-    if params[ :property ].present? && params[ :vis ] == 'treemap'
+    if vis == 'treemap'
       if @num == 1
         @work = Work.where( where_clause ).first
         redirect_to @work
@@ -112,11 +112,14 @@ class WorksController < ApplicationController
           @works << { parsed: 'Other', id: other_works.count }
         end
       end
-    elsif  ['thumbnails','list'].include? params[:vis]
+    elsif ['thumbnails','list'].include? vis
       # Array of views that require paging
       @perpage = (params[:per_page].to_i<=0) ? 200 : params[:per_page].to_i
       @page = (params[:page].to_i<=0 || params[:page].to_i > (@num.to_f/@perpage).ceil) ? 1 : params[:page].to_i
       @works = Work.where(where_clause).limit(@perpage).offset((@page-1)*@perpage)
+    elsif vis == 'objectmap'
+      # objectmap should only get thumbnails
+      @works = Work.with_thumb.where(where_clause)
     else
       @works = Work.where(where_clause)
     end

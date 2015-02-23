@@ -1,5 +1,5 @@
 class CirclesController < ApplicationController
-  before_action :set_circle, only: [:show, :edit, :update, :join, :leave, :destroy]
+  before_action :set_circle, only: [:show, :addcol, :edit, :update, :join, :leave, :destroy]
 
   # GET /circles
   def index
@@ -8,6 +8,14 @@ class CirclesController < ApplicationController
 
   # GET /circles/1
   def show
+    redirect_to circles_path unless ( @circle.privacy == 'public' || (@circle.privacy == 'community' && authenticated?) || (@circle.privacy == 'private' && @circle.admin == @current_user) )
+  end
+
+  def addcol
+    col = Collection.where( id: params[ :circle ][ :collections ] )
+    @circle.collections << col
+    @circle.save
+    redirect_to @circle
   end
 
   # GET /circles/new
@@ -71,6 +79,6 @@ class CirclesController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def circle_params
-      params.require(:circle).permit(:title, :description, :users_id, :collections_id)
+      params.require(:circle).permit(:title, :description, :privacy, :users_id, :collections_id)
     end
 end

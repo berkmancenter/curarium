@@ -29,7 +29,7 @@
 </div>
 
 <div class="expandable">
-  <h1 class="collection-header"><%= @circle.title %></h1>
+  <h1 class="collection-header"><%= @circle.title %> &ndash; <%= @circle.privacy.camelcase %></h1>
 
   <dl>
     <dt>Created by:</dt> <dd><%= @circle.admin.name %></dd>
@@ -40,11 +40,11 @@
   <p><%= @circle.description %></p>
 
   <section class="circle-trays">
-    <h1 class="collection-header">Trays</h1>
+    <h1 class="collection-header">Recent Trays</h1>
 
     <%= render partial: 'trays/tray_preview_gallery', object: @circle.trays.limit(2) %>
 
-    <%= link_to raw( '<h2>Tray Manager</h2>' ), circle_trays_path( @circle ) %>
+    <%= link_to raw( '<h2>Tray Manager</h2>' ), circle_trays_path( @circle ), { title: 'Manage all trays' } %>
   </section>
 
   <% if @circle.users.include? @current_user %>
@@ -54,13 +54,42 @@
     <div class="GALLERY">
       <%= render partial: 'collections/thumbnail', collection: @circle.collections %>
 
-      <%= render( partial: 'shared/newnail', object: Collection, locals: { verb: :add } ) if @circle.admin == @current_user %>
+      <% if @circle.admin == @current_user %>
+      <%= render( partial: 'shared/newnail', object: Collection, locals: { verb: :add } ) %>
+
+      <div id="circle-collections-popup" class="ccs-popup">
+        <h1>Available Collections</h1>
+
+        <%= form_for( @circle, url: addcol_circle_path( @circle ), html: { method: :put } ) { |f| %>
+          <%= f.hidden_field :collections, value: nil %>
+          <% Collection.where.not( id: @circle.collections.pluck( :id ) ).each { |c| %>
+            <button type="submit" data-collection-id="<%= c.id %>" class="ccs-button"><%= c.name %></button>
+          <% } %>
+        <% } %>
+      </div>
+      <% end %>
     </div>
   </section>
   <% end %>
 </div>
 
 <div class="right">
+  <div class="holder activity">
+    <h1 class="titlebar">Activity</h1>
+
+    <%= render @circle.activities %>
+
+    <% if authenticated? %>
+    <%= form_for [ @circle, Activity.new ], url: circle_activities_path( @circle ), method: :post do |f| %>
+      <%= f.hidden_field :activitiable_id, value: @circle.id %>
+      <%= f.hidden_field :activitiable_type, value: 'Circle' %>
+      <%= f.hidden_field :activity_type, value: 'message' %>
+      <%= f.text_field :body, placeholder: 'Post a message' %>
+      <%= f.button 'create', type: 'submit', name: nil %>
+    <% end %>
+    <% end %>
+  </div>
+
   <div class="holder members">
     <h1 class="titlebar">Members</h1>
 

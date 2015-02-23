@@ -75,7 +75,9 @@
               <h4 class='window_header'>ANNOTATE IMAGE</h4>
               <div class='window_body'>
                 <div id='preview_window'></div>
-                <%= form_for([@work, Annotation.new]) do |f| %>
+                    <input id="hide_anno" name="HideAnno" type="checkbox" value="Hide Annotations"><label for="HideAnno" id="hide-an">Show Annotations</label>
+                    <%= link_to "Go to annotations index", work_path + '/annotations', :class => :annoindex %>
+                    <%= form_for([@work, Annotation.new]) do |f| %>
                   <div>
                     <%= f.label :title%><br>
                     <%= f.text_field :title%>
@@ -99,12 +101,13 @@
                   </p>
                 <% end %>    
               </div>
-            <% end %>
-
             <div id='work_annotations'>
               <%= render partial: 'annotations/thumbnail', collection: @work.annotations %>
             </div>
 
+            <% else %>
+            <%= login_link 'Log in' %>
+          <% end %>
           </div> 
         </div>
         </td>
@@ -113,6 +116,6 @@
 </div><!-- END SUB MENU -->  
 
 <!-- BEGIN COLLECTION CREDIT -->
-<div class="credit"><a href="">Collection provided by <%= @work.collection.source %></a></div>
+<div class="credit">Collection provided by <%= @work.collection.source %></div>
 <!-- END COLLECTION CREDIT -->
 

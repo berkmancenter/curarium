@@ -1,5 +1,5 @@
 <% if @xhr %>
-<section class="annotation-xhr" data-action-item-type="<%= @popup_action_type %>" data-action-item-id="<%= @popup_action_item_id %>">
+<section class="annotation-xhr annotation-image" data-action-item-type="<%= @popup_action_type %>" data-action-item-id="<%= @popup_action_item_id %>">
   <ul class="popup-commands">
     <li>
       <%= link_to render( partial: 'shared/mini_icon', object: 'close' ), '#', class: 'close' %>
@@ -31,6 +31,12 @@
 </div>
 
 <div class="expandable">
+  <ul class="annotation-commands">
+    <% if authenticated? %>
+      <li><%= link_to render( partial: 'shared/mini_icon', object: 'tray' ), '#', class: 'tray' %></li>
+    <% end %>
+  </ul>
+
   <h1 class="collection-header"><%= @annotation.title %></h1>
 
   <dl>

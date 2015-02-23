@@ -86,10 +86,6 @@ dd {
   position: relative;
   border: 0px solid black;
 
-  * {
-
-  }
-
   .GALLERY {
     .gallery_item {
       width: 200px;
@@ -112,6 +108,17 @@ dd {
       height: 420px;
     }
   }
+
+}
+
+.home.index {
+  .GLOBAL_HOLDER {
+    margin-bottom: -256px;
+
+    .GALLERY {
+      margin-bottom: -245px;
+    }
+  }
 }
 
 /* GLOBAL MISC */
@@ -119,7 +126,7 @@ dd {
   display:table;
   border-spacing:0;
   width:100%;
-  padding: 0 0 48px 0;
+  padding: 0 0 68px 0;
 }
 
 .createnew {
@@ -302,6 +309,10 @@ dd {
   }
 }
 
+#hide-an{
+  padding-right: 80px;
+}
+
 /* INFO BAR  */
 .INFO_BAR{
   min-height: 200px;
@@ -435,7 +446,7 @@ dd {
 
 /* ABOUT  */
 .about_content {
-  padding: 20px 0 300px 0;
+  padding: 20px 0 100px 0;
 }
 .about_content .left {
 }
@@ -603,12 +614,14 @@ dd {
 /* FOOTER */
 .FOOTER {
   width: 100%;
+  background-color: #FFFFFF;
+  z-index: 13;
 }
 
 .FOOTER div {
   border-top: 1px solid #d2232a;
   padding: 10px 0 0 0;
-  margin: 10px;
+  margin: 15px;
 }
 
 /*CURARIUM INDEX*/
@@ -971,8 +984,10 @@ dd {
   left: 0;
 }
 .credit {
+  color: $cred;
   position: absolute;
   bottom: 20px;
+  font-weight: bold;
   right: 0;
   padding: 2px 5px;
 }
@@ -981,17 +996,6 @@ dd {
   bottom: 20px;
   left: 0;
   padding: 2px 5px;
-}
-.credit a,.return a{
-  color: #d2232a;
-  text-shadow:
-  -1px -1px 0 #fff,
-  1px -1px 0 #fff,
-  -1px 1px 0 #fff,
-  1px 1px 0 #fff;  
-}
-.credit a:hover,.return a:hover{
-  font-weight: bold;
 }
 
 /* WORKS PAGE*/
@@ -1194,6 +1198,14 @@ dd {
   @include rounded-corners(0px);
 }
 
+#annoindex {
+  border: 0;
+  position: absolute;
+  top: 30;
+  width: 100%;
+  @include rounded-corners(0px);
+}
+
 .bubble_menu .button img{
   position: absolute;
   right: 10px;
@@ -1333,7 +1345,8 @@ dd {
   background: white;
   border: 1px solid $cred;
   display: none;
-  overflow: auto;
+  max-height: 200px;
+  overflow: scroll;
   padding: 15px 15px 10px 10px;
   margin: 150px 50px 0 10px;
 }

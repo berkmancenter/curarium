@@ -8,8 +8,14 @@ class Circle < ActiveRecord::Base
   has_many :circle_collections
   has_many :collections, through: :circle_collections
 
+  has_many :activities, as: :activitiable
+
   validates :title, presence: true, uniqueness: true
   validates :description, presence: true
+
+  scope :for_user, ->( user ) {
+    where( "admin_id = ? OR NOT ( privacy = 'private' )", user.id )
+  }
 
   def thumbnail_url
     url = '/missing_thumb.png'

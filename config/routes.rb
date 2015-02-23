@@ -14,16 +14,22 @@ Curarium::Application.routes.draw do
 
   resources :users do
     resources :trays
+    resources :activities
   end
 
   resources :circles do
     resources :trays
+    resources :activities
 
     member do
       put 'join' => :join
       put 'leave' => :leave
+
+      put 'addcol' => :addcol
     end
   end
+
+  resources :activities
 
   resources :sections do
     resources :trays
@@ -49,10 +55,13 @@ Curarium::Application.routes.draw do
 
     resources :amendments
     resources :annotations
+
+    get :autocomplete_works_title
   end
 
   get 'works/:work_id/images/:index' => 'images#show', as: :work_image
-  
+ 
+
   resources :collections do
     post "ingest" => "collections#ingest", as: "ingest"
     get "add" => "collections#add", as: "add"
@@ -63,6 +72,7 @@ Curarium::Application.routes.draw do
   
   get "/help" => "pages#help"
   get "/importhelp" => "pages#importhelp"
+  get "/terms" => "pages#terms"
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

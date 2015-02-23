@@ -9,4 +9,8 @@ class Tray < ActiveRecord::Base
   def has_image_id?( id )
     tray_items.where( image_id: id ).count > 0
   end
+
+  def has_annotation_id?( id )
+    tray_items.where( annotation_id: id ).count > 0
+  end
 end

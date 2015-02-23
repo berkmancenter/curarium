@@ -1,4 +1,4 @@
-;( function ( $, undefined ) {
+( function ( $, undefined ) {
   var _defaults = {
   };
 
@@ -65,6 +65,11 @@
 
       $( '#vis' ).trigger('change')
 
+
+      $( '#property' ).change( function() {
+        $( '#selprop' ).val( $( this ).val( ) );
+      } );
+
       $( '.add-prop' ).click( function() {
         var sel = $( '#selprop' ).val();
         var val = $( '#propval' ).val();
@@ -74,6 +79,9 @@
           var value = sel+":"+val;
           props.append( $.visControls.propHtml( className, value, val ) );
           $( '#propval' ).val('');
+          $( "#propval" ).autocomplete({
+            source: _options
+          });
         }
       } );
 

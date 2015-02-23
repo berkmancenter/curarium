@@ -18,8 +18,8 @@
   }
 
   &:hover, &.hover {
-    outline: solid 2px $cred;
-
+    outline: solid 4px $cred;
+    display: block;
     .title {
       background-color: $white;
       color: $cred;
@@ -39,5 +39,18 @@
       float: right;
       list-style-type: none;
     }
+  }
+}
+
+.annotation-commands {
+  float: right;
+  list-style-type: none;
+
+  li {
+    border: 1px solid #D2232A;
+    padding: 3px 1px 0 0;
+    margin-right: 3px;
+    top: 10px;
+    display: inline;
   }
 }

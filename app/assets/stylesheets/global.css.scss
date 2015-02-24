@@ -616,13 +616,18 @@ dd {
   width: 100%;
   background-color: #FFFFFF;
   z-index: 13;
+
+  div {
+    border-top: 1px solid #d2232a;
+    padding: 10px 0 0 0;
+    margin: 15px;
+  }
+
+  .terms {
+    float: right;
+  }
 }
 
-.FOOTER div {
-  border-top: 1px solid #d2232a;
-  padding: 10px 0 0 0;
-  margin: 15px;
-}
 
 /*CURARIUM INDEX*/
 .INFO_BAR #hintbar_links > span {

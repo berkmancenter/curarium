@@ -79,6 +79,18 @@ describe ( 'annotations/show' ) {
       it {
         should have_css 'p', text: a.body
       }
+
+      context ( 'with owner' ) {
+        before {
+          session[ :browserid_email ] = user.email
+          assign( :current_user, user )
+          render
+        }
+
+        it {
+          should have_css '.annotation-commands'
+        }
+      }
     }
   }
 

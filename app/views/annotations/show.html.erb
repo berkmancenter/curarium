@@ -31,13 +31,14 @@
 </div>
 
 <div class="expandable">
+
+  <h1 class="collection-header"><%= @annotation.title %></h1>
+
   <ul class="annotation-commands">
     <% if authenticated? %>
       <li><%= link_to render( partial: 'shared/mini_icon', object: 'tray' ), '#', class: 'tray' %></li>
     <% end %>
   </ul>
-
-  <h1 class="collection-header"><%= @annotation.title %></h1>
 
   <dl>
     <dt>Created on:</dt> <dd><%= @annotation.created_at %></dd>

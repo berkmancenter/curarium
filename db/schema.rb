@@ -119,15 +119,6 @@ ActiveRecord::Schema.define(version: 20150217205634) do
   add_index "images", ["tray_item_id"], name: "index_images_on_tray_item_id", using: :btree
   add_index "images", ["work_id"], name: "index_images_on_work_id", using: :btree
 
-  create_table "json_files", force: true do |t|
-    t.string   "path"
-    t.integer  "collection_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "json_files", ["collection_id"], name: "index_json_files_on_collection_id", using: :btree
-
   create_table "messages", force: true do |t|
     t.string   "title"
     t.text     "body"
@@ -188,13 +179,6 @@ ActiveRecord::Schema.define(version: 20150217205634) do
     t.boolean  "super",      default: false
     t.string   "slug"
     t.text     "bio"
-  end
-
-  create_table "viz_caches", force: true do |t|
-    t.text     "query"
-    t.json     "data"
-    t.datetime "created_at"
-    t.datetime "updated_at"
   end
 
   create_table "works", force: true do |t|

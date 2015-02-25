@@ -76,6 +76,18 @@
 <div class="right">
   <div class="holder activity">
     <h1 class="titlebar">Activity</h1>
+
+    <%= render @circle.activities %>
+
+    <% if authenticated? %>
+    <%= form_for [ @circle, Activity.new ], url: circle_activities_path( @circle ), method: :post do |f| %>
+      <%= f.hidden_field :activitiable_id, value: @circle.id %>
+      <%= f.hidden_field :activitiable_type, value: 'Circle' %>
+      <%= f.hidden_field :activity_type, value: 'message' %>
+      <%= f.text_field :body, placeholder: 'Post a message' %>
+      <%= f.button 'create', type: 'submit', name: nil %>
+    <% end %>
+    <% end %>
   </div>
 
   <div class="holder members">

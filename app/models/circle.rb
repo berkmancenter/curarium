@@ -8,6 +8,8 @@ class Circle < ActiveRecord::Base
   has_many :circle_collections
   has_many :collections, through: :circle_collections
 
+  has_many :activities, as: :activitiable
+
   validates :title, presence: true, uniqueness: true
   validates :description, presence: true
 

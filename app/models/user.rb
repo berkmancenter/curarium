@@ -14,6 +14,8 @@ class User < ActiveRecord::Base
   has_many :spotlights
   has_many :amendments
 
+  has_many :activities, as: :activitiable
+
   # all trays in which user participates (including circles)
   def all_trays
     ctids = circles.map { |c| c.trays.pluck :id if c.trays.any? }.compact.flatten

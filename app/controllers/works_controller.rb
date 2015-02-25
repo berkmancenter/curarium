@@ -159,27 +159,29 @@ class WorksController < ApplicationController
 
   # GET /works/1/thumb
   def thumb
-    # try to get the image from cache
-    # if not in cache, send missing_thumb image & attempt to cache again
-    if @work.thumbnail_url.nil?
-      send_data File.open( "#{Rails.public_path}/missing_thumb.png", 'rb' ).read, type: 'image/png', disposition: 'inline', status: :not_found
-    else
-      thumb_hash = Zlib.crc32 @work.thumbnail_url
-
-      cache_image = Rails.cache.read "#{thumb_hash}-image"
-
-      if cache_image.nil?
-        @work.cache_thumb
-      end
-
-      cache_date = Rails.cache.read "#{thumb_hash}-date"
-      cache_image = Rails.cache.read "#{thumb_hash}-image"
-      cache_type = Rails.cache.read "#{thumb_hash}-type"
-
-      if cache_image.nil?
+    if stale? last_modified: @work.updated_at.utc, etag: @work.cache_key, public: true
+      # try to get the image from cache
+      # if not in cache, send missing_thumb image
+      if @work.thumbnail_url.nil?
         send_data File.open( "#{Rails.public_path}/missing_thumb.png", 'rb' ).read, type: 'image/png', disposition: 'inline', status: :not_found
-      elsif stale?( etag: thumb_hash, last_modified: cache_date )
-        send_data cache_image, type: cache_type, disposition: 'inline'
+      else
+        thumb_hash = Zlib.crc32 @work.thumbnail_url
+
+        cache_image = Rails.cache.read "#{thumb_hash}-image"
+
+        if cache_image.nil?
+          @work.cache_thumb
+        end
+
+        cache_date = Rails.cache.read "#{thumb_hash}-date"
+        cache_image = Rails.cache.read "#{thumb_hash}-image"
+        cache_type = Rails.cache.read "#{thumb_hash}-type"
+
+        if cache_image.nil?
+          send_data File.open( "#{Rails.public_path}/missing_thumb.png", 'rb' ).read, type: 'image/png', disposition: 'inline', status: :not_found
+        elsif stale?( etag: thumb_hash, last_modified: cache_date )
+          send_data cache_image, type: cache_type, disposition: 'inline'
+        end
       end
     end
   end

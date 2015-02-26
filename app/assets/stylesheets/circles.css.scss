@@ -26,6 +26,22 @@ body.circles {
   }
 }
 
+.circles.new, .circles.edit {
+  .col-sidebar {
+    dd {
+      margin-bottom: 1em;
+    }
+
+    ul {
+      list-style-type: none;
+    }
+  }
+
+  .formtastic .choices-group {
+    padding: 0 0 0 128px;
+  }
+}
+
 .circle-thumbnail {
   border: solid 1px $cred;
   position: relative;
@@ -100,5 +116,3 @@ body.circles {
     }
   }
 }
-
-

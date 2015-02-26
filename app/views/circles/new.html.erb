@@ -1,5 +1,42 @@
-<h1>New circle</h1>
+<div class="left">
+  <div class="holder col-sidebar">
+    <div class="titlebar main">About Privacy</div>
+    <div class="stalking_menu_holder">
+      <div class="stalking_menu">
+        <dl>
+          <dt>private</dt>
+          <dd>
+            <ul>
+              <li>you explicitly add users to this circle</li>
+              <li>users cannot see this circle unless you have added them</li>
+            </ul>
+          </dd>
 
-<%= render 'form' %>
+          <dt>community</dt>
+          <dd>
+            <ul>
+              <li>signed in users can see this circle</li>
+              <li>signed in users can add themselves to this circle</li>
+            </ul>
+          </dd>
 
-<%= link_to 'Back', circles_path %>
+          <dt>public</dt>
+          <dd>
+            <ul>
+              <li>signed in &amp; anonymous users can see this circle</li>
+              <li>only signed in users can add themselves to this circle</li>
+            </ul>
+          </dd>
+        </dl>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="expandable">
+  <h1 class="collection-header">New Circle</h1>
+
+  <%= render 'form' %>
+
+  <%= link_to 'Back', circles_path %>
+</div>

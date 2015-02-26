@@ -35,7 +35,6 @@ class CirclesController < ApplicationController
   def create
     @circle = Circle.new(circle_params)
     @circle.admin = @current_user
-    @circle.users << @current_user
 
     if @circle.save
       redirect_to @circle, notice: 'Circle was successfully created.'
@@ -47,6 +46,7 @@ class CirclesController < ApplicationController
   # PATCH/PUT /circles/1
   def update
     if @circle.update(circle_params)
+      #@circle.update( user_ids: ( [ @current_user.id ] + params[ :circle ][ :user_ids ] ) )
       redirect_to @circle, notice: 'Circle was successfully updated.'
     else
       render action: 'edit'
@@ -79,6 +79,6 @@ class CirclesController < ApplicationController
 
     # Only allow a trusted parameter "white list" through.
     def circle_params
-      params.require(:circle).permit(:title, :description, :privacy, :users_id, :collections_id)
+      params.require(:circle).permit(:title, :description, :privacy, :collections_id, :user_ids => [])
     end
 end

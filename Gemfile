@@ -34,6 +34,9 @@ gem 'jquery-rails'
 # Use jquery-ui
 gem 'jquery-ui-rails'
 
+# Formtastic for awesome forms
+gem 'formtastic', '~> 3.0'
+
 # Use d3 for visualizations
 gem 'd3-rails'
 

@@ -34,7 +34,7 @@
   <dl>
     <dt>Created by:</dt> <dd><%= @circle.admin.name %></dd>
     <dt>Created on:</dt> <dd><%= @circle.created_at %></dd>
-    <dt>Members:</dt> <dd><%= @circle.users.count %></dd>
+    <dt>Members:</dt> <dd><%= @circle.users.count + 1 %></dd>
   </dl>
 
   <p><%= @circle.description %></p>
@@ -47,7 +47,7 @@
     <%= link_to raw( '<h2>Tray Manager</h2>' ), circle_trays_path( @circle ), { title: 'Manage all trays' } %>
   </section>
 
-  <% if @circle.users.include? @current_user %>
+  <% if @circle.admin == @current_user || @circle.users.include?( @current_user ) %>
   <section class="circle-collections">
     <h1 class="collection-header">Collections</h1>
 
@@ -94,6 +94,7 @@
     <h1 class="titlebar">Members</h1>
 
     <ul>
+      <li><%= link_to render( partial: 'shared/mini_icon', object: 'user', locals: { icon_title: @current_user.name } ), user_path( @current_user ) %></li>
     <% @circle.users.each { |u| %>
       <li><%= link_to render( partial: 'shared/mini_icon', object: 'user', locals: { icon_title: u.name } ), user_path( u ) %></li>
     <% } %>

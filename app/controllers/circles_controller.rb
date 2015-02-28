@@ -12,7 +12,7 @@ class CirclesController < ApplicationController
 
   # GET /circles/1
   def show
-    redirect_to circles_path unless ( @circle.privacy == 'public' || (@circle.privacy == 'community' && authenticated?) || (@circle.privacy == 'private' && @circle.admin == @current_user) )
+    redirect_to circles_path unless Circle.for_user( @current_user ).include? @circle
   end
 
   def addcol

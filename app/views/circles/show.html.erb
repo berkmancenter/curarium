@@ -6,7 +6,7 @@
       <div class="stalking_menu">
         <% if authenticated? %>
           <% if @circle.admin == @current_user %>
-            <%= link_to 'Edit Description', edit_circle_path( @circle ), class: 'edit-circle' %>
+            <%= link_to 'Edit Description & Users', edit_circle_path( @circle ), class: 'edit-circle' %>
 
             <%= form_for( @circle, html: { method: :delete } ) { |f| %>
               <a href="javascript:void(0);" class="delete-circle">Delete Circle</a>

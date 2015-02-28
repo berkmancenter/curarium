@@ -37,7 +37,9 @@
     	
     <div id="hintbar_links">
       <span><b><%= link_to "Learn more", '/about'%></b></span>
+      <% if !authenticated? %>
       <span><%= login_link 'SIGN UP' %>, Join the Community</span>
+      <% end %>
     </div>
     
     </div></div>

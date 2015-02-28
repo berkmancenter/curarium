@@ -4,6 +4,9 @@ describe ( CirclesController ) {
   let ( :u ) { User.first }
   let ( :c ) { Circle.find_by_title 'test_circle' }
   let ( :c_two ) { Circle.find_by_title 'circle_two' }
+  let ( :c_four ) { Circle.find_by_title 'circle_four' }
+  let ( :c_five ) { Circle.find_by_title 'circle_five' }
+  let ( :c_six ) { Circle.find_by_title 'circle_six' }
   let ( :c_attr ) { FactoryGirl.attributes_for( :circle_three ) }
 
   context ( 'with anonymous' ) {
@@ -38,8 +41,9 @@ describe ( CirclesController ) {
       }
 
       it ( 'should include user as circle user' ) {
+        # admin user no longer included in users attribute
         post :create, circle: c_attr
-        Circle.last.users.include?( u ).should eq( true )
+        Circle.last.users.include?( u ).should_not eq( true )
       }
 
       context ( 'with empty data' ) {
@@ -52,24 +56,24 @@ describe ( CirclesController ) {
     }
 
     describe ( 'PUT join' ) {
-      it ( 'should add to users if not in circle' ) {
+      it ( 'should add to users if not in circle and circle is community' ) {
         expect {
-          put :join, id: c_two.id
-        }.to change( c_two.users, :count ).by( 1 )
+          put :join, id: c_six.id
+        }.to change( c_six.users, :count ).by( 1 )
       }
 
       it ( 'should not add to users if in circle' ) {
         expect {
-          put :join, id: c.id
-        }.to_not change( c.users, :count )
+          put :join, id: c_two.id
+        }.to_not change( c_two.users, :count )
       }
     }
 
     describe ( 'PUT leave' ) {
       it ( 'should remove from users if in circle' ) {
         expect {
-          put :leave, id: c.id
-        }.to change( c.users, :count ).by( -1 )
+          put :leave, id: c_two.id
+        }.to change( c_two.users, :count ).by( -1 )
       }
     }
 

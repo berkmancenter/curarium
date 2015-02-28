@@ -1,11 +1,7 @@
 <h1 class="collection-header">Circles</h1>
 
 <div class="GALLERY circle-gallery">
-  <% if authenticated? %>
-  <%= render partial: 'circles/thumbnail', collection: @circles.for_user( @current_user ) %>
-  <% else %>
-  <%= render partial: 'circles/thumbnail', collection: @circles.where( privacy: 'public' ) %>
-  <% end %>
+  <%= render partial: 'circles/thumbnail', collection: @circles %>
 
   <%= render partial: 'shared/newnail', object: Circle unless !authenticated? %>
 </div><!-- END GALLERY -->  

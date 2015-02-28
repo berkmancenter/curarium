@@ -94,7 +94,7 @@
     <h1 class="titlebar">Members</h1>
 
     <ul>
-      <li><%= link_to render( partial: 'shared/mini_icon', object: 'user', locals: { icon_title: @current_user.name } ), user_path( @current_user ) %></li>
+      <li><%= link_to render( partial: 'shared/mini_icon', object: 'user', locals: { icon_title: @circle.admin.name } ), user_path( @circle.admin ) %></li>
     <% @circle.users.each { |u| %>
       <li><%= link_to render( partial: 'shared/mini_icon', object: 'user', locals: { icon_title: u.name } ), user_path( u ) %></li>
     <% } %>

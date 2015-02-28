@@ -14,7 +14,8 @@ class Circle < ActiveRecord::Base
   validates :description, presence: true
 
   scope :for_user, ->( user ) {
-    where( "admin_id = ? OR NOT ( privacy = 'private' )", user.id )
+    where( "admin_id = ? OR id IN ( SELECT circle_id FROM circles_users WHERE user_id = ? ) OR NOT privacy = 'private'", user.id, user.id )
+    #where( "admin_id = ? OR NOT ( privacy = 'private' )", user.id )
   }
 
   def thumbnail_url

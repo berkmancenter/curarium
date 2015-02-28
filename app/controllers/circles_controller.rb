@@ -3,7 +3,11 @@ class CirclesController < ApplicationController
 
   # GET /circles
   def index
-    @circles = Circle.all
+    if authenticated?
+      @circles = Circle.for_user @current_user
+    else
+      @circles = Circle.where privacy: 'public'
+    end
   end
 
   # GET /circles/1

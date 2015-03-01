@@ -251,6 +251,10 @@ dd {
 	margin: 0;
 	height: 22px;
       }
+
+      &.beta {
+        left: 80px;
+      }
     }
     &>div {
       width: 200px; 

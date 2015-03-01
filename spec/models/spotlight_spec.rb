@@ -8,7 +8,7 @@ describe ( 'Spotlight model' ) {
 
     it { s.should respond_to :title, :body }
 
-    it { s.should respond_to :user }
+    it { s.should respond_to :user, :privacy }
 
     it { s.should respond_to :waku_id, :waku_url }
   }

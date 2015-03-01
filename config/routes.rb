@@ -1,6 +1,7 @@
 Curarium::Application.routes.draw do
 
   get 'about' => 'home#about', as: 'about'
+
   
   controller :sessions do
     post 'login' => :create
@@ -11,6 +12,8 @@ Curarium::Application.routes.draw do
 #  post 'sections/message' => 'sections#message', as: 'section_message'
 
   resources :trays
+
+  get 'welcome' => 'users#welcome', as: 'welcome', layout: false
 
   resources :users do
     resources :trays

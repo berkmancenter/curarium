@@ -1,6 +1,10 @@
 class UsersController < ApplicationController
   before_action :set_user, only: [:show, :edit, :update, :destroy]
 
+  def welcome
+    render partial: 'users/welcome', object: @current_user
+  end
+
   # GET /users
   # GET /users.json
   def index

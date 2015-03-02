@@ -133,6 +133,8 @@ class WorksController < ApplicationController
   # GET /works/1
   # GET /works/1.json
   def show
+    response.headers[ 'Access-Control-Allow-Origin' ] = Waku::URL
+
     # for add to tray popout, will have to include cirlce trays later
     @owner = @current_user
     @trays = @owner.all_trays unless @owner.nil?
@@ -140,26 +142,29 @@ class WorksController < ApplicationController
     @popup_action_type = 'Image'
     @popup_action_item_id = @work.images.first.id
 
-     if @work.amendments.length > 0
-       @current_metadata = @work.amendments.last.amended
-     else
-       @current_metadata = @work.parsed
-     end
-     eval_parsed = {}
-     @current_metadata.each do |key, value|
-       eval_parsed[key] = JSON.parse(value) unless value.to_s.empty?
-     end
-     respond_to do |format|
-       format.html {
-         if request.xhr?
-           render 'show_xhr', layout: false
-         else
-           render
-         end
-       }
-       format.json { @work.parsed = eval_parsed }
-       format.js { render action: "show" }
-     end
+    if @work.amendments.length > 0
+      @current_metadata = @work.amendments.last.amended
+    else
+      @current_metadata = @work.parsed
+    end
+
+    eval_parsed = {}
+    @current_metadata.each do |key, value|
+      eval_parsed[key] = JSON.parse(value) unless value.to_s.empty?
+    end
+
+    respond_to do |format|
+      format.html {
+        if request.xhr?
+          render 'show_xhr', layout: false
+        else
+          render
+        end
+      }
+      format.json {
+        @work.parsed = eval_parsed
+      }
+    end
   end
 
   # GET /works/1/thumb

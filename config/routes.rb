@@ -18,6 +18,7 @@ Curarium::Application.routes.draw do
   resources :users do
     resources :trays
     resources :activities
+    resources :circles
   end
 
   resources :circles do

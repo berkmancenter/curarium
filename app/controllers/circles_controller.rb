@@ -3,6 +3,7 @@ class CirclesController < ApplicationController
 
   # GET /circles
   def index
+    response.headers[ 'Access-Control-Allow-Origin' ] = Waku::URL
     if authenticated?
       @circles = Circle.for_user @current_user
     else

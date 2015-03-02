@@ -7,8 +7,8 @@ class TraysController < ApplicationController
 
   def index
     response.headers[ 'Access-Control-Allow-Origin' ] = Waku::URL
-#    if authenticated?
-#      if @current_user == @owner
+    if authenticated?
+      if @current_user == @owner
         respond_to { |format|
           format.html {
             if request.xhr?
@@ -24,13 +24,13 @@ class TraysController < ApplicationController
             render
           }
         }
-#      else
-#        render text: '403 Forbidden', status: 403
-#      end
-#    else
-#      response.headers[ 'WWW-Authenticate' ] = 'Negotiate'
-#      render text: '401 Unauthroized', status: 401
-#    end
+      else
+        render text: '403 Forbidden', status: 403
+      end
+    else
+      response.headers[ 'WWW-Authenticate' ] = 'Negotiate'
+      render text: '401 Unauthroized', status: 401
+    end
   end
   
   def show

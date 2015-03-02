@@ -13,7 +13,13 @@ class CirclesController < ApplicationController
 
   # GET /circles/1
   def show
-    redirect_to circles_path unless Circle.for_user( @current_user ).include? @circle
+    if authenticated?
+      @circles = Circle.for_user @current_user
+    else
+      @circles = Circle.where privacy: 'public'
+    end
+
+    redirect_to circles_path unless @circles.include?( @circle )
   end
 
   def addcol

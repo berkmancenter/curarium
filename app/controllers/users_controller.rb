@@ -16,6 +16,12 @@ class UsersController < ApplicationController
   # GET /users/1.json
   def show
     response.headers[ 'Access-Control-Allow-Origin' ] = Waku::URL
+
+    if @user == @current_user
+      @spotlights = @user.spotlights
+    else
+      @spotlights = @user.spotlights.where( privacy: 'public' )
+    end
   end
 
   # GET /users/new

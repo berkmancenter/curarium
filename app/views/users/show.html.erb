@@ -62,7 +62,7 @@
   <h1 id="user-spotlights" class="collection-header">Spotlights</h1>
 
   <div class="GALLERY">
-    <% @user.spotlights.each do |s| %>
+    <% @spotlights.each do |s| %>
       <%= render :partial=>'shared/print_item', :locals=>{:item=>s} %>
     <% end %>
 

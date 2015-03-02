@@ -211,6 +211,15 @@ FactoryGirl.define do
       waku_url 'http://wacurarium.herokuapp.com/en/collection/31337'
     end
 
+    factory :spotlight_one_priv do
+      #user test_user
+      title 'spotlight_one_priv'
+      privacy 'private'
+      body 'This is a test private spotlight for test_user'
+      waku_id 31337
+      waku_url 'http://wacurarium.herokuapp.com/en/collection/31337'
+    end
+
     factory :spotlight_two do
       title 'spotlight_two'
       privacy 'public'

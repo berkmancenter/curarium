@@ -107,6 +107,10 @@ def seed
   test_spotlight.user = test_user
   test_spotlight.save
 
+  spotlight_one_priv = FactoryGirl.create :spotlight_one_priv
+  spotlight_one_priv.user = test_user
+  spotlight_one_priv.save
+
   spotlight_two_pub = FactoryGirl.create :spotlight_two_pub
   spotlight_two_pub.user = user_two
   spotlight_two_pub.save

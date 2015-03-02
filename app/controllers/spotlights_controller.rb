@@ -5,7 +5,11 @@ class SpotlightsController < ApplicationController
   # GET /spotlights
   # GET /spotlights.json
   def index
-    @spotlights = Spotlight.all
+    if authenticated?
+      @spotlights = Spotlight.where "user_id = ? or privacy = 'public'", @current_user.id
+    else
+      @spotlights = Spotlight.where privacy: 'public'
+    end
   end
 
   # GET /spotlights/1

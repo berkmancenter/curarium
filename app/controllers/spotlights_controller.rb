@@ -109,6 +109,6 @@ class SpotlightsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def spotlight_params
-      params.require(:spotlight).permit(:title, :body, :waku_id, :waku_url)
+      params.require(:spotlight).permit(:title, :privacy, :body, :waku_id, :waku_url)
     end
 end

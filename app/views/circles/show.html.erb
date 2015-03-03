@@ -6,7 +6,7 @@
       <div class="stalking_menu">
         <% if authenticated? %>
           <% if @circle.admin == @current_user %>
-            <%= link_to 'Edit Description', edit_circle_path( @circle ), class: 'edit-circle' %>
+            <%= link_to 'Edit Description & Users', edit_circle_path( @circle ), class: 'edit-circle' %>
 
             <%= form_for( @circle, html: { method: :delete } ) { |f| %>
               <a href="javascript:void(0);" class="delete-circle">Delete Circle</a>
@@ -34,7 +34,7 @@
   <dl>
     <dt>Created by:</dt> <dd><%= @circle.admin.name %></dd>
     <dt>Created on:</dt> <dd><%= @circle.created_at %></dd>
-    <dt>Members:</dt> <dd><%= @circle.users.count %></dd>
+    <dt>Members:</dt> <dd><%= @circle.users.count + 1 %></dd>
   </dl>
 
   <p><%= @circle.description %></p>
@@ -47,7 +47,7 @@
     <%= link_to raw( '<h2>Tray Manager</h2>' ), circle_trays_path( @circle ), { title: 'Manage all trays' } %>
   </section>
 
-  <% if @circle.users.include? @current_user %>
+  <% if @circle.admin == @current_user || @circle.users.include?( @current_user ) %>
   <section class="circle-collections">
     <h1 class="collection-header">Collections</h1>
 
@@ -71,6 +71,19 @@
     </div>
   </section>
   <% end %>
+
+  <section class="circle-spotlights">
+    <h1 id="circle-spotlights" class="collection-header">Spotlights</h1>
+
+    <div class="GALLERY">
+      <% @spotlights.each do |s| %>
+        <%= render :partial=>'shared/print_item', :locals=>{:item=>s} %>
+      <% end %>
+
+      <%= render partial: 'shared/newnail', object: Spotlight unless !authenticated? %>
+  </section>
+
+
 </div>
 
 <div class="right">
@@ -94,6 +107,7 @@
     <h1 class="titlebar">Members</h1>
 
     <ul>
+      <li><%= link_to render( partial: 'shared/mini_icon', object: 'user', locals: { icon_title: @circle.admin.name } ), user_path( @circle.admin ) %></li>
     <% @circle.users.each { |u| %>
       <li><%= link_to render( partial: 'shared/mini_icon', object: 'user', locals: { icon_title: u.name } ), user_path( u ) %></li>
     <% } %>

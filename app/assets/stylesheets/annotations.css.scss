@@ -29,11 +29,21 @@
   }
 }
 
+.annotations.show {
+  h1 {
+    display: inline-block;
+  }
+}
+
 .works.show {
   .annotation-xhr {
     background: $white;
     padding: 1em;
     margin: 150px;
+
+    h1 {
+      display: inline-block;
+    }
 
     .popup-commands {
       float: right;
@@ -43,8 +53,9 @@
 }
 
 .annotation-commands {
-  float: right;
+  display: inline-block;
   list-style-type: none;
+  margin-left: 1em;
 
   li {
     border: 1px solid #D2232A;

@@ -7,7 +7,7 @@ class WorksController < ApplicationController
   # GET /works
   # GET /works.json
   def index
-    vis = params[ :vis ] || 'objectmap'
+    @vis = params[ :vis ] || 'objectmap'
     exclude_props = [ 'unique_identifier', 'image', 'thumbnail' ]
 
     @properties = []
@@ -67,7 +67,7 @@ class WorksController < ApplicationController
     # may want num in a few cases (this should be a fast query)
     @num = Work.where( where_clause ).count( :id )
 
-    if vis == 'treemap'
+    if @vis == 'treemap'
       if @num == 1
         @work = Work.where( where_clause ).first
         redirect_to @work
@@ -112,12 +112,17 @@ class WorksController < ApplicationController
           @works << { parsed: 'Other', id: other_works.count }
         end
       end
-    elsif ['thumbnails','list'].include? vis
+    elsif ['thumbnails','list'].include? @vis
       # Array of views that require paging
       @perpage = (params[:per_page].to_i<=0) ? 200 : params[:per_page].to_i
       @page = (params[:page].to_i<=0 || params[:page].to_i > (@num.to_f/@perpage).ceil) ? 1 : params[:page].to_i
-      @works = Work.where(where_clause).limit(@perpage).offset((@page-1)*@perpage)
-    elsif vis == 'objectmap'
+
+      if @vis == 'thumbnails'
+        @works = Work.with_thumb.where(where_clause).limit(@perpage).offset((@page-1)*@perpage)
+      else
+        @works = Work.where(where_clause).limit(@perpage).offset((@page-1)*@perpage)
+      end
+    elsif @vis == 'objectmap'
       # objectmap should only get thumbnails
       @works = Work.with_thumb.where(where_clause)
     else
@@ -128,6 +133,8 @@ class WorksController < ApplicationController
   # GET /works/1
   # GET /works/1.json
   def show
+    response.headers[ 'Access-Control-Allow-Origin' ] = Waku::URL
+
     # for add to tray popout, will have to include cirlce trays later
     @owner = @current_user
     @trays = @owner.all_trays unless @owner.nil?
@@ -135,51 +142,56 @@ class WorksController < ApplicationController
     @popup_action_type = 'Image'
     @popup_action_item_id = @work.images.first.id
 
-     if @work.amendments.length > 0
-       @current_metadata = @work.amendments.last.amended
-     else
-       @current_metadata = @work.parsed
-     end
-     eval_parsed = {}
-     @current_metadata.each do |key, value|
-       eval_parsed[key] = JSON.parse(value) unless value.to_s.empty?
-     end
-     respond_to do |format|
-       format.html {
-         if request.xhr?
-           render 'show_xhr', layout: false
-         else
-           render
-         end
-       }
-       format.json { @work.parsed = eval_parsed }
-       format.js { render action: "show" }
-     end
+    if @work.amendments.length > 0
+      @current_metadata = @work.amendments.last.amended
+    else
+      @current_metadata = @work.parsed
+    end
+
+    eval_parsed = {}
+    @current_metadata.each do |key, value|
+      eval_parsed[key] = JSON.parse(value) unless value.to_s.empty?
+    end
+
+    respond_to do |format|
+      format.html {
+        if request.xhr?
+          render 'show_xhr', layout: false
+        else
+          render
+        end
+      }
+      format.json {
+        @work.parsed = eval_parsed
+      }
+    end
   end
 
   # GET /works/1/thumb
   def thumb
-    # try to get the image from cache
-    # if not in cache, send missing_thumb image & attempt to cache again
-    if @work.thumbnail_url.nil?
-      send_data File.open( "#{Rails.public_path}/missing_thumb.png", 'rb' ).read, type: 'image/png', disposition: 'inline', status: :not_found
-    else
-      thumb_hash = Zlib.crc32 @work.thumbnail_url
-
-      cache_image = Rails.cache.read "#{thumb_hash}-image"
-
-      if cache_image.nil?
-        @work.cache_thumb
-      end
-
-      cache_date = Rails.cache.read "#{thumb_hash}-date"
-      cache_image = Rails.cache.read "#{thumb_hash}-image"
-      cache_type = Rails.cache.read "#{thumb_hash}-type"
-
-      if cache_image.nil?
+    if stale? last_modified: @work.updated_at.utc, etag: @work.cache_key, public: true
+      # try to get the image from cache
+      # if not in cache, send missing_thumb image
+      if @work.thumbnail_url.nil?
         send_data File.open( "#{Rails.public_path}/missing_thumb.png", 'rb' ).read, type: 'image/png', disposition: 'inline', status: :not_found
-      elsif stale?( etag: thumb_hash, last_modified: cache_date )
-        send_data cache_image, type: cache_type, disposition: 'inline'
+      else
+        thumb_hash = Zlib.crc32 @work.thumbnail_url
+
+        cache_image = Rails.cache.read "#{thumb_hash}-image"
+
+        if cache_image.nil?
+          @work.cache_thumb
+        end
+
+        cache_date = Rails.cache.read "#{thumb_hash}-date"
+        cache_image = Rails.cache.read "#{thumb_hash}-image"
+        cache_type = Rails.cache.read "#{thumb_hash}-type"
+
+        if cache_image.nil?
+          send_data File.open( "#{Rails.public_path}/missing_thumb.png", 'rb' ).read, type: 'image/png', disposition: 'inline', status: :not_found
+        elsif stale?( etag: thumb_hash, last_modified: cache_date )
+          send_data cache_image, type: cache_type, disposition: 'inline'
+        end
       end
     end
   end

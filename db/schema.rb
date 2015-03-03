@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150217205634) do
+ActiveRecord::Schema.define(version: 20150303152137) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -147,8 +147,11 @@ ActiveRecord::Schema.define(version: 20150217205634) do
     t.integer  "user_id"
     t.string   "waku_url"
     t.integer  "waku_id"
+    t.string   "privacy",    default: "private"
+    t.integer  "circle_id"
   end
 
+  add_index "spotlights", ["circle_id"], name: "index_spotlights_on_circle_id", using: :btree
   add_index "spotlights", ["user_id"], name: "index_spotlights_on_user_id", using: :btree
 
   create_table "tray_items", force: true do |t|

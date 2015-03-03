@@ -37,7 +37,12 @@
     	
     <div id="hintbar_links">
       <span><b><%= link_to "Learn more", '/about'%></b></span>
+
+      <% if authenticated? %>
+      <span>To report a bug or suggestion, please visit the <a href="https://cyber.law.harvard.edu/projectmanagement/projects/curarium-beta-bug-tracker/issues/new">Curarium Bug Tracker</a></span>
+      <% else %>
       <span><%= login_link 'SIGN UP' %>, Join the Community</span>
+      <% end %>
     </div>
     
     </div></div>

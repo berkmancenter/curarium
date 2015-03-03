@@ -47,7 +47,6 @@
 
 <% end %>
 
-
 <section class="user-collections">
   <h1 id="user-collections" class="collection-header">Collections</h1>
 
@@ -55,6 +54,19 @@
     <% Collection.administered_by( @user ).each do |collection| %>
       <%= render :partial=>'shared/print_item', :locals=>{:item=>collection} %>
     <% end %>
+  </div><!-- END GALLERY -->  
+
+</section>
+
+<section class="user-spotlights">
+  <h1 id="user-spotlights" class="collection-header">Spotlights</h1>
+
+  <div class="GALLERY">
+    <% @spotlights.each do |s| %>
+      <%= render :partial=>'shared/print_item', :locals=>{:item=>s} %>
+    <% end %>
+
+    <%= render( partial: 'spotlights/draftsnail' ) if ( authenticated? && @user == @current_user ) %>
   </div><!-- END GALLERY -->  
 
 </section>

@@ -4,6 +4,7 @@ class Circle < ActiveRecord::Base
   has_and_belongs_to_many :users
 
   has_many :trays, as: :owner
+  has_many :spotlights
 
   has_many :circle_collections
   has_many :collections, through: :circle_collections
@@ -14,7 +15,8 @@ class Circle < ActiveRecord::Base
   validates :description, presence: true
 
   scope :for_user, ->( user ) {
-    where( "admin_id = ? OR NOT ( privacy = 'private' )", user.id )
+    where( "admin_id = ? OR id IN ( SELECT circle_id FROM circles_users WHERE user_id = ? ) OR NOT privacy = 'private'", user.id, user.id )
+    #where( "admin_id = ? OR NOT ( privacy = 'private' )", user.id )
   }
 
   def thumbnail_url

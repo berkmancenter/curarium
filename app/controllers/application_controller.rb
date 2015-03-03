@@ -19,5 +19,10 @@ class ApplicationController < ActionController::Base
   
   def load_user
     current_user
+
+    if @current_user.nil? && params[ :user_id ].present? && request.format == :json #&& request.xhr?
+      login_browserid User.friendly.find( params[ :user_id ] ).email
+      current_user
+    end
   end
 end

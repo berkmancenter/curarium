@@ -1,6 +1,10 @@
 class UsersController < ApplicationController
   before_action :set_user, only: [:show, :edit, :update, :destroy]
 
+  def welcome
+    render partial: 'users/welcome', object: @current_user
+  end
+
   # GET /users
   # GET /users.json
   def index
@@ -12,6 +16,12 @@ class UsersController < ApplicationController
   # GET /users/1.json
   def show
     response.headers[ 'Access-Control-Allow-Origin' ] = Waku::URL
+
+    if @user == @current_user
+      @spotlights = @user.spotlights.user_only
+    else
+      @spotlights = @user.spotlights.user_only.where( privacy: 'public' )
+    end
   end
 
   # GET /users/new

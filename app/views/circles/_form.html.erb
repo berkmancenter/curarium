@@ -1,6 +1,4 @@
-<%= form_for(@circle) do |f| %>
-  <%= f.hidden_field :admin_id, value: @current_user %>
-
+<%= semantic_form_for @circle do |f| %>
   <% if @circle.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@circle.errors.count, "error") %> prohibited this circle from being saved:</h2>
@@ -21,6 +19,13 @@
     <%= f.label :privacy %><br>
     <%= f.select( :privacy, options_for_select( [ 'private', 'community', 'public' ], ( @circle.privacy || 'private' ) ) ) %>
   </div>
+
+  <%= f.inputs do %>
+  <div class="field">
+    <%= f.input :users, as: :check_boxes, collection: User.where.not( id: @current_user.id ) %>
+  </div>
+  <% end %>
+
   <div class="field">
     <%= f.label :description %><br>
     <%= f.text_area :description, size: '40x10' %>

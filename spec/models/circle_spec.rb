@@ -45,5 +45,30 @@ describe ( Circle ) {
         c.thumbnail_url.should eq( c.trays.first.images.first.thumbnail_url )
       }
     }
+
+    describe ( 'scope for_user' ) {
+      let ( :u ) { User.first }
+      let ( :cs_for_u ) { Circle.for_user u }
+
+      it {
+        cs_for_u.include?( c ).should be_true
+      }
+
+      it {
+        cs_for_u.include?( Circle.find_by_title 'circle_two' ).should be_true
+      }
+
+      it {
+        cs_for_u.include?( Circle.find_by_title 'circle_four' ).should be_false
+      }
+
+      it {
+        cs_for_u.include?( Circle.find_by_title 'circle_five' ).should be_true
+      }
+
+      it {
+        cs_for_u.include?( Circle.find_by_title 'circle_six' ).should be_true
+      }
+    }
   }
 }

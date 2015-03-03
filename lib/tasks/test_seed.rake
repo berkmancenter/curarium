@@ -69,14 +69,22 @@ def seed
   # circles
   test_circle = FactoryGirl.create :test_circle
   test_circle.admin = test_user
-  test_circle.users << [ test_user, user_two ]
+  test_circle.users << user_two
   test_circle.collections << test_col
   test_circle.save
 
   circle_two = FactoryGirl.create :circle_two
   circle_two.admin = user_two
-  circle_two.users << user_two
+  circle_two.users << test_user
   circle_two.save
+
+  circle_five = FactoryGirl.create :circle_five
+  circle_five.admin = user_two
+  circle_five.save
+
+  circle_six = FactoryGirl.create :circle_six
+  circle_six.admin = user_two
+  circle_six.save
 
   # trays
   test_tray = FactoryGirl.create :test_tray
@@ -98,5 +106,22 @@ def seed
   test_spotlight = FactoryGirl.create :test_spotlight
   test_spotlight.user = test_user
   test_spotlight.save
+
+  spotlight_one_priv = FactoryGirl.create :spotlight_one_priv
+  spotlight_one_priv.user = test_user
+  spotlight_one_priv.save
+
+  spotlight_two_pub = FactoryGirl.create :spotlight_two_pub
+  spotlight_two_pub.user = user_two
+  spotlight_two_pub.save
+
+  spotlight_two_priv = FactoryGirl.create :spotlight_two_priv
+  spotlight_two_priv.user = user_two
+  spotlight_two_priv.save
+
+  spotlight_two_circle = FactoryGirl.create :spotlight_two_circle
+  spotlight_two_circle.user = user_two
+  spotlight_two_circle.circle = test_circle
+  spotlight_two_circle.save
 end
 

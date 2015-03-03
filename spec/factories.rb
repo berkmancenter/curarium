@@ -131,24 +131,52 @@ FactoryGirl.define do
   factory :circle do
     factory :test_circle do
       title 'test_circle'
-      description 'A test circle for testing'
+      description 'A private circle whose admin is test_user. user_two added.'
+      privacy 'private'
       #admin test_user
-      #users [test_user, user_two]
+      #users [user_two]
       #trays [circle_tray]
       #collections [test_col]
     end
 
     factory :circle_two do
       title 'circle_two'
-      description 'A circle whose admin is user_two'
+      description 'A private circle whose admin is user_two. test_user added.'
+      privacy 'private'
       #admin user_two
-      #users [user_two]
+      #users [test_user]
     end
 
     # used as attributes for creating new circles in tests
     factory :circle_three do
       title 'circle_three'
       description 'Circle data to test creating new cirlces'
+      privacy 'private'
+      #admin test_user
+    end
+
+    factory :circle_four do
+      title 'circle_four'
+      description 'A private circle whose admin is user_two. no users.'
+      privacy 'private'
+      #admin user_two
+      #users []
+    end
+
+    factory :circle_five do
+      title 'circle_five'
+      description 'A community circle whose admin is user_two.'
+      privacy 'community'
+      #admin user_two
+      #users []
+    end
+
+    factory :circle_six do
+      title 'circle_six'
+      description 'A public circle whose admin is user_two.'
+      privacy 'public'
+      #admin user_two
+      #users []
     end
   end
 
@@ -176,18 +204,62 @@ FactoryGirl.define do
   factory :spotlight do
     factory :test_spotlight do
       #user test_user
+      #circle nil
       title 'test_spotlight'
-      body 'This is a test spotlight'
+      privacy 'public'
+      body 'This is a test public spotlight'
+      waku_id 31337
+      waku_url 'http://wacurarium.herokuapp.com/en/collection/31337'
+    end
+
+    factory :spotlight_one_priv do
+      #user test_user
+      #circle nil
+      title 'spotlight_one_priv'
+      privacy 'private'
+      body 'This is a test private spotlight for test_user'
       waku_id 31337
       waku_url 'http://wacurarium.herokuapp.com/en/collection/31337'
     end
 
     factory :spotlight_two do
       title 'spotlight_two'
+      privacy 'public'
       body 'Used as attributes for testing spotlight creation'
       waku_id 31338
       waku_url 'http://wacurarium.herokuapp.com/en/collection/31338'
     end
+
+    factory :spotlight_two_pub do
+      #user user_two
+      #circle nil
+      privacy 'public'
+      title 'spotlight_two_pub'
+      body 'This is a test public spotlight for user 2'
+      waku_id 31337
+      waku_url 'http://wacurarium.herokuapp.com/en/collection/31337'
+    end
+
+    factory :spotlight_two_priv do
+      #user user_two
+      #circle nil
+      privacy 'private'
+      title 'spotlight_two_priv'
+      body 'This is a test private spotlight'
+      waku_id 31337
+      waku_url 'http://wacurarium.herokuapp.com/en/collection/31337'
+    end
+
+    factory :spotlight_two_circle do
+      #user user_two
+      #circle test_circle
+      privacy 'private'
+      title 'spotlight_two_circle'
+      body 'This is a test circle spotlight'
+      waku_id 31337
+      waku_url 'http://wacurarium.herokuapp.com/en/collection/31337'
+    end
+
   end
 end
 

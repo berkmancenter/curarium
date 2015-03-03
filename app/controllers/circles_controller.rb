@@ -14,6 +14,8 @@ class CirclesController < ApplicationController
   # GET /circles/1
   def show
     redirect_to circles_path unless Circle.for_user( @current_user ).include? @circle
+
+    @spotlights = @circle.spotlights.circle_only
   end
 
   def addcol

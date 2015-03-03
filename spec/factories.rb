@@ -204,6 +204,7 @@ FactoryGirl.define do
   factory :spotlight do
     factory :test_spotlight do
       #user test_user
+      #circle nil
       title 'test_spotlight'
       privacy 'public'
       body 'This is a test public spotlight'
@@ -213,6 +214,7 @@ FactoryGirl.define do
 
     factory :spotlight_one_priv do
       #user test_user
+      #circle nil
       title 'spotlight_one_priv'
       privacy 'private'
       body 'This is a test private spotlight for test_user'
@@ -230,6 +232,7 @@ FactoryGirl.define do
 
     factory :spotlight_two_pub do
       #user user_two
+      #circle nil
       privacy 'public'
       title 'spotlight_two_pub'
       body 'This is a test public spotlight for user 2'
@@ -239,12 +242,24 @@ FactoryGirl.define do
 
     factory :spotlight_two_priv do
       #user user_two
+      #circle nil
       privacy 'private'
       title 'spotlight_two_priv'
-      body 'This is a test public spotlight'
+      body 'This is a test private spotlight'
       waku_id 31337
       waku_url 'http://wacurarium.herokuapp.com/en/collection/31337'
     end
+
+    factory :spotlight_two_circle do
+      #user user_two
+      #circle test_circle
+      privacy 'private'
+      title 'spotlight_two_circle'
+      body 'This is a test circle spotlight'
+      waku_id 31337
+      waku_url 'http://wacurarium.herokuapp.com/en/collection/31337'
+    end
+
   end
 end
 

@@ -71,6 +71,19 @@
     </div>
   </section>
   <% end %>
+
+  <section class="circle-spotlights">
+    <h1 id="circle-spotlights" class="collection-header">Spotlights</h1>
+
+    <div class="GALLERY">
+      <% @spotlights.each do |s| %>
+        <%= render :partial=>'shared/print_item', :locals=>{:item=>s} %>
+      <% end %>
+
+      <%= render partial: 'shared/newnail', object: Spotlight unless !authenticated? %>
+  </section>
+
+
 </div>
 
 <div class="right">

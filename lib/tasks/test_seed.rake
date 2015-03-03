@@ -118,5 +118,10 @@ def seed
   spotlight_two_priv = FactoryGirl.create :spotlight_two_priv
   spotlight_two_priv.user = user_two
   spotlight_two_priv.save
+
+  spotlight_two_circle = FactoryGirl.create :spotlight_two_circle
+  spotlight_two_circle.user = user_two
+  spotlight_two_circle.circle = test_circle
+  spotlight_two_circle.save
 end
 

@@ -18,9 +18,9 @@ class UsersController < ApplicationController
     response.headers[ 'Access-Control-Allow-Origin' ] = Waku::URL
 
     if @user == @current_user
-      @spotlights = @user.spotlights
+      @spotlights = @user.spotlights.user_only
     else
-      @spotlights = @user.spotlights.where( privacy: 'public' )
+      @spotlights = @user.spotlights.user_only.where( privacy: 'public' )
     end
   end
 

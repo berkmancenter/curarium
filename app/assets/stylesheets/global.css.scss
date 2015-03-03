@@ -450,7 +450,7 @@ dd {
 
 /* ABOUT  */
 .about_content {
-  padding: 20px 0 100px 0;
+  padding: 20px 0 0 0;
 }
 .about_content .left {
 }
@@ -536,8 +536,13 @@ dd {
   bottom: 5px;
 }
 .about_content .titlebar .more img{
-  padding: 0 0 0 6px;
+  padding: 0 0 0 16px;
 }
+
+.contactinfo{
+  padding-bottom: 50px;
+}
+
 .main{
   font-weight: normal;
   
@@ -624,7 +629,7 @@ dd {
   div {
     border-top: 1px solid #d2232a;
     padding: 10px 0 0 0;
-    margin: 15px;
+    margin: 5px;
   }
 
   .terms {

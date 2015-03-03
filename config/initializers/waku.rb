@@ -1,4 +1,4 @@
 module Waku
-  URL = 'http://wacurarium.herokuapp.com'
+  URL = '*' #'http://wacurarium.herokuapp.com'
 end
 

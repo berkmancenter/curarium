@@ -17,7 +17,7 @@
   <a href='<%= item.waku_url %>'><div class='gallery_item spotlight<%=" item_lrg" if big %>' >
     <div class='object_id'><%= item.title %></div>
     <div class='border'>
-      <div class='innertext'><%= item.body.gsub(/\<(\d+)\>/, "(see figure \\1)") %>...</div>
+      <div class='innertext'><% if item.privacy == 'draft' %><b>DRAFT</b> <% end %><%= item.body.gsub(/\<(\d+)\>/, "(see figure \\1)") %>...</div>
     </div>
     <%= image_tag "spotlight_tail.png", alt: '' %>
     <div class='name'>

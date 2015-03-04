@@ -28,6 +28,8 @@ class WorksController < ApplicationController
       end
     end
 
+    has_other = false
+
     if params[:include].present?
       # break out values to avoid SQL injection
       where_values = ['']
@@ -35,7 +37,12 @@ class WorksController < ApplicationController
       params[:include].each_with_index { |p, i|
         values = p.split ':'
 
-        if i > 0
+        if values[1] == 'Other'
+          has_other = true
+          next
+        end
+
+        if i > (has_other ? 1 : 0)
           where_values[0] = where_values[0] + ' AND '
         end
 
@@ -43,7 +50,7 @@ class WorksController < ApplicationController
         where_values << "%#{values[1].downcase}%"
       }
 
-      where_clause << " AND ( #{ActiveRecord::Base.send( :sanitize_sql_array, where_values )} )"
+      where_clause << " AND ( #{ActiveRecord::Base.send( :sanitize_sql_array, where_values )} )" unless where_values.count == 1
     end
 
     if params[:exclude].present?
@@ -98,18 +105,30 @@ class WorksController < ApplicationController
         all = ActiveRecord::Base.connection.execute(sql)
         @works = []
         other_works = []
-        all.each { |w|
-          if w[ 'id' ].to_i > 1
-            @works << w
-          else
-            other_works << w
-          end
-        }
-        
-        if other_works.count < 10 # add them anyway
-          @works += other_works
+        other_group_threashold = 2
+        other_explode_threashold = 10
+
+        if has_other
+          # show *only* Other works, exploded into boxes
+          all.each { |w|
+            if w[ 'id' ].to_i <= other_group_threashold
+              @works << w
+            end
+          }
         else
-          @works << { parsed: 'Other', id: other_works.count }
+          all.each { |w|
+            if w[ 'id' ].to_i > other_group_threashold
+              @works << w
+            else
+              other_works << w
+            end
+          }
+          
+          if other_works.count < other_explode_threashold # add them anyway
+            @works += other_works
+          else
+            @works << { parsed: 'Other', id: other_works.count }
+          end
         end
       end
     elsif ['thumbnails','list'].include? @vis

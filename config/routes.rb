@@ -12,20 +12,23 @@ Curarium::Application.routes.draw do
 #  post 'sections/message' => 'sections#message', as: 'section_message'
 
   resources :trays
+  resources :spotlights
 
   get 'welcome' => 'users#welcome', as: 'welcome', layout: false
 
   resources :users do
     resources :trays
     resources :activities
-    resources :circles
     resources :spotlights
+
+    resources :circles do
+      resources :spotlights
+    end
   end
 
   resources :circles do
     resources :trays
     resources :activities
-    resources :spotlights
 
     member do
       put 'join' => :join
@@ -51,8 +54,6 @@ Curarium::Application.routes.draw do
       post 'copy' => :copy
     end
   end
-
-  resources :spotlights
 
   resources :works do
     member do

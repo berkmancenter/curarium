@@ -1,7 +1,13 @@
 class SpotlightsController < ApplicationController
-  before_action :cors
+  before_filter :cors
+
   before_action :set_owners, only: [:create, :update, :destroy]
   before_action :set_spotlight, only: [:show, :edit, :update, :destroy]
+
+
+  def options
+    render :text => '', :content_type => 'text/plain'
+  end
 
   # GET /spotlights
   # GET /spotlights.json
@@ -87,6 +93,7 @@ class SpotlightsController < ApplicationController
   private
     def cors
       response.headers[ 'Access-Control-Allow-Origin' ] = Waku::URL
+      response.headers['Access-Control-Allow-Methods'] = 'POST, GET, PUT, DELETE, OPTIONS'
     end
 
     def set_owners

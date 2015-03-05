@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150303152137) do
+ActiveRecord::Schema.define(version: 20150305231216) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -146,7 +146,7 @@ ActiveRecord::Schema.define(version: 20150303152137) do
     t.datetime "updated_at"
     t.integer  "user_id"
     t.string   "waku_url"
-    t.integer  "waku_id"
+    t.string   "waku_id"
     t.string   "privacy",    default: "private"
     t.integer  "circle_id"
   end

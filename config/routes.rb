@@ -1,8 +1,9 @@
 Curarium::Application.routes.draw do
 
+  get 'welcome' => 'users#welcome', as: 'welcome', layout: false
+
   get 'about' => 'home#about', as: 'about'
 
-  
   controller :sessions do
     post 'login' => :create
     post 'logout' => :destroy
@@ -13,12 +14,19 @@ Curarium::Application.routes.draw do
 
   resources :trays
 
-  get 'welcome' => 'users#welcome', as: 'welcome', layout: false
+  match '/users/:user_id/spotlights/:id' => 'spotlights#options', :constraints => {:method => 'OPTIONS'}, via: [:options]  
+  match '/users/:user_id/circles/:circle_id/spotlights/:id' => 'spotlights#options', :constraints => {:method => 'OPTIONS'}, via: [:options]  
+
+  resources :spotlights
 
   resources :users do
     resources :trays
     resources :activities
-    resources :circles
+    resources :spotlights
+
+    resources :circles do
+      resources :spotlights
+    end
   end
 
   resources :circles do
@@ -49,8 +57,6 @@ Curarium::Application.routes.draw do
       post 'copy' => :copy
     end
   end
-
-  resources :spotlights
 
   resources :works do
     member do

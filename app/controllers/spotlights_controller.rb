@@ -1,15 +1,18 @@
 class SpotlightsController < ApplicationController
-  before_action :cors
+  before_filter :cors
+
+  before_action :set_owners, only: [:create, :update, :destroy]
   before_action :set_spotlight, only: [:show, :edit, :update, :destroy]
+
+
+  def options
+    render :text => '', :content_type => 'text/plain'
+  end
 
   # GET /spotlights
   # GET /spotlights.json
   def index
-    if authenticated?
-      @spotlights = Spotlight.where "user_id = ? or privacy = 'public'", @current_user.id
-    else
-      @spotlights = Spotlight.where privacy: 'public'
-    end
+    @spotlights = Spotlight.user_only.where privacy: 'public'
   end
 
   # GET /spotlights/1
@@ -30,18 +33,13 @@ class SpotlightsController < ApplicationController
   # POST /spotlights.json
   def create
     @spotlight = Spotlight.new(spotlight_params)
-    if authenticated?
-      @spotlight.user = @current_user
-    elsif params[:user_email].present?
-      @spotlight.user = User.find_by_email( params[ :user_email ] )
-    end
+    @spotlight.user = @user
+    @spotlight.circle = @circle
+
     respond_to { |format|
       if @spotlight.save
         format.json {
           render json: @spotlight.as_json, status: 200
-        }
-        format.html {
-          render :show
         }
       else
         format.json {
@@ -49,9 +47,6 @@ class SpotlightsController < ApplicationController
             error: 500,
             reason: @spotlight.errors.values
           }.as_json, status: 500
-        }
-        format.html {
-          render :new
         }
       end
     }
@@ -62,9 +57,6 @@ class SpotlightsController < ApplicationController
   def update
     respond_to { |format|
       if @spotlight.update(spotlight_params)
-        format.html {
-          render :show
-        }
         format.json {
           render json: @spotlight.as_json, status: 200
         }
@@ -74,9 +66,6 @@ class SpotlightsController < ApplicationController
             error: 500,
             reason: @spotlight.errors.values
           }.as_json, status: 500
-        }
-        format.html {
-          render :edit
         }
       end
     }
@@ -100,11 +89,23 @@ class SpotlightsController < ApplicationController
   private
     def cors
       response.headers[ 'Access-Control-Allow-Origin' ] = Waku::URL
+      response.headers['Access-Control-Allow-Methods'] = 'POST, GET, PUT, DELETE, OPTIONS'
+    end
+
+    def set_owners
+      @user = User.friendly.find params[:user_id] unless params[ :user_id ].nil?
+      @circle = Circle.for_user( @user ).find( params[:circle_id] ) unless (@user.nil? || params[ :circle_id ].nil?)
     end
 
     # Use callbacks to share common setup or constraints between actions.
     def set_spotlight
-      @spotlight = Spotlight.friendly.find(params[:id])
+      if @circle.present?
+        @spotlight = @circle.spotlights.friendly.find params[:id].to_s
+      elsif @user.present?
+        @spotlight = @user.spotlights.friendly.find params[:id].to_s
+      else
+        @spotlight = Spotlight.friendly.find params[:id].to_s
+      end
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

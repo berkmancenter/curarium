@@ -11,14 +11,8 @@ class SessionsController < ApplicationController
       respond_to_browserid
       u = User.where email: browserid_email
       if u.empty?
-        User.create email: browserid_email, name: browserid_email.split( '@' ).first
-        ActionMailer::Base.mail( {
-          from: 'curarium@metalab.harvard.edu',
-          to: browserid_email,
-          subject: 'Welcome to the Curarium community!',
-          content_type: 'text/html',
-          body: render( partial: 'users/welcome', object: @current_user )
-        } ).deliver
+        u = User.create email: browserid_email, name: browserid_email.split( '@' ).first
+        UserMailer.welcome( u ).deliver
       end
     end
   end

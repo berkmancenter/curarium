@@ -2,7 +2,8 @@ class UsersController < ApplicationController
   before_action :set_user, only: [:show, :edit, :update, :destroy]
 
   def welcome
-    render partial: 'users/welcome', object: @current_user
+    @name = authenticated? ? @current_user.name : 'anonymous'
+    render template: 'user_mailer/welcome', layout: false
   end
 
   # GET /users

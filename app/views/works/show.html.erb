@@ -19,7 +19,7 @@
   <tr class="metadata_box">
     <td class="parsed_button">
       <div class="menu_piecep">
-      <label for='parsed_id'><span class="button">P</span></label>
+      <label for='parsed_id'><span class="button" title="Parsed Information">P</span></label>
       </div></td>
       <td class="parsed_info">
       <input type='radio' class='checkbox_hack' id='parsed_id' name="recordoption">
@@ -32,7 +32,7 @@
   <tr class="surrogates_box">
     <td class="surrogates_button">
       <div class="menu_pieces">
-      <label for='surrogates_id'><span class="button">S</span></label>
+      <label for='surrogates_id'><span class="button" title="Surrogate images">S</span></label>
       </div></td>
       <td class="surrogate_info">
       <input type='radio' class='checkbox_hack' id='surrogates_id' name="recordoption">
@@ -49,7 +49,7 @@
     <tr class="tray_box">
     <td class="tray_button">
       <div class="menu_piecet">
-        <label for='add_id'><span class="button">T</span></label>
+        <label for='add_id'><span class="button" title="Add to trays">T</span></label>
         </div></td>
       <td class="tray_info">
         <input type='radio' class='checkbox_hack' id='add_id' name="recordoption">
@@ -64,7 +64,7 @@
 
     <tr class="anno_box"><td class="anno_button">
       <div class="menu_piecea">
-        <label for='ann_id'><span class="button">A</span></label>
+        <label for='ann_id'><span class="button" title="Annotations">A</span></label>
         </div></td>
       <td class="annotation_info">
         <input type='radio' class='checkbox_hack' id = 'ann_id' name="recordoption">
@@ -75,7 +75,7 @@
               <h4 class='window_header'>ANNOTATE IMAGE</h4>
               <div class='window_body'>
                 <div id='preview_window'></div>
-                    <input id="hide_anno" name="HideAnno" type="checkbox" value="Hide Annotations"><label for="HideAnno" id="hide-an">Show Annotations</label>
+                    <input id="hide_anno" name="HideAnno" type="checkbox" value="Hide Annotations" checked><label for="HideAnno" id="hide-an">Show Annotations</label>
                     <%= link_to "Go to annotations index", work_path + '/annotations', :class => :annoindex %>
                     <%= form_for([@work, Annotation.new]) do |f| %>
                   <div>

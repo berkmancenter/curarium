@@ -169,6 +169,7 @@ dd {
   background-color: white;
   position: absolute;
 }
+
 .button:hover {
   background: #d2232a;
   color: #ffffff;
@@ -469,7 +470,7 @@ dd {
   color: #d2232a;
   position: relative;
   width: 100%;
-  height: 100px;
+  height: 2s0px;
   td {
     padding: 0;
   }
@@ -1065,32 +1066,18 @@ dd {
       vertical-align: top;
     }
 
-  .works-info .metadata-info{
-      position: absolute;
-    }
-  .works-info .surrogates-inf{
-      position: absolute;
-    }
-    .works-info .trays{
-      position: absolute;
-      width: 0;
-    }
-      .works-info tr{
+    .works-info tr{
       position: absolute;
     }
 
-
-  .works-info .parsed_info{
-      top: 30px;
-      width: 200px;
-      left: 57px;
+    .works-info td{
       position: absolute;
     }
 }   
 
 .bubble_menu .menu_piecep{
   width: 25px;
-  position: relative;
+  position: absolute;
   margin: 0 10px;
   top: 30px;
   border: 1px solid #d2232a;
@@ -1100,7 +1087,7 @@ dd {
 
 .bubble_menu .menu_pieces{
   width: 25px;
-  position: relative;
+  position: absolute;
   margin: 0 10px;
   top: 70px;
   border: 1px solid #d2232a;
@@ -1110,7 +1097,7 @@ dd {
 
 .bubble_menu .menu_piecet{
   width: 25px;
-  position: relative;
+  position: absolute;
   margin: 0 10px;
   top: 110px;
   border: 1px solid #d2232a;
@@ -1120,88 +1107,12 @@ dd {
 
 .bubble_menu .menu_piecea{
   width: 25px;
-  position: relative;
+  position: absolute;
   margin: 0 10px;
   top: 150px;
   border: 1px solid #d2232a;
   padding: 25px 0 0 0;
   overflow: hidden;
-}
-
-.p_info {
-  z-index: -1;
-    position: relative;
-}
-
-.p_info:hover::after {
-    position: absolute;
-    top: 33px;
-    left: 50px;
-    display: block;
-    width: 125px;
-    text-align: center;
-    padding: 3px;
-    background-color: #FFFFFF;
-    color: #888888;
-    border: 1px solid #888888;
-    content: attr(title);
-}
-
-.s_info {
-  z-index: -1;
-    position: relative;
-}
-
-.s_info:hover::after {
-    position: absolute;
-    top: 75px;
-    left: 50px;
-    display: block;
-    width: 125px;
-    text-align: center;
-    padding: 3px;
-    background-color: #FFFFFF;
-    color: #888888;
-    border: 1px solid #888888;
-    content: attr(title);
-}
-
-.t_info {
-    z-index: -1;
-    position: relative;
-}
-
-.t_info:hover::after {
-    position: absolute;
-    top: 115px;
-    left: 50px;
-    display: block;
-    width: 125px;
-    text-align: center;
-    padding: 3px;
-    background-color: #FFFFFF;
-    color: #888888;
-    border: 1px solid #888888;
-    content: attr(title);
-}
-
-.a_info {
-    z-index: -1;
-    position: relative;
-}
-
-.a_info:hover::after {
-    position: absolute;
-    top: 152px;
-    left: 50px;
-    display: block;
-    width: 125px;
-    text-align: center;
-    padding: 3px;
-    background-color: #FFFFFF;
-    color: #888888;
-    border: 1px solid #888888;
-    content: attr(title);
 }
 
 .bubble_menu .button{
@@ -1211,6 +1122,7 @@ dd {
   width: 100%;
   @include rounded-corners(0px);
 }
+
 
 #annoindex {
   border: 0;
@@ -1332,7 +1244,7 @@ dd {
 
 .expand_pi {
   display: none;
-  padding: 10px 25px 10px 25px;
+  padding: 10px 25px 10px 35px;
   width: 120px !important;
   height: 80px;
   max-width: none !important;
@@ -1365,12 +1277,11 @@ dd {
   margin: 150px 50px 0 10px;
 }
 
-.bubble_menu .surrogates .expand_surr img {
+.bubble_menu .surrogates_box .expand_surr img {
   width: 50px;
   float: left;
   height: auto;
-  margin-top: 30px;
-  margin-bottom: -25px;
+  margin: 20px 0 -25px 2px;
   padding: 5px 68px 5px 67px;
   border: 1px solid #d2232a;
   background: white;
@@ -1986,8 +1897,8 @@ dt:hover {
 
 .bubble_menu .checkbox_hack:checked ~ .expand_pi {
   display: block;
-  width: 120px !important;
-  right: 50px;
+  width: 135px !important;
+  margin: 22px 0 0 52px;
   height: auto;
   max-height: 100px;
   overflow: scroll;
@@ -1995,20 +1906,23 @@ dt:hover {
   background: white;
 }
 
-.bubble_menu .checkbox_hack:checked ~ .expand_pi + .piecep_hover {
-  display: none;
-}
-
 .bubble_menu .checkbox_hack:checked ~ .expand_surr {
   display: block;
   top: 50px;
   height: auto;
+  margin: 0 0 0 40px;
 }
+
 .bubble_menu .checkbox_hack:checked ~ .expand_tray {
   display: block;
   background: white;
   overflow: auto;
+  width: 185px;
+  margin: 98px 0 0 52px;
 }
+
 .bubble_menu .checkbox_hack:checked ~ .expand_anno {
   display: block;
+  width: 160px;
+  margin: 137px 0 0 52px;
 }

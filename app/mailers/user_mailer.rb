@@ -1,6 +1,11 @@
 class UserMailer < ActionMailer::Base
-  default from: "do-not-reply@curarium.com"
-  
+  default from: 'curarium@metalab.harvard.edu'
+
+  def welcome( user )
+    @name = user.name
+    mail to: user.email, subject: 'Welcome to the Curarium community!'
+  end
+
   def personal_message(mail_params)
     @message = mail_params[:content]
     @url  = 'http://curarium.herokuapp.com'

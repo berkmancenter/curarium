@@ -15,27 +15,27 @@
 
 <!-- BEGIN SUB MENU -->  
 <div class="SUB_MENU bubble_menu">
-  <table class="works-info">
-  <tr class="metadata-info">
+  <table class="works_info">
+  <tr class="metadata_box">
     <td class="parsed_button">
       <div class="menu_piecep">
       <label for='parsed_id'><span class="button">P</span></label>
       </div></td>
       <td class="parsed_info">
-      <input type='checkbox' class='checkbox_hack' id='parsed_id'>
+      <input type='radio' class='checkbox_hack' id='parsed_id' name="recordoption">
       <div class="expand_pi">
         <!-- THIS IS WHERE THE PARSED WORK INFORMATION GOES -->
         <%= render :partial => 'shared/print_metadata', :locals=>{:original=>@work.parsed,:current=>@current_metadata,:class_name=>'printed_object',:id_name=>'parsed_work'} %>
       </div>
     </td></tr>
     
-    <tr class="surrogates">
-    <td  class="bub_menu surrogates">
+  <tr class="surrogates_box">
+    <td class="surrogates_button">
       <div class="menu_pieces">
       <label for='surrogates_id'><span class="button">S</span></label>
       </div></td>
       <td class="surrogate_info">
-      <input type='checkbox' class='checkbox_hack' id='surrogates_id'>
+      <input type='radio' class='checkbox_hack' id='surrogates_id' name="recordoption">
       <div class="expand_surr">
         <!-- THIS IS WHERE THE SURROGATE IMAGES GO -->
       <nav>
@@ -46,13 +46,13 @@
       </div>
     </td></tr>
     
-    <tr class="trays">
-    <td  class="bub_menu">
+    <tr class="tray_box">
+    <td class="tray_button">
       <div class="menu_piecet">
         <label for='add_id'><span class="button">T</span></label>
         </div></td>
       <td class="tray_info">
-        <input type='checkbox' class='checkbox_hack' id='add_id'>
+        <input type='radio' class='checkbox_hack' id='add_id' name="recordoption">
         <div class="expand_tray">
           <% if authenticated? %>
             <%= render template: 'trays/popup', layout: false %>
@@ -62,12 +62,12 @@
         </div>
     </td></tr>
 
-    <tr><td  class="bub_menu">
+    <tr class="anno_box"><td class="anno_button">
       <div class="menu_piecea">
         <label for='ann_id'><span class="button">A</span></label>
         </div></td>
       <td class="annotation_info">
-        <input type='checkbox' class='checkbox_hack' id = 'ann_id'>
+        <input type='radio' class='checkbox_hack' id = 'ann_id' name="recordoption">
         <div class="expand_anno">
           <div id='annotations'>
 

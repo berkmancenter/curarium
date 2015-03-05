@@ -208,8 +208,8 @@ FactoryGirl.define do
       title 'test_spotlight'
       privacy 'public'
       body 'This is a test public spotlight'
-      waku_id 31337
-      waku_url 'http://wacurarium.herokuapp.com/en/collection/31337'
+      waku_id '31337'
+      waku_url 'http://wacurarium.herokuapp.com/#proj/31337'
     end
 
     factory :spotlight_one_priv do
@@ -218,16 +218,16 @@ FactoryGirl.define do
       title 'spotlight_one_priv'
       privacy 'private'
       body 'This is a test private spotlight for test_user'
-      waku_id 31337
-      waku_url 'http://wacurarium.herokuapp.com/en/collection/31337'
+      waku_id '31338'
+      waku_url 'http://wacurarium.herokuapp.com/#proj/31338'
     end
 
     factory :spotlight_two do
       title 'spotlight_two'
       privacy 'public'
       body 'Used as attributes for testing spotlight creation'
-      waku_id 31338
-      waku_url 'http://wacurarium.herokuapp.com/en/collection/31338'
+      waku_id '31339'
+      waku_url 'http://wacurarium.herokuapp.com/#proj/31339'
     end
 
     factory :spotlight_two_pub do
@@ -236,8 +236,8 @@ FactoryGirl.define do
       privacy 'public'
       title 'spotlight_two_pub'
       body 'This is a test public spotlight for user 2'
-      waku_id 31337
-      waku_url 'http://wacurarium.herokuapp.com/en/collection/31337'
+      waku_id '31340'
+      waku_url 'http://wacurarium.herokuapp.com/#proj/31340'
     end
 
     factory :spotlight_two_priv do
@@ -246,8 +246,8 @@ FactoryGirl.define do
       privacy 'private'
       title 'spotlight_two_priv'
       body 'This is a test private spotlight'
-      waku_id 31337
-      waku_url 'http://wacurarium.herokuapp.com/en/collection/31337'
+      waku_id '31341'
+      waku_url 'http://wacurarium.herokuapp.com/#proj/31341'
     end
 
     factory :spotlight_two_circle do
@@ -256,10 +256,9 @@ FactoryGirl.define do
       privacy 'private'
       title 'spotlight_two_circle'
       body 'This is a test circle spotlight'
-      waku_id 31337
-      waku_url 'http://wacurarium.herokuapp.com/en/collection/31337'
+      waku_id '31342'
+      waku_url 'http://wacurarium.herokuapp.com/#proj/31342'
     end
-
   end
 end
 

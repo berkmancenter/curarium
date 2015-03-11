@@ -7,6 +7,9 @@
        <div class="stalking_menu_holder">
         	<div class="stalking_menu">
             <ul>
+              <% if authenticated? %>
+                <li><%= link_to render( partial: 'shared/mini_icon', object: 'annotate', locals: { icon_title: 'Edit Description' } ), edit_collection_path( @collection ), class: 'edit-collection' %></li>
+              <% end %>
               <li><%#= link_to render( partial: 'shared/mini_icon', object: 'follow' ), '#' %></li>
               <li><%= link_to render( partial: 'shared/mini_icon', object: 'spotlight', locals: { icon_title: 'Associated spotlights' } ), spotlights_path %></li>
               <li><%= link_to render( partial: 'shared/mini_icon', object: 'explore' ), collection_works_path( @collection ) %></li>

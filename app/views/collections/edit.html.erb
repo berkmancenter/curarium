@@ -1,8 +1,37 @@
-<script>
-	window.onload = function() {
-		window.collection.configure();
-		window.collection.populate_fields(<%= raw(@collection.configuration.to_json) %>);
-	};
-</script>
+<h1>Editing collection</h1>
 
-<%= render 'form' %>
+<%= semantic_form_for @collection do |f| %>
+  <% if @collection.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@collection.errors.count, "error") %> prohibited this collection from being saved:</h2>
+
+      <ul>
+      <% @collection.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= f.label :approved %><br>
+    <%= f.check_box :approved %>
+  </div>
+
+  <div class="field">
+    <%= f.label :name %><br>
+    <%= f.text_field :name %>
+  </div>
+
+  <div class="field">
+    <%= f.label :description %><br>
+    <%= f.text_area :description, size: '80x10' %>
+  </div>
+
+  <div class="actions">
+    <%= f.submit class: 'button' %>
+  </div>
+<% end %>
+
+<%= link_to 'Show', @collection %> |
+<%= link_to 'Back', collections_path %>

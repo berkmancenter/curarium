@@ -58,6 +58,76 @@ FactoryGirl.define do
       configuration '{"unique_identifier": ["id"], "title": ["title"], "image": ["primaryimageurl"], "thumbnail": ["primaryimageurl"], "creator": ["people", 0, "displayname"], "names": ["people", "*", "displayname"]}'
       source 'Harvard Art Museums'
     end
+
+    factory :heinz do
+      name 'Heinz Mack'
+      description 'Heinz'
+      approved true
+      configuration '{"unique_identifier":["id"],"title":["title"],"image":["images","*","baseimageurl"],"thumbnail":["images","*","baseimageurl"],"classification":["classification"],"medium":["medium"],"people":["people","*","name"],"places":["places","*","displayname"],"technique":["technique"]}'
+      source 'Harvard Art Museums'
+    end
+
+    factory :lighting do
+      name 'Lighting Devices'
+      description 'Lighting Devices'
+      approved true
+      configuration '{"unique_identifier":["id"],"title":["title"],"image":["images","*","baseimageurl"],"thumbnail":["images","*","baseimageurl"],"places":["places","*","displayname"],"people":["people","*","displayname"],"technique":["technique"],"medium":["medium"],"classification":["classification"],"culture":["culture"]}'
+      source 'Harvard Art Museums'
+    end
+
+    factory :aquatint do
+      name 'Aquatint'
+      description 'Aquatint'
+      approved true
+      configuration '{"unique_identifier":["id"],"title":["title"],"image":["images","*","baseimageurl"],"thumbnail":["images","*","baseimageurl"],"places":["places","*","displayname"],"people":["people","*","displayname"],"technique":["technique"],"medium":["medium"],"classification":["classification"],"culture":["culture"]}'
+      source 'Harvard Art Museums'
+    end
+
+
+    factory :colorado_river do
+      name 'colorado_river'
+      description 'colorado_river'
+      approved true
+      configuration '{"unique_identifier":["id"],"title":["title"],"image":["images","*","baseimageurl"],"thumbnail":["images","*","baseimageurl"],"places":["places","*","displayname"],"people":["people","*","displayname"],"technique":["technique"],"medium":["medium"],"classification":["classification"],"culture":["culture"]}'
+      source 'Harvard Art Museums'
+    end
+
+
+    factory :map do
+      name 'map'
+      description 'map'
+      approved true
+      configuration '{"unique_identifier":["id"],"title":["title"],"image":["images","*","baseimageurl"],"thumbnail":["images","*","baseimageurl"],"places":["places","*","displayname"],"people":["people","*","displayname"],"technique":["technique"],"medium":["medium"],"classification":["classification"],"culture":["culture"]}'
+      source 'Harvard Art Museums'
+    end
+
+
+    factory :russian do
+      name 'russian'
+      description 'russian'
+      approved true
+      configuration '{"unique_identifier":["id"],"title":["title"],"image":["images","*","baseimageurl"],"thumbnail":["images","*","baseimageurl"],"places":["places","*","displayname"],"people":["people","*","displayname"],"technique":["technique"],"medium":["medium"],"classification":["classification"],"culture":["culture"]}'
+      source 'Harvard Art Museums'
+    end
+
+    factory :tate_collections_1 do
+      name 'tate_collections_1'
+      description 'tate_collections_1'
+      approved true
+      configuration '{"unique_identifier":["id"],"title":["title"],"image":["images","*","baseimageurl"],"thumbnail":["images","*","baseimageurl"],"places":["places","*","displayname"],"people":["people","*","displayname"],"technique":["technique"],"medium":["medium"],"classification":["classification"],"culture":["culture"]}'
+      source 'Harvard Art Museums'
+    end
+
+
+    factory :textile do
+      name 'textile'
+      description 'textile'
+      approved true
+      configuration '{"unique_identifier":["id"],"title":["title"],"image":["images","*","baseimageurl"],"thumbnail":["images","*","baseimageurl"],"places":["places","*","displayname"],"people":["people","*","displayname"],"technique":["technique"],"medium":["medium"],"classification":["classification"],"culture":["culture"]}'
+      source 'Harvard Art Museums'
+    end
+
+
   end
 
   factory :work do

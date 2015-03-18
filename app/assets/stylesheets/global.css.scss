@@ -292,9 +292,7 @@ dd {
   }
   .expandable{
     .tools {
-//      width: 1000px;
       width: 100%;
-//      position: absolute;
       right: 10px; top: 12px;
     }
     div{
@@ -1247,7 +1245,7 @@ dd {
   display: none;
   padding: 10px 25px 10px 35px;
   width: 120px !important;
-  height: 80px;
+  height: 100px;
   max-width: none !important;
   right: 50px;
 }
@@ -1325,8 +1323,8 @@ dd {
 	margin: 5px 0 20px 0;
 }
 .uploader_content .json_holder{
-	max-height: 1000px;
-	overflow: auto;
+	max-height: 800px;
+	overflow: scroll;
 }
 .uploader_content .field {
 	border: 1px solid #ccc; 
@@ -1712,7 +1710,8 @@ dt:hover {
 .GLOBAL_MENU .expandable .tools .menu_wrapper {
   display: table-row;
   position: absolute;
-  width: 100%;
+  width: 80%;
+  margin-left: 175px;
 
   a {
     font-size: $fontSize2;
@@ -1900,8 +1899,7 @@ dt:hover {
   display: block;
   width: 135px !important;
   margin: 22px 0 0 52px;
-  height: auto;
-  max-height: 100px;
+  height: 100px;
   overflow: scroll;
   border: 1px solid #d2232a;
   background: white;

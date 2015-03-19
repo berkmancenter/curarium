@@ -152,7 +152,7 @@ class WorksController < ApplicationController
   # GET /works/1
   # GET /works/1.json
   def show
-    response.headers[ 'Access-Control-Allow-Origin' ] = Waku::URL
+    response.headers[ 'Access-Control-Allow-Origin' ] = Waku::CORS_URL
 
     # for add to tray popout, will have to include cirlce trays later
     @owner = @current_user

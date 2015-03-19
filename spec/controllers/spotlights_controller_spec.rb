@@ -17,6 +17,14 @@ describe ( SpotlightsController ) {
       controller.login_browserid u.email 
     }
 
+    describe ( 'GET spotlights#new' ) {
+      it ( 'should redirect to Waku::URL' ) {
+        get :new
+        response.code.should eq( '302' )
+        response.headers[ 'Location' ].should eq( 'http://wacurarium.herokuapp.com' )
+      }
+    }
+
     describe ( 'POST spotlights' ) {
       it ( 'should return ok' ) {
         post :create, spotlight: s_attr, format: :json

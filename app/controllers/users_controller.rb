@@ -16,7 +16,7 @@ class UsersController < ApplicationController
   # GET /users/1
   # GET /users/1.json
   def show
-    response.headers[ 'Access-Control-Allow-Origin' ] = Waku::URL
+    response.headers[ 'Access-Control-Allow-Origin' ] = Waku::CORS_URL
 
     if @user == @current_user
       @spotlights = @user.spotlights.user_only

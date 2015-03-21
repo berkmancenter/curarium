@@ -13,6 +13,12 @@ Curarium::Application.configure do
   config.consider_all_requests_local       = true
   config.action_controller.perform_caching = false
 
+  # Force all access to the app over SSL, use Strict-Transport-Security, and use secure cookies.
+  #config.force_ssl = true
+
+  # Set to :debug to see everything in the log.
+  config.log_level = :info
+
   # Don't care if the mailer can't send.
   config.action_mailer.raise_delivery_errors = false
 

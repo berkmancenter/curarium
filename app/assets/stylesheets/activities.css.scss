@@ -14,12 +14,12 @@ span.activity {
 
   .activity-body {
     display: block;
-    margin-left: 3.2em;
   }
 
   .activity-creator {
     display: block;
-    margin-left: 6em;
+    font-weight: bold;
+    margin-left: 3em;
 
     &::before {
       content: '- ';

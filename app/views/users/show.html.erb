@@ -66,7 +66,7 @@
       <%= render :partial=>'shared/print_item', :locals=>{:item=>s} %>
     <% end %>
 
-    <%= render( partial: 'shared/newnail', object: Spotlight ) if ( authenticated? && @user == @current_user ) %>
+    <%= render( partial: 'shared/newnail', object: Spotlight, locals: { target: '_blank' } ) if ( authenticated? && @user == @current_user ) %>
   </div><!-- END GALLERY -->  
 
 </section>

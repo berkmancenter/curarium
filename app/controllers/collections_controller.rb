@@ -40,8 +40,12 @@ class CollectionsController < ApplicationController
     if @collection.save
       Zip::File.open( params[:file].path ) { |zip_file|
         zip_file.each { |entry| 
-          puts entry.name
-          entry.extract Rails.root.join( 'db', 'collection_data', @collection.id.to_s, entry.name )
+          json_file_path = Rails.root.join( 'db', 'collection_data', @collection.id.to_s, entry.name )
+          entry.extract json_file_path
+
+          if json_file_path.to_s.downcase =~ /\.json/
+            ImportWork.perform_async @collection.id, @collection.configuration, json_file_path.to_s
+          end
         }
       }
       redirect_to collections_path, notice: 'Your collection is currently uploading, please check back within the hour.'

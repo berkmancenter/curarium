@@ -23,8 +23,11 @@
     <!-- middle content -->
     <div class="expandable"><div class="holder">
 			<!-- ABOUT CONTENT -->
-		<div class="titlebar to_about"><%= @collection.name %></div>
+      <div class="titlebar to_about"><%= @collection.name %><%= ' (importing)' unless !@collection.importing %></div>
 		<div class="cont_about">
+      <% if @collection.importing %>
+        <div class="importing-note">This collection is currently importing, all records may not yet be availalbe.</div>
+      <% end %>
 			<%= @collection.description %>
 		</div>
    		

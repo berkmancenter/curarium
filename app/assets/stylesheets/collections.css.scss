@@ -31,6 +31,16 @@
   }
 }
 
+.collections.show {
+  .importing-note {
+    font-size: 0.75em;
+    margin: 0.5em;
+    outline: 2px solid $cred;
+    padding: 0.5em;
+    text-align: center;
+  }
+}
+
 .collections.new {
   label {
     display: block;

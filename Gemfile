@@ -58,8 +58,9 @@ gem 'bcrypt'
 gem 'bcrypt-ruby', '~> 3.1.2'
 
 #running jobs as back processes 
-gem 'sucker_punch' #does not require additional workers or redis on Heroku
 gem 'rubyzip' #unzip things
+gem 'sidekiq'
+gem 'sinatra', '>= 1.3.0', :require => nil
 
 # Use unicorn as the app server
 # gem 'unicorn'

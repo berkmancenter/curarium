@@ -1,3 +1,5 @@
+require 'zip'
+
 class CollectionsController < ApplicationController
   before_action :set_collection, only: [:show, :edit, :update, :destroy]
 
@@ -32,9 +34,16 @@ class CollectionsController < ApplicationController
   # POST /collections.json
   def create
     @collection = Collection.new(collection_params)
-    @collection.approved = true
+    @collection.importing = true
+    @collection.approved = false
     @collection.admin = [ @current_user.id ]
     if @collection.save
+      Zip::File.open( params[:file].path ) { |zip_file|
+        zip_file.each { |entry| 
+          puts entry.name
+          entry.extract Rails.root.join( 'db', 'collection_data', @collection.id.to_s, entry.name )
+        }
+      }
       redirect_to collections_path, notice: 'Your collection is currently uploading, please check back within the hour.'
     else
       render action: 'new'

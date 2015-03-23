@@ -34,19 +34,10 @@ class CollectionsController < ApplicationController
     @collection = Collection.new(collection_params)
     @collection.approved = true
     @collection.admin = [ @current_user.id ]
-    respond_to do |format|
-      if @collection.save
-#        f = File.new("#{Rails.root}/tmp/#{params[:file].original_filename}", 'wb')
-#        f.write params[:file].read
-#        f.close
-#        Parser.new.async.perform(@collection.id, "#{Rails.root}/tmp/#{params[:file].original_filename}")
-#        #Parser.new.async.perform(@collection.id)
-        format.html { redirect_to collections_path, notice: 'Your collection is currently uploading, please check back within the hour.' }
-        format.json { render action: 'show', status: :created, location: @collection }
-      else
-        format.html { render action: 'new' }
-        format.json { render json: @collection.errors, status: :unprocessable_entity }
-      end
+    if @collection.save
+      redirect_to collections_path, notice: 'Your collection is currently uploading, please check back within the hour.'
+    else
+      render action: 'new'
     end
   end
 

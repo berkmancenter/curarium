@@ -18,7 +18,7 @@
       <%= render :partial => 'shared/print_item', :locals=>{:item=>spotlight} %>
     <% end %>
 
-    <%= render partial: 'shared/newnail', object: Spotlight unless !authenticated? %>
+    <%= render partial: 'shared/newnail', object: Spotlight, locals: { target: '_blank' } unless !authenticated? %>
   </div>
   <!-- END GALLERY -->  
 

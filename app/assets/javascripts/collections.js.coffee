@@ -105,6 +105,7 @@ window.collection.populate_fields = (configuration)->
 field_drop = (e, d) -> 
   path = $(d.draggable).data('path')
   $(this).data('path', path)
+  $(this).find('form,.value').remove()
   field = $('<form>')
   for p in path
     do (p) ->

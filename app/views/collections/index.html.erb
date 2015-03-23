@@ -1,31 +1,15 @@
-<!-- BEGIN SUB MENU  (this will maybe become a partial) -->	
+<!-- BEGIN SUB MENU -->	
 <div class="SUB_MENU">
   <div class="expandable"><%= link_to 'Click for navigation instructions', '/help', target:"_blank" %></div>
-  </div>
-
-
-  <!-- Remove order-by buttons until functionality is decided #9731
-  <div class="right">
-    <div class="orderby"><span>Order:</span><span><%= link_to render( partial: 'shared/mini_icon', object: 'clock', locals: { icon_title: nil } ), '#' %></span></div>
-  </div>-->   
+</div>
 <!-- END SUB MENU -->	
 
-
-<% if flash[:alert] %>
-	<p class='button'>
-		<%= flash[:alert] %>
-	</p>
-<% end %>
-
-      
 <!-- BEGIN GALLERY -->	     
 <div class="GALLERY">
   <% @collections.each do |collection| %>
     <%= render :partial=>'shared/print_item', :locals=>{:item=>collection} %>
   <% end %>
 
-   <div class="gallery_item">
-    <div class="createnew"> <%= link_to 'New Collection', new_collection_path %> </div>
-  </div>
-	      
-</div><!-- END GALLERY -->  
+  <%= render partial: 'shared/newnail', object: Collection if authenticated? %>
+</div>
+<!-- END GALLERY -->  

@@ -88,7 +88,7 @@ class SpotlightsController < ApplicationController
 
   private
     def cors
-      response.headers[ 'Access-Control-Allow-Origin' ] = Waku::URL
+      response.headers[ 'Access-Control-Allow-Origin' ] = Waku::CORS_URL
       response.headers['Access-Control-Allow-Methods'] = 'POST, GET, PUT, DELETE, OPTIONS'
     end
 

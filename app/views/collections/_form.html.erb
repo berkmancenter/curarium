@@ -1,113 +1,109 @@
-<!-- BEGIN SUB MENU -->	
+<!-- BEGIN SUB MENU -->  
 <div class="SUB_MENU">
-			<div class="titlebar main bord"> Collection Creator </div>
-			 <!--<div class="button submit">Upload Collection</div>-->
-</div><!-- END SUB MENU -->
+  <div class="titlebar main bord"> Collection Creator </div>
+</div>
+<!-- END SUB MENU -->
 
 <div class="BELOW_MENU">
-			<div class=""><%= link_to 'Click for instructions', '/importhelp', target:"_blank"%></div>
-</div>	
+  <div><%= link_to 'Click for instructions', '/importhelp', target: '_blank' %></div>
+</div>  
 
+<div class="uploader_content">  
+  <!-- LEFT CONTENT -->
+  <div class="left">
+    <div class="holder">
+      <%= form_for @collection, html: { :multipart => true } do |f| %>
+        <% if @collection.errors.any? %>
+        <div id="error_explanation">
+          <h2><%= pluralize @collection.errors.count, 'error' %> prohibited this collection from being saved:</h2>
 
-<!-- BEGIN ABOUT CONTENT -->	
+          <ul>
+            <% @collection.errors.full_messages.each do |msg| %>
+            <li><%= msg %></li>
+            <% end %>
+          </ul>
+        </div>
+        <% end %>
+      
+        <div class="titlebar">General Information</div> 
 
-<div class="uploader_content">	
-	<!-- left content -->
-	<div class="left"><div class="holder">
-	  <%= form_for(@collection, :html => { :multipart => true }) do |f| %>
-	    <% if @collection.errors.any? %>
-	      <div id="error_explanation">
-		      <h2><%= pluralize(@collection.errors.count, "error") %> prohibited this collection from being saved:</h2>
+        <%= f.label :name, 'Collection Name' %>
+        <div class="input_box">
+          <%= f.text_field :name, placeholder: "Choose a name for your collection", class: 'text' %>
+        </div> 
 
-		      <ul>
-			      <% @collection.errors.full_messages.each do |msg| %>
-			      <li>
-				      <%= msg %>
-			      </li>
-			      <% end %>
-		      </ul>
-	      </div>
-	    <% end %>
-	    
-	    <div class="titlebar">General Information</div> 
-	    Collection Name
-	    <div class="input_box">
-		    <%= f.text_field :name, placeholder: "Choose a name for your collection", class: 'text' %>
-	    </div> 
-	    Collection Description
-	    <div class="input_box">
-		    <%= f.text_area :description, placeholder: "A description of your collection. It can be a long text.", id:"spotlight_body", class: 'text' %>	
-	    </div> 
-	    Collection Provider
-	    <div class="input_box">
-		    <%= f.text_field :source, placeholder: "Identify the provider of this collection", class: 'text' %>
-	    </div> 
+        <%= f.label :description, 'Collection Description' %>
+        <div class="input_box">
+          <%= f.text_area :description, placeholder: "A description of your collection. It can be a long text.", id:"spotlight_body", class: 'text' %>  
+        </div> 
 
-	    <input type='file' name='file'>
+        <%= f.label :source, 'Collection Provider' %>
+        <div class="input_box">
+          <%= f.text_field :source, placeholder: "Identify the provider of this collection", class: 'text' %>
+        </div> 
 
-	    <div class="field">
-		    <%= f.hidden_field :configuration, value: "{}" %>
-	    </div>
-		
-	  <div class="actions">
-		    <%= f.submit 'Import Collection', class:"button submit" %> 
-	    </div>
-	  <% end %>
+        <label for="file">ZIP of Collection JSON Files</label>
+        <input id="file" type="file" name="file">
 
-	  <form>
-		Collection JSON Sample 		
-		  <div class="input_box">
-			  <textarea id='json' class="text" placeholder='Copy and paste your sample json record here'></textarea>
-		  </div>
-		  <span id='parse' class= "uploadjson">Parse</span>	 
-	  </form>
-	  </div>
-	</div>
+        <%= f.hidden_field :configuration, value: "{}" %>
     
-    <!-- middle content -->
-    <div class="expandable"><div class="holder">
-		<!-- ABOUT CONTENT -->
-		<div class="titlebar">Collection JSON File</div>
-		Parsed json file
-		<div class="json_holder" id='parsed'>
-				No File - Please Upload a JSON file		
-		</div>
-    </div></div><!-- end middle content -->
+        <div class="actions">
+          <%= f.submit 'Import Collection', class: 'button submit' %> 
+        </div>
+      <% end %>
 
-	<!-- right content -->
-     <div id='output' class="right">
-	<div class="holder">
+      <label for="json">Collection JSON Sample</label>
+      <div class="input_box">
+        <textarea id="json" class="text" placeholder="Copy and paste your sample json record here"></textarea>
+      </div>
 
-	<div class="titlebar">Active Fields</div>
-	    <div id='output'>
-		<div id='unique_identifier' class='field field_wrapper'>
-			<p>
-				Unique Identifier
-			</p>
-		</div>
-		<div id='title' class='field field_wrapper'>
-			<p>
-				title
-			</p>
-		</div>
-		<div id='image' class='field field_wrapper'>
-			<p>
-				image
-			</p>
-		</div>
-		<div id='thumbnail' class='field field_wrapper'>
-			<p>
-				thumbnail
-			</p>
-		</div>
-		<form id='add_field'>
-			<input id='field_name' name='field_name' type='text' placeholder='custom field name'>
-			<br>
-			<input type='submit' value='Add field'>
-			
-		</form>
+      <span id="parse" class= "uploadjson">Parse</span>   
+    </div>
+  </div>
+  <!-- END LEFT CONTENT -->
+    
+  <!-- MIDDLE CONTENT -->
+  <div class="expandable">
+    <div class="holder">
+      <div class="titlebar">Collection JSON Sample</div>
 
-	</div>
-	</div></div><!-- end right content -->
-     
-</div><!-- END ABOUT CONTENT -->	
+      <label>Parsed JSON Sample</label>
+      <div class="json_holder" id="parsed">
+        No Sample &ndash; Please paste JSON into the Collection JSON Sample box at the bottom left and click Parse
+      </div>
+    </div>
+  </div>
+  <!-- END MIDDLE CONTENT -->
+
+  <!-- RIGHT CONTENT -->
+  <div class="right">
+    <div class="holder">
+      <div class="titlebar">Active Fields</div>
+
+      <div id="output">
+        <div id="unique_identifier" class="field field_wrapper">
+          <p>unique identifier</p>
+        </div>
+
+        <div id="title" class="field field_wrapper">
+          <p>title</p>
+        </div>
+
+        <div id="image" class="field field_wrapper">
+          <p>image</p>
+        </div>
+
+        <div id="thumbnail" class="field field_wrapper">
+          <p>thumbnail</p>
+        </div>
+
+        <form id="add_field">
+          <input id="field_name" name="field_name" type="text" placeholder="custom field name">
+          <br>
+          <input type="submit" value="Add field">
+        </form>
+      </div>
+    </div>
+  </div>
+  <!-- END RIGHT CONTENT -->
+</div>

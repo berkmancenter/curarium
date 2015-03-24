@@ -26,7 +26,7 @@
       <div class="titlebar to_about"><%= @collection.name %><%= ' (importing)' unless !@collection.importing %></div>
 		<div class="cont_about">
       <% if @collection.importing %>
-        <div class="importing-note">This collection is currently importing, all records may not yet be availalbe.</div>
+        <div class="importing-note">This collection is currently importing, <%= @collection.import_queue_count %> records remain</div>
       <% end %>
 			<%= @collection.description %>
 		</div>

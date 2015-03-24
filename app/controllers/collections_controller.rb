@@ -34,7 +34,6 @@ class CollectionsController < ApplicationController
   # POST /collections.json
   def create
     @collection = Collection.new(collection_params)
-    @collection.importing = true
     @collection.approved = false
     @collection.admin = [ @current_user.id ]
     if @collection.save

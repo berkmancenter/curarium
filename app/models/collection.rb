@@ -143,6 +143,14 @@ class Collection < ActiveRecord::Base
     end
   end
 
+  def importing
+    import_queue_count > 0
+  end
+
+  def import_queue_count
+    Sidekiq::Queue.new.count { |i| i.args[0] == id }
+  end
+
   private
 
   def generate_key

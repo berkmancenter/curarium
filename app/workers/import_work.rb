@@ -20,6 +20,8 @@ class ImportWork
     end
 
     w.cache_thumb
+
+    sleep 0.5
   end
 end
 

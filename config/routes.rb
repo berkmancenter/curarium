@@ -1,8 +1,7 @@
 Curarium::Application.routes.draw do
 
-  get 'welcome' => 'users#welcome', as: 'welcome', layout: false
-
   get 'about' => 'home#about', as: 'about'
+  get 'bot' => 'home#bot', as: 'bot'
 
   controller :sessions do
     post 'login' => :create

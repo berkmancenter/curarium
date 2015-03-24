@@ -1,3 +1,5 @@
+require 'zip'
+
 class CollectionsController < ApplicationController
   before_action :set_collection, only: [:show, :edit, :update, :destroy]
 
@@ -32,21 +34,23 @@ class CollectionsController < ApplicationController
   # POST /collections.json
   def create
     @collection = Collection.new(collection_params)
-    @collection.approved = true
+    @collection.importing = true
+    @collection.approved = false
     @collection.admin = [ @current_user.id ]
-    respond_to do |format|
-      if @collection.save
-#        f = File.new("#{Rails.root}/tmp/#{params[:file].original_filename}", 'wb')
-#        f.write params[:file].read
-#        f.close
-#        Parser.new.async.perform(@collection.id, "#{Rails.root}/tmp/#{params[:file].original_filename}")
-#        #Parser.new.async.perform(@collection.id)
-        format.html { redirect_to collections_path, notice: 'Your collection is currently uploading, please check back within the hour.' }
-        format.json { render action: 'show', status: :created, location: @collection }
-      else
-        format.html { render action: 'new' }
-        format.json { render json: @collection.errors, status: :unprocessable_entity }
-      end
+    if @collection.save
+      Zip::File.open( params[:file].path ) { |zip_file|
+        zip_file.each { |entry| 
+          json_file_path = Rails.root.join( 'db', 'collection_data', @collection.id.to_s, entry.name )
+          entry.extract json_file_path
+
+          if json_file_path.to_s.downcase =~ /\.json/
+            ImportWork.perform_async @collection.id, @collection.configuration, json_file_path.to_s
+          end
+        }
+      }
+      redirect_to collections_path, notice: 'Your collection is currently uploading, please check back within the hour.'
+    else
+      render action: 'new'
     end
   end
 

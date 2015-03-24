@@ -9,6 +9,9 @@ Curarium::Application.routes.draw do
     post 'logout' => :destroy
   end
 
+  require 'sidekiq/web'
+  mount Sidekiq::Web => '/sidekiq'
+
 #  post 'users/message' => 'users#message', as: 'user_message'
 #  post 'sections/message' => 'sections#message', as: 'section_message'
 

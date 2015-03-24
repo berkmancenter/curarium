@@ -6,8 +6,6 @@ require 'rails/all'
 # you've limited to :test, :development, or :production.
 Bundler.require(:default, Rails.env)
 
-
-
 module Curarium
   class Application < Rails::Application
     config.action_view.sanitized_allowed_tags = ['h1','h2','h3','h4','h5','h6', 'p','div','span','img','b','i','u'] + Array.new(100) { |i| "<#{i}>" } #allow custom tags for spotlights

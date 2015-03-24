@@ -9,7 +9,7 @@
       <div class='stack3<%= " item_lrg" if big %>' style='background-image:url(<%= background %>)'>
       <!--  <button type='button' class="abo_button">About</button>-->
       <!--  <button type='button' class="act_button">Activate</button> -->
-        <div class='object_id'><%= item.name %></div>
+      <div class='object_id'><%= item.name %> <% if item.importing %>(importing)<% end %></div>
         </div>
     </div>
   </a>

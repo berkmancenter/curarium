@@ -51,7 +51,7 @@ class CollectionsController < ApplicationController
           end
         }
       }
-      redirect_to user_path( @current_user ), notice: 'Your collection is currently uploading, please check back within the hour.'
+      redirect_to collection_path( @collection )
     else
       render action: 'new'
     end

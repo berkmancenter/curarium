@@ -39,6 +39,9 @@ body.circles {
 
   .formtastic .choices-group {
     padding: 0 0 0 128px;
+    height: 120px;
+    overflow-y: scroll;
+    width: 24%;
   }
 }
 

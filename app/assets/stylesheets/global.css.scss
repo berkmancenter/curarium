@@ -175,9 +175,8 @@ dd {
   cursor: pointer;
 }
 .titlebar {
-  font-size: 16px;
+  font-size: 14px;
   color: #d2232a;
-  padding: 0 0 10px 0;
   border-bottom: 1px solid #CCCCCC;
   margin: 80px 0 20px 0;
   font-weight: bold;
@@ -1323,6 +1322,8 @@ dd {
 .uploader_content .json_holder{
 	max-height: 800px;
 	overflow: scroll;
+  margin-bottom: 25px;
+  padding-bottom: 10px;
 }
 .uploader_content .field {
 	border: 1px solid #ccc; 

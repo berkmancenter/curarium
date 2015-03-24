@@ -20,21 +20,28 @@
   background: $cgray1;
   display: block;
   margin-left: 10px;
-  overflow: hidden;
-  width: 98%;
+  width: 750px;
+  height: 130px;
+  overflow-x: scroll;
+  overflow-y: scroll;
+  margin: 10px;
 
   li {
     display: inline-block;
+
   }
 
   img {
+    display:inline-block;
     height: 100px;
+    width: auto;
     margin: 10px;
   }
 
   &:hover {
     outline: 2px solid $cred;
   }
+
 }
 
 .tray-popup {

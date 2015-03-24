@@ -10,6 +10,6 @@
     <%= render :partial=>'shared/print_item', :locals=>{:item=>collection} %>
   <% end %>
 
-  <%= render partial: 'shared/newnail', object: Collection if authenticated? %>
+  <%= render partial: 'shared/newnail', object: Collection, locals: { verb: 'add' } if authenticated? %>
 </div>
 <!-- END GALLERY -->  

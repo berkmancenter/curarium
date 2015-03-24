@@ -39,8 +39,11 @@ class CollectionsController < ApplicationController
     @collection.admin = [ @current_user.id ]
     if @collection.save
       Zip::File.open( params[:file].path ) { |zip_file|
+        collection_path = Rails.root.join 'db', 'collection_data', @collection.id.to_s
+        FileUtils.rm_rf collection_path
+
         zip_file.each { |entry| 
-          json_file_path = Rails.root.join( 'db', 'collection_data', @collection.id.to_s, entry.name )
+          json_file_path = collection_path.join entry.name
           entry.extract json_file_path
 
           if json_file_path.to_s.downcase =~ /\.json/
@@ -48,7 +51,7 @@ class CollectionsController < ApplicationController
           end
         }
       }
-      redirect_to collections_path, notice: 'Your collection is currently uploading, please check back within the hour.'
+      redirect_to user_path( @current_user ), notice: 'Your collection is currently uploading, please check back within the hour.'
     else
       render action: 'new'
     end

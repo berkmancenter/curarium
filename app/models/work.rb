@@ -43,26 +43,23 @@ class Work < ActiveRecord::Base
       cache_url = "#{thumbnail_url}#{thumbnail_url.include?( '?' ) ? '&' : '?'}width=256&height=256"
 
       begin
-        uri = URI cache_url
-
-        req = create_request uri
-
-        http = Net::HTTP.new uri.hostname, uri.port
-
-        http.open_timeout = 10
-        http.read_timeout = 20
-
-        res = http.start{ |http| http.request req }
-
-        #proxy_content = res.body.encode
-
-        Rails.cache.write "#{thumb_hash}-date", Date.today
-        Rails.cache.write "#{thumb_hash}-image", res.body
-        Rails.cache.write "#{thumb_hash}-type", "image/jpeg" #{Work.image_type thumb_connection.path}"
+        thumb_connection = open cache_url, 'rb', 'User-Agent' => Curarium::BOT_UA
       rescue Net, OpenURI::HTTPError => e
-        logger.info 'error'
+        thumb_connection = nil
+      end
+
+      if thumb_connection.present?
+        Rails.cache.write "#{thumb_hash}-date", Date.today
+        Rails.cache.write "#{thumb_hash}-image", thumb_connection.read
+
+        if thumb_connection.is_a? Tempfile
+          Rails.cache.write "#{thumb_hash}-type", "image/#{Work.image_type thumb_connection.path}"
+        else
+          Rails.cache.write "#{thumb_hash}-type", thumb_connection.meta[ 'content-type' ]
+        end
       end
     end
+
   end
 
   def annotations
@@ -71,15 +68,6 @@ class Work < ActiveRecord::Base
   end
 
   private
-  
-  def create_request( uri )
-    req = Net::HTTP::Get.new uri
-    req['Accept'] = 'image/*;q=0.8'
-    req['Accept-Language'] = 'en-US,en;q=0.8'
-    req['Connection'] = 'close'
-    req['User-Agent'] = 'CurariumBot/0.4.8 (+http://curarium.com/bot)'
-    req
-  end
 
   def extract_attributes
     if id.nil?

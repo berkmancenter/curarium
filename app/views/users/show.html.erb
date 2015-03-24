@@ -54,6 +54,8 @@
     <% Collection.administered_by( @user ).each do |collection| %>
       <%= render :partial=>'shared/print_item', :locals=>{:item=>collection} %>
     <% end %>
+
+    <%= render partial: 'shared/newnail', object: Collection, locals: { verb: 'add' } if authenticated? %>
   </div><!-- END GALLERY -->  
 
 </section>

@@ -16,8 +16,10 @@ class ImportWork
       w = Work.find_by unique_identifier: unique_identifier, collection_id: collection_id
       w.update original: original, parsed: parsed
     else
-      Work.create collection_id: collection_id, original: original, parsed: parsed
+      w = Work.create collection_id: collection_id, original: original, parsed: parsed
     end
+
+    w.cache_thumb
   end
 end
 

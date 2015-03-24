@@ -11,9 +11,11 @@
 h1 {
   color: $cred;
   font-size: $fontSize3;
-
+  
   &.collection-header {
     border-bottom: 1px solid $cred;
+    font-size: 18px;
+    margin-bottom: 21px;
   }
 }
 
@@ -175,10 +177,10 @@ dd {
   cursor: pointer;
 }
 .titlebar {
-  font-size: 14px;
+  font-size: 16px;
   color: #d2232a;
   border-bottom: 1px solid #CCCCCC;
-  margin: 80px 0 20px 0;
+  margin: 40px 0 20px 0;
   font-weight: bold;
 }
 .titlebar:first-child {
@@ -510,16 +512,7 @@ dd {
   font-weight: bold;
   color: #d2232a;
 }
-.about_content .featured_spotlight_work{
-}
-.about_content .featured_spotlight_text{
-  font-size: $fontSize1;
-  width: 420px;
-  height: 420px;
-}
-.about_content .featured_spotlight_text .border{
-  height: 403px!important;
-}
+
 .about_content .gallery_item {
   margin: 0 20px 20px 0;
 }	
@@ -593,28 +586,6 @@ dd {
 }
 .about_content .cont_circ .profile_img{
   float: left;
-}
-.about_content .discussion{
-  padding: 5px 5px;
-  margin: 5px 0;
-}
-.about_content .discussion{
-  background: #eee;
-}
-.about_content .discussion .info{
-  color: #d2232a;
-  font-weight: bold;
-  padding: 0 0 5px 0;
-}
-.about_content .discussion .info span{
-  font-weight: normal;
-}
-.about_content .discussion .info .date{
-  float: right;
-}
-.about_content .discussion .snippet{
-  height: 15px;
-  overflow: hidden;
 }
 
 /* FOOTER */

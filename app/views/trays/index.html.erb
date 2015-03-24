@@ -14,6 +14,7 @@
     <%= f.text_field :name, placeholder: 'Create New Tray' %>
     <%= f.button 'create', type: 'submit', name: nil %>
   <% end %>
-
+  
+  <div class="titlebar">View Trays</div>
   <%= render partial: 'trays/tray_preview_gallery', object: @trays %>
 </div>

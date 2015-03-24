@@ -613,15 +613,8 @@ dd {
   vertical-align: middle;
 }
 
-.INFO_BAR #hintbar_links,.INFO_BAR #hintbar_search {
-  font-size: $fontSize1;
-  text-transform:uppercase;
-}
 .INFO_BAR #hintbar_links {
   bottom: 35px;
-}
-.INFO_BAR #hintbar_search {
-  bottom: 2px;
 }
 
 /*CURARIUM ABOUT*/
@@ -741,67 +734,6 @@ dd {
   text-transform: capitalize;
 }
 
-
-.work_data {	
-  position: absolute;
-  left: 10px;
-  top: 10px;
-  width: 220px;
-}
-.work_cont_holder {
-  overflow: auto;
-  height: 100%;
-}
-.work_img {	
-  margin: 0 100px 0 220px;
-}
-.work_surr {	
-  position: absolute;
-  right: 10px;
-  top: 10px;
-  width: 100px;
-}
-.work_surr img{	
-  width: 100px;
-  padding: 0 0 10px 0;
-}
-
-.controls_toggle {
-  margin: 0 auto;
-  width: 250px;
-  text-align: center;
-  font-weight: bold;
-  color: #d2232a;
-  z-index: 2;
-  position: relative;
-}
-.controls_toggle img {
-  position: absolute;
-  top: 1px;
- // right: 45px; 
-  width: 13px;
-}
-/*.controls_toggle img:nth-child(n+2) {
-  display: none;
-}
-*/
-.control_box .button {
-  width: 100%;
-  position: absolute;
-  bottom: 0px;
-  /*background: #d2232a;
-   *color: #ffffff;*/
-}
-/*.control_box .button:hover {
- * width: 100%;
- * position: absolute;
- * bottom: 0px;
- * background: #ffffff;
- * color: #d2232a;
- } **/
-.controls_toggle label:hover {
-  text-decoration: underline;	
-}
 .minimap {
   border: 5px solid white;
   width: 100px;
@@ -839,11 +771,7 @@ dd {
 }
 
 /*HACKING*/
-.work_img {
-  position: relative;
-  max-width: 100%;
-  height: 100%;
-}
+
 
 .work {
   max-width: 100%;
@@ -1181,15 +1109,7 @@ dt:hover {
 .spoteditor_sub {
   overflow: visible;	
 }
-.spoteditor_sub .controls_toggle {
-  width: 200px;
-}
-.spoteditor_sub .controls_toggle img {
-  top: 8px;
-}
-.spoteditor_sub .controls_toggle {
-  width: 200px;
-}
+
 .spoteditor_bar {
   height: auto;
   background: white;
@@ -1488,17 +1408,6 @@ dt:hover {
 }
 
 /* Replace global.js.coffe */
-
-.work_img .work {
-  max-width: 70%;
-  max-height: 70%;
-}
-
-.work_img {
-  width: 70%;
-  height: 70%;
-}
-
 .about_content .left {
   width: 200px;
 }
@@ -1600,10 +1509,6 @@ dt:hover {
   color: #d2232a
 }
 
-.controls_toggle label:hover, .navigate:hover, .orderby img:hover {
-  cursor: pointer;
-}
-
 .checkbox_hack {
   display: none;
 }
@@ -1614,14 +1519,6 @@ dt:hover {
 }
 
 #up {
-  display: none;
-}
-
-#viscon:checked ~ .controls_toggle #up {
-  display: inline;
-}
-
-#viscon:checked ~ .controls_toggle #down {
   display: none;
 }
 

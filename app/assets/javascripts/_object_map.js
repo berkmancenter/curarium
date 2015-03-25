@@ -78,7 +78,7 @@ $( function() {
                     img.src = '/works/' + workIds[ workIdIndex ] + '/thumb';
 
                   } else {
-                    //context.fillStyle = '#ff0000';
+                    context.fillStyle = '#ffffff';
                     context.fillRect( x, y, imageSize, imageSize );
                   }
 

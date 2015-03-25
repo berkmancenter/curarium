@@ -69,8 +69,12 @@ $( function() {
               }
 
               $.when.apply($, imageDeferreds ).then( function( ) {
-                console.log( bigCanvas[0].toDataURL( 'image/png' ) );
-                tileDefer.resolve( bigCanvas[0].toDataURL( 'image/png' ) );
+                var viewCanvas = $( '<canvas width="' + view.width + '" height="' + view.height + '" />' );
+                var viewContext = viewCanvas[0].getContext( '2d' );
+
+                viewContext.drawImage( bigCanvas[0], -view.bbox[ 0 ], -view.bbox[ 1 ] );
+
+                tileDefer.resolve( viewCanvas[0].toDataURL( 'image/png' ) );
               } );
 
               return tileDefer;

@@ -8,19 +8,90 @@ $( function() {
     if ( $.isArray( workIds ) && workIds.length > 0 ) {
       $.geo.proj = null;
 
-      var map = $( '.works-objectmap .geomap' ).geomap( {
-        bbox: [ 256 * workDimension / 2, 256 * workDimension / 2, 1024, 768 ],
-        zoom: 7,
+      var bigCanvas = $( '<canvas width="' + (256*workDimension) + '" height="' + (256*workDimension) + '" />' );
+      var bigContext = bigCanvas[0].getContext( '2d' );
 
-        zoomMin: 7,
-        zoomMax: 8,
+
+      var map = $( '.works-objectmap .geomap' ).geomap( {
+        bboxMax: [ 0, 0, 256 * workDimension, 256 * workDimension ],
+        bbox: [ 0, 0, 256 * workDimension, 256 * workDimension ],
 
         axisLayout: 'image',
 
         services: [
           {
-            type: 'tiled',
+            type: 'shingled',
             src: function( view ) {
+              console.log( view.bbox );
+
+              var thumbBox = $.map( view.bbox, function( el ) {
+                return el > 0 ? Math.min( Math.floor( el / 256 ), workDimension ) : 0;
+              } );
+
+              console.log( 'dimension: ' + workDimension + ', ' + thumbBox );
+
+              var tileDefer = new jQuery.Deferred();
+              var imageDeferreds = [];
+              var workIdIndex;
+
+              for ( var row = thumbBox[1]; row < thumbBox[3]; row++ ) {
+                for ( var col = thumbBox[0]; col < thumbBox[2]; col++ ) {
+                  workIdIndex = row * workDimension + col;
+
+                  console.log( '[' + row + ', ' + col + '] = ' + workIdIndex );
+                  if ( workIdIndex < workIds.length ) {
+                    var imageDefer = new jQuery.Deferred();
+                    imageDeferreds.push( imageDefer );
+
+                    var img = new Image();
+                    $( img ).data( { row: row, col: col, defer: imageDefer } );
+
+                    //console.log( '  id: ' + workIds[ workIdIndex ] );
+                    img.onload = function( ) {
+                      //context.clearRect( 0, 0, 256, 256 );
+                      console.log( 'img.onload ' + $( this ).data( 'row' ) + ', ' + $( this ).data( 'col' ) );
+
+                      bigContext.drawImage( this, $( this ).data( 'row' ) * 256, $( this ).data( 'col' ) * 256, 256, 256 );
+
+                      //miniContext.drawImage( img, xMini, yMini, miniSize, miniSize );
+                      //miniMap.geomap( 'refresh' );
+
+                      $( this ).data( 'defer' ).resolve();
+                    };
+
+                    img.onerror = function( ) {
+                      $( this ).data( 'defer' ).resolve();
+                    };
+
+                    img.src = '/works/' + workIds[ workIdIndex ] + '/thumb';
+                  }
+                }
+              }
+
+              $.when.apply($, imageDeferreds ).then( function( ) {
+                var viewCanvas = $( '<canvas width="' + view.width + '" height="' + view.height + '" />' );
+                var viewContext = viewCanvas[0].getContext( '2d' );
+
+                viewContext.drawImage( bigCanvas[0], -view.bbox[ 0 ], -view.bbox[ 1 ] );
+
+                tileDefer.resolve( viewCanvas[0].toDataURL( 'image/png' ) );
+              } );
+
+              return tileDefer;
+
+
+
+
+
+
+
+
+
+
+
+
+              //return bigCanvas[0].toDataURL( 'image/png' );
+
               if ( view.tile.column >= 0 && view.tile.row >= 0 ) {
                 // each tile needs a canvas now...I think,
                 // since drawing may happen over multiple async calls
@@ -78,7 +149,7 @@ $( function() {
                     img.src = '/works/' + workIds[ workIdIndex ] + '/thumb';
 
                   } else {
-                    //context.fillStyle = '#ff0000';
+                    context.fillStyle = '#ffffff';
                     context.fillRect( x, y, imageSize, imageSize );
                   }
 
@@ -99,19 +170,23 @@ $( function() {
           }
         ],
 
+          /*
         tilingScheme: {
           tileWidth: 256,
           tileHeight: 256,
           levels: 9,
           basePixelSize: 256,
           origin: [ 0, 0 ]
-        },
+        },*/
+
+        tilingScheme: null,
 
         bboxchange: function( e, geo ) {
-          updateMiniBbox( geo.bbox );
+          //updateMiniBbox( geo.bbox );
         },
 
         move: function( e, geo ) {
+          return false;
           if ( timeoutMove ) {
             clearTimeout( timeoutMove );
             timeoutMove = null;
@@ -122,6 +197,7 @@ $( function() {
         },
 
         click: function( e, geo ) {
+          return false;
           if ( geo.coordinates[ 0 ] >= 0 && geo.coordinates[ 1 ] >= 0 ) {
             // cache imageSize somewhere, it only changes when zoom changes
             var zoom = map.geomap( 'option', 'zoom' );
@@ -191,6 +267,7 @@ $( function() {
 
 
 
+      /*
       var miniCanvas = $( '<canvas width="256" height="256" />' );
       var miniContext = miniCanvas[0].getContext( '2d' );
 
@@ -241,6 +318,7 @@ $( function() {
       } );
 
       updateMiniBbox();
+      */
     }
   }
 

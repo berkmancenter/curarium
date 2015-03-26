@@ -34,7 +34,6 @@ class CollectionsController < ApplicationController
   # POST /collections.json
   def create
     @collection = Collection.new(collection_params)
-    @collection.importing = true
     @collection.approved = false
     @collection.admin = [ @current_user.id ]
     if @collection.save
@@ -95,6 +94,6 @@ class CollectionsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def collection_params
-      params.require(:collection).permit(:name, :description, :configuration, :source)
+      params.require(:collection).permit(:name, :description, :configuration, :source, :approved)
     end
 end

@@ -9,7 +9,7 @@
             <ul>
               <% if authenticated? %>
                 <% if @collection.admin[0] == @current_user.id %>
-                <li><%= link_to render( partial: 'shared/mini_icon', object: 'annotate', locals: { icon_title: 'Edit Description' } ), edit_collection_path( @collection ), class: 'edit-collection' %></li>
+                <li><%= link_to render( partial: 'shared/mini_icon', object: 'annotate', locals: { icon_title: 'Edit Description/Privacy' } ), edit_collection_path( @collection ), class: 'edit-collection' %></li>
                 <% end %>
               <% end %>
               <li><%#= link_to render( partial: 'shared/mini_icon', object: 'follow' ), '#' %></li>
@@ -26,7 +26,7 @@
       <div class="titlebar to_about"><%= @collection.name %><%= ' (importing)' unless !@collection.importing %></div>
 		<div class="cont_about">
       <% if @collection.importing %>
-        <div class="importing-note">This collection is currently importing, all records may not yet be availalbe.</div>
+        <div class="importing-note">This collection is currently importing, <%= @collection.import_queue_count %> records remain</div>
       <% end %>
 			<%= @collection.description %>
 		</div>

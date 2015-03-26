@@ -139,7 +139,7 @@ $( function() {
 
             var tileXY = [ Math.floor( geo.coordinates[ 0 ] / 256 ), Math.floor( geo.coordinates[ 1 ] / 256 ) ];
 
-            var index = tileXY[0] * workDimension + tileXY[1];
+            var index = tileXY[1] * workDimension + tileXY[0];
 
             if ( index < workIds.length ) {
               $.get( '/works/' + workIds[ index ], function( popupHtml ) {

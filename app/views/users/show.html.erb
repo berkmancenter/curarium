@@ -34,7 +34,7 @@
   <%= render partial: 'circles/thumbnail', collection: @user.circles %>
   </div><!-- END GALLERY -->  
 
-  <%= link_to raw( '<h2>Circle Manager</h2>' ), circles_path %>
+  <%= link_to raw( '<h2>Go to Circle Manager ></h2>' ), circles_path %>
 </section>
 
 <section class="user-trays">
@@ -42,7 +42,7 @@
 
   <%= render partial: 'trays/tray_preview_gallery', object: @user.trays.limit(2) %>
 
-  <%= link_to raw( '<h2>Tray Manager</h2>' ), user_trays_path( @user ) %>
+  <%= link_to raw( '<h2>Go to Tray Manager ></h2>' ), user_trays_path( @user ) %>
 </section>
 
 <% end %>

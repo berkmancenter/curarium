@@ -9,6 +9,11 @@
             <ul>
               <% if authenticated? %>
                 <% if @collection.admin[0] == @current_user.id %>
+
+                <%= form_for @collection, method: 'delete' do |f| %>
+                  <%= f.submit value: 'Delete Collection', class: 'delete-collection' %>
+                <% end %>
+
                 <li><%= link_to render( partial: 'shared/mini_icon', object: 'annotate', locals: { icon_title: 'Edit Description/Privacy' } ), edit_collection_path( @collection ), class: 'edit-collection' %></li>
                 <% end %>
               <% end %>

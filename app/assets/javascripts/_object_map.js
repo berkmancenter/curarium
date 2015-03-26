@@ -43,10 +43,10 @@ $( function() {
               //console.log( 'view.bbox: ' + view.bbox );
 
               var thumbBox = [
-                Math.max( ( Math.floor( view.bbox[0] / imageSize ) - 1), 0),
-                Math.max( ( Math.floor( view.bbox[1] / imageSize ) - 1), 0),
-                Math.min( ( Math.ceil( view.bbox[2] / imageSize ) ) + 1, workDimension),
-                Math.min( ( Math.ceil( view.bbox[3] / imageSize ) ) + 1, workDimension)
+                Math.max( ( Math.floor( view.bbox[0] / 256 ) - 1), 0),
+                Math.max( ( Math.floor( view.bbox[1] / 256 ) - 1), 0),
+                Math.min( ( Math.ceil( view.bbox[2] / 256 ) ) + 1, workDimension),
+                Math.min( ( Math.ceil( view.bbox[3] / 256 ) ) + 1, workDimension)
               ];
 
               //console.log( 'thumbBox: ' + thumbBox );

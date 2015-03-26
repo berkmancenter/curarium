@@ -19,7 +19,8 @@ $( function() {
       var maxZoomLevels = 9;
 
       var map = $( '.works-objectmap .geomap' ).geomap( {
-        bbox: [ 0, 0, 256 * workDimension, 256 * workDimension ],
+        center: [ Math.floor( 256 * workDimension / 2 ), Math.floor( 256 * workDimension / 2 ) ],
+        zoom: 7,
 
         axisLayout: 'image',
 

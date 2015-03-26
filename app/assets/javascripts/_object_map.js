@@ -92,7 +92,7 @@ $( function() {
 
         bboxchange: function( e, geo ) {
           //console.log( 'geo.bbox: ' + geo.bbox );
-          //updateMiniBbox( geo.bbox );
+          updateMiniBbox( geo.bbox );
         },
 
         move: function( e, geo ) {
@@ -160,9 +160,6 @@ $( function() {
         }
       }
 
-
-
-      /*
       var miniCanvas = $( '<canvas width="256" height="256" />' );
       var miniContext = miniCanvas[0].getContext( '2d' );
 
@@ -173,12 +170,10 @@ $( function() {
       // start with some random colors
       for ( var row = 0; row < miniDimension; row++ ) {
         for ( var col = 0; col < miniDimension; col ++ ) {            
-            miniContext.fillStyle = '#'+randRed();
-//          miniContext.fillStyle = '#'+Math.floor(Math.random()*16777215).toString(16);
+          miniContext.fillStyle = '#'+randRed();
           miniContext.fillRect( miniSize * col, miniSize * row, miniSize, miniSize );
         }
       }
-
 
       var miniMap = $( '.works-objectmap .minimap' ).geomap( {
         bbox: [ 0, 0, 256, 256 ],
@@ -213,7 +208,6 @@ $( function() {
       } );
 
       updateMiniBbox();
-      */
     }
   }
 

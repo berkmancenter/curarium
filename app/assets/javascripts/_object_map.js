@@ -30,28 +30,43 @@ $( function() {
           {
             type: 'shingled',
             src: function( view ) {
-              var thumbBox = $.map( view.bbox, function( el ) {
-                return el > 0 ? Math.min( Math.floor( el / 256 ), workDimension ) : 0;
-              } );
+              var zoom = $( '.geomap' ).geomap('option', 'zoom');
+              var factor = Math.pow( 2, maxZoomLevels - zoom - 1 );
+              var imageSize = 256 / factor;
+
+              //console.log( 'view.bbox: ' + view.bbox );
+
+              var thumbBox = [
+                Math.max( ( Math.floor( view.bbox[0] / imageSize ) - 1), 0),
+                Math.max( ( Math.floor( view.bbox[1] / imageSize ) - 1), 0),
+                Math.min( ( Math.ceil( view.bbox[2] / imageSize ) ) + 1, workDimension),
+                Math.min( ( Math.ceil( view.bbox[3] / imageSize ) ) + 1, workDimension)
+              ];
+
+              //console.log( 'thumbBox: ' + thumbBox );
 
               var tileDefer = new jQuery.Deferred();
               var imageDeferreds = [];
               var workIdIndex;
 
-              for ( var row = thumbBox[1]; row < thumbBox[3]; row++ ) {
-                for ( var col = thumbBox[0]; col < thumbBox[2]; col++ ) {
-                  workIdIndex = row * workDimension + col;
+              for ( var y = thumbBox[1]; y < thumbBox[3]; y++ ) {
+                for ( var x = thumbBox[0]; x < thumbBox[2]; x++ ) {
+                  workIdIndex = y * workDimension + x;
 
                   if ( workIdIndex < workIds.length && paintedIndexes[ workIdIndex ] === undefined ) {
+                    //console.log( 'REQUEST x: ' + x + ', y: ' + y + ', index: ' + workIdIndex + ', workId: ' + workIds[ workIdIndex ] );
+
                     var imageDefer = new jQuery.Deferred();
                     imageDeferreds.push( imageDefer );
 
                     var img = new Image();
-                    $( img ).data( { row: row, col: col, defer: imageDefer, workIdIndex: workIdIndex } );
+                    $( img ).data( { x: x, y: y, defer: imageDefer, workIdIndex: workIdIndex } );
 
                     img.onload = function( ) {
                       var $this = $( this );
-                      bigContext.drawImage( this, $this.data( 'row' ) * 256, $this.data( 'col' ) * 256, 256, 256 );
+                      bigContext.drawImage( this, $this.data( 'x' ) * 256, $this.data( 'y' ) * 256 );
+
+                     //console.log( 'PAINT x: ' + $this.data( 'x' ) + ', y: ' + $this.data( 'y' ) + ', index: ' + $this.data( 'workIdIndex' ) + ', workId: ' + workIds[ $this.data( 'workIdIndex' ) ] );
 
                       paintedIndexes[ $this.data( 'workIdIndex' ) ] = true;
 
@@ -75,15 +90,12 @@ $( function() {
                 viewContext.canvas.width = view.width;
                 viewContext.canvas.height = view.height;
 
-                var zoom = map.geomap('option', 'zoom');
-                var factor = Math.pow( 2, maxZoomLevels - zoom - 1 );
-
                 var scale = 256 * workDimension / factor;
 
                 var drawX = -view.bbox[ 0 ] / factor;
                 var drawY = -view.bbox[ 1 ] / factor;
 
-                viewContext.drawImage( bigCanvas[0], drawX, drawY, scale, scale );
+                viewContext.drawImage( bigCanvas[0], 0, 0, 256 * workDimension, 256 * workDimension, drawX, drawY, scale, scale );
 
                 tileDefer.resolve( viewCanvas[0].toDataURL( 'image/png' ) );
               } );

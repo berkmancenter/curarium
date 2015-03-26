@@ -22,6 +22,12 @@ $( function() {
         center: [ Math.floor( 256 * workDimension / 2 ), Math.floor( 256 * workDimension / 2 ) ],
         zoom: 7,
 
+        mode: 'click',
+        cursors: {
+          click: 'pointer'
+        },
+
+
         axisLayout: 'image',
 
         zoomMin: 5,
@@ -122,6 +128,9 @@ $( function() {
         },
 
         move: function( e, geo ) {
+          // disable for now, it slows down the map
+          return false;
+
           if ( timeoutMove ) {
             clearTimeout( timeoutMove );
             timeoutMove = null;

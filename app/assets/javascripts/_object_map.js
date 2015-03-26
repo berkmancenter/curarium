@@ -1,8 +1,9 @@
 $( function() {
-  var objectmap = $( '.works-objectmap' ).css('background', 'red');
+  var objectmap = $( '.works-objectmap' );
+
   if ( objectmap.length === 1 ) {
     var workIds = objectmap.data( 'workIds' );
-    var paintedIds = [];
+    var paintedIndexes = [];
     var workDimension = Math.ceil( Math.sqrt( workIds.length ) );
     var timeoutMove = null;
 
@@ -18,6 +19,8 @@ $( function() {
         bbox: [ 0, 0, 256 * workDimension, 256 * workDimension ],
 
         axisLayout: 'image',
+
+        zoomMin: 5,
 
         services: [
           {
@@ -35,22 +38,24 @@ $( function() {
                 for ( var col = thumbBox[0]; col < thumbBox[2]; col++ ) {
                   workIdIndex = row * workDimension + col;
 
-                  if ( workIdIndex < workIds.length && $.inArray( workIds[ workIdIndex ], paintedIds === -1 ) ) {
+                  if ( workIdIndex < workIds.length && paintedIndexes[ workIdIndex ] === undefined ) {
                     var imageDefer = new jQuery.Deferred();
                     imageDeferreds.push( imageDefer );
 
                     var img = new Image();
-                    $( img ).data( { row: row, col: col, defer: imageDefer, workId: workIds[ workIdIndex ] } );
+                    $( img ).data( { row: row, col: col, defer: imageDefer, workIdIndex: workIdIndex } );
 
                     img.onload = function( ) {
-                      //console.log( 'drawing workId: ' + $( this ).data( 'workId' ) );
-                      bigContext.drawImage( this, $( this ).data( 'row' ) * 256, $( this ).data( 'col' ) * 256, 256, 256 );
-                      //paintedIds.push( workIds[ workIdIndex ] );
+                      var $this = $( this );
+                      bigContext.drawImage( this, $this.data( 'row' ) * 256, $this.data( 'col' ) * 256, 256, 256 );
+
+                      paintedIndexes[ $this.data( 'workIdIndex' ) ] = true;
+
 
                       //miniContext.drawImage( img, xMini, yMini, miniSize, miniSize );
                       //miniMap.geomap( 'refresh' );
 
-                      $( this ).data( 'defer' ).resolve();
+                      $this.data( 'defer' ).resolve();
                     };
 
                     img.onerror = function( ) {
@@ -96,7 +101,6 @@ $( function() {
         },
 
         bboxchange: function( e, geo ) {
-          //console.log( 'geo.bbox: ' + geo.bbox );
           updateMiniBbox( geo.bbox );
         },
 
@@ -112,13 +116,9 @@ $( function() {
 
         click: function( e, geo ) {
           if ( geo.coordinates[ 0 ] >= 0 && geo.coordinates[ 1 ] >= 0 && geo.coordinates[ 0 ] < bigCanvas[0].width && geo.coordinates[ 1 ] < bigCanvas[0].height ) {
-            // cache imageSize somewhere, it only changes when zoom changes
             var zoom = map.geomap( 'option', 'zoom' );
             var factor = Math.pow( 2, maxZoomLevels - zoom - 1 );
             var imageSize = 256 / factor;
-            //console.log( 'imageSize: ' + imageSize );
-
-            //console.log( 'pixelXY: ' + geo.coordinates );
 
             var tileXY = [ Math.floor( geo.coordinates[ 0 ] / 256 ), Math.floor( geo.coordinates[ 1 ] / 256 ) ];
 
@@ -144,22 +144,16 @@ $( function() {
 
       function geomapMove( geo ) {
         if ( geo.coordinates[ 0 ] >= 0 && geo.coordinates[ 1 ] >= 0 && geo.coordinates[ 0 ] < bigCanvas[0].width && geo.coordinates[ 1 ] < bigCanvas[0].height ) {
-          // cache imageSize somewhere, it only changes when zoom changes
+          // TODO: cache factor somewhere, it only changes when zoom changes
           var zoom = map.geomap( 'option', 'zoom' );
           var factor = Math.pow( 2, maxZoomLevels - zoom - 1 );
           var imageSize = 256 / factor;
 
-          //console.log( 'imageSize: ' + imageSize );
-
-          //console.log( 'pixelXY: ' + geo.coordinates );
-
           var tileXY = [ Math.floor( geo.coordinates[ 0 ] / 256 ), Math.floor( geo.coordinates[ 1 ] / 256 ) ];
-          //console.log( 'tileXY: ' + tileXY );
 
           highlight.geomap( 'empty', false );
 
           var pixelBbox = [ tileXY[ 0 ] * 256, tileXY[ 1 ] * 256, tileXY[ 0 ] * 256 + 256, tileXY[ 1 ] * 256 + 256 ];
-          //console.log( 'pixelBbox: ' + pixelBbox );
 
           highlight.geomap( 'append', $.geo.polygonize( pixelBbox ) );
         } else {
@@ -208,8 +202,6 @@ $( function() {
       } );
 
       miniMap.click( function( e ) {
-        // minus known border width
-        //console.log( e.offsetX - 5, e.offsetY - 5 );
         map.geomap( 'option', 'center', [ e.offsetX / miniSize * 256, e.offsetY / miniSize * 256 ] );
         updateMiniBbox();
       } );
@@ -228,65 +220,6 @@ $( function() {
       256 - Math.min( Math.max( bbox[3] * miniScale, 0 ), 256 )
     ]; 
     miniMap.geomap( 'empty' ).geomap( 'append', $.geo.polygonize( miniBbox ) );
-  }
-
-  function tileToQuadKey( column, row, zoom ) {
-    var quadKey = "",
-        digit,
-        mask;
-    
-    for ( var i = zoom; i > 0; i-- ) {
-      digit = 0;
-      mask = 1 << (i - 1);
-      if ((column & mask) !== 0) {
-        digit++;
-      }
-      if ((row & mask) !== 0) {
-        digit += 2;
-      }
-      quadKey += digit;
-    }
-    return quadKey;
-  }
-
-  function quadKeyToIndexes( quadKey ) {
-    if ( quadKey.length === 8 ) {
-      var index = 0,
-          digit;
-
-      for ( var i = quadKey.length - 1; i > 0; i-- ) {
-        digit = parseInt( quadKey[ i ] );
-        index += Math.pow( 4, 8 - i) * digit / 4;
-      }
-
-      return [ index ];
-    } else {
-      var indexes = [];
-      $.merge( indexes, quadKeyToIndexes( quadKey + '0' ) );
-      $.merge( indexes, quadKeyToIndexes( quadKey + '1' ) );
-      $.merge( indexes, quadKeyToIndexes( quadKey + '2' ) );
-      $.merge( indexes, quadKeyToIndexes( quadKey + '3' ) );
-      return indexes;
-    }
-  }
-
-  function tileToIndex( column, row, zoom ) {
-    var index = 0,
-        digit,
-        mask;
-    
-    for ( var i = zoom; i > 0; i-- ) {
-      digit = 0;
-      mask = 1 << (i - 1);
-      if ((column & mask) !== 0) {
-        digit++;
-      }
-      if ((row & mask) !== 0) {
-        digit += 2;
-      }
-      index += Math.pow( 4, i) * digit / 4;
-    }
-    return index;
   }
 
   function IntRand (min,max) {

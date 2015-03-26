@@ -13,6 +13,9 @@ $( function() {
       var bigCanvas = $( '<canvas width="' + (256*workDimension) + '" height="' + (256*workDimension) + '" />' );
       var bigContext = bigCanvas[0].getContext( '2d' );
 
+      var viewCanvas = $( '<canvas width="256" height="256" />' );
+      var viewContext = viewCanvas[0].getContext( '2d' );
+
       var maxZoomLevels = 9;
 
       var map = $( '.works-objectmap .geomap' ).geomap( {
@@ -68,8 +71,9 @@ $( function() {
               }
 
               $.when.apply($, imageDeferreds ).then( function( ) {
-                var viewCanvas = $( '<canvas width="' + view.width + '" height="' + view.height + '" />' );
-                var viewContext = viewCanvas[0].getContext( '2d' );
+                viewContext.canvas.width = view.width;
+                viewContext.canvas.height = view.height;
+
                 var zoom = map.geomap('option', 'zoom');
                 var factor = Math.pow( 2, maxZoomLevels - zoom - 1 );
 

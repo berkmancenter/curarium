@@ -106,28 +106,21 @@ $( function() {
         },
 
         click: function( e, geo ) {
-          return false;
-          if ( geo.coordinates[ 0 ] >= 0 && geo.coordinates[ 1 ] >= 0 ) {
+          if ( geo.coordinates[ 0 ] >= 0 && geo.coordinates[ 1 ] >= 0 && geo.coordinates[ 0 ] < bigCanvas[0].width && geo.coordinates[ 1 ] < bigCanvas[0].height ) {
             // cache imageSize somewhere, it only changes when zoom changes
             var zoom = map.geomap( 'option', 'zoom' );
-            var imageSize = Math.pow( 2, zoom );
+            var factor = Math.pow( 2, maxZoomLevels - zoom - 1 );
+            var imageSize = 256 / factor;
             //console.log( 'imageSize: ' + imageSize );
 
             //console.log( 'pixelXY: ' + geo.coordinates );
 
             var tileXY = [ Math.floor( geo.coordinates[ 0 ] / 256 ), Math.floor( geo.coordinates[ 1 ] / 256 ) ];
 
-            var quadKey = tileToQuadKey( tileXY[ 0 ], tileXY[ 1 ], zoom );
-            if ( quadKey.length < 8 ) {
-              quadKey = '0' + quadKey;
-            }
-            //console.log( quadKey );
+            var index = tileXY[0] * workDimension + tileXY[1];
 
-            var indexes = quadKeyToIndexes( quadKey );
-            if ( indexes.length === 1 && indexes[ 0 ] < workIds.length ) {
-              //console.log( 'workId: ' + workIds[ indexes[ 0 ] ] );
-
-              $.get( '/works/' + workIds[ indexes[ 0 ] ], function( popupHtml ) {
+            if ( index < workIds.length ) {
+              $.get( '/works/' + workIds[ index ], function( popupHtml ) {
                 $.magnificPopup.open( {
                   showCloseBtn: false,
                   items: {

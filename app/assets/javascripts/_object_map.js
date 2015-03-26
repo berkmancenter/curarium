@@ -1,5 +1,5 @@
 $( function() {
-  var objectmap = $( '.works-objectmap' );
+  var objectmap = $( '.works-objectmap' ).css('background', 'red');
   if ( objectmap.length === 1 ) {
     var workIds = objectmap.data( 'workIds' );
     var workDimension = Math.ceil( Math.sqrt( workIds.length ) );
@@ -11,9 +11,12 @@ $( function() {
       var bigCanvas = $( '<canvas width="' + (256*workDimension) + '" height="' + (256*workDimension) + '" />' );
       var bigContext = bigCanvas[0].getContext( '2d' );
 
+      var maxZoomLevels = 9;
+
 
       var map = $( '.works-objectmap .geomap' ).geomap( {
-        bboxMax: [ 0, 0, 256 * workDimension, 256 * workDimension ],
+        //bboxMax: [ 0, 0, 256 * workDimension * maxZoomLevels, 256 * workDimension * maxZoomLevels ],
+        //zoom: 0,
         bbox: [ 0, 0, 256 * workDimension, 256 * workDimension ],
 
         axisLayout: 'image',
@@ -28,7 +31,8 @@ $( function() {
                 return el > 0 ? Math.min( Math.floor( el / 256 ), workDimension ) : 0;
               } );
 
-              console.log( 'dimension: ' + workDimension + ', ' + thumbBox );
+              console.log( 'view.bbox: ' + view.bbox );
+              console.log( 'dimension: ' + workDimension + ', thumbBox: ' + thumbBox );
 
               var tileDefer = new jQuery.Deferred();
               var imageDeferreds = [];
@@ -39,6 +43,7 @@ $( function() {
                   workIdIndex = row * workDimension + col;
 
                   console.log( '[' + row + ', ' + col + '] = ' + workIdIndex );
+                  // TODO: only request image if we haven't already drawn it onto bigCanvas
                   if ( workIdIndex < workIds.length ) {
                     var imageDefer = new jQuery.Deferred();
                     imageDeferreds.push( imageDefer );
@@ -49,7 +54,7 @@ $( function() {
                     //console.log( '  id: ' + workIds[ workIdIndex ] );
                     img.onload = function( ) {
                       //context.clearRect( 0, 0, 256, 256 );
-                      console.log( 'img.onload ' + $( this ).data( 'row' ) + ', ' + $( this ).data( 'col' ) );
+                      //console.log( 'img.onload ' + $( this ).data( 'row' ) + ', ' + $( this ).data( 'col' ) );
 
                       bigContext.drawImage( this, $( this ).data( 'row' ) * 256, $( this ).data( 'col' ) * 256, 256, 256 );
 
@@ -71,8 +76,17 @@ $( function() {
               $.when.apply($, imageDeferreds ).then( function( ) {
                 var viewCanvas = $( '<canvas width="' + view.width + '" height="' + view.height + '" />' );
                 var viewContext = viewCanvas[0].getContext( '2d' );
+                var zoom = map.geomap('option', 'zoom');
 
-                viewContext.drawImage( bigCanvas[0], -view.bbox[ 0 ], -view.bbox[ 1 ] );
+                //console.log( bigCanvas[0].toDataURL( 'image/png' ) );
+                console.log( 'zoom: ' + zoom );
+                var scale = 256 * workDimension / Math.pow( 2, maxZoomLevels - zoom - 1 );
+                console.log( 'scale: ' + scale );
+
+                var drawX = -view.bbox[ 0 ] / Math.pow( 2, maxZoomLevels - zoom - 1 );
+                var drawY = -view.bbox[ 1 ] / Math.pow( 2, maxZoomLevels - zoom - 1 );
+
+                viewContext.drawImage( bigCanvas[0], drawX, drawY, scale, scale );
 
                 tileDefer.resolve( viewCanvas[0].toDataURL( 'image/png' ) );
               } );
@@ -170,18 +184,18 @@ $( function() {
           }
         ],
 
-          /*
         tilingScheme: {
           tileWidth: 256,
           tileHeight: 256,
           levels: 9,
           basePixelSize: 256,
           origin: [ 0, 0 ]
-        },*/
+        },
 
-        tilingScheme: null,
+        //tilingScheme: null,
 
         bboxchange: function( e, geo ) {
+          console.log( 'geo.bbox: ' + geo.bbox );
           //updateMiniBbox( geo.bbox );
         },
 

@@ -2,6 +2,7 @@ $( function() {
   var objectmap = $( '.works-objectmap' ).css('background', 'red');
   if ( objectmap.length === 1 ) {
     var workIds = objectmap.data( 'workIds' );
+    var paintedIds = [];
     var workDimension = Math.ceil( Math.sqrt( workIds.length ) );
     var timeoutMove = null;
 
@@ -12,7 +13,6 @@ $( function() {
       var bigContext = bigCanvas[0].getContext( '2d' );
 
       var maxZoomLevels = 9;
-
 
       var map = $( '.works-objectmap .geomap' ).geomap( {
         bbox: [ 0, 0, 256 * workDimension, 256 * workDimension ],
@@ -35,16 +35,17 @@ $( function() {
                 for ( var col = thumbBox[0]; col < thumbBox[2]; col++ ) {
                   workIdIndex = row * workDimension + col;
 
-                  // TODO: only request image if we haven't already drawn it onto bigCanvas
-                  if ( workIdIndex < workIds.length ) {
+                  if ( workIdIndex < workIds.length && $.inArray( workIds[ workIdIndex ], paintedIds === -1 ) ) {
                     var imageDefer = new jQuery.Deferred();
                     imageDeferreds.push( imageDefer );
 
                     var img = new Image();
-                    $( img ).data( { row: row, col: col, defer: imageDefer } );
+                    $( img ).data( { row: row, col: col, defer: imageDefer, workId: workIds[ workIdIndex ] } );
 
                     img.onload = function( ) {
+                      //console.log( 'drawing workId: ' + $( this ).data( 'workId' ) );
                       bigContext.drawImage( this, $( this ).data( 'row' ) * 256, $( this ).data( 'col' ) * 256, 256, 256 );
+                      //paintedIds.push( workIds[ workIdIndex ] );
 
                       //miniContext.drawImage( img, xMini, yMini, miniSize, miniSize );
                       //miniMap.geomap( 'refresh' );
@@ -79,6 +80,10 @@ $( function() {
 
               return tileDefer;
             }
+          }, {
+            id: 'highlight',
+            type: 'shingled',
+            src: ''
           }
         ],
 
@@ -134,6 +139,8 @@ $( function() {
         }
       } );
 
+      var highlight = $( '#highlight' );
+
 
       function geomapMove( geo ) {
         if ( geo.coordinates[ 0 ] >= 0 && geo.coordinates[ 1 ] >= 0 && geo.coordinates[ 0 ] < bigCanvas[0].width && geo.coordinates[ 1 ] < bigCanvas[0].height ) {
@@ -149,14 +156,14 @@ $( function() {
           var tileXY = [ Math.floor( geo.coordinates[ 0 ] / 256 ), Math.floor( geo.coordinates[ 1 ] / 256 ) ];
           //console.log( 'tileXY: ' + tileXY );
 
-          map.geomap( 'empty', false );
+          highlight.geomap( 'empty', false );
 
           var pixelBbox = [ tileXY[ 0 ] * 256, tileXY[ 1 ] * 256, tileXY[ 0 ] * 256 + 256, tileXY[ 1 ] * 256 + 256 ];
           //console.log( 'pixelBbox: ' + pixelBbox );
 
-          map.geomap( 'append', $.geo.polygonize( pixelBbox ) );
+          highlight.geomap( 'append', $.geo.polygonize( pixelBbox ) );
         } else {
-          map.geomap( 'empty' );
+          highlight.geomap( 'empty' );
         }
       }
 

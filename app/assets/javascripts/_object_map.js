@@ -190,13 +190,12 @@ $( function() {
       var miniCanvas = $( '<canvas width="256" height="256" />' );
       var miniContext = miniCanvas[0].getContext( '2d' );
 
-      var miniDimension = Math.ceil( workDimension / 2 ) * 2;
-      var miniScale = 1 / miniDimension;
+      var miniScale = 1 / workDimension;
       var miniSize = 256 * miniScale;
 
       // start with some random colors
-      for ( var row = 0; row < miniDimension; row++ ) {
-        for ( var col = 0; col < miniDimension; col ++ ) {            
+      for ( var row = 0; row < workDimension; row++ ) {
+        for ( var col = 0; col < workDimension; col ++ ) {            
           miniContext.fillStyle = '#'+randRed();
           miniContext.fillRect( miniSize * col, miniSize * row, miniSize, miniSize );
         }

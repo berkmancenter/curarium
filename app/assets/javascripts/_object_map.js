@@ -87,7 +87,7 @@ $( function() {
                       $( this ).data( 'defer' ).resolve();
                     };
 
-                    img.src = '/works/' + workIds[ workIdIndex ] + '/thumb';
+                    img.src = '/thumbnails/works/' + workIds[ workIdIndex ] + '.jpg';
                   }
                 }
               }

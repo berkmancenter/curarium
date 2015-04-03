@@ -5,16 +5,18 @@ require 'json'
 namespace :curarium do
   desc 'Mass import JSON data based on configuration key'
   task :ingest, [:input_dir, :collection_key] => [:environment] do |task, args|
-    old_logger = ActiveRecord::Base.logger
-    ActiveRecord::Base.logger = nil
+    puts 'DEPRECATED: Please use the website to import collections'
 
-    puts "Started at #{Time.now}"
+    #old_logger = ActiveRecord::Base.logger
+    #ActiveRecord::Base.logger = nil
 
-    curarium_ingest args[:input_dir], args[:collection_key]
+    #puts "Started at #{Time.now}"
 
-    puts "Ended at #{Time.now}"
+    #curarium_ingest args[:input_dir], args[:collection_key]
 
-    ActiveRecord::Base.logger = old_logger
+    #puts "Ended at #{Time.now}"
+
+    #ActiveRecord::Base.logger = old_logger
   end
 
   desc 'Report on status of thumbnail cache'
@@ -33,11 +35,7 @@ namespace :curarium do
       not_cached = 0
 
       works.each { |w|
-        thumb_hash = Zlib.crc32 w.thumbnail_url
-
-        cache_image = Rails.cache.read "#{thumb_hash}-image"
-
-        if cache_image.nil?
+        if !File.exist?( w.thumbnail_cache_path )
           not_cached += 1
         end
       }
@@ -75,7 +73,7 @@ namespace :curarium do
         cache_image = Rails.cache.read "#{w.thumb_hash}-image"
 
         if cache_image.present?
-          File.open( collection_thumbs_path.join( "#{w.thumb_hash}.jpg" ).to_s, 'wb' ) { |file|
+          File.open( collection_thumbs_path.join( "#{w.id}.jpg" ).to_s, 'wb' ) { |file|
             file.write cache_image
           }
 
@@ -171,8 +169,7 @@ namespace :curarium do
               if i < ws.count
                 w = ws[ i ]
                 if w.thumbnail_url.present?
-                  thumb_hash = Zlib.crc32 w.thumbnail_url
-                  cache_image = Rails.cache.read "#{thumb_hash}-image"
+                  cache_image = w.thumbnail_cache_path
 
                   File.open( "#{collection_tiles_path}/#{quadkey}.png", 'wb' ) { |f|
                     f.write cache_image
@@ -258,13 +255,7 @@ namespace :curarium do
     j_count = 0
 
     c.works.with_thumb.each { |w|
-      thumb_hash = Zlib.crc32 w.thumbnail_url
-
-      cache_date = Rails.cache.read "#{thumb_hash}-date"
-      cache_image = Rails.cache.read "#{thumb_hash}-image"
-      cache_type = Rails.cache.read "#{thumb_hash}-type"
-
-      if cache_date.nil? || cache_image.nil? || cache_type.nil?
+      if !File.exists?( w.thumbnail_cache_path )
         w.cache_thumb
         not_cached += 1
 

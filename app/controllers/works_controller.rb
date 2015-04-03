@@ -198,6 +198,7 @@ class WorksController < ApplicationController
           send_file @work.thumbnail_cache_path, type: @work.thumbnail_cache_type, disposition: 'inline'
         else
           send_data File.open( Rails.public_path.join( 'missing_thumb.png' ).to_s, 'rb' ).read, type: 'image/png', disposition: 'inline', status: :not_found
+        end
       end
     end
   end

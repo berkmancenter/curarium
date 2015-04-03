@@ -42,16 +42,17 @@ class Work < ActiveRecord::Base
   end
 
   def thumbnail_cache_path
-    Rails.public_path.join( 'thumbnails', "#{thumb_hash}.jpg" ).to_s
+    Rails.public_path.join( 'thumbnails', 'works', "#{id}.jpg" ).to_s
   end
 
   def thumbnail_cache_type
-    Work.image_type Rails.public_path.join( 'thumbnails', "#{thumb_hash}.jpg" )
+    'image/jpeg'
+    #Work.image_type thumbnail_cache_path
   end
 
   def thumbnail_cache_url
     if thumbnail_url.present?
-      "/thumbnails/#{thumb_hash}.jpg"
+      "/thumbnails/works/#{id}.jpg"
     else
       '/missing_thumb.png'
     end

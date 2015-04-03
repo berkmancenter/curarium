@@ -18,7 +18,7 @@ describe ( 'works/thumbnails' ) {
       should have_css 'a', count: works.count
     }
 
-    it {
+    it ( 'should use a element background for thumbnail' ) {
       # now background-images on a elements
       should_not have_css 'a img'
     }

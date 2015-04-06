@@ -35,11 +35,11 @@ window.collection.configure = ->
         drop : field_drop
       title = $('<p>').append(field_name)
       $(new_field).append(title)
+      $('#field_name').val("")
       close = $('<div>').attr('class', 'close').click (e) ->
         $(this).parent().remove()
       $(new_field).append(close)
       $("#output form#add_field").before(new_field)
-      $(field_name).value=""
    
    $('.new_collection, .edit_collection').submit (e) ->
      if (!submited)

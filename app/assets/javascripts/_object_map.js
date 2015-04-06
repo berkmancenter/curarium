@@ -1,7 +1,9 @@
 $( function() {
   var objectmap = $( '.works-objectmap' );
+
   if ( objectmap.length === 1 ) {
     var workIds = objectmap.data( 'workIds' );
+    var paintedIndexes = [];
     var workDimension = Math.ceil( Math.sqrt( workIds.length ) );
     var timeoutMove = null;
 
@@ -11,182 +13,124 @@ $( function() {
       var bigCanvas = $( '<canvas width="' + (256*workDimension) + '" height="' + (256*workDimension) + '" />' );
       var bigContext = bigCanvas[0].getContext( '2d' );
 
+      var viewCanvas = $( '<canvas width="256" height="256" />' );
+      var viewContext = viewCanvas[0].getContext( '2d' );
+
+      var maxZoomLevels = 9;
 
       var map = $( '.works-objectmap .geomap' ).geomap( {
-        bboxMax: [ 0, 0, 256 * workDimension, 256 * workDimension ],
-        bbox: [ 0, 0, 256 * workDimension, 256 * workDimension ],
+        center: [ Math.floor( 256 * workDimension / 2 ), Math.floor( 256 * workDimension / 2 ) ],
+        zoom: 7,
+
+        mode: 'click',
+        cursors: {
+          click: 'pointer'
+        },
+
 
         axisLayout: 'image',
+
+        zoomMin: 5,
 
         services: [
           {
             type: 'shingled',
             src: function( view ) {
-              console.log( view.bbox );
+              var zoom = $( '.geomap' ).geomap('option', 'zoom');
+              var factor = Math.pow( 2, maxZoomLevels - zoom - 1 );
+              var imageSize = 256 / factor;
 
-              var thumbBox = $.map( view.bbox, function( el ) {
-                return el > 0 ? Math.min( Math.floor( el / 256 ), workDimension ) : 0;
-              } );
+              //console.log( 'view.bbox: ' + view.bbox );
 
-              console.log( 'dimension: ' + workDimension + ', ' + thumbBox );
+              var thumbBox = [
+                Math.max( ( Math.floor( view.bbox[0] / 256 ) - 1), 0),
+                Math.max( ( Math.floor( view.bbox[1] / 256 ) - 1), 0),
+                Math.min( ( Math.ceil( view.bbox[2] / 256 ) ) + 1, workDimension),
+                Math.min( ( Math.ceil( view.bbox[3] / 256 ) ) + 1, workDimension)
+              ];
+
+              //console.log( 'thumbBox: ' + thumbBox );
 
               var tileDefer = new jQuery.Deferred();
               var imageDeferreds = [];
               var workIdIndex;
 
-              for ( var row = thumbBox[1]; row < thumbBox[3]; row++ ) {
-                for ( var col = thumbBox[0]; col < thumbBox[2]; col++ ) {
-                  workIdIndex = row * workDimension + col;
+              for ( var y = thumbBox[1]; y < thumbBox[3]; y++ ) {
+                for ( var x = thumbBox[0]; x < thumbBox[2]; x++ ) {
+                  workIdIndex = y * workDimension + x;
 
-                  console.log( '[' + row + ', ' + col + '] = ' + workIdIndex );
-                  if ( workIdIndex < workIds.length ) {
+                  if ( workIdIndex < workIds.length && paintedIndexes[ workIdIndex ] === undefined ) {
+                    //console.log( 'REQUEST x: ' + x + ', y: ' + y + ', index: ' + workIdIndex + ', workId: ' + workIds[ workIdIndex ] );
+
                     var imageDefer = new jQuery.Deferred();
                     imageDeferreds.push( imageDefer );
 
                     var img = new Image();
-                    $( img ).data( { row: row, col: col, defer: imageDefer } );
+                    $( img ).data( { x: x, y: y, defer: imageDefer, workIdIndex: workIdIndex } );
 
-                    //console.log( '  id: ' + workIds[ workIdIndex ] );
                     img.onload = function( ) {
-                      //context.clearRect( 0, 0, 256, 256 );
-                      console.log( 'img.onload ' + $( this ).data( 'row' ) + ', ' + $( this ).data( 'col' ) );
+                      var $this = $( this );
+                      bigContext.drawImage( this, $this.data( 'x' ) * 256, $this.data( 'y' ) * 256 );
 
-                      bigContext.drawImage( this, $( this ).data( 'row' ) * 256, $( this ).data( 'col' ) * 256, 256, 256 );
+                     //console.log( 'PAINT x: ' + $this.data( 'x' ) + ', y: ' + $this.data( 'y' ) + ', index: ' + $this.data( 'workIdIndex' ) + ', workId: ' + workIds[ $this.data( 'workIdIndex' ) ] );
+
+                      paintedIndexes[ $this.data( 'workIdIndex' ) ] = true;
+
 
                       //miniContext.drawImage( img, xMini, yMini, miniSize, miniSize );
                       //miniMap.geomap( 'refresh' );
 
-                      $( this ).data( 'defer' ).resolve();
+                      $this.data( 'defer' ).resolve();
                     };
 
                     img.onerror = function( ) {
                       $( this ).data( 'defer' ).resolve();
                     };
 
-                    img.src = '/works/' + workIds[ workIdIndex ] + '/thumb';
+                    img.src = '/thumbnails/works/' + workIds[ workIdIndex ] + '.jpg';
                   }
                 }
               }
 
               $.when.apply($, imageDeferreds ).then( function( ) {
-                var viewCanvas = $( '<canvas width="' + view.width + '" height="' + view.height + '" />' );
-                var viewContext = viewCanvas[0].getContext( '2d' );
+                viewContext.canvas.width = view.width;
+                viewContext.canvas.height = view.height;
 
-                viewContext.drawImage( bigCanvas[0], -view.bbox[ 0 ], -view.bbox[ 1 ] );
+                var scale = 256 * workDimension / factor;
+
+                var drawX = -view.bbox[ 0 ] / factor;
+                var drawY = -view.bbox[ 1 ] / factor;
+
+                viewContext.drawImage( bigCanvas[0], 0, 0, 256 * workDimension, 256 * workDimension, drawX, drawY, scale, scale );
 
                 tileDefer.resolve( viewCanvas[0].toDataURL( 'image/png' ) );
               } );
 
               return tileDefer;
-
-
-
-
-
-
-
-
-
-
-
-
-              //return bigCanvas[0].toDataURL( 'image/png' );
-
-              if ( view.tile.column >= 0 && view.tile.row >= 0 ) {
-                // each tile needs a canvas now...I think,
-                // since drawing may happen over multiple async calls
-                var canvas = $( '<canvas width="256" height="256" />' );
-                var context = canvas[0].getContext( '2d' );
-
-                var quadKey = tileToQuadKey( view.tile.column, view.tile.row, view.zoom );
-
-                var indexes = quadKeyToIndexes( quadKey );
-                var imageSize = Math.pow( 2, view.zoom );
-                var imageDepth = Math.ceil( indexes.length / 2 );
-                //console.log( 'quadKey: ' + quadKey + ', indexes: ' + indexes.join(', ') );
-
-                var tileDefer = new jQuery.Deferred();
-
-
-
-
-                var imageDeferreds = [];
-
-                $.each( indexes, function( tileImageIndex ) { 
-                  var workIdIndex = this;
-
-                  var x = imageSize * ( ( tileImageIndex % 2 ) ); //imageDepth );
-                  var y = imageSize * Math.floor( tileImageIndex / imageDepth );
-
-                  var xMini = miniSize * ( ( tileImageIndex % 2 ) ); //imageDepth );
-                  var yMini = miniSize * Math.floor( tileImageIndex / miniDimension );
-
-                  if ( workIdIndex >= 0 && workIdIndex < workIds.length ) {
-                    //console.log( 'x: ' + x + ', y: ' + y );
-
-
-                    var imageDefer = new jQuery.Deferred();
-                    imageDeferreds.push( imageDefer );
-
-                    var img = new Image();
-
-                    //console.log( '  id: ' + workIds[ workIdIndex ] );
-                    img.onload = function( ) {
-                      //context.clearRect( 0, 0, 256, 256 );
-
-                      context.drawImage( img, x, y, imageSize, imageSize );
-
-                      //miniContext.drawImage( img, xMini, yMini, miniSize, miniSize );
-                      //miniMap.geomap( 'refresh' );
-
-                      imageDefer.resolve();
-                    };
-
-                    img.onerror = function( ) {
-                      imageDefer.resolve();
-                    };
-
-                    img.src = '/works/' + workIds[ workIdIndex ] + '/thumb';
-
-                  } else {
-                    context.fillStyle = '#ffffff';
-                    context.fillRect( x, y, imageSize, imageSize );
-                  }
-
-                } );
-
-                $.when.apply($, imageDeferreds ).then( function( ) {
-                  tileDefer.resolve( context.canvas.toDataURL( 'image/png' ) );
-                } );
-
-
-
-
-                return tileDefer;
-              } else {
-                return '';
-              }
             }
+          }, {
+            id: 'highlight',
+            type: 'shingled',
+            src: ''
           }
         ],
 
-          /*
         tilingScheme: {
           tileWidth: 256,
           tileHeight: 256,
           levels: 9,
           basePixelSize: 256,
           origin: [ 0, 0 ]
-        },*/
-
-        tilingScheme: null,
+        },
 
         bboxchange: function( e, geo ) {
-          //updateMiniBbox( geo.bbox );
+          updateMiniBbox( geo.bbox );
         },
 
         move: function( e, geo ) {
+          // disable for now, it slows down the map
           return false;
+
           if ( timeoutMove ) {
             clearTimeout( timeoutMove );
             timeoutMove = null;
@@ -197,28 +141,17 @@ $( function() {
         },
 
         click: function( e, geo ) {
-          return false;
-          if ( geo.coordinates[ 0 ] >= 0 && geo.coordinates[ 1 ] >= 0 ) {
-            // cache imageSize somewhere, it only changes when zoom changes
+          if ( geo.coordinates[ 0 ] >= 0 && geo.coordinates[ 1 ] >= 0 && geo.coordinates[ 0 ] < bigCanvas[0].width && geo.coordinates[ 1 ] < bigCanvas[0].height ) {
             var zoom = map.geomap( 'option', 'zoom' );
-            var imageSize = Math.pow( 2, zoom );
-            //console.log( 'imageSize: ' + imageSize );
-
-            //console.log( 'pixelXY: ' + geo.coordinates );
+            var factor = Math.pow( 2, maxZoomLevels - zoom - 1 );
+            var imageSize = 256 / factor;
 
             var tileXY = [ Math.floor( geo.coordinates[ 0 ] / 256 ), Math.floor( geo.coordinates[ 1 ] / 256 ) ];
 
-            var quadKey = tileToQuadKey( tileXY[ 0 ], tileXY[ 1 ], zoom );
-            if ( quadKey.length < 8 ) {
-              quadKey = '0' + quadKey;
-            }
-            //console.log( quadKey );
+            var index = tileXY[1] * workDimension + tileXY[0];
 
-            var indexes = quadKeyToIndexes( quadKey );
-            if ( indexes.length === 1 && indexes[ 0 ] < workIds.length ) {
-              //console.log( 'workId: ' + workIds[ indexes[ 0 ] ] );
-
-              $.get( '/works/' + workIds[ indexes[ 0 ] ], function( popupHtml ) {
+            if ( index < workIds.length ) {
+              $.get( '/works/' + workIds[ index ], function( popupHtml ) {
                 $.magnificPopup.open( {
                   showCloseBtn: false,
                   items: {
@@ -232,58 +165,41 @@ $( function() {
         }
       } );
 
+      var highlight = $( '#highlight' );
+
 
       function geomapMove( geo ) {
-        if ( geo.coordinates[ 0 ] >= 0 && geo.coordinates[ 1 ] >= 0 ) {
-          // cache imageSize somewhere, it only changes when zoom changes
+        if ( geo.coordinates[ 0 ] >= 0 && geo.coordinates[ 1 ] >= 0 && geo.coordinates[ 0 ] < bigCanvas[0].width && geo.coordinates[ 1 ] < bigCanvas[0].height ) {
+          // TODO: cache factor somewhere, it only changes when zoom changes
           var zoom = map.geomap( 'option', 'zoom' );
-          var imageSize = Math.pow( 2, zoom );
-          //console.log( 'imageSize: ' + imageSize );
-
-          //console.log( 'pixelXY: ' + geo.coordinates );
+          var factor = Math.pow( 2, maxZoomLevels - zoom - 1 );
+          var imageSize = 256 / factor;
 
           var tileXY = [ Math.floor( geo.coordinates[ 0 ] / 256 ), Math.floor( geo.coordinates[ 1 ] / 256 ) ];
-          //console.log( 'tileXY: ' + tileXY );
 
-          var quadKey = tileToQuadKey( tileXY[ 0 ], tileXY[ 1 ], zoom );
-          if ( quadKey.length < 8 ) {
-            quadKey = '0' + quadKey;
-          }
-          //console.log( quadKey );
+          highlight.geomap( 'empty', false );
 
-          map.geomap( 'empty', false );
+          var pixelBbox = [ tileXY[ 0 ] * 256, tileXY[ 1 ] * 256, tileXY[ 0 ] * 256 + 256, tileXY[ 1 ] * 256 + 256 ];
 
-          var indexes = quadKeyToIndexes( quadKey );
-          if ( indexes.length === 1 && indexes[ 0 ] < workIds.length ) {
-            //console.log( 'workId: ' + workIds[ indexes[ 0 ] ] );
-
-            var pixelBbox = [ tileXY[ 0 ] * 256, tileXY[ 1 ] * 256, tileXY[ 0 ] * 256 + 256, tileXY[ 1 ] * 256 + 256 ];
-            //console.log( 'pixelBbox: ' + pixelBbox );
-
-            map.geomap( 'append', $.geo.polygonize( pixelBbox ) );
-          }
+          highlight.geomap( 'append', $.geo.polygonize( pixelBbox ) );
+        } else {
+          highlight.geomap( 'empty' );
         }
       }
 
-
-
-      /*
       var miniCanvas = $( '<canvas width="256" height="256" />' );
       var miniContext = miniCanvas[0].getContext( '2d' );
 
-      var miniDimension = Math.ceil( workDimension / 2 ) * 2;
-      var miniScale = 1 / miniDimension;
+      var miniScale = 1 / workDimension;
       var miniSize = 256 * miniScale;
 
       // start with some random colors
-      for ( var row = 0; row < miniDimension; row++ ) {
-        for ( var col = 0; col < miniDimension; col ++ ) {            
-            miniContext.fillStyle = '#'+randRed();
-//          miniContext.fillStyle = '#'+Math.floor(Math.random()*16777215).toString(16);
+      for ( var row = 0; row < workDimension; row++ ) {
+        for ( var col = 0; col < workDimension; col ++ ) {            
+          miniContext.fillStyle = '#'+randRed();
           miniContext.fillRect( miniSize * col, miniSize * row, miniSize, miniSize );
         }
       }
-
 
       var miniMap = $( '.works-objectmap .minimap' ).geomap( {
         bbox: [ 0, 0, 256, 256 ],
@@ -311,14 +227,11 @@ $( function() {
       } );
 
       miniMap.click( function( e ) {
-        // minus known border width
-        //console.log( e.offsetX - 5, e.offsetY - 5 );
         map.geomap( 'option', 'center', [ e.offsetX / miniSize * 256, e.offsetY / miniSize * 256 ] );
         updateMiniBbox();
       } );
 
       updateMiniBbox();
-      */
     }
   }
 
@@ -332,65 +245,6 @@ $( function() {
       256 - Math.min( Math.max( bbox[3] * miniScale, 0 ), 256 )
     ]; 
     miniMap.geomap( 'empty' ).geomap( 'append', $.geo.polygonize( miniBbox ) );
-  }
-
-  function tileToQuadKey( column, row, zoom ) {
-    var quadKey = "",
-        digit,
-        mask;
-    
-    for ( var i = zoom; i > 0; i-- ) {
-      digit = 0;
-      mask = 1 << (i - 1);
-      if ((column & mask) !== 0) {
-        digit++;
-      }
-      if ((row & mask) !== 0) {
-        digit += 2;
-      }
-      quadKey += digit;
-    }
-    return quadKey;
-  }
-
-  function quadKeyToIndexes( quadKey ) {
-    if ( quadKey.length === 8 ) {
-      var index = 0,
-          digit;
-
-      for ( var i = quadKey.length - 1; i > 0; i-- ) {
-        digit = parseInt( quadKey[ i ] );
-        index += Math.pow( 4, 8 - i) * digit / 4;
-      }
-
-      return [ index ];
-    } else {
-      var indexes = [];
-      $.merge( indexes, quadKeyToIndexes( quadKey + '0' ) );
-      $.merge( indexes, quadKeyToIndexes( quadKey + '1' ) );
-      $.merge( indexes, quadKeyToIndexes( quadKey + '2' ) );
-      $.merge( indexes, quadKeyToIndexes( quadKey + '3' ) );
-      return indexes;
-    }
-  }
-
-  function tileToIndex( column, row, zoom ) {
-    var index = 0,
-        digit,
-        mask;
-    
-    for ( var i = zoom; i > 0; i-- ) {
-      digit = 0;
-      mask = 1 << (i - 1);
-      if ((column & mask) !== 0) {
-        digit++;
-      }
-      if ((row & mask) !== 0) {
-        digit += 2;
-      }
-      index += Math.pow( 4, i) * digit / 4;
-    }
-    return index;
   }
 
   function IntRand (min,max) {

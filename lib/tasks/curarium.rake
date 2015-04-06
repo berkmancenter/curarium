@@ -5,16 +5,18 @@ require 'json'
 namespace :curarium do
   desc 'Mass import JSON data based on configuration key'
   task :ingest, [:input_dir, :collection_key] => [:environment] do |task, args|
-    old_logger = ActiveRecord::Base.logger
-    ActiveRecord::Base.logger = nil
+    puts 'DEPRECATED: Please use the website to import collections'
 
-    puts "Started at #{Time.now}"
+    #old_logger = ActiveRecord::Base.logger
+    #ActiveRecord::Base.logger = nil
 
-    curarium_ingest args[:input_dir], args[:collection_key]
+    #puts "Started at #{Time.now}"
 
-    puts "Ended at #{Time.now}"
+    #curarium_ingest args[:input_dir], args[:collection_key]
 
-    ActiveRecord::Base.logger = old_logger
+    #puts "Ended at #{Time.now}"
+
+    #ActiveRecord::Base.logger = old_logger
   end
 
   desc 'Report on status of thumbnail cache'
@@ -33,11 +35,7 @@ namespace :curarium do
       not_cached = 0
 
       works.each { |w|
-        thumb_hash = Zlib.crc32 w.thumbnail_url
-
-        cache_image = Rails.cache.read "#{thumb_hash}-image"
-
-        if cache_image.nil?
+        if !File.exist?( w.thumbnail_cache_path )
           not_cached += 1
         end
       }
@@ -46,6 +44,50 @@ namespace :curarium do
       puts "  no thumbnail: #{no_thumb } (#{no_thumb.to_f / total.to_f * 100.0 unless total == 0}%)"
       puts "  not cached: #{not_cached} (#{not_cached.to_f / total.to_f * 100.0 unless total == 0}%)"
       puts "  cached: #{total - no_thumb - not_cached} (#{( total - not_cached - no_thumb ).to_f / total.to_f * 100.0 unless total == 0}%)"
+    }
+
+    ActiveRecord::Base.logger = old_logger
+  end
+
+  desc 'Export thumbnails from Rails.cache to /public'
+  task :export_cache => [ :environment ] do 
+    old_logger = ActiveRecord::Base.logger
+    ActiveRecord::Base.logger = nil
+
+    collection_thumbs_path = Rails.public_path.join( 'thumbnails' )
+
+    FileUtils.mkpath collection_thumbs_path
+
+    Collection.all.each { |c|
+      puts "#{c.name} (#{c.id}):"
+
+      total = c.works.count
+
+      works = c.works.with_thumb
+
+      no_thumb = total - works.count
+      not_cached = 0
+      exported = 0
+
+      works.each { |w|
+        cache_image = Rails.cache.read "#{w.thumb_hash}-image"
+
+        if cache_image.present?
+          File.open( collection_thumbs_path.join( "#{w.id}.jpg" ).to_s, 'wb' ) { |file|
+            file.write cache_image
+          }
+
+          exported += 1
+        else
+          not_cached += 1
+        end
+      }
+
+      puts "  total: #{total}"
+      puts "  no thumbnail: #{no_thumb } (#{no_thumb.to_f / total.to_f * 100.0 unless total == 0}%)"
+      puts "  not_cached: #{not_cached} (#{not_cached.to_f / total.to_f * 100.0 unless total == 0}%)"
+      puts "  exported: #{exported} (#{exported.to_f / total.to_f * 100.0 unless total == 0}%)"
+      puts "  cached: #{total - no_thumb - not_cached - exported} (#{( total - not_cached - no_thumb - exported ).to_f / total.to_f * 100.0 unless total == 0}%)"
     }
 
     ActiveRecord::Base.logger = old_logger
@@ -127,8 +169,7 @@ namespace :curarium do
               if i < ws.count
                 w = ws[ i ]
                 if w.thumbnail_url.present?
-                  thumb_hash = Zlib.crc32 w.thumbnail_url
-                  cache_image = Rails.cache.read "#{thumb_hash}-image"
+                  cache_image = w.thumbnail_cache_path
 
                   File.open( "#{collection_tiles_path}/#{quadkey}.png", 'wb' ) { |f|
                     f.write cache_image
@@ -214,13 +255,7 @@ namespace :curarium do
     j_count = 0
 
     c.works.with_thumb.each { |w|
-      thumb_hash = Zlib.crc32 w.thumbnail_url
-
-      cache_date = Rails.cache.read "#{thumb_hash}-date"
-      cache_image = Rails.cache.read "#{thumb_hash}-image"
-      cache_type = Rails.cache.read "#{thumb_hash}-type"
-
-      if cache_date.nil? || cache_image.nil? || cache_type.nil?
+      if !File.exists?( w.thumbnail_cache_path )
         w.cache_thumb
         not_cached += 1
 

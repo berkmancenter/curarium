@@ -21,13 +21,13 @@ class Work < ActiveRecord::Base
 
     case IO.read(local_file_path, 10)
     when /^GIF8/
-      'gif'
+      'image/gif'
     when /^#{png}/
-      'png'
+      'image/png'
     when /^#{jpg}/
-      'jpeg'
+      'image/jpeg'
     else
-      '*'
+      'image/*'
     end
   end
     
@@ -37,9 +37,29 @@ class Work < ActiveRecord::Base
     end
   end
 
+  def thumb_hash
+    Zlib.crc32 thumbnail_url
+  end
+
+  def thumbnail_cache_path
+    Rails.public_path.join( 'thumbnails', 'works', "#{id}.jpg" ).to_s
+  end
+
+  def thumbnail_cache_type
+    'image/jpeg'
+    #Work.image_type thumbnail_cache_path
+  end
+
+  def thumbnail_cache_url
+    if thumbnail_url.present?
+      "/thumbnails/works/#{id}.jpg"
+    else
+      '/missing_thumb.png'
+    end
+  end
+
   def cache_thumb
     if thumbnail_url.present?
-      thumb_hash = Zlib.crc32 thumbnail_url
       cache_url = "#{thumbnail_url}#{thumbnail_url.include?( '?' ) ? '&' : '?'}width=256&height=256"
 
       begin
@@ -49,14 +69,9 @@ class Work < ActiveRecord::Base
       end
 
       if thumb_connection.present?
-        Rails.cache.write "#{thumb_hash}-date", Date.today
-        Rails.cache.write "#{thumb_hash}-image", thumb_connection.read
-
-        if thumb_connection.is_a? Tempfile
-          Rails.cache.write "#{thumb_hash}-type", "image/#{Work.image_type thumb_connection.path}"
-        else
-          Rails.cache.write "#{thumb_hash}-type", thumb_connection.meta[ 'content-type' ]
-        end
+        File.open( thumbnail_cache_path, 'wb' ) { |file|
+          file.write thumb_connection.read
+        }
       end
     end
 

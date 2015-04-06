@@ -17,6 +17,9 @@
 # collection tiles
 /app/assets/images/collection_tiles
 
+# work thumbnails
+/public/thumbnails
+
 # Ignore all logfiles and tempfiles.
 /log/*.log
 /tmp

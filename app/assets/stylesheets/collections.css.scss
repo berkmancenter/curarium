@@ -39,6 +39,22 @@
     padding: 0.5em;
     text-align: center;
   }
+
+  .delete-collection {
+    background: $white;
+    border: solid 1px $cred;
+    color: $cred;
+    cursor: pointer;
+    display: block;
+    font-size: 11px;
+    margin: 0 0 1em 3em;
+    padding: .25em .5em;
+
+    &:hover {
+      background: $cred;
+      color: $white;
+    }
+  }
 }
 
 .collections.new {

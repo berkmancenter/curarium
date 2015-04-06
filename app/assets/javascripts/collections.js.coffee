@@ -39,6 +39,7 @@ window.collection.configure = ->
         $(this).parent().remove()
       $(new_field).append(close)
       $("#output form#add_field").before(new_field)
+      $(field_name).value=""
    
    $('.new_collection, .edit_collection').submit (e) ->
      if (!submited)

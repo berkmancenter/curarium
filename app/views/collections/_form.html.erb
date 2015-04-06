@@ -48,7 +48,7 @@
         <%= f.hidden_field :configuration, value: "{}" %>
     
         <div class="actions">
-          <%= f.submit 'Import Collection', class: 'button submit' %> 
+          <%= f.submit 'Import Collection', class: 'button submit',  :onclick=>"window.onbeforeunload=null" %> 
         </div>
       <% end %>
 
@@ -100,7 +100,7 @@
         <form id="add_field">
           <input id="field_name" name="field_name" type="text" placeholder="custom field name">
           <br>
-          <input type="submit" value="Add field">
+          <input type="submit" value="Add field" id="submitbutton" onclick="Cleartb();">
         </form>
       </div>
     </div>

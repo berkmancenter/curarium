@@ -2,6 +2,18 @@
   window.onload = function() {
     window.collection.configure();
   };
+
+	var confirmOnPageExit = function (e) {
+    
+    e = e || window.event;
+	var message = 'This page is asking you to confirm that you want to leave - data you have entered may not be saved.';
+    if (e) {
+        e.returnValue = message;
+    }
+    return message;
+};
+
+	window.onbeforeunload = confirmOnPageExit;
 </script>
 <%= render 'form' %>
 

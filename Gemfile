@@ -1,7 +1,10 @@
 source 'http://rubygems.org'
 ruby '2.0.0'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '4.0.12'
+gem 'rails', '4.1.10'
+
+# tzinfo required for rails 4.1
+gem 'tzinfo-data'
 
 # Use postgresql
 gem 'pg'#, '~> 0.18.0.pre20141117110243'

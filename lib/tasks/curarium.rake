@@ -54,7 +54,7 @@ namespace :curarium do
     old_logger = ActiveRecord::Base.logger
     ActiveRecord::Base.logger = nil
 
-    collection_thumbs_path = Rails.public_path.join( 'thumbnails' )
+    collection_thumbs_path = Rails.public_path.join( 'thumbnails', 'works' )
 
     FileUtils.mkpath collection_thumbs_path
 
@@ -257,6 +257,8 @@ namespace :curarium do
     c.works.with_thumb.each { |w|
       if !File.exists?( w.thumbnail_cache_path )
         w.cache_thumb
+        sleep 0.5
+
         not_cached += 1
 
         j_count += 1

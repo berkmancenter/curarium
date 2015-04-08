@@ -37,6 +37,9 @@ $( function() {
         services: [
           {
             type: 'shingled',
+            style: {
+              opacity: 0.99
+            },
             src: function( view ) {
               var zoom = $( '.geomap' ).geomap('option', 'zoom');
               var factor = Math.pow( 2, maxZoomLevels - zoom - 1 );
@@ -103,7 +106,7 @@ $( function() {
                 var drawX = -view.bbox[ 0 ] / factor;
                 var drawY = -view.bbox[ 1 ] / factor;
 
-                console.log( bigCanvas[0].toDataURL( 'image/png' ) );
+                //console.log( bigCanvas[0].toDataURL( 'image/png' ) );
                 viewContext.drawImage( bigCanvas[0], 0, 0, baseThumbSize * workDimension, baseThumbSize * workDimension, drawX, drawY, scale, scale );
 
                 tileDefer.resolve( viewCanvas[0].toDataURL( 'image/png' ) );

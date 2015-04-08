@@ -19,9 +19,11 @@ $( function() {
 
       var maxZoomLevels = 9;
 
+      var center = [ Math.floor( baseThumbSize * workDimension / 2 ), Math.floor( baseThumbSize * workDimension / 2 ) ];
+      var mapWidth = $( '.works-objectmap .geomap' ).width();
+
       var map = $( '.works-objectmap .geomap' ).geomap( {
-        center: [ Math.floor( baseThumbSize * workDimension / 2 ), Math.floor( baseThumbSize * workDimension / 2 ) ],
-        zoom: 6,
+        bbox: [ 0, center[ 1 ] - baseThumbSize, baseThumbSize * workDimension, center[ 1 ] + baseThumbSize ],
 
         mode: 'click',
         cursors: {

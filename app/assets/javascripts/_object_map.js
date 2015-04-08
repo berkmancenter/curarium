@@ -10,7 +10,7 @@ $( function() {
     if ( $.isArray( workIds ) && workIds.length > 0 ) {
       $.geo.proj = null;
 
-      var bigCanvas = $( '<canvas width="' + (256*workDimension) + '" height="' + (256*workDimension) + '" />' );
+      var bigCanvas = $( '<canvas width="' + (256 * workDimension) + '" height="' + (256 * workDimension) + '" />' );
       var bigContext = bigCanvas[0].getContext( '2d' );
 
       var viewCanvas = $( '<canvas width="256" height="256" />' );
@@ -23,6 +23,7 @@ $( function() {
         zoom: 7,
 
         mode: 'click',
+
         cursors: {
           click: 'pointer'
         },
@@ -30,7 +31,8 @@ $( function() {
 
         axisLayout: 'image',
 
-        zoomMin: 5,
+        zoomMin: 2,
+        zoomMax: 7,
 
         services: [
           {

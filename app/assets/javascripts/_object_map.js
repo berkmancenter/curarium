@@ -1,6 +1,7 @@
 $( function() {
   var objectmap = $( '.works-objectmap' );
   var baseThumbSize = 128;
+  var thumbRequestChunk = 6;
 
   if ( objectmap.length === 1 ) {
     var workIds = objectmap.data( 'workIds' );
@@ -39,6 +40,7 @@ $( function() {
         services: [
           {
             type: 'shingled',
+            id: 'thumbsvc',
             style: {
               opacity: 0.99
             },
@@ -62,8 +64,8 @@ $( function() {
               var imageDeferreds = [];
               var workIdIndex;
 
-              for ( var y = thumbBox[1]; y < thumbBox[3]; y++ ) {
-                for ( var x = thumbBox[0]; x < thumbBox[2]; x++ ) {
+              for ( var y = thumbBox[1]; y < thumbBox[3] && imageDeferreds.length < thumbRequestChunk; y++ ) {
+                for ( var x = thumbBox[0]; x < thumbBox[2] && imageDeferreds.length < thumbRequestChunk; x++ ) {
                   workIdIndex = y * workDimension + x;
 
                   if ( workIdIndex < workIds.length && paintedIndexes[ workIdIndex ] === undefined ) {
@@ -87,7 +89,10 @@ $( function() {
                       //miniContext.drawImage( img, xMini, yMini, miniSize, miniSize );
                       //miniMap.geomap( 'refresh' );
 
-                      $this.data( 'defer' ).resolve();
+                      thisDefer = $this.data( 'defer' );
+                      if ( thisDefer ) {
+                        thisDefer.resolve();
+                      }
                     };
 
                     img.onerror = function( ) {
@@ -99,27 +104,31 @@ $( function() {
                 }
               }
 
-              $.when.apply($, imageDeferreds ).then( function( ) {
-                viewContext.canvas.width = view.width;
-                viewContext.canvas.height = view.height;
+              if ( imageDeferreds.length > 0 ) {
+                $.when.apply($, imageDeferreds ).then( function( ) {
+                  //console.log( 'refresh thumbsvc' );
+                  setTimeout( function() { $( '#thumbsvc' ).geomap( 'refresh' ); }, 30 );
+                } );
+              }
 
-                var scale = baseThumbSize * workDimension / factor;
+              viewContext.canvas.width = view.width;
+              viewContext.canvas.height = view.height;
 
-                var drawX = -view.bbox[ 0 ] / factor;
-                var drawY = -view.bbox[ 1 ] / factor;
+              var scale = baseThumbSize * workDimension / factor;
 
-                //console.log( bigCanvas[0].toDataURL( 'image/png' ) );
-                viewContext.drawImage( bigCanvas[0], 0, 0, baseThumbSize * workDimension, baseThumbSize * workDimension, drawX, drawY, scale, scale );
+              var drawX = -view.bbox[ 0 ] / factor;
+              var drawY = -view.bbox[ 1 ] / factor;
 
-                tileDefer.resolve( viewCanvas[0].toDataURL( 'image/png' ) );
-              } );
+              //console.log( bigCanvas[0].toDataURL( 'image/png' ) );
+              viewContext.drawImage( bigCanvas[0], 0, 0, baseThumbSize * workDimension, baseThumbSize * workDimension, drawX, drawY, scale, scale );
 
-              return tileDefer;
+              return viewCanvas[0].toDataURL( 'image/png' );
+              //return tileDefer;
             }
-          }, {
-            id: 'highlight',
-            type: 'shingled',
-            src: ''
+          //}, {
+            //id: 'highlight',
+            //type: 'shingled',
+            //src: ''
           }
         ],
 
@@ -135,10 +144,9 @@ $( function() {
           updateMiniBbox( geo.bbox );
         },
 
+        /*
         move: function( e, geo ) {
           // disable for now, it slows down the map
-          return false;
-
           if ( timeoutMove ) {
             clearTimeout( timeoutMove );
             timeoutMove = null;
@@ -147,6 +155,7 @@ $( function() {
           timeoutMove = setTimeout( geomapMove( geo ), 32 );
 
         },
+        */
 
         click: function( e, geo ) {
           if ( geo.coordinates[ 0 ] >= 0 && geo.coordinates[ 1 ] >= 0 && geo.coordinates[ 0 ] < bigCanvas[0].width && geo.coordinates[ 1 ] < bigCanvas[0].height ) {
@@ -173,7 +182,7 @@ $( function() {
         }
       } );
 
-      var highlight = $( '#highlight' );
+      //var highlight = $( '#highlight' );
 
 
       function geomapMove( geo ) {

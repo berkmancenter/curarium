@@ -89,8 +89,22 @@ class Work < ActiveRecord::Base
       self.unique_identifier = parsed[ 'unique_identifier' ].to_s unless parsed[ 'unique_identifier' ].nil?
 
       # can be nil
-      self.iurls = parsed[ 'image' ]
-      self.turls = parsed[ 'thumbnail' ]
+      if parsed[ 'image' ].present?
+        if parsed[ 'image' ].is_a? String
+          self.iurls = JSON.parse parsed[ 'image' ]
+        else
+          self.iurls = parsed[ 'image' ]
+        end
+      end
+
+      # can be nil
+      if parsed[ 'thumbnail' ].present?
+        if parsed[ 'thumbnail' ].is_a? String
+          self.turls = JSON.parse parsed[ 'thumbnail' ]
+        else
+          self.turls = parsed[ 'thumbnail' ]
+        end
+      end
 
       # maybe can be nil?
       titles = parsed[ 'title' ]

@@ -86,7 +86,19 @@ class Work < ActiveRecord::Base
 
   def extract_attributes
     if id.nil?
-      self.unique_identifier = parsed[ 'unique_identifier' ].to_s unless parsed[ 'unique_identifier' ].nil?
+      # maybe can be nil?
+      uids = parsed[ 'unique_identifier' ]
+      if uids.present?
+        if uids.is_a? String
+          if uids[0] == '['
+            self.unique_identifier = JSON.parse( uids )[ 0 ]
+          else
+            self.unique_identifier = uids
+          end
+        elsif uids.is_a? Array
+          self.unique_identifier = uids[ 0 ]
+        end
+      end
 
       # can be nil
       if parsed[ 'image' ].present?
@@ -108,7 +120,17 @@ class Work < ActiveRecord::Base
 
       # maybe can be nil?
       titles = parsed[ 'title' ]
-      self.title = titles.is_a?( Array ) ? titles[ 0 ] : titles
+      if titles.present?
+        if titles.is_a? String
+          if titles[0] == '['
+            self.title = JSON.parse( titles )[ 0 ]
+          else
+            self.title = titles
+          end
+        elsif titles.is_a? Array
+          self.title = titles[ 0 ]
+        end
+      end
 
       # remove the attributes we extracted (except for title)
       self.parsed.except! 'unique_identifier', 'image', 'thumbnail'

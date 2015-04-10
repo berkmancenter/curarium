@@ -8,7 +8,7 @@
         	<div class="stalking_menu">
             <ul>
               <% if authenticated? %>
-                <% if @collection.admin[0] == @current_user.id %>
+                <% if @collection.admins.include? @current_user %>
 
                 <%= form_for @collection, method: 'delete' do |f| %>
                   <%= f.submit value: 'Delete Collection', class: 'delete-collection' %>
@@ -56,7 +56,9 @@
 				<td  class="date">
           <%= @collection.created_at.strftime '%d.%m.%y' %>&nbsp; - <%= render partial: 'shared/mini_icon', object: 'collection', locals: { icon_title: nil } %>
           </td><td  class="activity">
-          <%= User.find( @collection.admin[0] ).name %> created this collection
+          <% if @collection.admins.any? %>
+            <span><%= @collection.admins.first.name %> created this collection</span>
+          <% end %>
 				</td></tr></table>
      			<!-- an activity -->
      </div></div><!-- end right content -->    

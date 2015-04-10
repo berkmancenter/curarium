@@ -1,6 +1,9 @@
 class Collection < ActiveRecord::Base
   before_create :generate_key
 
+  has_many :collection_admins
+  has_many :admins, through: :collection_admins
+
   has_many :works, dependent: :destroy
   has_many :spotlights, through: :highlights
 
@@ -13,7 +16,7 @@ class Collection < ActiveRecord::Base
   validates :source, presence: true
 
   scope :administered_by, ->( user ) {
-    where( "#{user.id} = ANY( admin )" )
+    where( "id IN ( SELECT collection_id FROM collection_admins WHERE user_id = #{user.id} )" )
   }
 
   def self.create_work_from_parsed( key, original, parsed )

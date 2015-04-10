@@ -25,23 +25,23 @@ def seed
 
   # collections
   test_col = FactoryGirl.create :test_col
-  test_col.admin = [ test_user.id ]
+  test_col.admins << test_user
   test_col.save
 
   not_approved = FactoryGirl.create :not_approved
-  not_approved.admin = [ test_user.id ]
+  not_approved.admins << test_user
   not_approved.save
 
   multi_image = FactoryGirl.create :multi_image
-  multi_image.admin = [ test_user.id ]
+  multi_image.admins << test_user
   multi_image.save
 
   via = FactoryGirl.create :via
-  via.admin = [ test_user.id ]
+  via.admins << test_user
   via.save
 
   japanese = FactoryGirl.create :japanese
-  japanese.admin = [ test_user.id ]
+  japanese.admins << test_user
   japanese.save
 
   # annotations

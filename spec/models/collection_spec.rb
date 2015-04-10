@@ -3,6 +3,7 @@ require 'zlib'
 
 describe ( 'Collection model' ) {
   let ( :col ) { Collection.find_by_name( 'test_col' ) }
+  let ( :admin ) { User.first }
 
   context ( 'with valid data' ) {
     it { col.should be_valid }
@@ -25,6 +26,10 @@ describe ( 'Collection model' ) {
 
     it ( 'should have works' ) {
       col.works.count.should > 0
+    }
+
+    it ( 'should have an admin' ) {
+      col.admins.include?( admin ).should be_true
     }
   }
 

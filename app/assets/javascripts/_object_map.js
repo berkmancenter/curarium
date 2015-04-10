@@ -1,5 +1,7 @@
 $( function() {
   var objectmap = $( '.works-objectmap' );
+  var baseThumbSize = 128;
+  var thumbRequestChunk = 6;
 
   if ( objectmap.length === 1 ) {
     var workIds = objectmap.data( 'workIds' );
@@ -10,17 +12,19 @@ $( function() {
     if ( $.isArray( workIds ) && workIds.length > 0 ) {
       $.geo.proj = null;
 
-      var bigCanvas = $( '<canvas width="' + (256*workDimension) + '" height="' + (256*workDimension) + '" />' );
+      var bigCanvas = $( '<canvas width="' + (baseThumbSize * workDimension) + '" height="' + (baseThumbSize * workDimension) + '" />' );
       var bigContext = bigCanvas[0].getContext( '2d' );
 
-      var viewCanvas = $( '<canvas width="256" height="256" />' );
+      var viewCanvas = $( '<canvas width="128" height="128" />' );
       var viewContext = viewCanvas[0].getContext( '2d' );
 
       var maxZoomLevels = 9;
 
+      var center = [ Math.floor( baseThumbSize * workDimension / 2 ), Math.floor( baseThumbSize * workDimension / 2 ) ];
+      var mapWidth = $( '.works-objectmap .geomap' ).width();
+
       var map = $( '.works-objectmap .geomap' ).geomap( {
-        center: [ Math.floor( 256 * workDimension / 2 ), Math.floor( 256 * workDimension / 2 ) ],
-        zoom: 7,
+        bbox: [ 0, center[ 1 ] - baseThumbSize, baseThumbSize * workDimension, center[ 1 ] + baseThumbSize ],
 
         mode: 'click',
         cursors: {
@@ -30,23 +34,28 @@ $( function() {
 
         axisLayout: 'image',
 
-        zoomMin: 5,
+        zoomMax: 8,
+        zoomMin: 2,
 
         services: [
           {
             type: 'shingled',
+            id: 'thumbsvc',
+            style: {
+              opacity: 0.99
+            },
             src: function( view ) {
               var zoom = $( '.geomap' ).geomap('option', 'zoom');
               var factor = Math.pow( 2, maxZoomLevels - zoom - 1 );
-              var imageSize = 256 / factor;
+              var imageSize = baseThumbSize / factor;
 
               //console.log( 'view.bbox: ' + view.bbox );
 
               var thumbBox = [
-                Math.max( ( Math.floor( view.bbox[0] / 256 ) - 1), 0),
-                Math.max( ( Math.floor( view.bbox[1] / 256 ) - 1), 0),
-                Math.min( ( Math.ceil( view.bbox[2] / 256 ) ) + 1, workDimension),
-                Math.min( ( Math.ceil( view.bbox[3] / 256 ) ) + 1, workDimension)
+                Math.max( ( Math.floor( view.bbox[0] / baseThumbSize ) - 1), 0),
+                Math.max( ( Math.floor( view.bbox[1] / baseThumbSize ) - 1), 0),
+                Math.min( ( Math.ceil( view.bbox[2] / baseThumbSize ) ) + 1, workDimension),
+                Math.min( ( Math.ceil( view.bbox[3] / baseThumbSize ) ) + 1, workDimension)
               ];
 
               //console.log( 'thumbBox: ' + thumbBox );
@@ -55,8 +64,8 @@ $( function() {
               var imageDeferreds = [];
               var workIdIndex;
 
-              for ( var y = thumbBox[1]; y < thumbBox[3]; y++ ) {
-                for ( var x = thumbBox[0]; x < thumbBox[2]; x++ ) {
+              for ( var y = thumbBox[1]; y < thumbBox[3] && imageDeferreds.length < thumbRequestChunk; y++ ) {
+                for ( var x = thumbBox[0]; x < thumbBox[2] && imageDeferreds.length < thumbRequestChunk; x++ ) {
                   workIdIndex = y * workDimension + x;
 
                   if ( workIdIndex < workIds.length && paintedIndexes[ workIdIndex ] === undefined ) {
@@ -70,7 +79,7 @@ $( function() {
 
                     img.onload = function( ) {
                       var $this = $( this );
-                      bigContext.drawImage( this, $this.data( 'x' ) * 256, $this.data( 'y' ) * 256 );
+                      bigContext.drawImage( this, 0, 0, this.width, this.height, $this.data( 'x' ) * baseThumbSize, $this.data( 'y' ) * baseThumbSize, baseThumbSize * (this.width/256), baseThumbSize * (this.height/256));
 
                      //console.log( 'PAINT x: ' + $this.data( 'x' ) + ', y: ' + $this.data( 'y' ) + ', index: ' + $this.data( 'workIdIndex' ) + ', workId: ' + workIds[ $this.data( 'workIdIndex' ) ] );
 
@@ -80,7 +89,10 @@ $( function() {
                       //miniContext.drawImage( img, xMini, yMini, miniSize, miniSize );
                       //miniMap.geomap( 'refresh' );
 
-                      $this.data( 'defer' ).resolve();
+                      thisDefer = $this.data( 'defer' );
+                      if ( thisDefer ) {
+                        thisDefer.resolve();
+                      }
                     };
 
                     img.onerror = function( ) {
@@ -92,26 +104,31 @@ $( function() {
                 }
               }
 
-              $.when.apply($, imageDeferreds ).then( function( ) {
-                viewContext.canvas.width = view.width;
-                viewContext.canvas.height = view.height;
+              if ( imageDeferreds.length > 0 ) {
+                $.when.apply($, imageDeferreds ).then( function( ) {
+                  //console.log( 'refresh thumbsvc' );
+                  setTimeout( function() { $( '#thumbsvc' ).geomap( 'refresh' ); }, 30 );
+                } );
+              }
 
-                var scale = 256 * workDimension / factor;
+              viewContext.canvas.width = view.width;
+              viewContext.canvas.height = view.height;
 
-                var drawX = -view.bbox[ 0 ] / factor;
-                var drawY = -view.bbox[ 1 ] / factor;
+              var scale = baseThumbSize * workDimension / factor;
 
-                viewContext.drawImage( bigCanvas[0], 0, 0, 256 * workDimension, 256 * workDimension, drawX, drawY, scale, scale );
+              var drawX = -view.bbox[ 0 ] / factor;
+              var drawY = -view.bbox[ 1 ] / factor;
 
-                tileDefer.resolve( viewCanvas[0].toDataURL( 'image/png' ) );
-              } );
+              //console.log( bigCanvas[0].toDataURL( 'image/png' ) );
+              viewContext.drawImage( bigCanvas[0], 0, 0, baseThumbSize * workDimension, baseThumbSize * workDimension, drawX, drawY, scale, scale );
 
-              return tileDefer;
+              return viewCanvas[0].toDataURL( 'image/png' );
+              //return tileDefer;
             }
-          }, {
-            id: 'highlight',
-            type: 'shingled',
-            src: ''
+          //}, {
+            //id: 'highlight',
+            //type: 'shingled',
+            //src: ''
           }
         ],
 
@@ -127,10 +144,9 @@ $( function() {
           updateMiniBbox( geo.bbox );
         },
 
+        /*
         move: function( e, geo ) {
           // disable for now, it slows down the map
-          return false;
-
           if ( timeoutMove ) {
             clearTimeout( timeoutMove );
             timeoutMove = null;
@@ -139,14 +155,15 @@ $( function() {
           timeoutMove = setTimeout( geomapMove( geo ), 32 );
 
         },
+        */
 
         click: function( e, geo ) {
           if ( geo.coordinates[ 0 ] >= 0 && geo.coordinates[ 1 ] >= 0 && geo.coordinates[ 0 ] < bigCanvas[0].width && geo.coordinates[ 1 ] < bigCanvas[0].height ) {
             var zoom = map.geomap( 'option', 'zoom' );
             var factor = Math.pow( 2, maxZoomLevels - zoom - 1 );
-            var imageSize = 256 / factor;
+            var imageSize = baseThumbSize / factor;
 
-            var tileXY = [ Math.floor( geo.coordinates[ 0 ] / 256 ), Math.floor( geo.coordinates[ 1 ] / 256 ) ];
+            var tileXY = [ Math.floor( geo.coordinates[ 0 ] / baseThumbSize ), Math.floor( geo.coordinates[ 1 ] / baseThumbSize ) ];
 
             var index = tileXY[1] * workDimension + tileXY[0];
 
@@ -165,7 +182,7 @@ $( function() {
         }
       } );
 
-      var highlight = $( '#highlight' );
+      //var highlight = $( '#highlight' );
 
 
       function geomapMove( geo ) {
@@ -173,13 +190,13 @@ $( function() {
           // TODO: cache factor somewhere, it only changes when zoom changes
           var zoom = map.geomap( 'option', 'zoom' );
           var factor = Math.pow( 2, maxZoomLevels - zoom - 1 );
-          var imageSize = 256 / factor;
+          var imageSize = baseThumbSize / factor;
 
-          var tileXY = [ Math.floor( geo.coordinates[ 0 ] / 256 ), Math.floor( geo.coordinates[ 1 ] / 256 ) ];
+          var tileXY = [ Math.floor( geo.coordinates[ 0 ] / baseThumbSize ), Math.floor( geo.coordinates[ 1 ] / baseThumbSize ) ];
 
           highlight.geomap( 'empty', false );
 
-          var pixelBbox = [ tileXY[ 0 ] * 256, tileXY[ 1 ] * 256, tileXY[ 0 ] * 256 + 256, tileXY[ 1 ] * 256 + 256 ];
+          var pixelBbox = [ tileXY[ 0 ] * baseThumbSize, tileXY[ 1 ] * baseThumbSize, tileXY[ 0 ] * baseThumbSize + baseThumbSize, tileXY[ 1 ] * baseThumbSize + baseThumbSize ];
 
           highlight.geomap( 'append', $.geo.polygonize( pixelBbox ) );
         } else {
@@ -187,11 +204,11 @@ $( function() {
         }
       }
 
-      var miniCanvas = $( '<canvas width="256" height="256" />' );
+      var miniCanvas = $( '<canvas width="128" height="128" />' );
       var miniContext = miniCanvas[0].getContext( '2d' );
 
       var miniScale = 1 / workDimension;
-      var miniSize = 256 * miniScale;
+      var miniSize = baseThumbSize * miniScale;
 
       // start with some random colors
       for ( var row = 0; row < workDimension; row++ ) {
@@ -202,8 +219,8 @@ $( function() {
       }
 
       var miniMap = $( '.works-objectmap .minimap' ).geomap( {
-        bbox: [ 0, 0, 256, 256 ],
-        bboxMax: [ 0, 0, 256, 256 ],
+        bbox: [ 0, 0, baseThumbSize, baseThumbSize ],
+        bboxMax: [ 0, 0, baseThumbSize, baseThumbSize ],
 
         mode: 'static',
 
@@ -227,7 +244,7 @@ $( function() {
       } );
 
       miniMap.click( function( e ) {
-        map.geomap( 'option', 'center', [ e.offsetX / miniSize * 256, e.offsetY / miniSize * 256 ] );
+        map.geomap( 'option', 'center', [ e.offsetX / miniSize * baseThumbSize, e.offsetY / miniSize * baseThumbSize ] );
         updateMiniBbox();
       } );
 
@@ -239,10 +256,10 @@ $( function() {
     bbox = bbox || map.geomap( 'option', 'bbox' );
 
     var miniBbox = [
-      Math.min( Math.max( bbox[0] * miniScale, 0 ), 256 ),
-      256 - Math.min( Math.max( bbox[1] * miniScale, 0 ), 256 ),
-      Math.min( Math.max( bbox[2] * miniScale, 0 ), 256 ),
-      256 - Math.min( Math.max( bbox[3] * miniScale, 0 ), 256 )
+      Math.min( Math.max( bbox[0] * miniScale, 0 ), baseThumbSize ),
+      baseThumbSize - Math.min( Math.max( bbox[1] * miniScale, 0 ), baseThumbSize ),
+      Math.min( Math.max( bbox[2] * miniScale, 0 ), baseThumbSize ),
+      baseThumbSize - Math.min( Math.max( bbox[3] * miniScale, 0 ), baseThumbSize )
     ]; 
     miniMap.geomap( 'empty' ).geomap( 'append', $.geo.polygonize( miniBbox ) );
   }

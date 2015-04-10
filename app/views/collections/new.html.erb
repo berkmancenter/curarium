@@ -14,6 +14,10 @@
 };
 
 	window.onbeforeunload = confirmOnPageExit;
+
+  function beginIntro() {
+    introJs().start();
+  }
 </script>
 <%= render 'form' %>
 

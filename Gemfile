@@ -1,10 +1,7 @@
 source 'http://rubygems.org'
 ruby '2.0.0'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
-gem 'rails', '4.1.10'
-
-# tzinfo required for rails 4.1
-gem 'tzinfo-data'
+gem 'rails', '4.0.12'
 
 # Use postgresql
 gem 'pg'#, '~> 0.18.0.pre20141117110243'
@@ -73,3 +70,6 @@ gem 'sinatra', '>= 1.3.0', :require => nil
 
 # Use debugger
 # gem 'debugger', group: [:development, :test]
+
+#Use introjs for introductions
+gem "introjs-rails"

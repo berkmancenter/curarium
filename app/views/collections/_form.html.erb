@@ -5,7 +5,7 @@
 <!-- END SUB MENU -->
 
 <div class="BELOW_MENU">
-  <div><%= link_to 'Click for instructions', '/importhelp', target: '_blank' %></div>
+  <a id="beginthis" onclick="beginIntro()">Click for instructions</a>
 </div>  
 
 <div class="uploader_content">  
@@ -28,36 +28,36 @@
         <div class="titlebar">General Information</div> 
 
         <%= f.label :name, 'Collection Name' %>
-        <div class="input_box">
+        <div class="input_box" data-intro="Enter a name for your collection!" data-step="1" >
           <%= f.text_field :name, placeholder: "Choose a name for your collection", class: 'text' %>
         </div> 
 
         <%= f.label :description, 'Collection Description' %>
-        <div class="input_box">
+        <div class="input_box" data-intro="Describe your collection" data-step="2">
           <%= f.text_area :description, placeholder: "A description of your collection. It can be a long text.", id:"spotlight_body", class: 'text' %>  
         </div> 
 
         <%= f.label :source, 'Collection Provider' %>
-        <div class="input_box">
+        <div class="input_box" data-intro="Name of the colelction provider" data-step="3">
           <%= f.text_field :source, placeholder: "Identify the provider of this collection", class: 'text' %>
         </div> 
 
         <label for="file">ZIP of Collection JSON Files</label>
-        <input id="file" type="file" name="file">
+        <input id="file" type="file" name="file" data-intro="Upload a ZIP of your JSON files" data-step="4" >
 
         <%= f.hidden_field :configuration, value: "{}" %>
     
         <div class="actions">
-          <%= f.submit 'Import Collection', class: 'button submit',  :onclick=>"window.onbeforeunload=null" %> 
+          <%= f.submit 'Import Collection', class: 'button submit',  :onclick=>"window.onbeforeunload=null"%> 
         </div>
       <% end %>
 
       <label for="json">Collection JSON Sample</label>
-      <div class="input_box">
+      <div class="input_box" data-intro="Copy and paste your sample json record here" data-step="5">
         <textarea id="json" class="text" placeholder="Copy and paste your sample json record here"></textarea>
       </div>
 
-      <span id="parse" class= "uploadjson">Parse</span>   
+      <span id="parse" class= "uploadjson" data-intro="Click this to see parsed data!" data-step="6">Parse</span>   
     </div>
   </div>
   <!-- END LEFT CONTENT -->
@@ -68,7 +68,7 @@
       <div class="titlebar">Collection JSON Sample</div>
 
       <label>Parsed JSON Sample</label>
-      <div class="json_holder" id="parsed">
+      <div class="json_holder" id="parsed" data-intro="Drag objects into their meta-data fields" data-step="7">
         No Sample &ndash; Please paste JSON into the Collection JSON Sample box at the bottom left and click Parse
       </div>
     </div>
@@ -78,26 +78,26 @@
   <!-- RIGHT CONTENT -->
   <div class="right">
     <div class="holder">
-      <div class="titlebar">Active Fields</div>
+      <div class="titlebar" data-intro="Edit dragged meta-data objects into their respective fields" data-step="8">Active Fields</div>
 
       <div id="output">
         <div id="unique_identifier" class="field field_wrapper">
-          <p>unique identifier</p>
+          <p>Unique Identifier</p>
         </div>
 
         <div id="title" class="field field_wrapper">
-          <p>title</p>
+          <p>Title</p>
         </div>
 
         <div id="image" class="field field_wrapper">
-          <p>image</p>
+          <p>Image</p>
         </div>
 
         <div id="thumbnail" class="field field_wrapper">
-          <p>thumbnail</p>
+          <p>Thumbnail</p>
         </div>
 
-        <form id="add_field">
+        <form id="add_field" data-intro="Add/Edit custom fields of your choice" data-step="9">
           <input id="field_name" name="field_name" type="text" placeholder="custom field name">
           <br>
           <input type="submit" value="Add field" id="submitbutton">

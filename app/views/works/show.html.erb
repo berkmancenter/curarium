@@ -11,11 +11,15 @@
           });
         });
     };
+
+    function recordIntro() {
+    introJs().start();
+  }
 </script>
 
-<!-- BEGIN SUB MENU -->  
+<!-- BEGIN SUB MENU --> 
 <div class="SUB_MENU bubble_menu">
-<a onclick="recordIntro()">Click for instructions</a>
+<a onclick="recordIntro()">Click for instructions</a> 
   <table class="works_info">
   <tr class="metadata_box">
     <td class="parsed_button">
@@ -33,7 +37,7 @@
   <tr class="surrogates_box">
     <td class="surrogates_button">
       <div class="menu_pieces">
-      <label for='surrogates_id'><span class="button" title="Surrogate images" data-intro="" data-start="2">S</span></label>
+      <label for='surrogates_id'><span class="button" title="Surrogate images" data-intro="Click to view surrogate images" data-start="2">S</span></label>
       </div></td>
       <td class="surrogate_info">
       <input type='radio' class='checkbox_hack' id='surrogates_id' name="recordoption">
@@ -50,7 +54,7 @@
     <tr class="tray_box">
     <td class="tray_button">
       <div class="menu_piecet">
-        <label for='add_id'><span class="button" title="Add to trays">T</span></label>
+        <label for='add_id'><span class="button" title="Add to trays" data-intro="Click to view trays. Note: You need to be logged in." data-start="3">T</span></label>
         </div></td>
       <td class="tray_info">
         <input type='radio' class='checkbox_hack' id='add_id' name="recordoption">
@@ -65,7 +69,7 @@
 
     <tr class="anno_box"><td class="anno_button">
       <div class="menu_piecea">
-        <label for='ann_id'><span class="button" title="Annotations">A</span></label>
+        <label for='ann_id'><span class="button" title="Annotations" data-intro="Click to view annotations. Note: You need to be logged in." data-start="4">A</span></label>
         </div></td>
       <td class="annotation_info">
         <input type='radio' class='checkbox_hack' id = 'ann_id' name="recordoption">

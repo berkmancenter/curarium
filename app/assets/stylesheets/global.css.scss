@@ -667,7 +667,9 @@ dd {
   padding: 4px 0;
   margin-bottom: 10px;
   @include rounded-corners(3px);
-  
+    a {
+      margin-left: 10px;
+    }
 }
 .SUB_MENU .right{
   width: 200px;
@@ -1031,7 +1033,7 @@ dd {
   width: 50px;
   float: left;
   height: auto;
-  margin: 20px 0 -25px 2px;
+  margin: 6px 0 -25px 2px;
   padding: 5px 68px 5px 67px;
   border: 1px solid #d2232a;
   background: white;
@@ -1611,7 +1613,7 @@ dt:hover {
 .bubble_menu .checkbox_hack:checked ~ .expand_pi {
   display: block;
   width: 135px !important;
-  margin: 22px 0 0 52px;
+  margin: 7px 0 0 52px;
   height: 100px;
   overflow: scroll;
   border: 1px solid #d2232a;
@@ -1630,11 +1632,11 @@ dt:hover {
   background: white;
   overflow: auto;
   width: 185px;
-  margin: 98px 0 0 52px;
+  margin: 84px 0 0 52px;
 }
 
 .bubble_menu .checkbox_hack:checked ~ .expand_anno {
   display: block;
   width: 160px;
-  margin: 137px 0 0 52px;
+  margin: 121px 0 0 52px;
 }

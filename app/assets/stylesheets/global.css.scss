@@ -354,11 +354,6 @@ dd {
       }
     }
   }
-  .latestpost{
-    font-weight: bold;
-    padding: 35px 0 0 0;
-    font-size: 40px;
-  }
 }
 
 /* GALLERY  */
@@ -418,37 +413,6 @@ dd {
 .GALLERY .titlebar{
   margin: 0 10px;
   border: 0px;
-}
-
-.news .object_id img {
-  width: 15px;
-}
-.news .object_id {
-  background: #d2232a;
-  color: white;
-  right: 1px;
-  top: 3px;
-}
-.news .border{
-  border: 2px solid #d2232a;
-  color: #ffffff;
-  background: #d2232a;
-  font-size: $fontSize2;
-}
-.news .innertext{
-  padding: 20px 15px 15px 15px;
-  font-size: $fontSize1;
-  font-style:italic;
-}
-.news .name {
-  position: absolute;
-  bottom: 0px;
-  left: 10px;
-  font-size: $fontSize1;
-  color: #d2232a;
-}
-.news .date {
-  padding: 5px 0 0 0;
 }
 
 /* ABOUT  */

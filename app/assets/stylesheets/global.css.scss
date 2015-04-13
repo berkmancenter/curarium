@@ -508,11 +508,7 @@ dd {
   font-weight: bold;
   color: #444;
 }
-.about_content .cont_collection, .about_content .cont_spotlight, .about_content .cont_circ {
-  position: relative;
-  overflow: hidden;
-  width: 110%;
-}
+
 .about_content .cont_vocab a{
   font-weight: bold;
   color: #d2232a;
@@ -575,26 +571,6 @@ dd {
   bottom: 8px;
   left: 0px;
   width: 13px;
-}
-.about_content .cont_tray{
-  color: #d2232a;
-  font-weight: bold;
-}
-.about_content .cont_tray div{
-  width: 100%;
-  height: 90px; 
-  background: #eee;
-  overflow: hidden;
-  margin: 5px 0 20px 0;
-}
-.about_content .cont_tray div img{
-  width: 100%;
-}
-.about_content .cont_tray .social{
-  border: 1px solid #d2232a;
-}
-.about_content .cont_circ .profile_img{
-  float: left;
 }
 
 /* FOOTER */
@@ -1308,34 +1284,6 @@ dt:hover {
 	background: url('transbg2.png');
 	display: none;
 }
-.collection_options_inner{
-	position: absolute;
-	bottom: 0;
-	left: 10px;
-	right: 10px;
-	color: #d2232a;
-	font-weight: bold;
-}
-.collection_options_inner div{
-	text-align: left;
-	border: 1px solid #d2232a;
-	padding: 5px 5px 5px 30px;
-	margin: 10px 0;
-	position: relative;
-}
-.collection_options_inner div:hover{
-	background: #d2232a;
-	color: #fff;
-}
-.collection_options_inner div img{
-	width: 14px;
-	position: absolute;
-	left: 5px;
-	top: 5px;
-}
-.collection_options_inner div img:last-child{
-	display: none;
-}
 
 .object_id {
 	z-index: 10!important;
@@ -1534,11 +1482,6 @@ dt:hover {
   display: none;
 }
 
-#viscon:checked ~ .slider_bar {
-  display: block;
-  top: 6px;
-}
-
 #up {
   display: none;
 }
@@ -1549,12 +1492,6 @@ dt:hover {
 
 #orderby_cb:checked ~ .expand_orderby {
   display: block;
-}
-
-#order_span {
-  position: relative;
-  padding: 0px;
-  bottom: 4px;
 }
 
 .bubble_menu .menu_piecep .button {

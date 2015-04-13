@@ -15,11 +15,12 @@
 
 <!-- BEGIN SUB MENU -->  
 <div class="SUB_MENU bubble_menu">
+<a onclick="recordIntro()">Click for instructions</a>
   <table class="works_info">
   <tr class="metadata_box">
     <td class="parsed_button">
       <div class="menu_piecep">
-      <label for='parsed_id'><span class="button" title="Parsed Information">P</span></label>
+      <label for='parsed_id'><span class="button" title="Parsed Information" data-intro="Click to view parsed meta-data" data-start="1">P</span></label>
       </div></td>
       <td class="parsed_info">
       <input type='radio' class='checkbox_hack' id='parsed_id' name="recordoption">
@@ -32,7 +33,7 @@
   <tr class="surrogates_box">
     <td class="surrogates_button">
       <div class="menu_pieces">
-      <label for='surrogates_id'><span class="button" title="Surrogate images">S</span></label>
+      <label for='surrogates_id'><span class="button" title="Surrogate images" data-intro="" data-start="2">S</span></label>
       </div></td>
       <td class="surrogate_info">
       <input type='radio' class='checkbox_hack' id='surrogates_id' name="recordoption">

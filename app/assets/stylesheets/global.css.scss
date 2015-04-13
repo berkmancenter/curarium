@@ -46,8 +46,9 @@ input[type=text], input[type=password], textarea, .login-button, .tray-popup-but
   border: 1px solid $cred;
   color: $cred;
   font-size: $fontSize1;
-  padding: 0 4px;
+  padding: 2px 0px;
   margin-bottom: 5px;
+  margin-right: 5px;
 }
 
 input[type=text], input[type=password], .login-button, .tray-popup-button {
@@ -1070,7 +1071,7 @@ dd {
 }
 
 .uploader_content .input_box,.uploader_content .json_holder{
-	margin: 5px 0 20px 0;
+	margin: 5px 5px 20px 0;
 }
 .uploader_content .json_holder{
 	max-height: 800px;

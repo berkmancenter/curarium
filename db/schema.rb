@@ -104,6 +104,7 @@ ActiveRecord::Schema.define(version: 20150409211155) do
     t.json     "associations"
     t.integer  "size"
     t.string   "source"
+    t.boolean  "importing"
   end
 
   create_table "comments", force: true do |t|

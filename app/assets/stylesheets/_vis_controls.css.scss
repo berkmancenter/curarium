@@ -67,7 +67,8 @@
     height: 110px;
     width: 300px;
     overflow: auto;
-    zoom: 1
+    zoom: 1;
+    margin: 10px 0px;
   }
 
   .search-report {
@@ -75,7 +76,6 @@
   }
 
   .update {
-    border: 1px solid #d2233a;
     background: #fff;
     height: 35px;
     line-height: 35px;

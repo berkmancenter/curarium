@@ -1,3 +1,8 @@
+<script>
+    function vizIntro() {
+    introJs().start();
+  }
+</script>
 <section class="vis-controls">
   <div class = 'rec_menu'>
   <div class="recmenu_piece">
@@ -6,9 +11,10 @@
     <input type='checkbox' class='checkbox_hack' id='drop'>
     <label class="toggle-vis-controls" for='drop'></label>
     <div class = 'dropdown'>
+    <a onclick="vizIntro()">Click for instructions</a>
       <div class = 'floatdivs'>
         <%= form_tag(request.original_url, method: :get, id: 'vis-form') do |f| %>
-          <div class='dropcell'>
+          <div class='dropcell' data-intro="Select the dropdown for visualization options" data-step="1">
             <div class='subcell'>
               <%= label_tag 'vis', 'Visualization type' %><br>
               <%= select_tag 'vis', options_for_select( [ ['list', 'list'], ['thumbnails','thumbnails'], ['object map', 'objectmap'], ['treemap', 'treemap'] ], @vis ) %>
@@ -21,7 +27,7 @@
               <%= select_tag 'property', options_for_select(@properties), :id=>'property' %>
             </div>
           </div>
-          <div class='dropcell'>
+          <div class='dropcell' data-intro="Include or exclude properties on filter" data-step="2">
             <div class='subcell'>
               <%= label_tag 'selprop', 'Select property' %><br>
               <%= select_tag 'selprop', options_for_select(@properties),:id=>'selprop', :name=>nil %>
@@ -37,7 +43,7 @@
             </div>
             <div id='props' class='subcell'></div>
           </div>
-          <div class='dropcell'>
+          <div class='dropcell' data-intro="Choose to view a certain number of records per page at a given time" data-step="3">
             <div class='subcell'>
               <% @num ||= 0 %>
               <% @perpage ||= 200 %>
@@ -50,7 +56,7 @@
             </div>
           </div>
           <span class='stretch'></span>
-          <div class='update'>
+          <div class='update' data-intro="You know you want to hit this button!"    data-step="4">
             <div>
               <%= submit_tag 'Update Visualization', name: nil, id: 'go' %>
             </div>
@@ -60,4 +66,3 @@
     </div>
   </div>
 </section>
-

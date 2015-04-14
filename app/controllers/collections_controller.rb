@@ -35,7 +35,7 @@ class CollectionsController < ApplicationController
   def create
     @collection = Collection.new(collection_params)
     @collection.approved = false
-    @collection.admin << @current_user
+    @collection.admins << @current_user
     if @collection.save
       Zip::File.open( params[:file].path ) { |zip_file|
         collection_path = Rails.root.join 'db', 'collection_data', @collection.id.to_s

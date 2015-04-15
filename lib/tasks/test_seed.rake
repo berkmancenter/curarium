@@ -50,7 +50,9 @@ def seed
   jesus.save
 
   # works
-  crfj test_col, :starry_night
+  starry_night_attr = FactoryGirl.attributes_for( :starry_night )
+  starry_night = crfj test_col, :starry_night
+  starry_night.update_attributes( primary_color: starry_night_attr[ :primary_color ], top_colors: starry_night_attr[ :top_colors ] )
   crfj test_col, :mona_lisa
 
   # work with annotation

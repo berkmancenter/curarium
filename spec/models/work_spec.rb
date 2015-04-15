@@ -53,14 +53,28 @@ describe ( 'Work model' ) {
       w.thumbnail_url.should_not eq( nil )
     }
 
-    it ( 'should have thumb cache path' ) {
-      thumb_hash = Zlib.crc32 w.thumbnail_url
-      w.thumbnail_cache_path.should eq( Rails.root.join( 'public', 'thumbnails', "#{thumb_hash}.png" ).to_s )
+    describe ( 'colors' ) {
+      it {
+        w.primary_color.should eq( '#dedede' )
+      }
+
+      it {
+        w.top_colors.class.should eq( Hash )
+      }
+
+      it {
+        w.top_colors[ '#dedede' ].should eq( 0.95 )
+      }
     }
 
-    it ( 'should have thumb cache url' ) {
-      thumb_hash = Zlib.crc32 w.thumbnail_url
-      w.thumbnail_cache_url.should eq( "/thumbnails/#{thumb_hash}.png" )
+    describe ( 'thumb cache' ) {
+      it ( 'should have thumb cache path' ) {
+        w.thumbnail_cache_path.should eq( Rails.root.join( 'public', 'thumbnails', 'works', "#{w.id}.jpg" ).to_s )
+      }
+
+      it ( 'should have thumb cache url' ) {
+        w.thumbnail_cache_url.should eq( "/thumbnails/works/#{w.id}.jpg" )
+      }
     }
 
     it ( 'should have topics parsed from original with multiple values' ) {

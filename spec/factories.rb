@@ -134,6 +134,8 @@ FactoryGirl.define do
     factory :starry_night do
       # collection test_col
       original '{"title":"Starry Night","imageInfo":{"url":"/test/starry_night.jpg","thumbnail_url":"http://upload.wikimedia.org/wikipedia/commons/thumb/e/ea/Van_Gogh_-_Starry_Night_-_Google_Art_Project.jpg/116px-Van_Gogh_-_Starry_Night_-_Google_Art_Project.jpg"},"artist":"Van Gogh","subject":[{"topic":["stars"]},{"topic":["night"]},{"topic":["churches"]}]}'
+      primary_color '#dedede'
+      top_colors {{ '#dedede' => 0.95, '#9f2211' => 0.05 }}
     end
 
     factory :mona_lisa do

@@ -45,6 +45,10 @@ class Work < ActiveRecord::Base
     Rails.public_path.join( 'thumbnails', 'works', "#{id}.jpg" ).to_s
   end
 
+  def thumbnail_histogram_path
+    Rails.public_path.join( 'thumbnails', 'works', "#{id}.txt" ).to_s
+  end
+
   def thumbnail_cache_type
     'image/jpeg'
     #Work.image_type thumbnail_cache_path
@@ -59,6 +63,7 @@ class Work < ActiveRecord::Base
   end
 
   def cache_thumb
+    result = false
     if thumbnail_url.present?
       cache_url = "#{thumbnail_url}#{thumbnail_url.include?( '?' ) ? '&' : '?'}width=256&height=256"
 
@@ -71,10 +76,36 @@ class Work < ActiveRecord::Base
       if thumb_connection.present?
         File.open( thumbnail_cache_path, 'wb' ) { |file|
           file.write thumb_connection.read
+          result = true
         }
       end
     end
+    result
+  end
 
+  def extract_colors
+    histogram = [] 
+    if File.exists?( thumbnail_cache_path )
+      # pixelate via scale, then convert to 8bit, then extract histogram
+      %x[convert #{thumbnail_cache_path} -scale 20% -scale 256x256\! -colors 256 -depth 8 -format "%c" histogram:info:#{thumbnail_histogram_path}]
+      File.open( thumbnail_histogram_path, 'r' ) { |f|
+        total_colors = 0.0
+        f.each_line { |line|
+          parts = line.scan /^\s*(\d+):.*(#\w*)/
+          count = parts[0][0].to_f
+          color = parts[0][1]
+          histogram << { color: color, count: count }
+          total_colors += count
+        }
+        histogram = histogram.sort_by { |h| h[ :count ] }.slice( -5, 5 ).reverse.map { |h|
+          {
+            color: h[ :color ],
+            percent: h[ :count ] / total_colors
+          }
+        }
+      }
+      histogram
+    end
   end
 
   def annotations
@@ -134,6 +165,14 @@ class Work < ActiveRecord::Base
 
       # remove the attributes we extracted (except for title)
       self.parsed.except! 'unique_identifier', 'image', 'thumbnail'
+
+      # fake color extraction for now
+      self.primary_color = '#dedede'
+      self.top_colors = {
+        '#dedede' => 0.75,
+        '#9a2211' => 0.15,
+        '#8b93ff' => 0.10
+      }
     end
   end
 

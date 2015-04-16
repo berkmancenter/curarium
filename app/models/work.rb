@@ -86,8 +86,9 @@ class Work < ActiveRecord::Base
   def extract_colors
     histogram = [] 
     if File.exists?( thumbnail_cache_path )
-      # pixelate via scale, then convert to 8bit, then extract histogram
-      %x[convert #{thumbnail_cache_path} -scale 20% -scale 256x256\! -colors 256 -depth 8 -format "%c" histogram:info:#{thumbnail_histogram_path}]
+      # pixelate via scale, convert to 8bit, then extract histogram
+      #%x[convert #{thumbnail_cache_path} -scale 20% -colors 256 -depth 8 #{thumbnail_cache_path}.8bit.png]
+      %x[convert #{thumbnail_cache_path} -scale 20% -colors 256 -depth 8 -format "%c" histogram:info:#{thumbnail_histogram_path}]
       File.open( thumbnail_histogram_path, 'r' ) { |f|
         total_colors = 0.0
         f.each_line { |line|

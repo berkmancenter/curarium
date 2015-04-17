@@ -30,6 +30,26 @@ class Work < ActiveRecord::Base
       'image/*'
     end
   end
+
+  def self.write_montage( works, path )
+    puts "montage works to #{path}"
+
+    FileUtils.mkpath path
+
+    ws = works.with_thumb
+    work_dimension = Math.sqrt( ws.count ).ceil
+
+    File.open( path.join( 'ids.json' ), 'w' ) { |f|
+      f.write( ws.pluck( :id ).to_json )
+    }
+
+    File.open( path.join( 'thumbnails.txt' ), 'w' ) { |f|
+      public_works_path = 'public/thumbnails/works/'
+      f.write( ws.map { |w| public_works_path + "#{w.id}.jpg" }.join( "\n" ) )
+    }
+
+    %x[montage @#{path.join( 'thumbnails.txt' )} -tile #{work_dimension}x#{work_dimension} -geometry 16x16 -colors 256 -depth 8 #{path.join( '5.png' )}]
+  end
     
   def thumbnail_url
     if images.any?

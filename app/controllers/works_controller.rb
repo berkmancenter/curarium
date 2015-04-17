@@ -157,6 +157,8 @@ class WorksController < ApplicationController
     if @collection.present? && !have_query
       @query_type = 'collections'
       @query_id = @collection.id
+
+      Work.write_montage @works, Rails.public_path.join( 'thumbnails', 'collections', @query_id.to_s )
     else
       @query_type = 'queries'
       @query_id = URI.parse( request.original_url ).query

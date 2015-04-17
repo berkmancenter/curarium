@@ -10,10 +10,33 @@ $( function() {
     var timeoutMove = null;
 
     if ( $.isArray( workIds ) && workIds.length > 0 ) {
+      var queryType = objectmap.data( 'queryType' );
+      var queryId = objectmap.data( 'queryId' );
+
       $.geo.proj = null;
 
       var bigCanvas = $( '<canvas width="' + (baseThumbSize * workDimension) + '" height="' + (baseThumbSize * workDimension) + '" />' );
       var bigContext = bigCanvas[0].getContext( '2d' );
+      bigContext.imageSmoothingEnabled = false;
+      bigContext.mozImageSmoothingEnabled = false;
+      bigContext.webkitImageSmoothingEnabled = false;
+
+      var haveBg = false;
+
+      var imgBg = new Image();
+
+      imgBg.onload = function( ) {
+        bigContext.drawImage( this, 0, 0, this.width, this.height, 0, 0, bigCanvas[0].width, bigCanvas[0].height);
+        haveBg = true;
+        setTimeout( function() { $( '#thumbsvc' ).geomap( 'refresh' ); }, 30 );
+      };
+
+      imgBg.onerror = function( ) {
+        haveBg = true;
+        setTimeout( function() { $( '#thumbsvc' ).geomap( 'refresh' ); }, 30 );
+      };
+
+      imgBg.src = '/thumbnails/' + queryType + '/' + queryId + '/5.png';
 
       var viewCanvas = $( '<canvas width="128" height="128" />' );
       var viewContext = viewCanvas[0].getContext( '2d' );
@@ -24,7 +47,9 @@ $( function() {
       var mapWidth = $( '.works-objectmap .geomap' ).width();
 
       var map = $( '.works-objectmap .geomap' ).geomap( {
-        bbox: [ 0, center[ 1 ] - baseThumbSize, baseThumbSize * workDimension, center[ 1 ] + baseThumbSize ],
+        //bbox: [ 0, center[ 1 ] - baseThumbSize, baseThumbSize * workDimension, center[ 1 ] + baseThumbSize ],
+        center: center,
+        zoom: 5,
 
         mode: 'click',
         cursors: {
@@ -45,6 +70,10 @@ $( function() {
               opacity: 0.99
             },
             src: function( view ) {
+              if ( !haveBg ) {
+                return "";
+              }
+
               var zoom = $( '.geomap' ).geomap('option', 'zoom');
               var factor = Math.pow( 2, maxZoomLevels - zoom - 1 );
               var imageSize = baseThumbSize / factor;

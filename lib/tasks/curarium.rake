@@ -139,6 +139,11 @@ namespace :curarium do
     collection_tiles_path = Rails.public_path.join( 'thumbnails', 'collections', c.id.to_s )
     puts "tiling collection #{c.name} to #{collection_tiles_path}"
 
+    Work.write_montage( c.works, collection_tiles_path )
+
+    return
+
+
     FileUtils.mkpath collection_tiles_path
 
     ws = c.works.with_thumb

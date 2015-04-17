@@ -10,11 +10,15 @@ class WorksController < ApplicationController
     @vis = params[ :vis ] || 'objectmap'
     exclude_props = [ 'unique_identifier', 'image', 'thumbnail' ]
 
+    @collection = nil
     @properties = []
     where_clause = ''
 
+    have_query = false
+
     if params[ :collection_id ].present?
       where_clause << ActiveRecord::Base.send( :sanitize_sql_array, [ ' collection_id = %s', params[:collection_id] ] )
+
       @collection = Collection.find(params[:collection_id])
       @collection.configuration.keys.each do |p|
         @properties << p unless exclude_props.include? p
@@ -51,6 +55,7 @@ class WorksController < ApplicationController
       }
 
       where_clause << " AND ( #{ActiveRecord::Base.send( :sanitize_sql_array, where_values )} )" unless where_values.count == 1
+      have_query = true
     end
 
     if params[:exclude].present?
@@ -69,6 +74,7 @@ class WorksController < ApplicationController
       }
 
       where_clause << " AND NOT ( #{ActiveRecord::Base.send( :sanitize_sql_array, where_values )} )"
+      have_query = true
     end
 
     # may want num in a few cases (this should be a fast query)
@@ -146,6 +152,14 @@ class WorksController < ApplicationController
       @works = Work.with_thumb.where(where_clause)
     else
       @works = Work.where(where_clause)
+    end
+
+    if @collection.present? && !have_query
+      @query_type = 'collections'
+      @query_id = @collection.id
+    else
+      @query_type = 'queries'
+      @query_id = URI.parse( request.original_url ).query
     end
   end
 

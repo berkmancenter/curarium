@@ -1,4 +1,4 @@
-<section class="works-objectmap" data-work-ids="[<%= objectmap.map { |r| r.id }.join( ',' ) %>]">
+<section class="works-objectmap" data-query-type="<%= @query_type %>" data-query-id="<%= @query_id %>" data-work-ids="[<%= objectmap.map { |r| r.id }.join( ',' ) %>]">
 <div class="geomap"></div>
 <div class="minimap"></div>
 </section>

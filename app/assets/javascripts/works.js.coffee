@@ -38,6 +38,8 @@ add_field = $("<input type='submit' value='Add Field'>").click ()->
     undefined
   $('.parsed_field .parsed_values').append(add_field)
   undefined
+
+
   
 #read_parsed converts the parsed work (represented as a <UL>) into a javascript object
 #it is called everytime that UL is modified and stored on window.work.parsed

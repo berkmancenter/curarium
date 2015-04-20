@@ -129,27 +129,39 @@ namespace :curarium do
       return
     end
 
-    c = Collection.where( { id: collection_id } )
-
-    if c.count == 0
+    if !Collection.exists?( collection_id )
       puts "Cannot find collection with id #{collection_id}"
       return
     end
 
-    c = c.first
+    c = Collection.find collection_id
 
-    collection_tiles_path = Rails.root.join( 'app', 'assets', 'images', 'collection_tiles', c.id.to_s )
+    collection_tiles_path = Rails.public_path.join( 'thumbnails', 'collections', c.id.to_s )
     puts "tiling collection #{c.name} to #{collection_tiles_path}"
+
+    Work.write_montage( c.works, collection_tiles_path )
+
+    return
+
 
     FileUtils.mkpath collection_tiles_path
 
     ws = c.works.with_thumb
     work_dimension = Math.sqrt( ws.count ).ceil
-    zoom_levels = 0
 
     puts "tiling #{ws.count} works with thumbnails (of #{c.works.count})"
 
-    (0..8).reverse_each { |zoom|
+    File.open( collection_tiles_path.join( 'index.txt' ), 'w' ) { |f|
+      public_works_path = 'public/thumbnails/works/'
+      f.write( c.works.map { |w| public_works_path + "#{w.id}.jpg" }.join( "\n" ) )
+    }
+
+    %x[montage @#{collection_tiles_path.join( 'index.txt' )} -tile #{work_dimension}x#{work_dimension} -geometry 16x16 -colors 256 -depth 8 #{collection_tiles_path.join( '5.png' )}]
+
+
+    return
+
+    (2..8).reverse_each { |zoom|
       puts " rd: #{work_dimension}"
       break if work_dimension == 0
 

@@ -30,6 +30,23 @@ class Work < ActiveRecord::Base
       'image/*'
     end
   end
+
+  def self.write_montage( works, path )
+    FileUtils.mkpath path
+
+    work_dimension = Math.sqrt( works.count ).ceil
+
+    File.open( path.join( 'ids.json' ), 'w' ) { |f|
+      f.write( works.pluck( :id ).to_json )
+    }
+
+    File.open( path.join( 'thumbnails.txt' ), 'w' ) { |f|
+      public_works_path = 'public/thumbnails/works/'
+      f.write( works.map { |w| public_works_path + "#{w.id}.jpg" }.join( "\n" ) )
+    }
+
+    %x[montage @#{path.join( 'thumbnails.txt' )} -tile #{work_dimension}x#{work_dimension} -geometry 16x16 -colors 256 -depth 8 #{path.join( '5.png' )}]
+  end
     
   def thumbnail_url
     if images.any?
@@ -43,6 +60,10 @@ class Work < ActiveRecord::Base
 
   def thumbnail_cache_path
     Rails.public_path.join( 'thumbnails', 'works', "#{id}.jpg" ).to_s
+  end
+
+  def thumbnail_histogram_path
+    Rails.public_path.join( 'thumbnails', 'works', "#{id}.txt" ).to_s
   end
 
   def thumbnail_cache_type
@@ -59,6 +80,7 @@ class Work < ActiveRecord::Base
   end
 
   def cache_thumb
+    result = false
     if thumbnail_url.present?
       cache_url = "#{thumbnail_url}#{thumbnail_url.include?( '?' ) ? '&' : '?'}width=256&height=256"
 
@@ -71,10 +93,37 @@ class Work < ActiveRecord::Base
       if thumb_connection.present?
         File.open( thumbnail_cache_path, 'wb' ) { |file|
           file.write thumb_connection.read
+          result = true
         }
       end
     end
+    result
+  end
 
+  def extract_colors
+    histogram = [] 
+    if File.exists?( thumbnail_cache_path )
+      # pixelate via scale, convert to 8bit, then extract histogram
+      #%x[convert #{thumbnail_cache_path} -scale 20% -colors 256 -depth 8 #{thumbnail_cache_path}.8bit.png]
+      %x[convert #{thumbnail_cache_path} -scale 20% -colors 256 -depth 8 -format "%c" histogram:info:#{thumbnail_histogram_path}]
+      File.open( thumbnail_histogram_path, 'r' ) { |f|
+        total_colors = 0.0
+        f.each_line { |line|
+          parts = line.scan /^\s*(\d+):.*(#\w*)/
+          count = parts[0][0].to_f
+          color = parts[0][1]
+          histogram << { color: color, count: count }
+          total_colors += count
+        }
+        histogram = histogram.sort_by { |h| h[ :count ] }.slice( -5, 5 ).reverse.map { |h|
+          {
+            color: h[ :color ],
+            percent: h[ :count ] / total_colors
+          }
+        }
+      }
+      histogram
+    end
   end
 
   def annotations
@@ -133,7 +182,15 @@ class Work < ActiveRecord::Base
       end
 
       # remove the attributes we extracted (except for title)
-      self.parsed.except! 'unique_identifier', 'image', 'thumbnail', 'title'
+      self.parsed.except! 'unique_identifier', 'image', 'thumbnail'
+
+      # fake color extraction for now
+      self.primary_color = '#dedede'
+      self.top_colors = {
+        '#dedede' => 0.75,
+        '#9a2211' => 0.15,
+        '#8b93ff' => 0.10
+      }
     end
   end
 

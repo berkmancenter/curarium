@@ -19,7 +19,12 @@ class ImportWork
       w = Work.create collection_id: collection_id, original: original, parsed: parsed
     end
 
-    w.cache_thumb
+    if w.cache_thumb
+      histogram = w.extract_colors
+      if histogram.any?
+        w.update_attributes( primary_color: histogram[0][ :color ], top_colors: histogram )
+      end
+    end
 
     sleep 0.5
   end

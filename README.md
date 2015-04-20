@@ -13,23 +13,25 @@ The following will get you going with some sample data.
 
 ### Install ImageMagick and Ensure It's In Your Path
 
-$ mogrify --version
-mogrify: command not found
-(^ ImageMagick not installed or not in path)
+        $ mogrify --version
+        mogrify: command not found
+        (^ ImageMagick is not installed or not in your path)
 
 ### Install ImageMagick
 
-* download: http://www.imagemagick.org/script/binary-releases.php
-** any version will work as we exec ImageMagick rather than interacting via a gem
-* may need to close shells & open new ones to get the updated path
+* Download: http://www.imagemagick.org/script/binary-releases.php
 
-$ mogrify --version
-Version: ImageMagick 6.9.1-2 Q16 x64 2015-04-14 http://www.imagemagick.org
-(^ all set)
+Any version will work as we exec ImageMagick rather than interacting via a gem. You may need to close shells & open new ones to get the updated path.
+
+        $ mogrify --version
+        Version: ImageMagick 6.9.1-2 Q16 x64 2015-04-14 http://www.imagemagick.org
+        (^ all set)
 
 ### Install redis
 
-* https://github.com/rgl/redis/downloads
+* Linux: apt-get install redis-server
+
+* Windows (self-installer): https://github.com/rgl/redis/downloads
 
 ### rails
 

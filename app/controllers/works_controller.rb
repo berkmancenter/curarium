@@ -2,7 +2,7 @@ require 'open-uri'
 require 'zlib'
 
 class WorksController < ApplicationController
-  autocomplete :works, :title, :full=> true
+  autocomplete :works, :title
   before_action :set_work, only: [:show, :thumb, :edit, :update, :destroy]
   # GET /works
   # GET /works.json

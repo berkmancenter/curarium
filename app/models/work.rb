@@ -133,7 +133,7 @@ class Work < ActiveRecord::Base
       end
 
       # remove the attributes we extracted (except for title)
-      self.parsed.except! 'unique_identifier', 'image', 'thumbnail'
+      self.parsed.except! 'unique_identifier', 'image', 'thumbnail', 'title'
     end
   end
 

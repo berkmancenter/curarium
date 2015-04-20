@@ -20,11 +20,11 @@ window.work.update = () ->
   $('.parsed_value').dblclick(modify_field)
   
   #create "add" button and append it to each of the parsed work keys
-###add_field = $("<input type='submit' value='add'>").click ()->
+add_field = $("<input type='submit' value='Add Field'>").click ()->
     new_field = $("<li class='parsed_value'></li>")
     input = $("<input>")
-    add = $("<input type='submit' value='add'>")
-    cancel = $("<input type='submit' value='cancel'>")
+    add = $("<input type='submit' value='Add'>")
+    cancel = $("<input type='submit' value='Cancel'>")
     new_field.append(input).append(add).append(cancel)
     add.click ()->
       $(new_field).html($(input).val())
@@ -38,7 +38,7 @@ window.work.update = () ->
     undefined
   $('.parsed_field .parsed_values').append(add_field)
   undefined
-  ###
+  
 #read_parsed converts the parsed work (represented as a <UL>) into a javascript object
 #it is called everytime that UL is modified and stored on window.work.parsed
 read_parsed = ()->

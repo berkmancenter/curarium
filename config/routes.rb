@@ -68,7 +68,7 @@ Curarium::Application.routes.draw do
     resources :amendments
     resources :annotations
 
-    get :autocomplete_works_title
+    get :autocomplete_works_title, on: :collection
   end
 
   get 'works/:work_id/images/:index' => 'images#show', as: :work_image

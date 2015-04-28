@@ -18,7 +18,6 @@
 //= require d3
 //= require kinetic-v5.0.1.min
 //= require simple.js
-//= require wysihtml5-0.3.0.min
 //= require browserid
 //= require_tree 
 //= require autocomplete-rails

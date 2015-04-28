@@ -51,7 +51,7 @@ class Work < ActiveRecord::Base
         f.write( ws.map { |w| public_works_path + "#{w.id}.jpg" }.join( "\n" ) )
       }
 
-      %x[montage @#{path.join( 'thumbnails.txt' )} -tile #{work_dimension}x#{work_dimension} -geometry 16x16 -colors 256 -depth 8 #{path.join( '5.png' )}]
+      %x[montage @#{path.join( 'thumbnails.txt' )} -tile #{work_dimension}x#{work_dimension} -geometry 16x16 -gravity NorthWest -colors 256 -depth 8 #{path.join( '5.png' )}]
     end
   end
     

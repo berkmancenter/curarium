@@ -27,7 +27,9 @@ $( function() {
       var imgBg = new Image();
 
       imgBg.onload = function( ) {
-        bigContext.drawImage( this, 0, 0, this.width, this.height, 0, 0, bigCanvas[0].width, bigCanvas[0].height);
+        bigContext.drawImage( this, 0, 0, this.width, this.height, 0, 0, bigCanvas[0].width, bigCanvas[0].height );
+        miniContext.drawImage( this, 0, 0, this.width, this.height, 0, 0, miniCanvas[0].width, miniCanvas[0].height );
+        miniMap.geomap( 'refresh' );
         haveBg = true;
         setTimeout( function() { $( '#thumbsvc' ).geomap( 'refresh' ); }, 30 );
       };
@@ -237,16 +239,12 @@ $( function() {
       var miniCanvas = $( '<canvas width="128" height="128" />' );
       var miniContext = miniCanvas[0].getContext( '2d' );
 
+      miniContext.imageSmoothingEnabled = false;
+      miniContext.mozImageSmoothingEnabled = false;
+      miniContext.msImageSmoothingEnabled = false;
+
       var miniScale = 1 / workDimension;
       var miniSize = baseThumbSize * miniScale;
-
-      // start with some random colors
-      for ( var row = 0; row < workDimension; row++ ) {
-        for ( var col = 0; col < workDimension; col ++ ) {            
-          miniContext.fillStyle = '#'+randRed();
-          miniContext.fillRect( miniSize * col, miniSize * row, miniSize, miniSize );
-        }
-      }
 
       var miniMap = $( '.works-objectmap .minimap' ).geomap( {
         bbox: [ 0, 0, baseThumbSize, baseThumbSize ],
@@ -269,7 +267,7 @@ $( function() {
         tilingScheme: null,
 
         shapeStyle: {
-          color: '#dedede'
+          color: '#d2232a'
         }
       } );
 

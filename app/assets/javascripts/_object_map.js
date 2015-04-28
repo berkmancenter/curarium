@@ -17,9 +17,10 @@ $( function() {
 
       var bigCanvas = $( '<canvas width="' + (baseThumbSize * workDimension) + '" height="' + (baseThumbSize * workDimension) + '" />' );
       var bigContext = bigCanvas[0].getContext( '2d' );
+
       bigContext.imageSmoothingEnabled = false;
       bigContext.mozImageSmoothingEnabled = false;
-      bigContext.webkitImageSmoothingEnabled = false;
+      bigContext.msImageSmoothingEnabled = false;
 
       var haveBg = false;
 

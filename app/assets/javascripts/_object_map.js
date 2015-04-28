@@ -50,9 +50,7 @@ $( function() {
       var mapWidth = $( '.works-objectmap .geomap' ).width();
 
       var map = $( '.works-objectmap .geomap' ).geomap( {
-        //bbox: [ 0, center[ 1 ] - baseThumbSize, baseThumbSize * workDimension, center[ 1 ] + baseThumbSize ],
-        center: center,
-        zoom: 5,
+        bbox: [ 0, center[ 1 ] - baseThumbSize, baseThumbSize * workDimension, center[ 1 ] + baseThumbSize ],
 
         mode: 'click',
         cursors: {

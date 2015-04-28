@@ -109,16 +109,11 @@ namespace :curarium do
 
   desc 'Pre-render the collection as tiles for object map'
   task :tile_collection, [:collection_id] => [ :environment ] do |task, args|
-    old_logger = ActiveRecord::Base.logger
-    ActiveRecord::Base.logger = nil
-
     puts "Started at #{Time.now}"
 
     tile_collection args[:collection_id]
 
     puts "Ended at #{Time.now}"
-
-    ActiveRecord::Base.logger = old_logger
   end
 
   def tile_collection( collection_id )

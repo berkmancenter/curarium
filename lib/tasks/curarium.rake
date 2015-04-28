@@ -132,68 +132,8 @@ namespace :curarium do
     c = Collection.find collection_id
 
     collection_tiles_path = Rails.public_path.join( 'thumbnails', 'collections', c.id.to_s )
-    puts "tiling collection #{c.name} to #{collection_tiles_path}"
 
-    Work.write_montage( c.works, collection_tiles_path )
-
-    return
-
-
-    FileUtils.mkpath collection_tiles_path
-
-    ws = c.works.with_thumb
-    work_dimension = Math.sqrt( ws.count ).ceil
-
-    puts "tiling #{ws.count} works with thumbnails (of #{c.works.count})"
-
-    File.open( collection_tiles_path.join( 'index.txt' ), 'w' ) { |f|
-      public_works_path = 'public/thumbnails/works/'
-      f.write( c.works.map { |w| public_works_path + "#{w.id}.jpg" }.join( "\n" ) )
-    }
-
-    %x[montage @#{collection_tiles_path.join( 'index.txt' )} -tile #{work_dimension}x#{work_dimension} -geometry 16x16 -colors 256 -depth 8 #{collection_tiles_path.join( '5.png' )}]
-
-
-    return
-
-    (2..8).reverse_each { |zoom|
-      puts " rd: #{work_dimension}"
-      break if work_dimension == 0
-
-      if zoom == 8
-        # most zoomed in, each quadkey is one image/thumbnail
-        for col in 0..(work_dimension-1)
-          for row in 0..(work_dimension-1)
-            puts "#{col}, #{row}"
-
-            quadkey = tile_to_quadkey col, row, zoom
-            puts "  quadkey: #{quadkey}"
-
-            indexes = quadkey_to_indexes quadkey
-            puts "  indexes: #{indexes.join( ',' )}"
-
-            indexes.each { |i|
-              if i < ws.count
-                w = ws[ i ]
-                if w.thumbnail_url.present?
-                  cache_image = w.thumbnail_cache_path
-
-                  File.open( "#{collection_tiles_path}/#{quadkey}.png", 'wb' ) { |f|
-                    f.write cache_image
-                  }
-                end
-              end
-            }
-          end
-        end
-      end
-
-      zoom_levels += 1
-
-      work_dimension /= 2
-    }
-
-    puts "total zoom levels: #{zoom_levels}"
+    Work.write_montage( c.works.with_thumb, collection_tiles_path )
   end
 
   def tile_to_quadkey( column, row, zoom )

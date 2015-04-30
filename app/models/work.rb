@@ -31,21 +31,28 @@ class Work < ActiveRecord::Base
     end
   end
 
-  def self.write_montage( works, path )
-    FileUtils.mkpath path
+  def self.write_montage( works, path, force = false )
+    logger.info "montage works to #{path}"
 
-    work_dimension = Math.sqrt( works.count ).ceil
+    if Dir.exists?( path ) && !force
+      logger.info "montage already exists"
+    else
+      FileUtils.mkpath path
 
-    File.open( path.join( 'ids.json' ), 'w' ) { |f|
-      f.write( works.pluck( :id ).to_json )
-    }
+      ws = works.with_thumb
+      work_dimension = Math.sqrt( ws.count ).ceil
 
-    File.open( path.join( 'thumbnails.txt' ), 'w' ) { |f|
-      public_works_path = 'public/thumbnails/works/'
-      f.write( works.map { |w| public_works_path + "#{w.id}.jpg" }.join( "\n" ) )
-    }
+      File.open( path.join( 'ids.json' ), 'w' ) { |f|
+        f.write( ws.pluck( :id ).to_json )
+      }
 
-    %x[montage @#{path.join( 'thumbnails.txt' )} -tile #{work_dimension}x#{work_dimension} -geometry 16x16 -colors 256 -depth 8 #{path.join( '5.png' )}]
+      File.open( path.join( 'thumbnails.txt' ), 'w' ) { |f|
+        public_works_path = 'public/thumbnails/works/'
+        f.write( ws.map { |w| public_works_path + "#{w.id}.jpg" }.join( "\n" ) )
+      }
+
+      %x[montage @#{path.join( 'thumbnails.txt' )} -tile #{work_dimension}x#{work_dimension} -geometry 16x16 -gravity NorthWest -colors 256 -depth 8 #{path.join( '5.png' )}]
+    end
   end
     
   def thumbnail_url

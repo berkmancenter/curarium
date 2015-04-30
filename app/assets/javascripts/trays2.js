@@ -1,11 +1,4 @@
 $( function() {
-  // no longer needed after waku integration
-  if ( $( '.spotlight_viewedit' ).length ) {
-    window.spotlights.components = [];
-    window.trays.show();
-    window.spotlights.create();
-  }
-
   $( '.tray-preview-gallery,.trays.index' )
   .on( 'click', '[data-action="destroy"]', function( ) {
     if ( confirm( 'Delete this tray?' ) ) {

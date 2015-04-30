@@ -156,14 +156,18 @@ class WorksController < ApplicationController
       @works = Work.where(where_clause)
     end
 
-    if @collection.present? && !have_query
-      @query_type = 'collections'
-      @query_id = @collection.id
 
-      Work.write_montage @works, Rails.public_path.join( 'thumbnails', 'collections', @query_id.to_s )
+      if @collection.present? && !have_query
+        @query_type = 'collections'
+        @query_id = @collection.id
+      else
+        @query_type = 'queries'
+        @query_id = Zlib.crc32 where_clause
+      end
+
+      Work.write_montage @works, Rails.public_path.join( 'thumbnails', @query_type, @query_id.to_s )
     else
-      @query_type = 'queries'
-      @query_id = URI.parse( request.original_url ).query
+      @works = Work.where(where_clause)
     end
   end
 

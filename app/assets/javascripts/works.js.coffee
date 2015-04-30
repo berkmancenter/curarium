@@ -50,7 +50,7 @@ read_parsed = ()->
       $(this).find('ul').find('li').not('.deleted').each (i)->
         parsed[key].push($(this).html())
         undefined
-    undefined
+      undefined
   return parsed 
 
 

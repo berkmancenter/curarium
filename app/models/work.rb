@@ -15,6 +15,10 @@ class Work < ActiveRecord::Base
     where( 'works.id in ( select distinct works.id from works inner join images on images.work_id = works.id where not images.thumbnail_url is null )' )
   }
 
+  scope :approved, -> {
+    where "collection_id in ( select id from collections where approved = true )"
+  }
+
   def self.image_type( local_file_path )
     png = Regexp.new("\x89PNG".force_encoding("binary"))
     jpg = Regexp.new("\xff\xd8\xff\xe0\x00\x10JFIF".force_encoding("binary"))

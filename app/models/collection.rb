@@ -145,8 +145,8 @@ class Collection < ActiveRecord::Base
   end
   
   def thumbnail_url
-    if works.any?
-      works.first.thumbnail_url
+    if works.with_thumb.any?
+      works.with_thumb.first.thumbnail_cache_url
     end
   end
 

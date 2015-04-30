@@ -19,6 +19,10 @@ class Collection < ActiveRecord::Base
     where( "id IN ( SELECT collection_id FROM collection_admins WHERE user_id = #{user.id} )" )
   }
 
+  scope :with_works, -> {
+    where "id in ( select distinct collection_id from works )"
+  }
+
   def self.create_work_from_parsed( key, original, parsed )
     # create a work from original JSON and pre-parsed version
     col = find_by_key key

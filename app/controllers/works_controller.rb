@@ -169,7 +169,6 @@ class WorksController < ApplicationController
     else
       @works = Work.where(where_clause)
     end
-  end
 
   # GET /works/1
   # GET /works/1.json

@@ -150,6 +150,8 @@ class WorksController < ApplicationController
     elsif @vis == 'objectmap'
       # objectmap should only get thumbnails
       @works = Work.with_thumb.where(where_clause)
+    elsif @vis == 'colorfilter'
+      @works = Work.with_thumb.where(where_clause)
     else
       @works = Work.where(where_clause)
     end

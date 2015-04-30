@@ -17,7 +17,7 @@
           <div class='dropcell' data-intro="Select the dropdown for visualization options" data-step="1">
             <div class='subcell'>
               <%= label_tag 'vis', 'Visualization type' %><br>
-              <%= select_tag 'vis', options_for_select( [ ['list', 'list'], ['thumbnails','thumbnails'], ['object map', 'objectmap'], ['treemap', 'treemap'] ], @vis ) %>
+              <%= select_tag 'vis', options_for_select( [ ['list', 'list'], ['thumbnails','thumbnails'], ['object map', 'objectmap'], ['treemap', 'treemap'], ['color filter', 'colorfilter'] ], @vis ) %>
             </div>
             <div class="search-report">
               (showing <span class="showing"><%= @works.count %></span> <%= sr_noun @vis %> <span class="total"><%= @num %></span> results)

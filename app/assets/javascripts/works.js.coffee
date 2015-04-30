@@ -12,9 +12,9 @@ window.work.update = () ->
   window.work.parsed = read_parsed() #get the user edited values as a javascript object
 
   #create save changes work and give it functionality
-  #save = $("<input type='submit' id='save_changes' value='Save Changes'>")
-  #$('#parsed_work').append(save)
-  #save.click(submit_update)
+  save = $("<input type='submit' id='save_changes' value='Save Changes'>")
+  $('#parsed_work').append(save)
+  save.click(submit_update)
   
   #make fields editable by doubleclicking
   $('.parsed_value').dblclick(modify_field)
@@ -38,7 +38,6 @@ add_field = $("<input type='submit' value='Add Field'>").click ()->
     undefined
   $('.parsed_field .parsed_values').append(add_field)
   undefined
-
 
   
 #read_parsed converts the parsed work (represented as a <UL>) into a javascript object

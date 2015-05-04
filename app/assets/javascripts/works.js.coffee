@@ -30,7 +30,7 @@ add_field = $("<input type='submit' value='Add Field'>").click ()->
       $(new_field).html($(input).val())
       $(new_field).toggleClass('new',true)
       $(new_field).bind('dblclick', modify_field)
-      $('#save_changes').css('background-color','red');
+      $('#save_changes').css('background-color','red')
       window.work.parsed = read_parsed()
     cancel.click ()->
       new_field.remove()
@@ -51,7 +51,7 @@ read_parsed = ()->
         parsed[key].push($(this).html())
         undefined
       undefined
-  return parsed 
+  return parsed
 
 
 #make a put request when clicking Save Changes
@@ -60,13 +60,13 @@ submit_update = (e)->
   $.ajax(
       type: "PUT"
       url: window.location.href
-      data: 
+      data:
         work:
           parsed: window.work.parsed
       success: (data)->
         $('.parsed_value new').css('background','#D3D3D3')
       dataType : 'json',
-      headers : 
+      headers :
         'X-CSRF-Token' : $("meta[name='csrf-token']").attr('content')
     )
   undefined
@@ -135,16 +135,16 @@ window.work.display = (image_url)->
   surrogate.onload = ->
     w = surrogate.width
     h = surrogate.height
-    min_scale = if w/h > main.offsetWidth/main.offsetHeight then main.offsetWidth/w else  main.offsetHeight/h 
+    min_scale = if w/h > main.offsetWidth/main.offsetHeight then main.offsetWidth/w else  main.offsetHeight/h
     if min_scale > 1 #set the maximum zoomin level. If the image is smaller than the screen, make the image size the max zoom in level.
       min_scale = 1
     
     
     #scales the canvas so that the image is shown at its default size (if smaller than the screen) or is contained within the canvas(if bigger than it)
     stage.setAttrs(
-      scale: 
-        x: min_scale 
-        y: min_scale 
+      scale:
+        x: min_scale
+        y: min_scale
     )
     
     
@@ -180,7 +180,7 @@ window.work.display = (image_url)->
     #scale the stage
     
     stage.setAttrs(
-      scale: 
+      scale:
         x: stage.getAttr('scale').x+delta
         y: stage.getAttr('scale').y+delta
     )
@@ -195,8 +195,8 @@ window.work.display = (image_url)->
     undefined
 
   #assign event handlers
-  main.addEventListener('mousewheel', scroll, true);
-  main.addEventListener('DOMMouseScroll', scroll, true);
+  main.addEventListener('mousewheel', scroll, true)
+  main.addEventListener('DOMMouseScroll', scroll, true)
   
   #placeholder rectangle for inputting annotations
   crop = new Kinetic.Rect(
@@ -393,13 +393,13 @@ window.work.display = (image_url)->
           notes_layer.setAttr('visible', $(this).prop('checked'))
           undefined
         
-        #redraw stage    
+        #redraw stage
         stage.draw()
     )
     undefined
   
   #add event handlers to canvas
-  $('#main-canvas').on('dblclick', canvas_dblclick )    
+  $('#main-canvas').on('dblclick', canvas_dblclick )
   $('#main-canvas').on('mouseup', canvas_mouseup )
   
   #event handler for dropdown menu that adds tags to annotations
@@ -415,7 +415,7 @@ window.work.display = (image_url)->
     id = $(this).parent().attr('id')
     rect = stage.find("##{id}")
     stage.setAttr('draggable', false)
-    $('#main-canvas').unbind('dblclick')    
+    $('#main-canvas').unbind('dblclick')
     $('#main-canvas').unbind('mouseup')
     notes_layer = stage.getLayers()[1]
     notes_layer.remove()

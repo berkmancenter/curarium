@@ -150,12 +150,6 @@ class WorksController < ApplicationController
     elsif @vis == 'objectmap'
       # objectmap should only get thumbnails
       @works = Work.with_thumb.where(where_clause)
-    elsif @vis == 'colorfilter'
-      @works = Work.with_thumb.where(where_clause)
-    else
-      @works = Work.where(where_clause)
-    end
-
 
       if @collection.present? && !have_query
         @query_type = 'collections'
@@ -166,9 +160,12 @@ class WorksController < ApplicationController
       end
 
       Work.write_montage @works, Rails.public_path.join( 'thumbnails', @query_type, @query_id.to_s )
+    elsif @vis == 'colorfilter'
+      @works = Work.with_thumb.where(where_clause)
     else
       @works = Work.where(where_clause)
     end
+  end
 
   # GET /works/1
   # GET /works/1.json

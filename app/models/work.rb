@@ -194,14 +194,6 @@ class Work < ActiveRecord::Base
 
       # remove the attributes we extracted (except for title)
       self.parsed.except! 'unique_identifier', 'image', 'thumbnail'
-
-      # fake color extraction for now
-      self.primary_color = '#dedede'
-      self.top_colors = {
-        '#dedede' => 0.75,
-        '#9a2211' => 0.15,
-        '#8b93ff' => 0.10
-      }
     end
   end
 

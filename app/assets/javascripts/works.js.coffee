@@ -284,6 +284,13 @@ window.work.display = (image_url)->
             $( 'label[for="ann_id"]' ).click()
     undefined
   
+  $( '#new_annotation' ).submit ->
+    if $( '#content_thumbnail_url' ).val() == ''
+      alert( 'Please select an area on the image to annotate. Double-click the image to start.' )
+      false
+    else if $( '#annotation_title' ).val() == '' or $( '#annotation_body' ).val() == ''
+      alert( 'Please enter an annotation title and body.' )
+      false
   
   #get work annotations, draw them on stage (if applicable) and connect them to annotations and metadata in html format
   notes_layer = null

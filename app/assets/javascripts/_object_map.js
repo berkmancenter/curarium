@@ -39,7 +39,7 @@ $( function() {
         setTimeout( function() { $( '#thumbsvc' ).geomap( 'refresh' ); }, 30 );
       };
 
-      imgBg.src = '/thumbnails/' + queryType + '/' + queryId + '/5.png';
+      imgBg.src = '/thumbnails/' + queryType + '/' + queryId + '/5.jpg';
 
       var viewCanvas = $( '<canvas width="128" height="128" />' );
       var viewContext = viewCanvas[0].getContext( '2d' );

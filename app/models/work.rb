@@ -38,7 +38,7 @@ class Work < ActiveRecord::Base
   def self.write_montage( works, path, force = false )
     logger.info "montage works to #{path}"
 
-    if Dir.exists?( path ) && !force
+    if File.exists?( path.join( '5.jpg' ) ) && !force
       logger.info "montage already exists"
     else
       FileUtils.mkpath path
@@ -55,7 +55,7 @@ class Work < ActiveRecord::Base
         f.write( ws.map { |w| public_works_path + "#{w.id}.jpg" }.join( "\n" ) )
       }
 
-      %x[montage @#{path.join( 'thumbnails.txt' )} -tile #{work_dimension}x#{work_dimension} -geometry 16x16 -gravity NorthWest -colors 256 -depth 8 #{path.join( '5.png' )}]
+      %x[montage @#{path.join( 'thumbnails.txt' )} -tile #{work_dimension}x#{work_dimension} -geometry 16x16 -gravity NorthWest #{path.join( '5.jpg' )}]
     end
   end
     

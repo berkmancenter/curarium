@@ -51,11 +51,13 @@ class Work < ActiveRecord::Base
       }
 
       File.open( path.join( 'thumbnails.txt' ), 'w' ) { |f|
-        public_works_path = 'public/thumbnails/works/'
+        public_works_path = '../../works/'
         f.write( ws.map { |w| public_works_path + "#{w.id}.jpg" }.join( "\n" ) )
       }
 
-      %x[montage @#{path.join( 'thumbnails.txt' )} -tile #{work_dimension}x#{work_dimension} -geometry 16x16 -gravity NorthWest #{path.join( '5.jpg' )}]
+      Dir.chdir( path ) {
+        %x[montage @thumbnails.txt -tile #{work_dimension}x#{work_dimension} -geometry 16x16 -gravity NorthWest #{path.join( '5.jpg' )}]
+      }
     end
   end
     

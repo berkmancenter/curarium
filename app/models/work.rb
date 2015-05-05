@@ -121,6 +121,7 @@ class Work < ActiveRecord::Base
         total_colors = 0.0
         f.each_line { |line|
           parts = line.scan /^\s*(\d+):.*(#\w*)/
+          next if parts.empty?
           count = parts[0][0].to_f
           color = parts[0][1]
           histogram << { color: color, count: count }

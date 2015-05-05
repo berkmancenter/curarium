@@ -1,5 +1,5 @@
 	<h3 class='collection_color_title'><%= @collection.name %></h3>
         <% @collection.works.each { |i| %>
           <%= image_tag i.thumbnail_url, class: 'color_thumbnail', alt: '' %>
-          <div class="color_info"><%= i.top_colors %></div>
-        <% } %>
+        <div class="color_color"><%= i.top_colors %></div>
+		<% } %>

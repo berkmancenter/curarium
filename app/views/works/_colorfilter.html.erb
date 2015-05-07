@@ -1,19 +1,19 @@
 
-        <% @works.each { |i| %>
-          <%= image_tag i.thumbnail_url, class: 'color_thumbnail', alt: '' %>
-         <div class="color-length">
-        <% if !i.top_colors.nil? %>
-        <div class="color-info"><%= i.top_colors[0]['color'] %></div>
-        <div class="color-info"><%= i.top_colors[1]['color'] %></div>
-        <div class="color-info"><%= i.top_colors[2]['color'] %></div>
-        <div class="color-info"><%= i.top_colors[3]['color'] %></div>
-        <div class="bar-code">
+<% @works.each { |i| %>
+  <%= image_tag i.thumbnail_url, class: 'color_thumbnail', alt: '' %>
+  <div class="color-length">
+    <% if !i.top_colors.nil? %>
+      <div class="color-info"><%= i.top_colors[0]['color'] %></div>
+      <div class="color-info"><%= i.top_colors[1]['color'] %></div>
+      <div class="color-info"><%= i.top_colors[2]['color'] %></div>
+      <div class="color-info"><%= i.top_colors[3]['color'] %></div>
+      <div class="bar-code">
         <div class="color-percent"><%= (i.top_colors[0]['percent'])*5000 %></div>
         <div class="color-percent"><%= (i.top_colors[1]['percent'])*5000 %></div>
         <div class="color-percent"><%= (i.top_colors[2]['percent'])*5000 %></div>
         <div class="color-percent"><%= (i.top_colors[3]['percent'])*5000 %></div>
-        </div>
-        <% end %>
-		<% } %>
-		</div>
+      </div>
+    <% end %>
+  <% } %>
+</div>
 

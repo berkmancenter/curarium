@@ -1,5 +1,10 @@
 	<h3 class='collection_color_title'><%= @collection.name %></h3>
         <% @collection.works.each { |i| %>
           <%= image_tag i.thumbnail_url, class: 'color_thumbnail', alt: '' %>
-        <div class="color_color"><%= i.top_colors %></div>
+          <% if !i.top_colors.nil? %>
+        <div id="one_color"><%= i.top_colors[0]['color'] %></div>
+        <div id="two_color"><%= i.top_colors[1]['color'] %></div>
+        <div id="three_color"><%= i.top_colors[2]['color'] %></div>
+        <div id="four_color"><%= i.top_colors[3]['color'] %></div>
+        <% end %>
 		<% } %>

@@ -1,5 +1,5 @@
 <% @works.each { |i| %>
-  <%= image_tag i.thumbnail_url, class: 'color_thumbnail', alt: '' %>
+  <%= image_tag i.thumbnail_cache_url, class: 'color_thumbnail', alt: '' %>
   <div class="color-length">
     <% if !i.top_colors.nil? %>
       <div class="color-info"><%= i.top_colors[0]['color'] %></div>

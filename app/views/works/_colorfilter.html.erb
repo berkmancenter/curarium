@@ -1,4 +1,3 @@
-
 <% @works.each { |i| %>
   <%= image_tag i.thumbnail_url, class: 'color_thumbnail', alt: '' %>
   <div class="color-length">
@@ -14,6 +13,6 @@
         <div class="color-percent"><%= (i.top_colors[3]['percent'])*5000 %></div>
       </div>
     <% end %>
-  <% } %>
-</div>
+  </div>
+<% } %>
 

@@ -3,17 +3,38 @@
 }
 
 #one_color{
-	height: 60px;
+	height: 50px;
 }
 
 #two_color{
-	height: 60px;
+	height: 50px;
 }
 
 #three_color{
-	height: 60px;
+	height: 50px;
 }
 
 #four_color{
-	height: 60px;
+	height: 50px;
+}
+
+.color_thumbnail{
+	height: 300px;
+	width: 300px;
+	padding: 10px 0 5px 0;
+}
+
+.bar-code{
+	height: 10px;
+	width: 100%;
+	color: #FFFFFF;
+	margin-bottom: 10px;
+}
+
+.color-percent{
+	float: left;
+}
+
+.FOOTER{
+	margin-top: 20px;
 }

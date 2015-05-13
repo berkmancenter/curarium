@@ -1,11 +1,11 @@
-.color-box{
-	width: 1470px;
+.color-box {
+	width: 1500px;
 }
 
-.color-viz{
-	width: 730px !important;
+.color-viz {
+	width: 350px !important;
 	font-size: 10px;
-	float: right;
+	float: left;
 }
 
 #one_color {
@@ -25,15 +25,13 @@
 }
 
 .color_thumbnail {
-	height: 300px;
-	width: 300px !important;
+	height: 270px;
+	width: 270px !important;
 	padding: 10px 0 5px 0;
 }
 
-.color-length{
-	width: 400px !important;
-	float: right;
-	padding: 10px 0 5px 0px;
+.color-length {
+	width: 270px !important;
 	font-size: 11px;
 	font-color: none;
 }
@@ -53,7 +51,7 @@
 	float: left;
 	height: 30px;
 	font-size: 0px;
-	max-width: 50px;
+	max-width: 65px;
 }
 
 .color-details {
@@ -61,7 +59,7 @@
 }
 
 .color-code {
-	max-width: 200px;
+	max-width: 270px;
 	border: 1px solid #D3D3D3;
 	height: 30px;
 	overflow: none;

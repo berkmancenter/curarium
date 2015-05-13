@@ -72,6 +72,43 @@
       color: #D2232A;
     }
 
+    input[type="checkbox"] {
+      font-size: 0;
+      height: 0;
+      position: absolute;
+      width: 0;
+    }
+
+    #daterange:checked {
+      & ~ #datestart p::before {
+        content: "Start ";
+      }
+
+      & ~ #dateend {
+        display: block;
+      }
+
+      & ~ label::before {
+        content: "☑";
+      }
+    }
+
+    label {
+      cursor: pointer;
+      font-weight: bold;
+      margin: 0 0 .5em 2em;
+      position: static;
+      width: 8em;
+
+      &::before {
+        content: "☐";
+      }
+    }
+
+    #dateend {
+      display: none;
+    }
+
     .close {
       width: 12px;
       height: 12px;

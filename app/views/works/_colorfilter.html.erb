@@ -2,7 +2,7 @@
  <div class="color-box">  
   <div class="color-viz">
   <%= image_tag i.thumbnail_cache_url, class: 'color_thumbnail', alt: '' %>
-  <div class="color-length">Extracted Colors:
+  <div class="color-length">
     <% if !i.top_colors.nil? %>
     <div class="color-code">
       <div class="color-info"><%= i.top_colors[1]['color'] %></div>
@@ -18,10 +18,10 @@
           <div class="color-hex"><%= i.top_colors[4]['color'] %> - <%= ((((i.top_colors[4]['percent'])*100)/ (100-((i.top_colors[0]['percent'])*100)))*800).round(2) %>%</div>
         </div>
         <div class="bar-code">
-          <div class="color-percent"><%= ((i.top_colors[1]['percent'])*100)/ (100-((i.top_colors[0]['percent'])*100))*500 %></div>
-          <div class="color-percent"><%= ((i.top_colors[2]['percent'])*100)/ (100-((i.top_colors[0]['percent'])*100))*500 %></div>
-          <div class="color-percent"><%= ((i.top_colors[3]['percent'])*100)/ (100-((i.top_colors[0]['percent'])*100))*500 %></div>
-          <div class="color-percent"><%= ((i.top_colors[4]['percent'])*100)/ (100-((i.top_colors[0]['percent'])*100))*500 %></div>
+          <div class="color-percent"><%= ((i.top_colors[1]['percent'])*100)/ (100-((i.top_colors[0]['percent'])*100))*800 %></div>
+          <div class="color-percent"><%= ((i.top_colors[2]['percent'])*100)/ (100-((i.top_colors[0]['percent'])*100))*800 %></div>
+          <div class="color-percent"><%= ((i.top_colors[3]['percent'])*100)/ (100-((i.top_colors[0]['percent'])*100))*800 %></div>
+          <div class="color-percent"><%= ((i.top_colors[4]['percent'])*100)/ (100-((i.top_colors[0]['percent'])*100))*800 %></div>
         </div>
     <% end %>
   </div>

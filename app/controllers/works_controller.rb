@@ -162,6 +162,8 @@ class WorksController < ApplicationController
       Work.write_montage @works, Rails.public_path.join( 'thumbnails', @query_type, @query_id.to_s )
     elsif @vis == 'colorfilter'
       @works = Work.with_thumb.where(where_clause)
+    elsif @vis == 'geochrono'
+      @works = Work.with_thumb.where(where_clause)
     else
       @works = Work.where(where_clause)
     end

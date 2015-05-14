@@ -93,9 +93,9 @@ class Work < ActiveRecord::Base
   end
 
   def cache_thumb
-    result = false
-    if thumbnail_url.present?
-      cache_url = "#{thumbnail_url}#{thumbnail_url.include?( '?' ) ? '&' : '?'}width=256&height=256"
+    result = File.exists? thumbnail_cache_path
+    if !result && thumbnail_url.present?
+      cache_url = "#{thumbnail_url}#{thumbnail_url.include?( '?' ) ? '&' : '?'}width=150&height=150"
 
       begin
         thumb_connection = open cache_url, 'rb', 'User-Agent' => Curarium::BOT_UA

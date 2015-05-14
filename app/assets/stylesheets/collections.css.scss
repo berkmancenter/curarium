@@ -89,7 +89,7 @@
       }
 
       & ~ label::before {
-        content: "☑";
+        content: "☑ ";
       }
     }
 
@@ -101,7 +101,7 @@
       width: 8em;
 
       &::before {
-        content: "☐";
+        content: "☐ ";
       }
     }
 

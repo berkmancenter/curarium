@@ -19,6 +19,36 @@ class Work < ActiveRecord::Base
     where "collection_id in ( select id from collections where approved = true )"
   }
 
+  def self.parse_date( dates )
+    # grab the first true string and try to parse as a date
+    date_string = nil
+
+    if dates.present?
+      if dates.is_a? String
+        if dates[0] == '['
+          date_string = JSON.parse( dates )[ 0 ]
+        else
+          date_string = dates
+        end
+      elsif dates.is_a? Array
+        date_string = dates[ 0 ]
+      end
+    end
+
+    if date_string.present?
+      begin
+        if date_string.length > 1 && date_string.length <= 4
+          # assume only year
+          Date.parse "#{date_string}-01-01"
+        else
+          Date.parse date_string
+        end
+      catch ArgumentError => e
+        # not a date
+      end
+    end
+  end
+
   def self.image_type( local_file_path )
     png = Regexp.new("\x89PNG".force_encoding("binary"))
     jpg = Regexp.new("\xff\xd8\xff\xe0\x00\x10JFIF".force_encoding("binary"))
@@ -181,7 +211,7 @@ class Work < ActiveRecord::Base
         end
       end
 
-      # maybe can be nil?
+      # can be nil, maybe?
       titles = parsed[ 'title' ]
       if titles.present?
         if titles.is_a? String
@@ -194,6 +224,12 @@ class Work < ActiveRecord::Base
           self.title = titles[ 0 ]
         end
       end
+
+      # can be nil
+      self.datestart = parse_date parsed[ 'datestart' ]
+
+      # can be nil
+      self.dateend = parse_date parsed[ 'dateend' ]
 
       # remove the attributes we extracted (except for title)
       self.parsed.except! 'unique_identifier', 'image', 'thumbnail'

@@ -58,8 +58,17 @@
 }
 
 .collections.new {
+  input[type="checkbox"] {
+    margin: .5em 0;
+    vertical-align: middle;
+  }
+
   label {
     display: block;
+
+    &.checkbox-label {
+      display: inline;
+    }
   }
 
   #file {

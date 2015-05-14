@@ -27,6 +27,9 @@
       
         <div class="titlebar">General Information</div> 
 
+        <%= f.check_box :approved, checked: 'checked' %>
+        <%= f.label :approved, 'Public (uncheck to hide this collection from other users)', class: 'checkbox-label' %>
+
         <%= f.label :name, 'Collection Name' %>
         <div class="input_box" data-intro="Enter a name for your collection!" data-step="1" >
           <%= f.text_field :name, placeholder: "Choose a name for your collection", class: 'text' %>

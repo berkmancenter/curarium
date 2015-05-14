@@ -22,11 +22,11 @@ class ImportWork
     if w.cache_thumb
       histogram = w.extract_colors
       if histogram.any?
-        w.update_attributes( primary_color: histogram[0][ :color ], top_colors: histogram )
+        w.update primary_color: histogram[0][ :color ], top_colors: histogram
       end
     end
 
-    sleep 0.5
+    sleep 1
   end
 end
 

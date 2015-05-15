@@ -36,14 +36,17 @@ class Work < ActiveRecord::Base
     end
 
     if date_string.present?
+      date_string = date_string.to_s
       begin
-        if date_string.length > 1 && date_string.length <= 4
-          # assume only year
-          Date.parse "#{date_string}-01-01"
-        else
-          Date.parse date_string
+        if date_string != '0'
+          if date_string.length <= 4
+            # assume only year
+            Date.parse "#{date_string}-01-01"
+          else
+            Date.parse date_string
+          end
         end
-      catch ArgumentError => e
+      rescue ArgumentError => e
         # not a date
       end
     end
@@ -226,10 +229,10 @@ class Work < ActiveRecord::Base
       end
 
       # can be nil
-      self.datestart = parse_date parsed[ 'datestart' ]
+      self.datestart = Work.parse_date parsed[ 'datestart' ]
 
       # can be nil
-      self.dateend = parse_date parsed[ 'dateend' ]
+      self.dateend = Work.parse_date parsed[ 'dateend' ]
 
       # remove the attributes we extracted (except for title)
       self.parsed.except! 'unique_identifier', 'image', 'thumbnail'

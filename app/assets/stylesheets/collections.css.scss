@@ -58,8 +58,17 @@
 }
 
 .collections.new {
+  input[type="checkbox"] {
+    margin: .5em 0;
+    vertical-align: middle;
+  }
+
   label {
     display: block;
+
+    &.checkbox-label {
+      display: inline;
+    }
   }
 
   #file {
@@ -72,12 +81,49 @@
       color: #D2232A;
     }
 
-  .close{
-  width: 12px;
-  height: 12px;
-  background-image: url("remove_query_term.png");
-  float: right;
-  margin-top: -15px;
-}
+    input[type="checkbox"] {
+      font-size: 0;
+      height: 0;
+      position: absolute;
+      width: 0;
+    }
+
+    #daterange:checked {
+      & ~ #datestart p::before {
+        content: "Start ";
+      }
+
+      & ~ #dateend {
+        display: block;
+      }
+
+      & ~ label::before {
+        content: "☑ ";
+      }
+    }
+
+    label {
+      cursor: pointer;
+      font-weight: bold;
+      margin: 0 0 .5em 2em;
+      position: static;
+      width: 8em;
+
+      &::before {
+        content: "☐ ";
+      }
+    }
+
+    #dateend {
+      display: none;
+    }
+
+    .close {
+      width: 12px;
+      height: 12px;
+      background-image: url("remove_query_term.png");
+      float: right;
+      margin-top: -15px;
+    }
   }
 }

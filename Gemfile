@@ -7,7 +7,7 @@ gem 'rails', '4.1.10'
 gem 'tzinfo-data'
 
 # Use postgresql
-gem 'pg'#, '~> 0.18.0.pre20141117110243'
+gem 'pg'
 gem 'composite_primary_keys'
 
 group :test do

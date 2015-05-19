@@ -109,7 +109,7 @@ $( function() {
 
                     img.onload = function( ) {
                       var $this = $( this );
-                      bigContext.drawImage( this, 0, 0, this.width, this.height, $this.data( 'x' ) * baseThumbSize, $this.data( 'y' ) * baseThumbSize, baseThumbSize * (this.width/256), baseThumbSize * (this.height/256));
+                      bigContext.drawImage( this, 0, 0, this.width, this.height, $this.data( 'x' ) * baseThumbSize, $this.data( 'y' ) * baseThumbSize, baseThumbSize * (this.width/150), baseThumbSize * (this.height/150));
 
                      //console.log( 'PAINT x: ' + $this.data( 'x' ) + ', y: ' + $this.data( 'y' ) + ', index: ' + $this.data( 'workIdIndex' ) + ', workId: ' + workIds[ $this.data( 'workIdIndex' ) ] );
 

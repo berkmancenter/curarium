@@ -19,6 +19,39 @@ class Work < ActiveRecord::Base
     where "collection_id in ( select id from collections where approved = true )"
   }
 
+  def self.parse_date( dates )
+    # grab the first true string and try to parse as a date
+    date_string = nil
+
+    if dates.present?
+      if dates.is_a? String
+        if dates[0] == '['
+          date_string = JSON.parse( dates )[ 0 ]
+        else
+          date_string = dates
+        end
+      elsif dates.is_a? Array
+        date_string = dates[ 0 ]
+      end
+    end
+
+    if date_string.present?
+      date_string = date_string.to_s
+      begin
+        if date_string != '0'
+          if date_string.length <= 4
+            # assume only year
+            Date.parse "#{date_string}-01-01"
+          else
+            Date.parse date_string
+          end
+        end
+      rescue ArgumentError => e
+        # not a date
+      end
+    end
+  end
+
   def self.image_type( local_file_path )
     png = Regexp.new("\x89PNG".force_encoding("binary"))
     jpg = Regexp.new("\xff\xd8\xff\xe0\x00\x10JFIF".force_encoding("binary"))
@@ -93,9 +126,9 @@ class Work < ActiveRecord::Base
   end
 
   def cache_thumb
-    result = false
-    if thumbnail_url.present?
-      cache_url = "#{thumbnail_url}#{thumbnail_url.include?( '?' ) ? '&' : '?'}width=256&height=256"
+    result = File.exists? thumbnail_cache_path
+    if !result && thumbnail_url.present?
+      cache_url = "#{thumbnail_url}#{thumbnail_url.include?( '?' ) ? '&' : '?'}width=150&height=150"
 
       begin
         thumb_connection = open cache_url, 'rb', 'User-Agent' => Curarium::BOT_UA
@@ -181,7 +214,7 @@ class Work < ActiveRecord::Base
         end
       end
 
-      # maybe can be nil?
+      # can be nil, maybe?
       titles = parsed[ 'title' ]
       if titles.present?
         if titles.is_a? String
@@ -194,6 +227,12 @@ class Work < ActiveRecord::Base
           self.title = titles[ 0 ]
         end
       end
+
+      # can be nil
+      self.datestart = Work.parse_date parsed[ 'datestart' ]
+
+      # can be nil
+      self.dateend = Work.parse_date parsed[ 'dateend' ]
 
       # remove the attributes we extracted (except for title)
       self.parsed.except! 'unique_identifier', 'image', 'thumbnail'

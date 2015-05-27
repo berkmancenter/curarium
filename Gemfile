@@ -8,6 +8,7 @@ gem 'tzinfo-data'
 
 # Use postgresql
 gem 'pg'
+gem 'activerecord-postgis-adapter'
 gem 'composite_primary_keys'
 
 group :test do

@@ -1,0 +1,19 @@
+development:
+  adapter: postgis
+  database: curarium_dev
+  username: postgres
+  password: postgres
+  encoding: utf8
+  pool: 5
+  timeout: 5000
+  template: template_postgis2
+
+test:
+  adapter: postgis
+  database: curarium_test
+  username: postgres
+  password: postgres
+  encoding: utf8
+  pool: 5
+  timeout: 5000
+  template: template_postgis2

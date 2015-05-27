@@ -234,7 +234,7 @@ class Work < ActiveRecord::Base
       # can be nil
       self.dateend = Work.parse_date parsed[ 'dateend' ]
 
-      # remove the attributes we extracted (except for title)
+      # remove some attributes from metadata
       self.parsed.except! 'unique_identifier', 'image', 'thumbnail'
     end
   end

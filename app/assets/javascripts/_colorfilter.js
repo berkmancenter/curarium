@@ -11,4 +11,5 @@ $( function( ) {
 			x[i].style.width = (y[j].innerHTML)+"%";
 			x[i].title = z[k].innerHTML;
 			}
+
 });

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150514171456) do
+ActiveRecord::Schema.define(version: 20150528164336) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -27,7 +27,7 @@ ActiveRecord::Schema.define(version: 20150514171456) do
     t.datetime "updated_at"
   end
 
-  add_index "activities", ["activitiable_id", "activitiable_type"], name: "index_activities_on_activitiable_id_and_activitiable_type", using: :btree
+  add_index "activities", ["activitiable_id", "activitiable_type"], :name => "index_activities_on_activitiable_id_and_activitiable_type"
 
   create_table "amendments", force: true do |t|
     t.hstore   "previous"
@@ -38,8 +38,8 @@ ActiveRecord::Schema.define(version: 20150514171456) do
     t.datetime "updated_at"
   end
 
-  add_index "amendments", ["user_id"], name: "index_amendments_on_user_id", using: :btree
-  add_index "amendments", ["work_id"], name: "index_amendments_on_work_id", using: :btree
+  add_index "amendments", ["user_id"], :name => "index_amendments_on_user_id"
+  add_index "amendments", ["work_id"], :name => "index_amendments_on_work_id"
 
   create_table "annotations", force: true do |t|
     t.integer  "user_id"
@@ -58,8 +58,8 @@ ActiveRecord::Schema.define(version: 20150514171456) do
     t.string   "thumbnail_url"
   end
 
-  add_index "annotations", ["image_id"], name: "index_annotations_on_image_id", using: :btree
-  add_index "annotations", ["tray_item_id"], name: "index_annotations_on_tray_item_id", using: :btree
+  add_index "annotations", ["image_id"], :name => "index_annotations_on_image_id"
+  add_index "annotations", ["tray_item_id"], :name => "index_annotations_on_tray_item_id"
 
   create_table "circle_collections", force: true do |t|
     t.integer  "circle_id"
@@ -82,16 +82,16 @@ ActiveRecord::Schema.define(version: 20150514171456) do
     t.integer "user_id"
   end
 
-  add_index "circles_users", ["circle_id"], name: "index_circles_users_on_circle_id", using: :btree
-  add_index "circles_users", ["user_id"], name: "index_circles_users_on_user_id", using: :btree
+  add_index "circles_users", ["circle_id"], :name => "index_circles_users_on_circle_id"
+  add_index "circles_users", ["user_id"], :name => "index_circles_users_on_user_id"
 
   create_table "collection_admins", id: false, force: true do |t|
     t.integer "collection_id"
     t.integer "user_id"
   end
 
-  add_index "collection_admins", ["collection_id"], name: "index_collection_admins_on_collection_id", using: :btree
-  add_index "collection_admins", ["user_id"], name: "index_collection_admins_on_user_id", using: :btree
+  add_index "collection_admins", ["collection_id"], :name => "index_collection_admins_on_collection_id"
+  add_index "collection_admins", ["user_id"], :name => "index_collection_admins_on_user_id"
 
   create_table "collections", force: true do |t|
     t.string   "name"
@@ -124,8 +124,8 @@ ActiveRecord::Schema.define(version: 20150514171456) do
     t.integer  "tray_item_id"
   end
 
-  add_index "images", ["tray_item_id"], name: "index_images_on_tray_item_id", using: :btree
-  add_index "images", ["work_id"], name: "index_images_on_work_id", using: :btree
+  add_index "images", ["tray_item_id"], :name => "index_images_on_tray_item_id"
+  add_index "images", ["work_id"], :name => "index_images_on_work_id"
 
   create_table "messages", force: true do |t|
     t.string   "title"
@@ -159,8 +159,8 @@ ActiveRecord::Schema.define(version: 20150514171456) do
     t.integer  "circle_id"
   end
 
-  add_index "spotlights", ["circle_id"], name: "index_spotlights_on_circle_id", using: :btree
-  add_index "spotlights", ["user_id"], name: "index_spotlights_on_user_id", using: :btree
+  add_index "spotlights", ["circle_id"], :name => "index_spotlights_on_circle_id"
+  add_index "spotlights", ["user_id"], :name => "index_spotlights_on_user_id"
 
   create_table "tray_items", force: true do |t|
     t.integer  "tray_id"
@@ -170,9 +170,9 @@ ActiveRecord::Schema.define(version: 20150514171456) do
     t.integer  "annotation_id"
   end
 
-  add_index "tray_items", ["annotation_id"], name: "index_tray_items_on_annotation_id", using: :btree
-  add_index "tray_items", ["image_id"], name: "index_tray_items_on_image_id", using: :btree
-  add_index "tray_items", ["tray_id"], name: "index_tray_items_on_tray_id", using: :btree
+  add_index "tray_items", ["annotation_id"], :name => "index_tray_items_on_annotation_id"
+  add_index "tray_items", ["image_id"], :name => "index_tray_items_on_image_id"
+  add_index "tray_items", ["tray_id"], :name => "index_tray_items_on_tray_id"
 
   create_table "trays", force: true do |t|
     t.integer  "owner_id"
@@ -204,6 +204,9 @@ ActiveRecord::Schema.define(version: 20150514171456) do
     t.json     "top_colors"
     t.datetime "datestart"
     t.datetime "dateend"
+    t.spatial  "location",          limit: {:srid=>4326, :type=>"geometry", :geographic=>true}
   end
+
+  add_index "works", ["location"], :name => "index_works_on_location", :spatial => true
 
 end

@@ -10,11 +10,13 @@
   .commands {
     position: absolute;
     right: 1em;
-    top: 1em;
+    top: 4em;
 
-    button {
+    .button {
       display: block;
       height: 2em;
+      margin: 1em 0;
+      position: static;
       width: 2em;
     }
   }

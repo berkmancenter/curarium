@@ -150,16 +150,18 @@ class WorksController < ApplicationController
     elsif @vis == 'objectmap'
       # objectmap should only get thumbnails
       @works = Work.with_thumb.where(where_clause)
+      ids_only = false
 
       if @collection.present? && !have_query
         @query_type = 'collections'
         @query_id = @collection.id
+        ids_only = @collection.importing
       else
         @query_type = 'queries'
         @query_id = Zlib.crc32 where_clause
       end
 
-      Work.write_montage @works, Rails.public_path.join( 'thumbnails', @query_type, @query_id.to_s )
+      Work.write_montage @works, Rails.public_path.join( 'thumbnails', @query_type, @query_id.to_s ), false, ids_only
     elsif @vis == 'colorfilter'
       @works = Work.with_thumb.where(where_clause)
     elsif @vis == 'geochrono'

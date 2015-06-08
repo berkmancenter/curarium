@@ -1,4 +1,8 @@
 <section class="works-objectmap" data-query-type="<%= @query_type %>" data-query-id="<%= @query_id %>" data-work-ids="[<%= objectmap.map { |r| r.id }.join( ',' ) %>]">
 <div class="geomap"></div>
-<div class="minimap"></div>
+<div class="minimap">
+  <% if @collection.present? && @collection.importing %>
+    <span class="context-importing">(context map is not available<br>while collection is importing)</span>
+  <% end %>
+</div>
 </section>

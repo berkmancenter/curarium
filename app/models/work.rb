@@ -68,7 +68,7 @@ class Work < ActiveRecord::Base
     end
   end
 
-  def self.write_montage( works, path, force = false )
+  def self.write_montage( works, path, force = false, ids_only = false )
     logger.info "montage works to #{path}"
 
     if File.exists?( path.join( '5.jpg' ) ) && !force
@@ -83,14 +83,16 @@ class Work < ActiveRecord::Base
         f.write( ws.pluck( :id ).to_json )
       }
 
-      File.open( path.join( 'thumbnails.txt' ), 'w' ) { |f|
-        public_works_path = '../../works/'
-        f.write( ws.map { |w| public_works_path + "#{w.id}.jpg" }.join( "\n" ) )
-      }
+      if !ids_only
+        File.open( path.join( 'thumbnails.txt' ), 'w' ) { |f|
+          public_works_path = '../../works/'
+          f.write( ws.map { |w| public_works_path + "#{w.id}.jpg" }.join( "\n" ) )
+        }
 
-      Dir.chdir( path ) {
-        %x[montage @thumbnails.txt -tile #{work_dimension}x#{work_dimension} -geometry 16x16 -gravity NorthWest #{path.join( '5.jpg' )}]
-      }
+        Dir.chdir( path ) {
+          %x[montage @thumbnails.txt -tile #{work_dimension}x#{work_dimension} -geometry 16x16 -gravity NorthWest #{path.join( '5.jpg' )}]
+        }
+      end
     end
   end
     

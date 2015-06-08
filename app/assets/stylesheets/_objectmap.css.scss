@@ -7,6 +7,18 @@
     top: 38px;
   }
 
+  .commands {
+    position: absolute;
+    right: 1em;
+    top: 1em;
+
+    button {
+      display: block;
+      height: 2em;
+      width: 2em;
+    }
+  }
+
   .minimap.geo-map {
     bottom: 3em;
     border: solid 5px white;

@@ -156,7 +156,7 @@ class Collection < ActiveRecord::Base
 
   def import_queue_count
     begin
-      Sidekiq::Queue.new.count { |i| i.args[0] == id }
+      Sidekiq::Queue.new.count { |i| i.args[0] == id } + Sidekiq::RetrySet.new.count { |rs| rs.args[0] == id }
     rescue Redis::CannotConnectError => e
       0
     end

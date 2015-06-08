@@ -1,5 +1,7 @@
 class ImportWork
   include Sidekiq::Worker
+  sidekiq_options :retry => 3, :dead => false
+  
 
   def perform( collection_id, configuration, json_file_path )
     original = JSON.parse IO.read( json_file_path )

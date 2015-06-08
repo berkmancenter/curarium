@@ -19,6 +19,46 @@ class Work < ActiveRecord::Base
     where "collection_id in ( select id from collections where approved = true )"
   }
 
+  def self.parse_float( values )
+    fl = nil
+
+    if values.present?
+      if values.is_a? String
+        if values[0] == '['
+          fl = JSON.parse( values )[ 0 ]
+        else
+          fl = values
+        end
+      elsif values.is_a? Array
+        fl = values[ 0 ]
+      end
+    end
+
+    if fl.present?
+      fl.to_f
+    else
+      fl
+    end
+  end
+
+  def self.parse_string( values )
+    str = nil
+
+    if values.present?
+      if values.is_a? String
+        if values[0] == '['
+          str = JSON.parse( values )[ 0 ]
+        else
+          str = values
+        end
+      elsif values.is_a? Array
+        str = values[ 0 ]
+      end
+    end
+
+    str
+  end
+
   def self.parse_date( dates )
     # grab the first true string and try to parse as a date
     date_string = nil
@@ -183,18 +223,7 @@ class Work < ActiveRecord::Base
   def extract_attributes
     if id.nil?
       # maybe can be nil?
-      uids = parsed[ 'unique_identifier' ]
-      if uids.present?
-        if uids.is_a? String
-          if uids[0] == '['
-            self.unique_identifier = JSON.parse( uids )[ 0 ]
-          else
-            self.unique_identifier = uids
-          end
-        elsif uids.is_a? Array
-          self.unique_identifier = uids[ 0 ]
-        end
-      end
+      self.unique_identifier = Work.parse_string parsed[ 'unique_identifier' ]
 
       # can be nil
       if parsed[ 'image' ].present?
@@ -215,24 +244,20 @@ class Work < ActiveRecord::Base
       end
 
       # can be nil, maybe?
-      titles = parsed[ 'title' ]
-      if titles.present?
-        if titles.is_a? String
-          if titles[0] == '['
-            self.title = JSON.parse( titles )[ 0 ]
-          else
-            self.title = titles
-          end
-        elsif titles.is_a? Array
-          self.title = titles[ 0 ]
-        end
-      end
+      self.title = Work.parse_string parsed[ 'title' ]
 
       # can be nil
       self.datestart = Work.parse_date parsed[ 'datestart' ]
 
       # can be nil
       self.dateend = Work.parse_date parsed[ 'dateend' ]
+
+      lat = Work.parse_float parsed[ 'latitude' ]
+      lon = Work.parse_float parsed[ 'longitude' ]
+
+      if lat.present? && lon.present?
+        self.location = "POINT(#{lon} #{lat})"
+      end
 
       # remove some attributes from metadata
       self.parsed.except! 'unique_identifier', 'image', 'thumbnail'

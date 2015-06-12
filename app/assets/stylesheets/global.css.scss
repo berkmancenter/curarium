@@ -748,6 +748,8 @@ dd {
     }
     .menu_piecea, .menu_piecea * {
     }
+    .menu_pieced, .menu_pieced * {
+    }
   }
 
    .works-info{
@@ -805,6 +807,16 @@ dd {
   position: absolute;
   margin: 0 10px;
   top: 150px;
+  border: 1px solid #d2232a;
+  padding: 25px 0 0 0;
+  overflow: hidden;
+}
+
+.bubble_menu .menu_pieced{
+  width: 25px;
+  position: absolute;
+  margin: 0 10px;
+  top: 190px;
   border: 1px solid #d2232a;
   padding: 25px 0 0 0;
   overflow: hidden;
@@ -970,6 +982,16 @@ dd {
   overflow: scroll;
   padding: 15px 15px 10px 10px;
   margin: 150px 50px 0 10px;
+}
+
+.expand_admin {
+  background: white;
+  border: 1px solid $cred;
+  display: none;
+  max-height: 200px;
+  overflow: scroll;
+  padding: 15px 15px 10px 10px;
+  margin: 190px 50px 0 10px;
 }
 
 .bubble_menu .surrogates_box .expand_surr img {
@@ -1361,6 +1383,7 @@ dt:hover {
 .bubble_menu .menu_piecet {
   display: block;
 }
+
 .bubble_menu .menu_piecea .button {
   background: #ffffff url('icon_anno.png') no-repeat center center;
   color: transparent;
@@ -1368,6 +1391,20 @@ dt:hover {
 
 .bubble_menu .menu_piecea .button:hover {
   background: #d2222a url('icon_annow.png') no-repeat center center;
+  color: transparent;
+}
+
+.bubble_menu .menu_pieced {
+  display: block;
+}
+
+.bubble_menu .menu_pieced .button {
+  background: #ffffff url('icon_admin.png') no-repeat center center;
+  color: transparent;
+}
+
+.bubble_menu .menu_pieced .button:hover {
+  background: #d2222a url('icon_adminw.png') no-repeat center center;
   color: transparent;
 }
 
@@ -1404,4 +1441,11 @@ dt:hover {
   display: block;
   width: 160px;
   margin: 121px 0 0 52px;
+}
+
+.bubble_menu .checkbox_hack:checked ~ .expand_admin {
+  display: block;
+  overflow: hidden;
+  width: 160px;
+  margin: 161px 0 0 52px;
 }

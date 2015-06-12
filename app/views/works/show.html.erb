@@ -40,7 +40,8 @@
       <td class="surrogates_button">
         <div class="menu_pieces">
           <label for='surrogates_id'><span class="button" title="Surrogate images" data-intro="Click to view surrogate images" data-start="2">S</span></label>
-      </div></td>
+        </div>
+      </td>
       <td class="surrogate_info">
         <input type='radio' class='checkbox_hack' id='surrogates_id' name="recordoption">
         <div class="expand_surr">
@@ -58,7 +59,8 @@
       <td class="tray_button">
         <div class="menu_piecet">
           <label for='add_id'><span class="button" title="Add to trays" data-intro="Click to view trays. Note: You need to be logged in." data-start="3">T</span></label>
-      </div></td>
+        </div>
+      </td>
       <td class="tray_info">
         <input type='radio' class='checkbox_hack' id='add_id' name="recordoption">
         <div class="expand_tray">
@@ -123,6 +125,22 @@
         </div>
       </td>
     </tr>
+
+    <% if authenticated? %>
+    <tr class="admin_box">
+      <td class="admin_button">
+        <div class="menu_pieced">
+          <label for="admin_id"><span class="button" title="Collection Admin" data-intro="Click to administer this record's collection." data-start="5">A</span></label>
+        </div>
+      </td>
+      <td class="admin_info">
+        <input type="radio" class="checkbox_hack" id="admin_id" name="recordoption">
+        <div class="expand_admin">
+          Admin
+        </div>
+      </td>
+    </tr>
+    <% end %>
   </table>
 
 </div><!-- END SUB MENU -->  

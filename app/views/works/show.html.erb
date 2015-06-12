@@ -1,61 +1,64 @@
 <script>
-    window.onload = function() {
+  window.onload = function() {
     // TODO: This should not be handled in JavaScript
     // view can do this on server
     // surrogates can be simple hyperlinks
     <% image = params[:image].to_i || 0%>
     window.work.display('<%= work_image_path @work, image %>');
-    $('img.surrogate_thumbnail').each( function(i){
+    $('img.surrogate_thumbnail').each( function(i) {
       $(this).click(function(e){
         window.location = "?image="+i
-          });
-        });
-    };
+      });
+    });
+  };
 
-    function recordIntro() {
+  function recordIntro() {
     introJs().start();
   }
 </script>
 
 <!-- BEGIN SUB MENU --> 
 <div class="SUB_MENU bubble_menu">
-<a onclick="recordIntro()">Click for instructions</a> 
+  <a onclick="recordIntro()">Click for instructions</a> 
   <table class="works_info">
-  <tr class="metadata_box">
-    <td class="parsed_button">
-      <div class="menu_piecep">
-      <label for='parsed_id'><span class="button" title="Parsed Information" data-intro="Click to view parsed meta-data" data-start="1">P</span></label>
-      </div></td>
+    <tr class="metadata_box">
+      <td class="parsed_button">
+        <div class="menu_piecep">
+          <label for='parsed_id'><span class="button" title="Parsed Information" data-intro="Click to view parsed meta-data" data-start="1">P</span></label>
+        </div>
+      </td>
       <td class="parsed_info">
-      <input type='radio' class='checkbox_hack' id='parsed_id' name="recordoption">
-      <div class="expand_pi">
-        <!-- THIS IS WHERE THE PARSED WORK INFORMATION GOES -->
-        <%= render :partial => 'shared/print_metadata', :locals=>{:original=>@work.parsed,:current=>@current_metadata,:class_name=>'printed_object',:id_name=>'parsed_work'} %>
-      </div>
-    </td></tr>
-    
-  <tr class="surrogates_box">
-    <td class="surrogates_button">
-      <div class="menu_pieces">
-      <label for='surrogates_id'><span class="button" title="Surrogate images" data-intro="Click to view surrogate images" data-start="2">S</span></label>
+        <input type='radio' class='checkbox_hack' id='parsed_id' name="recordoption">
+        <div class="expand_pi">
+          <!-- THIS IS WHERE THE PARSED WORK INFORMATION GOES -->
+          <%= render :partial => 'shared/print_metadata', :locals=>{:original=>@work.parsed,:current=>@current_metadata,:class_name=>'printed_object',:id_name=>'parsed_work'} %>
+        </div>
+      </td>
+    </tr>
+
+    <tr class="surrogates_box">
+      <td class="surrogates_button">
+        <div class="menu_pieces">
+          <label for='surrogates_id'><span class="button" title="Surrogate images" data-intro="Click to view surrogate images" data-start="2">S</span></label>
       </div></td>
       <td class="surrogate_info">
-      <input type='radio' class='checkbox_hack' id='surrogates_id' name="recordoption">
-      <div class="expand_surr">
-        <!-- THIS IS WHERE THE SURROGATE IMAGES GO -->
-      <nav>
-        <% @work.images.each { |i| %>
-          <%= image_tag i.thumbnail_url, class: 'surrogate_thumbnail', alt: '' %>
-        <% } %>
-      </nav>
-      </div>
-    </td></tr>
-    
+        <input type='radio' class='checkbox_hack' id='surrogates_id' name="recordoption">
+        <div class="expand_surr">
+          <!-- THIS IS WHERE THE SURROGATE IMAGES GO -->
+          <nav>
+          <% @work.images.each { |i| %>
+            <%= image_tag i.thumbnail_url, class: 'surrogate_thumbnail', alt: '' %>
+          <% } %>
+          </nav>
+        </div>
+      </td>
+    </tr>
+
     <tr class="tray_box">
-    <td class="tray_button">
-      <div class="menu_piecet">
-        <label for='add_id'><span class="button" title="Add to trays" data-intro="Click to view trays. Note: You need to be logged in." data-start="3">T</span></label>
-        </div></td>
+      <td class="tray_button">
+        <div class="menu_piecet">
+          <label for='add_id'><span class="button" title="Add to trays" data-intro="Click to view trays. Note: You need to be logged in." data-start="3">T</span></label>
+      </div></td>
       <td class="tray_info">
         <input type='radio' class='checkbox_hack' id='add_id' name="recordoption">
         <div class="expand_tray">
@@ -65,12 +68,15 @@
             <%= login_link 'Log in' %>
           <% end %>
         </div>
-    </td></tr>
+      </td>
+    </tr>
 
-    <tr class="anno_box"><td class="anno_button">
-      <div class="menu_piecea">
-        <label for='ann_id'><span class="button" title="Annotations" data-intro="Click to view annotations. Note: You need to be logged in." data-start="4">A</span></label>
-        </div></td>
+    <tr class="anno_box">
+      <td class="anno_button">
+        <div class="menu_piecea">
+          <label for='ann_id'><span class="button" title="Annotations" data-intro="Click to view annotations. Note: You need to be logged in." data-start="4">A</span></label>
+        </div>
+      </td>
       <td class="annotation_info">
         <input type='radio' class='checkbox_hack' id = 'ann_id' name="recordoption">
         <div class="expand_anno">
@@ -80,9 +86,9 @@
               <h4 class='window_header'>ANNOTATE IMAGE</h4>
               <div class='window_body'>
                 <div id='preview_window'></div>
-                    <input id="hide_anno" name="HideAnno" type="checkbox" value="Hide Annotations" checked><label for="HideAnno" id="hide-an">Show Annotations</label>
-                    <%= link_to "Go to annotations index", work_path + '/annotations', :class => :annoindex %>
-                    <%= form_for([@work, Annotation.new]) do |f| %>
+                <input id="hide_anno" name="HideAnno" type="checkbox" value="Hide Annotations" checked><label for="HideAnno" id="hide-an">Show Annotations</label>
+                <%= link_to "Go to annotations index", work_path + '/annotations', :class => :annoindex %>
+                <%= form_for([@work, Annotation.new]) do |f| %>
                   <div>
                     <%= f.label :title%> *<br>
                     <%= f.text_field :title%>
@@ -106,17 +112,18 @@
                   </p>
                 <% end %>    
               </div>
-            <div id='work_annotations'>
-              <%= render partial: 'annotations/thumbnail', collection: @work.annotations %>
-            </div>
+              <div id='work_annotations'>
+                <%= render partial: 'annotations/thumbnail', collection: @work.annotations %>
+              </div>
 
             <% else %>
-            <%= login_link 'Log in' %>
-          <% end %>
+              <%= login_link 'Log in' %>
+            <% end %>
           </div> 
         </div>
-        </td>
-  </tr></table>
+      </td>
+    </tr>
+  </table>
 
 </div><!-- END SUB MENU -->  
 <script>

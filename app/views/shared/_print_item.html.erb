@@ -1,7 +1,7 @@
 <% background = "" %>
 <% big ||= false %>
 <% if item.class == Collection %>
-  <% background = item.thumbnail_url %>
+  <% background = item.cover.thumbnail_cache_url %>
   <a href='<%= collection_path(item) %>'>
     <div class='gallery_item <%= "item_lrg" if big %>'>
       <div class='stack1<%= " item_lrg" if big %>' style='background-image: none;'></div>

@@ -23,6 +23,18 @@ class Collection < ActiveRecord::Base
     where "id in ( select distinct collection_id from works )"
   }
 
+  def cover
+    if cover_id.present?
+      Work.find cover_id
+    else
+      works.first
+    end
+  end
+
+  def cover=( c )
+    self.cover_id = c.id
+  end
+
   def self.create_work_from_parsed( key, original, parsed )
     # create a work from original JSON and pre-parsed version
     col = find_by_key key

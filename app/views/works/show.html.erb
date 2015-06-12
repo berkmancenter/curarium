@@ -136,7 +136,14 @@
       <td class="admin_info">
         <input type="radio" class="checkbox_hack" id="admin_id" name="recordoption">
         <div class="expand_admin">
-          Admin
+          <dl>
+            <dt>Collection</dt>
+            <dd><%= @work.collection.name %></dd>
+          </dl>
+          <dl>
+            <dt><label for="">Collection Cover</label></dt>
+            <dd><input type="checkbox" id="collection[cover]" <%= 'checked' if @work == @work.collection.cover %> /></dd>
+          </dl>
         </div>
       </td>
     </tr>

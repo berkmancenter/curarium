@@ -56,6 +56,10 @@ input[type=text], input[type=password], .login-button, .tray-popup-button {
   width: 160px;
 }
 
+input[type="checkbox"] {
+  vertical-align: middle;
+}
+
 a {
   color: $cred;
   cursor: pointer;

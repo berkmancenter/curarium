@@ -289,16 +289,4 @@ $( function() {
     ]; 
     miniMap.geomap( 'empty' ).geomap( 'append', $.geo.polygonize( miniBbox ) );
   }
-
-  function IntRand (min,max) {
-    return Math.round(Math.random()*(max-min)+min);
-  }
-
-  function randRed () {
-    var r = IntRand(0xaa,0xff);
-    var g = IntRand(0x00,0x55);
-    var b = IntRand(0x00,0x55);
-    return ((r<<16)|(g<<8)|b).toString(16);
-  }
-
 } );

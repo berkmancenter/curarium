@@ -73,6 +73,16 @@
     }
   }
 
+  .admin_box {
+    .edit_collection_cover .button {
+      display: inline-block;
+      padding: .25em .5em;
+      position: static;
+      width: auto;
+    }
+    
+  }
+
 
   .show-xhr {
     background: #fff;

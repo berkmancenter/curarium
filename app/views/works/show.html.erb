@@ -139,10 +139,18 @@
           <dl>
             <dt>Collection</dt>
             <dd><%= @work.collection.name %></dd>
-          </dl>
-          <dl>
-            <dt><label for="">Collection Cover</label></dt>
-            <dd><input type="checkbox" id="collection[cover]" <%= 'checked' if @work == @work.collection.cover %> /></dd>
+
+            <%= form_for( @work.collection, remote: true, html: {
+              :'data-type' => 'json',
+              :'class' => 'edit_collection_cover'
+            }) { |f| %>
+              <%= f.hidden_field :cover_id, value: @work.id %>
+              <dt><%= f.label :cover_id , 'Collection Cover' %></dt>
+              <dd>
+                <span><%= @work == @work.collection.cover ? 'Yes' : 'No' %></span>
+                <%= f.submit( 'Set', class: 'button' ) unless @work == @work.collection.cover %>
+              </dd>
+            <% } %>
           </dl>
         </div>
       </td>

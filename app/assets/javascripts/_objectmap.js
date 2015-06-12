@@ -276,6 +276,10 @@ $( function() {
 
       updateMiniBbox();
     }
+
+    $( '.commands .button' ).click( function( ) {
+      map.geomap( 'zoom', $( this ).data( 'zoom' ) );
+    } );
   }
 
   function updateMiniBbox( bbox ) {

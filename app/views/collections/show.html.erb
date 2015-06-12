@@ -3,7 +3,7 @@
 	<!-- left content -->
   <div class="left"><div class="holder col-sidebar">
     <div class="titlebar main"><%= render partial: 'shared/mini_icon', object: 'collection' %></div>
-		<div class="profile_img" style="background: url('<%= @collection.thumbnail_url %>') no-repeat center center; background-size: cover;">&nbsp;</div>   
+		<div class="profile_img" style="background: url('<%= @collection.cover.thumbnail_cache_url %>') no-repeat center center; background-size: cover;">&nbsp;</div>   
        <div class="stalking_menu_holder">
         	<div class="stalking_menu">
             <ul>

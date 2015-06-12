@@ -26,8 +26,8 @@ class Collection < ActiveRecord::Base
   def cover
     if cover_id.present?
       Work.find cover_id
-    else
-      works.first
+    elsif works.with_thumb.any?
+      works.with_thumb.first
     end
   end
 
@@ -156,12 +156,6 @@ class Collection < ActiveRecord::Base
     return {length: query.length, properties: properties}
   end
   
-  def thumbnail_url
-    if works.with_thumb.any?
-      works.with_thumb.first.thumbnail_cache_url
-    end
-  end
-
   def importing
     import_queue_count > 0
   end

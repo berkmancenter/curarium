@@ -275,7 +275,10 @@ class WorksController < ApplicationController
 
   # POST /works/1/set_cover
   def set_cover
-    @work.collection.update cover_id: @work.id
+    if authenticated? && @work.collection.admins.include?( current_user )
+      @work.collection.update cover_id: @work.id
+    end
+
     render partial: 'works/cover_form', object: @work
   end
 

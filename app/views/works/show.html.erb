@@ -126,7 +126,7 @@
       </td>
     </tr>
 
-    <% if authenticated? %>
+    <% if authenticated? && @work.collection.admins.include?( current_user ) %>
     <tr class="admin_box">
       <td class="admin_button">
         <div class="menu_pieced">

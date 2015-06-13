@@ -3,7 +3,7 @@ require 'zlib'
 
 class WorksController < ApplicationController
   autocomplete :works, :title
-  before_action :set_work, only: [:show, :thumb, :edit, :update, :destroy]
+  before_action :set_work, only: [:show, :thumb, :edit, :update, :set_cover, :destroy]
   # GET /works
   # GET /works.json
   def index
@@ -271,6 +271,12 @@ class WorksController < ApplicationController
       format.html { redirect_to @work }
       format.json { render json: @amendment }
     end
+  end
+
+  # POST /works/1/set_cover
+  def set_cover
+    @work.collection.update cover_id: @work.id
+    render partial: 'works/cover_form', object: @work
   end
 
   # DELETE /works/1

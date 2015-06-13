@@ -8,4 +8,8 @@ $( function() {
     $.magnificPopup.instance.close();
     return false;
   } );
+
+  $( '.works.show' ).on( 'ajax:success', '.edit_work_set_cover', function( xhr, result ) {
+    $( this ).replaceWith( result );
+  } );
 } );

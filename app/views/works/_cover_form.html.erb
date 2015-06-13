@@ -1,0 +1,10 @@
+<%= form_for( cover_form, url: set_cover_work_path( cover_form ), method: :post, remote: true, html: {
+  class: 'edit_work_set_cover'
+}) { |f| %>
+  <dt><%= f.label :cover_id , 'Collection Cover' %></dt>
+  <dd>
+    <span><%= cover_form == cover_form.collection.cover ? 'Yes' : 'No' %></span>
+    <%= f.submit( 'Set', class: 'button' ) unless cover_form == cover_form.collection.cover %>
+  </dd>
+<% } %>
+

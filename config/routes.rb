@@ -63,6 +63,7 @@ Curarium::Application.routes.draw do
   resources :works do
     member do
       get 'thumb'
+      post 'set_cover'
     end
 
     resources :amendments

@@ -118,6 +118,26 @@
       display: none;
     }
 
+    fieldset {
+      margin-bottom: 1em;
+
+      legend {
+        color: $cred;
+        display: inline-block;
+        margin: 0 .5em;
+        padding: 0 .5em;
+      }
+
+      .field {
+        margin-left: 1em;
+        margin-right: 1em;
+      }
+    }
+
+    fieldset p {
+      margin: .5em;
+    }
+
     .close {
       width: 12px;
       height: 12px;

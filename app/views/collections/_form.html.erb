@@ -41,12 +41,12 @@
         </div> 
 
         <%= f.label :source, 'Collection Provider' %>
-        <div class="input_box" data-intro="Name of the colelction provider" data-step="3">
+        <div class="input_box" data-intro="Name of the collection provider" data-step="3">
           <%= f.text_field :source, placeholder: "Identify the provider of this collection", class: 'text' %>
         </div> 
 
         <label for="file">ZIP of Collection JSON Files</label>
-        <input id="file" type="file" name="file" data-intro="Upload a ZIP of your JSON files" data-step="4" >
+        <input id="file" type="file" name="file" data-intro="Choose a ZIP file on your computer that contains JSON files, one for each record in the collection" data-step="4" >
 
         <%= f.hidden_field :configuration, value: "{}" %>
     
@@ -56,7 +56,7 @@
       <% end %>
 
       <label for="json">Collection JSON Sample</label>
-      <div class="input_box" data-intro="Copy and paste your sample json record here" data-step="5">
+      <div class="input_box" data-intro="Copy and paste any individual JSON record from your collection here, as a sample" data-step="5">
         <textarea id="json" class="text" placeholder="Copy and paste your sample json record here"></textarea>
       </div>
 
@@ -71,7 +71,7 @@
       <div class="titlebar">Collection JSON Sample</div>
 
       <label>Parsed JSON Sample</label>
-      <div class="json_holder" id="parsed" data-intro="Drag objects into their meta-data fields" data-step="7">
+      <div class="json_holder" id="parsed" data-intro="Drag metadata values from the center column..." data-step="7">
         No Sample &ndash; Please paste JSON into the Collection JSON Sample box at the bottom left and click Parse
       </div>
     </div>
@@ -81,7 +81,7 @@
   <!-- RIGHT CONTENT -->
   <div class="right">
     <div class="holder">
-      <div class="titlebar" data-intro="Edit dragged meta-data objects into their respective fields" data-step="8">Active Fields</div>
+      <div class="titlebar" data-intro="...into their respective fields on the right column" data-step="8">Active Fields</div>
 
       <div id="output">
         <div id="unique_identifier" class="field field_wrapper">

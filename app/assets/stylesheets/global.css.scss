@@ -590,6 +590,11 @@ dd {
 .howitem td {
   padding: 10px 0;
 }
+
+.howitem td:first-child {
+  width: 320px;
+}
+
 .howitem img{
   width: 200px;
   height: 200px;

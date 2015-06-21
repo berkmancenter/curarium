@@ -1,7 +1,10 @@
 module ApplicationHelper
-  def title(page_title)
-    content_for(:title) { page_title }
-    return page_title
+  def title( page_title )
+    if page_title.length > 0
+      "#{ page_title } | Curarium"
+    else
+      'Curarium'
+    end
   end
  
   def tag_selector(hstore_object)

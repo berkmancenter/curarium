@@ -13,12 +13,6 @@
 	</head>
 
   <body class="<%= "#{params[ :controller ]} #{params[ :action ]}" %>">
-	  <% if (params[:controller] == 'home' and action_name == 'about') or ( params[:controller] == 'collections' and action_name == 'show') %>
-	    <!-- RANDOM IMAGE HEADER -->
-	    <% if @work.present? && @work.images.any? %>
-	      <div class="about_header_lines" style="background: url('<%= @work.images.first %>') repeat center center; "></div>
-      <% end %>
-    <% end %>
 	  <div class="GLOBAL_HOLDER">
 	    <%= render 'shared/header'%>
 	    <%= yield %>

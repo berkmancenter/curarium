@@ -1,13 +1,4 @@
 /*
- * This is a manifest file that'll be compiled into application.css, which will include all the files
- * listed below.
- *
- * Any CSS and SCSS file within this directory, lib/assets/stylesheets, vendor/assets/stylesheets,
- * or vendor/assets/stylesheets of plugins, if any, can be referenced here using a relative path.
- *
- * You're free to add application-wide styles to this file and they'll appear at the top of the
- * compiled file, but it's generally better to create a new file per style scope.
- *
  *= require formtastic
  *= require magnific-popup
  *= require_self
@@ -15,31 +6,13 @@
  *= require introjs
  */
 
-@media screen and (min-width:222px) {.GLOBAL_HOLDER {width: 220px;}}
-@media screen and (min-width:442px) {.GLOBAL_HOLDER {width: 440px;}}
-@media screen and (min-width:662px) {.GLOBAL_HOLDER {width: 660px;}}
-@media screen and (min-width:882px) {.GLOBAL_HOLDER {width: 880px;}}
-@media screen and (min-width:1102px) {.GLOBAL_HOLDER {width: 1100px;}}
-@media screen and (min-width:1322px) {.GLOBAL_HOLDER {width: 1320px;}}
-@media screen and (min-width:1542px) {.GLOBAL_HOLDER {width: 1540px;}}
-@media screen and (min-width:1762px) {.GLOBAL_HOLDER {width: 1760px;}}
-@media screen and (min-width:1982px) {.GLOBAL_HOLDER {width: 1980px;}}
-
-
-* {
-  margin: 0;
-  padding: 0;
-}
-
-html, body {
-  width: 100%;
-  height: 100%;
-  position: absolute;
+/* http://www.paulirish.com/2012/box-sizing-border-box-ftw/ */
+html {
+  box-sizing: border-box;
   font-family: 'Open Sans', sans-serif;
   font-size: 11px;
 }
 
-body {
-  min-height: 100%;
+* {
+  box-sizing: inherit;
 }
-

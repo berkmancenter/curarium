@@ -95,6 +95,34 @@ class Work < ActiveRecord::Base
       end
     end
   end
+
+  def self.write_geochrono( works, path, force = false, ids_only = false )
+    logger.info "geochrono works to #{path}"
+
+    if File.exists?( path.join( '5.jpg' ) ) && !force
+      logger.info "geochrono already exists"
+    else
+      FileUtils.mkpath path
+
+      ws = works.with_thumb
+      work_dimension = Math.sqrt( ws.count ).ceil
+
+      File.open( path.join( 'ids.json' ), 'w' ) { |f|
+        f.write( ws.pluck( :id, :datestart, :dateend ).to_json )
+      }
+
+      if !ids_only
+        File.open( path.join( 'thumbnails.txt' ), 'w' ) { |f|
+          public_works_path = '../../works/'
+          f.write( ws.map { |w| public_works_path + "#{w.id}.jpg" }.join( "\n" ) )
+        }
+
+        Dir.chdir( path ) {
+          %x[geochrono @thumbnails.txt -tile #{work_dimension}x#{work_dimension} -geometry 16x16 -gravity NorthWest #{path.join( '5.jpg' )}]
+        }
+      end
+    end
+  end
     
   def thumbnail_url
     if images.any?

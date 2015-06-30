@@ -46,7 +46,18 @@ img {
 button {
 	width: 30px;
 	margin-top: 110px;
-	padding: 7px;
+	padding: 10px;
 	float: left;
 	vertical-align: center;
+}
+
+.date-slider {
+	border: 1px solid #d2232a;
+	padding-bottom: 20px;
+}
+
+.position{
+	border-right: 2px solid #d2232a;
+	height: 50px;
+	width: 500px;
 }

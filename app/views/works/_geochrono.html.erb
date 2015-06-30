@@ -1,18 +1,21 @@
 <section class="works-geochrono" data-query-type="query" data-query-id="<%= @query_id %>">
 <div class="geochrono-nav">
-<button type="button" id="left-button"> back </button>
+<button type="button" id="left-button"> '<'</button>
 <div class="chrono-slider">
   <div class="chrono-display">
-  <% @works.order("datestart").each { |i| %> 
+  <% @works.each do |i| %> 
     <%= image_tag i.thumbnail_cache_url, class: 'chrono_thumbnail', alt: '' %>
-  <% } %>
+  <% end %>
 </div>
 </div>
-<button type="button" id="right-button">forward</button>
+<button type="button" id="right-button">'>'</button>
 </div>
+<div class="date-slider">
+<div class="position"></div>
   <div class="chrono-info">
   <% @works.order("datestart").each { |i| %> 
   <div class="chrono-indi">  <%= i.datestart %></div>
   <% } %>
+</div>
   </div>
 </section>

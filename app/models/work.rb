@@ -123,6 +123,11 @@ class Work < ActiveRecord::Base
       end
     end
   end
+
+  def self.missing_thumb_url
+    Rails.public_path.join( 'missing_thumb.png' ).to_s
+  end
+
     
   def thumbnail_url
     if images.any?
@@ -151,7 +156,7 @@ class Work < ActiveRecord::Base
     if thumbnail_url.present?
       "/thumbnails/works/#{id}.jpg"
     else
-      '/missing_thumb.png'
+      missing_thumb_url
     end
   end
 

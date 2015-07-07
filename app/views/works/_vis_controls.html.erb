@@ -43,6 +43,12 @@
           </div>
           <div id='props' class='subcell'></div>
         </div>
+        <div class='dropcell' data-intro="Choose a color on which to filter">
+          <div class='subcell'>
+            <%= label_tag 'colorfilter', 'Select color' %><br>
+            <%= color_field_tag 'colorfilter' %>
+          </div>
+        </div>
         <div class='dropcell' data-intro="Choose to view a certain number of records per page at a given time" data-step="3">
           <div class='subcell'>
             <% @num ||= 0 %>

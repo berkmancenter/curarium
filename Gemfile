@@ -1,5 +1,5 @@
 source 'http://rubygems.org'
-ruby '2.0.0'
+ruby '2.1.6'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.1.10'
 
@@ -22,7 +22,7 @@ gem 'factory_girl_rails' #breaks rake if its only in test group
 gem 'browserid-rails', :git => 'git@github.com:dbp/browserid-rails.git'
 
 # Use SCSS for stylesheets
-gem 'sass-rails', '~> 4.0.0'
+gem 'sass-rails', '~> 4.0.3'
 
 #Use jquery-ui for autocomplete
 gem 'rails4-autocomplete'
@@ -35,8 +35,9 @@ gem 'coffee-rails', '~> 4.0.0'
 
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
-# Use jquery-ui
-gem 'jquery-ui-rails'
+
+# Twitter bootstrap
+gem 'bootstrap-sass', '~> 3.3.0'
 
 # Formtastic for awesome forms
 gem 'formtastic', '~> 3.0'

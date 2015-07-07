@@ -2,24 +2,24 @@
 <html>
 	<head>
     <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+		<%= csrf_meta_tags %>
 
     <link href='//fonts.googleapis.com/css?family=Open+Sans:400,600' rel='stylesheet' type='text/css'>
     <%= favicon_link_tag 'logo-01.png' %>
 
     <title><%= title yield( :title ) %></title>
 
-		<%= stylesheet_link_tag    "application", media: "all" %>
-		<%= csrf_meta_tags %>
+		<%= stylesheet_link_tag 'application', media: 'all' %>
+
 	</head>
 
-  <body class="<%= "#{params[ :controller ]} #{params[ :action ]}" %>">
-	  <div class="application">
-	    <%= render 'shared/header'%>
+  <body role="document" class="<%= "#{params[ :controller ]} #{params[ :action ]}" %>">
+    <%= render 'shared/header'%>
 
-	    <%= yield %>
-	      
-		  <%= render 'shared/footer'%>      
-	  </div>
+    <%= yield %>
+      
+    <%= render 'shared/footer'%>      
 
 		<%= javascript_include_tag "application" %>
 

@@ -45,8 +45,12 @@
         </div>
         <div class='dropcell' data-intro="Choose a color on which to filter">
           <div class='subcell'>
+            <%= label_tag 'usecolorfilter', 'Filter by color?' %><br>
+            <%= check_box_tag 'usecolorfilter' %>
+          </div>
+          <div class='subcell'>
             <%= label_tag 'colorfilter', 'Select color' %><br>
-            <%= color_field_tag 'colorfilter' %>
+            <%= color_field_tag 'colorfilter', '#000000', disabled: 'disabled' %>
           </div>
         </div>
         <div class='dropcell' data-intro="Choose to view a certain number of records per page at a given time" data-step="3">

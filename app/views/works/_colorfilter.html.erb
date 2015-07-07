@@ -1,7 +1,7 @@
 <% @works.each { |i| %>
   <div class="color-box">  
     <div class="color-viz">
-      <%= image_tag i.thumbnail_cache_url, class: 'color_thumbnail', alt: '' %>
+      <%= render partial: 'works/thumbnail', object: i %>
       <div class="color-length">
         <% if !i.top_colors.nil? %>
           <div class="color-code">

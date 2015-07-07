@@ -12,4 +12,19 @@ $( function( ) {
     x[i].style.width = (y[j].innerHTML)+"%";
     x[i].title = z[k].innerHTML;
   }
+
+  $( '.color-viz a.thumbnail' ).click( function( ) {
+    $.get( $( this ).prop( 'href' ) , function( popupHtml ) {
+      $.magnificPopup.open( {
+        showCloseBtn: false,
+        items: {
+          src: popupHtml,
+          type: 'inline'
+        }
+      } );
+    } );
+
+    return false;
+  } );
+
 });

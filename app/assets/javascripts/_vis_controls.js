@@ -42,6 +42,11 @@
         props.html( propsHtml );
       }
 
+      $( '#usecolorfilter' ).click( function() {
+        var enabled = $( this ).is( ':checked' );
+        $( '#colorfilter' ).prop( 'disabled', !enabled ).parent( '.subcell' ).toggle( enabled );
+      } );
+
       $( '#per_page' ).change( function() {
         $( '#vis-form' ).submit();
       } );

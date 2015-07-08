@@ -77,6 +77,12 @@ class WorksController < ApplicationController
       have_query = true
     end
 
+    if params[ :colorfilter ].present?
+      @colorfilter = params[ :colorfilter ]
+#select distinct id from ( select id,json_array_elements(top_colors)::json->>'color' from works ) as colors
+      have_query = true
+    end
+
     # may want num in a few cases (this should be a fast query)
     @num = Work.where( where_clause ).count( :id )
 

@@ -46,9 +46,9 @@
         <div class='dropcell' data-intro="Choose a color on which to filter">
           <div class='subcell'>
             <%= label_tag 'usecolorfilter', 'Filter by color?' %><br>
-            <%= check_box_tag 'usecolorfilter' %>
+            <%= check_box_tag 'usecolorfilter', nil, false, name: nil %>
           </div>
-          <div class='subcell'>
+          <div class='subcell' style="display: none;">
             <%= label_tag 'colorfilter', 'Select color' %><br>
             <%= color_field_tag 'colorfilter', '#000000', disabled: 'disabled' %>
           </div>

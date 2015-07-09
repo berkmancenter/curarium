@@ -79,7 +79,7 @@ class WorksController < ApplicationController
 
     if params[ :colorfilter ].present?
       @colorfilter = params[ :colorfilter ]
-#select distinct id from ( select id,json_array_elements(top_colors)::json->>'color' from works ) as colors
+      where_clause << " AND top_colors::text like '%#{ActiveRecord::Base.send :sanitize_sql_array, [ '%s', @colorfilter ]}%'"
       have_query = true
     end
 

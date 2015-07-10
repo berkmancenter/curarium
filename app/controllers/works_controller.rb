@@ -80,7 +80,7 @@ class WorksController < ApplicationController
     @colorfilter = nil
     if params[ :colorfilter ].present?
       @colorfilter = params[ :colorfilter ]
-      where_clause << " AND top_colors::text like '%#{ActiveRecord::Base.send :sanitize_sql_array, [ '%s', @colorfilter ]}%'"
+      where_clause << " AND top_colors::text like '%#{ActiveRecord::Base.send :sanitize_sql_array, [ '%s', @colorfilter.remove('#').upcase ]}%'"
       have_query = true
     end
 

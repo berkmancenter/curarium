@@ -60,7 +60,7 @@
           $( '#property' ).prop('disabled',true);
         }
 
-        if ($.inArray(this.value,['thumbnails','list'])>-1) {
+        if ($.inArray(this.value,['thumbnails','list','colorfilter'])>-1) {
           $( '.page_in' ).prop('disabled',false);
         }
         else {

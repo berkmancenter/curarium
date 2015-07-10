@@ -1,5 +1,5 @@
 $( function( ) { 
-  $( '.color-viz a.thumbnail' ).click( function( ) {
+  $( '.colorfilter a.thumbnail' ).click( function( ) {
     $.get( $( this ).prop( 'href' ) , function( popupHtml ) {
       $.magnificPopup.open( {
         showCloseBtn: false,
@@ -10,6 +10,13 @@ $( function( ) {
       } );
     } );
 
+    return false;
+  } );
+
+  $( '.colorfilter a.color-info' ).click( function( ) {
+    var visForm = $( '#vis-form' );
+    visForm.find( '#colorfilter' ).attr( 'disabled', false ).val( $( this ).data( 'color' ) );
+    visForm.submit( );
     return false;
   } );
 } );

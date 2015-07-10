@@ -6,6 +6,7 @@
 	width: 350px !important;
 	font-size: 10px;
 	float: left;
+  margin-bottom: 4em;
 
   .thumbnail {
     background-size: 270px;
@@ -14,47 +15,15 @@
   }
 }
 
-#one_color {
-	height: 50px;
-}
-
-#two_color {
-	height: 50px;
-}
-
-#three_color {
-	height: 50px;
-}
-
-#four_color {
-	height: 50px;
-}
-
 .color-length {
 	width: 270px !important;
 	font-size: 11px;
 	font-color: none;
 }
 
-.bar-code {
-	height: 10px;
-	width: 100%;
-	color: #FFFFFF;
-	margin-bottom: 10px;
-}
-
-.color-percent  {
-	float: left;
-}
-
 .color-info {
 	float: left;
 	height: 30px;
-	font-size: 0px;
-	max-width: 65px;
-}
-
-.color-details {
 	font-size: 0px;
 }
 

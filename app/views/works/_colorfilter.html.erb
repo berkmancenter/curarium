@@ -1,32 +1,15 @@
-<% @works.each { |w| %>
-  <div class="color-box">  
+<div class="color-box">  
+  <% @works.each { |w| %>
     <div class="color-viz">
       <%= render partial: 'works/thumbnail', object: w %>
       <div class="color-length">
-        <% if !w.top_colors.nil? %>
+        <% if w.top_colors.present? %>
           <div class="color-code">
-            <div class="color-info"><%= w.top_colors[1]['color'] %></div>
-            <div class="color-info"><%= w.top_colors[2]['color'] %></div>
-            <div class="color-info"><%= w.top_colors[3]['color'] %></div>
-            <div class="color-info"><%= w.top_colors[4]['color'] %></div>
-          </div></br></br>
-
-          <div class="color-details"> 
-            <div class="color-hex"><%= w.top_colors[1]['color'] %> - <%= ((((w.top_colors[1]['percent'])*100)/ (100-((w.top_colors[0]['percent'])*100)))*800).round(2) %>%</div>
-            <div class="color-hex"><%= w.top_colors[2]['color'] %> - <%= ((((w.top_colors[2]['percent'])*100)/ (100-((w.top_colors[0]['percent'])*100)))*800).round(2) %>%</div>
-            <div class="color-hex"><%= w.top_colors[3]['color'] %> - <%= ((((w.top_colors[3]['percent'])*100)/ (100-((w.top_colors[0]['percent'])*100)))*800).round(2) %>%</div>
-            <div class="color-hex"><%= w.top_colors[4]['color'] %> - <%= ((((w.top_colors[4]['percent'])*100)/ (100-((w.top_colors[0]['percent'])*100)))*800).round(2) %>%</div>
-          </div>
-          <div class="bar-code">
-            <div class="color-percent"><%= ((w.top_colors[1]['percent'])*100)/ (100-((w.top_colors[0]['percent'])*100))*800 %></div>
-            <div class="color-percent"><%= ((w.top_colors[2]['percent'])*100)/ (100-((w.top_colors[0]['percent'])*100))*800 %></div>
-            <div class="color-percent"><%= ((w.top_colors[3]['percent'])*100)/ (100-((w.top_colors[0]['percent'])*100))*800 %></div>
-            <div class="color-percent"><%= ((w.top_colors[4]['percent'])*100)/ (100-((w.top_colors[0]['percent'])*100))*800 %></div>
+            <% total = w.top_colors.map { |c| c['percent'] }.reduce(0, :+) %>
+            <%= render partial: 'works/color_info', collection: w.top_colors, locals: { scale: 1 / total } %>
           </div>
         <% end %>
       </div>
     </div>
-  </div>
-<% } %>
-
-
+  <% } %>
+</div>

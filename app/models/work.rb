@@ -184,8 +184,8 @@ class Work < ActiveRecord::Base
   def extract_colors
     histogram = [] 
     if File.exists?( thumbnail_cache_path )
-      #%x[convert #{thumbnail_cache_path} -segment 1x0.5 #{thumbnail_cache_path}.cvt.png]
-      %x[convert #{thumbnail_cache_path} -segment 1x0.5 -format "%c" histogram:info:#{thumbnail_histogram_path}]
+      %x[convert #{thumbnail_cache_path} -segment 1x0.125 #{thumbnail_cache_path}.cvt.png]
+      %x[convert #{thumbnail_cache_path} -segment 1x0.125 -format "%c" histogram:info:#{thumbnail_histogram_path}]
       
       File.open( thumbnail_histogram_path, 'r' ) { |f|
         total_colors = 0.0

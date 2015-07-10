@@ -21,15 +21,16 @@
 	font-color: none;
 }
 
-.color-info {
-	float: left;
-	height: 30px;
-	font-size: 0px;
-}
-
 .color-code {
 	width: 100%;
 	border: 1px solid #D3D3D3;
 	height: 30px;
 	overflow: none;
+}
+
+.color-info {
+  display: block;
+	float: left;
+	height: 30px;
+	font-size: 0px;
 }

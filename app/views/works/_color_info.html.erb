@@ -1,4 +1,4 @@
 <% color = color_info['color'] %>
-<% pct = color_info['percent'] %>
+<% pct = color_info['percent'].round(4) * 100 %>
 <%-# locals: scale %>
-<div class="color-info" style="background: <%= color %>; width: <%= pct * 100 * scale %>%;"></div>
+<a href="#" class="color-info" style="background: <%= color %>; width: <%= pct * scale %>%;" title="<%= color %> (<%= pct %>%)"></a>

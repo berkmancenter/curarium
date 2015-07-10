@@ -5,7 +5,7 @@
       <div class="color-length">
         <% if w.top_colors.present? %>
           <div class="color-code">
-            <% total = w.top_colors.map { |c| c['percent'] }.reduce(0, :+) %>
+            <% total = w.top_colors.map { |c| c['percent'].round(4) }.reduce(0, :+) %>
             <%= render partial: 'works/color_info', collection: w.top_colors, locals: { scale: 1 / total } %>
           </div>
         <% end %>

@@ -15,6 +15,10 @@
  *= require introjs
  */
 
+@import "bootstrap";
+
+@import "bootstrap/theme";
+
 @media screen and (min-width:222px) {.GLOBAL_HOLDER {width: 220px;}}
 @media screen and (min-width:442px) {.GLOBAL_HOLDER {width: 440px;}}
 @media screen and (min-width:662px) {.GLOBAL_HOLDER {width: 660px;}}

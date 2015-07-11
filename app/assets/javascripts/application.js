@@ -13,6 +13,7 @@
 //= require jquery
 //= require jquery.ui.all
 //= require jquery_ujs
+//= require bootstrap-sprockets
 //= require jquery.geo-1.0.0-b2.min
 //= require jquery.magnific-popup.min
 //= require d3

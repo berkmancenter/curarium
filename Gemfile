@@ -23,6 +23,9 @@ gem 'browserid-rails', :git => 'git@github.com:dbp/browserid-rails.git'
 # Use SCSS for stylesheets
 gem 'sass-rails', '~> 4.0.0'
 
+# Use Twitter Bootstrap
+gem 'bootstrap-sass'
+
 #Use jquery-ui for autocomplete
 gem 'rails4-autocomplete'
 

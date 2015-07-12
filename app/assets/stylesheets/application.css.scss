@@ -9,9 +9,14 @@ $navbar-default-border: $white;
 @import "bootstrap/theme";
 
 @import "mini_icons";
+@import "thumbnail";
 @import "header";
 
+@import "gallery";
+
 @import "home";
+
+@import "collections";
 
 /*
  * This is a manifest file that'll be compiled into application.css, which will include all the files

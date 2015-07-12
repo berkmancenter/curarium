@@ -1,7 +1,7 @@
 <div class="container">
 
   <div class="row">
-    <div class="col-md-2">
+    <div class="col-md-2 visible-md">
       <%= image_tag 'animated_icon.gif', class: 'home-gif' %>
     </div>
 
@@ -18,15 +18,21 @@
     </div>
   </div>
 
-  <!-- BEGIN GALLERY -->	
-  <div class="GALLERY">
-    <div class="titlebar">Latest Activity</div> 
+  <h2 class="latest-activity">Latest Activity</h2> 
 
-    <%= render :partial => 'shared/print_item', :locals=>{:item=>@collection,:big=>true} %>
-    <% @all.each do |item| %>
-      <%= render :partial => 'shared/print_item', :locals=>{:item=>item} %>
+  <div class="row gallery">
+    <% if @collection.present? %>
+      <div class="col-sm-8 col-md-4 big">
+        <%= render partial: 'collections/thumbnail', object: @collection %>
+      </div>
     <% end %>
-  </div><!-- END GALLERY -->
+
+    <% @all.each do |item| %>
+      <div class="col-xs-12 col-sm-4 col-md-2">
+        <%= render partial: "#{item.class.to_s.pluralize(2)}/thumbnail", object: item %>
+      </div>
+    <% end %>
+  </div>
 
 </div>
 

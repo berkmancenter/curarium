@@ -84,9 +84,6 @@
           var value = sel+":"+val;
           props.append( $.visControls.propHtml( className, value, val ) );
           $( '#propval' ).val('');
-          $( "#propval" ).autocomplete({
-            source: _options
-          });
         }
       } );
 

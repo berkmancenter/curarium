@@ -11,8 +11,8 @@
 // about supported directives.
 //
 //= require jquery
-//= require jquery.ui.all
 //= require jquery_ujs
+//= require jquery-ui/droppable
 //= require bootstrap-sprockets
 //= require jquery.geo-1.0.0-b2.min
 //= require jquery.magnific-popup.min
@@ -20,6 +20,5 @@
 //= require kinetic-v5.0.1.min
 //= require simple.js
 //= require browserid
-//= require_tree 
-//= require autocomplete-rails
 //= require introjs
+//= require_tree 

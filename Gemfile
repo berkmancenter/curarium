@@ -26,9 +26,6 @@ gem 'sass-rails', '~> 4.0.0'
 # Use Twitter Bootstrap
 gem 'bootstrap-sass'
 
-#Use jquery-ui for autocomplete
-gem 'rails4-autocomplete'
-
 # Use Uglifier as compressor for JavaScript assets
 gem 'uglifier', '>= 1.3.0'
 
@@ -37,6 +34,7 @@ gem 'coffee-rails', '~> 4.0.0'
 
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
+
 # Use jquery-ui
 gem 'jquery-ui-rails'
 

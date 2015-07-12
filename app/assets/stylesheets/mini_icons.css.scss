@@ -1,18 +1,14 @@
 @import "colors";
 
 .mini-icon {
-  margin: 0 1em;
-
   &.mini-icon-no-title {
     margin: 0;
   }
 }
   
 .mini-icon-title {
-  color: $black;
   display: inline-block;
-  line-height: 16px;
-  margin: 0 .25em;
+  margin: 0 .3em;
   vertical-align: top;
   white-space: nowrap;
 }
@@ -21,6 +17,7 @@
   background-image: url('icons.png');
   display: inline-block;
   height: 16px;
+  margin-top: .15em;
   width: 16px;
 }
 

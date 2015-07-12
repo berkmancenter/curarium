@@ -1,3 +1,16 @@
+@import "colors";
+
+$font-family-sans-serif: "Open Sans", Arial, sans-serif;
+
+$navbar-default-bg: $white;
+$navbar-default-border: $white;
+
+@import "bootstrap";
+@import "bootstrap/theme";
+
+@import "mini_icons";
+@import "header";
+
 /*
  * This is a manifest file that'll be compiled into application.css, which will include all the files
  * listed below.
@@ -14,10 +27,4 @@
  *= require_self
  *= require_tree
  */
-
-$font-family-sans-serif: "Open Sans", Arial, sans-serif;
-
-@import "bootstrap";
-
-@import "bootstrap/theme";
 

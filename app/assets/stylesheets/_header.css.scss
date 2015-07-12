@@ -1,0 +1,22 @@
+.navbar-default {
+  text-transform: uppercase;
+
+  .navbar-nav {
+
+    li > a.persona-button {
+      color: $gray-lighter;
+
+      span {
+        padding-bottom: 0;
+        padding-top: 0;
+      }
+    }
+  }
+}
+
+@media (min-width: 979px) {
+  ul.nav li.dropdown:hover > ul.dropdown-menu {
+    display: block;
+  }
+}
+

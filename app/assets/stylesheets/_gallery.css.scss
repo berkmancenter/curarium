@@ -4,13 +4,13 @@
 .gallery {
   .gallery-item {
     height: 208px;
-    width: 208px;
+    width: 100%;
   }
 
   .big {
     .gallery-item {
       height: 464px;
-      width: 464px;
+      width: 100%;
     }
   }
 }
@@ -25,8 +25,8 @@
 
   .big {
     .gallery-item {
-      height: 464px;
-      width: 464px;
+      height: 466px;
+      width: 476px;
     }
   }
 }
@@ -42,8 +42,8 @@
 
   .big {
     .gallery-item {
-      height: 432px;
-      width: 432px;
+      height: 434px;
+      width: 452px;
     }
   }
 }
@@ -59,8 +59,8 @@
 
   .big {
     .gallery-item {
-      height: 320px;
-      width: 320px;
+      height: 322px;
+      width: 348px;
     }
   }
 }

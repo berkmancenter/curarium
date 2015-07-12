@@ -2,6 +2,9 @@
 /* No media query since this is the default in Bootstrap */
 
 .gallery {
+  margin-bottom: -232px;
+  overflow: hidden;
+
   .gallery-item {
     height: 208px;
     width: 100%;
@@ -18,6 +21,8 @@
 /* Small devices (tablets, 768px and up) */
 @media (min-width: $screen-sm-min) {
 .gallery {
+  margin-bottom: -248px;
+
   .gallery-item {
     height: 224px;
     width: 224px;
@@ -35,6 +40,8 @@
 /* Medium devices (desktops, 992px and up) */
 @media (min-width: $screen-md-min) {
 .gallery {
+  margin-bottom: -232px;
+
   .gallery-item {
     height: 208px;
     width: 208px;
@@ -52,6 +59,8 @@
 /* Large devices (large desktops, 1200px and up) */
 @media (min-width: $screen-lg-min) {
 .gallery {
+  margin-bottom: -176px;
+
   .gallery-item {
     height: 152px;
     width: 152px;

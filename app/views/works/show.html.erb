@@ -1,22 +1,3 @@
-<script>
-  window.onload = function() {
-    // TODO: This should not be handled in JavaScript
-    // view can do this on server
-    // surrogates can be simple hyperlinks
-    <% image = params[:image].to_i || 0%>
-    window.work.display('<%= work_image_path @work, image %>');
-    $('img.surrogate_thumbnail').each( function(i) {
-      $(this).click(function(e){
-        window.location = "?image="+i
-      });
-    });
-  };
-
-  function recordIntro() {
-    introJs().start();
-  }
-</script>
-
 <!-- BEGIN SUB MENU --> 
 <div class="SUB_MENU bubble_menu">
   <a onclick="recordIntro()">Click for instructions</a> 

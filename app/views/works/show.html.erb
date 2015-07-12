@@ -1,58 +1,80 @@
-<!-- BEGIN SUB MENU --> 
-<div class="SUB_MENU bubble_menu">
-  <a onclick="recordIntro()">Click for instructions</a> 
-  <table class="works_info">
-    <tr class="metadata_box">
-      <td class="parsed_button">
-        <div class="menu_piecep">
-          <label for='parsed_id'><span class="button" title="Parsed Information" data-intro="Click to view parsed meta-data" data-start="1">P</span></label>
-        </div>
-      </td>
-      <td class="parsed_info">
-        <input type='radio' class='checkbox_hack' id='parsed_id' name="recordoption">
-        <div class="expand_pi">
-          <!-- THIS IS WHERE THE PARSED WORK INFORMATION GOES -->
-          <%= render :partial => 'shared/print_metadata', :locals=>{:original=>@work.parsed,:current=>@current_metadata,:class_name=>'printed_object',:id_name=>'parsed_work'} %>
-        </div>
-      </td>
-    </tr>
+<div class="work-canvas"></div>
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-sm-2">
+      <p><a href="javascript:void(0);">Click for instructions</a></p>
+    </div>
+  </div>
 
-    <tr class="surrogates_box">
-      <td class="surrogates_button">
-        <div class="menu_pieces">
-          <label for='surrogates_id'><span class="button" title="Surrogate images" data-intro="Click to view surrogate images" data-start="2">S</span></label>
-        </div>
-      </td>
-      <td class="surrogate_info">
-        <input type='radio' class='checkbox_hack' id='surrogates_id' name="recordoption">
-        <div class="expand_surr">
-          <!-- THIS IS WHERE THE SURROGATE IMAGES GO -->
-          <nav>
-          <% @work.images.each { |i| %>
-            <%= image_tag i.thumbnail_url, class: 'surrogate_thumbnail', alt: '' %>
-          <% } %>
-          </nav>
-        </div>
-      </td>
-    </tr>
+  <div class="row">
+    <div class="col-sm-1">
+      <ul class="nav nav-pills nav-stacked">
+        <li><a href="#" data-panel="metadata"><%= render partial: 'shared/mini_icon', object: 'parsed', locals: { icon_title: nil } %></a></li>
+        <li><a href="#" data-panel="surrogates"><%= render partial: 'shared/mini_icon', object: 'surrogate', locals: { icon_title: nil } %></a></li>
+        <li><a href="#" data-panel="trays"><%= render partial: 'shared/mini_icon', object: 'tray', locals: { icon_title: nil } %></a></li>
 
-    <tr class="tray_box">
-      <td class="tray_button">
-        <div class="menu_piecet">
-          <label for='add_id'><span class="button" title="Add to trays" data-intro="Click to view trays. Note: You need to be logged in." data-start="3">T</span></label>
+        <% if authenticated? && @work.collection.admins.include?( current_user ) %>
+        <li><a href="#" data-panel="admin"><%= render partial: 'shared/mini_icon', object: 'user', locals: { icon_title: nil } %></a></li>
+        <% end %>
+      </ul>
+    </div>
+
+    <div class="col-sm-2">
+      <div id="panel-metadata" class="panel panel-default">
+        <div class="panel-heading">Metadata</div>
+        <div class="panel-body">
+          <dl>
+            <% @work.parsed.each { |k, v| %>
+              <dt><%= k %></dt>
+              <dd><%= v %></dd>
+            <% } %>
+          </dl>
         </div>
-      </td>
-      <td class="tray_info">
-        <input type='radio' class='checkbox_hack' id='add_id' name="recordoption">
-        <div class="expand_tray">
+      </div>
+
+      <div id="panel-surrogates" class="panel panel-default">
+        <div class="panel-heading">Surrogates</div>
+        <div class="panel-body">
+          <ul class="list-group">
+            <% @work.images.each { |i| %>
+              <li class="list-group-item"><%= image_tag "#{i.thumbnail_url}?width=150&height=150", class: 'surrogate_thumbnail', alt: '' %></li>
+            <% } %>
+          <ul>
+        </div>
+      </div>
+
+      <div id="panel-trays" class="panel panel-default">
+        <div class="panel-heading">Trays</div>
+        <div class="panel-body">
           <% if authenticated? %>
             <%= render template: 'trays/popup', layout: false %>
           <% else %>
             <%= login_link 'Log in' %>
           <% end %>
         </div>
-      </td>
-    </tr>
+      </div>
+
+      <% if authenticated? && @work.collection.admins.include?( current_user ) %>
+      <div id="panel-admin" class="panel panel-default">
+        <div class="panel-heading">Admin</div>
+        <div class="panel-body">
+          <dl>
+            <dt>Collection</dt>
+            <dd><%= @work.collection.name %></dd>
+
+            <%= render partial: 'works/cover_form', object: @work %>
+          </dl>
+        </div>
+      </div>
+      <% end %>
+    </div>
+  </div>
+</div>
+
+<!--
+<div class="SUB_MENU bubble_menu">
+  <table class="works_info">
+
 
     <tr class="anno_box">
       <td class="anno_button">
@@ -129,29 +151,8 @@
     <% end %>
   </table>
 
-</div><!-- END SUB MENU -->  
+</div>
 
-<div  id='main-canvas' class="WORK"></div>
-
-<script>
-var allRadios = document.getElementsByName('recordoption');
-var booRadio;
-var x = 0;
-for(x = 0; x < allRadios.length; x++){
-
-        allRadios[x].onclick = function(){
-
-            if(booRadio == this){
-                this.checked = false;
-        booRadio = null;
-            }else{
-            booRadio = this;
-        }
-        };
-
-}
-</script> 
-<!-- BEGIN COLLECTION CREDIT -->
 <div class="credit">Collection provided by <%= @work.collection.source %></div>
-<!-- END COLLECTION CREDIT -->
+-->  
 

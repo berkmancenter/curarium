@@ -9,6 +9,17 @@ $( function() {
     return false;
   } );
 
+  $( '.works.show' ).on( 'click', '.nav a', function( ) {
+    var panel = $( '#panel-' + $( this ).data( 'panel' ) );
+    if ( panel.is( ':visible' ) ) {
+      panel.hide();
+    } else {
+      $( '.panel' ).hide();
+      panel.show();
+    }
+    return false;
+  } );
+
   $( '.works.show' ).on( 'ajax:success', '.edit_work_set_cover', function( xhr, result ) {
     $( this ).replaceWith( result );
   } );

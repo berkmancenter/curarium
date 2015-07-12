@@ -3,12 +3,14 @@
 
 .gallery {
   .gallery-item {
-    /*height: 8em;*/
+    height: 208px;
+    width: 208px;
   }
 
   .big {
     .gallery-item {
-      /*height: 16em;*/
+      height: 464px;
+      width: 464px;
     }
   }
 }
@@ -32,6 +34,19 @@
 
 /* Medium devices (desktops, 992px and up) */
 @media (min-width: $screen-md-min) {
+.gallery {
+  .gallery-item {
+    height: 208px;
+    width: 208px;
+  }
+
+  .big {
+    .gallery-item {
+      height: 432px;
+      width: 432px;
+    }
+  }
+}
 }
 
 /* Large devices (large desktops, 1200px and up) */

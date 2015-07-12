@@ -1,5 +1,7 @@
 @import "colors";
 
+$brand-primary: $cred;
+
 $font-family-sans-serif: "Open Sans", Arial, sans-serif;
 
 $navbar-default-bg: $white;
@@ -17,6 +19,8 @@ $navbar-default-border: $white;
 @import "home";
 
 @import "collections";
+
+@import "footer";
 
 /*
  * This is a manifest file that'll be compiled into application.css, which will include all the files

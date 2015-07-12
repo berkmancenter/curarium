@@ -1,0 +1,15 @@
+footer {
+  font-size: .8em;
+  line-height: 1em;
+
+  .navbar {
+    max-height: none;
+    margin-bottom: 0;
+    border-top: 1px solid $brand-primary;
+    box-shadow: none;
+  }
+
+  .navbar-brand {
+    font-size: 1em;
+  }
+}

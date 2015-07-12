@@ -14,13 +14,11 @@
 	</head>
 
   <body class="<%= "#{params[ :controller ]} #{params[ :action ]}" %>">
-	  <div class="GLOBAL_HOLDER">
-	    <%= render 'shared/header'%>
+    <%= render 'shared/header'%>
 
-	    <%= yield %>
-	      
-		  <%= render 'shared/footer'%>      
-	  </div>
+    <%= yield %>
+      
+    <%= render 'shared/footer'%>      
 
 		<%= javascript_include_tag "application" %>
 

@@ -22,13 +22,13 @@
 
   <div class="row gallery">
     <% if @collection.present? %>
-      <div class="col-sm-8 col-md-4 big">
+      <div class="col-sm-8 col-md-4 col-lg-4 big" style="background:red;">
         <%= render partial: 'collections/thumbnail', object: @collection %>
       </div>
     <% end %>
 
     <% @all.each do |item| %>
-      <div class="col-xs-12 col-sm-4 col-md-2">
+      <div class="col-xs-12 col-sm-4 col-md-2 col-lg-2" style="background:blue;">
         <%= render partial: "#{item.class.to_s.pluralize(2)}/thumbnail", object: item %>
       </div>
     <% end %>

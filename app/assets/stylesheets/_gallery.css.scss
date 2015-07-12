@@ -1,11 +1,53 @@
+/* Extra small devices (phones, less than 768px) */
+/* No media query since this is the default in Bootstrap */
+
 .gallery {
   .gallery-item {
-    height: 12em;
+    /*height: 8em;*/
   }
 
   .big {
     .gallery-item {
-      height: 25.2em;
+      /*height: 16em;*/
     }
   }
 }
+
+/* Small devices (tablets, 768px and up) */
+@media (min-width: $screen-sm-min) {
+.gallery {
+  .gallery-item {
+    height: 224px;
+    width: 224px;
+  }
+
+  .big {
+    .gallery-item {
+      height: 464px;
+      width: 464px;
+    }
+  }
+}
+}
+
+/* Medium devices (desktops, 992px and up) */
+@media (min-width: $screen-md-min) {
+}
+
+/* Large devices (large desktops, 1200px and up) */
+@media (min-width: $screen-lg-min) {
+.gallery {
+  .gallery-item {
+    height: 152px;
+    width: 152px;
+  }
+
+  .big {
+    .gallery-item {
+      height: 320px;
+      width: 320px;
+    }
+  }
+}
+}
+

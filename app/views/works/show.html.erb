@@ -7,7 +7,7 @@
   </div>
 
   <div class="row">
-    <div class="col-sm-1">
+    <div class="col-sm-1 col-md-1 col-lg-1">
       <ul class="nav nav-pills nav-stacked">
         <li><a href="#" data-panel="metadata"><%= render partial: 'shared/mini_icon', object: 'parsed', locals: { icon_title: nil } %></a></li>
         <li><a href="#" data-panel="surrogates"><%= render partial: 'shared/mini_icon', object: 'surrogate', locals: { icon_title: nil } %></a></li>
@@ -19,7 +19,7 @@
       </ul>
     </div>
 
-    <div class="col-sm-2">
+    <div class="col-sm-4 col-lg-3">
       <div id="panel-metadata" class="panel panel-default">
         <div class="panel-heading">Metadata</div>
         <div class="panel-body">
@@ -46,11 +46,13 @@
       <div id="panel-trays" class="panel panel-default">
         <div class="panel-heading">Trays</div>
         <div class="panel-body">
-          <% if authenticated? %>
-            <%= render template: 'trays/popup', layout: false %>
-          <% else %>
-            <%= login_link 'Log in' %>
-          <% end %>
+          <div class="trays-container">
+            <% if authenticated? %>
+              <%= render template: 'trays/popup', layout: false %>
+            <% else %>
+              <%= login_link 'Log in' %>
+            <% end %>
+          </div>
         </div>
       </div>
 

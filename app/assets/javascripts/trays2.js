@@ -116,7 +116,7 @@ $( function() {
       if ( $( '.mfp-content' ).length ) {
         $.magnificPopup.instance.close();
       } else {
-        popup.closest( '.expand_tray' ).html( popupHtml );
+        popup.closest( '.trays-container' ).html( popupHtml );
         popup.closest( '.tray_info' ).find( '.checkbox_hack' ).click( );
       }
     } )
@@ -142,7 +142,7 @@ $( function() {
           }
         } );
       } else {
-        $form.closest( '.expand_tray' ).html( popupHtml );
+        $form.closest( '.trays-container' ).html( popupHtml );
       }
     } );
     return false;

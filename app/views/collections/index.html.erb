@@ -1,15 +1,13 @@
-<!-- BEGIN SUB MENU -->	
-<div class="SUB_MENU">
-  <div class="expandable"><%= link_to 'Click for navigation instructions', '/help', target:"_blank" %></div>
-</div>
-<!-- END SUB MENU -->	
+<div class="container">
 
-<!-- BEGIN GALLERY -->	     
-<div class="GALLERY">
-  <% @collections.each do |collection| %>
-    <%= render :partial=>'shared/print_item', :locals=>{:item=>collection} %>
-  <% end %>
+  <div class="row">
+    <p><%= link_to 'Click for navigation instructions', '/help', target:"_blank" %></p>
+  </div>
 
-  <%= render partial: 'shared/newnail', object: Collection, locals: { verb: 'add' } if authenticated? %>
+  <h2>Collections</h2> 
+
+  <%= render partial: 'shared/gallery', object: @collections %>
 </div>
-<!-- END GALLERY -->  
+
+
+<%#= render partial: 'shared/newnail', object: Collection, locals: { verb: 'add' } if authenticated? %>

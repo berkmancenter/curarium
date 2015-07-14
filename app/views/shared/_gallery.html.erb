@@ -1,3 +1,5 @@
+<% col_classes = 'col-xs-6 col-sm-4 col-md-3 col-lg-2' %>
+
 <div class="row gallery">
   <% if defined?( big ) && big.present? %>
     <div class="col-xs-16 col-sm-8 col-md-6 col-lg-4 big">
@@ -6,9 +8,13 @@
   <% end %>
 
   <% gallery.each do |item| %>
-    <div class="col-xs-6 col-sm-4 col-md-3 col-lg-2">
+    <div class="<%= col_classes %>">
       <%= render partial: "#{item.class.to_s.pluralize(2)}/thumbnail", object: item %>
     </div>
   <% end %>
+
+  <div class="<%= col_classes %>">
+    <%= render partial: 'shared/newnail', object: newnail if ( defined?( newnail ) && authenticated? ) %>
+  </div>
 </div>
 

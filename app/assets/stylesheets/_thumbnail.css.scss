@@ -1,20 +1,42 @@
-a.thumbnail, div.thumbnail {
+a.thumbnail {
   background-repeat: no-repeat;
   background-position: center center;
-  background-size: 110%;
+  background-size: contain;
   position: relative;
 
-  img {
-    height: 100%;
-    margin: 0 auto;
-  }
-
   .title {
-    background-color: $cred;
+    background-color: $brand-primary;
     color: $white;
+    font-size: .8em;
+    max-height: 4em;
+    max-width: 60%;
+    overflow: hidden;
     padding: 0 .5em .25em .5em;
     position: absolute;
     right: 0;
+    text-overflow: ellipsis;
     top: 0;
+    white-space: nowrap;
+  }
+}
+
+a.newnail-thumbnail {
+  background: none;
+  color: $brand-primary;
+  padding-top: 3em;
+
+  span {
+    display: block;
+  }
+
+  .glyphicon {
+    font-size: 5em;
+    font-weight: bold;
+    text-align: center;
+  }
+
+  .command {
+    font-size: .8em;
+    font-weight: bold;
   }
 }

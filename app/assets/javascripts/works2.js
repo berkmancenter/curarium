@@ -9,7 +9,7 @@ $( function() {
     return false;
   } );
 
-  $( '.works.show' ).on( 'click', '.nav a', function( ) {
+  $( '.works.show' ).on( 'click', '.nav-works a', function( ) {
     var panel = $( '#panel-' + $( this ).data( 'panel' ) );
     if ( panel.is( ':visible' ) ) {
       panel.hide();

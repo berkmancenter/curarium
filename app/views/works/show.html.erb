@@ -19,7 +19,7 @@
       </ul>
     </div>
 
-    <div class="col-sm-6 col-md-5 col-lg-4">
+    <div class="col-sm-6 col-md-5 col-lg-3">
       <div id="panel-metadata" class="panel panel-default">
         <div class="panel-heading">Metadata</div>
         <div class="panel-body">
@@ -35,11 +35,9 @@
       <div id="panel-surrogates" class="panel panel-default">
         <div class="panel-heading">Surrogates</div>
         <div class="panel-body">
-          <ul class="list-group">
-            <% @work.images.each { |i| %>
-              <li class="list-group-item"><%= image_tag "#{i.thumbnail_url}?width=150&height=150", class: 'surrogate_thumbnail', alt: '' %></li>
-            <% } %>
-          <ul>
+          <% @work.images.each_with_index { |image, i| %>
+            <%= link_to image_tag( "#{image.thumbnail_url}?width=150&height=150", alt: '' ), work_surrogate_path( @work, i ), class: 'thumbnail' %>
+          <% } %>
         </div>
       </div>
 
@@ -131,26 +129,6 @@
       </td>
     </tr>
 
-    <% if authenticated? && @work.collection.admins.include?( current_user ) %>
-    <tr class="admin_box">
-      <td class="admin_button">
-        <div class="menu_pieced">
-          <label for="admin_id"><span class="button" title="Collection Admin" data-intro="Click to administer this record's collection." data-start="5">A</span></label>
-        </div>
-      </td>
-      <td class="admin_info">
-        <input type="radio" class="checkbox_hack" id="admin_id" name="recordoption">
-        <div class="expand_admin">
-          <dl>
-            <dt>Collection</dt>
-            <dd><%= @work.collection.name %></dd>
-
-            <%= render partial: 'works/cover_form', object: @work %>
-          </dl>
-        </div>
-      </td>
-    </tr>
-    <% end %>
   </table>
 
 </div>

@@ -198,7 +198,7 @@ class WorksController < ApplicationController
     @trays = @owner.all_trays unless @owner.nil?
     @popup_action = 'add'
     @popup_action_type = 'Image'
-    @popup_action_item_id = @work.images.first.id
+    @popup_action_item_id = @image.id
 
     if @work.amendments.length > 0
       @current_metadata = @work.amendments.last.amended
@@ -313,6 +313,11 @@ class WorksController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_work
       @work = Work.find(params[:id])
+      if params[ :image ].present?
+        @image = @work.images[ params[ :image ].to_i ]
+      else
+        @image = @work.images.first
+      end
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

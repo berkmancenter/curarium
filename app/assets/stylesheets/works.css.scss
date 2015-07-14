@@ -29,7 +29,8 @@
 .works {
   &.show {
     .work-canvas {
-      background: $brand-primary;
+      background-repeat: no-repeat;
+      background-size: contain;
       bottom: $navbar-height;
       left: 0;
       position: absolute;

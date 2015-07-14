@@ -32,31 +32,11 @@
 }
 
 .tray-popup {
-  background: $white;
-  border: solid 1px $cred;
-  color: $cred;
-  font-size: 11px;
-  padding: 1em;
-  position: relative;
-
-  h1 {
-    font-size: 11px;
-    font-weight: normal;
-    margin-bottom: 20px;
-    text-transform: uppercase;
-  }
-  
   .tray-popup-button {
-    display: block;
     &.item-in, &:hover {
     }
 
     &.item-in:hover {
     }
   }
-}
-
-.expand_tray .tray-popup {
-  border: none;
-  margin: 0;
 }

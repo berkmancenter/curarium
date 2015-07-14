@@ -1,21 +1,23 @@
 <div class="tray-popup" data-action="<%= @popup_action %>" data-action-item-type="<%= @popup_action_type %>" data-action-item-id="<%= @popup_action_item_id %>">
-  <h1>Your Trays</h1>
-
   <div class="list-group">
     <% @trays.each { |tray| %>
-      <button type="button" class="list-group-item tray-popup-button <%= item_included_class( tray, @popup_action_type, @popup_action_item_id ) %>" data-tray-id="<%= tray.id %>"><%= tray.name %> (<%= tray.tray_items.count %>)</button>
+      <button type="button" class="list-group-item tray-popup-button <%= item_included_class( tray, @popup_action_type, @popup_action_item_id ) %>" data-tray-id="<%= tray.id %>"><span class="badge"><%= tray.tray_items.count %></span> <%= tray.name %></button>
     <% } unless @trays.nil? %>
   </div>
 
 <% if @owner.present? %>
-  <%= form_for [ @owner, Tray.new ], url: user_trays_path( user_id: @owner.id ), method: :post, class: 'form-inline' do |f| %>
+  <%= form_for [ @owner, Tray.new ], url: user_trays_path( user_id: @owner.id ), method: :post, html: { class: 'new_tray form-inline' } do |f| %>
     <input type="hidden" name="popup_action" value="<%= @popup_action %>">
     <input type="hidden" name="popup_action_item_type" value="<%= @popup_action_type %>">
     <input type="hidden" name="popup_action_item_id" value="<%= @popup_action_item_id %>">
 
     <%= f.hidden_field :owner_id, value: @owner.id %>
     <%= f.hidden_field :owner_type, value: 'User' %>
-    <%= f.text_field :name, placeholder: 'Create New Tray' %>
+
+    <div class="form-group">
+      <%= f.label :name, 'Create New Tray', class: 'sr-only' %>
+      <%= f.text_field :name, placeholder: 'Create New Tray', class: 'form-control' %>
+    </div>
     <%= f.button 'create', type: 'submit', name: nil, class: 'btn btn-default' %>
   <% end %>
 <% end %>

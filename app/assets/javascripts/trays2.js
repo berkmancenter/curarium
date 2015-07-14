@@ -145,6 +145,7 @@ $( function() {
         $form.closest( '.trays-container' ).html( popupHtml );
       }
     } );
+    e.preventDefault();
     return false;
   } );
 

@@ -24,14 +24,14 @@
     border: solid 1px $cred;
     color: $cred;
     display: none;
-    font-size: 11px;
+    font-size: $font-size-base;
     margin: 0 auto;
     max-width: 40%;
     padding: 4em;
     position: relative;
 
     h1 {
-      font-size: 11px;
+      font-size: $font-size-base;
       font-weight: normal;
       text-transform: uppercase;
     }
@@ -49,7 +49,7 @@
       border: solid 1px $cred;
       color: $cred;
       display: block;
-      font-size: 11px;
+      font-size: $font-size-small;
       margin: 20px auto 0;
       padding: 5px 20px;
 

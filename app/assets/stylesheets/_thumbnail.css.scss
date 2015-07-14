@@ -7,7 +7,7 @@ a.thumbnail {
   .title {
     background-color: $brand-primary;
     color: $white;
-    font-size: .8em;
+    font-size: $font-size-small;
     max-height: 4em;
     max-width: 60%;
     overflow: hidden;
@@ -23,7 +23,7 @@ a.thumbnail {
 a.newnail-thumbnail {
   background: none;
   color: $brand-primary;
-  padding-top: 3em;
+  padding-top: 2em;
 
   span {
     display: block;
@@ -36,7 +36,7 @@ a.newnail-thumbnail {
   }
 
   .command {
-    font-size: .8em;
+    font-size: $font-size-large;
     font-weight: bold;
   }
 }

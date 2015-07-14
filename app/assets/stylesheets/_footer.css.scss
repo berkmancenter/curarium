@@ -1,5 +1,5 @@
 footer {
-  font-size: .8em;
+  font-size: $font-size-small;
   line-height: 1em;
 
   .navbar {
@@ -10,6 +10,6 @@ footer {
   }
 
   .navbar-brand {
-    font-size: 1em;
+    font-size: $font-size-small;
   }
 }

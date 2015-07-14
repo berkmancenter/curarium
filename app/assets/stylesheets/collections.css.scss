@@ -1,6 +1,6 @@
 .collections.show {
   .importing-note {
-    font-size: 0.75em;
+    font-size: $font-size-base;
     margin: 0.5em;
     outline: 2px solid $cred;
     padding: 0.5em;
@@ -13,7 +13,7 @@
     color: $cred;
     cursor: pointer;
     display: block;
-    font-size: 11px;
+    font-size: $font-size-small;
     margin: 0 0 1em 3em;
     padding: .25em .5em;
 

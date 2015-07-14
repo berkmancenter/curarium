@@ -1,27 +1,3 @@
-.work_thumbnail {
-  padding: 5px;
-  width: 75px;
-  height: 75px;
-  margin: 5px;
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
-  float: left;
-  position: relative;
-
-  h3{
-	  font-size: 6pt;
-    position: absolute;
-    background: #d2232a;
-    color: white;
-    width: 100%;
-    bottom: 0;
-    left: 0;
-    height: 3em;
-    overflow: hidden;
-  }
-}
-
 .introjs-tooltip{
   left: -0.5px !important;  
 }
@@ -109,7 +85,7 @@
 
     h2 {
       padding-bottom: -10px;
-      font-size: 12px;
+      font-size: $font-size-base;
       width: 400px;
     }
 

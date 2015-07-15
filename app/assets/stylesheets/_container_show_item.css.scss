@@ -1,0 +1,51 @@
+/* show view for collection, user, circle, and tray */
+
+.container-show-item {
+
+  /* Extra small devices (phones, less than 768px) */
+  /* No media query since this is the default in Bootstrap */
+
+  .col-info {
+    .thumbnail {
+      height: 14em;
+    }
+  }
+
+  /* Small devices (tablets, 768px and up) */
+  @media (min-width: $screen-sm-min) {
+
+    .col-info {
+      .thumbnail {
+        height: 14em;
+      }
+
+      .list-group {
+        font-size: $font-size-small;
+      }
+    }
+
+  }
+
+  /* Medium devices (desktops, 992px and up) */
+  @media (min-width: $screen-md-min) {
+
+    .col-info {
+      .thumbnail {
+        height: 10em;
+      }
+    }
+
+  }
+
+  /* Large devices (large desktops, 1200px and up) */
+  @media (min-width: $screen-lg-min) {
+
+    .col-info {
+      .thumbnail {
+        height: 12em;
+      }
+    }
+
+  }
+
+}

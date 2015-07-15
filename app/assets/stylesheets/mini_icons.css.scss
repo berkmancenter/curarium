@@ -1,6 +1,8 @@
 @import "colors";
 
 .mini-icon {
+  white-space: nowrap;
+
   &.mini-icon-no-title {
     margin: 0;
   }
@@ -10,7 +12,6 @@
   display: inline-block;
   margin: 0 .3em;
   vertical-align: top;
-  white-space: nowrap;
 }
 
 .mini-icon-icon {

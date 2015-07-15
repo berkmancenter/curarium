@@ -1,6 +1,56 @@
-<!-- BEGIN ABOUT CONTENT -->	
+<div class="container container-show-item">
+
+  <div class="row">
+    <div class="col-sm-4 col-md-3 col-lg-2 col-info">
+      <h2 class="h5 page-header">Collection</h2>
+        <%= render partial: 'collections/thumbnail', object: @collection %>
+
+        <div class="list-group">
+          <%= link_to render( partial: 'shared/mini_icon', object: 'spotlight', locals: { icon_title: 'Associated Spotlights' } ), spotlights_path, class: 'list-group-item' %>
+          <%= link_to render( partial: 'shared/mini_icon', object: 'explore' ), collection_works_path( @collection ), class: 'list-group-item' %>
+        </div>
+    </div>
+
+    <div class="col-sm-8 col-md-6 col-lg-7 col-detail">
+      <h2 class="h5 page-header"><%= @collection.name %></h2>
+
+      <p><%= @collection.description %></p>
+
+      <h2 class="h5 page-header">At a Glance</h2>
+
+      <%= render partial: 'shared/gallery', object: @all, locals: { col_classes: 'col-xs-6 col-sm-6 col-md-6 col-lg-4' } %>
+
+      <h2 class="h5 page-header">Spotlights</h2>
+
+    </div>
+
+    <div class="col-sm-2 col-md-3 col-activity hidden-sm">
+      <h2 class="h5 page-header">Latest Activity</h2>
+    </div>
+
+  <%#= render partial: 'shared/gallery', object: @all, locals: { big: @collection } %>
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!--
 <div class="about_content">
-	<!-- left content -->
   <div class="left"><div class="holder col-sidebar">
     <div class="titlebar main"><%= render partial: 'shared/mini_icon', object: 'collection' %></div>
 		<div class="profile_img" style="background: url('<%= @collection.cover_url %>') no-repeat center center; background-size: cover;">&nbsp;</div>   
@@ -23,11 +73,9 @@
             </ul>
         	</div>
         </div> 
-    </div></div><!-- end left content -->
+    </div></div>
     
-    <!-- middle content -->
     <div class="expandable"><div class="holder">
-			<!-- ABOUT CONTENT -->
       <div class="titlebar to_about"><%= @collection.name %><%= ' (importing)' unless !@collection.importing %></div>
 		<div class="cont_about">
       <% if @collection.importing %>
@@ -36,22 +84,18 @@
 			<%= @collection.description %>
 		</div>
    		
-   		<!-- COLLECTION CONTENT -->
     	<div class="titlebar to_spot">At a glance</div>
 		<div class="GALLERY">
-		<!--The new thing goes here-->
 		<% @all.each do |item| %>
 	    <%= render :partial => 'shared/print_item', :locals=>{:item=>item} %>
 		<% end %>
 
-			</div><!-- end GALLERY --> 
-    </div></div><!-- end middle content -->
+			</div>
+    </div></div>
 
-	<!-- right content -->
      <div class="right"><div class="holder latest-activity">
      		<div class="titlebar">Latest Activity</div>
 
-     			<!-- an activity -->
 				<table class="activity_holder"><tr>
 				<td  class="date">
           <%= @collection.created_at.strftime '%d.%m.%y' %>&nbsp; - <%= render partial: 'shared/mini_icon', object: 'collection', locals: { icon_title: nil } %>
@@ -60,10 +104,8 @@
             <span><%= @collection.admins.first.name %> created this collection</span>
           <% end %>
 				</td></tr></table>
-     			<!-- an activity -->
-     </div></div><!-- end right content -->    
-</div><!-- END ABOUT CONTENT -->	
-
-<!-- BEGIN GALLERY -->	
+     </div></div>
+</div>
+-->
 
 

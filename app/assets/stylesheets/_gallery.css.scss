@@ -23,46 +23,52 @@
 
 /* Small devices (tablets, 768px and up) */
 @media (min-width: $screen-sm-min) {
-.home.index .gallery {
-  margin-bottom: -248px;
-}
-
-.gallery {
-
-  .gallery-item {
-    height: 224px;
-    width: 224px;
+  .home.index .gallery {
+    margin-bottom: -248px;
   }
 
-  .big {
+  .gallery {
     .gallery-item {
-      height: 466px;
-      width: 476px;
+      height: 224px;
+      width: 224px;
+    }
+
+    .big {
+      .gallery-item {
+        height: 466px;
+        width: 476px;
+      }
     }
   }
-}
 }
 
 /* Medium devices (desktops, 992px and up) */
 @media (min-width: $screen-md-min) {
-.home.index .gallery {
-  margin-bottom: -232px;
-}
-
-.gallery {
-
-  .gallery-item {
-    height: 208px;
-    width: 208px;
+  .home.index .gallery {
+    margin-bottom: -232px;
   }
 
-  .big {
+  .gallery {
+
     .gallery-item {
-      height: 434px;
-      width: 452px;
+      height: 208px;
+      width: 208px;
+    }
+
+    .big {
+      .gallery-item {
+        height: 434px;
+        width: 452px;
+      }
     }
   }
-}
+
+  .col-detail .gallery {
+    .gallery-item {
+      height: 192px;
+      width: 192px;
+    }
+  }
 }
 
 /* Large devices (large desktops, 1200px and up) */

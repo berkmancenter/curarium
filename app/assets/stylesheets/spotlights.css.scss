@@ -1,34 +1,52 @@
-@import "colors";
+.spotlight-bubble {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 2em;
+  left: 0;
 
-.draftsnail {
-  border: 2px solid #d2232a;
-  font-weight: bold;
-  border-radius: 3px;
-  width: 195px;
-  height: 195px;
-  position: relative;
-  text-align: center;
-  vertical-align: middle;
-  line-height: 260px;  
-  a {
-    color: #d2232a;
-    text-decoration: none;
+  &:hover, &:focus, &.active {
+    border-color: $brand-primary;
+
+    .tail .visible {
+      border-color: $brand-primary;
+    }
   }
 
-  .mini-icon {
-    .mini-icon-icon {
-      left: 96px;
+  .user {
+    position: absolute;
+    bottom: -2em;
+    left: 4em;
+    white-space: nowrap;
+  }
+
+  .tail {
+    position: absolute;
+    bottom: 0;
+
+    span {
+      display: block;
       position: absolute;
-      top: 96px;
+      transition: border 0.2s ease-in-out;
+      width: 2em;
+    }
+
+    .cover {
+      border-top: 3px solid $body-bg;
+      height: 2em;
+      top: 0;
+    }
+
+    .angle {
+      border-left: 1px solid $thumbnail-border;
+      left: 0.9em;
+      height: 2em;
+      transform: skew(45deg);
+    }
+
+    .straight {
+      border-right: 1px solid $thumbnail-border;
+      height: 2em;
     }
   }
 }
-
-.draftsnail:hover {
-  border: 2px solid #d2232a;
-  cursor: pointer;
-  a {
-    color: $white;
-  }
-}
-

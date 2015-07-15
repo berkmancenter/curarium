@@ -20,6 +20,20 @@ a.thumbnail {
   }
 }
 
+a.thumbnail.spotlight-thumbnail {
+  border-color: transparent;
+  box-shadow: none;
+
+  &:hover, &:focus, &.active {
+    border-color: transparent;
+  }
+
+  p {
+    margin: 2em;
+    overflow: hidden;
+  }
+}
+
 a.newnail-thumbnail {
   background: none;
   color: $brand-primary;

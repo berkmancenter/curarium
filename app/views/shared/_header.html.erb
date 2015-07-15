@@ -12,7 +12,7 @@
     </div>
     <div id="navbar" class="navbar-collapse collapse">
       <ul class="nav navbar-nav">
-        <li><%= link_to render( partial: 'shared/mini_icon', object: 'about', locals: { side: :right } ), about_path %></li>
+        <li class="hidden-sm"><%= link_to render( partial: 'shared/mini_icon', object: 'about', locals: { side: :right } ), about_path %></li>
         <li><%= link_to render( partial: 'shared/mini_icon', object: 'collections', locals: { side: :right } ), collections_path %></li>
         <li><%= link_to render( partial: 'shared/mini_icon', object: 'spotlights', locals: { side: :right } ), spotlights_path %></li>
         <li class="dropdown">

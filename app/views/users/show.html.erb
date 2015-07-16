@@ -1,62 +1,101 @@
+<% provide :title, @user.name %>
+<div class="container container-show-item">
+
+  <div class="row">
+    <div class="col-sm-4 col-md-3 col-lg-2 col-info">
+      <h2 class="h5 page-header">User</h2>
+        <%= render partial: 'users/thumbnail', object: @user %>
+
+        <div class="list-group">
+          <%= link_to render( partial: 'shared/mini_icon', object: 'user', locals: { icon_title: 'Biography' } ), '#user-bio', class: 'list-group-item' %>
+          <%= link_to render( partial: 'shared/mini_icon', object: 'circles' ), '#user-circles', class: 'list-group-item' if @user == @current_user %>
+          <%= link_to render( partial: 'shared/mini_icon', object: 'trays' ), '#user-trays', class: 'list-group-item' if @user == @current_user %>
+          <%= link_to render( partial: 'shared/mini_icon', object: 'collections' ), '#user-collections', class: 'list-group-item' %>
+        </div>
+    </div>
+
+    <div class="col-sm-8 col-md-6 col-lg-7 col-detail">
+      <h2 class="h5 page-header"><%= @user.name %></h2>
+
+      <p><%# @collection.description %></p>
+
+      <h2 class="h5 page-header">At a Glance</h2>
+
+      <%# render partial: 'shared/gallery', object: @all, locals: { col_classes: 'col-xs-6 col-sm-6 col-md-6 col-lg-4' } %>
+
+      <h2 class="h5 page-header">Spotlights</h2>
+
+    </div>
+
+    <div class="col-sm-2 col-md-3 col-activity hidden-sm">
+      <h2 class="h5 page-header">Latest Activity</h2>
+    </div>
+
+</div>
+
+
+
+
+<!--
 <div class="left">
   <div class="holder col-sidebar">
     <div class="titlebar main">User</div>
-    <%= render partial: 'thumbnail', object: @user %>
+    <%# render partial: 'thumbnail', object: @user %>
     <div class="stalking_menu_holder">
       <div class="stalking_menu">
-        <%= link_to render( partial: 'shared/mini_icon', object: 'user', locals: { icon_title: 'Biography' } ), '#user-bio' %>
-        <%= link_to render( partial: 'shared/mini_icon', object: 'circles' ), '#user-circles' if @user == @current_user %>
-        <%= link_to render( partial: 'shared/mini_icon', object: 'trays' ), '#user-trays' if @user == @current_user %>
-        <%= link_to render( partial: 'shared/mini_icon', object: 'collections' ), '#user-collections' %>
+        <%# link_to render( partial: 'shared/mini_icon', object: 'user', locals: { icon_title: 'Biography' } ), '#user-bio' %>
+        <%# link_to render( partial: 'shared/mini_icon', object: 'circles' ), '#user-circles' if @user == @current_user %>
+        <%# link_to render( partial: 'shared/mini_icon', object: 'trays' ), '#user-trays' if @user == @current_user %>
+        <%# link_to render( partial: 'shared/mini_icon', object: 'collections' ), '#user-collections' %>
       </div>
     </div>
   </div>
 </div>
 
 <div class="expandable">
-<h1 id="user-bio" class="collection-header"><%= @user.name %></h1>
+<h1 id="user-bio" class="collection-header"><%# @user.name %></h1>
 
 <dl>
   <dt>Member since</dt>
-  <dd><%= @user.created_at %></dd>
+  <dd><%# @user.created_at %></dd>
 </dl>
 
 <dl>
-  <dt>About <%=@user.name %> </dt>
-  <dd><%= @user.bio %></dd>
+  <dt>About <%#user.name %> </dt>
+  <dd><%# @user.bio %></dd>
 </dl>
-<% if @user == @current_user %>
+<%# if @user == @current_user %>
 
 <section class="user-circles">
   <h1 id="user-circles" class="collection-header">Circles</h1>
 
   <div class="GALLERY circle-gallery">
-  <%= render partial: 'circles/thumbnail', collection: @user.circles %>
-  </div><!-- END GALLERY -->  
+  <%# render partial: 'circles/thumbnail', collection: @user.circles %>
+  </div>
 
-  <%= link_to raw( '<h2>Go to Circle Manager ></h2>' ), circles_path %>
+  <%# link_to raw( '<h2>Go to Circle Manager ></h2>' ), circles_path %>
 </section>
 
 <section class="user-trays">
   <h1 id="user-trays" class="collection-header">Trays</h1>
 
-  <%= render partial: 'trays/tray_preview_gallery', object: @user.trays.limit(2) %>
+  <%# render partial: 'trays/tray_preview_gallery', object: @user.trays.limit(2) %>
 
-  <%= link_to raw( '<h2>Go to Tray Manager ></h2>' ), user_trays_path( @user ) %>
+  <%# link_to raw( '<h2>Go to Tray Manager ></h2>' ), user_trays_path( @user ) %>
 </section>
 
-<% end %>
+<%# end %>
 
 <section class="user-collections">
   <h1 id="user-collections" class="collection-header">Collections</h1>
 
   <div class="GALLERY">
-    <% Collection.administered_by( @user ).each do |collection| %>
-      <%= render :partial=>'shared/print_item', :locals=>{:item=>collection} %>
-    <% end %>
+    <%# Collection.administered_by( @user ).each do |collection| %>
+      <%# render :partial=>'shared/print_item', :locals=>{:item=>collection} %>
+    <%# end %>
 
-    <%= render partial: 'shared/newnail', object: Collection, locals: { verb: 'add' } if authenticated? %>
-  </div><!-- END GALLERY -->  
+    <%# render partial: 'shared/newnail', object: Collection, locals: { verb: 'add' } if authenticated? %>
+  </div>
 
 </section>
 
@@ -64,12 +103,12 @@
   <h1 id="user-spotlights" class="collection-header">Spotlights</h1>
 
   <div class="GALLERY">
-    <% @spotlights.each do |s| %>
-      <%= render :partial=>'shared/print_item', :locals=>{:item=>s} %>
-    <% end %>
+    <%# @spotlights.each do |s| %>
+      <%# render :partial=>'shared/print_item', :locals=>{:item=>s} %>
+    <%# end %>
 
-    <%= render( partial: 'shared/newnail', object: Spotlight, locals: { target: '_blank' } ) if ( authenticated? && @user == @current_user ) %>
-  </div><!-- END GALLERY -->  
+    <%# render( partial: 'shared/newnail', object: Spotlight, locals: { target: '_blank' } ) if ( authenticated? && @user == @current_user ) %>
+  </div>
 
 </section>
-
+-->

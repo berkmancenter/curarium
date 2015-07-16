@@ -1,26 +1,7 @@
 <% provide :title, 'Spotlights' %>
-<!-- BEGIN SUB MENU  (this will maybe become a partial)-->	
-<div class="SUB_MENU">
-  <!-- Remove order-by buttons until functionality is decided #9731
-  <div class="right">
-    <div class="orderby"><span>Order:</span><span><%= link_to render( partial: 'shared/mini_icon', object: 'clock', locals: { icon_title: nil } ), '#' %></span></div>
-  </div>-->
-</div>
-<!-- END SUB MENU -->	
 
-<div class="expandable">
-  <h1 class="collection-header">Spotlights</h1>
+<div class="container">
+  <h2 class="page-header">Spotlights</h2> 
 
-  <%= link_to 'Click for instructions', '/help', target:"_blank" %>
-
-  <!-- BEGIN GALLERY -->	     
-  <div class="GALLERY spotlight-gallery">
-    <% @spotlights.each do |spotlight| %>
-      <%= render :partial => 'shared/print_item', :locals=>{:item=>spotlight} %>
-    <% end %>
-
-    <%= render partial: 'shared/newnail', object: Spotlight, locals: { target: '_blank' } unless !authenticated? %>
-  </div>
-  <!-- END GALLERY -->  
-
+  <%= render partial: 'shared/gallery', object: @spotlights, locals: { newnail: Spotlight } %>
 </div>

@@ -6,7 +6,7 @@ module ApplicationHelper
       'Curarium'
     end
   end
- 
+
   def tag_selector(hstore_object)
     tags = "<select class='tag_selector'>"
     hstore_object.each do |key, value|

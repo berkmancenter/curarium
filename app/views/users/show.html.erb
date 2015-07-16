@@ -7,23 +7,39 @@
         <%= render partial: 'users/thumbnail', object: @user %>
 
         <div class="list-group">
-          <%= link_to render( partial: 'shared/mini_icon', object: 'user', locals: { icon_title: 'Biography' } ), '#user-bio', class: 'list-group-item' %>
+            <%= link_to render( partial: 'shared/mini_icon', object: 'user', locals: { icon_title: 'Edit' } ), edit_user_path( @user ), class: 'list-group-item' if authenticated? && @user == @current_user %>
+
+          <%= link_to render( partial: 'shared/mini_icon', object: 'about', locals: { icon_title: 'Biography' } ), '#user-bio', class: 'list-group-item' %>
           <%= link_to render( partial: 'shared/mini_icon', object: 'circles' ), '#user-circles', class: 'list-group-item' if @user == @current_user %>
           <%= link_to render( partial: 'shared/mini_icon', object: 'trays' ), '#user-trays', class: 'list-group-item' if @user == @current_user %>
           <%= link_to render( partial: 'shared/mini_icon', object: 'collections' ), '#user-collections', class: 'list-group-item' %>
+          <%= link_to render( partial: 'shared/mini_icon', object: 'spotlights' ), '#user-spotlights', class: 'list-group-item' %>
         </div>
     </div>
 
     <div class="col-sm-8 col-md-6 col-lg-7 col-detail">
-      <h2 class="h5 page-header"><%= @user.name %></h2>
+      <h2 id="user-bio" class="h5 page-header"><%= @user.name %></h2>
 
-      <p><%# @collection.description %></p>
+      <dl class="dl-horizontal">
+        <dt>Member since</dt>
+        <dd><%= @user.created_at.strftime '%b %d %Y' %></dd>
+      </dl>
 
-      <h2 class="h5 page-header">At a Glance</h2>
+      <p><%= @user.bio %></p>
 
-      <%# render partial: 'shared/gallery', object: @all, locals: { col_classes: 'col-xs-6 col-sm-6 col-md-6 col-lg-4' } %>
+      <h2 id="user-circles" class="h5 page-header">Circles</h2>
 
-      <h2 class="h5 page-header">Spotlights</h2>
+      <%= render partial: 'shared/gallery', object: @user.circles, locals: { col_classes: 'col-xs-6 col-sm-6 col-md-6 col-lg-4' } %>
+
+      <h2 id="user-trays" class="h5 page-header">Trays</h2>
+
+      <h2 id="user-collections" class="h5 page-header">Collections</h2>
+
+      <%= render partial: 'shared/gallery', object: Collection.administered_by( @user ), locals: { col_classes: 'col-xs-6 col-sm-6 col-md-6 col-lg-4', newnail: Collection } %>
+
+      <h2 id="user-spotlights" class="h5 page-header">Spotlights</h2>
+
+      <%= render partial: 'shared/gallery', object: @spotlights, locals: { col_classes: 'col-xs-6 col-sm-6 col-md-6 col-lg-4', newnail: Spotlight } %>
 
     </div>
 

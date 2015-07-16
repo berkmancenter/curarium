@@ -22,11 +22,11 @@
               <%= f.button render( partial: 'shared/mini_icon', object: 'close', locals: { icon_title: 'Delete Collection' } ), type: 'submit', class: 'list-group-item list-group-item-danger' %>
             <% end %>
 
-            <%= link_to render( partial: 'shared/mini_icon', object: 'annotate', locals: { icon_title: 'Edit/Privacy' } ), edit_collection_path( @collection ), class: 'list-group-item' %>
+            <%= render partial: 'shared/mini_icon_item', object: 'annotate', locals: { icon_title: 'Edit/Privacy', url: edit_collection_path( @collection ) } %>
           <% end %>
 
-          <%= link_to render( partial: 'shared/mini_icon', object: 'spotlight', locals: { icon_title: 'Associated Spotlights' } ), spotlights_path, class: 'list-group-item' %>
-          <%= link_to render( partial: 'shared/mini_icon', object: 'explore' ), collection_works_path( @collection ), class: 'list-group-item' %>
+          <%= render partial: 'shared/mini_icon_item', object: 'spotlight', locals: { icon_title: 'Associated Spotlights', url: spotlights_path } %>
+          <%= render partial: 'shared/mini_icon_item', object: 'explore', locals: { url: collection_works_path( @collection ) } %>
 
         </div>
     </div>

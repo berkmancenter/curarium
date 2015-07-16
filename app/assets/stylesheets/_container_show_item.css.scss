@@ -21,6 +21,7 @@
 
       .list-group {
         font-size: $font-size-small;
+        position: fixed;
       }
     }
 
@@ -32,6 +33,7 @@
     .col-info {
       .thumbnail {
         height: 10em;
+        position: fixed;
       }
     }
 
@@ -43,6 +45,7 @@
     .col-info {
       .thumbnail {
         height: 12em;
+        position: fixed;
       }
     }
 

@@ -1,4 +1,4 @@
-<%= provide :title, 'Record' %>
+<%= provide( :title, @collection.name ) unless @collection.nil? %>
 
 <%= render partial: "works/#{params['vis'] || 'objectmap'}", object: @works %>
 

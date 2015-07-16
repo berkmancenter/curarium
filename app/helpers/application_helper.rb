@@ -1,7 +1,7 @@
 module ApplicationHelper
   def title( page_title )
     if page_title.length > 0
-      "#{ page_title } | Curarium"
+      "#{ page_title } @ Curarium"
     else
       'Curarium'
     end

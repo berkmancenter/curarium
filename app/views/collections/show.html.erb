@@ -11,7 +11,7 @@
 
   <div class="row">
     <div class="col-sm-4 col-md-3 col-lg-2 col-info">
-      <h2 class="h5 page-header">Collection</h2>
+      <h2 class="h4 page-header">Collection</h2>
         <%= render partial: 'collections/thumbnail', object: @collection %>
 
         <div class="list-group">
@@ -32,20 +32,20 @@
     </div>
 
     <div class="col-sm-8 col-md-6 col-lg-7 col-detail">
-      <h2 class="h5 page-header"><%= @collection.name %></h2>
+      <h2 class="h4 page-header"><%= @collection.name %></h2>
 
       <p><%= @collection.description %></p>
 
-      <h2 class="h5 page-header">At a Glance</h2>
+      <h2 class="h4 page-header">At a Glance</h2>
 
       <%= render partial: 'shared/gallery', object: @all, locals: { col_classes: 'col-xs-6 col-sm-6 col-md-6 col-lg-4' } %>
 
-      <h2 class="h5 page-header">Spotlights</h2>
+      <h2 class="h4 page-header">Spotlights</h2>
 
     </div>
 
     <div class="col-sm-2 col-md-3 col-activity hidden-sm">
-      <h2 class="h5 page-header">Latest Activity</h2>
+      <h2 class="h4 page-header">Latest Activity</h2>
     </div>
 
 </div>

@@ -1,0 +1,10 @@
+<span class="title"><%= thumbnail_inner.name %></span>
+<div>
+  <% thumbnail_inner.tray_items.each { |i| %>
+    <% if i.image.present? %>
+      <%= image_tag i.image.work.thumbnail_cache_url %>
+    <% elsif i.annotation.present? %>
+      <%= image_tag i.annotation.work.thumbnail_cache_url %>
+    <% end %>
+  <% } %>
+</div>

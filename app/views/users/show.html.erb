@@ -3,7 +3,7 @@
 
   <div class="row">
     <div class="col-sm-4 col-md-3 col-lg-2 col-info">
-      <h2 class="h5 page-header">User</h2>
+      <h2 class="h4 page-header">User</h2>
         <%= render partial: 'users/thumbnail', object: @user %>
 
         <div class="list-group">
@@ -17,7 +17,7 @@
     </div>
 
     <div class="col-sm-8 col-md-6 col-lg-7 col-detail">
-      <h2 id="user-bio" class="h5 page-header"><%= @user.name %></h2>
+      <h2 id="user-bio" class="h4 page-header"><%= @user.name %></h2>
 
       <dl class="dl-horizontal">
         <dt>Member since</dt>
@@ -26,24 +26,26 @@
 
       <p><%= @user.bio %></p>
 
-      <h2 id="user-circles" class="h5 page-header">Circles</h2>
+      <h2 id="user-circles" class="h4 page-header">Circles <%= link_to 'Circle Manager', circles_path, class: 'pull-right' %></h2>
 
       <%= render partial: 'shared/gallery', object: @user.circles, locals: { col_classes: 'col-xs-6 col-sm-6 col-md-6 col-lg-4' } %>
 
-      <h2 id="user-trays" class="h5 page-header">Trays</h2>
+      <h2 id="user-trays" class="h4 page-header">Trays <%= link_to 'Tray Manager', user_trays_path( @user ), class: 'pull-right' %></h2>
 
-      <h2 id="user-collections" class="h5 page-header">Collections</h2>
+      <%= render partial: 'shared/gallery', object: @user.trays, locals: { col_classes: 'col-xs-6 col-sm-6 col-md-6 col-lg-4' } %>
+
+      <h2 id="user-collections" class="h4 page-header">Collections</h2>
 
       <%= render partial: 'shared/gallery', object: Collection.administered_by( @user ), locals: { col_classes: 'col-xs-6 col-sm-6 col-md-6 col-lg-4', newnail: Collection } %>
 
-      <h2 id="user-spotlights" class="h5 page-header">Spotlights</h2>
+      <h2 id="user-spotlights" class="h4 page-header">Spotlights</h2>
 
       <%= render partial: 'shared/gallery', object: @spotlights, locals: { col_classes: 'col-xs-6 col-sm-6 col-md-6 col-lg-4', newnail: Spotlight } %>
 
     </div>
 
     <div class="col-sm-2 col-md-3 col-activity hidden-sm">
-      <h2 class="h5 page-header">Latest Activity</h2>
+      <h2 class="h4 page-header">Latest Activity</h2>
     </div>
 
 </div>

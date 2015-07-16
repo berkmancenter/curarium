@@ -125,7 +125,7 @@ class Work < ActiveRecord::Base
   end
 
   def self.missing_thumb_url
-    Rails.public_path.join( 'missing_thumb.png' ).to_s
+    '/missing_thumb.png'
   end
 
     

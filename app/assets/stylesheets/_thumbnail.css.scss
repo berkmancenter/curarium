@@ -2,6 +2,7 @@ a.thumbnail {
   background-repeat: no-repeat;
   background-position: center center;
   background-size: contain;
+  overflow: hidden;
   position: relative;
 
   .title {
@@ -20,7 +21,19 @@ a.thumbnail {
   }
 }
 
-a.thumbnail.spotlight-thumbnail {
+a.circle-thumbnail {
+  .circle {
+    border: 4em solid $body-bg;
+    border-radius: 100%;
+    position: absolute;
+    top: -4em;
+    right: -4em;
+    bottom: -4em;
+    left: -4em;
+  }
+}
+
+a.spotlight-thumbnail {
   border-color: transparent;
   box-shadow: none;
 

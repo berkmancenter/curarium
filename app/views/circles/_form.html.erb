@@ -1,36 +1,16 @@
 <%= semantic_form_for @circle do |f| %>
-  <% if @circle.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@circle.errors.count, "error") %> prohibited this circle from being saved:</h2>
 
-      <ul>
-      <% @circle.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
+  <%= f.semantic_errors :circle %>
 
-  <div class="field">
-    <%= f.label :title %><br>
-    <%= f.text_field :title %>
-  </div>
-  <div class="field">
-    <%= f.label :privacy %><br>
-    <%= f.select( :privacy, options_for_select( [ 'private', 'community', 'public' ], ( @circle.privacy || 'private' ) ) ) %>
-  </div>
-
-  <%= f.inputs do %>
-  <div class="field">
+  <%= f.inputs { %>
+    <%= f.input :title %>
+    <%= f.input :privacy, as: :select, collection: [ 'private', 'community', 'public' ] %>
     <%= f.input :users, as: :check_boxes, collection: User.where.not( id: @current_user.id ) %>
-  </div>
-  <% end %>
+    <%= f.input :description, as: :text, input_html: { cols: 40, rows: 10 } %>
+  <% } %>
 
-  <div class="field">
-    <%= f.label :description %><br>
-    <%= f.text_area :description, size: '40x10' %>
-  </div>
-  <div class="actions">
-    <%= f.submit class: 'button' %>
-  </div>
+  <%= f.actions { %>
+    <%= f.action :submit, button_html: { class: 'btn btn-default' } %>
+  <% } %>
+
 <% end %>

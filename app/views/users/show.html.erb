@@ -28,7 +28,7 @@
 
       <h2 id="user-circles" class="h4 page-header">Circles <%= link_to 'Circle Manager', circles_path, class: 'pull-right' %></h2>
 
-      <%= render partial: 'shared/gallery', object: @user.circles, locals: { newnail: Circle } %>
+      <%= render partial: 'shared/gallery', object: Circle.for_user( @user ), locals: { newnail: Circle } %>
 
       <h2 id="user-trays" class="h4 page-header">Trays <%= link_to 'Tray Manager', user_trays_path( @user ), class: 'pull-right' %></h2>
 

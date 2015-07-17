@@ -27,13 +27,14 @@ a.thumbnail {
 
 a.circle-thumbnail {
   .circle {
-    border: 4em solid $body-bg;
-    border-radius: 100%;
     position: absolute;
     top: -4em;
     right: -4em;
     bottom: -4em;
     left: -4em;
+
+    border: 4em solid $body-bg;
+    border-radius: 100%;
   }
 }
 

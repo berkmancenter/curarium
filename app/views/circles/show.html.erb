@@ -1,3 +1,93 @@
+<% provide :title, @circle.title %>
+
+<div class="container container-show-item">
+
+  <div class="row">
+    <div class="col-sm-4 col-md-3 col-lg-2 col-info">
+      <h2 class="h4 page-header">Circle</h2>
+        <%= render partial: 'circles/thumbnail', object: @circle %>
+
+        <div class="list-group">
+
+          <% if authenticated? && @circle.admin == @user %>
+
+            <%= form_for @circle, method: 'delete' do |f| %>
+              <%= f.button render( partial: 'shared/mini_icon', object: 'close', locals: { icon_title: 'Delete Circle' } ), type: 'submit', class: 'list-group-item list-group-item-danger' %>
+            <% end %>
+
+            <%= render partial: 'shared/mini_icon_item', object: 'circle', locals: { url: edit_circle_path( @circle ), icon_title: 'Edit' } %>
+          <% end %>
+
+
+
+          <%= render partial: 'shared/mini_icon_item', object: 'about', locals: { url: '#circle-desc', icon_title: 'Description' } %>
+          <%= render partial: 'shared/mini_icon_item', object: 'trays', locals: { url: '#circle-trays' } %>
+          <%= render partial: 'shared/mini_icon_item', object: 'collections', locals: { url: '#circle-collections' } %>
+          <%= render partial: 'shared/mini_icon_item', object: 'spotlights', locals: { url: '#circle-spotlights' } %>
+        </div>
+    </div>
+
+    <div class="col-sm-8 col-md-6 col-lg-7 col-detail">
+      <h2 id="circle-desc" class="h4 page-header"><%= @circle.title %></h2>
+
+      <dl class="dl-horizontal">
+        <dt>Created by</dt>
+        <dd><%= @circle.admin.name %></dd>
+
+        <dt>Created on</dt>
+        <dd><%= @circle.created_at.strftime '%b %d %Y' %></dd>
+
+        <dt>Members</dt>
+        <dd><%= @circle.users.count + 1 %></dd>
+      </dl>
+
+      <p><%= @circle.description %></p>
+
+      <h2 id="circle-trays" class="h4 page-header">Trays <%= link_to 'Tray Manager', circle_trays_path( @circle ), class: 'pull-right' %></h2>
+
+      <%= render partial: 'shared/gallery', object: @circle.trays, locals: { newnail: Tray } %>
+
+      <% if @circle.has_user?( @current_user ) %>
+
+        <h2 id="circle-collections" class="h4 page-header">Collections</h2>
+
+        <%= render partial: 'shared/gallery', object: @circle.collections, locals: { newnail: Collection } %>
+
+      <% end %>
+
+      <h2 id="circle-spotlights" class="h4 page-header">Spotlights</h2>
+
+      <%= render partial: 'shared/gallery', object: @circle.spotlights.circle_only, locals: { newnail: Spotlight } %>
+
+    </div>
+
+    <div class="col-sm-2 col-md-3 col-activity hidden-sm">
+      <h2 class="h4 page-header">Members</h2>
+
+      <ul class="members">
+        <li><%= render partial: 'users/thumbnail', object: @circle.admin, title: @circle.admin.name %></li>
+        <% @circle.users.each { |u| %>
+          <li><%= render partial: 'users/thumbnail', object: u, title: u.name %></li>
+        <% } %>
+      </ul>
+
+      <h2 class="h4 page-header">Latest Activity</h2>
+    </div>
+
+</div>
+
+
+
+
+
+
+
+
+
+
+
+<!--
+
 <div class="left">
   <div class="holder col-sidebar">
     <div class="titlebar main">Circle</div>
@@ -76,11 +166,11 @@
     <h1 id="circle-spotlights" class="collection-header">Spotlights</h1>
 
     <div class="GALLERY">
-      <% @spotlights.each do |s| %>
-        <%= render :partial=>'shared/print_item', :locals=>{:item=>s} %>
-      <% end %>
+      <%# @spotlights.each do |s| %>
+        <%#= render :partial=>'shared/print_item', :locals=>{:item=>s} %>
+      <%# end %>
 
-      <%= render partial: 'shared/newnail', object: Spotlight unless !authenticated? %>
+      <%#= render partial: 'shared/newnail', object: Spotlight unless !authenticated? %>
   </section>
 
 
@@ -115,4 +205,4 @@
 
   </div>
 </div>
-
+-->

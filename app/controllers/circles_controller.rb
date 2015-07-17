@@ -19,8 +19,6 @@ class CirclesController < ApplicationController
       @circles = Circle.where privacy: 'public'
     end
 
-    @spotlights = @circle.spotlights.circle_only
-
     redirect_to circles_path unless @circles.include?( @circle )
   end
 

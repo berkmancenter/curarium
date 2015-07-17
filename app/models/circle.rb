@@ -19,6 +19,10 @@ class Circle < ActiveRecord::Base
     #where( "admin_id = ? OR NOT ( privacy = 'private' )", user.id )
   }
 
+  def has_user?( user )
+    admin == user || users.exists?( user )
+  end
+
   def thumbnail_url
     url = '/missing_thumb.png'
 

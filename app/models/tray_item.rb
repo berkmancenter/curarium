@@ -4,11 +4,15 @@ class TrayItem < ActiveRecord::Base
   belongs_to :image
   belongs_to :annotation
 
+  default_scope {
+    order( 'updated_at DESC' )
+  }
+
   def thumbnail_url
     if image.present?
-      image.thumbnail_url
+      image.work.thumbnail_cache_url
     elsif annotation.present?
-      annotation.thumbnail_url
+      annotation.work.thumbnail_cache_url
     end
   end
 end

@@ -1,6 +1,1 @@
-<% if thumbnail_inner.image.present? %>
-  <div style="background-image: url(<%= thumbnail_inner.image.work.thumbnail_cache_url %>);"></div>
-<% elsif thumbnail_inner.annotation.present? %>
-  <div style="background-image: url(<%= thumbnail_inner.annotation.work.thumbnail_cache_url %>);"></div>
-<% end %>
-
+<div style="background-image: url(<%= thumbnail_inner.thumbnail_url %>);"></div>

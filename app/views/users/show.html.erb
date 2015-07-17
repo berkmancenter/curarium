@@ -28,19 +28,19 @@
 
       <h2 id="user-circles" class="h4 page-header">Circles <%= link_to 'Circle Manager', circles_path, class: 'pull-right' %></h2>
 
-      <%= render partial: 'shared/gallery', object: @user.circles, locals: { col_classes: 'col-xs-6 col-sm-6 col-md-6 col-lg-4' } %>
+      <%= render partial: 'shared/gallery', object: @user.circles, locals: { newnail: Circle } %>
 
       <h2 id="user-trays" class="h4 page-header">Trays <%= link_to 'Tray Manager', user_trays_path( @user ), class: 'pull-right' %></h2>
 
-      <%= render partial: 'shared/gallery', object: @user.trays, locals: { col_classes: 'col-xs-6 col-sm-6 col-md-6 col-lg-4' } %>
+      <%= render partial: 'shared/gallery', object: @user.trays, locals: { newnail: Tray } %>
 
       <h2 id="user-collections" class="h4 page-header">Collections</h2>
 
-      <%= render partial: 'shared/gallery', object: Collection.administered_by( @user ), locals: { col_classes: 'col-xs-6 col-sm-6 col-md-6 col-lg-4', newnail: Collection } %>
+      <%= render partial: 'shared/gallery', object: Collection.administered_by( @user ), locals: { newnail: Collection } %>
 
       <h2 id="user-spotlights" class="h4 page-header">Spotlights</h2>
 
-      <%= render partial: 'shared/gallery', object: @spotlights, locals: { col_classes: 'col-xs-6 col-sm-6 col-md-6 col-lg-4', newnail: Spotlight } %>
+      <%= render partial: 'shared/gallery', object: @spotlights, locals: { newnail: Spotlight } %>
 
     </div>
 

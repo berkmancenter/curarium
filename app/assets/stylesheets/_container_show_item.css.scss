@@ -5,6 +5,10 @@
   /* Extra small devices (phones, less than 768px) */
   /* No media query since this is the default in Bootstrap */
 
+  form {
+    margin: .5em 0;
+  }
+
   .col-info {
     .thumbnail {
       width: 14em;

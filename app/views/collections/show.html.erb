@@ -12,23 +12,23 @@
   <div class="row">
     <div class="col-sm-4 col-md-3 col-lg-2 col-info">
       <h2 class="h4 page-header">Collection</h2>
-        <%= render partial: 'collections/thumbnail', object: @collection %>
 
-        <div class="list-group">
+      <%= render partial: 'collections/thumbnail', object: @collection %>
 
-          <% if authenticated? && @collection.admins.include?( @current_user ) %>
+      <% if authenticated? && @collection.admins.include?( @current_user ) %>
+        <%= form_for @collection, method: 'delete' do |f| %>
+          <%= f.button render( partial: 'shared/mini_icon', object: 'close', locals: { icon_title: 'Delete Collection' } ), type: 'submit', class: 'btn btn-danger' %>
+        <% end %>
+      <% end %>
 
-            <%= form_for @collection, method: 'delete' do |f| %>
-              <%= f.button render( partial: 'shared/mini_icon', object: 'close', locals: { icon_title: 'Delete Collection' } ), type: 'submit', class: 'list-group-item list-group-item-danger' %>
-            <% end %>
+      <div class="list-group">
+        <% if authenticated? && @collection.admins.include?( @current_user ) %>
+          <%= render partial: 'shared/mini_icon_item', object: 'annotate', locals: { icon_title: 'Edit/Privacy', url: edit_collection_path( @collection ) } %>
+        <% end %>
 
-            <%= render partial: 'shared/mini_icon_item', object: 'annotate', locals: { icon_title: 'Edit/Privacy', url: edit_collection_path( @collection ) } %>
-          <% end %>
-
-          <%= render partial: 'shared/mini_icon_item', object: 'spotlight', locals: { icon_title: 'Associated Spotlights', url: spotlights_path } %>
-          <%= render partial: 'shared/mini_icon_item', object: 'explore', locals: { url: collection_works_path( @collection ) } %>
-
-        </div>
+        <%= render partial: 'shared/mini_icon_item', object: 'spotlight', locals: { icon_title: 'Associated Spotlights', url: spotlights_path } %>
+        <%= render partial: 'shared/mini_icon_item', object: 'explore', locals: { url: collection_works_path( @collection ) } %>
+      </div>
     </div>
 
     <div class="col-sm-8 col-md-6 col-lg-7 col-detail">

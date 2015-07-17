@@ -5,26 +5,25 @@
   <div class="row">
     <div class="col-sm-4 col-md-3 col-lg-2 col-info">
       <h2 class="h4 page-header">Circle</h2>
-        <%= render partial: 'circles/thumbnail', object: @circle %>
 
-        <div class="list-group">
+      <%= render partial: 'circles/thumbnail', object: @circle %>
 
-          <% if authenticated? && @circle.admin == @user %>
+      <% if @circle.admin == @current_user %>
+        <%= form_for @circle, method: 'delete' do |f| %>
+          <%= f.button render( partial: 'shared/mini_icon', object: 'close', locals: { icon_title: 'Delete Circle' } ), type: 'submit', class: 'btn btn-danger' %>
+        <% end %>
+      <% end %>
 
-            <%= form_for @circle, method: 'delete' do |f| %>
-              <%= f.button render( partial: 'shared/mini_icon', object: 'close', locals: { icon_title: 'Delete Circle' } ), type: 'submit', class: 'list-group-item list-group-item-danger' %>
-            <% end %>
+      <div class="list-group">
+        <% if @circle.admin == @current_user %>
+          <%= render partial: 'shared/mini_icon_item', object: 'annotate', locals: { url: edit_circle_path( @circle ), icon_title: 'Edit' } %>
+        <% end %>
 
-            <%= render partial: 'shared/mini_icon_item', object: 'circle', locals: { url: edit_circle_path( @circle ), icon_title: 'Edit' } %>
-          <% end %>
-
-
-
-          <%= render partial: 'shared/mini_icon_item', object: 'about', locals: { url: '#circle-desc', icon_title: 'Description' } %>
-          <%= render partial: 'shared/mini_icon_item', object: 'trays', locals: { url: '#circle-trays' } %>
-          <%= render partial: 'shared/mini_icon_item', object: 'collections', locals: { url: '#circle-collections' } %>
-          <%= render partial: 'shared/mini_icon_item', object: 'spotlights', locals: { url: '#circle-spotlights' } %>
-        </div>
+        <%= render partial: 'shared/mini_icon_item', object: 'about', locals: { url: '#circle-desc', icon_title: 'Description' } %>
+        <%= render partial: 'shared/mini_icon_item', object: 'trays', locals: { url: '#circle-trays' } %>
+        <%= render partial: 'shared/mini_icon_item', object: 'collections', locals: { url: '#circle-collections' } %>
+        <%= render partial: 'shared/mini_icon_item', object: 'spotlights', locals: { url: '#circle-spotlights' } %>
+      </div>
     </div>
 
     <div class="col-sm-8 col-md-6 col-lg-7 col-detail">

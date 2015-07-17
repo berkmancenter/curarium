@@ -5,6 +5,10 @@ a.thumbnail {
   overflow: hidden;
   position: relative;
 
+  &:hover {
+    text-decoration: none;
+  }
+
   .title {
     background-color: $brand-primary;
     color: $white;
@@ -34,6 +38,19 @@ a.circle-thumbnail {
 }
 
 a.tray-thumbnail {
+  .tray-item-images {
+    width: 100%;
+    height: 100%;
+
+    div {
+      background-position: center center;
+      background-repeat: no-repeat;
+      background-size: contain;
+      display: inline-block;
+      width: 32%;
+      height: 32%;
+    }
+  }
 }
 
 a.spotlight-thumbnail {

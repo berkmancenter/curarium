@@ -9,7 +9,7 @@
 
   <% gallery.each do |item| %>
     <div class="<%= col_classes %>">
-      <%= render partial: "#{item.class.to_s.pluralize(2)}/thumbnail", object: item %>
+      <%= render partial: "#{item.class.to_s.pluralize(2).underscore}/thumbnail", object: item %>
     </div>
   <% end %>
 

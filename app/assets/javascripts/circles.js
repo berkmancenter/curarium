@@ -1,9 +1,4 @@
 $( function( ) {
-  $( '.join-circle,.leave-circle' ).click( function( ) {
-    $( this ).closest( 'form' ).submit();
-    return false;
-  } );
-
   $( '.delete-circle' ).click( function( ) {
     if ( confirm( 'Are you sure you want to delete this circle and all of the circle trays?' ) ) {
       $( this ).closest( 'form' ).submit();
@@ -12,7 +7,7 @@ $( function( ) {
   } );
 
   var circleCollectionsPopupHtml = $( '#circle-collections-popup' );
-  $( '.circle-collections .createnew' ).click( function( ) {
+  $( '#circle-collections .newnail-thumbnail' ).click( function( ) {
     $.magnificPopup.open( {
       items: {
         src: circleCollectionsPopupHtml.css( 'display', 'inline-block' ),

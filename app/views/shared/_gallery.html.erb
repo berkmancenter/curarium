@@ -13,8 +13,10 @@
     </div>
   <% end %>
 
-  <div class="<%= col_classes %>">
-    <%= render partial: 'shared/newnail', object: newnail if ( defined?( newnail ) && authenticated? ) %>
-  </div>
+  <% if defined?( newnail ) && authenticated? %>
+    <div class="<%= col_classes %>">
+      <%= render partial: 'shared/newnail', object: newnail %>
+    </div>
+  <% end %>
 </div>
 

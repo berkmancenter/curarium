@@ -16,4 +16,18 @@
       }
     }
   }
+
+  .mfp-content {
+    width: auto;
+  }
+
+  .ccs-popup {
+    display: none;
+    margin: 0 auto;
+    padding: 1em;
+
+    .btn-group-vertical {
+      margin: 1em;
+    }
+  }
 }

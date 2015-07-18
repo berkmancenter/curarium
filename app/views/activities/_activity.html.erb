@@ -1,2 +1,10 @@
-<span class="activity"><%= render partial: 'shared/mini_icon', object: activity.activity_type, locals: { icon_title: nil } %><span class="activity-date"><%= activity.created_at.strftime '%b %d' %></span><span class="activity-body"><%= activity.body %></span><span class="activity-creator"><%= activity_creator( activity ) %></span></span>
-
+<div class="media">
+  <div class="media-left">
+    <%= link_to image_tag( gravatar_for( activity.creator ), class: 'media-object' ) %>
+  </div>
+  <div class="media-body">
+    <i class="pull-right"><%= activity.created_at.strftime '%b %d' %></i>
+    <h4 class="h5 media-heading"><%= activity.creator.name %></h4>
+    <%= activity.body %>
+  </div>
+</div>

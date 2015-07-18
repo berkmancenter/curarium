@@ -94,7 +94,27 @@
         <% } %>
       </ul>
 
-      <h2 class="h4 page-header">Latest Activity</h2>
+      <h2 class="h4 page-header">Activity</h2>
+
+      <% if authenticated? %>
+        <%= semantic_form_for [ @circle, Activity.new ], url: circle_activities_path( @circle ), method: :post, html: { class: 'form-inline' } do |f| %>
+          <%= f.hidden_field :activitiable_id, value: @circle.id %>
+          <%= f.hidden_field :activitiable_type, value: 'Circle' %>
+          <%= f.hidden_field :activity_type, value: 'message' %>
+
+          <%= f.inputs { %>
+            <%= f.input :body, label: false, input_html: { placeholder: 'Post a message' } %>
+          <% } %>
+
+          <%= f.actions { %>
+            <%= f.action :submit, as: :button, label: 'post', button_html: { name: nil, class: 'btn btn-default' } %>
+          <% } %>
+        <% end %>
+      <% end %>
+
+      <ul class="media-list activities-list">
+        <%= render @circle.activities %>
+      </ul>
     </div>
 
 </div>
@@ -111,48 +131,6 @@
 
 <!--
 
-<div class="expandable">
-
-
-  <% if @circle.admin == @current_user || @circle.users.include?( @current_user ) %>
-  <section class="circle-collections">
-    <h1 class="collection-header">Collections</h1>
-
-    <div class="GALLERY">
-      <%= render partial: 'collections/thumbnail', collection: @circle.collections %>
-
-      <% if @circle.admin == @current_user %>
-      <%= render( partial: 'shared/newnail', object: Collection, locals: { verb: :add } ) %>
-
-      <div id="circle-collections-popup" class="ccs-popup">
-        <h1>Available Collections</h1>
-
-        <%= form_for( @circle, url: addcol_circle_path( @circle ), html: { method: :put } ) { |f| %>
-          <%= f.hidden_field :collections, value: nil %>
-          <% Collection.where.not( id: @circle.collections.pluck( :id ) ).each { |c| %>
-            <button type="submit" data-collection-id="<%= c.id %>" class="ccs-button"><%= c.name %></button>
-          <% } %>
-        <% } %>
-      </div>
-      <% end %>
-    </div>
-  </section>
-  <% end %>
-
-  <section class="circle-spotlights">
-    <h1 id="circle-spotlights" class="collection-header">Spotlights</h1>
-
-    <div class="GALLERY">
-      <%# @spotlights.each do |s| %>
-        <%#= render :partial=>'shared/print_item', :locals=>{:item=>s} %>
-      <%# end %>
-
-      <%#= render partial: 'shared/newnail', object: Spotlight unless !authenticated? %>
-  </section>
-
-
-</div>
-
 <div class="right">
   <div class="holder activity">
     <h1 class="titlebar">Activity</h1>
@@ -168,18 +146,6 @@
       <%= f.button 'create', type: 'submit', name: nil %>
     <% end %>
     <% end %>
-  </div>
-
-  <div class="holder members">
-    <h1 class="titlebar">Members</h1>
-
-    <ul>
-      <li><%= link_to render( partial: 'shared/mini_icon', object: 'user', locals: { icon_title: @circle.admin.name } ), user_path( @circle.admin ) %></li>
-    <% @circle.users.each { |u| %>
-      <li><%= link_to render( partial: 'shared/mini_icon', object: 'user', locals: { icon_title: u.name } ), user_path( u ) %></li>
-    <% } %>
-    </ul>
-
   </div>
 </div>
 -->

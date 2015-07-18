@@ -1,19 +1,25 @@
 .circles.show {
-  .members {
-    list-style: none;
-    padding: 0;
+  .col-activity {
+    .members {
+      list-style: none;
+      padding: 0;
 
-    li {
-      display: inline-block;
+      li {
+        display: inline-block;
+      }
+
+      .thumbnail {
+        width: 4em;
+        height: 4em;
+
+        .title {
+          display: none;
+        }
+      }
     }
 
-    .thumbnail {
-      width: 4em;
-      height: 4em;
-
-      .title {
-        display: none;
-      }
+    fieldset {
+      display: inline-block;
     }
   }
 

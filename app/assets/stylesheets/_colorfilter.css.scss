@@ -1,4 +1,4 @@
-.color-box {
+.colorfilter {
 	width: 1500px;
 }
 
@@ -6,28 +6,13 @@
 	width: 350px !important;
 	font-size: 10px;
 	float: left;
-}
+  margin-bottom: 4em;
 
-#one_color {
-	height: 50px;
-}
-
-#two_color {
-	height: 50px;
-}
-
-#three_color {
-	height: 50px;
-}
-
-#four_color {
-	height: 50px;
-}
-
-.color_thumbnail {
-	height: 270px;
-	width: 270px !important;
-	padding: 10px 0 5px 0;
+  .thumbnail {
+    background-size: 270px;
+    height: 270px;
+    width: 270px;
+  }
 }
 
 .color-length {
@@ -36,31 +21,16 @@
 	font-color: none;
 }
 
-.bar-code {
-	height: 10px;
-	width: 100%;
-	color: #FFFFFF;
-	margin-bottom: 10px;
-}
-
-.color-percent  {
-	float: left;
-}
-
-.color-info {
-	float: left;
-	height: 30px;
-	font-size: 0px;
-	max-width: 65px;
-}
-
-.color-details {
-	font-size: 0px;
-}
-
 .color-code {
-	max-width: 270px;
+	width: 100%;
 	border: 1px solid #D3D3D3;
 	height: 30px;
 	overflow: none;
+}
+
+.color-info {
+  display: block;
+	float: left;
+	height: 30px;
+	font-size: 0px;
 }

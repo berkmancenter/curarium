@@ -1,68 +1,78 @@
 <script>
-    function vizIntro() {
+  function vizIntro() {
     introJs().start();
   }
 </script>
 <section class="vis-controls">
-  <div class = 'rec_menu'>
+<div class = 'rec_menu'>
   <div class="recmenu_piece">
-      <label for='drop'><span class="button">V</span></label>
-      </div>
-    <input type='checkbox' class='checkbox_hack' id='drop'>
-    <label class="toggle-vis-controls" for='drop'></label>
-    <div class = 'dropdown'>
+    <label for='drop'><span class="button">V</span></label>
+  </div>
+  <input type='checkbox' class='checkbox_hack' id='drop'>
+  <label class="toggle-vis-controls" for='drop'></label>
+  <div class = 'dropdown'>
     <a onclick="vizIntro()">Click for instructions</a>
-      <div class = 'floatdivs'>
-        <%= form_tag(request.original_url, method: :get, id: 'vis-form') do |f| %>
-          <div class='dropcell' data-intro="Select the dropdown for visualization options" data-step="1">
-            <div class='subcell'>
-              <%= label_tag 'vis', 'Visualization type' %><br>
-              <%= select_tag 'vis', options_for_select( [ ['list', 'list'], ['thumbnails','thumbnails'], ['object map', 'objectmap'], ['treemap', 'treemap'], ['color filter', 'colorfilter'], ['geo-chronological view', 'geochrono'] ], @vis ) %>
+    <div class = 'floatdivs'>
+      <%= form_tag(request.original_url, method: :get, id: 'vis-form') do |f| %>
+        <div class='dropcell' data-intro="Select the dropdown for visualization options" data-step="1">
+          <div class='subcell'>
+            <%= label_tag 'vis', 'Visualization type' %><br>
+            <%= select_tag 'vis', options_for_select( [ ['list', 'list'], ['thumbnails','thumbnails'], ['object map', 'objectmap'], ['treemap', 'treemap'], ['color filter', 'colorfilter'], ['geo-chronological view', 'geochrono'] ], @vis ) %>
+          </div>
+          <div class="search-report">
+            (showing <span class="showing"><%= @works.count %></span> <%= sr_noun @vis %> <span class="total"><%= @num %></span> results)
+          </div>
+          <div class='subcell'>
+            <%= label_tag 'selprop', 'Visualization property' %><br>
+            <%= select_tag 'property', options_for_select(@properties), :id=>'property' %>
+          </div>
+        </div>
+        <div class='dropcell' data-intro="Include or exclude properties on filter" data-step="2">
+          <div class='subcell'>
+            <%= label_tag 'selprop', 'Select property' %><br>
+            <%= select_tag 'selprop', options_for_select(@properties),:id=>'selprop', :name=>nil %>
+          </div>
+          <div class='subcell' id='incexc'>
+            <%= text_field_tag 'propval', nil, :placeholder=>'Enter property', :name=>nil %>
+            <div class='wrap'>
+              <%= button_tag 'Include', 'id'=>'inc', :class=>'add-prop', 'data-cmd'=>'include', :type=>'button' %>
             </div>
-            <div class="search-report">
-              (showing <span class="showing"><%= @works.count %></span> <%= sr_noun @vis %> <span class="total"><%= @num %></span> results)
-            </div>
-            <div class='subcell'>
-              <%= label_tag 'selprop', 'Visualization property' %><br>
-              <%= select_tag 'property', options_for_select(@properties), :id=>'property' %>
+            <div class='wrap'>
+              <%= button_tag 'Exclude', 'id'=>'exc', :class=>'add-prop', 'data-cmd'=>'exclude', :type=>'button' %>
             </div>
           </div>
-          <div class='dropcell' data-intro="Include or exclude properties on filter" data-step="2">
-            <div class='subcell'>
-              <%= label_tag 'selprop', 'Select property' %><br>
-              <%= select_tag 'selprop', options_for_select(@properties),:id=>'selprop', :name=>nil %>
-            </div>
-            <div class='subcell' id='incexc'>
-              <%= text_field_tag 'propval', nil, :placeholder=>'Enter property', :name=>nil %>
-              <div class='wrap'>
-                <%= button_tag 'Include', 'id'=>'inc', :class=>'add-prop', 'data-cmd'=>'include', :type=>'button' %>
-              </div>
-              <div class='wrap'>
-                <%= button_tag 'Exclude', 'id'=>'exc', :class=>'add-prop', 'data-cmd'=>'exclude', :type=>'button' %>
-              </div>
-            </div>
-            <div id='props' class='subcell'></div>
+          <div id='props' class='subcell'></div>
+        </div>
+        <div class='dropcell' data-intro="Choose a color on which to filter">
+          <div class='subcell'>
+            <%= label_tag 'usecolorfilter', 'Filter by color?' %><br>
+            <%= check_box_tag 'usecolorfilter', nil, @colorfilter.present?, name: nil %>
           </div>
-          <div class='dropcell' data-intro="Choose to view a certain number of records per page at a given time" data-step="3">
-            <div class='subcell'>
-              <% @num ||= 0 %>
-              <% @perpage ||= 200 %>
-              <%= label_tag 'page', 'Page' %>
-              <%= select_tag 'page', options_for_select((1..((@num.to_f/@perpage).ceil)).to_a, params[:page].to_i || 1), class: 'page_in' %>
-            </div>
-            <div class='subcell'>
-              <%= label_tag 'per_page', 'Records per page' %><br>
-              <%= text_field_tag 'per_page', @perpage, class: 'in page_in', type: 'number' %>
-            </div>
+          <div class='subcell' <%= 'style="display: none;"' unless @colorfilter.present? %>>
+            <%= label_tag 'colorfilter', 'Select color' %><br>
+            <%= color_field_tag 'colorfilter', @colorfilter || '#000000', disabled: ( 'disabled' unless @colorfilter.present? ) %>
           </div>
-          <span class='stretch'></span>
-          <div class='update' data-intro="You know you want to hit this button!" data-step="4">
-            <div>
-              <%= submit_tag 'Update Visualization', name: nil, id: 'go' %>
-            </div>
+        </div>
+        <div class='dropcell' data-intro="Choose to view a certain number of records per page at a given time" data-step="3">
+          <div class='subcell'>
+            <% @num ||= 0 %>
+            <% @perpage ||= 200 %>
+            <%= label_tag 'page', 'Page' %>
+            <%= select_tag 'page', options_for_select((1..((@num.to_f/@perpage).ceil)).to_a, params[:page].to_i || 1), class: 'page_in' %>
           </div>
-        <% end %>
-      </div>
+          <div class='subcell'>
+            <%= label_tag 'per_page', 'Records per page' %><br>
+            <%= text_field_tag 'per_page', @perpage, class: 'in page_in', type: 'number' %>
+          </div>
+        </div>
+        <span class='stretch'></span>
+        <div class='update' data-intro="You know you want to hit this button!" data-step="4">
+          <div>
+            <%= submit_tag 'Update Visualization', name: nil, id: 'go' %>
+          </div>
+        </div>
+      <% end %>
     </div>
   </div>
+</div>
 </section>

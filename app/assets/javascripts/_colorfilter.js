@@ -1,15 +1,22 @@
 $( function( ) { 
-	var i, j, k;
+  $( '.colorfilter a.thumbnail' ).click( function( ) {
+    $.get( $( this ).prop( 'href' ) , function( popupHtml ) {
+      $.magnificPopup.open( {
+        showCloseBtn: false,
+        items: {
+          src: popupHtml,
+          type: 'inline'
+        }
+      } );
+    } );
 
-	var x = document.getElementsByClassName("color-info");
-	var y = document.getElementsByClassName("color-percent");
-	var z = document.getElementsByClassName("color-hex");
+    return false;
+  } );
 
-		for(i = 0, j = 0, k=0; (j < y.length) && (i < x.length) && (k < z.length); i++, j++, k++){
-			x[i].style.backgroundColor = x[i].innerHTML;
-			x[i].style.color = x[i].innerHTML;
-			x[i].style.width = (y[j].innerHTML)+"%";
-			x[i].title = z[k].innerHTML;
-			}
-
-});
+  $( '.colorfilter a.color-info' ).click( function( ) {
+    var visForm = $( '#vis-form' );
+    visForm.find( '#colorfilter' ).attr( 'disabled', false ).val( $( this ).data( 'color' ) );
+    visForm.submit( );
+    return false;
+  } );
+} );

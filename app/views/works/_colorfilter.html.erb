@@ -1,32 +1,15 @@
-<% @works.each { |i| %>
- <div class="color-box">  
-  <div class="color-viz">
-  <%= image_tag i.thumbnail_cache_url, class: 'color_thumbnail', alt: '' %>
-  <div class="color-length">
-    <% if !i.top_colors.nil? %>
-    <div class="color-code">
-      <div class="color-info"><%= i.top_colors[1]['color'] %></div>
-      <div class="color-info"><%= i.top_colors[2]['color'] %></div>
-      <div class="color-info"><%= i.top_colors[3]['color'] %></div>
-      <div class="color-info"><%= i.top_colors[4]['color'] %></div>
-      </div></br></br>
-      
-        <div class="color-details"> 
-          <div class="color-hex"><%= i.top_colors[1]['color'] %> - <%= ((((i.top_colors[1]['percent'])*100)/ (100-((i.top_colors[0]['percent'])*100)))*800).round(2) %>%</div>
-          <div class="color-hex"><%= i.top_colors[2]['color'] %> - <%= ((((i.top_colors[2]['percent'])*100)/ (100-((i.top_colors[0]['percent'])*100)))*800).round(2) %>%</div>
-          <div class="color-hex"><%= i.top_colors[3]['color'] %> - <%= ((((i.top_colors[3]['percent'])*100)/ (100-((i.top_colors[0]['percent'])*100)))*800).round(2) %>%</div>
-          <div class="color-hex"><%= i.top_colors[4]['color'] %> - <%= ((((i.top_colors[4]['percent'])*100)/ (100-((i.top_colors[0]['percent'])*100)))*800).round(2) %>%</div>
-        </div>
-        <div class="bar-code">
-          <div class="color-percent"><%= ((i.top_colors[1]['percent'])*100)/ (100-((i.top_colors[0]['percent'])*100))*800 %></div>
-          <div class="color-percent"><%= ((i.top_colors[2]['percent'])*100)/ (100-((i.top_colors[0]['percent'])*100))*800 %></div>
-          <div class="color-percent"><%= ((i.top_colors[3]['percent'])*100)/ (100-((i.top_colors[0]['percent'])*100))*800 %></div>
-          <div class="color-percent"><%= ((i.top_colors[4]['percent'])*100)/ (100-((i.top_colors[0]['percent'])*100))*800 %></div>
-        </div>
-    <% end %>
-  </div>
-  </div>
- </div>
-<% } %>
-
-
+<section class="colorfilter">  
+  <% @works.each { |w| %>
+    <div class="color-viz">
+      <%= render partial: 'works/thumbnail', object: w %>
+      <div class="color-length">
+        <% if w.top_colors.present? %>
+          <div class="color-code">
+            <% total = w.top_colors.map { |c| c['percent'].round(4) }.reduce(0, :+) %>
+            <%= render partial: 'works/color_info', collection: w.top_colors, locals: { scale: 1 / total } %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  <% } %>
+</section>

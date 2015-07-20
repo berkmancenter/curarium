@@ -77,6 +77,13 @@ class WorksController < ApplicationController
       have_query = true
     end
 
+    @colorfilter = nil
+    if params[ :colorfilter ].present?
+      @colorfilter = params[ :colorfilter ]
+      where_clause << " AND top_colors::text like '%#{ActiveRecord::Base.send :sanitize_sql_array, [ '%s', @colorfilter.remove('#').upcase ]}%'"
+      have_query = true
+    end
+
     # may want num in a few cases (this should be a fast query)
     @num = Work.where( where_clause ).count( :id )
 
@@ -137,15 +144,15 @@ class WorksController < ApplicationController
           end
         end
       end
-    elsif ['thumbnails','list'].include? @vis
+    elsif ['thumbnails', 'list', 'colorfilter'].include? @vis
       # Array of views that require paging
       @perpage = (params[:per_page].to_i<=0) ? 200 : params[:per_page].to_i
       @page = (params[:page].to_i<=0 || params[:page].to_i > (@num.to_f/@perpage).ceil) ? 1 : params[:page].to_i
 
-      if @vis == 'thumbnails'
-        @works = Work.with_thumb.where(where_clause).limit(@perpage).offset((@page-1)*@perpage)
-      else
+      if @vis == 'list'
         @works = Work.where(where_clause).limit(@perpage).offset((@page-1)*@perpage)
+      else
+        @works = Work.with_thumb.where(where_clause).limit(@perpage).offset((@page-1)*@perpage)
       end
     elsif @vis == 'objectmap'
       # objectmap should only get thumbnails
@@ -162,9 +169,6 @@ class WorksController < ApplicationController
       end
 
       Work.write_montage @works, Rails.public_path.join( 'thumbnails', @query_type, @query_id.to_s ), false, ids_only
-    elsif @vis == 'colorfilter'
-      @works = Work.with_thumb.where(where_clause)
-
     elsif @vis == 'geochrono'
       @works = Work.with_thumb.where(where_clause)
       ids_only = false

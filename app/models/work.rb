@@ -123,7 +123,11 @@ class Work < ActiveRecord::Base
       end
     end
   end
-  
+
+  def self.missing_thumb_url
+    Rails.public_path.join( 'missing_thumb.png' ).to_s
+  end
+
   def thumbnail_url
     if images.any?
       images.first.thumbnail_url
@@ -151,7 +155,7 @@ class Work < ActiveRecord::Base
     if thumbnail_url.present?
       "/thumbnails/works/#{id}.jpg"
     else
-      '/missing_thumb.png'
+      missing_thumb_url
     end
   end
 
@@ -179,11 +183,12 @@ class Work < ActiveRecord::Base
   def extract_colors
     histogram = [] 
     if File.exists?( thumbnail_cache_path )
-      # pixelate via scale, convert to 8bit, then extract histogram
-      #%x[convert #{thumbnail_cache_path} -scale 20% -colors 256 -depth 8 #{thumbnail_cache_path}.8bit.png]
-      %x[convert #{thumbnail_cache_path} -scale 20% -colors 256 -depth 8 -format "%c" histogram:info:#{thumbnail_histogram_path}]
+      %x[convert #{thumbnail_cache_path} -segment 1x0.125 #{thumbnail_cache_path}.cvt.png]
+      %x[convert #{thumbnail_cache_path} -segment 1x0.125 -format "%c" histogram:info:#{thumbnail_histogram_path}]
+      
       File.open( thumbnail_histogram_path, 'r' ) { |f|
         total_colors = 0.0
+        lines = 0
         f.each_line { |line|
           parts = line.scan /^\s*(\d+):.*(#\w*)/
           next if parts.empty?
@@ -191,8 +196,10 @@ class Work < ActiveRecord::Base
           color = parts[0][1]
           histogram << { color: color, count: count }
           total_colors += count
+          lines += 1
         }
-        histogram = histogram.sort_by { |h| h[ :count ] }.slice( -5, 5 ).reverse.map { |h|
+        lines = 5 if lines > 5
+        histogram = histogram.sort_by { |h| h[ :count ] }.slice( -lines, lines ).reverse.map { |h|
           {
             color: h[ :color ],
             percent: h[ :count ] / total_colors

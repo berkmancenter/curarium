@@ -35,6 +35,10 @@ class Collection < ActiveRecord::Base
     self.cover_id = c.id
   end
 
+  def cover_url
+    cover.present? ? cover.thumbnail_cache_url : Work.missing_thumb_url
+  end
+
   def self.create_work_from_parsed( key, original, parsed )
     # create a work from original JSON and pre-parsed version
     col = find_by_key key

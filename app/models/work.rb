@@ -123,7 +123,7 @@ class Work < ActiveRecord::Base
       end
     end
   end
-    
+  
   def thumbnail_url
     if images.any?
       images.first.thumbnail_url

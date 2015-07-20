@@ -1,12 +1,12 @@
 .geochrono-nav {
-	width: 1270px;
-	height: 270px;
+	width: 1310px;
+	height: 370px;
 }
 
 .chrono-slider {
-	width: 1200px;
+	width: 1240px;
 	padding: 0px 5px 0px 5px;
-	height: 270px;
+	height: 370px;
 	overflow: hidden;
 	float: left;
 }
@@ -17,7 +17,7 @@
 }
 
 .chrono-info {
-	width: 5000px;
+	width: 7000px;
 	height: 14px !important;
 
 }
@@ -30,10 +30,10 @@
 }
 
 .chrono-indi {
-	width: 180px;
+	width: 160px !important;
 	overflow: hidden;
 	float: left;
-	margin-left: 30px;
+	display: inline-block;
 }
 
 img {

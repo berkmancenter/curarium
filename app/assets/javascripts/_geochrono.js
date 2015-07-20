@@ -4,11 +4,11 @@ function FixMargin(left) {
 
 $(document).ready(function( ) { 
   $("#left-button").click(function(){
-        $(".chrono-info").css('margin-left','+=270px');
+        $(".chrono-info").css('margin-left','+=160px');
   });
 
    $("#right-button").click(function( ) {
-        $(".chrono-info").css('margin-left','-=270px');
+        $(".chrono-info").css('margin-left','-=160px');
 
   });
 });

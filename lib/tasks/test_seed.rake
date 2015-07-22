@@ -22,6 +22,7 @@ def seed
   # user
   test_user = FactoryGirl.create :test_user
   user_two = FactoryGirl.create :user_two
+  user_three = FactoryGirl.create :user_three
 
   # collections
   test_col = FactoryGirl.create :test_col
@@ -87,6 +88,12 @@ def seed
   circle_six = FactoryGirl.create :circle_six
   circle_six.admin = user_two
   circle_six.save
+
+  circle_seven = FactoryGirl.create :circle_seven
+  circle_seven.admin = user_three
+  circle_seven.users << test_user
+  circle_seven.users << user_two
+  circle_seven.save
 
   # trays
   test_tray = FactoryGirl.create :test_tray

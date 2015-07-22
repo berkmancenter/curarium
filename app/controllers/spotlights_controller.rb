@@ -94,7 +94,7 @@ class SpotlightsController < ApplicationController
 
     def set_owners
       @user = User.friendly.find params[:user_id] unless params[ :user_id ].nil?
-      @circle = Circle.for_user( @user ).find( params[:circle_id] ) unless (@user.nil? || params[ :circle_id ].nil?)
+      @circle = Circle.find params[:circle_id] unless params[ :circle_id ].nil?
     end
 
     # Use callbacks to share common setup or constraints between actions.

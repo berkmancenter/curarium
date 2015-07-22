@@ -4,16 +4,17 @@
   <div class="row">
     <div class="col-sm-4 col-md-3 col-lg-2 col-info">
       <h2 class="h4 page-header">User</h2>
-        <%= render partial: 'users/thumbnail', object: @user %>
 
-        <div class="list-group">
-          <%= render partial: 'shared/mini_icon_item', object: 'user', locals: { url: edit_user_path( @user ), icon_title: 'Edit' } if is_current?( @user ) %>
-          <%= render partial: 'shared/mini_icon_item', object: 'about', locals: { url: '#user-bio', icon_title: 'Biography' } %>
-          <%= render partial: 'shared/mini_icon_item', object: 'circles', locals: { url: '#user-circles' } if is_current?( @user ) %>
-          <%= render partial: 'shared/mini_icon_item', object: 'trays', locals: { url: '#user-trays' } if is_current?( @user ) %>
-          <%= render partial: 'shared/mini_icon_item', object: 'collections', locals: { url: '#user-collections' } %>
-          <%= render partial: 'shared/mini_icon_item', object: 'spotlights', locals: { url: '#user-spotlights' } %>
-        </div>
+      <%= render partial: 'users/thumbnail', object: @user %>
+
+      <div class="list-group">
+        <%= render partial: 'shared/mini_icon_item', object: 'user', locals: { url: edit_user_path( @user ), icon_title: 'Edit' } if is_current?( @user ) %>
+        <%= render partial: 'shared/mini_icon_item', object: 'about', locals: { url: '#user-bio', icon_title: 'Biography' } %>
+        <%= render partial: 'shared/mini_icon_item', object: 'circles', locals: { url: '#user-circles' } if is_current?( @user ) %>
+        <%= render partial: 'shared/mini_icon_item', object: 'trays', locals: { url: '#user-trays' } if is_current?( @user ) %>
+        <%= render partial: 'shared/mini_icon_item', object: 'collections', locals: { url: '#user-collections' } %>
+        <%= render partial: 'shared/mini_icon_item', object: 'spotlights', locals: { url: '#user-spotlights' } %>
+      </div>
     </div>
 
     <div class="col-sm-8 col-md-6 col-lg-7 col-detail">

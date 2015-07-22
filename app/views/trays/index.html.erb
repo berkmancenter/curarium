@@ -1,20 +1,38 @@
-<div class="left">
-  <div class="holder col-sidebar">
-    <div class="titlebar main"><%= @owner.class.to_s %></div>
-    <%= render partial: "#{@owner.class.to_s.downcase.pluralize}/thumbnail", object: @owner %>
-  </div>
+<% provide :title, "#{tray_owner @owner} Trays" %>
+<div class="container container-show-item">
+
+  <div class="row">
+    <div class="col-sm-4 col-md-3 col-lg-2 col-info">
+      <h2 class="h4 page-header"><%= @owner_type %></h2>
+
+      <%= render partial: "#{@owner_type.downcase.pluralize}/thumbnail", object: @owner %>
+
+      <div class="list-group">
+        <%#= render partial: 'shared/mini_icon_item', object: 'user', locals: { url: edit_user_path( @user ), icon_title: 'Edit' } if is_current?( @user ) %>
+        <%#= render partial: 'shared/mini_icon_item', object: 'about', locals: { url: '#user-bio', icon_title: 'Biography' } %>
+        <%#= render partial: 'shared/mini_icon_item', object: 'circles', locals: { url: '#user-circles' } if is_current?( @user ) %>
+        <%#= render partial: 'shared/mini_icon_item', object: 'trays', locals: { url: '#user-trays' } if is_current?( @user ) %>
+        <%#= render partial: 'shared/mini_icon_item', object: 'collections', locals: { url: '#user-collections' } %>
+        <%#= render partial: 'shared/mini_icon_item', object: 'spotlights', locals: { url: '#user-spotlights' } %>
+      </div>
+    </div>
+
+    <div class="col-sm-8 col-md-6 col-lg-7 col-detail">
+      <h2 id="user-bio" class="h4 page-header">Tray Manager</h2>
+
+      <%= render partial: 'shared/gallery', object: @trays, locals: { newnail: Tray } %>
+
+      <%#= form_for [ @owner, Tray.new ], url: x_trays_path( @owner ), method: :post do |f| %>
+        <%#= f.hidden_field :owner_id, value: @owner.id %>
+        <%#= f.hidden_field :owner_type, value: @owner.class.name %>
+        <%#= f.text_field :name, placeholder: 'Create New Tray' %>
+        <%#= f.button 'create', type: 'submit', name: nil %>
+      <%# end %>
+    </div>
+
+    <div class="col-sm-2 col-md-3 col-activity hidden-sm">
+      <h2 class="h4 page-header">Activity</h2>
+    </div>
+
 </div>
 
-<div class="expandable">
-  <h1 class="collection-header">Tray Manager: <%= @owner.name if @owner.is_a? User %><%= @owner.title if @owner.is_a? Circle %></h1>
-
-  <%= form_for [ @owner, Tray.new ], url: x_trays_path( @owner ), method: :post do |f| %>
-    <%= f.hidden_field :owner_id, value: @owner.id %>
-    <%= f.hidden_field :owner_type, value: @owner.class.name %>
-    <%= f.text_field :name, placeholder: 'Create New Tray' %>
-    <%= f.button 'create', type: 'submit', name: nil %>
-  <% end %>
-  
-  <div class="titlebar">View Trays</div>
-  <%= render partial: 'trays/tray_preview_gallery', object: @trays %>
-</div>

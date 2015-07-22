@@ -1,4 +1,12 @@
 module TraysHelper
+  # owner's name/title
+  def tray_owner( owner )
+    if owner.is_a? Circle
+      owner.title
+    else
+      owner.name
+    end
+  end
   
   # path to a users or circles
   def x_trays_path( owner )

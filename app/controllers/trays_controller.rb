@@ -76,6 +76,7 @@ class TraysController < ApplicationController
     else
       @owner = @current_user
     end
+    @owner_type = @owner.class.to_s
   end
 
   def set_trays

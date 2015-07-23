@@ -4,4 +4,12 @@ $( function() {
       return false;
     }
   } );
+
+  if ( $( '.collections.new' ).length ) {
+    $( window ).on( 'beforeunload', function( e ) {
+      return 'Data you have entered will not be saved.';
+    } );
+
+    //introJs().start();
+  }
 } );

@@ -1,29 +1,3 @@
-.collections.show {
-  .importing-note {
-    font-size: $font-size-base;
-    margin: 0.5em;
-    outline: 2px solid $cred;
-    padding: 0.5em;
-    text-align: center;
-  }
-
-  .delete-collection {
-    background: $white;
-    border: solid 1px $cred;
-    color: $cred;
-    cursor: pointer;
-    display: block;
-    font-size: $font-size-small;
-    margin: 0 0 1em 3em;
-    padding: .25em .5em;
-
-    &:hover {
-      background: $cred;
-      color: $white;
-    }
-  }
-}
-
 .collections.new {
   input[type="checkbox"] {
     margin: .5em 0;

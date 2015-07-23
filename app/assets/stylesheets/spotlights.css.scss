@@ -50,3 +50,21 @@
     }
   }
 }
+
+/* Large devices (large desktops, 1200px and up) */
+@media (min-width: $screen-lg-min) {
+
+.spotlight-bubble {
+  bottom: 1em;
+
+  .user {
+    left: 3.5em;
+
+    .year {
+      display: none;
+    }
+  }
+}
+
+}
+

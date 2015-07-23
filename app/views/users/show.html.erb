@@ -27,7 +27,7 @@
 
       <p><%= @user.bio %></p>
 
-      <h2 id="user-circles" class="h4 page-header">Circles <%= link_to 'Circle Manager', circles_path, class: 'pull-right' %></h2>
+      <h2 id="user-circles" class="h4 page-header">Circles <%= link_to 'Circle Manager', user_circles_path( @user ), class: 'pull-right' %></h2>
 
       <%= render partial: 'shared/gallery', object: @circles, locals: { newnail: Circle } %>
 

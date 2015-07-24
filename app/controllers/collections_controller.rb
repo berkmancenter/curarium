@@ -24,6 +24,7 @@ class CollectionsController < ApplicationController
   # GET /collections/new
   def new
     @collection = Collection.new
+    @collection.approved = true
   end
 
   # GET /collections/1/edit
@@ -33,10 +34,11 @@ class CollectionsController < ApplicationController
   # POST /collections
   # POST /collections.json
   def create
-    @collection = Collection.new(collection_params)
+    @collection = Collection.new collection_params
     @collection.admins << @current_user
+
     if @collection.save
-      Zip::File.open( params[:file].path ) { |zip_file|
+      Zip::File.open( params[:collection][:file].path ) { |zip_file|
         collection_path = Rails.root.join 'db', 'collection_data', @collection.id.to_s
         FileUtils.rm_rf collection_path
 
@@ -44,13 +46,18 @@ class CollectionsController < ApplicationController
           json_file_path = collection_path.join entry.name
           entry.extract json_file_path
 
-          if json_file_path.to_s.downcase =~ /\.json/
-            ImportWork.perform_async @collection.id, @collection.configuration, json_file_path.to_s
+          if json_file_path.to_s.downcase =~ /\.json/ && !json_file_path.to_s..include?( 'macosx' )
+
+
+            #ImportWork.perform_async @collection.id, @collection.configuration, json_file_path.to_s
           end
         }
       }
       redirect_to collection_path( @collection )
     else
+      puts '****'
+      puts @collection.errors.full_messages
+      puts '****'
       render action: 'new'
     end
   end

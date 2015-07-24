@@ -219,61 +219,59 @@ class Work < ActiveRecord::Base
   private
 
   def extract_attributes
-    if id.nil?
-      # maybe can be nil?
-      uids = parsed[ 'unique_identifier' ]
-      if uids.present?
-        if uids.is_a? String
-          if uids[0] == '['
-            self.unique_identifier = JSON.parse( uids )[ 0 ]
-          else
-            self.unique_identifier = uids
+    # since we can now have a work as part of an un-configured collection
+    # these all need be be allowed to be nil
+    if parsed.present?
+      if id.nil?
+        uids = parsed[ 'unique_identifier' ]
+        if uids.present?
+          if uids.is_a? String
+            if uids[0] == '['
+              self.unique_identifier = JSON.parse( uids )[ 0 ]
+            else
+              self.unique_identifier = uids
+            end
+          elsif uids.is_a? Array
+            self.unique_identifier = uids[ 0 ]
           end
-        elsif uids.is_a? Array
-          self.unique_identifier = uids[ 0 ]
         end
-      end
 
-      # can be nil
-      if parsed[ 'image' ].present?
-        if parsed[ 'image' ].is_a? String
-          self.iurls = JSON.parse parsed[ 'image' ]
-        else
-          self.iurls = parsed[ 'image' ]
-        end
-      end
-
-      # can be nil
-      if parsed[ 'thumbnail' ].present?
-        if parsed[ 'thumbnail' ].is_a? String
-          self.turls = JSON.parse parsed[ 'thumbnail' ]
-        else
-          self.turls = parsed[ 'thumbnail' ]
-        end
-      end
-
-      # can be nil, maybe?
-      titles = parsed[ 'title' ]
-      if titles.present?
-        if titles.is_a? String
-          if titles[0] == '['
-            self.title = JSON.parse( titles )[ 0 ]
+        if parsed[ 'image' ].present?
+          if parsed[ 'image' ].is_a? String
+            self.iurls = JSON.parse parsed[ 'image' ]
           else
-            self.title = titles
+            self.iurls = parsed[ 'image' ]
           end
-        elsif titles.is_a? Array
-          self.title = titles[ 0 ]
         end
+
+        if parsed[ 'thumbnail' ].present?
+          if parsed[ 'thumbnail' ].is_a? String
+            self.turls = JSON.parse parsed[ 'thumbnail' ]
+          else
+            self.turls = parsed[ 'thumbnail' ]
+          end
+        end
+
+        titles = parsed[ 'title' ]
+        if titles.present?
+          if titles.is_a? String
+            if titles[0] == '['
+              self.title = JSON.parse( titles )[ 0 ]
+            else
+              self.title = titles
+            end
+          elsif titles.is_a? Array
+            self.title = titles[ 0 ]
+          end
+        end
+
+        self.datestart = Work.parse_date parsed[ 'datestart' ]
+
+        self.dateend = Work.parse_date parsed[ 'dateend' ]
+
+        # remove the attributes we extracted (except for title)
+        self.parsed.except! 'unique_identifier', 'image', 'thumbnail'
       end
-
-      # can be nil
-      self.datestart = Work.parse_date parsed[ 'datestart' ]
-
-      # can be nil
-      self.dateend = Work.parse_date parsed[ 'dateend' ]
-
-      # remove the attributes we extracted (except for title)
-      self.parsed.except! 'unique_identifier', 'image', 'thumbnail'
     end
   end
 

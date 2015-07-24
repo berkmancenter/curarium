@@ -46,9 +46,8 @@ class CollectionsController < ApplicationController
           json_file_path = collection_path.join entry.name
           entry.extract json_file_path
 
-          if json_file_path.to_s.downcase =~ /\.json/ && !json_file_path.to_s..include?( 'macosx' )
-
-
+          if json_file_path.to_s.downcase =~ /\.json/ && !json_file_path.to_s.include?( '__MACOSX' )
+            @collection.works.create original: IO.read( json_file_path )
             #ImportWork.perform_async @collection.id, @collection.configuration, json_file_path.to_s
           end
         }

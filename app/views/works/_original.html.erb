@@ -1,0 +1,60 @@
+<% depth = depth || 0 %>
+<% json = original.is_a?( Work ) ? JSON.parse( original.original ) : original %>
+
+<% json.each_pair { |k, v| %>
+  <% if v.is_a? Hash %>
+    <div class="row">
+      <div class="col-sm-12">
+        <b><%= k %></b>
+        <%= render partial: 'works/original', object: v %>
+      </div>
+    </div>
+  <% elsif v.is_a? Array %>
+    <div class="row">
+      <div class="col-sm-12">
+        <b><%= k %></b>
+      </div>
+    </div>
+    <% v.each_with_index { |value, i| %>
+      <div class="col-sm-1 col-sm-offset-<%= depth+1 %>">
+        <b><%= i %></b>
+      </div>
+
+      <%= render partial: 'works/original', object: value, locals: { depth: depth + 1 } %>
+    <% } %>
+  <% else %>
+    <%= render partial: 'works/original_item', locals: { k: k, v: v, depth: depth } %>
+  <% end %>
+<% } %>
+
+<!--
+<div class="row">
+  <div class="col-sm-12">
+    <b>places</b>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-sm-1 col-sm-offset-1">
+    <b>0</b>
+  </div>
+  <div class="col-sm-9 col-md-10">
+    <div class="list-group">
+      <a href="#" class="list-group-item btn btn-default" style="background: #fefefe; color: #222;"><b>name</b> | Salem</a>
+      <a href="#" class="list-group-item btn btn-default" style="background: #fefefe; color: #222;"><b>country</b> | USA</a>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-sm-1 col-sm-offset-1">
+    <b>1</b>
+  </div>
+  <div class="col-sm-9 col-md-10">
+    <div class="list-group">
+      <a href="#" class="list-group-item btn btn-default" style="background: #fefefe; color: #222;"><b>name</b> | Paris</a>
+      <a href="#" class="list-group-item btn btn-default" style="background: #fefefe; color: #222;"><b>country</b> | France</a>
+    </div>
+  </div>
+</div>
+-->

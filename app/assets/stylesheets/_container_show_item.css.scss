@@ -22,8 +22,9 @@
 
   /* Small devices (tablets, 768px and up) */
   @media (min-width: $screen-sm-min) {
-
     .col-info {
+      min-height: 48em;
+
       .thumbnail {
         width: 14em;
         height: 14em;

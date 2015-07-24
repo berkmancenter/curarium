@@ -1,7 +1,7 @@
 require 'zip'
 
 class CollectionsController < ApplicationController
-  before_action :set_collection, only: [:show, :edit, :update, :destroy]
+  before_action :set_collection, only: [:show, :edit, :configure, :update, :destroy]
 
   # GET /collections
   # GET /collections.json
@@ -31,6 +31,11 @@ class CollectionsController < ApplicationController
   def edit
   end
   
+  # GET /collections/1
+  def configure
+    @sample_work = @collection.works.first if @collection.works.any?
+  end
+
   # POST /collections
   # POST /collections.json
   def create

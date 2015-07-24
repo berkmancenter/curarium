@@ -1,0 +1,35 @@
+<% provide :title, 'Configure Collection' %><div class="container-fluid container-show-item"> 
+  <div class="row">
+    <div class="col-sm-4 col-md-2 col-lg-2 col-info">
+      <h2 class="h3 page-header">Collection</h2>
+
+      <%= render partial: 'collections/thumbnail', object: @collection %>
+
+      <div class="list-group">
+        <% if authenticated? && @collection.admins.include?( @current_user ) %>
+          <%= render partial: 'shared/mini_icon_item', object: 'annotate', locals: { icon_title: 'Edit/Privacy', url: edit_collection_path( @collection ) } %>
+        <% end %>
+      </div>
+    </div>
+
+    <div class="col-sm-8 col-md-10 col-lg-10">
+      <h2 class="h3 page-header">Configure Collection<small><a href="javascript:void(0);">Click for instructions</a></small></h2>
+    
+      <div class="row">
+        <div class="col-sm-6 hidden-xs">
+          <h2 class="h4 page-header">Sample Record</h2>
+
+          <div class="work-original">
+            <%= render partial: 'works/original', object: @collection.works.first %>
+          </div>
+
+        </div>
+
+        <div class="col-sm-6 hidden-xs">
+          <h2 class="h4 page-header">Active Fields</h2>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+

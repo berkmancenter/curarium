@@ -75,11 +75,11 @@ Curarium::Application.routes.draw do
  
 
   resources :collections do
-    post "ingest" => "collections#ingest", as: "ingest"
-    get "add" => "collections#add", as: "add"
-    post "upload" => "collections#upload", as: "upload"
-
     resources :works
+
+    member do
+      get 'configure' => "collections#configure", as: :configure
+    end
   end
   
   get "/help" => "pages#help"

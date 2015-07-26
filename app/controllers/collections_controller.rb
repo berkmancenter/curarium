@@ -57,11 +57,8 @@ class CollectionsController < ApplicationController
           end
         }
       }
-      redirect_to collection_path( @collection )
+      redirect_to configure_collection_path( @collection )
     else
-      puts '****'
-      puts @collection.errors.full_messages
-      puts '****'
       render action: 'new'
     end
   end

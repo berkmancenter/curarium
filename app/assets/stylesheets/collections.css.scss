@@ -9,4 +9,10 @@
       white-space: normal;
     }
   }
+
+  .col-active-fields {
+    .droppable {
+      border: dashed 1px #999;
+    }
+  }
 }

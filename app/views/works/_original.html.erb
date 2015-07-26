@@ -1,4 +1,5 @@
 <% depth = depth || 0 %>
+<% path = path || '' %>
 <% json = original.is_a?( Work ) ? JSON.parse( original.original ) : original %>
 
 <div class="row">
@@ -9,7 +10,7 @@
   <% if v.is_a? Hash %>
       <div class="col-sm-12">
         <b><%= k %></b>
-        <%= render partial: 'works/original', object: v %>
+        <%= render partial: 'works/original', object: v, path: "#{path}/#{k}" %>
       </div>
   <% elsif v.is_a? Array %>
     <div class="row">
@@ -22,10 +23,10 @@
         <b><%= i %></b>
       </div>
 
-      <%= render partial: 'works/original', object: value, locals: { depth: depth + 1 } %>
+      <%= render partial: 'works/original', object: value, locals: { depth: depth + 1, path: "#{path}/#{k}/*" } %>
     <% } %>
   <% else %>
-    <%= render partial: 'works/original_item', locals: { k: k, v: v, depth: depth } %>
+    <%= render partial: 'works/original_item', locals: { k: k, v: v, depth: depth, path: path } %>
   <% end %>
 <% } %>
 

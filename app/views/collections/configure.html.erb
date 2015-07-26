@@ -5,11 +5,6 @@
 
       <%= render partial: 'collections/thumbnail', object: @collection %>
 
-      <div class="list-group">
-        <% if authenticated? && @collection.admins.include?( @current_user ) %>
-          <%= render partial: 'shared/mini_icon_item', object: 'annotate', locals: { icon_title: 'Edit/Privacy', url: edit_collection_path( @collection ) } %>
-        <% end %>
-      </div>
     </div>
 
     <div class="col-sm-8 col-md-10 col-lg-10">
@@ -22,11 +17,20 @@
           <div class="work-original">
             <%= render partial: 'works/original', object: @collection.works.first %>
           </div>
-
         </div>
 
-        <div class="col-sm-6 hidden-xs">
+        <div class="col-sm-6 col-active-fields hidden-xs">
           <h2 class="h4 page-header">Active Fields</h2>
+
+          <div class="well droppable">
+            <b>Unique Identifier</b>
+            <div class="drop-data"></div>
+          </div>
+
+          <div class="well droppable">
+            <b>Title</b>
+            <div class="drop-data"></div>
+          </div>
         </div>
       </div>
     </div>

@@ -30,9 +30,20 @@ $( function() {
       e.preventDefault();
 
       var dropData = JSON.parse( e.originalEvent.dataTransfer.getData( 'dropData' ) );
-      $( this ).find( '.drop-data' ).html( dropData.path + '<br>' + dropData.value );
+      var $this = $( this );
+      $this.find( '.drop-data' ).html( dropData.path + '<br>' + dropData.value );
+      $this.find( 'input' ).val( JSON.stringify( dropData.path ) );
+
+      $this.parent( 'form' ).submit();
+
 
       return false;
     } );
+
+    $( '.form-active-fields' ).on( 'submit', function() {
+      var config = {};
+      $.each( $( '.form-active-fields .field-input' ).serializeArray(), function() { config[ this.name ] = this.value } )
+      $( '#collection_configuration' ).val( JSON.stringify( config ) );
+    });
   }
 } );

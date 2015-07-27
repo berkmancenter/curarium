@@ -1,0 +1,5 @@
+<div class="well droppable">
+  <input type="hidden" name="<%= k %>" value="<%= v %>" class="field-input">
+  <b><%= k.split( '_' ).each {|s| s.capitalize! }.join( ' ' ) %></b>
+  <div class="drop-data"><%= JSON.parse( v ).join ',' unless v.to_s == '' %></div>
+</div>

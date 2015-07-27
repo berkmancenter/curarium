@@ -20,6 +20,19 @@ class Collection < ActiveRecord::Base
     where "id in ( select distinct collection_id from works )"
   }
 
+  after_initialize :init
+
+  def init
+    self.configuration ||= { 
+      'unique_identifier' => '',
+      'title' => '',
+      'image' => '',
+      'thumbnail' => '',
+      'date_start' => '',
+      'date_end' => ''
+    }
+  end
+
   def cover
     if cover_id.present?
       Work.find cover_id

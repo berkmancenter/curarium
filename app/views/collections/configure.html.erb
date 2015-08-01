@@ -24,12 +24,7 @@
         <div class="col-sm-6 col-active-fields hidden-xs">
           <h2 class="h4 page-header">Active Fields</h2>
 
-          <%= form_for @collection, html: { class: 'form-active-fields' } do |f| %>
-            <%= f.hidden_field :configuration %>
-            <% @collection.configuration.each { |k, v| %>
-              <%= render partial: 'collections/config_item', locals: { k: k, v: v } %>
-            <% } %>
-          <% end %>
+          <%= render partial: 'collections/form_active_fields' %>
         </div>
       </div>
     </div>

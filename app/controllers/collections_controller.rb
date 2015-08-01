@@ -72,7 +72,17 @@ class CollectionsController < ApplicationController
 #        f.write params[:file].read
 #        f.close
 #        Parser.new.async.perform(@collection.id, "#{Rails.root}/tmp/#{params[:file].original_filename}")
-        format.html { redirect_to @collection, notice: 'Collection was successfully updated.' }
+        format.html {
+          if request.xhr?
+            if collection_params[ :configuration ].present?
+              render partial: 'collections/form_active_fields'
+            else
+              render @collection
+            end
+          else
+            redirect_to @collection, notice: 'Collection was successfully updated.'
+          end
+        }
         format.json { head :no_content }
       else
         format.html { render action: 'edit' }

@@ -31,19 +31,20 @@ $( function() {
 
       var dropData = JSON.parse( e.originalEvent.dataTransfer.getData( 'dropData' ) );
       var $this = $( this );
-      $this.find( '.drop-data' ).html( dropData.path + '<br>' + dropData.value );
+      $this.find( '.drop-data' ).html( dropData.path + '<br>( e.g., ' + dropData.value + ' )' );
       $this.find( 'input' ).val( JSON.stringify( dropData.path ) );
 
-      $this.parent( 'form' ).submit();
-
-
-      return false;
-    } );
-
-    $( '.form-active-fields' ).on( 'submit', function() {
+      console.log( 'submit' );
       var config = {};
       $.each( $( '.form-active-fields .field-input' ).serializeArray(), function() { config[ this.name ] = this.value } )
       $( '#collection_configuration' ).val( JSON.stringify( config ) );
+
+      $this.parent( 'form' ).submit();
+      return false;
+    } );
+
+    $( '.collections.configre' ).on( 'ajax:success', '.form-active-fields', function( xhr, result ) {
+      $( this ).replaceWith( result );
     });
   }
 } );

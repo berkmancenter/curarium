@@ -1,0 +1,7 @@
+<%# assumes @collection %>
+<%= form_for @collection, remote: true, html: { class: 'form-active-fields' } do |f| %>
+  <%= f.hidden_field :configuration %>
+  <% @collection.configuration.each { |k, v| %>
+    <%= render partial: 'collections/config_item', locals: { k: k, v: v } %>
+  <% } %>
+<% end %>

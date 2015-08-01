@@ -34,7 +34,6 @@ $( function() {
       $this.find( '.drop-data' ).html( dropData.path + '<br>( e.g., ' + dropData.value + ' )' );
       $this.find( 'input' ).val( JSON.stringify( dropData.path ) );
 
-      console.log( 'submit' );
       var config = {};
       $.each( $( '.form-active-fields .field-input' ).serializeArray(), function() { config[ this.name ] = this.value } )
       $( '#collection_configuration' ).val( JSON.stringify( config ) );
@@ -43,8 +42,8 @@ $( function() {
       return false;
     } );
 
-    $( '.collections.configre' ).on( 'ajax:success', '.form-active-fields', function( xhr, result ) {
-      $( this ).replaceWith( result );
+    $( '.form-active-fields' ).on( 'ajax:success', function( xhr, result ) {
+      $( '.active-fields-save-date' ).text( $( result ).data( 'saved' ) ).parent().removeClass( 'hidden' );
     });
   }
 } );

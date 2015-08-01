@@ -1,5 +1,5 @@
 <%# assumes @collection %>
-<%= form_for @collection, remote: true, html: { class: 'form-active-fields' } do |f| %>
+<%= form_for @collection, remote: true, html: { class: 'form-active-fields', data: { saved: Time.now.strftime( '%H:%M:%S' ) } } do |f| %>
   <%= f.hidden_field :configuration %>
   <% @collection.configuration.each { |k, v| %>
     <%= render partial: 'collections/config_item', locals: { k: k, v: v } %>

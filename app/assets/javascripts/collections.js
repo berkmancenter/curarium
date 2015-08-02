@@ -20,7 +20,7 @@ $( function() {
     function extractExample( original, path ) {
       if ( path.length === 1 ) {
         return original[ path[ 0 ] ];
-      } else {
+      } else if ( path.length > 1 ) {
         var subObj = original[ path[ 0 ] ];
         path.splice( 0, 1 );
         return extractExample( subObj, path );
@@ -46,6 +46,16 @@ $( function() {
       $( '.active-fields-save-date' ).text( $( result ).data( 'saved' ) ).parent().removeClass( 'hidden' );
     }
 
+    function saveConfig( ) {
+      var form = $( '.form-active-fields' );
+
+      var config = {};
+      $.each( form.find( '.field-input' ).serializeArray(), function() { config[ this.name ] = this.value } )
+      $( '#collection_configuration' ).val( JSON.stringify( config ) );
+
+      form.submit();
+    }
+
     // first load
     extractExamples();
 
@@ -65,11 +75,7 @@ $( function() {
       var $this = $( this );
       $this.find( 'input' ).val( dropData );
 
-      var config = {};
-      $.each( $( '.form-active-fields .field-input' ).serializeArray(), function() { config[ this.name ] = this.value } )
-      $( '#collection_configuration' ).val( JSON.stringify( config ) );
-
-      $this.parent( 'form' ).submit();
+      saveConfig();
       return false;
     } );
 
@@ -85,6 +91,11 @@ $( function() {
 
     $( '.collections.configure' ).on( 'ajax:success', '.form-add-field', function( xhr, result ) {
       replaceActiveFields( result );
+    } );
+
+    $( '.collections.configure' ).on( 'click', '.remove-field', function( ) {
+      $( this ).parent().remove();
+      saveConfig();
     } );
   }
 } );

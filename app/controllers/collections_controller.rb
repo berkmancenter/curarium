@@ -98,7 +98,7 @@ class CollectionsController < ApplicationController
   def add_field
     collection_field = params[ :collection_field ]
     config = @collection.configuration
-    config[ collection_field ] = '[]'
+    config[ collection_field ] = ''
     if @collection.update configuration: config
       render partial: 'collections/form_active_fields'
     else

@@ -16,17 +16,19 @@ $( function() {
   }
 
   if ( $( '.collections.configure' ).length ) {
-    $( '[draggable]' ).on( 'dragstart', function( e ) {
+    $( '.collections.configure' ).on( 'dragstart', '[draggable]', function( e ) {
       e.originalEvent.dataTransfer.setData( 'dropData', JSON.stringify({
         path: $( this ).data( 'path' ),
         value: $( this ).data( 'value' )
       }) );
     } );
 
-    $( '.droppable' ).on( 'dragenter dragover', function( e ) {
+    $( '.collections.configure' ).on( 'dragenter dragover', '.droppable', function( e ) {
       e.preventDefault();
       return false;
-    } ).on( 'drop', function( e ) {
+    } );
+    
+    $( '.collections.configure' ).on( 'drop', '.droppable', function( e ) {
       e.preventDefault();
 
       var dropData = JSON.parse( e.originalEvent.dataTransfer.getData( 'dropData' ) );
@@ -42,15 +44,20 @@ $( function() {
       return false;
     } );
 
-    $( '.form-active-fields' ).on( 'ajax:success', function( xhr, result ) {
+    $( '.collections.configure' ).on( 'ajax:success', '.form-active-fields', function( xhr, result ) {
       $( '.active-fields-save-date' ).text( $( result ).data( 'saved' ) ).parent().removeClass( 'hidden' );
     });
 
+    $( '.collections.configure' ).on( 'ajax:success', '.form-add-field', function( xhr, result ) {
+      $( '.form-active-fields' ).replaceWith( result );
+    } );
+    /*
     $( '.form-add-field button' ).click( function( ) { 
       console.log( $( '.form-add-field select' ).val( ) );
-      //$( '.form-active-fields' ).append( '<input type="hidden" name="<%= k %>" value="<%= v %>" class="field-input">
+      $( '.form-active-fields' ).append( '<input type="hidden" name="' + <%= k %>" value="<%= v %>" class="field-input">
       
       
     } );
+    */
   }
 } );

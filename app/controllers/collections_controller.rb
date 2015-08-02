@@ -35,7 +35,7 @@ class CollectionsController < ApplicationController
   def configure
     @sample_work = @collection.works.first if @collection.works.any?
 
-    @collection_fields = CollectionField.all #where special: false
+    @collection_fields = CollectionField.where( "NOT name IN ('#{@collection.configuration.keys.join( "','" )}')" )
   end
 
   # POST /collections
@@ -102,8 +102,7 @@ class CollectionsController < ApplicationController
     if @collection.update configuration: config
       render partial: 'collections/form_active_fields'
     else
-      redirect_to @collection, notice: 'Collection was successfully updated.'
-      #render partial: 'collections/form_active_fields'
+      render partial: 'collections/form_active_fields'
     end
   end
 

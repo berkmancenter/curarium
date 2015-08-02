@@ -35,7 +35,7 @@ class CollectionsController < ApplicationController
   def configure
     @sample_work = @collection.works.first if @collection.works.any?
 
-    @collection_fields = CollectionField.where( "NOT name IN ('#{@collection.configuration.keys.join( "','" )}')" )
+    @collection_fields = CollectionField.available_for @collection
   end
 
   # POST /collections

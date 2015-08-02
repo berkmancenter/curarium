@@ -1,7 +1,7 @@
 require 'zip'
 
 class CollectionsController < ApplicationController
-  before_action :set_collection, only: [:show, :edit, :configure, :update, :destroy]
+  before_action :set_collection, only: [:show, :edit, :configure, :add_field, :update, :destroy]
 
   # GET /collections
   # GET /collections.json
@@ -34,6 +34,8 @@ class CollectionsController < ApplicationController
   # GET /collections/1
   def configure
     @sample_work = @collection.works.first if @collection.works.any?
+
+    @collection_fields = CollectionField.all #where special: false
   end
 
   # POST /collections
@@ -88,6 +90,20 @@ class CollectionsController < ApplicationController
         format.html { render action: 'edit' }
         format.json { render json: @collection.errors, status: :unprocessable_entity }
       end
+    end
+  end
+
+  # POST /collections/1/add_field
+  # xhr
+  def add_field
+    collection_field = params[ :collection_field ]
+    config = @collection.configuration
+    config[ collection_field ] = '[]'
+    if @collection.update configuration: config
+      render partial: 'collections/form_active_fields'
+    else
+      redirect_to @collection, notice: 'Collection was successfully updated.'
+      #render partial: 'collections/form_active_fields'
     end
   end
 

@@ -79,6 +79,7 @@ Curarium::Application.routes.draw do
 
     member do
       get 'configure' => "collections#configure", as: :configure
+      put 'add_field' => "collections#add_field", as: :add_field
     end
   end
   

@@ -45,5 +45,12 @@ $( function() {
     $( '.form-active-fields' ).on( 'ajax:success', function( xhr, result ) {
       $( '.active-fields-save-date' ).text( $( result ).data( 'saved' ) ).parent().removeClass( 'hidden' );
     });
+
+    $( '.form-add-field button' ).click( function( ) { 
+      console.log( $( '.form-add-field select' ).val( ) );
+      //$( '.form-active-fields' ).append( '<input type="hidden" name="<%= k %>" value="<%= v %>" class="field-input">
+      
+      
+    } );
   }
 } );

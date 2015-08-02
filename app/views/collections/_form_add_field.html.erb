@@ -1,0 +1,7 @@
+<%# assumes @collection, @collection_fields %>
+<%= form_for @collection, url: add_field_collection_path( @collection ), method: :put, remote: true, html: { class: 'form-add-field form-inline' } do |f| %>
+  <%= label_tag 'collection_field', 'Existing fields' %>
+  <%= select_tag 'collection_field', options_from_collection_for_select( @collection_fields, 'name', 'display_name' ), include_blank: true, class: 'form-control' %>
+
+  <%= button_tag 'Add', type: 'submit', class: 'btn btn-defalt' %>
+<% end %>

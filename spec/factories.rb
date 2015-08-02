@@ -133,7 +133,6 @@ FactoryGirl.define do
       source 'Harvard Art Museums'
     end
 
-
   end
 
   factory :work do

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150724162503) do
+ActiveRecord::Schema.define(version: 20150801232258) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -92,6 +92,12 @@ ActiveRecord::Schema.define(version: 20150724162503) do
 
   add_index "collection_admins", ["collection_id"], name: "index_collection_admins_on_collection_id", using: :btree
   add_index "collection_admins", ["user_id"], name: "index_collection_admins_on_user_id", using: :btree
+
+  create_table "collection_fields", force: true do |t|
+    t.string  "name"
+    t.string  "display_name"
+    t.boolean "special"
+  end
 
   create_table "collections", force: true do |t|
     t.string   "name"

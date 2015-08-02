@@ -77,6 +77,7 @@ class CollectionsController < ApplicationController
         format.html {
           if request.xhr?
             if collection_params[ :configuration ].present?
+              @collection_fields = CollectionField.available_for @collection
               render partial: 'collections/form_active_fields'
             else
               render @collection

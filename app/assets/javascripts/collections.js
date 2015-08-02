@@ -83,9 +83,11 @@ $( function() {
       replaceActiveFields( result );
     });
 
-    $( '.collections.configure' ).on( 'submit', '.form-add-field', function( ) {
-      if ( $( this ).find( '#collection_field' ).val() === '' ) {
-        return false;
+    $( '.collections.configure' ).on( 'click', '.form-add-field button', function( ) {
+      var val = $( this ).parent().find( '#collection_field' ).val();
+      if ( val !== '' ) {
+        $( '.form-add-field' ).append( '<input type="hidden" name="' + val + '" value="" class="field-input">' );
+        saveConfig();
       }
     } );
 

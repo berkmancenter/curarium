@@ -9,4 +9,17 @@
       white-space: normal;
     }
   }
+
+  .col-active-fields {
+    position: relative;
+
+    .alert-success {
+      position: absolute;
+      right: 2em;
+    }
+
+    .droppable {
+      border: dashed 1px #999;
+    }
+  }
 }

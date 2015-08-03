@@ -1,7 +1,7 @@
 require 'zip'
 
 class CollectionsController < ApplicationController
-  before_action :set_collection, only: [:show, :edit, :configure, :update, :destroy]
+  before_action :set_collection, only: [:show, :edit, :configure, :add_field, :update, :destroy]
 
   # GET /collections
   # GET /collections.json
@@ -34,6 +34,8 @@ class CollectionsController < ApplicationController
   # GET /collections/1
   def configure
     @sample_work = @collection.works.first if @collection.works.any?
+
+    @collection_fields = CollectionField.available_for @collection
   end
 
   # POST /collections
@@ -57,11 +59,8 @@ class CollectionsController < ApplicationController
           end
         }
       }
-      redirect_to collection_path( @collection )
+      redirect_to configure_collection_path( @collection )
     else
-      puts '****'
-      puts @collection.errors.full_messages
-      puts '****'
       render action: 'new'
     end
   end
@@ -75,12 +74,36 @@ class CollectionsController < ApplicationController
 #        f.write params[:file].read
 #        f.close
 #        Parser.new.async.perform(@collection.id, "#{Rails.root}/tmp/#{params[:file].original_filename}")
-        format.html { redirect_to @collection, notice: 'Collection was successfully updated.' }
+        format.html {
+          if request.xhr?
+            if collection_params[ :configuration ].present?
+              @collection_fields = CollectionField.available_for @collection
+              render partial: 'collections/form_active_fields'
+            else
+              render @collection
+            end
+          else
+            redirect_to @collection, notice: 'Collection was successfully updated.'
+          end
+        }
         format.json { head :no_content }
       else
         format.html { render action: 'edit' }
         format.json { render json: @collection.errors, status: :unprocessable_entity }
       end
+    end
+  end
+
+  # POST /collections/1/add_field
+  # xhr
+  def add_field
+    collection_field = params[ :collection_field ]
+    config = @collection.configuration
+    config[ collection_field ] = ''
+    if @collection.update configuration: config
+      render partial: 'collections/form_active_fields'
+    else
+      render partial: 'collections/form_active_fields'
     end
   end
 

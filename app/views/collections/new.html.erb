@@ -32,8 +32,6 @@
           <%= f.input :source, placeholder: 'Identify the provider of this collection', label: 'Collection Provider' %>
 
           <%= f.input :file, as: :file, label: 'ZIP of Collection JSON Files' %>
-
-          <%= f.input :configuration, as: :hidden, input_html: { value: '{}' } %>
         <% } %>
 
         <%= f.actions { %>

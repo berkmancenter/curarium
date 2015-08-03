@@ -12,6 +12,10 @@ namespace :curarium do
   task :seed => :environment do
     seed
   end
+
+  task :seed_prod => :environment do
+    seed_prod
+  end
 end
 
 def crfj( col, r )
@@ -44,6 +48,15 @@ def seed
   japanese = FactoryGirl.create :japanese
   japanese.admins << test_user
   japanese.save
+
+  # collection_fields
+
+  CollectionField.create name: 'unique_identifier', display_name: 'Unique Identifier', special: true
+  CollectionField.create name: 'title', display_name: 'Title', special: true
+  CollectionField.create name: 'image', display_name: 'Image', special: true
+  CollectionField.create name: 'thumbnail', display_name: 'Thumbnail Image', special: true
+  CollectionField.create name: 'date_start', display_name: 'Date Start', special: true
+  CollectionField.create name: 'date_end', display_name: 'Date End', special: true
 
   # annotations
   jesus = FactoryGirl.create :jesus
@@ -134,3 +147,13 @@ def seed
   spotlight_two_circle.save
 end
 
+def seed
+  # collection_fields
+
+  CollectionField.create name: 'unique_identifier', display_name: 'Unique Identifier', special: true
+  CollectionField.create name: 'title', display_name: 'Title', special: true
+  CollectionField.create name: 'image', display_name: 'Image', special: true
+  CollectionField.create name: 'thumbnail', display_name: 'Thumbnail Image', special: true
+  CollectionField.create name: 'date_start', display_name: 'Date Start', special: true
+  CollectionField.create name: 'date_end', display_name: 'Date End', special: true
+end

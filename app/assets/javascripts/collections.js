@@ -50,7 +50,7 @@ $( function() {
       var form = $( '.form-active-fields' );
 
       var config = {};
-      $.each( form.find( '.field-input' ).serializeArray(), function() { config[ this.name ] = this.value } )
+      $.each( form.find( '.field-input' ).serializeArray(), function() { config[ this.name ] = JSON.parse( this.value ) } )
       $( '#collection_configuration' ).val( JSON.stringify( config ) );
 
       form.submit();

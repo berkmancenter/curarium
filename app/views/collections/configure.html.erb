@@ -7,6 +7,13 @@
 
       <%= render partial: 'collections/thumbnail', object: @collection %>
 
+      <div class="alert alert-warning">
+        When you are happy with the configuration of this collection to the right, click the button below to update all the records. This process can take a while depending on the size of your collection and the collection cannot be reconfigured until it has finished.
+      </div>
+
+      <%= form_for @collection, method: :post, url: reconfigure_collection_path do |f| %>
+        <%= f.button render( partial: 'shared/mini_icon', object: 'admin', locals: { icon_title: 'Update' } ), type: 'submit', class: 'btn btn-warning' %>
+      <% end %>
     </div>
 
     <div class="col-sm-8 col-md-10 col-lg-10">

@@ -4,6 +4,6 @@
   <% end %>
   <input type="hidden" name="<%= config_field.name %>" value="<%= value %>" class="field-input">
   <b><%= config_field.display_name %></b>
-  <div class="drop-data"><%= JSON.parse( value ).join ',' unless value.to_s == '' %></div>
+  <div class="drop-data"><%= value.join ',' unless value.to_s == '' %></div>
   <div class="example"></div>
 </div>

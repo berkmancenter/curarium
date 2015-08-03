@@ -221,6 +221,7 @@ class Work < ActiveRecord::Base
   def extract_attributes
     # since we can now have a work as part of an un-configured collection
     # these all need be be allowed to be nil
+    puts "**** extract_attributes #{id} ****"
     if parsed.present?
       if id.nil?
         uids = parsed[ 'unique_identifier' ]
@@ -276,6 +277,7 @@ class Work < ActiveRecord::Base
   end
 
   def create_images
+    puts "**** create_images #{id} ****"
     iurls.each_with_index { |image_url, i|
       turl = turls[ i ] unless turls.nil?
       self.images.create( image_url: image_url, thumbnail_url: turl )

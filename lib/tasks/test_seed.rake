@@ -147,7 +147,7 @@ def seed
   spotlight_two_circle.save
 end
 
-def seed
+def seed_prod
   # collection_fields
 
   CollectionField.create name: 'unique_identifier', display_name: 'Unique Identifier', special: true

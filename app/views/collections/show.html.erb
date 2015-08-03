@@ -19,11 +19,13 @@
         <%= form_for @collection, method: 'delete' do |f| %>
           <%= f.button render( partial: 'shared/mini_icon', object: 'close', locals: { icon_title: 'Delete Collection' } ), type: 'submit', class: 'btn btn-danger' %>
         <% end %>
+
       <% end %>
 
       <div class="list-group">
         <% if authenticated? && @collection.admins.include?( @current_user ) %>
           <%= render partial: 'shared/mini_icon_item', object: 'annotate', locals: { icon_title: 'Edit/Privacy', url: edit_collection_path( @collection ) } %>
+          <%= render partial: 'shared/mini_icon_item', object: 'admin', locals: { icon_title: 'Reconfigure', url: configure_collection_path( @collection ) } %>
         <% end %>
 
         <%= render partial: 'shared/mini_icon_item', object: 'spotlight', locals: { icon_title: 'Associated Spotlights', url: spotlights_path } %>

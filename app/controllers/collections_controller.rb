@@ -1,7 +1,7 @@
 require 'zip'
 
 class CollectionsController < ApplicationController
-  before_action :set_collection, only: [:show, :edit, :configure, :add_field, :update, :destroy]
+  before_action :set_collection, only: [:show, :edit, :configure, :reconfigure, :update, :destroy]
 
   # GET /collections
   # GET /collections.json
@@ -94,17 +94,12 @@ class CollectionsController < ApplicationController
     end
   end
 
-  # POST /collections/1/add_field
-  # xhr
-  def add_field
-    collection_field = params[ :collection_field ]
-    config = @collection.configuration
-    config[ collection_field ] = ''
-    if @collection.update configuration: config
-      render partial: 'collections/form_active_fields'
-    else
-      render partial: 'collections/form_active_fields'
-    end
+  # POST /collections/1/reconfigure
+  def reconfigure
+    @collection.works.each { |w|
+      ConfigureWork.perform_async @collection.configuration, w.id
+    }
+    redirect_to @collection
   end
 
   # DELETE /collections/1

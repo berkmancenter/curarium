@@ -17,7 +17,7 @@
 
       <% if authenticated? && @collection.admins.include?( @current_user ) %>
         <%= form_for @collection, method: 'delete' do |f| %>
-          <%= f.button render( partial: 'shared/mini_icon', object: 'close', locals: { icon_title: 'Delete Collection' } ), type: 'submit', class: 'btn btn-danger' %>
+          <%= f.button render( partial: 'shared/mini_icon', object: 'close', locals: { icon_title: 'Delete Collection' } ), type: 'submit', class: 'btn btn-danger delete-collection' %>
         <% end %>
 
       <% end %>

@@ -221,63 +221,59 @@ class Work < ActiveRecord::Base
   def extract_attributes
     # since we can now have a work as part of an un-configured collection
     # these all need be be allowed to be nil
-    puts "**** extract_attributes #{id} ****"
     if parsed.present?
-      if id.nil?
-        uids = parsed[ 'unique_identifier' ]
-        if uids.present?
-          if uids.is_a? String
-            if uids[0] == '['
-              self.unique_identifier = JSON.parse( uids )[ 0 ]
-            else
-              self.unique_identifier = uids
-            end
-          elsif uids.is_a? Array
-            self.unique_identifier = uids[ 0 ]
-          end
-        end
-
-        if parsed[ 'image' ].present?
-          if parsed[ 'image' ].is_a? String
-            self.iurls = JSON.parse parsed[ 'image' ]
+      uids = parsed[ 'unique_identifier' ]
+      if uids.present?
+        if uids.is_a? String
+          if uids[0] == '['
+            self.unique_identifier = JSON.parse( uids )[ 0 ]
           else
-            self.iurls = parsed[ 'image' ]
+            self.unique_identifier = uids
           end
+        elsif uids.is_a? Array
+          self.unique_identifier = uids[ 0 ]
         end
-
-        if parsed[ 'thumbnail' ].present?
-          if parsed[ 'thumbnail' ].is_a? String
-            self.turls = JSON.parse parsed[ 'thumbnail' ]
-          else
-            self.turls = parsed[ 'thumbnail' ]
-          end
-        end
-
-        titles = parsed[ 'title' ]
-        if titles.present?
-          if titles.is_a? String
-            if titles[0] == '['
-              self.title = JSON.parse( titles )[ 0 ]
-            else
-              self.title = titles
-            end
-          elsif titles.is_a? Array
-            self.title = titles[ 0 ]
-          end
-        end
-
-        self.datestart = Work.parse_date parsed[ 'datestart' ]
-
-        self.dateend = Work.parse_date parsed[ 'dateend' ]
-
-        # remove the attributes we extracted (except for title)
-        self.parsed.except! 'unique_identifier', 'image', 'thumbnail'
       end
+
+      if parsed[ 'image' ].present?
+        if parsed[ 'image' ].is_a? String
+          self.iurls = JSON.parse parsed[ 'image' ]
+        else
+          self.iurls = parsed[ 'image' ]
+        end
+      end
+
+      if parsed[ 'thumbnail' ].present?
+        if parsed[ 'thumbnail' ].is_a? String
+          self.turls = JSON.parse parsed[ 'thumbnail' ]
+        else
+          self.turls = parsed[ 'thumbnail' ]
+        end
+      end
+
+      titles = parsed[ 'title' ]
+      if titles.present?
+        if titles.is_a? String
+          if titles[0] == '['
+            self.title = JSON.parse( titles )[ 0 ]
+          else
+            self.title = titles
+          end
+        elsif titles.is_a? Array
+          self.title = titles[ 0 ]
+        end
+      end
+
+      self.datestart = Work.parse_date parsed[ 'datestart' ]
+
+      self.dateend = Work.parse_date parsed[ 'dateend' ]
+
+      # remove the attributes we extracted (except for title)
+      self.parsed.except! 'unique_identifier', 'image', 'thumbnail'
     end
   end
 
   def create_images
-    puts "**** create_images #{id} ****"
     iurls.each_with_index { |image_url, i|
       turl = turls[ i ] unless turls.nil?
       self.images.create( image_url: image_url, thumbnail_url: turl )

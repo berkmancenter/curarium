@@ -156,7 +156,7 @@ class Work < ActiveRecord::Base
     if thumbnail_url.present?
       "/thumbnails/works/#{id}.jpg"
     else
-      missing_thumb_url
+      Work.missing_thumb_url
     end
   end
 

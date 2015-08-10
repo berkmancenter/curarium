@@ -1,0 +1,7 @@
+<% horizontal = defined?( horizontal ) ? horizontal : false %>
+<dl class="metadata <%= 'dl-horizontal' if horizontal %>">
+  <% metadata.parsed.each { |k, v| %>
+    <dt><%= k %></dt>
+    <dd><%= JSON.parse(v).join( ', ' ) %></dd>
+  <% } %>
+</dl>

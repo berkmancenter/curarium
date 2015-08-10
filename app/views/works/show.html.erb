@@ -22,12 +22,7 @@
       <div id="panel-metadata" class="panel panel-default">
         <div class="panel-heading">Metadata</div>
         <div class="panel-body">
-          <dl>
-            <% @work.parsed.each { |k, v| %>
-              <dt><%= k %></dt>
-              <dd><%= v %></dd>
-            <% } %>
-          </dl>
+          <%= render partial: 'works/metadata', object: @work %>
         </div>
       </div>
 

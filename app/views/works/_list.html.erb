@@ -1,3 +1,9 @@
-<ul class="works-list">
-  <%= render partial: 'works/list_item', collection: list %>
-</ul>
+<div class="container vis-<%= @vis %>">
+  <div class="row">
+    <div class="col-sm-12">
+      <ul class="media-list">
+        <%= render partial: 'works/list_item', collection: list %>
+      </ul>
+    </div>
+  </div>
+</div>

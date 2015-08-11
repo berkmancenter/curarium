@@ -46,6 +46,12 @@
         $( '.panel-vis-controls' ).toggleClass( 'hidden' );
       } );
 
+      $( document ).on( 'keyup', function( e ) {
+        if ( ( e.type === 'keyup' && e.keyCode === 27 ) ) {
+          $( '.panel-vis-controls' ).toggleClass( 'hidden', true );
+        }
+      } );
+
       $( '#usecolorfilter' ).click( function() {
         var enabled = $( this ).is( ':checked' );
         $( '#colorfilter' ).prop( 'disabled', !enabled ).parent( '.form-group' ).toggleClass( 'hidden', !enabled );
@@ -73,7 +79,6 @@
       } );
 
       $( '#vis' ).trigger('change')
-
 
       $( '#property' ).change( function() {
         $( '#selprop' ).val( $( this ).val( ) );

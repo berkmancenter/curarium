@@ -1,5 +1,5 @@
 <%= provide( :title, @collection.name ) unless @collection.nil? %>
 
-<%= render partial: "works/#{params['vis'] || 'objectmap'}", object: @works %>
-
 <%=render partial: 'works/vis_controls', locals: { params: params } %>
+
+<%= render partial: "works/#{params['vis'] || 'objectmap'}", object: @works %>

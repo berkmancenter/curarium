@@ -43,9 +43,9 @@
               <%= text_field_tag 'propval', nil, placeholder: 'Filter value', name: nil, class: 'form-control' %>
             </div>
 
-            <div>
-              <%= button_tag 'Include', id: 'inc', type: 'button', class: 'add-prop btn btn-default', 'data-cmd'=>'include' %>
-              <%= button_tag 'Exclude', id: 'exc', type: 'button', class: 'add-prop btn btn-default', 'data-cmd'=>'exclude' %>
+            <div class="form-group">
+              <%= button_tag 'Include', id: 'inc', type: 'button', class: 'add-prop btn btn-success', 'data-cmd'=>'include' %>
+              <%= button_tag 'Exclude', id: 'exc', type: 'button', class: 'add-prop btn btn-danger', 'data-cmd'=>'exclude' %>
             </div>
 
             <div id="props" class="form-group"></div>

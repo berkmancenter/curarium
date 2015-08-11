@@ -6,6 +6,16 @@
     white-space: nowrap;
   }
 
+  #props .alert {
+    display: inline-block;
+    margin-right: .5em;
+
+    .close {
+      margin-left: .5em;
+      width: 1em;
+    }
+  }
+
   label.checkbox-inline {
     font-weight: bold;
   }

@@ -44,6 +44,7 @@
 
       $( '#toggle-vis-controls' ).click( function( ) {
         $( '.panel-vis-controls' ).toggleClass( 'hidden' );
+        return false;
       } );
 
       $( document ).on( 'keyup', function( e ) {

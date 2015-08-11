@@ -277,7 +277,7 @@ $( function() {
       updateMiniBbox();
     }
 
-    $( '.commands .button' ).click( function( ) {
+    $( '.commands .btn' ).click( function( ) {
       map.geomap( 'zoom', $( this ).data( 'zoom' ) );
     } );
   }

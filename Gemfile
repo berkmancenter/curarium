@@ -20,11 +20,11 @@ gem 'factory_girl_rails' #breaks rake if its only in test group
 # Use browserid for authentication
 gem 'browserid-rails', :git => 'git@github.com:dbp/browserid-rails.git'
 
-# Use SCSS for stylesheets
-gem 'sass-rails', '~> 4.0.0'
-
 # Use Twitter Bootstrap
-gem 'bootstrap-sass'
+gem 'bootstrap-sass', '3.3.5'
+
+# Use SCSS for stylesheets
+gem 'sass-rails'
 
 # Use Uglifier as compressor for JavaScript assets
 gem 'uglifier', '>= 1.3.0'
@@ -78,3 +78,4 @@ gem 'sinatra', '>= 1.3.0', :require => nil
 
 #Use introjs for introductions
 gem "introjs-rails"
+

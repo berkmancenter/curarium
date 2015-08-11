@@ -42,9 +42,13 @@
         props.html( propsHtml );
       }
 
+      $( '#toggle-vis-controls' ).click( function( ) {
+        $( '.panel-vis-controls' ).toggleClass( 'hidden' );
+      } );
+
       $( '#usecolorfilter' ).click( function() {
         var enabled = $( this ).is( ':checked' );
-        $( '#colorfilter' ).prop( 'disabled', !enabled ).parent( '.subcell' ).toggle( enabled );
+        $( '#colorfilter' ).prop( 'disabled', !enabled ).parent( '.form-group' ).toggleClass( 'hidden', !enabled );
       } );
 
       $( '#per_page' ).change( function() {

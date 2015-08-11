@@ -2,5 +2,21 @@
   position: absolute;
   z-index: 23;
   
-  background-color: rgba( 255, 0, 0, 0.2 );
+  .search-report {
+    white-space: nowrap;
+  }
+
+  label.checkbox-inline {
+    font-weight: bold;
+  }
+
+  .form-inline {
+    label {
+      width: 62%;
+    }
+
+    select, input {
+      width: 32%;
+    }
+  }
 }

@@ -1,5 +1,5 @@
 $( function() {
-  var objectmap = $( '.works-objectmap' );
+  var objectmap = $( '.vis-objectmap' );
   var baseThumbSize = 128;
   var thumbRequestChunk = 6;
 
@@ -47,9 +47,9 @@ $( function() {
       var maxZoomLevels = 9;
 
       var center = [ Math.floor( baseThumbSize * workDimension / 2 ), Math.floor( baseThumbSize * workDimension / 2 ) ];
-      var mapWidth = $( '.works-objectmap .geomap' ).width();
+      var mapWidth = $( '.vis-objectmap .geomap' ).width();
 
-      var map = $( '.works-objectmap .geomap' ).geomap( {
+      var map = $( '.vis-objectmap .geomap' ).geomap( {
         bbox: [ 0, center[ 1 ] - baseThumbSize, baseThumbSize * workDimension, center[ 1 ] + baseThumbSize ],
 
         mode: 'click',
@@ -244,7 +244,7 @@ $( function() {
       var miniScale = 1 / workDimension;
       var miniSize = baseThumbSize * miniScale;
 
-      var miniMap = $( '.works-objectmap .minimap' ).geomap( {
+      var miniMap = $( '.vis-objectmap .minimap' ).geomap( {
         bbox: [ 0, 0, baseThumbSize, baseThumbSize ],
         bboxMax: [ 0, 0, baseThumbSize, baseThumbSize ],
 

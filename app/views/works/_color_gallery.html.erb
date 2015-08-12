@@ -1,0 +1,18 @@
+<% col_classes = col_classes || 'col-xs-6 col-sm-4 col-md-3 col-lg-2' %>
+
+<div class="row gallery">
+  <% color_gallery.each do |item| %>
+    <div class="<%= col_classes %> color-item">
+      <%= render partial: 'works/thumbnail', object: item %>
+      <div class="color-length">
+        <% if item.top_colors.present? %>
+          <div class="color-code">
+            <% total = item.top_colors.map { |c| c['percent'].round(4) }.reduce(0, :+) %>
+            <%= render partial: 'works/color_info', collection: item.top_colors, locals: { scale: 1 / total } %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  <% end %>
+</div>
+

@@ -2,8 +2,7 @@ class ConfigureWork
   include Sidekiq::Worker
   sidekiq_options :retry => 3, :dead => false
   
-
-  def perform( configuration, work_id )
+  def perform( collection_id, configuration, work_id )
     work = Work.find work_id
     parsed = {}
 

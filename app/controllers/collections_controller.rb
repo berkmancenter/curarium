@@ -97,7 +97,7 @@ class CollectionsController < ApplicationController
   # POST /collections/1/reconfigure
   def reconfigure
     @collection.works.each { |w|
-      ConfigureWork.perform_async @collection.configuration, w.id
+      ConfigureWork.perform_async @collection.id, @collection.configuration, w.id
     }
     redirect_to @collection
   end

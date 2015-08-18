@@ -36,4 +36,22 @@ module ApplicationHelper
     end
   end
   
+  def fixed_footer?( params )
+    case params[ :controller ]
+    when 'works' then
+      case params[ :action ]
+      when 'index' then [ 'objectmap', 'treemap' ].include?( params[ :vis ] )
+      when 'show' then true
+      else false
+      end
+
+    when 'collections' then
+      case params[ :action ]
+      when 'new' then true
+      else false
+      end
+
+    else false
+    end
+  end
 end

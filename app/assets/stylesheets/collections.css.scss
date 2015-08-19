@@ -1,4 +1,16 @@
 .collections.configure {
+
+  .panel-configure {
+    position: relative;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 600px;
+
+    overflow-x: hidden;
+    overflow-y: scroll;
+  }
+
   .work-original {
     .btn-default {
       background: $body-bg;

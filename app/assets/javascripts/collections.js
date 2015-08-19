@@ -101,5 +101,19 @@ $( function() {
       $( this ).parent().remove();
       saveConfig();
     } );
+
+    $( '.collections.configure' ).on( 'click', '.btn-new-field', function( ) {
+      var fieldName = null;
+
+      var promptText = ' It will improve search and visualizations.\n\nNote: the name you choose will be visible to all users who create collections.';
+
+      if ( $( '#collection_field option' ).length == 1 ) {
+        promptText = 'Please create field names that may be useful across collections.' + promptText;
+      } else {
+        promptText = 'If possible, please use one of the existing fields.' + promptText;
+      }
+
+      fieldName = prompt( promptText );
+    } );
   }
 } );

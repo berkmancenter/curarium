@@ -73,8 +73,10 @@ Curarium::Application.routes.draw do
   get 'works/:work_id/images/:index' => 'images#show', as: :work_image
   get 'works/:work_id?image=:index' => 'works#show', as: :work_surrogate
  
+  resources :collection_fields
 
   resources :collections do
+    resources :collection_fields
     resources :works
 
     member do

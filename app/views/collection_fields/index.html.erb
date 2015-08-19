@@ -1,0 +1,14 @@
+<div class="container">
+  <div class="row">
+    <div class="col-sm-12">
+      <h2 class="h4 page-header">Collection Fields</h2>
+
+      <dl class="dl-horizontal">
+        <% @collection_fields.each { |cf| %>
+          <dt><%= cf.name %></dt><dd><%= cf.display_name %></dd>
+        <% } %>
+
+      </dl> 
+    </div>
+  </div>
+</div>

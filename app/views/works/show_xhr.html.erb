@@ -1,35 +1,48 @@
-<article class="show-xhr">
-  <h1><%= work_title @work %></h1>
+<div class="show-xhr" data-action-item-type="<%= @popup_action_type %>" data-action-item-id="<%= @popup_action_item_id %>">
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      <%= work_title @work %>
+      <%= link_to render( partial: 'shared/mini_icon', object: 'close' ), '#', class: 'close' %>
+    </div>
+    <div class="panel-body">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-sm-3">
+            <h2 class="h4">Parsed Info</h2>
+          </div>
 
-  <section class="parsed-info">
-    <h2>Parsed Information</h2>
+          <div class="col-sm-6">
+            <ul class="work-commands nav navbar-nav">
+              <li><%= link_to render( partial: 'shared/mini_icon', object: 'record', locals: { side: :right } ), @work, class: 'show' %></li>
+              <% if authenticated? %>
+                <li><%= link_to render( partial: 'shared/mini_icon', object: 'tray', locals: { side: :right } ), '#', class: 'tray' %></li>
+              <% end %>
+            </ul>
+          </div>
 
-    <%= render :partial => 'shared/print_metadata', locals: {
-      original: @work.parsed,
-      current: @current_metadata,
-      class_name: 'printed_object',
-      id_name: 'parsed_work'
-    } %>
-  </section>
+          <div class="col-sm-3">
+            <h2 class="h4">Surrogates</h2>
+          </div>
+        </div>
 
-  <section class="work-image" data-action-item-type="<%= @popup_action_type %>" data-action-item-id="<%= @popup_action_item_id %>">
-    <ul class="work-commands">
-      <li><%= link_to render( partial: 'shared/mini_icon', object: 'record' ), @work, class: 'show' %></li>
-      <% if authenticated? %>
-        <li><%= link_to render( partial: 'shared/mini_icon', object: 'tray' ), '#', class: 'tray' %></li>
-      <% end %>
-      <li><%= link_to render( partial: 'shared/mini_icon', object: 'close' ), '#', class: 'close' %></li>
-    </ul>
-    <h2><%= work_title @work %></h2>
-    <%= image_tag "#{@work.images.first.image_url}?width=640", alt: '' %>
-  </section>
+        <div class="row">
+          <div class="col-sm-3 parsed-info">
+            <%= render partial: 'works/metadata', object: @work %>
+          </div>
 
-  <% if @work.images.any? %>
-    <section class="surrogates">
-      <h2>Surrogates</h2>
-      <% @work.images.each_with_index do |image, i|%>
-        <a href="<%= work_path @work %><%= "?image=#{i}" unless i == 0 %>"><%= image_tag "#{image.image_url}?width=128&height=128", class: 'surrogate_thumbnail', alt: ''%></a>
-      <% end %>
-    </section>
-  <% end %>
-</article>
+          <div class="col-sm-6 work-image">
+            <%= image_tag "#{@work.images.first.image_url}?width=640", alt: '' %>
+          </div>
+
+          <% if @work.images.any? %>
+            <div class="col-sm-3 surrogates">
+              <% @work.images.each_with_index do |image, i|%>
+                <%= link_to image_tag( "#{image.image_url}?width=128", alt: '' ), @work, class: 'thumbnail' %>
+              <% end %>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

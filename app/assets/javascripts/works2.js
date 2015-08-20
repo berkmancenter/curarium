@@ -4,7 +4,7 @@ $( function() {
     return false;
   } );
 
-  $( '.works.index' ).on( 'click', '.show-xhr .work-commands .close', function() {
+  $( '.works.index' ).on( 'click', '.show-xhr .close', function() {
     $.magnificPopup.instance.close();
     return false;
   } );

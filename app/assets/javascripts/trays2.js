@@ -50,7 +50,7 @@ $( function() {
 
   $( '.works.index' )
   .on( 'click', '.work-commands .tray', function( ) {
-    var workImage = $( this ).closest( '.work-image' );
+    var workImage = $( this ).closest( '.show-xhr' );
 
     $.ajax( {
       url: '/trays',

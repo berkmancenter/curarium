@@ -1,7 +1,3 @@
-.introjs-tooltip{
-  left: -0.5px !important;  
-}
-
 .works {
   &.show {
     .work-canvas {
@@ -19,122 +15,16 @@
     }
   }
 
-  .tag_selector {
-    width: 100%;
-  }
-
-  #parsed_work {
-    &>ul>li {
-      list-style: none;
-
-      span {
-        display: block;
-        font-weight: bold;
-        padding: 2px 0;
-      }
-
-      ul {
-        background-color: white;
-        color: $cred;
-        list-style: none;
-        font-weight: bold;
-        display: block;
-        width: 125px;
-
-        li {
-          border: 1px solid $cred;
-          display: inline-block;
-          overflow: hidden;
-          padding: 2px;
-          margin: 1px;
-          max-width: 100%;
-
-
-          &.deleted {
-            text-decoration:line-through;
-          }
-
-          &.new {
-            border: 1px solid darkgray;
-            color: darkgray;
-          }
-        }
-      }
-    }
-  }
-
-  .admin_box {
-    .edit_work_set_cover .button {
-      display: inline-block;
-      padding: .25em .5em;
-      position: static;
-      width: auto;
-    }
-    
-  }
-
-
   .show-xhr {
-    background: #fff;
-    padding: 1em;
-    margin: 150px;
-
-    h1 {
-      display: none;
-    }
-
-    h2 {
-      padding-bottom: -10px;
-      font-size: $font-size-base;
-      width: 400px;
-    }
-
-    .parsed-info {
-      display: inline-block;
-      height: 95%;
-      vertical-align: top;
-      width: 25%;
-    }
-
     .work-image {
-      display: inline-block;
-      width: 55%;
-
-      .work-commands {
-        float: right;
-        list-style-type: none;
-
-        li {
-          border: 1px solid #D2232A;
-          padding: 3px 1px 0 0;
-          margin-right: 3px;
-          top: 10px;
-          display: inline;
-        }
-      }
-
       img {
         width: 100%;
       }
     }
 
     .surrogates {
-      bottom: 50px;
-      display: inline-block;
-      vertical-align: top;
-      width: 18%;
-      
-      .surrogates_title {
-
-      }
-
-      a:hover {
-        outline: solid 1px $cred;
-      }
-
-      img {
-        height: 128px;
-        width: 128px;
+      .thumbnail {
+        margin: .5em 0;
       }
     }
   }

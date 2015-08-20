@@ -14,7 +14,7 @@ $( function() {
     if ( panel.is( ':visible' ) ) {
       panel.hide();
     } else {
-      $( '.panel' ).hide();
+      $( '.panel-work' ).hide();
       panel.show();
     }
     return false;

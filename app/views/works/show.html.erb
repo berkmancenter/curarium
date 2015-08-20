@@ -1,5 +1,7 @@
 <% provide :title, @work.title %>
+
 <div class="work-canvas" style="background-image: url(<%= @image.image_url %>);"></div>
+
 <div class="container-fluid">
   <div class="row">
     <p><a href="#">Click for instructions</a></p>
@@ -19,14 +21,14 @@
     </div>
 
     <div class="col-sm-6 col-md-5 col-lg-3 col-works-panels">
-      <div id="panel-metadata" class="panel panel-default">
+      <div id="panel-metadata" class="panel panel-default panel-work">
         <div class="panel-heading">Metadata</div>
         <div class="panel-body">
           <%= render partial: 'works/metadata', object: @work %>
         </div>
       </div>
 
-      <div id="panel-surrogates" class="panel panel-default">
+      <div id="panel-surrogates" class="panel panel-default panel-work">
         <div class="panel-heading">Surrogates</div>
         <div class="panel-body">
           <% @work.images.each_with_index { |image, i| %>
@@ -35,21 +37,21 @@
         </div>
       </div>
 
-      <div id="panel-trays" class="panel panel-default">
-        <div class="panel-heading">Your Trays</div>
-        <div class="panel-body">
-          <div class="trays-container">
-            <% if authenticated? %>
-              <%= render template: 'trays/popup', layout: false %>
-            <% else %>
+      <div id="panel-trays" class="panel-work">
+        <div class="trays-container">
+          <% if authenticated? %>
+            <%= render template: 'trays/popup', layout: false %>
+          <% else %>
+            <div class="panel-heading">Your Trays</div>
+            <div class="panel-body">
               <%= login_link 'Log in' %>
-            <% end %>
-          </div>
+            </div>
+          <% end %>
         </div>
       </div>
 
       <% if authenticated? && @work.collection.admins.include?( @current_user ) %>
-      <div id="panel-admin" class="panel panel-default">
+      <div id="panel-admin" class="panel panel-default panel-work">
         <div class="panel-heading">Admin</div>
         <div class="panel-body">
           <dl>

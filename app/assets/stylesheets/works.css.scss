@@ -1,16 +1,17 @@
 .works {
   &.show {
     .work-canvas {
+      position: absolute;
+      top: 0;
+      right: 0;
+      left: 80px;
+      bottom: 0;
+
       background-repeat: no-repeat;
       background-size: contain;
-      bottom: $navbar-height;
-      left: 0;
-      position: absolute;
-      right: 0;
-      top: $navbar-height;
     }
 
-    .col-works-panels .panel {
+    .col-works-panels .panel-work {
       display: none;
     }
   }

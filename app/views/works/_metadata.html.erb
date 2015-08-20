@@ -1,7 +1,8 @@
 <% horizontal = defined?( horizontal ) ? horizontal : false %>
 <dl class="metadata <%= 'dl-horizontal' if horizontal %>">
   <% metadata.parsed.each { |k, v| %>
+    <% next if k == 'title' %>
     <dt><%= k %></dt>
-    <dd><%= JSON.parse(v).join( ', ' ) %></dd>
+    <dd><%= JSON.parse(v).join( ', ' ) unless v.nil? %></dd>
   <% } %>
 </dl>

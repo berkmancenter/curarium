@@ -114,6 +114,20 @@ $( function() {
       }
 
       fieldName = prompt( promptText );
+
+      if ( fieldName ) {
+        $.ajax( {
+          url: '/collection_fields',
+          method: 'POST',
+          data: {
+            'collection_field[display_name]': fieldName
+          }
+        } ).done( function( ) {
+          saveConfig();
+        } ).fail( function( result ) {
+          alert( JSON.stringify( result ) );
+        } );
+      }
     } );
   }
 } );

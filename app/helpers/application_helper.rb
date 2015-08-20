@@ -40,7 +40,7 @@ module ApplicationHelper
     case params[ :controller ]
     when 'works' then
       case params[ :action ]
-      when 'index' then [ 'objectmap', 'treemap' ].include?( params[ :vis ] )
+      when 'index' then [ 'objectmap', 'treemap' ].include?( @vis )
       when 'show' then true
       else false
       end

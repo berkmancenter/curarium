@@ -11,6 +11,11 @@ class CollectionFieldsController < ApplicationController
   # POST /collections/1/collection_fields
   def create
     @collection_field = CollectionField.new collection_field_params
+
+    if @collection_field.name.nil?
+      @collection_field.name = @collection_field.display_name.gsub( / /, '' ).underscore
+    end
+
     if @collection_field.save
       redirect_to collection_fields_path
     end

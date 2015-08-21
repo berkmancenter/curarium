@@ -4,12 +4,9 @@
 
 <div class="container-fluid">
   <div class="row">
-    <p><a href="#">Click for instructions</a></p>
-  </div>
-
-  <div class="row">
     <div class="col-sm-1">
       <ul class="nav nav-pills nav-stacked nav-works">
+        <li><a href="#" data-panel="help"><%= render partial: 'shared/mini_icon', object: 'help', locals: { icon_title: nil } %></a></li>
         <li><a href="#" data-panel="metadata"><%= render partial: 'shared/mini_icon', object: 'parsed', locals: { icon_title: nil } %></a></li>
         <li><a href="#" data-panel="surrogates"><%= render partial: 'shared/mini_icon', object: 'surrogate', locals: { icon_title: nil } %></a></li>
         <li><a href="#" data-panel="trays"><%= render partial: 'shared/mini_icon', object: 'tray', locals: { icon_title: nil } %></a></li>

@@ -10,6 +10,7 @@
         <li><a href="#" data-panel="metadata"><%= render partial: 'shared/mini_icon', object: 'parsed', locals: { icon_title: nil } %></a></li>
         <li><a href="#" data-panel="surrogates"><%= render partial: 'shared/mini_icon', object: 'surrogate', locals: { icon_title: nil } %></a></li>
         <li><a href="#" data-panel="trays"><%= render partial: 'shared/mini_icon', object: 'tray', locals: { icon_title: nil } %></a></li>
+        <li><a href="#" data-panel="annotations"><%= render partial: 'shared/mini_icon', object: 'annotate', locals: { icon_title: nil } %></a></li>
 
         <% if authenticated? && @work.collection.admins.include?( @current_user ) %>
         <li><a href="#" data-panel="admin"><%= render partial: 'shared/mini_icon', object: 'user', locals: { icon_title: nil } %></a></li>
@@ -45,6 +46,20 @@
                 <%= login_link 'Log in' %>
               </div>
             </div>
+          <% end %>
+        </div>
+      </div>
+
+      <div id="panel-annotations" class="panel panel-default panel-work">
+        <div class="panel-heading">Annotations</div>
+        <div class="panel-body">
+          <div class="annotations-container">
+            <%= render partial: 'annotations/thumbnail', collection: @work.annotations %>
+          </div>
+
+          <% if authenticated? %>
+          <% else %>
+            <%= login_link 'Log in' %>
           <% end %>
         </div>
       </div>

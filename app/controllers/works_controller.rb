@@ -313,11 +313,8 @@ class WorksController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_work
       @work = Work.find(params[:id])
-      if params[ :image ].present?
-        @image = @work.images[ params[ :image ].to_i ]
-      else
-        @image = @work.images.first
-      end
+      @image_index = ( params[ :image ].present? ? params[ :image ].to_i : 0 )
+      @image = @work.images[ @image_index ]
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

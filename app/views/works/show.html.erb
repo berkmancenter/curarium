@@ -1,6 +1,6 @@
 <% provide :title, @work.title %>
 
-<div class="work-canvas" style="background-image: url(<%= @image.image_url %>);"></div>
+<div class="work-canvas" data-image-url="<%= work_image_path @work, @image_index %>"></div>
 
 <div class="container-fluid">
   <div class="row">
@@ -39,9 +39,11 @@
           <% if authenticated? %>
             <%= render template: 'trays/popup', layout: false %>
           <% else %>
-            <div class="panel-heading">Your Trays</div>
-            <div class="panel-body">
-              <%= login_link 'Log in' %>
+            <div class="panel panel-default">
+              <div class="panel-heading">Your Trays</div>
+              <div class="panel-body">
+                <%= login_link 'Log in' %>
+              </div>
             </div>
           <% end %>
         </div>

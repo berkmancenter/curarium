@@ -35,6 +35,7 @@ $( function() {
     $.geo.proj = null;
 
     var haveImage = false;
+    var timeoutMove = null;
 
     var img = new Image();
     img.onload = function( ) {
@@ -72,23 +73,30 @@ $( function() {
       } ],
 
       move: function( e, geo ) {
-        var annotations = map.geomap( 'find', geo, 1 );
-
-        if ( annotations.length ) {
-          var popupHtml = '<ul class="media-list media-list-annotations">';
-          $.each( annotations, function( i, v ) {
-            popupHtml += $( '#' + v.properties.id ).html();
-          } );
-          popupHtml += '</ul>';
-
-          var position = map.geomap( 'toPixel', geo.coordinates );
-          $( '.annotations-popup' ).html( popupHtml ).css( {
-            left: position[ 0 ],
-            top: position[ 1 ]
-          } ).removeClass( 'hidden' );
-        } else {
-          $( '.annotations-popup' ).addClass( 'hidden' );
+        if ( timeoutMove ) {
+          clearTimeout( timeoutMove );
+          timeoutMove = null;
         }
+
+        timeoutMove = setTimeout( function( ) {
+          var annotations = map.geomap( 'find', geo, 1 );
+
+          if ( annotations.length ) {
+            var popupHtml = '<ul class="media-list media-list-annotations">';
+            $.each( annotations, function( ) {
+              popupHtml += $( '#' + this.properties.id ).html();
+            } );
+            popupHtml += '</ul>';
+
+            var position = map.geomap( 'toPixel', geo.coordinates );
+            $( '.annotations-popup' ).html( popupHtml ).css( {
+              left: position[ 0 ],
+              top: position[ 1 ]
+            } ).removeClass( 'hidden' );
+          } else {
+            $( '.annotations-popup' ).addClass( 'hidden' );
+          }
+        }, 334 );
       }
     } );
 

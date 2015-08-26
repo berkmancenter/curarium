@@ -55,18 +55,45 @@
       <div id="panel-annotations" class="panel panel-default panel-work">
         <div class="panel-heading">Annotations</div>
         <div class="panel-body">
+          <% if authenticated? %>
+            <h3 class="h5">Annotate image</h3>
+
+            <%= form_for([@work, Annotation.new]) do |f| %>
+              <div>
+                <%= f.label :title%> *<br>
+                <%= f.text_field :title%>
+              </div>
+              <div>
+                <%= f.label :body %> *<br>
+                <%= f.text_area :body%>
+              </div>
+              <%#= f.hidden_field :tags, id: 'content_tags' %>
+
+              <%= f.hidden_field :x, id: 'content_x' %>
+              <%= f.hidden_field :y, id: 'content_y'%>
+              <%= f.hidden_field :width, id: 'content_width'%>
+              <%= f.hidden_field :height, id: 'content_height'%>
+              <%= f.hidden_field :image_url, id: 'content_image_url'%>
+              <%= f.hidden_field :thumbnail_url, id: 'content_thumbnail_url'%>
+
+              <%#= tag_selector @current_metadata %>
+              <p>
+              <%= f.submit %>
+              </p>
+            <% end %>    
+          <% else %>
+            <div><%= login_link 'Log in' %> to annotate this image</div>
+          <% end %>
+
+          <hr>
+
           <div class="checkbox">
-            <label><input id="annotations-show" type="checkbox" checked>Show annotations on image</label>
+            <label><input id="annotations-show" type="checkbox" checked>Show annotations on this image</label>
           </div>
 
           <div class="annotations-container">
             <%= render partial: 'annotations/media_list', object: @work.annotations %>
           </div>
-
-          <% if authenticated? %>
-          <% else %>
-            <%= login_link 'Log in' %>
-          <% end %>
         </div>
       </div>
 

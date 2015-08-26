@@ -35,6 +35,7 @@ $( function() {
     $.geo.proj = null;
 
     var haveImage = false;
+    var showAnnotations = true;
     var timeoutMove = null;
 
     var img = new Image();
@@ -70,6 +71,10 @@ $( function() {
         style: {
           opacity: 0.99
         }
+      }, {
+        type: 'shingled',
+        src: '',
+        id: 'annotations-service'
       } ],
 
       move: function( e, geo ) {
@@ -78,38 +83,50 @@ $( function() {
           timeoutMove = null;
         }
 
-        timeoutMove = setTimeout( function( ) {
-          var annotations = map.geomap( 'find', geo, 1 );
+        if ( showAnnotations ) {
+          timeoutMove = setTimeout( function( ) {
+            var annotations = annotationsService.geomap( 'find', geo, 1 );
 
-          if ( annotations.length ) {
-            var popupHtml = '<ul class="media-list media-list-annotations">';
-            $.each( annotations, function( ) {
-              popupHtml += $( '#' + this.properties.id ).html();
-            } );
-            popupHtml += '</ul>';
+            if ( annotations.length ) {
+              var popupHtml = '<ul class="media-list media-list-annotations">';
+              $.each( annotations, function( ) {
+                popupHtml += $( '#' + this.properties.id ).html();
+              } );
+              popupHtml += '</ul>';
 
-            var position = map.geomap( 'toPixel', geo.coordinates );
-            $( '.annotations-popup' ).html( popupHtml ).css( {
-              left: position[ 0 ],
-              top: position[ 1 ]
-            } ).removeClass( 'hidden' );
-          } else {
-            $( '.annotations-popup' ).addClass( 'hidden' );
-          }
-        }, 334 );
+              var position = map.geomap( 'toPixel', geo.coordinates );
+              $( '.annotations-popup' ).html( popupHtml ).css( {
+                left: position[ 0 ],
+                top: position[ 1 ]
+              } ).removeClass( 'hidden' );
+            } else {
+              $( '.annotations-popup' ).addClass( 'hidden' );
+            }
+          }, 334 );
+        }
       }
+    } );
+
+    var annotationsService = $( '#annotations-service' ).geomap( 'option', 'shapeStyle', {
+      color: 'green'
     } );
 
     $( '.media-list-annotations .media' ).each( function( ) {
       var $this = $( this );
       var bbox = $this.data( 'bbox' );
-      map.geomap( 'append', {
+      annotationsService.geomap( 'append', {
         type: 'Feature',
         geometry: $.geo.polygonize( bbox ),
         properties: {
           id: $this.attr( 'id' )
         }
       } );
+    } );
+
+    $( '#annotations-show' ).click( function( ) {
+      showAnnotations = $( this ).is( ':checked' );
+      annotationsService.geomap( 'toggle', showAnnotations );
+      $( '.annotations-popup' ).addClass( 'hidden' );
     } );
   }
 } );

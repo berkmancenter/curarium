@@ -75,6 +75,10 @@ $( function() {
         type: 'shingled',
         src: '',
         id: 'annotations-service'
+      }, {
+        type: 'shingled',
+        src: '',
+        id: 'annotations-popup'
       } ],
 
       move: function( e, geo ) {
@@ -94,22 +98,18 @@ $( function() {
               } );
               popupHtml += '</ul>';
 
-              var position = map.geomap( 'toPixel', geo.coordinates );
-              $( '.annotations-popup' ).html( popupHtml ).css( {
-                left: position[ 0 ],
-                top: position[ 1 ]
-              } ).removeClass( 'hidden' );
+              //var position = map.geomap( 'toPixel', geo.coordinates );
+              annotationsPopup.geomap( 'empty', false ).geomap( 'append', geo, popupHtml );
             } else {
-              $( '.annotations-popup' ).addClass( 'hidden' );
+              annotationsPopup.geomap( 'empty' );
             }
           }, 334 );
         }
       }
     } );
 
-    var annotationsService = $( '#annotations-service' ).geomap( 'option', 'shapeStyle', {
-      color: 'green'
-    } );
+    var annotationsService = $( '#annotations-service' );
+    var annotationsPopup = $( '#annotations-popup' );
 
     $( '.media-list-annotations .media' ).each( function( ) {
       var $this = $( this );
@@ -126,7 +126,7 @@ $( function() {
     $( '#annotations-show' ).click( function( ) {
       showAnnotations = $( this ).is( ':checked' );
       annotationsService.geomap( 'toggle', showAnnotations );
-      $( '.annotations-popup' ).addClass( 'hidden' );
+      annotationsPopup.geomap( 'empty' );
     } );
   }
 } );

@@ -1,6 +1,8 @@
 <% provide :title, @work.title %>
 
-<div class="work-canvas" data-image-url="<%= work_image_path @work, @image_index %>"></div>
+<div class="work-canvas" data-image-url="<%= work_image_path @work, @image_index %>">
+  <div class="annotations-popup hidden"></div>
+</div>
 
 <div class="container-fluid">
   <div class="row">
@@ -53,8 +55,12 @@
       <div id="panel-annotations" class="panel panel-default panel-work">
         <div class="panel-heading">Annotations</div>
         <div class="panel-body">
+          <div class="checkbox">
+            <label><input type="checkbox" checked>Show annotations on image</label>
+          </div>
+
           <div class="annotations-container">
-            <%= render partial: 'annotations/thumbnail', collection: @work.annotations %>
+            <%= render partial: 'annotations/media_list', object: @work.annotations %>
           </div>
 
           <% if authenticated? %>

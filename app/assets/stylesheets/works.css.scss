@@ -2,13 +2,21 @@
   &.show {
     .work-canvas {
       position: absolute;
-      top: 56px;
+      top: 114px;
       right: 0;
-      left: 80px;
-      bottom: 50px;
+      left: 0;
+      bottom: 0;
 
-      background-repeat: no-repeat;
-      background-size: contain;
+      .annotations-popup {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 33%;
+
+        background: #fefefe;
+        border-radius: .25em;
+        padding: 1em;
+      }
     }
 
     .col-works-panels .panel-work {
@@ -29,4 +37,21 @@
       }
     }
   }
+}
+
+/* Small devices (tablets, 768px and up) */
+@media (min-width: $screen-sm-min) {
+
+.works {
+  &.show {
+    .work-canvas {
+      position: absolute;
+      top: 56px;
+      right: 0;
+      left: 80px;
+      bottom: 50px;
+    }
+  }
+}
+
 }

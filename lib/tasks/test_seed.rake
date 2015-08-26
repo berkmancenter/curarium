@@ -57,6 +57,8 @@ def seed
   CollectionField.create name: 'thumbnail', display_name: 'Thumbnail Image', special: true
   CollectionField.create name: 'date_start', display_name: 'Date Start', special: true
   CollectionField.create name: 'date_end', display_name: 'Date End', special: true
+  CollectionField.create name: 'artist', display_name: 'Artist', special: false
+  CollectionField.create name: 'topics', display_name: 'Topics', special: false
 
   # annotations
   jesus = FactoryGirl.create :jesus

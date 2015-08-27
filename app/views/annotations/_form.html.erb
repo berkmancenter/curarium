@@ -1,15 +1,50 @@
-<%= form_for( [ @work, @annotation ]) do |f| %>
+<%= semantic_form_for([@work, @annotation]) do |f| %>
+  <div class="row">
+    <div class="col-sm-1">
+      &copy;
+    </div>
+    <div class="col-sm-11">
+      <small class="text-info">Tap the pencil tool then drag a rectangle over the area of the image you wish to annotate. You can redraw your rectangle by using the pencil tool again.</small>
+    </div>
+  </div>
+
+  <%= f.semantic_errors :annotation %>
+
+  <%= f.inputs { %>
+    <%= f.input :title %>
+    <%= f.input :body, as: :text, input_html: { rows: 5 } %>
+
+    <%= f.input :x, as: :hidden %>
+    <%= f.input :y, as: :hidden %>
+    <%= f.input :width, as: :hidden %>
+    <%= f.input :height, as: :hidden %>
+    <%= f.input :image_url, as: :hidden %>
+    <%= f.input :thumbnail_url, as: :hidden %>
+  <% } %>
+
+  <%= f.actions { %>
+    <%= f.action :submit %>
+  <% } %>
+<% end %>    
+
+
+
+<!--
+<%#= form_for( [ @work, @annotation ]) do |f| %>
   <div class="field">
     <div>
-      <%= f.label :title%><br>
-      <%= f.text_field :title%>
+      <%#= f.label :title%><br>
+      <%#= f.text_field :title%>
     </div>
     <div>
-      <%= f.label :body%><br>
-      <%= f.text_area :body%>
+      <%#= f.label :body%><br>
+      <%#= f.text_area :body%>
     </div>
   </div>
   <div class="actions">
-    <%= f.submit %>
+    <%#= f.submit %>
   </div>
-<% end %>
+<%# end %>
+-->
+
+

@@ -216,6 +216,9 @@ class WorksController < ApplicationController
         if request.xhr?
           render 'show_xhr', layout: false
         else
+          # for annotating images
+          @annotation = Annotation.new
+
           render
         end
       }

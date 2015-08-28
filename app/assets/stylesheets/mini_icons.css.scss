@@ -103,11 +103,11 @@
     background-position: -16px (-48px + 96px);
   }
 
-  .mini-icon-zoomin {
+  .mini-icon-plus, .mini-icon-zoomin {
     background-position: -32px (-48px + 96px);
   }
 
-  .mini-icon-zoomout {
+  .mini-icon-minus, .mini-icon-zoomout {
     background-position: -48px (-48px + 96px);
   }
 
@@ -246,11 +246,11 @@ a:hover, button:hover {
       background-position: -16px (-48px + 0px);
     }
 
-    .mini-icon-zoomin {
+    .mini-icon-plus, .mini-icon-zoomin {
       background-position: -32px (-48px + 0px);
     }
 
-    .mini-icon-zoomout {
+    .mini-icon-minus, .mini-icon-zoomout {
       background-position: -48px (-48px + 0px);
     }
 

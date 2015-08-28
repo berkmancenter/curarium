@@ -105,7 +105,14 @@ $( function() {
             }
           }, 334 );
         }
+      },
+
+      shape: function( e, geo ) {
+        console.log( geo.coordinates );
+        map.geomap( 'option', 'mode', 'pan' );
+        $( '.btn-drag-annotation' ).button( 'toggle' );
       }
+      
     } );
 
     var annotationsService = $( '#annotations-service' );
@@ -121,6 +128,10 @@ $( function() {
           id: $this.attr( 'id' )
         }
       } );
+    } );
+
+    $( '.btn-drag-annotation' ).click( function( ) {
+      map.geomap( 'option', 'mode', 'dragBox' );
     } );
 
     $( '#annotations-show' ).click( function( ) {

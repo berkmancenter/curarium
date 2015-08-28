@@ -1,10 +1,12 @@
 <%= semantic_form_for([@work, @annotation]) do |f| %>
   <div class="row">
-    <div class="col-sm-1">
-      &copy;
+    <div class="col-sm-2">
+      <button type="button" class="btn btn-default btn-drag-annotation" data-toggle="button" aria-pressed="false" autocomplete="off">
+        <%= render partial: 'shared/mini_icon', object: 'plus', locals: { icon_title: nil } %>
+      </button>
     </div>
-    <div class="col-sm-11">
-      <small class="text-info">Tap the pencil tool then drag a rectangle over the area of the image you wish to annotate. You can redraw your rectangle by using the pencil tool again.</small>
+    <div class="col-sm-10">
+      <small class="text-info">Tap the crosshair then drag a rectangle over the area of the image you wish to annotate. You can redraw your rectangle by using the crosshair tool again.</small>
     </div>
   </div>
 
@@ -23,28 +25,6 @@
   <% } %>
 
   <%= f.actions { %>
-    <%= f.action :submit %>
+    <%= f.action :submit, button_html: { class: 'btn btn-default' } %>
   <% } %>
 <% end %>    
-
-
-
-<!--
-<%#= form_for( [ @work, @annotation ]) do |f| %>
-  <div class="field">
-    <div>
-      <%#= f.label :title%><br>
-      <%#= f.text_field :title%>
-    </div>
-    <div>
-      <%#= f.label :body%><br>
-      <%#= f.text_area :body%>
-    </div>
-  </div>
-  <div class="actions">
-    <%#= f.submit %>
-  </div>
-<%# end %>
--->
-
-

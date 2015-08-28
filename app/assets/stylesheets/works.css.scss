@@ -19,6 +19,15 @@
     .col-works-panels .panel-work {
       display: none;
     }
+
+    #annotation_preview {
+      small {
+        position: absolute;
+        left: 0;
+
+        padding: 32px;
+      }
+    }
   }
 
   .show-xhr {

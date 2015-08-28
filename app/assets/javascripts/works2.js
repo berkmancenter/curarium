@@ -111,6 +111,55 @@ $( function() {
         console.log( geo.coordinates );
         map.geomap( 'option', 'mode', 'pan' );
         $( '.btn-drag-annotation' ).button( 'toggle' );
+
+        //
+        // 1. scale thumbnail to 150 in longest dimension
+        // 2. draw thumbnail onto canvas
+        // 3. save canvas dataURL to thumbnailUrl
+        //
+
+        // a kludge until I fix bbox in image service events
+        var width = Math.abs( geo.bbox[2] - geo.bbox[0] );
+        var height = Math.abs( geo.bbox[3] - geo.bbox[1] );
+
+        // populate hidden form fields
+        $( '#annotation_x' ).val( geo.bbox[0] );
+        $( '#annotation_y' ).val( geo.bbox[1] - height );
+        $( '#annotation_width' ).val( width );
+        $( '#annotation_height' ).val( height );
+
+        $( '#annotation_preview canvas' )[0].getContext( '2d' ).drawImage( img, geo.bbox[0], geo.bbox[1] - height, width, height, 0, 0, width, height );
+        //$("#annotation_image_url").val(image_url)
+        
+        //var thumbnailUrl = 
+        /*
+          #create a second kinetic stage for previewing your annotation
+          preview = new Kinetic.Stage(
+            container: 'preview_window'
+            width: if clipping.width > clipping.height then 180 else clipping.width * 180 / clipping.height
+            height: if clipping.width > clipping.height then clipping.height * 180 / clipping.width else 180
+          )
+          preview_layer = new Kinetic.Layer()
+          preview_image = new Kinetic.Image(
+            image: surrogate
+            crop: clipping
+            scale:
+              x: preview.getAttr('width')/surrogate.width
+              y: preview.getAttr('height')/surrogate.height
+          )
+          preview_layer.add(preview_image)
+          preview.add(preview_layer)
+          crop.destroy()
+
+          $("#content_thumbnail_url").val( $( '#preview_window canvas' )[0].toDataURL() )
+
+          if ( !$( '.expand_anno' ).is( ':visible' ) )
+            $( 'label[for="ann_id"]' ).click()
+    undefined
+
+
+    */
+
       }
       
     } );

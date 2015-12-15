@@ -3,7 +3,7 @@
 <div class="row gallery">
   <% if defined?( big ) && big.present? %>
     <div class="col-xs-12 col-sm-8 col-md-6 col-lg-4 big">
-      <%= render partial: "#{big.class.to_s.pluralize(2)}/thumbnail", object: big %>
+      <%= render partial: "#{big.class.to_s.pluralize(2).underscore}/thumbnail", object: big %>
     </div>
   <% end %>
 

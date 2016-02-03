@@ -112,8 +112,9 @@ $( function() {
         map.geomap( 'option', 'mode', 'pan' );
         $( '.btn-drag-annotation' ).button( 'toggle' );
 
+        $( '.crosshair-tool-info' ).remove();
+
         var annotationPreview = $( '#annotation_preview' );
-        annotationPreview.find( 'small' ).remove();
 
         //
         // 1. scale thumbnail to 150 in longest dimension
@@ -138,16 +139,19 @@ $( function() {
         console.log( 'destination: ', dwidth, dheight );
 
         // populate hidden form fields
-        $( '#annotation_x' ).val( geo.bbox[0] );
-        $( '#annotation_y' ).val( geo.bbox[1] - sheight );
-        $( '#annotation_width' ).val( swidth );
-        $( '#annotation_height' ).val( sheight );
+        $( '#annotation_x' ).val( Math.floor( geo.bbox[0] ) );
+        $( '#annotation_y' ).val( Math.floor( geo.bbox[1] - sheight ) );
+        $( '#annotation_width' ).val( Math.ceil( swidth ) );
+        $( '#annotation_height' ).val( Math.ceil( sheight ) );
 
         var annotationCanvas = annotationPreview.find( 'canvas' )[0];
         var annotationContext = annotationCanvas.getContext( '2d' );
 
         annotationContext.clearRect( 0, 0, 150, 150 );
-        annotationContext.drawImage( img, geo.bbox[0], geo.bbox[1] - sheight, swidth, sheight, 0, 0, dwidth, dheight );
+        annotationContext.drawImage( img, geo.bbox[0], geo.bbox[1] - sheight, swidth, sheight, ( 150 - dwidth ) / 2, ( 150 - dheight ) / 2, dwidth, dheight );
+
+        $( '.panel-work' ).hide();
+        $( '#panel-annotations' ).show();
         //$("#annotation_image_url").val(image_url)
         
         //var thumbnailUrl = 
@@ -199,6 +203,7 @@ $( function() {
     } );
 
     $( '.btn-drag-annotation' ).click( function( ) {
+      $( '.panel-work' ).hide();
       map.geomap( 'option', 'mode', 'dragBox' );
     } );
 

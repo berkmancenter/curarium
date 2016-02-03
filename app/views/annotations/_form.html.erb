@@ -1,34 +1,41 @@
 <%= semantic_form_for([@work, @annotation]) do |f| %>
-  <div class="row">
-    <div class="col-sm-2">
-      <button type="button" class="btn btn-default btn-drag-annotation" data-toggle="button" aria-pressed="false" autocomplete="off">
-        <%= render partial: 'shared/mini_icon', object: 'plus', locals: { icon_title: nil } %>
-      </button>
-    </div>
-    <div class="col-sm-10">
-      <div id="annotation_preview" class="well">
-        <small class="text-info">Tap the crosshair then drag a rectangle over the area of the image you wish to annotate. You can redraw your rectangle by using the crosshair tool again.</small>
-        <canvas width="150" height="150"></canvas>
-      </div>
-    </div>
-
+<div class="row crosshair-tool-info">
+  <div class="col-sm-10 col-sm-offset-1">
+    <p class="bg-info"><small>Tap the crosshair tool (this popup will hide) then drag a rectangle over the area of the image you wish to annotate. You can redraw your rectangle by using the crosshair tool again.</small></p>
   </div>
+</div>
 
-  <%= f.semantic_errors :annotation %>
+<div class="row">
+  <div class="col-sm-2">
+    <button type="button" class="btn btn-default btn-drag-annotation" data-toggle="button" aria-pressed="false" autocomplete="off">
+      <%= render partial: 'shared/mini_icon', object: 'plus', locals: { icon_title: nil } %>
+    </button>
+  </div>
+  <div class="col-sm-10">
+    <div id="annotation_preview" class="well">
+      <canvas width="150" height="150"></canvas>
+    </div>
+  </div>
+</div>
 
-  <%= f.inputs { %>
-    <%= f.input :title %>
-    <%= f.input :body, as: :text, input_html: { rows: 5 } %>
+<div class="row">
+  <div class="col-sm-12">
+    <%= f.semantic_errors :annotation %>
+      <%= f.inputs { %>
+        <%= f.input :title %>
+        <%= f.input :body, as: :text, input_html: { rows: 5 } %>
 
-    <%= f.input :x %> <%#, as: :hidden %>
-    <%= f.input :y %> <%#, as: :hidden %>
-    <%= f.input :width %> <%#, as: :hidden %>
-    <%= f.input :height %> <%#, as: :hidden %>
-    <%= f.input :image_url %> <%#, as: :hidden %>
-    <%= f.input :thumbnail_url %> <%#, as: :hidden %>
-  <% } %>
+        <%= f.input :x %> <%#, as: :hidden %>
+        <%= f.input :y %> <%#, as: :hidden %>
+        <%= f.input :width %> <%#, as: :hidden %>
+        <%= f.input :height %> <%#, as: :hidden %>
+        <%= f.input :image_url %> <%#, as: :hidden %>
+        <%= f.input :thumbnail_url %> <%#, as: :hidden %>
+      <% } %>
 
-  <%= f.actions { %>
-    <%= f.action :submit, button_html: { class: 'btn btn-default' } %>
-  <% } %>
-<% end %>    
+      <%= f.actions { %>
+        <%= f.action :submit, button_html: { class: 'btn btn-default' } %>
+      <% } %>
+    <% end %>    
+  </div>
+</div>

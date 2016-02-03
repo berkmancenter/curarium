@@ -1,5 +1,9 @@
 .works {
   &.show {
+    p.bg-info {
+      padding: 15px;
+    }
+
     .work-canvas {
       position: absolute;
       top: 114px;
@@ -21,12 +25,9 @@
     }
 
     #annotation_preview {
-      small {
-        position: absolute;
-        left: 0;
-
-        padding: 32px;
-      }
+      box-sizing: content-box;
+      width: 150px;
+      height: 150px;
     }
   }
 

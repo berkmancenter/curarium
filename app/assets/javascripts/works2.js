@@ -112,6 +112,9 @@ $( function() {
         map.geomap( 'option', 'mode', 'pan' );
         $( '.btn-drag-annotation' ).button( 'toggle' );
 
+        var annotationPreview = $( '#annotation_preview' );
+        annotationPreview.find( 'small' ).remove();
+
         //
         // 1. scale thumbnail to 150 in longest dimension
         // 2. draw thumbnail onto canvas
@@ -119,16 +122,36 @@ $( function() {
         //
 
         // a kludge until I fix bbox in image service events
-        var width = Math.abs( geo.bbox[2] - geo.bbox[0] );
-        var height = Math.abs( geo.bbox[3] - geo.bbox[1] );
+        
+        var swidth = $.geo.width( geo.bbox );
+        var sheight = $.geo.height( geo.bbox );
+
+        var dbbox = $.geo.reaspect( [ 0, 0, annotationPreview.width(), annotationPreview.height() ], swidth / sheight );
+        var dwidth = $.geo.width( dbbox );
+        var dheight = $.geo.height( dbbox );
+
+
+        if (swidth > sheight) {
+          dbbox = $.geo.scaleBy( dbbox, swidth / dwidth );
+        } else {
+          dbbox = $.geo.scaleBy( dbbox, sheight / dheight );
+        }
+
+        var dwidth = $.geo.width( dbbox );
+        var dheight = $.geo.height( dbbox );
+        console.log( dbbox, dwidth, dheight );
 
         // populate hidden form fields
         $( '#annotation_x' ).val( geo.bbox[0] );
-        $( '#annotation_y' ).val( geo.bbox[1] - height );
-        $( '#annotation_width' ).val( width );
-        $( '#annotation_height' ).val( height );
+        $( '#annotation_y' ).val( geo.bbox[1] - sheight );
+        $( '#annotation_width' ).val( swidth );
+        $( '#annotation_height' ).val( sheight );
 
-        $( '#annotation_preview canvas' )[0].getContext( '2d' ).drawImage( img, geo.bbox[0], geo.bbox[1] - height, width, height, 0, 0, width, height );
+        var annotationCanvas = annotationPreview.find( 'canvas' )[0];
+        annotationCanvas.width = dwidth;
+        annotationCanvas.height = dheight;
+
+        annotationCanvas.getContext( '2d' ).drawImage( img, geo.bbox[0], geo.bbox[1] - swidth, swidth, sheight, 0, 0, dwidth, dheight );
         //$("#annotation_image_url").val(image_url)
         
         //var thumbnailUrl = 

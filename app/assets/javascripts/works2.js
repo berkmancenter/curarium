@@ -123,23 +123,19 @@ $( function() {
 
         // a kludge until I fix bbox in image service events
         
-        var swidth = $.geo.width( geo.bbox );
-        var sheight = $.geo.height( geo.bbox );
-
-        var dbbox = $.geo.reaspect( [ 0, 0, annotationPreview.width(), annotationPreview.height() ], swidth / sheight );
-        var dwidth = $.geo.width( dbbox );
-        var dheight = $.geo.height( dbbox );
-
+        var dwidth = swidth = $.geo.width( geo.bbox );
+        var dheight = sheight = - $.geo.height( geo.bbox );
 
         if (swidth > sheight) {
-          dbbox = $.geo.scaleBy( dbbox, swidth / dwidth );
+          dwidth = 150;
+          dheight *= (150 / swidth );
         } else {
-          dbbox = $.geo.scaleBy( dbbox, sheight / dheight );
+          dwidth *= ( 150 / sheight );
+          dheight = 150;
         }
 
-        var dwidth = $.geo.width( dbbox );
-        var dheight = $.geo.height( dbbox );
-        console.log( dbbox, dwidth, dheight );
+        console.log( 'source: ', swidth, sheight );
+        console.log( 'destination: ', dwidth, dheight );
 
         // populate hidden form fields
         $( '#annotation_x' ).val( geo.bbox[0] );
@@ -148,10 +144,10 @@ $( function() {
         $( '#annotation_height' ).val( sheight );
 
         var annotationCanvas = annotationPreview.find( 'canvas' )[0];
-        annotationCanvas.width = dwidth;
-        annotationCanvas.height = dheight;
+        var annotationContext = annotationCanvas.getContext( '2d' );
 
-        annotationCanvas.getContext( '2d' ).drawImage( img, geo.bbox[0], geo.bbox[1] - swidth, swidth, sheight, 0, 0, dwidth, dheight );
+        annotationContext.clearRect( 0, 0, 150, 150 );
+        annotationContext.drawImage( img, geo.bbox[0], geo.bbox[1] - sheight, swidth, sheight, 0, 0, dwidth, dheight );
         //$("#annotation_image_url").val(image_url)
         
         //var thumbnailUrl = 

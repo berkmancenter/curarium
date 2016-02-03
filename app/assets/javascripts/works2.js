@@ -108,7 +108,6 @@ $( function() {
       },
 
       shape: function( e, geo ) {
-        console.log( geo.coordinates );
         map.geomap( 'option', 'mode', 'pan' );
         $( '.btn-drag-annotation' ).button( 'toggle' );
 
@@ -135,9 +134,6 @@ $( function() {
           dheight = 150;
         }
 
-        console.log( 'source: ', swidth, sheight );
-        console.log( 'destination: ', dwidth, dheight );
-
         // populate hidden form fields
         $( '#annotation_x' ).val( Math.floor( geo.bbox[0] ) );
         $( '#annotation_y' ).val( Math.floor( geo.bbox[1] - sheight ) );
@@ -150,41 +146,12 @@ $( function() {
         annotationContext.clearRect( 0, 0, 150, 150 );
         annotationContext.drawImage( img, geo.bbox[0], geo.bbox[1] - sheight, swidth, sheight, ( 150 - dwidth ) / 2, ( 150 - dheight ) / 2, dwidth, dheight );
 
+        $( '#annotation_image_url' ).val( $('.work-canvas').data( 'workImageUrl' ) );
+        $( '#annotation_thumbnail_url' ).val( annotationCanvas.toDataURL() );
+
         $( '.panel-work' ).hide();
         $( '#panel-annotations' ).show();
-        //$("#annotation_image_url").val(image_url)
-        
-        //var thumbnailUrl = 
-        /*
-          #create a second kinetic stage for previewing your annotation
-          preview = new Kinetic.Stage(
-            container: 'preview_window'
-            width: if clipping.width > clipping.height then 180 else clipping.width * 180 / clipping.height
-            height: if clipping.width > clipping.height then clipping.height * 180 / clipping.width else 180
-          )
-          preview_layer = new Kinetic.Layer()
-          preview_image = new Kinetic.Image(
-            image: surrogate
-            crop: clipping
-            scale:
-              x: preview.getAttr('width')/surrogate.width
-              y: preview.getAttr('height')/surrogate.height
-          )
-          preview_layer.add(preview_image)
-          preview.add(preview_layer)
-          crop.destroy()
-
-          $("#content_thumbnail_url").val( $( '#preview_window canvas' )[0].toDataURL() )
-
-          if ( !$( '.expand_anno' ).is( ':visible' ) )
-            $( 'label[for="ann_id"]' ).click()
-    undefined
-
-
-    */
-
       }
-      
     } );
 
     var annotationsService = $( '#annotations-service' );

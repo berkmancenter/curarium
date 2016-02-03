@@ -1,6 +1,6 @@
 <% provide :title, @work.title %>
 
-<div class="work-canvas" data-image-url="<%= work_image_path @work, @image_index %>">
+<div class="work-canvas" data-image-url="<%= work_image_path @work, @image_index %>" data-work-image-url="<%= @image.image_url %>">
   <div class="annotations-popup hidden"></div>
 </div>
 

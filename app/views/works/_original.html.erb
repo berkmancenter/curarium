@@ -1,35 +1,4 @@
-<% depth = depth || 0 %>
-<% path = path || [] %>
-<% json = original.is_a?( Work ) ? JSON.parse( original.original ) : original %>
-
-<div class="row">
-  <div class="col-sm-<%= 12 - depth %> col-sm-offset-<%= depth %>">
-    <div class="list-group">
-
-<% json.each_pair { |k, v| %>
-  <% if v.is_a? Hash %>
-      <div class="col-sm-12">
-        <b><%= k %></b>
-        <%= render partial: 'works/original', object: v, locals: { path: (path + [k]) } %>
-      </div>
-  <% elsif v.is_a? Array %>
-    <div class="row">
-      <div class="col-sm-12">
-        <b><%= k %></b>
-      </div>
-    </div>
-    <% v.each_with_index { |value, i| %>
-      <div class="col-sm-1 col-sm-offset-<%= depth+1 %>">
-        <b><%= i %></b>
-      </div>
-
-      <%= render partial: 'works/original', object: value, locals: { depth: depth + 1, path: ( path + [k, '*'] ) } %>
-    <% } %>
-  <% else %>
-    <%= render partial: 'works/original_item', locals: { k: k, v: v, depth: depth, path: path } %>
-  <% end %>
-<% } %>
-
-    </div>
-  </div>
+<div class="work-original panel-configure" data-original="<%= original.original %>">
+  <%= render partial: 'works/original_section', object: original %>
 </div>
+

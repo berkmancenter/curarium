@@ -128,7 +128,6 @@ class Work < ActiveRecord::Base
     '/missing_thumb.png'
   end
 
-    
   def thumbnail_url
     if images.any?
       images.first.thumbnail_url

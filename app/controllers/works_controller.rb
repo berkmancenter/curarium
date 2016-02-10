@@ -2,7 +2,7 @@ require 'open-uri'
 require 'zlib'
 
 class WorksController < ApplicationController
-  before_action :set_work, only: [:show, :thumb, :edit, :update, :set_cover, :destroy]
+  before_action :set_work, only: [:show, :original, :thumb, :edit, :update, :set_cover, :destroy]
   # GET /works
   # GET /works.json
   def index
@@ -224,6 +224,18 @@ class WorksController < ApplicationController
       }
       format.json {
         @work.parsed = eval_parsed
+      }
+    end
+  end
+
+  # GET /works/1/original
+  def original
+    respond_to do |format|
+      format.html {
+        render partial: 'works/original', object: @work, layout: false
+      }
+      format.json {
+        render json: @work.original
       }
     end
   end

@@ -23,9 +23,7 @@
         <div class="col-sm-6 hidden-xs">
           <h2 class="h4 page-header">Sample Record</h2>
 
-          <div class="work-original panel-configure" data-original="<%= @sample_work.original %>">
-            <%= render partial: 'works/original', object: @sample_work %>
-          </div>
+          <%= render partial: 'works/original', object: @sample_work %>
         </div>
 
         <div class="col-sm-6 col-active-fields hidden-xs">

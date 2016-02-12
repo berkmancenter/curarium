@@ -1,6 +1,18 @@
-<h1>Editing circle</h1>
+<div class="container">
 
-<%= render 'form' %>
+  <div class="row">
+    <div class="col-sm-8">
+      <h2 class="h4 page-header">Edit Circle</h2>
+    </div>
+  </div>
 
-<%= link_to 'Show', @circle %> |
-<%= link_to 'Back', circles_path %>
+  <%= render 'form' %>
+
+  <div class="row">
+    <div class="col-sm-8">
+      <%= link_to 'Show', @circle %> |
+      <%= link_to 'Back', circles_path %>
+    </div>
+  </div>
+</div>
+

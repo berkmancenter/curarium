@@ -45,11 +45,11 @@ module ApplicationHelper
       else false
       end
 
-    when 'collections' then
-      case params[ :action ]
-      when 'new' then true
-      else false
-      end
+#    when 'collections' then
+#      case params[ :action ]
+#      when 'new' then true
+#      else false
+#      end
 
     else false
     end

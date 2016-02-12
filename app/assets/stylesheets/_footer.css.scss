@@ -5,8 +5,13 @@ footer {
   .navbar {
     max-height: none;
     margin-bottom: 0;
+    margin-top: 31px;
     border-top: 1px solid $brand-primary;
     box-shadow: none;
+
+    &.navbar-fixed-bottom {
+      margin-top: 0;
+    }
   }
 
   .navbar-brand {

@@ -61,6 +61,16 @@ $( function() {
     // first load
     extractExamples();
 
+    $( '#sample_work_form' ).submit( function( ) {
+      var sampleWorkFilter = $( '#sample_work_filter' ).val();
+
+      if ( sampleWorkFilter ) {
+        alert( sampleWorkFilter );
+      }
+
+      return false;
+    } );
+
     $( '.collections.configure' ).on( 'dragstart', '[draggable]', function( e ) {
       e.originalEvent.dataTransfer.setData( 'dropData', $( this ).attr( 'data-path' ) );
     } );

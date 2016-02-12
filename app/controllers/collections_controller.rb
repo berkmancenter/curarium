@@ -38,6 +38,10 @@ class CollectionsController < ApplicationController
     @collection_fields = CollectionField.available_for @collection
   end
 
+  # GET /collections/1/search_original
+  def search_original
+  end
+
   # POST /collections
   # POST /collections.json
   def create

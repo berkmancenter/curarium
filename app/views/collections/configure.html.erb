@@ -25,14 +25,16 @@
           <h2 class="h4 page-header">Sample Record</h2>
 
           <div class="row">
-            <div class="col-sm-8">
-              <div class="form-group">
-                <input type="search" id="sample_work_filter" class="form-control" placeholder="Choose by original file name or metadata value">
+            <form id="sample_work_form">
+              <div class="col-sm-8">
+                <div class="form-group">
+                  <input type="search" id="sample_work_filter" class="form-control" placeholder="Choose by original file name or metadata value">
+                </div>
               </div>
-            </div>
-            <div class="col-sm-4">
-              <button type="button" class="btn btn-primary">Search</button>
-            </div>
+              <div class="col-sm-4">
+                <button type="submit" id="sample_work_search" class="btn btn-primary">Search</button>
+              </div>
+            </form>
           </div>
 
           <%= render partial: 'works/original', object: @sample_work %>

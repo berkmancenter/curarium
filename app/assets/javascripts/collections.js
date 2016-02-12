@@ -65,7 +65,28 @@ $( function() {
       var sampleWorkFilter = $( '#sample_work_filter' ).val();
 
       if ( sampleWorkFilter ) {
-        alert( sampleWorkFilter );
+        $.ajax( {
+          url: $( this ).attr( 'action' ),
+          data: {
+            sample_work_filter: sampleWorkFilter
+          },
+          success: function( result ) {
+            if ( !result || result.length == 0 ) {
+              alert( 'We were unable to find records matching that name or metadata value.\n\nPlease check your search term and try again.' );
+            } else if ( result.length == 1 ) {
+              $.ajax( {
+                url: '/works/' + result[ 0 ].id + '/original',
+                dataType: 'html',
+                success: function( original ) {
+                  $( '.work-original' ).replaceWith( original );
+                  extractExamples();
+                }
+              } );
+            } else {
+              alert( JSON.stringify( result ) );
+            }
+          }
+        } );
       }
 
       return false;

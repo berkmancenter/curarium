@@ -81,6 +81,7 @@ Curarium::Application.routes.draw do
     resources :works
 
     member do
+      get 'sample_work' => 'collections#sample_work', as: :sample_work
       get 'configure' => "collections#configure", as: :configure
       post 'reconfigure' => "collections#reconfigure", as: :reconfigure
     end

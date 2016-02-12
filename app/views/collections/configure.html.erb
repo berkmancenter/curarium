@@ -25,14 +25,14 @@
           <h2 class="h4 page-header">Sample Record</h2>
 
           <div class="row">
-            <form id="sample_work_form">
+            <form id="sample_work_form" method="GET" action="<%= sample_work_collection_path @collection %>">
               <div class="col-sm-8">
                 <div class="form-group">
-                  <input type="search" id="sample_work_filter" class="form-control" placeholder="Choose by original file name or metadata value">
+                  <input type="search" id="sample_work_filter" name="sample_work_filter" class="form-control" placeholder="Search by original file name">
                 </div>
               </div>
               <div class="col-sm-4">
-                <button type="submit" id="sample_work_search" class="btn btn-primary">Search</button>
+                <button type="submit" class="btn btn-primary">Search</button>
               </div>
             </form>
           </div>

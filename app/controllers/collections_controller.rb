@@ -1,7 +1,7 @@
 require 'zip'
 
 class CollectionsController < ApplicationController
-  before_action :set_collection, only: [:show, :edit, :configure, :reconfigure, :update, :destroy]
+  before_action :set_collection, only: [:show, :edit, :configure, :sample_work, :reconfigure, :update, :destroy]
 
   # GET /collections
   # GET /collections.json
@@ -38,8 +38,19 @@ class CollectionsController < ApplicationController
     @collection_fields = CollectionField.available_for @collection
   end
 
-  # GET /collections/1/search_original
-  def search_original
+  # GET /collections/1/sample_work
+  # search for work matching original resource_name or metadata value
+  # return JSON array of zero or more matching works (id & resource_name only)
+  def sample_work
+    works = @collection.works
+
+    if params[ :sample_work_filter ].present?
+      where_param = ActiveRecord::Base.send( :sanitize_sql_array, params[ :sample_work_filter ] )
+
+      works = works.where( "resource_name ilike '%#{where_param}%' OR original ilike '%#{where_param}%'" )
+    end
+
+    render json: works.select( :id, :resource_name )
   end
 
   # POST /collections

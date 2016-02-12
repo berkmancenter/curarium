@@ -72,7 +72,7 @@ $( function() {
           },
           success: function( result ) {
             if ( !result || result.length == 0 ) {
-              alert( 'We were unable to find records matching that name or metadata value.\n\nPlease check your search term and try again.' );
+              alert( 'We were unable to find records matching that name or metadata value.\n\nPlease check your search file name and try again.' );
             } else if ( result.length == 1 ) {
               $.ajax( {
                 url: '/works/' + result[ 0 ].id + '/original',
@@ -80,11 +80,18 @@ $( function() {
                 success: function( original ) {
                   $( '.work-original' ).replaceWith( original );
                   extractExamples();
+                },
+                error: function( ) {
+                  alert( 'A record was found but something went wrong while trying to get the sample data for it. Please contact a Curarium admin.' );
                 }
               } );
             } else {
-              alert( JSON.stringify( result ) );
+              alert( 'Too many matching records found.\n\nPlease check your search file name and try again.' );
+              //alert( JSON.stringify( result ) );
             }
+          },
+          error: function( ) {
+            alert( 'Something went wrong while trying to find a matching record.\n\nPlease check your search file name and try again.' );
           }
         } );
       }

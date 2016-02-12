@@ -141,6 +141,11 @@ class WorksController < ApplicationController
           else
             @works << { parsed: 'Other', id: other_works.count }
           end
+
+          #if @works.length == 1
+            #params[ :vis ] = 'thumbnail'
+            #redirect_to collection_works_path( params )
+          #end
         end
       end
     elsif ['thumbnails', 'list', 'colorfilter'].include? @vis

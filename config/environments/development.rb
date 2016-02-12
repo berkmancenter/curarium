@@ -17,7 +17,7 @@ Curarium::Application.configure do
   #config.force_ssl = true
 
   # Set to :debug to see everything in the log.
-  config.log_level = :info
+  config.log_level = :debug
 
   # Don't care if the mailer can't send.
   config.action_mailer.raise_delivery_errors = false

@@ -5,8 +5,6 @@ $( function() {
   var click, selected, tree;
   var selected = [];
 
-  var visProperty = $( '#property' ).val();
-
   if ( treemapContainer.length === 1 ) {
     var propertyCounts = treemapContainer.data( 'propertyCounts' );
 
@@ -73,11 +71,12 @@ $( function() {
       var val = d3.select(this).data()[0].parsed;
 
       if (val !== '') {
+        var sel = $( '#property' ).val();
         var className = 'include';
-        var value = visProperty+":"+val;
+        var value = sel+":"+val;
 
         if ( $( '#props' ).find( 'input[name="include[]"][value="' + value + '"]' ).length === 0 ) {
-          $( '#props' ).append( $.visControls.propHtml( className, value, val ) );
+          $( '#props' ).append( $.visControls.propHtml( className, value, sel, val ) );
           $( '#propval' ).val('');
 
           $( '#vis-form' ).submit();

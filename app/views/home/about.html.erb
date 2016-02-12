@@ -15,7 +15,7 @@
       </div>
     </div>
 
-    <div class="col-sm-8 col-md-6 col-lg-7 col-detail">
+    <div class="col-sm-8 col-md-9 col-lg-10 col-detail">
       <h2 id="what" class="h4 page-header">What is Curarium?</h2>
 
       <p><u>Curarium</u> is a platform for exploring, analyzing, and making arguments about collections and the objects they comprise. It leverages the power of collections to tell stories by giving users tools ranging from item-level annotations to comprehensive, repository-wide visualizations, allowing them to bring both objects and the communities to which they belong into dialogue with one another.</p>
@@ -28,64 +28,96 @@
 
       <h2 id="how" class="h4 page-header">How do I use Curarium?</h2>
 
-				<table class="howitem" cellspacing="0" cellpadding="0"><tbody><tr>
-					<td><%= image_tag "hint_collection.png", id: "hint_coll" %></td>
-					<td>Collect<ol>
-					<li>Find and follow <span class="vcoll" id='vcoll'>collections</span> of interest to you </li>
-          <li>OR <span class="ving" id='ving'><a href="https://docs.google.com/presentation/d/1Ywzp97V8VfgS0Uoh0fe-qAoNAOtxgumV5rTqw-QCNPk/edit?usp=sharing" target="_blank" title="Click for instructions"> Import your own <span class="vcoll">collection</span>*</a> of up to 30,000 <span class="vrec" id='vrec'>records</span> in just 5 minutes.<br>  *Requires JSON files and offsite hosting</span></li>
-					</ol></td>
-				</tr></tbody></table>
-				<table class="howitem" cellspacing="0" cellpadding="0"><tbody><tr>
-					<td><%= image_tag "hint_explore.png", id: "hint_coll" %></td>
-					<td>Explore<ol>
-				<li>Within any <span class="vcoll">collection</span>, browse, filter, search, and generate visualizations.</li>
-				<li><span class="vann" id='vann'>Annotate</span> <span class="vrec">records</span> and make additions to their metadata.</li>
-				<li>Save individual <span class="vrec">records</span>, groups of <span class="vrec">records</span>, or visualizations to a <span class="vtra" id='vtra'>tray</span>. </li>
-				<li>Categorize what you save using as many <span class="vtra">trays</span> as you need.</li>
-				</ol></td>
-				</tr></tbody></table>
-				<table class="howitem" cellspacing="0" cellpadding="0"><tbody><tr>
-					<td><%= image_tag "hint_spotlight.png", id: "hint_coll" %></td>
-					<td><span class="vspo" id='vspo'>Spotlight</span><ol>
-				<li>Tell stories by pulling directly from the content you’ve collected in your <span class="vtra">trays</span>.</li>
-				<li>Publish, share, and export your <span class="vspo">spotlights</span>.</li>
-				</ol></td>
-				</tr></tbody></table>
-				<table class="howitem" cellspacing="0" cellpadding="0"><tbody><tr>
-					<td><%= image_tag "hint_annotation.png", id: "hint_coll" %></td>
-					<td><span class="vspo" id='vspo'>Annotate</span><ol>
-				<li>Users can annotate records in two ways. If an annotation is valuable to the general public, <span class="vann">annotations</span>can be created by users on the record page directly.</li>
-				<li>Viewers of records can choose to view annotations or hide them.</li>
-				<li>If an annotation is of interest specifically to a researcher and an argument in development, annotations will be able (in the near future) to be made directly in the Spotlight editor.</li>
-				</ol></td>
-				</tr></tbody></table>
-				<table class="howitem" cellspacing="0" cellpadding="0"><tbody><tr>
-					<td><%= image_tag "hint_user.png", id: "hint_coll" %></td>
-					<td>User<ol>
-				<li>Edit your <span class="vcoll">collections</span>, <span class="vtra">trays</span>, and <span class="vspo">spotlights</span>.</li>
-				<li>Track <span class="vcoll">collections</span> and users you follow.</li>
-				<li>Start or join user <span class="vcir" id='vcir'>circles</span> to share and collaborate on work within a specified <span class="vcoll">collection</span> or set of <span class="vcoll">collections</span>.</li>
-				<li>From your <span class="vcir">circle’s</span> splash page, access <span class="vcir">circle</span>-specific <span class="vcoll">collections</span>; check the newsfeed to find updated <span class="vcir">circle</span> annotations, <span class="vstra" id='vstra'>social trays</span>, and <span class="vspo">spotlights</span>; post comments to your <span class="vcir">circle</span> members.</li>
-				<li>When you explore any <span class="vcoll">collections</span> in your <span class="vcir">circles</span>, you can use a <span class="vstra">social tray</span> to work in real time with <span class="vcir">circle</span> members to collect and order <span class="vrec">records</span>.</li>
-				</ol></td>
-				</tr></tbody></table>        
-      <h2 id="contact" class="h4 page-header">Contact Us</h2>
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-sm-4">
+            <%= image_tag "about_collection.png", class: 'img-thumbnail' %>
+          </div>
+          <div class="col-sm-8">
+            <h3 class="h5">Collect</h3>
 
-      <p>To report a bug or suggestion, please:</p>
+            <ol class="small">
+              <li>Find and follow <span class="vcoll" id='vcoll'>collections</span> of interest to you </li>
+              <li>OR <span class="ving" id='ving'><a href="https://docs.google.com/presentation/d/1Ywzp97V8VfgS0Uoh0fe-qAoNAOtxgumV5rTqw-QCNPk/edit?usp=sharing" target="_blank" title="Click for instructions"> Import your own <span class="vcoll">collection</span>*</a> of up to 30,000 <span class="vrec" id='vrec'>records</span> in just 5 minutes.<br>  *Requires JSON files and offsite hosting</span></li>
+            </ol>
+          </div>
+        </div>
 
-      <ul>
-        <li>visit the <a href="https://cyber.law.harvard.edu/projectmanagement/projects/curarium-beta-bug-tracker/issues/new" target="_blank">Curarium Bug Tracker</a></li>
-        <li>choose a Tracker: <b>Task</b> or <b>Bug</b></li>
-        <li>fill in the <b>Subject</b> and <b>Description</b> fields (the rest of the fields can be left blank but feel free to upload a screenshot if you think it will help our team understand the issue)</li>
-        <li>click <b>Create</b> to send us your feedback</li>
-      </ul>
+        <div class="row">
+          <div class="col-sm-4">
+            <%= image_tag "about_explore.png", class: 'img-thumbnail' %>
+          </div>
+          <div class="col-sm-8">
+            <h3 class="h5">Explore</h3>
 
-      <p>We would also be happy to answer any questions or concerns you may have at: <a href="mailto:curarium@metalab.harvard.edu">curarium@metalab.harvard.edu</a></p></div>
+            <ol class="small">
+              <li>Within any <span class="vcoll">collection</span>, browse, filter, search, and generate visualizations.</li>
+              <li><span class="vann" id='vann'>Annotate</span> <span class="vrec">records</span> and make additions to their metadata.</li>
+              <li>Save individual <span class="vrec">records</span>, groups of <span class="vrec">records</span>, or visualizations to a <span class="vtra" id='vtra'>tray</span>. </li>
+              <li>Categorize what you save using as many <span class="vtra">trays</span> as you need.</li>
+            </ol>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-sm-4">
+            <%= image_tag "about_spotlight.png", class: 'img-thumbnail' %>
+          </div>
+          <div class="col-sm-8">
+            <h3 class="h5">Spotlight</h3>
+
+            <ol class="small">
+              <li>Tell stories by pulling directly from the content you’ve collected in your <span class="vtra">trays</span>.</li>
+              <li>Publish, share, and export your <span class="vspo">spotlights</span>.</li>
+            </ol>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-sm-4">
+            <%= image_tag "about_annotation.png", class: 'img-thumbnail' %>
+          </div>
+          <div class="col-sm-8">
+            <h3 class="h5">Annotate</h3>
+
+            <ol class="small">
+              <li>Users can annotate records in two ways. If an annotation is valuable to the general public, <span class="vann">annotations</span>can be created by users on the record page directly.</li>
+              <li>Viewers of records can choose to view annotations or hide them.</li>
+              <li>If an annotation is of interest specifically to a researcher and an argument in development, annotations will be able (in the near future) to be made directly in the Spotlight editor.</li>
+            </ol>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-sm-4">
+            <%= image_tag "about_user.png", class: 'img-thumbnail' %>
+          </div>
+          <div class="col-sm-8">
+            <h3 class="h5">User</h3>
+
+            <ol class="small">
+              <li>Edit your <span class="vcoll">collections</span>, <span class="vtra">trays</span>, and <span class="vspo">spotlights</span>.</li>
+              <li>Track <span class="vcoll">collections</span> and users you follow.</li>
+              <li>Start or join user <span class="vcir" id='vcir'>circles</span> to share and collaborate on work within a specified <span class="vcoll">collection</span> or set of <span class="vcoll">collections</span>.</li>
+              <li>From your <span class="vcir">circle’s</span> splash page, access <span class="vcir">circle</span>-specific <span class="vcoll">collections</span>; check the newsfeed to find updated <span class="vcir">circle</span> annotations, <span class="vstra" id='vstra'>social trays</span>, and <span class="vspo">spotlights</span>; post comments to your <span class="vcir">circle</span> members.</li>
+              <li>When you explore any <span class="vcoll">collections</span> in your <span class="vcir">circles</span>, you can use a <span class="vstra">social tray</span> to work in real time with <span class="vcir">circle</span> members to collect and order <span class="vrec">records</span>.</li>
+            </ol>
+          </div>
+        </div>
+
+        <h2 id="contact" class="h4 page-header">Contact Us</h2>
+
+        <p>To report a bug or suggestion, please:</p>
+
+        <ul>
+          <li>visit the <a href="https://cyber.law.harvard.edu/projectmanagement/projects/curarium-beta-bug-tracker/issues/new" target="_blank">Curarium Bug Tracker</a></li>
+          <li>choose a Tracker: <b>Task</b> or <b>Bug</b></li>
+          <li>fill in the <b>Subject</b> and <b>Description</b> fields (the rest of the fields can be left blank but feel free to upload a screenshot if you think it will help our team understand the issue)</li>
+          <li>click <b>Create</b> to send us your feedback</li>
+        </ul>
+
+        <p>We would also be happy to answer any questions or concerns you may have at: <a href="mailto:curarium@metalab.harvard.edu">curarium@metalab.harvard.edu</a></p>
+      </div>
     </div>
-
-    <div class="col-sm-2 col-md-3 col-activity hidden-sm">
-      <h2 class="h4 page-header">Activity</h2>
-    </div>
-
   </div>
 </div>

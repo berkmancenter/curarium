@@ -2,20 +2,20 @@
 <div class="container container-show-item">
 
   <div class="row">
-    <div class="col-sm-4 col-md-3 col-lg-2 col-info">
+    <div class="col-sm-4 col-md-3 col-info">
       <h2 class="h4 page-header"><%= Work.count %> total records</h2>
 
       <%#= render partial: 'collections/thumbnail', object: @collection %>
 
       <div class="list-group">
-        <%= render partial: 'shared/mini_icon_item', object: 'spotlight', locals: { icon_title: 'What is Curarium?', url: '#what' } %>
-        <%= render partial: 'shared/mini_icon_item', object: 'spotlight', locals: { icon_title: 'Curarium Vocabulary', url: '#vocab' } %>
-        <%= render partial: 'shared/mini_icon_item', object: 'spotlight', locals: { icon_title: 'How do I use Curarium?', url: '#how' } %>
+        <%= render partial: 'shared/mini_icon_item', object: 'help', locals: { icon_title: 'What is Curarium?', url: '#what' } %>
+        <%= render partial: 'shared/mini_icon_item', object: 'about', locals: { icon_title: 'Curarium Vocabulary', url: '#vocab' } %>
+        <%= render partial: 'shared/mini_icon_item', object: 'explore', locals: { icon_title: 'How do I use Curarium?', url: '#how' } %>
         <%= render partial: 'shared/mini_icon_item', object: 'spotlight', locals: { icon_title: 'Contact Us', url: '#contact' } %>
       </div>
     </div>
 
-    <div class="col-sm-8 col-md-9 col-lg-10 col-detail">
+    <div class="col-sm-8 col-md-9 col-detail">
       <h2 id="what" class="h4 page-header">What is Curarium?</h2>
 
       <p><u>Curarium</u> is a platform for exploring, analyzing, and making arguments about collections and the objects they comprise. It leverages the power of collections to tell stories by giving users tools ranging from item-level annotations to comprehensive, repository-wide visualizations, allowing them to bring both objects and the communities to which they belong into dialogue with one another.</p>
@@ -24,7 +24,41 @@
 
       <h2 id="vocab" class="h4 page-header">Curarium Vocabulary</h2>
 
-      <span class="vann"><a href='#vann'>Annotation</a></span> | <span class="vcir"><a href='#vcir'>Circle</a></span> | <span class="vcoll"><a href='#vcoll'>Collection</a></span> | <span class="ving"><a href='#ving'>Import</a></span> | <span class="vrec"><a href='#vrec'>Record</a></span> | <span class="vstra"><a href='#vstra'>Social Tray</a></span> | <span class="vspo"><a href='#vspo'>Spotlight</a></span> | <span class="vtra"><a href='#vtra'>Tray</a></span>	
+      <div class="list-group">
+        <div class="list-group-item">
+          <strong>Record</strong>
+          <p>A single image from a library collection.</p>
+        </div>
+
+        <div class="list-group-item">
+          <strong>Collection</strong>
+          <p>A full library collection.</p>
+        </div>
+
+        <div class="list-group-item">
+          <strong>Annotation</strong>
+        </div>
+
+        <div class="list-group-item">
+          <strong>Tray</strong>
+        </div>
+
+        <div class="list-group-item">
+          <strong>Circle</strong>
+        </div>
+
+        <div class="list-group-item">
+          <strong>Circle Tray</strong>
+        </div>
+
+        <div class="list-group-item">
+          <strong>Spotlight</strong>
+        </div>
+
+        <div class="list-group-item">
+          <strong>Import</strong>
+        </div>
+      </div>
 
       <h2 id="how" class="h4 page-header">How do I use Curarium?</h2>
 

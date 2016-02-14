@@ -1,4 +1,8 @@
 .home.index {
+  &>.container {
+    min-height: 480px;
+  }
+
   .home-gif {
     width: 100%;
   }

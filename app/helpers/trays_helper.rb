@@ -17,13 +17,21 @@ module TraysHelper
     end
   end
   
-  
   # path to a user or circle tray
   def x_tray_path( tray )
     if tray.owner_type == 'Circle'
       circle_tray_path tray.owner, tray
     else
       user_tray_path tray.owner, tray
+    end
+  end
+  
+  # path to a user or circle tray
+  def new_x_tray_path( owner )
+    if owner.is_a? Circle
+      new_circle_tray_path owner
+    else
+      new_user_tray_path owner
     end
   end
   

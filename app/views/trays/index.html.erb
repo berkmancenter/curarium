@@ -20,7 +20,7 @@
     <div class="col-sm-8 col-md-6 col-lg-7 col-detail">
       <h2 class="h4 page-header">Tray Manager</h2>
 
-      <%= render partial: 'shared/gallery', object: @trays, locals: { newnail: Tray } %>
+      <%= render partial: 'shared/gallery', object: @trays, locals: { newnail: Tray, newnail_path: new_x_tray_path( @owner ) } %>
 
       <%#= form_for [ @owner, Tray.new ], url: x_trays_path( @owner ), method: :post do |f| %>
         <%#= f.hidden_field :owner_id, value: @owner.id %>

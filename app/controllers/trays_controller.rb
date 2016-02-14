@@ -37,7 +37,7 @@ class TraysController < ApplicationController
   end
   
   def new
-    @tray = Tray.new
+    @tray = Tray.new owner_type: @owner_type, owner_id: @owner.id
   end
     
   def create

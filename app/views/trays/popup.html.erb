@@ -3,7 +3,7 @@
   <div class="panel-body">
     <div class="list-group">
       <% @trays.each { |tray| %>
-        <button type="button" class="list-group-item tray-popup-button <%= item_included_class( tray, @popup_action_type, @popup_action_item_id ) %>" data-tray-id="<%= tray.id %>"><span class="badge"><%= tray.tray_items.count %></span> <%= tray.name %></button>
+        <button type="button" class="list-group-item tray-popup-button <%= item_included_class( tray, @popup_action_type, @popup_action_item_id ) %>" data-tray-id="<%= tray.id %>"><span class="badge"><%= tray.tray_items.count %></span> <%= tray.name %> ( <%= tray.owner.title if tray.owner_type == 'Circle' %> <%= tray.owner_type %> )</button>
       <% } unless @trays.nil? %>
     </div>
 

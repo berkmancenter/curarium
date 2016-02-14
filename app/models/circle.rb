@@ -35,6 +35,10 @@ class Circle < ActiveRecord::Base
     }, { user: user.id, current: current_user.id } )
   }
 
+  scope :editable_by_user, ->( user ) {
+    where( "admin_id = :user OR id IN ( SELECT circle_id FROM circles_users WHERE user_id = :user )", { user: user.id } )
+  }
+
   scope :visible_to_user, ->( user ) {
     where( "admin_id = :user OR id IN ( SELECT circle_id FROM circles_users WHERE user_id = :user ) OR NOT privacy = 'private'", { user: user.id } )
   }

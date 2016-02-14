@@ -44,7 +44,6 @@ class TraysController < ApplicationController
     @tray = Tray.create(tray_params)
 
     if request.xhr?
-      @trays = @owner.trays
       @popup_action = params[ 'popup_action' ]
       @popup_action_type = params[ 'popup_action_item_type' ]
       @popup_action_item_id = params[ 'popup_action_item_id' ]
@@ -80,12 +79,11 @@ class TraysController < ApplicationController
   end
 
   def set_trays
-    if @owner.present?
-      if @owner.is_a? Circle
-        @trays = @owner.trays
-      else # User + Circle trays
-        @trays = @owner.all_trays
-      end
+    if !( params[ :user_id ].present? || params[ :circle_id ].present? )
+      # User + Circle trays
+      @trays = @owner.all_trays
+    else
+      @trays = @owner.trays
     end
   end
 

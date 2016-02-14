@@ -1,14 +1,6 @@
 .collections.configure {
 
   .panel-configure {
-    position: relative;
-    left: 0;
-    top: 0;
-    width: 100%;
-    height: 600px;
-
-    overflow-x: hidden;
-    overflow-y: scroll;
   }
 
   .work-original {
@@ -23,11 +15,21 @@
   }
 
   .col-active-fields {
-    position: relative;
+    .panel-configure {
+      position: fixed;
+
+      max-height: 600px;
+      overflow: auto;
+      width: 30%;
+    }
 
     .alert-success {
       position: absolute;
       right: 2em;
+    }
+
+    .form-active-fields {
+      font-size: $font-size-small;
     }
 
     .droppable {

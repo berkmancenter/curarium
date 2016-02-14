@@ -3,7 +3,6 @@
     <button type="button" class="close remove-field" aria-label="Remove" title="Remove"><span aria-hidden="true">&times;</span></button>
   <% end %>
   <input type="hidden" name="<%= config_field.name %>" value="<%= value %>" class="field-input">
-  <b><%= config_field.display_name %></b>
-  <div class="drop-data"><%= value.join ',' unless value.to_s == '' %></div>
+  <b><%= config_field.display_name %></b> : <span class="drop-data"><%= value.join ',' unless value.to_s == '' %></span>
   <div class="example"></div>
 </div>

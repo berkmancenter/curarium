@@ -11,16 +11,20 @@
         When you are happy with the configuration of this collection to the right, click the button below to update all the records. This process can take a while depending on the size of your collection and the collection cannot be reconfigured until it has finished.
       </div>
 
+      <a href="javascript:void(0);">Click for instructions</a>
+
       <%= form_for @collection, method: :post, url: reconfigure_collection_path do |f| %>
         <%= f.button render( partial: 'shared/mini_icon', object: 'admin', locals: { icon_title: 'Update' } ), type: 'submit', class: 'btn btn-warning' %>
       <% end %>
     </div>
 
     <div class="col-sm-8 col-md-10 col-lg-10">
-      <h2 class="h3 page-header">Configure Collection<small><a href="javascript:void(0);">Click for instructions</a></small></h2>
     
       <div class="row">
-        <div class="col-sm-6 hidden-xs">
+
+        <div class="col-sm-6 hidden-xs col-sample-work">
+
+          <h2 class="h3 page-header">Configure Collection</h2>
 
           <h2 class="h4 page-header">Sample Record</h2>
 
@@ -41,14 +45,18 @@
         </div>
 
         <div class="col-sm-6 col-active-fields hidden-xs">
-          <div class="alert alert-success hidden">
-            Saved <span class="active-fields-save-date"></span>
-          </div>
+          <div class="panel panel-primary panel-configure">
+            <div class="alert alert-success hidden">
+              Saved <span class="active-fields-save-date"></span>
+            </div>
 
-          <h2 class="h4 page-header">Active Fields</h2>
+            <div class="panel-heading">
+              <h3 class="panel-title">Active Fields</h3>
+            </div>
 
-          <div class="panel-configure">
-            <%= render partial: 'collections/form_active_fields' %>
+            <div class="panel-body">
+              <%= render partial: 'collections/form_active_fields' %>
+            </div>
           </div>
         </div>
       </div>

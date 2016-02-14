@@ -8,7 +8,7 @@ class TraysController < ApplicationController
   def index
     response.headers[ 'Access-Control-Allow-Origin' ] = Waku::CORS_URL
     if authenticated?
-      if @current_user == @owner
+      if @owner.is_a?( Circle ) ? @owner.has_user?( @current_user ) : @current_user == @owner
         respond_to { |format|
           format.html {
             if request.xhr?
@@ -50,7 +50,7 @@ class TraysController < ApplicationController
       @popup_action_item_id = params[ 'popup_action_item_id' ]
       render 'popup', layout: false
     else
-      redirect_to action: 'index'
+      redirect_to view_context.x_trays_path( @owner )
     end
 
   end

@@ -4,7 +4,7 @@
   </div-->
 
   <div class="col-sm-12">
-    <%= semantic_form_for @tray do |f| %>
+    <%= semantic_form_for [@owner, @tray] do |f| %>
 
       <%= f.semantic_errors :tray %>
 

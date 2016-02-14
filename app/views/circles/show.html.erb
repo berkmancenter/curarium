@@ -25,7 +25,7 @@
       <% end %>
 
       <div class="list-group">
-        <% if @circle.admin == @current_user %>
+        <% if @circle.has_user? @current_user %>
           <%= render partial: 'shared/mini_icon_item', object: 'annotate', locals: { url: edit_circle_path( @circle ), icon_title: 'Edit' } %>
         <% end %>
 
@@ -55,7 +55,7 @@
       <div id="circle-trays">
         <h2 class="h4 page-header">Trays <%= link_to 'Tray Manager', circle_trays_path( @circle ), class: 'pull-right' %></h2>
 
-        <%= render partial: 'shared/gallery', object: @circle.trays %>
+        <%= render partial: 'shared/gallery', object: @circle.trays, locals: { newnail: Tray, newnail_path: new_circle_tray_path( @circle ) } %>
       </div>
 
       <% if @circle.has_user?( @current_user ) %>

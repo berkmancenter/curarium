@@ -15,7 +15,8 @@
 
   <% if defined?( newnail ) && authenticated? %>
     <div class="<%= col_classes %>">
-      <%= render partial: 'shared/newnail', object: newnail %>
+      <% partial_locals = { newnail_path: newnail_path } unless !defined?( newnail_path ) %>
+      <%= render partial: 'shared/newnail', object: newnail, locals: partial_locals %>
     </div>
   <% end %>
 </div>

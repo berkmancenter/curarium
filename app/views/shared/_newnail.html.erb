@@ -1,4 +1,5 @@
 <% verb = verb || :new %>
 <% target = target || nil %>
+<% path = defined?( newnail_path ) ? newnail_path : new_polymorphic_path( newnail ) %>
 
-<%= link_to render( partial: 'shared/newnail_inner', object: newnail ), "#{new_polymorphic_path newnail}", target: target, class: 'gallery-item thumbnail newnail-thumbnail btn btn-default btn-lg' %>
+<%= link_to render( partial: 'shared/newnail_inner', object: newnail ), path, target: target, class: 'gallery-item thumbnail newnail-thumbnail btn btn-default btn-lg' %>

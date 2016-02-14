@@ -33,7 +33,7 @@
 
       <h2 id="user-trays" class="h4 page-header">Trays <%= link_to 'Tray Manager', user_trays_path( @user ), class: 'pull-right' %></h2>
 
-      <%= render partial: 'shared/gallery', object: @user.trays, locals: { newnail: Tray } %>
+      <%= render partial: 'shared/gallery', object: @user.trays, locals: { newnail: Tray, newnail_path: new_user_tray_path( @user ) } %>
 
       <h2 id="user-collections" class="h4 page-header">Collections</h2>
 

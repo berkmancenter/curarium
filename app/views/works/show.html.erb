@@ -75,17 +75,19 @@
       </div>
 
       <% if authenticated? && @work.collection.admins.include?( @current_user ) %>
-      <div id="panel-admin" class="panel panel-default panel-work">
-        <div class="panel-heading">Admin</div>
-        <div class="panel-body">
-          <dl>
-            <dt>Collection</dt>
-            <dd><%= @work.collection.name %></dd>
+        <% if @work.collection.admins.include?( @current_user ) %>
+          <div id="panel-admin" class="panel panel-default panel-work">
+            <div class="panel-heading">Admin</div>
+            <div class="panel-body">
+              <dl>
+                <dt>Collection</dt>
+                <dd><%= @work.collection.name %></dd>
 
-            <%= render partial: 'works/cover_form', object: @work %>
-          </dl>
-        </div>
-      </div>
+                <%= render partial: 'works/cover_form', object: @work %>
+              </dl>
+            </div>
+          </div>
+        <% end %>
       <% end %>
     </div>
   </div>

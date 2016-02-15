@@ -312,8 +312,17 @@ class WorksController < ApplicationController
 
   # POST /works/1/set_cover
   def set_cover
-    if authenticated? && @work.collection.admins.include?( current_user )
-      @work.collection.update cover_id: @work.id
+    if authenticated?
+      if params[ :cover_type ] == 'Collection'
+        if @work.collection.admins.include?( current_user )
+          @work.collection.update cover_id: @work.id
+        end
+      elsif params[ :cover_type ] == 'Circle' && params[ :circle_id ].present?
+        c = Circle.find( params[ :circle_id ] )
+        if c.has_user?( current_user )
+          c.update cover_id: @work.id
+        end
+      end
     end
 
     render partial: 'works/cover_form', object: @work

@@ -59,4 +59,18 @@ class Circle < ActiveRecord::Base
 
     url
   end
+
+  def cover
+    if cover_id.present?
+      Work.find cover_id
+    end
+  end
+
+  def cover=( c )
+    self.cover_id = c.id
+  end
+
+  def cover_url
+    cover.present? ? cover.thumbnail_cache_url : thumbnail_url
+  end
 end

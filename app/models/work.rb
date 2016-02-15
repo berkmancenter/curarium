@@ -180,6 +180,19 @@ class Work < ActiveRecord::Base
     result
   end
 
+  def in_circle?( circle )
+    in_col = circle.collections.pluck( :id ).include?( collection.id )
+    in_trays = false
+    if !in_col
+      circle.trays.each { |t|
+        in_trays = t.tray_items.where( image_id: images.first ).any?
+        break if in_trays
+      }
+    end
+
+    in_col || in_trays
+  end
+
   def extract_colors
     histogram = [] 
     if File.exists?( thumbnail_cache_path )

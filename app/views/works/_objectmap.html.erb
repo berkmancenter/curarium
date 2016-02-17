@@ -1,12 +1,16 @@
-<section class="works-objectmap" data-query-type="<%= @query_type %>" data-query-id="<%= @query_id %>" data-work-ids="[<%= objectmap.map { |r| r.id }.join( ',' ) %>]">
-<div class="geomap"></div>
-<div class="commands">
-  <button class="button" data-zoom="1">+</button>
-  <button class="button" data-zoom="-1">-</button>
+<div class="vis-<%= @vis %>" data-query-type="<%= @query_type %>" data-query-id="<%= @query_id %>" data-work-ids="[<%= objectmap.map { |r| r.id }.join( ',' ) %>]">
+  <div class="geomap"></div>
+  <div class="commands">
+    <button type="button" class="btn btn-default" data-zoom="1">
+      <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+    </button>
+    <button type="button" class="btn btn-default" data-zoom="-1">
+      <span class="glyphicon glyphicon-minus" aria-hidden="true"></span>
+    </button>
+  </div>
+  <div class="minimap">
+    <% if @collection.present? && @collection.importing %>
+      <span class="context-importing">(context map is not available<br>while collection is importing)</span>
+    <% end %>
+  </div>
 </div>
-<div class="minimap">
-  <% if @collection.present? && @collection.importing %>
-    <span class="context-importing">(context map is not available<br>while collection is importing)</span>
-  <% end %>
-</div>
-</section>

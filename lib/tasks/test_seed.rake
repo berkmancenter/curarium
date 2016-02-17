@@ -12,6 +12,10 @@ namespace :curarium do
   task :seed => :environment do
     seed
   end
+
+  task :seed_prod => :environment do
+    seed_prod
+  end
 end
 
 def crfj( col, r )
@@ -22,6 +26,7 @@ def seed
   # user
   test_user = FactoryGirl.create :test_user
   user_two = FactoryGirl.create :user_two
+  user_three = FactoryGirl.create :user_three
 
   # collections
   test_col = FactoryGirl.create :test_col
@@ -43,6 +48,17 @@ def seed
   japanese = FactoryGirl.create :japanese
   japanese.admins << test_user
   japanese.save
+
+  # collection_fields
+
+  CollectionField.create name: 'unique_identifier', display_name: 'Unique Identifier', special: true
+  CollectionField.create name: 'title', display_name: 'Title', special: true
+  CollectionField.create name: 'image', display_name: 'Image', special: true
+  CollectionField.create name: 'thumbnail', display_name: 'Thumbnail Image', special: true
+  CollectionField.create name: 'date_start', display_name: 'Date Start', special: true
+  CollectionField.create name: 'date_end', display_name: 'Date End', special: true
+  CollectionField.create name: 'artist', display_name: 'Artist', special: false
+  CollectionField.create name: 'topics', display_name: 'Topics', special: false
 
   # annotations
   jesus = FactoryGirl.create :jesus
@@ -88,6 +104,12 @@ def seed
   circle_six.admin = user_two
   circle_six.save
 
+  circle_seven = FactoryGirl.create :circle_seven
+  circle_seven.admin = user_three
+  circle_seven.users << test_user
+  circle_seven.users << user_two
+  circle_seven.save
+
   # trays
   test_tray = FactoryGirl.create :test_tray
   test_tray.owner = test_user
@@ -127,3 +149,13 @@ def seed
   spotlight_two_circle.save
 end
 
+def seed_prod
+  # collection_fields
+
+  CollectionField.create name: 'unique_identifier', display_name: 'Unique Identifier', special: true
+  CollectionField.create name: 'title', display_name: 'Title', special: true
+  CollectionField.create name: 'image', display_name: 'Image', special: true
+  CollectionField.create name: 'thumbnail', display_name: 'Thumbnail Image', special: true
+  CollectionField.create name: 'date_start', display_name: 'Date Start', special: true
+  CollectionField.create name: 'date_end', display_name: 'Date End', special: true
+end

@@ -1,149 +1,34 @@
-@import "colors";
-@import "fonts";
+.collections.configure {
 
-.collection-thumbnail {
-  border: solid 1px $cred;
-  position: relative;
-
-  img {
-    height: 100%;
-    width: 100%;
+  .panel-configure {
   }
 
-  .title {
-    background-color: $cred;
-    color: $white;
-    padding: 0 .5em .25em .5em;
-    position: absolute;
-    right: 0;
-    top: 0;
-  }
-
-  &:hover {
-    outline: solid 2px $cred;
-
-    .title {
-      background-color: $white;
-      color: $cred;
-      font-weight: bold;
-      outline: solid 2px $cred;
-    }
-  }
-}
-
-.collections.show {
-  .importing-note {
-    font-size: 0.75em;
-    margin: 0.5em;
-    outline: 2px solid $cred;
-    padding: 0.5em;
-    text-align: center;
-  }
-
-  .delete-collection {
-    background: $white;
-    border: solid 1px $cred;
-    color: $cred;
-    cursor: pointer;
-    display: block;
-    font-size: 11px;
-    margin: 0 0 1em 3em;
-    padding: .25em .5em;
-
-    &:hover {
-      background: $cred;
-      color: $white;
-    }
-  }
-}
-
-.collections.new {
-  input[type="checkbox"] {
-    margin: .5em 0;
-    vertical-align: middle;
-  }
-
-  label {
-    display: block;
-
-    &.checkbox-label {
-      display: inline;
+  .work-original {
+    .btn-default {
+      background: $body-bg;
+      color: $brand-primary;
+      height: auto;
+      overflow: hidden;
+      text-align: left;
+      white-space: normal;
     }
   }
 
-  #file {
-    margin-bottom: 1.5em;
-  }
+  .col-active-fields {
+    .panel-configure {
+      position: fixed;
 
-  #output {
-    p {
-      font-weight: bold;
-      color: #D2232A;
+      max-height: 600px;
+      overflow: auto;
+      width: 30%;
     }
 
-    input[type="checkbox"] {
-      font-size: 0;
-      height: 0;
-      position: absolute;
-      width: 0;
+    .form-active-fields {
+      font-size: $font-size-small;
     }
 
-    #daterange:checked {
-      & ~ #datestart p::before {
-        content: "Start ";
-      }
-
-      & ~ #dateend {
-        display: block;
-      }
-
-      & ~ label::before {
-        content: "☑ ";
-      }
-    }
-
-    label {
-      cursor: pointer;
-      font-weight: bold;
-      margin: 0 0 .5em 2em;
-      position: static;
-      width: 8em;
-
-      &::before {
-        content: "☐ ";
-      }
-    }
-
-    #dateend {
-      display: none;
-    }
-
-    fieldset {
-      margin-bottom: 1em;
-
-      legend {
-        color: $cred;
-        display: inline-block;
-        margin: 0 .5em;
-        padding: 0 .5em;
-      }
-
-      .field {
-        margin-left: 1em;
-        margin-right: 1em;
-      }
-    }
-
-    fieldset p {
-      margin: .5em;
-    }
-
-    .close {
-      width: 12px;
-      height: 12px;
-      background-image: url("remove_query_term.png");
-      float: right;
-      margin-top: -15px;
+    .droppable {
+      border: dashed 1px #999;
     }
   }
 }

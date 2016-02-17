@@ -50,7 +50,7 @@ $( function() {
 
   $( '.works.index' )
   .on( 'click', '.work-commands .tray', function( ) {
-    var workImage = $( this ).closest( '.work-image' );
+    var workImage = $( this ).closest( '.show-xhr' );
 
     $.ajax( {
       url: '/trays',
@@ -116,7 +116,7 @@ $( function() {
       if ( $( '.mfp-content' ).length ) {
         $.magnificPopup.instance.close();
       } else {
-        popup.closest( '.expand_tray' ).html( popupHtml );
+        popup.closest( '.trays-container' ).html( popupHtml );
         popup.closest( '.tray_info' ).find( '.checkbox_hack' ).click( );
       }
     } )
@@ -142,9 +142,10 @@ $( function() {
           }
         } );
       } else {
-        $form.closest( '.expand_tray' ).html( popupHtml );
+        $form.closest( '.trays-container' ).html( popupHtml );
       }
     } );
+    e.preventDefault();
     return false;
   } );
 

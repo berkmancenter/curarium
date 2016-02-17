@@ -2,8 +2,7 @@ require 'open-uri'
 require 'zlib'
 
 class WorksController < ApplicationController
-  autocomplete :works, :title
-  before_action :set_work, only: [:show, :thumb, :edit, :update, :set_cover, :destroy]
+  before_action :set_work, only: [:show, :original, :thumb, :edit, :update, :set_cover, :destroy]
   # GET /works
   # GET /works.json
   def index
@@ -142,6 +141,11 @@ class WorksController < ApplicationController
           else
             @works << { parsed: 'Other', id: other_works.count }
           end
+
+          #if @works.length == 1
+            #params[ :vis ] = 'thumbnail'
+            #redirect_to collection_works_path( params )
+          #end
         end
       end
     elsif ['thumbnails', 'list', 'colorfilter'].include? @vis
@@ -199,7 +203,7 @@ class WorksController < ApplicationController
     @trays = @owner.all_trays unless @owner.nil?
     @popup_action = 'add'
     @popup_action_type = 'Image'
-    @popup_action_item_id = @work.images.first.id
+    @popup_action_item_id = @image.id
 
     if @work.amendments.length > 0
       @current_metadata = @work.amendments.last.amended
@@ -217,11 +221,26 @@ class WorksController < ApplicationController
         if request.xhr?
           render 'show_xhr', layout: false
         else
+          # for annotating images
+          @annotation = Annotation.new
+
           render
         end
       }
       format.json {
         @work.parsed = eval_parsed
+      }
+    end
+  end
+
+  # GET /works/1/original
+  def original
+    respond_to do |format|
+      format.html {
+        render partial: 'works/original', object: @work, layout: false
+      }
+      format.json {
+        render json: @work.original
       }
     end
   end
@@ -293,8 +312,17 @@ class WorksController < ApplicationController
 
   # POST /works/1/set_cover
   def set_cover
-    if authenticated? && @work.collection.admins.include?( current_user )
-      @work.collection.update cover_id: @work.id
+    if authenticated?
+      if params[ :cover_type ] == 'Collection'
+        if @work.collection.admins.include?( current_user )
+          @work.collection.update cover_id: @work.id
+        end
+      elsif params[ :cover_type ] == 'Circle' && params[ :circle_id ].present?
+        c = Circle.find( params[ :circle_id ] )
+        if c.has_user?( current_user )
+          c.update cover_id: @work.id
+        end
+      end
     end
 
     render partial: 'works/cover_form', object: @work
@@ -314,6 +342,8 @@ class WorksController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_work
       @work = Work.find(params[:id])
+      @image_index = ( params[ :image ].present? ? params[ :image ].to_i : 0 )
+      @image = @work.images[ @image_index ]
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.

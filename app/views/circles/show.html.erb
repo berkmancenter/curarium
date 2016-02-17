@@ -1,90 +1,135 @@
-<div class="left">
-  <div class="holder col-sidebar">
-    <div class="titlebar main">Circle</div>
-    <%= render partial: 'thumbnail', object: @circle %>
-    <div class="stalking_menu_holder">
-      <div class="stalking_menu">
-        <% if authenticated? %>
-          <% if @circle.admin == @current_user %>
-            <%= link_to 'Edit Description & Users', edit_circle_path( @circle ), class: 'edit-circle' %>
+<% provide :title, @circle.title %>
 
-            <%= form_for( @circle, html: { method: :delete } ) { |f| %>
-              <a href="javascript:void(0);" class="delete-circle">Delete Circle</a>
-            <% } %>
-          <% else %>
+<div class="container container-show-item">
+
+  <div class="row">
+    <div class="col-sm-4 col-md-3 col-lg-2 col-info">
+      <h2 class="h4 page-header"><%= @circle.privacy.capitalize %> Circle</h2>
+
+      <%= render partial: 'circles/thumbnail', object: @circle %>
+
+      <% if @circle.admin == @current_user %>
+        <%= form_for @circle, method: 'delete' do |f| %>
+          <%= f.button render( partial: 'shared/mini_icon', object: 'close', locals: { icon_title: 'Delete Circle' } ), type: 'submit', class: 'delete-circle btn btn-danger' %>
+        <% end %>
+      <% elsif authenticated? %>
             <% if @circle.users.include? @current_user %>
               <%= form_for( @circle, url: leave_circle_path( @circle ), html: { method: :put } ) { |f| %>
-                <a href="javascript:void(0);" class="leave-circle">Leave Circle</a>
+                <%= f.button render( partial: 'shared/mini_icon', object: 'circle', locals: { icon_title: 'Leave Circle' } ), type: 'submit', class: 'leave-circle btn btn-warning' %>
               <% } %>
             <% else %>
               <%= form_for( @circle, url: join_circle_path( @circle ), html: { method: :put } ) { |f| %>
-                <a href="javascript:void(0);" class="join-circle">Join Circle</a>
+                <%= f.button render( partial: 'shared/mini_icon', object: 'circle', locals: { icon_title: 'Join Circle' } ), type: 'submit', class: 'join-circle btn btn-info' %>
               <% } %>
             <% end %>
-          <% end %>
+      <% end %>
+
+      <div class="list-group">
+        <% if @circle.has_user? @current_user %>
+          <%= render partial: 'shared/mini_icon_item', object: 'annotate', locals: { url: edit_circle_path( @circle ), icon_title: 'Edit' } %>
         <% end %>
+
+        <%= render partial: 'shared/mini_icon_item', object: 'about', locals: { url: '#circle-desc', icon_title: 'Description' } %>
+        <%= render partial: 'shared/mini_icon_item', object: 'trays', locals: { url: '#circle-trays' } %>
+        <%= render partial: 'shared/mini_icon_item', object: 'collections', locals: { url: '#circle-collections' } %>
+        <%= render partial: 'shared/mini_icon_item', object: 'spotlights', locals: { url: '#circle-spotlights' } %>
       </div>
     </div>
-  </div>
-</div>
 
-<div class="expandable">
-  <h1 class="collection-header"><%= @circle.title %> &ndash; <%= @circle.privacy.camelcase %></h1>
+    <div class="col-sm-8 col-md-6 col-lg-7 col-detail">
+      <h2 id="circle-desc" class="h4 page-header"><%= @circle.title %></h2>
 
-  <dl>
-    <dt>Created by:</dt> <dd><%= @circle.admin.name %></dd>
-    <dt>Created on:</dt> <dd><%= @circle.created_at %></dd>
-    <dt>Members:</dt> <dd><%= @circle.users.count + 1 %></dd>
-  </dl>
+      <dl class="dl-horizontal">
+        <dt>Created by</dt>
+        <dd><%= @circle.admin.name %></dd>
 
-  <p><%= @circle.description %></p>
+        <dt>Created on</dt>
+        <dd><%= @circle.created_at.strftime '%b %d %Y' %></dd>
 
-  <section class="circle-trays">
-    <h1 class="collection-header">Recent Trays</h1>
+        <dt>Members</dt>
+        <dd><%= @circle.users.count + 1 %></dd>
+      </dl>
 
-    <%= render partial: 'trays/tray_preview_gallery', object: @circle.trays.limit(2) %>
+      <p><%= @circle.description %></p>
 
-    <%= link_to raw( '<h2>Tray Manager</h2>' ), circle_trays_path( @circle ), { title: 'Manage all trays' } %>
-  </section>
+      <div id="circle-trays">
+        <h2 class="h4 page-header">Trays <%= link_to 'Tray Manager', circle_trays_path( @circle ), class: 'pull-right' %></h2>
 
-  <% if @circle.admin == @current_user || @circle.users.include?( @current_user ) %>
-  <section class="circle-collections">
-    <h1 class="collection-header">Collections</h1>
+        <%= render partial: 'shared/gallery', object: @circle.trays, locals: { newnail: Tray, newnail_path: new_circle_tray_path( @circle ) } %>
+      </div>
 
-    <div class="GALLERY">
-      <%= render partial: 'collections/thumbnail', collection: @circle.collections %>
+      <% if @circle.has_user?( @current_user ) %>
+        <div id="circle-collections">
+          <h2 class="h4 page-header">Collections</h2>
 
-      <% if @circle.admin == @current_user %>
-      <%= render( partial: 'shared/newnail', object: Collection, locals: { verb: :add } ) %>
+          <%= render partial: 'shared/gallery', object: @circle.collections, locals: { newnail: Collection } %>
 
-      <div id="circle-collections-popup" class="ccs-popup">
-        <h1>Available Collections</h1>
+          <div id="circle-collections-popup" class="ccs-popup panel panel-default">
+            <h2 class="h4">Available Collections</h2>
 
-        <%= form_for( @circle, url: addcol_circle_path( @circle ), html: { method: :put } ) { |f| %>
-          <%= f.hidden_field :collections, value: nil %>
-          <% Collection.where.not( id: @circle.collections.pluck( :id ) ).each { |c| %>
-            <button type="submit" data-collection-id="<%= c.id %>" class="ccs-button"><%= c.name %></button>
-          <% } %>
+            <%= form_for( @circle, url: addcol_circle_path( @circle ), html: { method: :put, class: 'btn-group-vertical', role: 'group' } ) { |f| %>
+              <%= f.hidden_field :collections, value: nil %>
+              <% Collection.where.not( id: @circle.collections.pluck( :id ) ).each { |c| %>
+                <button type="submit" data-collection-id="<%= c.id %>" class="ccs-button btn btn-default"><%= c.name %></button>
+              <% } %>
+            <% } %>
+          </div>
+        </div>
+      <% end %>
+
+      <div id="circle-spotlights">
+        <h2 class="h4 page-header">Spotlights</h2>
+
+        <%= render partial: 'shared/gallery', object: @circle.spotlights.circle_only, locals: { newnail: Spotlight } %>
+      </div>
+    </div>
+
+    <div class="col-sm-2 col-md-3 col-activity hidden-sm">
+      <h2 class="h4 page-header">Members</h2>
+
+      <ul class="members">
+        <li><%= render partial: 'users/thumbnail', object: @circle.admin, title: @circle.admin.name %></li>
+        <% @circle.users.each { |u| %>
+          <li><%= render partial: 'users/thumbnail', object: u, title: u.name %></li>
         <% } %>
-      </div>
+      </ul>
+
+      <h2 class="h4 page-header">Activity</h2>
+
+      <% if authenticated? %>
+        <%= semantic_form_for [ @circle, Activity.new ], url: circle_activities_path( @circle ), method: :post, html: { class: 'form-inline' } do |f| %>
+          <%= f.hidden_field :activitiable_id, value: @circle.id %>
+          <%= f.hidden_field :activitiable_type, value: 'Circle' %>
+          <%= f.hidden_field :activity_type, value: 'message' %>
+
+          <%= f.inputs { %>
+            <%= f.input :body, label: false, input_html: { placeholder: 'Post a message' } %>
+          <% } %>
+
+          <%= f.actions { %>
+            <%= f.action :submit, as: :button, label: 'post', button_html: { name: nil, class: 'btn btn-default' } %>
+          <% } %>
+        <% end %>
       <% end %>
+
+      <ul class="media-list activities-list">
+        <%= render @circle.activities %>
+      </ul>
     </div>
-  </section>
-  <% end %>
-
-  <section class="circle-spotlights">
-    <h1 id="circle-spotlights" class="collection-header">Spotlights</h1>
-
-    <div class="GALLERY">
-      <% @spotlights.each do |s| %>
-        <%= render :partial=>'shared/print_item', :locals=>{:item=>s} %>
-      <% end %>
-
-      <%= render partial: 'shared/newnail', object: Spotlight unless !authenticated? %>
-  </section>
-
 
 </div>
+
+
+
+
+
+
+
+
+
+
+
+<!--
 
 <div class="right">
   <div class="holder activity">
@@ -102,17 +147,5 @@
     <% end %>
     <% end %>
   </div>
-
-  <div class="holder members">
-    <h1 class="titlebar">Members</h1>
-
-    <ul>
-      <li><%= link_to render( partial: 'shared/mini_icon', object: 'user', locals: { icon_title: @circle.admin.name } ), user_path( @circle.admin ) %></li>
-    <% @circle.users.each { |u| %>
-      <li><%= link_to render( partial: 'shared/mini_icon', object: 'user', locals: { icon_title: u.name } ), user_path( u ) %></li>
-    <% } %>
-    </ul>
-
-  </div>
 </div>
-
+-->

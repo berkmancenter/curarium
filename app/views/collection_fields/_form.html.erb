@@ -1,0 +1,14 @@
+<%= semantic_form_for @collection_field do |f| %>
+
+  <%= f.semantic_errors :collection_field %>
+
+  <%= f.inputs { %>
+    <%= f.input :name %>
+    <%= f.input :display_name %>
+  <% } %>
+
+  <%= f.actions { %>
+    <%= f.action :submit, button_html: { class: 'btn btn-default' } %>
+  <% } %>
+
+<% end %>

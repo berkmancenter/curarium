@@ -1,10 +1,24 @@
-<%= form_for( cover_form, url: set_cover_work_path( cover_form ), method: :post, remote: true, html: {
-  class: 'edit_work_set_cover'
-}) { |f| %>
-  <dt><%= f.label :cover_id , 'Collection Cover' %></dt>
-  <dd>
-    <span><%= cover_form == cover_form.collection.cover ? 'Yes' : 'No' %></span>
-    <%= f.submit( 'Set', class: 'button' ) unless cover_form == cover_form.collection.cover %>
-  </dd>
-<% } %>
+<div class="edit_work_set_cover">
+  <%= form_for( cover_form, url: set_cover_work_path( cover_form ), method: :post, remote: true) { |f| %>
+    <%= hidden_field_tag 'cover_type', 'Collection' %>
 
+    <dt><%= f.label :cover_id , 'Collection Cover' %></dt>
+    <dd>
+      <span><%= cover_form == cover_form.collection.cover ? 'Yes' : 'No' %></span>
+      <%= f.submit( 'Set', class: 'button' ) unless cover_form == cover_form.collection.cover %>
+    </dd>
+  <% } %>
+
+  <% Circle.editable_by_user( @current_user ).each { |c| %>
+    <%= form_for( cover_form, url: set_cover_work_path( cover_form ), method: :post, remote: true) { |f| %>
+      <%= hidden_field_tag 'cover_type', 'Circle' %>
+      <%= hidden_field_tag 'circle_id', c.id %>
+
+      <dt><%= f.label :cover_id , c.title %></dt>
+      <dd>
+        <span><%= cover_form == c.cover ? 'Yes' : 'No' %></span>
+        <%= f.submit( 'Set', class: 'button' ) unless cover_form == c.cover %>
+      </dd>
+    <% } %>
+  <% } %>
+</div>

@@ -1,15 +1,13 @@
-@import "colors";
-
 .help .instructions{
 	color: #D2232A;
 	padding: 1em;
-	font-size: 150%;
+	font-size: $font-size-large;
 }
 
 .importhelp .instructions {
 	color: #D2232A;
 	padding: 1em;
-	font-size: 150%;
+	font-size: $font-size-large;
 }
 
 .pages.terms {
@@ -54,7 +52,7 @@
 .institem .text_side {
       padding: 25px 5px 20px 5px;
       color: #D2232A;
-      font-size: 100%
+      font-size:$font-size-base 
     }    
 
 

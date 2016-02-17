@@ -1,0 +1,3 @@
+<% depth = depth || 0 %>
+<% path = path || [] %>
+<a href="#" class="list-group-item btn btn-default" draggable="true" data-path="<%= (path + [k]).to_json %>"><b><%= k %></b> | <%= v %></a>

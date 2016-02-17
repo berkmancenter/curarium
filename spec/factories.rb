@@ -9,7 +9,13 @@ FactoryGirl.define do
     factory :user_two do
       name 'User Two'
       email 'two@example.com'
-      bio 'I am another test user. I do not own trays. I admin circle_two and participate in test_circle.'
+      bio 'I am another test user. I do not own trays. I admin a bunch of circles and participate in test_circle.'
+    end
+
+    factory :user_three do
+      name 'User Three'
+      email 'three@example.com'
+      bio 'I am yet another test user. I do not own trays. I admin private circle_seven and have added test_user & user_two to it.'
     end
   end
 
@@ -127,7 +133,6 @@ FactoryGirl.define do
       source 'Harvard Art Museums'
     end
 
-
   end
 
   factory :work do
@@ -237,7 +242,7 @@ FactoryGirl.define do
 
     factory :circle_five do
       title 'circle_five'
-      description 'A community circle whose admin is user_two.'
+      description 'A community circle whose admin is user_two. no users.'
       privacy 'community'
       #admin user_two
       #users []
@@ -245,10 +250,18 @@ FactoryGirl.define do
 
     factory :circle_six do
       title 'circle_six'
-      description 'A public circle whose admin is user_two.'
+      description 'A public circle whose admin is user_two. no users.'
       privacy 'public'
       #admin user_two
       #users []
+    end
+
+    factory :circle_seven do
+      title 'circle_seven'
+      description 'A private circle whose admin is user_three & users 1 & 2 participate.'
+      privacy 'private'
+      #admin user_three
+      #users [test_user, user_two]
     end
   end
 

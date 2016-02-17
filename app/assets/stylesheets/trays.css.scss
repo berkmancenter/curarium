@@ -1,18 +1,6 @@
-@import "colors";
-
 .works.index, .works.show, .trays.index, .trays.show {
   .new_tray {
     margin-top: 1px;
-
-    button {
-      background: $white;
-      border: solid 1px $cred;
-      color: $cred;
-      height: 22px;
-      padding: 0 4px;
-      margin-bottom: 1px;
-      vertical-align: middle;
-    }
   }
 }
 
@@ -44,41 +32,11 @@
 }
 
 .tray-popup {
-  background: $white;
-  border: solid 1px $cred;
-  color: $cred;
-  display: inline-block;
-  font-size: 11px;
-  margin-left: 40%;
-  padding: 1em;
-  position: relative;
-
-  h1 {
-    font-size: 11px;
-    font-weight: normal;
-    margin-bottom: 20px;
-    text-transform: uppercase;
-  }
-  
   .tray-popup-button {
-    cursor: pointer;
-    display: block;
-    margin: 4px 0;
-    width: 140px;
-
     &.item-in, &:hover {
-      background: $cred;
-      color: $white;
     }
 
     &.item-in:hover {
-      background: $white;
-      color: $cred;
     }
   }
-}
-
-.expand_tray .tray-popup {
-  border: none;
-  margin: 0;
 }

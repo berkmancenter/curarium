@@ -1,0 +1,12 @@
+<div class="spotlight-bubble thumbnail">
+  <span class="title"><%= thumbnail_inner.title %></span>
+  <p><%= thumbnail_inner.body %></p>
+  <small class="user">
+    <b><%= thumbnail_inner.user.name %></b> <i>on <%= thumbnail_inner.created_at.strftime("%d %b") %> <span class="year"><%= thumbnail_inner.created_at.strftime("%y") %></span></i>
+  </small>
+  <div class="tail">
+    <span class="cover"></span>
+    <span class="straight visible"></span>
+    <span class="angle visible"></span>
+  </div>
+</div>

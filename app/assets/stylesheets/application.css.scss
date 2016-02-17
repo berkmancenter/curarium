@@ -1,0 +1,42 @@
+@import "colors";
+
+$brand-primary: $cred;
+
+$font-family-sans-serif: "Open Sans", Arial, sans-serif;
+
+$navbar-default-bg: $white;
+$navbar-default-border: $white;
+
+@import "bootstrap-sprockets";
+@import "bootstrap";
+@import "bootstrap/theme";
+
+@import "magnific-popup";
+@import "introjs";
+
+@import "mini_icons";
+@import "thumbnail";
+@import "activities";
+@import "header";
+
+@import "gallery";
+@import "container_show_item";
+
+@import "home";
+
+@import "collections";
+
+@import "works";
+@import "list";
+@import "objectmap";
+@import "treemap";
+@import "colorfilter";
+@import "vis_controls";
+
+@import "trays";
+@import "circles";
+@import "spotlights";
+@import "annotations";
+
+@import "footer";
+

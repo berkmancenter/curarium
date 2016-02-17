@@ -1,0 +1,8 @@
+<% horizontal = defined?( horizontal ) ? horizontal : false %>
+<dl class="metadata <%= 'dl-horizontal' if horizontal %>">
+  <% metadata.parsed.each { |k, v| %>
+    <% next if k == 'title' || v.nil? %>
+    <dt><%= CollectionField.find_by_name( k ).display_name unless CollectionField.find_by_name( k ).nil? %></dt>
+    <dd><%= JSON.parse(v).join( ', ' ) %></dd>
+  <% } %>
+</dl>

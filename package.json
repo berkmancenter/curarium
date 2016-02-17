@@ -1,0 +1,40 @@
+{
+  "name": "curarium",
+  "title": "Curarium",
+  "description": "",
+  "version": "0.6.0",
+  "homepage": "https://curarium.com",
+  "docs": "https://github.com/berkmancenter/curarium",
+  "bugs": {
+    "url": "https://github.com/berkmancenter/curarium/issues"
+  },
+  "author": {
+    "name": "Ryan Westphal",
+    "company": "Berkman Center for Internet and Society",
+    "email": "ryan@trippingthebits.com",
+    "url": "http://trippingthebits.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/berkmancenter/curarium.git"
+  },
+  "licenses": [
+    {
+      "type": "GPL-2.0",
+      "url": "https://github.com/berkmancenter/curarium/LICENSE"
+    }
+  ],
+  "dependencies": {
+    "jquery": "~1.9"
+  },
+  "devDependencies": {
+    "grunt": "~0.4.5",
+    "grunt-contrib-jshint": "~0.10.0",
+    "jquery": "~1.9"
+  },
+  "keywords": [
+    "harvard",
+    "art",
+    "collections"
+  ]
+}

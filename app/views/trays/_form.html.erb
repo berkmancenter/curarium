@@ -1,0 +1,23 @@
+<div class="row">
+  <!--div class="col-sm-4">
+    <h3 class="h5 page-header">About</h2>
+  </div-->
+
+  <div class="col-sm-12">
+    <%= semantic_form_for [@owner, @tray] do |f| %>
+
+      <%= f.semantic_errors :tray %>
+
+      <%= f.inputs { %>
+        <%= f.input :name %>
+        <%= f.hidden_field :owner_type %>
+        <%= f.hidden_field :owner_id %>
+      <% } %>
+
+      <%= f.actions { %>
+        <%= f.action :submit, button_html: { class: 'btn btn-default' } %>
+      <% } %>
+
+    <% end %>
+  </div>
+</div>

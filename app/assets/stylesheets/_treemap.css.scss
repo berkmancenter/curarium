@@ -1,9 +1,19 @@
-.works-treemap {
-  bottom: 35px;
-  left: 0;
+.vis-treemap {
   position: absolute;
+  top: 58px;
   right: 0;
-  top: 38px;
+  bottom: 51px;
+  left: 0;
+
+  .node {
+    display: block;
+
+    position: absolute;
+
+    color: $black;
+    overflow: hidden;
+    text-transform: capitalize;
+  }
 }
 
 

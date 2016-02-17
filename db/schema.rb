@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150707041025) do
+ActiveRecord::Schema.define(version: 20160215001553) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -75,6 +75,7 @@ ActiveRecord::Schema.define(version: 20150707041025) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "privacy",     default: "private"
+    t.integer  "cover_id"
   end
 
   create_table "circles_users", id: false, force: true do |t|
@@ -92,6 +93,12 @@ ActiveRecord::Schema.define(version: 20150707041025) do
 
   add_index "collection_admins", ["collection_id"], name: "index_collection_admins_on_collection_id", using: :btree
   add_index "collection_admins", ["user_id"], name: "index_collection_admins_on_user_id", using: :btree
+
+  create_table "collection_fields", force: true do |t|
+    t.string  "name"
+    t.string  "display_name"
+    t.boolean "special"
+  end
 
   create_table "collections", force: true do |t|
     t.string   "name"
@@ -148,6 +155,13 @@ ActiveRecord::Schema.define(version: 20150707041025) do
     t.string   "title"
   end
 
+  create_table "spatial_ref_sys", primary_key: "srid", force: true do |t|
+    t.string  "auth_name", limit: 256
+    t.integer "auth_srid"
+    t.string  "srtext",    limit: 2048
+    t.string  "proj4text", limit: 2048
+  end
+
   create_table "spotlights", force: true do |t|
     t.string   "title"
     t.text     "body"
@@ -194,7 +208,7 @@ ActiveRecord::Schema.define(version: 20150707041025) do
   end
 
   create_table "works", force: true do |t|
-    t.json     "original"
+    t.text     "original"
     t.hstore   "parsed"
     t.integer  "collection_id"
     t.datetime "created_at"
@@ -205,6 +219,7 @@ ActiveRecord::Schema.define(version: 20150707041025) do
     t.json     "top_colors"
     t.datetime "datestart"
     t.datetime "dateend"
+    t.string   "resource_name"
   end
 
 end

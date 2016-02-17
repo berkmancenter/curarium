@@ -1,0 +1,79 @@
+/* show view for collection, user, circle, and tray */
+
+.container-show-item {
+
+  /* Extra small devices (phones, less than 768px) */
+  /* No media query since this is the default in Bootstrap */
+
+  form {
+    margin: .5em 0;
+  }
+
+  .col-info {
+    min-height: 32em;
+
+    .thumbnail {
+      width: 14em;
+      height: 14em;
+
+      margin: 1em auto;
+    }
+  }
+
+  /* Small devices (tablets, 768px and up) */
+  @media (min-width: $screen-sm-min) {
+    .col-info {
+      min-height: 48em;
+
+      .thumbnail {
+        width: 14em;
+        height: 14em;
+
+        margin: 1em 0;
+      }
+
+      .list-group {
+        font-size: $font-size-small;
+        position: fixed;
+      }
+    }
+
+  }
+
+  /* Medium devices (desktops, 992px and up) */
+  @media (min-width: $screen-md-min) {
+
+    .col-info {
+      .thumbnail {
+        width: 10em;
+        height: 10em;
+
+        margin: 1em 0;
+      }
+
+      .list-group {
+        position: fixed;
+      }
+    }
+
+  }
+
+  /* Large devices (large desktops, 1200px and up) */
+  @media (min-width: $screen-lg-min) {
+
+    .col-info {
+      .thumbnail {
+        width: 12em;
+        height: 12em;
+
+        margin: 1em 0;
+      }
+
+      .list-group {
+        position: fixed;
+      }
+    }
+
+  }
+
+}

@@ -1,19 +1,21 @@
-<div class="left">
-  <div class="holder col-sidebar">
-    <div class="titlebar main"><%= @owner.class.to_s %></div>
-    <%= render partial: "#{@owner.class.to_s.downcase.pluralize}/thumbnail", object: @owner %>
-  </div>
-</div>
+<% provide :title, @tray.name %>
+<div class="container container-show-item">
 
-<div class="expandable">
-  <h1 class="collection-header"><%= @owner.class.to_s %> Tray: <%= @tray.name %></h1>
+  <div class="row">
+    <div class="col-sm-4 col-md-3 col-lg-2 col-info">
+      <h2 class="h4 page-header"><%= @owner.class.to_s %> Tray</h2>
 
-  <!-- BEGIN GALLERY -->	     
-  <div class="GALLERY">
-    <% @tray.tray_items.each { |tray_item| %>
-      <%= render partial: 'tray_items/commandnail', object: tray_item %>
+      <%= render partial: 'trays/thumbnail', object: @tray %>
+    </div>
 
-    <% } %>
+    <div class="col-sm-8 col-md-6 col-lg-7 col-detail">
+      <h2 class="h4 page-header"><%= @tray.name %></h2>
 
-  </div><!-- END GALLERY -->  
+      <%= render partial: 'shared/gallery', object: @tray.tray_items %>
+    </div>
+
+    <div class="col-sm-2 col-md-3 col-activity hidden-sm">
+      <h2 class="h4 page-header">Activity</h2>
+    </div>
+
 </div>

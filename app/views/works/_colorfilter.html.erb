@@ -1,15 +1,3 @@
-<section class="colorfilter">  
-  <% @works.each { |w| %>
-    <div class="color-viz">
-      <%= render partial: 'works/thumbnail', object: w %>
-      <div class="color-length">
-        <% if w.top_colors.present? %>
-          <div class="color-code">
-            <% total = w.top_colors.map { |c| c['percent'].round(4) }.reduce(0, :+) %>
-            <%= render partial: 'works/color_info', collection: w.top_colors, locals: { scale: 1 / total } %>
-          </div>
-        <% end %>
-      </div>
-    </div>
-  <% } %>
-</section>
+<div class="container vis-<%= @vis %>">
+  <%= render partial: 'works/color_gallery', object: colorfilter %>
+</div>

@@ -1,52 +1,68 @@
-@import "colors";
-
-.beta-popup {
-  background: $white;
-  border: solid 1px $cred;
-  color: $cred;
-  display: none;
-  font-size: 11px;
-  margin: 0 auto;
-  max-width: 40%;
-  padding: 4em;
-  position: relative;
-
-  h1 {
-    font-size: 11px;
-    font-weight: normal;
-    text-transform: uppercase;
+.home.index {
+  &>.container {
+    min-height: 480px;
   }
 
-  p {
-    margin: 10px 0;
+  .home-gif {
+    width: 100%;
   }
 
-  a, a:visited {
-    color: $cgray4;
+  .intro-blurb {
+    width: 80%;
   }
 
-  .close {
+  .home-login {
+    .persona-button {
+      vertical-align: middle;
+    }
+
+    .join {
+      display: inline-block;
+      font-style: italic;
+      margin-left: 2em;
+    }
+  }
+
+  .beta-popup {
     background: $white;
     border: solid 1px $cred;
     color: $cred;
-    display: block;
-    font-size: 11px;
-    margin: 20px auto 0;
-    padding: 5px 20px;
+    display: none;
+    font-size: $font-size-base;
+    margin: 0 auto;
+    max-width: 40%;
+    padding: 4em;
+    position: relative;
 
-    &:hover {
-      background: $cred;
-      color: $white;
+    h1 {
+      font-size: $font-size-base;
+      font-weight: normal;
+      text-transform: uppercase;
     }
-  }
+
+    p {
+      margin: 10px 0;
+    }
+
+    a, a:visited {
+      color: $cgray4;
+    }
+
+    .close {
+      background: $white;
+      border: solid 1px $cred;
+      color: $cred;
+      display: block;
+      font-size: $font-size-small;
+      margin: 20px auto 0;
+      padding: 5px 20px;
+
+      &:hover {
+        background: $cred;
+        color: $white;
+      }
+    }
+  } 
 }
 
-.contact-us {
-  p {
-    margin: 1em 0;
-  }
 
-  ul {
-    margin-left: 2em;
-  }
-}

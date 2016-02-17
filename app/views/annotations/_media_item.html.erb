@@ -1,0 +1,9 @@
+<li id="annotation-<%= media_item.id %>" class="media" data-bbox="[<%= media_item.x %>, <%= media_item.y %>, <%= media_item.x + media_item.width %>, <%= media_item.y + media_item.height %>]">
+  <div class="media-left">
+    <%= link_to image_tag( media_item.thumbnail_url, class: 'media-object', alt: '' ), work_annotation_path( media_item.work, media_item ) %>
+  </div>
+  <div class="media-body">
+    <h4 class="media-heading"><%= media_item.title %></h4>
+    <span><%= media_item.body %></span>
+  </div>
+</li>

@@ -21,7 +21,7 @@ class User < ActiveRecord::Base
 
   # all trays in which user participates (including circles)
   def all_trays
-    ctids = circles.map { |c| c.trays.pluck :id if c.trays.any? }.compact.flatten
+    ctids = Circle.editable_by_user( self ).map { |c| c.trays.pluck :id if c.trays.any? }.compact.flatten
     utids = trays.pluck :id
     Tray.find (ctids + utids).uniq
   end

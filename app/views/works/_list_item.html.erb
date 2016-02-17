@@ -1,1 +1,9 @@
-<li><%= link_to render( partial: 'works/img_title', object: list_item), list_item %></li>
+<li class="media">
+  <div class="media-left">
+    <%= render partial: 'works/thumbnail', object: list_item %>
+  </div>
+  <div class="media-body">
+    <h4 class="media-heading"><%= list_item.title %></h4>
+    <%= render partial: 'works/metadata', object: list_item, locals: { horizontal: true } %>
+  </div>
+</li>

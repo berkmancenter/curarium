@@ -1,36 +1,50 @@
-<%= semantic_form_for @circle do |f| %>
-  <% if @circle.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@circle.errors.count, "error") %> prohibited this circle from being saved:</h2>
+<div class="row">
+  <div class="col-sm-4">
+    <h3 class="h5 page-header">About Privacy</h2>
 
-      <ul>
-      <% @circle.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
+    <dl>
+      <dt>private</dt>
+      <dd>
+        <ul>
+          <li>invited users can view this circle</li>
+          <li>invited users can join this circle</li>
+        </ul>
+      </dd>
 
-  <div class="field">
-    <%= f.label :title %><br>
-    <%= f.text_field :title %>
-  </div>
-  <div class="field">
-    <%= f.label :privacy %><br>
-    <%= f.select( :privacy, options_for_select( [ 'private', 'community', 'public' ], ( @circle.privacy || 'private' ) ) ) %>
+      <dt>community</dt>
+      <dd>
+        <ul>
+          <li>all users can view this circle</li>
+          <li>invited users can join this circle</li>
+        </ul>
+      </dd>
+
+      <dt>public</dt>
+      <dd>
+        <ul>
+          <li>all users can view this circle</li>
+          <li>signed-in users can join this circle</li>
+        </ul>
+      </dd>
+    </dl>
   </div>
 
-  <%= f.inputs do %>
-  <div class="field">
-    <%= f.input :users, as: :check_boxes, collection: User.where.not( id: @current_user.id ) %>
-  </div>
-  <% end %>
+  <div class="col-sm-8">
+    <%= semantic_form_for @circle do |f| %>
 
-  <div class="field">
-    <%= f.label :description %><br>
-    <%= f.text_area :description, size: '40x10' %>
+      <%= f.semantic_errors :circle %>
+
+      <%= f.inputs { %>
+        <%= f.input :title %>
+        <%= f.input :privacy, as: :select, collection: [ 'private', 'community', 'public' ] %>
+        <%= f.input :users, as: :check_boxes, collection: User.where.not( id: @current_user.id ) %>
+        <%= f.input :description, as: :text, input_html: { cols: 40, rows: 10 } %>
+      <% } %>
+
+      <%= f.actions { %>
+        <%= f.action :submit, button_html: { class: 'btn btn-default' } %>
+      <% } %>
+
+    <% end %>
   </div>
-  <div class="actions">
-    <%= f.submit class: 'button' %>
-  </div>
-<% end %>
+</div>

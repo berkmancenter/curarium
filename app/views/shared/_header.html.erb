@@ -1,64 +1,47 @@
-<!-- BEGIN GLOBAL MENU -->  
-<div class="GLOBAL_MENU">
+<nav class="navbar navbar-default navbar-static-top">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
 
-  <div class="left">
-  <% if params[:controller] == 'home' && action_name == 'index' %>
-
-    <div class="toggle_curarium">
-      <%= link_to raw( 'Curarium' ), root_url, class:'curarium_name' %>
-      <a href="javascript: void(0);" class="beta"><sup>beta</sup></a>
-      <div class="dropdown_menu"><%= link_to 'About / Contact', '/about' %></div>
+      <%= link_to raw( 'Curarium <sup>beta</sup>' ), root_url, class: 'navbar-brand' %>
     </div>
-
-  <% else %>
-
-    <div class="toggle_curarium">
-      <%= link_to render( partial: 'shared/mini_icon', object: 'curarium', locals: { icon_title: nil } ), root_path %>
-      <div class="global_search">
-        <input type="search" name="fname" placeholder="Search Curarium">
-      </div>
-      <div class="dropdown_menu">
-        <%= link_to "About / Contact", "/about" %>
-      </div>
-    </div>
-
-  <% end %>
-  </div>
-
-  <div class="expandable">
-    <div class="tools">
-      <div class = 'menu_wrapper'>
-
-        <div class="toggle_user toggle_tools">
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li class="hidden-sm"><%= link_to render( partial: 'shared/mini_icon', object: 'about', locals: { side: :right } ), about_path %></li>
+        <li><%= link_to render( partial: 'shared/mini_icon', object: 'collections', locals: { side: :right } ), collections_path %></li>
+        <li><%= link_to render( partial: 'shared/mini_icon', object: 'spotlights', locals: { side: :right } ), spotlights_path %></li>
+        <li class="dropdown">
+        <%= link_to render( partial: 'shared/mini_icon', object: 'explore', locals: { side: :right } ), '#', class: 'dropdown-toggle', role: 'button', 'aria-haspopup' => 'true', 'aria-expanded' => 'false', data: { toggle: 'dropdown' } %>
+          <ul class="dropdown-menu">
+            <% @header_collections.each { |c| %>
+              <li><%= link_to c.name, collection_works_path( c ) %></li>
+            <% } %>
+          </ul>
+        </li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
         <% if authenticated? %>
+          <li class="dropdown">
 
-          <%= link_to render( partial: 'users/mini_icon', object: @current_user ), @current_user %>
-          <div class="dropdown_menu">
-            <%= link_to 'Edit Profile', edit_user_path( @current_user ) %>
-            <%= logout_link %>
-          </div>
+            <%= link_to render( partial: 'users/mini_icon', object: @current_user ), '#', class: 'dropdown-toggle', role: 'button', 'aria-haspopup' => 'true', 'aria-expanded' => 'false', data: { toggle: 'dropdown' } %>
+
+            <ul class="dropdown-menu">
+              <li><%= link_to 'View Profile', @current_user %></li>
+              <li><%= link_to 'Edit Profile', edit_user_path( @current_user ) %></li>
+              <li><%= logout_link %></li>
+            </ul>
+
+          </li>
 
         <% else %>
-
-          <%= login_link 'Log In' %>
-
+          <li><%= login_link 'Log In' %></li>
         <% end %>
-        </div>
-
-        <div class="toggle_explore toggle_tools">
-          <%= link_to render( partial: 'shared/mini_icon', object: 'explore', locals: { side: :right } ), 'javascript:void(0);' %>
-
-          <div class="dropdown_menu">
-            <% @header_collections.each { |c| %>
-              <%= link_to c.name, collection_works_path( c ) %>
-            <% } %>
-          </div>
-        </div>
-
-        <div class="toggle_spotlights toggle_tools"><%= link_to render( partial: 'shared/mini_icon', object: 'spotlights', locals: { side: :right } ), spotlights_path %></div>  
-
-        <div class="toggle_collections toggle_tools"><%= link_to render( partial: 'shared/mini_icon', object: 'collections', locals: { side: :right } ), collections_path %></div>  
-      </div>
+      </ul>
     </div>
   </div>
-</div><!-- END GLOBAL MENU -->  
+</nav>

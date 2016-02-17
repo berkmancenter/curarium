@@ -1,151 +1,64 @@
-@import "colors";
-
-.work_thumbnail {
-  padding: 5px;
-  width: 75px;
-  height: 75px;
-  margin: 5px;
-  background-position: center;
-  background-repeat: no-repeat;
-  background-size: cover;
-  float: left;
-  position: relative;
-
-  h3{
-	  font-size: 6pt;
-    position: absolute;
-    background: #d2232a;
-    color: white;
-    width: 100%;
-    bottom: 0;
-    left: 0;
-    height: 3em;
-    overflow: hidden;
-  }
-}
-
-.introjs-tooltip{
-  left: -0.5px !important;  
-}
-
 .works {
-  .tag_selector {
-    width: 100%;
-  }
+  &.show {
+    p.bg-info {
+      padding: 15px;
+    }
 
-  #parsed_work {
-    &>ul>li {
-      list-style: none;
+    .work-canvas {
+      position: absolute;
+      top: 114px;
+      right: 0;
+      left: 0;
+      bottom: 0;
 
-      span {
-        display: block;
-        font-weight: bold;
-        padding: 2px 0;
-      }
+      .geo-label {
+        width: 33%;
 
-      ul {
-        background-color: white;
-        color: $cred;
-        list-style: none;
-        font-weight: bold;
-        display: block;
-        width: 125px;
-
-        li {
-          border: 1px solid $cred;
-          display: inline-block;
-          overflow: hidden;
-          padding: 2px;
-          margin: 1px;
-          max-width: 100%;
-
-
-          &.deleted {
-            text-decoration:line-through;
-          }
-
-          &.new {
-            border: 1px solid darkgray;
-            color: darkgray;
-          }
-        }
+        background: #fefefe;
+        border-radius: .25em;
+        padding: 1em;
       }
     }
-  }
 
-  .admin_box {
-    .edit_work_set_cover .button {
-      display: inline-block;
-      padding: .25em .5em;
-      position: static;
-      width: auto;
-    }
-    
-  }
-
-
-  .show-xhr {
-    background: #fff;
-    padding: 1em;
-    margin: 150px;
-
-    h1 {
+    .col-works-panels .panel-work {
       display: none;
     }
 
-    h2 {
-      padding-bottom: -10px;
-      font-size: 12px;
-      width: 400px;
+    #annotation_preview {
+      box-sizing: content-box;
+      width: 150px;
+      height: 150px;
     }
+  }
 
-    .parsed-info {
-      display: inline-block;
-      height: 95%;
-      vertical-align: top;
-      width: 25%;
-    }
-
+  .show-xhr {
     .work-image {
-      display: inline-block;
-      width: 55%;
-
-      .work-commands {
-        float: right;
-        list-style-type: none;
-
-        li {
-          border: 1px solid #D2232A;
-          padding: 3px 1px 0 0;
-          margin-right: 3px;
-          top: 10px;
-          display: inline;
-        }
-      }
-
       img {
         width: 100%;
       }
     }
 
     .surrogates {
-      bottom: 50px;
-      display: inline-block;
-      vertical-align: top;
-      width: 18%;
-      
-      .surrogates_title {
-
-      }
-
-      a:hover {
-        outline: solid 1px $cred;
-      }
-
-      img {
-        height: 128px;
-        width: 128px;
+      .thumbnail {
+        margin: .5em 0;
       }
     }
   }
+}
+
+/* Small devices (tablets, 768px and up) */
+@media (min-width: $screen-sm-min) {
+
+.works {
+  &.show {
+    .work-canvas {
+      position: absolute;
+      top: 56px;
+      right: 0;
+      left: 80px;
+      bottom: 50px;
+    }
+  }
+}
+
 }

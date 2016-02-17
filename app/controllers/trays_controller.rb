@@ -8,7 +8,7 @@ class TraysController < ApplicationController
   def index
     response.headers[ 'Access-Control-Allow-Origin' ] = Waku::CORS_URL
     if authenticated?
-      if @current_user == @owner
+      if @owner.is_a?( Circle ) ? @owner.has_user?( @current_user ) : @current_user == @owner
         respond_to { |format|
           format.html {
             if request.xhr?
@@ -37,20 +37,19 @@ class TraysController < ApplicationController
   end
   
   def new
-    @tray = Tray.new
+    @tray = Tray.new owner_type: @owner_type, owner_id: @owner.id
   end
     
   def create
     @tray = Tray.create(tray_params)
 
     if request.xhr?
-      @trays = @owner.trays
       @popup_action = params[ 'popup_action' ]
       @popup_action_type = params[ 'popup_action_item_type' ]
       @popup_action_item_id = params[ 'popup_action_item_id' ]
       render 'popup', layout: false
     else
-      redirect_to action: 'index'
+      redirect_to view_context.x_trays_path( @owner )
     end
 
   end
@@ -76,15 +75,15 @@ class TraysController < ApplicationController
     else
       @owner = @current_user
     end
+    @owner_type = @owner.class.to_s
   end
 
   def set_trays
-    if @owner.present?
-      if @owner.is_a? Circle
-        @trays = @owner.trays
-      else # User + Circle trays
-        @trays = @owner.all_trays
-      end
+    if !( params[ :user_id ].present? || params[ :circle_id ].present? )
+      # User + Circle trays
+      @trays = @owner.all_trays
+    else
+      @trays = @owner.trays
     end
   end
 

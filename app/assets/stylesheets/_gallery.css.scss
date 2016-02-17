@@ -1,0 +1,95 @@
+/* Extra small devices (phones, less than 768px) */
+/* No media query since this is the default in Bootstrap */
+
+.home.index .gallery {
+  margin-bottom: -232px;
+}
+
+.gallery {
+  overflow: hidden;
+
+  .gallery-item {
+    height: 208px;
+    width: 100%;
+  }
+
+  .big {
+    .gallery-item {
+      height: 464px;
+      width: 100%;
+    }
+  }
+}
+
+/* Small devices (tablets, 768px and up) */
+@media (min-width: $screen-sm-min) {
+  .home.index .gallery {
+    margin-bottom: -279px;
+  }
+
+  .gallery {
+    .gallery-item {
+      height: 224px;
+      width: 224px;
+    }
+
+    .big {
+      .gallery-item {
+        height: 466px;
+        width: 476px;
+      }
+    }
+  }
+}
+
+/* Medium devices (desktops, 992px and up) */
+@media (min-width: $screen-md-min) {
+  .home.index .gallery {
+    margin-bottom: -232px;
+  }
+
+  .gallery {
+
+    .gallery-item {
+      height: 208px;
+      width: 208px;
+    }
+
+    .big {
+      .gallery-item {
+        height: 434px;
+        width: 452px;
+      }
+    }
+  }
+
+  .col-detail .gallery {
+    .gallery-item {
+      height: 192px;
+      width: 192px;
+    }
+  }
+}
+
+/* Large devices (large desktops, 1200px and up) */
+@media (min-width: $screen-lg-min) {
+.home.index .gallery {
+  margin-bottom: -176px;
+}
+
+.gallery {
+
+  .gallery-item {
+    height: 152px;
+    width: 152px;
+  }
+
+  .big {
+    .gallery-item {
+      height: 322px;
+      width: 348px;
+    }
+  }
+}
+}
+

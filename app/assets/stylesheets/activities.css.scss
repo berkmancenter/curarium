@@ -1,28 +1,18 @@
-span.activity {
-  display: block;
-  margin-bottom: 1em;
-
-  .mini-icon {
-    display: inline;
-    margin-right: 1.5em;
+.activities-list {
+  .media-object {
+    width: 4em;
+    height: 4em;
   }
 
-  .activity-date {
+  i {
+    padding-right: 1em;
+  }
+
+  .media-heading {
     font-weight: bold;
-    vertical-align: top;
   }
 
-  .activity-body {
-    display: block;
-  }
-
-  .activity-creator {
-    display: block;
-    font-weight: bold;
-    margin-left: 3em;
-
-    &::before {
-      content: '- ';
-    }
+  .media-body {
+    font-size: $font-size-small;
   }
 }

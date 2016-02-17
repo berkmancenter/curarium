@@ -1,36 +1,49 @@
-.colorfilter {
-	width: 1500px;
-}
-
-.color-viz {
-	width: 350px !important;
-	font-size: 10px;
-	float: left;
-  margin-bottom: 4em;
-
+.color-item {
   .thumbnail {
-    background-size: 270px;
-    height: 270px;
-    width: 270px;
+    margin-bottom: 0;
+  }
+
+  .color-length {
+    width: 100%;
+    margin-bottom: 2em;
+
+    font-size: 11px;
+    font-color: none;
+  }
+
+  .color-code {
+    width: 100%;
+    border: 1px solid #D3D3D3;
+    height: 30px;
+    overflow: none;
+  }
+
+  .color-info {
+    display: block;
+    float: left;
+    height: 30px;
+    font-size: 0px;
   }
 }
 
-.color-length {
-	width: 270px !important;
-	font-size: 11px;
-	font-color: none;
+
+/* Small devices (tablets, 768px and up) */
+@media (min-width: $screen-sm-min) {
+  .color-item .color-length {
+    width: 224px;
+  }
 }
 
-.color-code {
-	width: 100%;
-	border: 1px solid #D3D3D3;
-	height: 30px;
-	overflow: none;
+/* Medium devices (desktops, 992px and up) */
+@media (min-width: $screen-md-min) {
+  .color-item .color-length {
+    width: 208px;
+  }
 }
 
-.color-info {
-  display: block;
-	float: left;
-	height: 30px;
-	font-size: 0px;
+/* Large devices (large desktops, 1200px and up) */
+@media (min-width: $screen-lg-min) {
+  .color-item .color-length {
+    width: 152px;
+  }
 }

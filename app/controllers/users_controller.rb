@@ -66,6 +66,11 @@ class UsersController < ApplicationController
   # Use callbacks to share common setup or constraints between actions.
   def set_user
     @user = User.friendly.find(params[:id])
+    if authenticated?
+      @circles = Circle.for_user_by_current @user, @current_user
+    else
+      @circles = Circle.for_user_by_anon @user
+    end
   end
 
   # Never trust parameters from the scary internet, only allow the white list through.

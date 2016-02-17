@@ -1,0 +1,17 @@
+<% provide :title, 'Collection Fields' %>
+
+<div class="container">
+  <div class="row">
+    <div class="col-sm-12">
+      <h2 class="h4 page-header">Collection Fields</h2>
+
+      <dl class="dl-horizontal">
+        <% @collection_fields.each { |cf| %>
+          <dt><%= cf.name %></dt><dd><%= cf.display_name %></dd>
+        <% } %>
+      </dl> 
+
+      <%= link_to 'Create a New Field', new_collection_field_path, class: 'btn btn-default' %>
+    </div>
+  </div>
+</div>

@@ -1,186 +1,32 @@
 .vis-controls {
-  
   position: absolute;
-  top: 60px;
-  text-align: center;
-
-  .rec_menu {
-    border: 1px solid #d2233a;
-    background: #eee;
-    padding: 5px 8px;
-    right: 50px;
-  }
-  .rec_menu .recmenu_piece{
-    width: 0px;
-  }
-
-  .rec_menu .recmenu_piece .button {
-    background: #ffffff url('icon_parsed.png') no-repeat center center;
-    color: transparent;
-    top: 1px;
-    left: 1px;
-    width: 20px;
-    position: absolute;
-  }
-
-  .rec_menu .recmenu_piece .button:hover {
-    background: #d2222a url('icon_parsedw.png') no-repeat center center;
-    color: transparent;
-  }
-
-  .rec_menu .recmenu_piece {
-    display: block;
-  }
-
-  #drop:checked ~ .dropdown {
-    display: table;
-    right: 150px;
-    border-color: transparent;
-  }
-
-  #drop:checked ~ #down {
-    display: none;
-    right: 150px;
-  }
-
-  #drop:checked ~ #up {
-    display: inline;
-  }
-
+  z-index: 23;
   
-  .dropdown {
-    display: none;
-    top: 300px;
-    padding: 0 0 0 17px;
-  }
-  
-  .floatdivs{
-    text-align: justify;
-    -ms-text-justify: distribute-all-lines;
-    text-justify: distribute-all-lines;
-  }
-
-  .dropcell {
-    text-align: left;
-    border: 1px solid #d2233a;
-    background: #fff;
-    height: 110px;
-    width: 300px;
-    overflow: auto;
-    zoom: 1;
-    margin: 10px 0px;
-  }
-
   .search-report {
-    text-align: center;
+    white-space: nowrap;
   }
 
-  .update {
-    background: #fff;
-    height: 35px;
-    line-height: 35px;
-    margin: .7em 0;
-    text-align: center;
-    width: 100%;
-  }
-  
-  #go {
-    background: #d2233a;
-    border: 1px solid #d2233a;
-    color: #fff;
-    font-weight: bold;
-    height: 25px;
-    width: auto;
-    margin: 0 auto;
-  }
-
-  #go:hover {
-    background: #fff;
-    color: #d2233a;
-  }
-
-  select {
-    border: 1px solid #d2233a;
-    font-weight: bold;
-    color: #d2233a;
-    background: #fff;
-    width: 100%;
-  }
-
-  select[disabled], input[disabled] {
-    color: #999;
-    border: 1px solid #999 !important;
-  }
-
-  #up, #down {
-    width: 3px;
-    height: auto;
-    top: 7px;
-    position: absolute;
-  }
-
-
-  .subcell {
-    margin: 7px 7px 0px 7px;
-  }
-
-  #incexc {
-    display: table;
-    width: 88%;
-  }
-
-  .add-prop {
-    width: 75px;
-    background: #fff;
-    font-weight: bold;
-  }
-
-  .wrap {
-    width: 80px;
-    display: table-cell;
-  }
-
-  #inc {
-    border: 1px solid #d2233a;
-    color: #d2233a;
-  }
-
-  #exc {
-    border: 1px solid #000;
-    color: #000;
-  }
-
-  #per_page {
-    width: 100%;
-    border: 1px solid #ccc;
-    background: #fff;
-  }
-
-  #propval {
-    width: 80%;
-    display: table-cell;
-  }
-
-  #props > span {
+  #props .alert {
     display: inline-block;
-    margin: .25em;
-    padding: .25em;
+    margin-right: .5em;
+
+    .close {
+      margin-left: .5em;
+      width: 1em;
+    }
   }
 
-  .include {
-    background: #d2232a;
-    color: #fff;
-    padding: 2px;
-  }
-
-  .exclude {
-    background: #000;
-    color: #fff;
-  }
-
-  .include a, .exclude a {
-    color: #fff;
+  label.checkbox-inline {
     font-weight: bold;
-  } 
+  }
 
+  .form-inline {
+    label {
+      width: 62%;
+    }
+
+    select, input {
+      width: 32%;
+    }
+  }
 }

@@ -62,25 +62,29 @@ Curarium::Application.routes.draw do
 
   resources :works do
     member do
+      get 'original'
       get 'thumb'
       post 'set_cover'
     end
 
     resources :amendments
     resources :annotations
-
-    get :autocomplete_works_title, on: :collection
   end
 
   get 'works/:work_id/images/:index' => 'images#show', as: :work_image
+  get 'works/:work_id?image=:index' => 'works#show', as: :work_surrogate
  
+  resources :collection_fields
 
   resources :collections do
-    post "ingest" => "collections#ingest", as: "ingest"
-    get "add" => "collections#add", as: "add"
-    post "upload" => "collections#upload", as: "upload"
-
+    resources :collection_fields
     resources :works
+
+    member do
+      get 'sample_work' => 'collections#sample_work', as: :sample_work
+      get 'configure' => "collections#configure", as: :configure
+      post 'reconfigure' => "collections#reconfigure", as: :reconfigure
+    end
   end
   
   get "/help" => "pages#help"

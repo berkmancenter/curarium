@@ -1,0 +1,4 @@
+<span class="title"><%= thumbnail_inner.name %></span>
+<div class="tray-item-images">
+  <%= render partial: 'tray_items/thumbnail_inner', collection: thumbnail_inner.tray_items.limit(9) %>
+</div>

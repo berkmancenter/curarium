@@ -20,11 +20,11 @@ gem 'factory_girl_rails' #breaks rake if its only in test group
 # Use browserid for authentication
 gem 'browserid-rails', :git => 'git@github.com:dbp/browserid-rails.git'
 
-# Use SCSS for stylesheets
-gem 'sass-rails', '~> 4.0.0'
+# Use Twitter Bootstrap
+gem 'bootstrap-sass', '3.3.5'
 
-#Use jquery-ui for autocomplete
-gem 'rails4-autocomplete'
+# Use SCSS for stylesheets
+gem 'sass-rails'
 
 # Use Uglifier as compressor for JavaScript assets
 gem 'uglifier', '>= 1.3.0'
@@ -34,11 +34,13 @@ gem 'coffee-rails', '~> 4.0.0'
 
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
+
 # Use jquery-ui
 gem 'jquery-ui-rails'
 
 # Formtastic for awesome forms
-gem 'formtastic', '~> 3.0'
+gem 'formtastic'
+gem 'formtastic-bootstrap'
 
 # Use d3 for visualizations
 gem 'd3-rails'
@@ -76,3 +78,4 @@ gem 'sinatra', '>= 1.3.0', :require => nil
 
 #Use introjs for introductions
 gem "introjs-rails"
+

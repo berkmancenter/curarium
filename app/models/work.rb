@@ -125,7 +125,7 @@ class Work < ActiveRecord::Base
   end
 
   def self.missing_thumb_url
-    Rails.public_path.join( 'missing_thumb.png' ).to_s
+    '/missing_thumb.png'
   end
 
   def thumbnail_url
@@ -155,7 +155,7 @@ class Work < ActiveRecord::Base
     if thumbnail_url.present?
       "/thumbnails/works/#{id}.jpg"
     else
-      missing_thumb_url
+      Work.missing_thumb_url
     end
   end
 
@@ -178,6 +178,19 @@ class Work < ActiveRecord::Base
       end
     end
     result
+  end
+
+  def in_circle?( circle )
+    in_col = circle.collections.pluck( :id ).include?( collection.id )
+    in_trays = false
+    if !in_col
+      circle.trays.each { |t|
+        in_trays = t.tray_items.where( image_id: images.first ).any?
+        break if in_trays
+      }
+    end
+
+    in_col || in_trays
   end
 
   def extract_colors
@@ -218,8 +231,9 @@ class Work < ActiveRecord::Base
   private
 
   def extract_attributes
-    if id.nil?
-      # maybe can be nil?
+    # since we can now have a work as part of an un-configured collection
+    # these all need be be allowed to be nil
+    if parsed.present?
       uids = parsed[ 'unique_identifier' ]
       if uids.present?
         if uids.is_a? String
@@ -233,7 +247,6 @@ class Work < ActiveRecord::Base
         end
       end
 
-      # can be nil
       if parsed[ 'image' ].present?
         if parsed[ 'image' ].is_a? String
           self.iurls = JSON.parse parsed[ 'image' ]
@@ -242,7 +255,6 @@ class Work < ActiveRecord::Base
         end
       end
 
-      # can be nil
       if parsed[ 'thumbnail' ].present?
         if parsed[ 'thumbnail' ].is_a? String
           self.turls = JSON.parse parsed[ 'thumbnail' ]
@@ -251,7 +263,6 @@ class Work < ActiveRecord::Base
         end
       end
 
-      # can be nil, maybe?
       titles = parsed[ 'title' ]
       if titles.present?
         if titles.is_a? String
@@ -265,10 +276,8 @@ class Work < ActiveRecord::Base
         end
       end
 
-      # can be nil
       self.datestart = Work.parse_date parsed[ 'datestart' ]
 
-      # can be nil
       self.dateend = Work.parse_date parsed[ 'dateend' ]
 
       # remove the attributes we extracted (except for title)

@@ -1,27 +1,14 @@
 class CirclesController < ApplicationController
   before_action :set_circle, only: [:show, :addcol, :edit, :update, :join, :leave, :destroy]
+  before_action :set_circles, only: [:index]
 
   # GET /circles
   def index
     response.headers[ 'Access-Control-Allow-Origin' ] = Waku::CORS_URL
-    if authenticated?
-      @circles = Circle.for_user @current_user
-    else
-      @circles = Circle.where privacy: 'public'
-    end
   end
 
   # GET /circles/1
   def show
-    if authenticated?
-      @circles = Circle.for_user @current_user
-    else
-      @circles = Circle.where privacy: 'public'
-    end
-
-    @spotlights = @circle.spotlights.circle_only
-
-    redirect_to circles_path unless @circles.include?( @circle )
   end
 
   def addcol
@@ -88,6 +75,27 @@ class CirclesController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_circle
       @circle = Circle.find(params[:id])
+    end
+
+    # circles to show depends on the view as well as the user if any
+    def set_circles
+      if params[ :user_id ].present?
+        @user = User.friendly.find( params[ :user_id ] )
+
+        if authenticated?
+          @circles = Circle.for_user_by_current @user, @current_user
+        else
+          @circles = Circle.for_user_by_anon @user
+        end
+      else
+        @user = nil
+
+        if authenticated?
+          @circles = Circle.visible_to_user @current_user
+        else
+          @circles = Circle.where privacy: 'public'
+        end
+      end
     end
 
     # Only allow a trusted parameter "white list" through.

@@ -1,0 +1,23 @@
+<% col_classes = col_classes || 'col-xs-6 col-sm-6 col-md-6 col-lg-4' %>
+
+<div class="row gallery">
+  <% if defined?( big ) && big.present? %>
+    <div class="col-xs-12 col-sm-8 col-md-6 col-lg-4 big">
+      <%= render partial: "#{big.class.to_s.pluralize(2).underscore}/thumbnail", object: big %>
+    </div>
+  <% end %>
+
+  <% gallery.each do |item| %>
+    <div class="<%= col_classes %>">
+      <%= render partial: "#{item.class.to_s.pluralize(2).underscore}/thumbnail", object: item %>
+    </div>
+  <% end %>
+
+  <% if defined?( newnail ) && authenticated? %>
+    <div class="<%= col_classes %>">
+      <% partial_locals = { newnail_path: newnail_path } unless !defined?( newnail_path ) %>
+      <%= render partial: 'shared/newnail', object: newnail, locals: partial_locals %>
+    </div>
+  <% end %>
+</div>
+

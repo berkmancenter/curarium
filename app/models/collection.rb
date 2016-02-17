@@ -1,6 +1,4 @@
 class Collection < ActiveRecord::Base
-  before_create :generate_key
-
   has_many :collection_admins
   has_many :admins, through: :collection_admins
 
@@ -12,7 +10,6 @@ class Collection < ActiveRecord::Base
   
   validates :name, presence: true, uniqueness: true
   validates :description, presence: true
-  validates :configuration, presence: true
   validates :source, presence: true
 
   scope :administered_by, ->( user ) {
@@ -22,6 +19,19 @@ class Collection < ActiveRecord::Base
   scope :with_works, -> {
     where "id in ( select distinct collection_id from works )"
   }
+
+  after_initialize :init
+
+  def init
+    self.configuration ||= { 
+      'unique_identifier' => '',
+      'title' => '',
+      'image' => '',
+      'thumbnail' => '',
+      'date_start' => '',
+      'date_end' => ''
+    }
+  end
 
   def cover
     if cover_id.present?
@@ -170,11 +180,5 @@ class Collection < ActiveRecord::Base
     rescue Redis::CannotConnectError => e
       0
     end
-  end
-
-  private
-
-  def generate_key
-    self[:key] = SecureRandom.base64
   end
 end

@@ -35,3 +35,9 @@ en:
     addtotray: 'Add to tray'
     follow: 'Follow this collection'
     close: ''
+  newnail:
+    circle: 'new circle'
+    collection: 'add collection'
+    spotlight: 'new spotlight'
+    tray: 'new tray'
+    

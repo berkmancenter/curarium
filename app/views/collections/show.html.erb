@@ -1,69 +1,66 @@
-<!-- BEGIN ABOUT CONTENT -->	
-<div class="about_content">
-	<!-- left content -->
-  <div class="left"><div class="holder col-sidebar">
-    <div class="titlebar main"><%= render partial: 'shared/mini_icon', object: 'collection' %></div>
-		<div class="profile_img" style="background: url('<%= @collection.cover_url %>') no-repeat center center; background-size: cover;">&nbsp;</div>   
-       <div class="stalking_menu_holder">
-        	<div class="stalking_menu">
-            <ul>
-              <% if authenticated? %>
-                <% if @collection.admins.include? @current_user %>
+<% provide :title, @collection.name %>
+<div class="container container-show-item">
 
-                <%= form_for @collection, method: 'delete' do |f| %>
-                  <%= f.submit value: 'Delete Collection', class: 'delete-collection' %>
-                <% end %>
+  <% if @collection.importing %>
+    <div class="row">
+      <div class="col-sm-12">
+        <p class="alert alert-info">This collection is currently configuring, <%= @collection.import_queue_count %> records remain</p>
+      </div>
+    </div>
+  <% end %>
 
-                <li><%= link_to render( partial: 'shared/mini_icon', object: 'annotate', locals: { icon_title: 'Edit Description/Privacy' } ), edit_collection_path( @collection ), class: 'edit-collection' %></li>
-                <% end %>
-              <% end %>
-              <li><%#= link_to render( partial: 'shared/mini_icon', object: 'follow' ), '#' %></li>
-              <li><%= link_to render( partial: 'shared/mini_icon', object: 'spotlight', locals: { icon_title: 'Associated spotlights' } ), spotlights_path %></li>
-              <li><%= link_to render( partial: 'shared/mini_icon', object: 'explore' ), collection_works_path( @collection ) %></li>
-            </ul>
-        	</div>
-        </div> 
-    </div></div><!-- end left content -->
-    
-    <!-- middle content -->
-    <div class="expandable"><div class="holder">
-			<!-- ABOUT CONTENT -->
-      <div class="titlebar to_about"><%= @collection.name %><%= ' (importing)' unless !@collection.importing %></div>
-		<div class="cont_about">
-      <% if @collection.importing %>
-        <div class="importing-note">This collection is currently importing, <%= @collection.import_queue_count %> records remain</div>
+  <div class="row">
+    <div class="col-sm-4 col-md-3 col-lg-2 col-info">
+      <h2 class="h4 page-header">Collection</h2>
+
+      <%= render partial: 'collections/thumbnail', object: @collection %>
+
+      <% if authenticated? && @collection.admins.include?( @current_user ) %>
+        <%= form_for @collection, method: 'delete' do |f| %>
+          <%= f.button render( partial: 'shared/mini_icon', object: 'close', locals: { icon_title: 'Delete Collection' } ), type: 'submit', class: 'btn btn-danger delete-collection' %>
+        <% end %>
+
       <% end %>
-			<%= @collection.description %>
-		</div>
-   		
-   		<!-- COLLECTION CONTENT -->
-    	<div class="titlebar to_spot">At a glance</div>
-		<div class="GALLERY">
-		<!--The new thing goes here-->
-		<% @all.each do |item| %>
-	    <%= render :partial => 'shared/print_item', :locals=>{:item=>item} %>
-		<% end %>
 
-			</div><!-- end GALLERY --> 
-    </div></div><!-- end middle content -->
+      <div class="list-group">
+        <% if authenticated? && @collection.admins.include?( @current_user ) %>
+          <%= render partial: 'shared/mini_icon_item', object: 'annotate', locals: { icon_title: 'Edit/Privacy', url: edit_collection_path( @collection ) } %>
+          <%= render partial: 'shared/mini_icon_item', object: 'admin', locals: { icon_title: 'Reconfigure', url: configure_collection_path( @collection ) } %>
+        <% end %>
 
-	<!-- right content -->
-     <div class="right"><div class="holder latest-activity">
-     		<div class="titlebar">Latest Activity</div>
+        <%= render partial: 'shared/mini_icon_item', object: 'spotlight', locals: { icon_title: 'Associated Spotlights', url: spotlights_path } %>
+        <%= render partial: 'shared/mini_icon_item', object: 'explore', locals: { url: collection_works_path( @collection ) } %>
+      </div>
+    </div>
 
-     			<!-- an activity -->
-				<table class="activity_holder"><tr>
-				<td  class="date">
-          <%= @collection.created_at.strftime '%d.%m.%y' %>&nbsp; - <%= render partial: 'shared/mini_icon', object: 'collection', locals: { icon_title: nil } %>
-          </td><td  class="activity">
-          <% if @collection.admins.any? %>
-            <span><%= @collection.admins.first.name %> created this collection</span>
-          <% end %>
-				</td></tr></table>
-     			<!-- an activity -->
-     </div></div><!-- end right content -->    
-</div><!-- END ABOUT CONTENT -->	
+    <div class="col-sm-8 col-md-6 col-lg-7 col-detail">
+      <h2 class="h4 page-header"><%= @collection.name %></h2>
 
-<!-- BEGIN GALLERY -->	
+      <dl class="dl-horizontal">
+        <dt>Imported by</dt>
+        <dd><%= @collection.admins.first.name %></dd>
+
+        <dt>Imported on</dt>
+        <dd><%= @collection.created_at.strftime '%b %d %Y' %></dd>
+
+        <dt>Total Records</dt>
+        <dd><%= @collection.works.count %></dd>
+      </dl>
 
 
+      <p><%= @collection.description %></p>
+
+      <h2 class="h4 page-header">At a Glance</h2>
+
+      <%= render partial: 'shared/gallery', object: @all %>
+
+      <h2 class="h4 page-header">Spotlights</h2>
+
+    </div>
+
+    <div class="col-sm-2 col-md-3 col-activity hidden-sm">
+      <h2 class="h4 page-header">Activity</h2>
+    </div>
+
+  </div>
+</div>

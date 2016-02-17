@@ -24,7 +24,7 @@
           <%= form_tag( request.original_url, method: :get, id: 'vis-form' ) { |f| %>
             <div class="form-group" data-intro="Select the dropdown for visualization options" data-step="1">
               <%= label_tag 'vis', 'Visualization type' %>
-              <%= select_tag 'vis', options_for_select( [ ['list', 'list'], ['thumbnails','thumbnails'], ['object map', 'objectmap'], ['treemap', 'treemap'], ['color filter', 'colorfilter'], ['geo-chronological view', 'geochrono'] ], @vis ), class: 'form-control' %>
+              <%= select_tag 'vis', options_for_select( [ ['list', 'list'], ['thumbnails','thumbnails'], ['object map', 'objectmap'], ['treemap', 'treemap'], ['color filter', 'colorfilter'] ], @vis ), class: 'form-control' %>
             </div>
 
             <p class="search-report">

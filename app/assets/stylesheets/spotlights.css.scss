@@ -13,6 +13,17 @@
     }
   }
 
+  p {
+    position: absolute;
+    top: 1.75em;
+    right: .5em;
+    bottom: .25em;
+    left: .5em;
+
+    font-size: $font-size-small;
+    overflow: hidden;
+  }
+
   .user {
     position: absolute;
     bottom: -2em;
@@ -56,6 +67,10 @@
 
 .spotlight-bubble {
   bottom: 1em;
+
+  p {
+    bottom: 0;
+  }
 
   .user {
     left: 3.5em;

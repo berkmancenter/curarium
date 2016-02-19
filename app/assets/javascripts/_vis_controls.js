@@ -17,6 +17,10 @@
     init: function( options ) {
       _options = $.extend( { }, _defaults, options );
 
+      $( window ).on( 'resize', function() {
+        $( '.panel-vis-controls' ).css( 'max-height', $( window ).height() - 196 );
+      } );
+
       var props = $( '#props' );
 
       var search = window.location.search.replace("?","");
@@ -43,7 +47,7 @@
       }
 
       $( '#toggle-vis-controls' ).click( function( ) {
-        $( '.panel-vis-controls' ).toggleClass( 'hidden' );
+        $( '.panel-vis-controls' ).css( 'max-height', $( window ).height() - 196 ).toggleClass( 'hidden' );
         return false;
       } );
 

@@ -1,7 +1,12 @@
 .vis-controls {
   position: absolute;
   z-index: 23;
-  
+
+  .panel-vis-controls {
+    max-height: 600px;
+    overflow: auto;
+  }
+
   .search-report {
     white-space: nowrap;
   }
@@ -9,6 +14,11 @@
   #props .alert {
     display: inline-block;
     margin-right: .5em;
+
+    padding-top: 4px;
+    padding-right: 4px;
+    padding-bottom: 4px;
+    padding-left: 8px;
 
     .close {
       margin-left: .5em;

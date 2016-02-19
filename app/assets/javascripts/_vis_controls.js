@@ -72,10 +72,10 @@
         }
 
         if ($.inArray(this.value,['thumbnails','list','colorfilter'])>-1) {
-          $( '.page_in' ).prop('disabled',false);
+          $( '.page_in' ).prop('disabled',false).parent().toggleClass( 'hidden', false );
         }
         else {
-          $( '.page_in' ).prop('disabled',true);
+          $( '.page_in' ).prop('disabled',true).parent().toggleClass( 'hidden', true );
         }
       } );
 

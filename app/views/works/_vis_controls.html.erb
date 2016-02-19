@@ -11,20 +11,18 @@
       <button id="toggle-vis-controls" type="button" class="btn btn-default" aria-label="Open Visualization Controls">
         <%= render partial: 'shared/mini_icon', object: 'hopen', locals: { icon_title: nil } %>
       </button>
-
-      <a id="toggle-vis-controls" href="#"></a>
     </div>
 
     <div class="col-sm-10">
-      <div class="panel panel-default panel-vis-controls hidden">
+      <div class="panel panel-default panel-vis-controls small hidden">
         <div class="panel-heading">Visualization Controls</div>
         <div class="panel-body">
-          <a href="#">Click for instructions</a>
+          <!--a href="#">Click for instructions</a-->
 
           <%= form_tag( request.original_url, method: :get, id: 'vis-form' ) { |f| %>
             <div class="form-group" data-intro="Select the dropdown for visualization options" data-step="1">
               <%= label_tag 'vis', 'Visualization type' %>
-              <%= select_tag 'vis', options_for_select( [ ['list', 'list'], ['thumbnails','thumbnails'], ['object map', 'objectmap'], ['treemap', 'treemap'], ['color filter', 'colorfilter'] ], @vis ), class: 'form-control' %>
+              <%= select_tag 'vis', options_for_select( [ ['list', 'list'], ['thumbnails','thumbnails'], ['object map', 'objectmap'], ['treemap', 'treemap'], ['color filter', 'colorfilter'] ], @vis ), class: 'form-control input-sm' %>
             </div>
 
             <p class="search-report">
@@ -33,23 +31,23 @@
 
             <div class="form-group">
               <%= label_tag 'selprop', 'Visualization property' %>
-              <%= select_tag 'property', options_for_select(@properties), id: 'property', class: 'form-control' %>
+              <%= select_tag 'property', options_for_select(@properties), id: 'property', class: 'form-control input-sm' %>
             </div>
 
             <hr>
 
             <div class="form-group" data-intro="Include or exclude properties on nilter" data-step="2">
               <%= label_tag 'selprop', 'Filter by metadata' %>
-              <%= select_tag 'selprop', options_for_select(@properties), id: 'selprop', name: nil, class: 'form-control', title: 'Filter property' %>
+              <%= select_tag 'selprop', options_for_select(@properties), id: 'selprop', name: nil, class: 'form-control input-sm', title: 'Filter property' %>
             </div>
 
             <div class="form-group">
-              <%= text_field_tag 'propval', nil, placeholder: 'Filter value', name: nil, class: 'form-control' %>
+              <%= text_field_tag 'propval', nil, placeholder: 'Filter value', name: nil, class: 'form-control input-sm' %>
             </div>
 
             <div class="form-group">
-              <%= button_tag 'Include', id: 'inc', type: 'button', class: 'add-prop btn btn-success', 'data-cmd'=>'include' %>
-              <%= button_tag 'Exclude', id: 'exc', type: 'button', class: 'add-prop btn btn-danger', 'data-cmd'=>'exclude' %>
+              <%= button_tag 'Include', id: 'inc', type: 'button', class: 'add-prop btn btn-sm btn-success', 'data-cmd'=>'include' %>
+              <%= button_tag 'Exclude', id: 'exc', type: 'button', class: 'add-prop btn btn-sm btn-danger', 'data-cmd'=>'exclude' %>
             </div>
 
             <div id="props" class="form-group"></div>
@@ -63,7 +61,7 @@
 
             <div class="form-group form-inline <%= 'hidden' unless @colorfilter.present? %>">
               <%= label_tag 'colorfilter', 'Select color' %>
-              <%= color_field_tag 'colorfilter', @colorfilter || '#000000', disabled: ( 'disabled' unless @colorfilter.present? ), class: 'form-control' %>
+              <%= color_field_tag 'colorfilter', @colorfilter || '#000000', disabled: ( 'disabled' unless @colorfilter.present? ), class: 'form-control input-sm' %>
             </div>
 
             <hr>
@@ -72,16 +70,16 @@
               <% @num ||= 0 %>
               <% @perpage ||= 200 %>
               <%= label_tag 'page', 'Page' %>
-              <%= select_tag 'page', options_for_select((1..((@num.to_f/@perpage).ceil)).to_a, params[:page].to_i || 1), class: 'page_in form-control' %>
+              <%= select_tag 'page', options_for_select((1..((@num.to_f/@perpage).ceil)).to_a, params[:page].to_i || 1), class: 'page_in form-control input-sm' %>
             </div>
 
             <div class="form-group form-inline">
               <%= label_tag 'per_page', 'Records per page' %>
-              <%= number_field_tag 'per_page', @perpage, class: 'in page_in form-control' %>
+              <%= number_field_tag 'per_page', @perpage, class: 'in page_in form-control input-sm' %>
             </div>
 
             <div class='update' data-intro="You know you want to hit this button!" data-step="4">
-              <%= submit_tag 'Update Visualization', name: nil, id: 'go', class: 'btn btn-default' %>
+              <%= submit_tag 'Update Visualization', name: nil, id: 'go', class: 'btn btn-sm btn-default' %>
             </div>
           <% } %>
         </div>

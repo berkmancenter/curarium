@@ -17,6 +17,8 @@ end
 
 gem 'factory_girl_rails' #breaks rake if its only in test group
 
+gem 'devise'
+
 # Use browserid for authentication
 gem 'browserid-rails', :git => 'git@github.com:dbp/browserid-rails.git'
 

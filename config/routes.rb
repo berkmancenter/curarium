@@ -1,5 +1,6 @@
 Curarium::Application.routes.draw do
 
+  devise_for :users
   get 'about' => 'home#about', as: 'about'
   get 'bot' => 'home#bot', as: 'bot'
 

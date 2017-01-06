@@ -60,7 +60,6 @@ end
 # Use ActiveModel has_secure_password
 # bcrypt-ruby was renamed to bcrypt, has_secure_password seems to want both?
 gem 'bcrypt'
-gem 'bcrypt-ruby', '~> 3.1.2'
 
 #running jobs as back processes 
 gem 'rubyzip' #unzip things

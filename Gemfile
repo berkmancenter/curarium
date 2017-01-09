@@ -10,7 +10,7 @@ gem 'pg'
 gem 'composite_primary_keys'
 
 group :test do
-  gem 'rspec-rails', '2.14.2'
+  gem 'rspec-rails', '3.5.2'
   gem 'capybara', '2.3.0'
   gem 'poltergeist', '1.5.1'
 end

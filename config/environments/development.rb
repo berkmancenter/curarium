@@ -36,8 +36,8 @@ Curarium::Application.configure do
   config.action_mailer.default_url_options = { :host => 'curarium.dev.berkmancenter.org' }
   Rails.application.routes.default_url_options[:host] = 'curarium.dev.berkmancenter.org'
 
-  config.action_mailer.delivery_method = :sendmail
-  config.action_mailer.perform_deliveries = true
+  config.action_mailer.delivery_method = :test
+  config.action_mailer.perform_deliveries = false
 
   # Setup browserid-rails
   config.browserid.audience = 'curarium.dev.berkmancenter.org'

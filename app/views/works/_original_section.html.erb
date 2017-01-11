@@ -1,5 +1,6 @@
 <% depth = depth || 0 %>
 <% path = path || [] %>
+<% Rails.logger.info "[original_section] #{original_section.inspect}" %>
 <% json = original_section.is_a?( Work ) ? JSON.parse( original_section.original ) : original_section %>
 
 <div class="row">
@@ -23,7 +24,11 @@
         <b><%= i %></b>
       </div>
 
-      <%= render partial: 'works/original_section', object: value, locals: { depth: depth + 1, path: ( path + [k, '*'] ) } %>
+      <% if value.is_a? String %>
+        <%= render partial: 'works/original_item', locals: { k: k, v: value, depth: depth, path: path } %>
+      <% else %>
+        <%= render partial: 'works/original_section', object: value, locals: { depth: depth + 1, path: ( path + [k, '*'] ) } %>
+      <% end %>
     <% } %>
   <% else %>
     <%= render partial: 'works/original_item', locals: { k: k, v: v, depth: depth, path: path } %>

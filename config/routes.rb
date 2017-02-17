@@ -1,12 +1,12 @@
 Curarium::Application.routes.draw do
 
   devise_for :users
+
   get 'about' => 'home#about', as: 'about'
   get 'bot' => 'home#bot', as: 'bot'
 
   controller :sessions do
-    post 'login' => :create
-    post 'logout' => :destroy
+    get 'logout' => :destroy, as: 'logout'
   end
 
   require 'sidekiq/web'

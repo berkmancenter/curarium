@@ -13,7 +13,7 @@
       <% if authenticated? %>
         <p>To report a bug or suggestion, please visit the <a href="https://cyber.law.harvard.edu/projectmanagement/projects/curarium-beta-bug-tracker/issues/new">Curarium Bug Tracker</a></p>
       <% else %>
-        <p class="home-login"><%= login_link 'SIGN UP' %> <span class="join">Join the Community!</span></p>
+        <p class="home-login"><%= link_to 'Sign Up', new_user_session_path %> <span class="join">Join the Community!</span></p>
       <% end %>
     </div>
   </div>

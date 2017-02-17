@@ -4,7 +4,7 @@
 
 * Ruby 2.0+
 * Rails 4.1
-* PostgreSQL 9.3+
+* PostgreSQL 9.3+ (with PostGIS 2+ extension and a spatial database template)
 * redis 2.6+
 * ImageMagick 6.9+
 
@@ -42,8 +42,10 @@ After cloning the repository, change to the project directory. Edit config/datab
 
         $ bundle install
 
-2. Create database
+2. Create/edit config/database.yml (be mindful of the PostGIS template key) and create database
 
+        $ cp config/database.yml.example config/database.yml
+          (edit config/database.yml)
         $ rake db:setup
 
 3. Seed database with some test data to play around

@@ -4,18 +4,24 @@ FactoryGirl.define do
       name 'Test User'
       email 'test@example.com'
       bio 'I am a test user. I admin the collections. I own test_tray and admin test_circle.'
+      password 'testuser'
+      password_confirmation 'testuser'
     end
 
     factory :user_two do
       name 'User Two'
       email 'two@example.com'
       bio 'I am another test user. I do not own trays. I admin a bunch of circles and participate in test_circle.'
+      password 'usertwo'
+      password_confirmation 'usertwo'
     end
 
     factory :user_three do
       name 'User Three'
       email 'three@example.com'
       bio 'I am yet another test user. I do not own trays. I admin private circle_seven and have added test_user & user_two to it.'
+      password 'userthree'
+      password_confirmation 'userthree'
     end
   end
 

@@ -2,10 +2,11 @@
 
 ## Dependencies
 
-* Ruby 2.0
+* Ruby 2.0+
 * Rails 4.1
-* PostgreSQL 9.3
-* redis 2.6
+* PostgreSQL 9.3+
+* redis 2.6+
+* ImageMagick 6.9+
 
 ## Getting Started
 
@@ -17,6 +18,12 @@ The following will get you going with some sample data.
         mogrify: command not found
         (^ ImageMagick is not installed or not in your path)
 
+### Install redis
+
+* Linux: apt-get install redis-server
+
+* Windows (self-installer): https://github.com/rgl/redis/downloads
+
 ### Install ImageMagick
 
 * Download: http://www.imagemagick.org/script/binary-releases.php
@@ -26,12 +33,6 @@ Any version will work as we exec ImageMagick rather than interacting via a gem. 
         $ mogrify --version
         Version: ImageMagick 6.9.1-2 Q16 x64 2015-04-14 http://www.imagemagick.org
         (^ all set)
-
-### Install redis
-
-* Linux: apt-get install redis-server
-
-* Windows (self-installer): https://github.com/rgl/redis/downloads
 
 ### rails
 
@@ -59,7 +60,7 @@ After cloning the repository, change to the project directory. Edit config/datab
 
 1. Browse to localhost:3000
 
-2. Sign in (you may need to create a new Mozilla Persona account)
+2. Sign in (you may need to create a new account)
 
 3. Browse to http://localhost:3000/collections/new
 

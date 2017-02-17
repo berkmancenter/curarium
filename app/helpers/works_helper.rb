@@ -16,4 +16,8 @@ module WorksHelper
     end
   end
   
+  def is_i?( str )
+    # fast way to test if string is simple, positive, base 10 number
+    self.to_i.to_s == self
+  end
 end

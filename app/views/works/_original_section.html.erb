@@ -1,7 +1,7 @@
 <% depth = depth || 0 %>
 <% path = path || [] %>
-<% Rails.logger.info "[original_section] #{original_section.inspect}" %>
 <% json = original_section.is_a?( Work ) ? JSON.parse( original_section.original ) : original_section %>
+<%# Rails.logger.info "[original_section] #{json}" %>
 
 <div class="row">
   <div class="col-sm-<%= 12 - depth %> col-sm-offset-<%= depth %>">
@@ -24,10 +24,11 @@
         <b><%= i %></b>
       </div>
 
+      <% Rails.logger.info "[original_section] #{k}.#{value} is_a #{value.class}" %>
       <% if value.is_a? String %>
-        <%= render partial: 'works/original_item', locals: { k: k, v: value, depth: depth, path: path } %>
+        <%= render partial: 'works/original_item', locals: { k: i.to_s, is_array_val: true, v: value, depth: depth, path: path + [k] } %>
       <% else %>
-        <%= render partial: 'works/original_section', object: value, locals: { depth: depth + 1, path: ( path + [k, '*'] ) } %>
+        <%= render partial: 'works/original_section', object: value, locals: { depth: depth + 1, path: ( path + [k, i.to_s] ) } %>
       <% end %>
     <% } %>
   <% else %>

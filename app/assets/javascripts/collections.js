@@ -6,12 +6,23 @@ $( function() {
   } );
 
   function extractExample( original, path ) {
-    if ( path.length === 1 ) {
+    if ( original === null || path.length === 0 ) {
+      return '';
+    } else if ( typeof( original ) === 'object' && path[ 0 ].match( /^\d+$/ ) && !$.isArray( original ) ) {
+      // array in path, single object in original, ignore the array
+      path.splice( 0, 1 );
+      return extractExample( original, path );
+    } else if ( !original.hasOwnProperty( path[ 0 ] ) ) {
+      return '';
+    } else if ( path.length === 1 ) {
       return original[ path[ 0 ] ];
     } else if ( path.length > 1 ) {
       var subObj = original[ path[ 0 ] ];
       path.splice( 0, 1 );
       return extractExample( subObj, path );
+    } else {
+      // ?
+      return '';
     }
   }
 
@@ -20,6 +31,7 @@ $( function() {
 
     $( '.form-active-fields .droppable' ).each( function( ) {
       var pathString = $( this ).find( 'input' ).val();
+      console.log( pathString );
       if ( pathString.length ) {
         var path = JSON.parse( pathString.replace( /\*/g, '0' ) );
         var ex = extractExample( original, path );

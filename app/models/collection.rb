@@ -56,11 +56,13 @@ class Collection < ActiveRecord::Base
   end
 
   def self.follow_json( structure, path )
+    Rails.logger.debug "[reconfigure] path: #{path}"
+
     if structure.is_a? String
       structure = JSON.parse structure
     end
 
-    if structure[path[0]].present?
+    if path.count > 0 && structure.present? && structure[path[0]].present?
       current = structure[path[0]]
 
       if path.length == 1

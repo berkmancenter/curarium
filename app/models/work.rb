@@ -69,10 +69,10 @@ class Work < ActiveRecord::Base
   end
 
   def self.write_montage( works, path, force = false, ids_only = false )
-    logger.info "montage works to #{path}"
+    logger.debug "[reconfigure][montage] to: #{path}"
 
     if File.exists?( path.join( '5.jpg' ) ) && !force
-      logger.info "montage already exists"
+      logger.debug "[reconfigure][montage] already exists"
     else
       FileUtils.mkpath path
 
@@ -97,10 +97,10 @@ class Work < ActiveRecord::Base
   end
 
   def self.write_geochrono( works, path, force = false, ids_only = false )
-    logger.info "geochrono works to #{path}"
+    logger.debug "[reconfigure][geochrono] to: #{path}"
 
     if File.exists?( path.join( '5.jpg' ) ) && !force
-      logger.info "geochrono already exists"
+      logger.debug "[reconfigure][geochrono] already exists"
     else
       FileUtils.mkpath path
 
@@ -162,6 +162,7 @@ class Work < ActiveRecord::Base
   def cache_thumb
     result = File.exists? thumbnail_cache_path
     if !result && thumbnail_url.present?
+      logger.debug "[reconfigure][cache_thumb] #{thumbnail_url} to #{thumbnail_cache_path}"
       cache_url = "#{thumbnail_url}#{thumbnail_url.include?( '?' ) ? '&' : '?'}width=150&height=150"
 
       begin

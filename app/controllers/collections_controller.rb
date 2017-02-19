@@ -117,12 +117,18 @@ class CollectionsController < ApplicationController
   # POST /collections/1/reconfigure
   def reconfigure
     # delete collection montage
-    Rails.logger.info "montage deleting for #{@collection.id}"
-    FileUtils.rm_rf Rails.public_path.join( 'thumbnails', 'collections', @collection.id.to_s )
+    #Rails.logger.debug "[collection][reconfigure] montage deleting for #{@collection.id}"
+    #FileUtils.rm_rf Rails.public_path.join( 'thumbnails', 'collections', @collection.id.to_s )
 
-    @collection.works.each { |w|
+    Rails.logger.info "[reconfigure] collection_id: #{@collection.id}"
+
+    @collection.works.take( 1 ).each { |w|
       ConfigureWork.perform_async @collection.id, @collection.configuration, w.id
     }
+
+    #@collection.works.each { |w|
+    #  ConfigureWork.perform_async @collection.id, @collection.configuration, w.id
+    #}
     redirect_to @collection
   end
 

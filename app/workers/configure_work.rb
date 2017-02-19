@@ -3,23 +3,32 @@ class ConfigureWork
   sidekiq_options :retry => 3, :dead => false
   
   def perform( collection_id, configuration, work_id )
-    work = Work.find work_id
-    parsed = {}
+    begin
+      work = Work.find work_id
+      parsed = {}
 
-    configuration.each { |field|
-      parsed[ field[ 0 ] ] = Collection.follow_json work.original, field[ 1 ]
-    }
+      Rails.logger.debug "[reconfigure] work: #{work_id}, configuration: #{configuration}"
 
-    work.update parsed: parsed
+      configuration.each { |field|
+        Rails.logger.debug "[reconfigure] #{field.inspect}"
+        parsed[ field[ 0 ] ] = Collection.follow_json work.original, field[ 1 ]
+      }
 
-    if work.cache_thumb
-      histogram = work.extract_colors
-      if histogram.any?
-        work.update primary_color: histogram[0][ :color ], top_colors: histogram
+      Rails.logger.debug "[reconfigure] work #{work_id}, parsed: #{parsed.inspect}"
+
+      work.update parsed: parsed
+
+      if work.cache_thumb
+        histogram = work.extract_colors
+        if histogram.any?
+          work.update primary_color: histogram[0][ :color ], top_colors: histogram
+        end
       end
-    end
 
-    sleep 1
+      sleep 1
+    rescue Exception => e
+      Rails.logger.debug "[reconfigure] work: #{work_id}, error: #{e.inspect}"
+    end
   end
 end
 

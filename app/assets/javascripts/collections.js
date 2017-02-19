@@ -9,7 +9,7 @@ $( function() {
     if ( original === null || path.length === 0 ) {
       return '';
     } else if ( typeof( original ) === 'object' && path[ 0 ].match( /^\d+$/ ) && !$.isArray( original ) ) {
-      // array in path, single object in original, ignore the array
+      // array in path, single object in original, ignore the array index
       path.splice( 0, 1 );
       return extractExample( original, path );
     } else if ( !original.hasOwnProperty( path[ 0 ] ) ) {
@@ -30,8 +30,8 @@ $( function() {
     var original = $( '.work-original' ).data( 'original' );
 
     $( '.form-active-fields .droppable' ).each( function( ) {
-      var pathString = $( this ).find( 'input' ).val();
-      console.log( pathString );
+      var pathString = $( this ).find( '.field-input' ).val();
+      //console.log( pathString );
       if ( pathString.length ) {
         var path = JSON.parse( pathString.replace( /\*/g, '0' ) );
         var ex = extractExample( original, path );
@@ -125,10 +125,26 @@ $( function() {
 
       var dropData = e.originalEvent.dataTransfer.getData( 'dropData' );
       var $this = $( this );
-      $this.find( 'input' ).val( dropData );
+      $this.find( '.field-input' ).val( dropData );
 
       saveConfig();
       return false;
+    } );
+
+    $( '.collections.configure' ).on( 'change', '.field-input-multiple input', function( e ) {
+      //console.log( $( this ).closest( '.droppable' ).find( '.field-input' ).val() );
+      var multiple = $( this ).is( ':checked' );
+      var fieldInput = $( this ).closest( '.droppable' ).find( '.field-input' );
+      var path = fieldInput.val();
+
+      if ( multiple ) {
+        path = path.replace( /"\d+"/, '"*"' );
+      } else {
+        path = path.replace( /"\*"/, '"0"' );
+      }
+
+      fieldInput.val( path );
+      saveConfig();
     } );
 
     $( '.collections.configure' ).on( 'ajax:success', '.form-active-fields', function( xhr, result ) {

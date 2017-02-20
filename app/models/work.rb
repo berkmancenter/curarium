@@ -69,21 +69,23 @@ class Work < ActiveRecord::Base
   end
 
   def self.write_montage( works, path, force = false, ids_only = false )
-    logger.debug "[reconfigure][montage] to: #{path}"
+    logger.debug "[windex][montage] to: #{path}"
 
     if File.exists?( path.join( '5.jpg' ) ) && !force
-      logger.debug "[reconfigure][montage] already exists"
+      logger.debug "[windex][montage] already exists"
     else
       FileUtils.mkpath path
 
       ws = works.with_thumb
       work_dimension = Math.sqrt( ws.count ).ceil
 
+      logger.debug "[windex][montage] ids: #{path.join( 'ids.json' )}"
       File.open( path.join( 'ids.json' ), 'w' ) { |f|
         f.write( ws.pluck( :id ).to_json )
       }
 
       if !ids_only
+        logger.debug "[windex][montage] thumnails: #{path.join( 'thumnails.txt' )}"
         File.open( path.join( 'thumbnails.txt' ), 'w' ) { |f|
           public_works_path = '../../works/'
           f.write( ws.map { |w| public_works_path + "#{w.id}.jpg" }.join( "\n" ) )
@@ -100,7 +102,7 @@ class Work < ActiveRecord::Base
     logger.debug "[reconfigure][geochrono] to: #{path}"
 
     if File.exists?( path.join( '5.jpg' ) ) && !force
-      logger.debug "[reconfigure][geochrono] already exists"
+      logger.debug "[windex][geochrono] already exists"
     else
       FileUtils.mkpath path
 

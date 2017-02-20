@@ -8,6 +8,7 @@ class WorksController < ApplicationController
   def index
     @vis = params[ :vis ] || 'objectmap'
     exclude_props = [ 'unique_identifier', 'image', 'thumbnail' ]
+    req_thumb = %w(thumbnails objectmap colorfilter).include?( @vis ) 
 
     @collection = nil
     @properties = []
@@ -30,6 +31,8 @@ class WorksController < ApplicationController
         end
       end
     end
+
+    Rails.logger.debug "[windex] vis: #{@vis}, col: #{@collection.id unless @collection.nil?}, params: #{params.inspect}"
 
     has_other = false
 
@@ -84,7 +87,13 @@ class WorksController < ApplicationController
     end
 
     # may want num in a few cases (this should be a fast query)
-    @num = Work.where( where_clause ).count( :id )
+    if req_thumb
+      @num = Work.with_thumb.where( where_clause ).count( :id )
+    else
+      @num = Work.where( where_clause ).count( :id )
+    end
+
+    Rails.logger.debug "[windex] num: #{@num}, where: #{where_clause}"
 
     if @vis == 'treemap'
       if @num == 1
@@ -160,7 +169,7 @@ class WorksController < ApplicationController
       end
     elsif @vis == 'objectmap'
       # objectmap should only get thumbnails
-      @works = Work.with_thumb.where(where_clause)
+      @works = Work.with_thumb.where where_clause
       ids_only = false
 
       if @collection.present? && !have_query
@@ -172,7 +181,10 @@ class WorksController < ApplicationController
         @query_id = Zlib.crc32 where_clause
       end
 
-      Work.write_montage @works, Rails.public_path.join( 'thumbnails', @query_type, @query_id.to_s ), false, ids_only
+      montage_path = Rails.public_path.join( 'thumbnails', @query_type, @query_id.to_s )
+      Rails.logger.debug "[windex] write_montage path: #{montage_path}"
+
+      Work.write_montage @works, montage_path, false, ids_only
     elsif @vis == 'geochrono'
       @works = Work.with_thumb.where(where_clause)
       ids_only = false

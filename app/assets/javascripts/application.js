@@ -14,7 +14,7 @@
 //= require jquery_ujs
 //= require jquery-ui/droppable
 //= require bootstrap-sprockets
-//= require jquery.geo-1.0.0-b2.min
+//= require jquery.geo-1.0.0-rc1.min
 //= require jquery.magnific-popup.min
 //= require d3
 //= require kinetic-v5.0.1.min

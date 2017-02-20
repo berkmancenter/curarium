@@ -27,7 +27,7 @@ class ConfigureWork
 
       sleep 1
     rescue Exception => e
-      Rails.logger.debug "[reconfigure] work: #{work_id}, error: #{e.inspect}"
+      Rails.logger.info "[reconfigure] work: #{work_id}, error: #{e.inspect}"
     end
   end
 end

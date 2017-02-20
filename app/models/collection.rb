@@ -48,6 +48,11 @@ class Collection < ActiveRecord::Base
   def cover_url
     cover.present? ? cover.thumbnail_cache_url : Work.missing_thumb_url
   end
+  
+  def self.is_i?( str )
+    # fast way to test if string is simple, positive, base 10 number
+    str.to_i.to_s == str
+  end
 
   def self.create_work_from_parsed( key, original, parsed )
     # create a work from original JSON and pre-parsed version
@@ -62,11 +67,16 @@ class Collection < ActiveRecord::Base
       structure = JSON.parse structure
     end
 
-    if path.count > 0 && structure.present? && structure[path[0]].present?
-      current = structure[path[0]]
+    cpath = path[0]
+    cpath = cpath.to_i if is_i?( cpath )
+
+    field = nil
+
+    if path.count > 0 && structure.present? && structure[cpath].present?
+      current = structure[cpath]
 
       if path.length == 1
-        [ current ]
+        field = [ current ]
       else
         if current.class == Array && path[1] == '*'
           field = []
@@ -85,9 +95,10 @@ class Collection < ActiveRecord::Base
 
         field.compact unless field.nil?
       end
-    else
-      nil
     end
+
+    Rails.logger.debug "[reconfigure] field value: #{field}"
+    field
   end
 
   def self.follow_json_single( structure, path )

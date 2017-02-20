@@ -122,13 +122,9 @@ class CollectionsController < ApplicationController
 
     Rails.logger.info "[reconfigure] collection_id: #{@collection.id}"
 
-    @collection.works.take( 1 ).each { |w|
+    @collection.works.each { |w|
       ConfigureWork.perform_async @collection.id, @collection.configuration, w.id
     }
-
-    #@collection.works.each { |w|
-    #  ConfigureWork.perform_async @collection.id, @collection.configuration, w.id
-    #}
     redirect_to @collection
   end
 

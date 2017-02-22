@@ -3,6 +3,7 @@
 #   sidekiq -C config.yml
 ---
 :verbose: false
-#:pidfile: ./tmp/pids/sidekiq.pid
+:pidfile: ./tmp/pids/sidekiq.pid
+:logfile: ./log/sidekiq.log
 :concurrency: 10
 #:timeout: 30

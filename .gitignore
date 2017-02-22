@@ -5,31 +5,27 @@
 #   git config --global core.excludesfile '~/.gitignore_global'
 
 # Ignore bundler config.
-/.bundle
+.bundle
 
 # Ignore npm
 
-/node_modules
-
-# Ignore the default SQLite database.
-/db/*.sqlite3
-/db/*.sqlite3-journal
+node_modules
 
 # seed data
-/db/collection_data
+db/collection_data
 
 # collection tiles
-/app/assets/images/collection_tiles
+app/assets/images/collection_tiles
 
 # work thumbnails
-/public/thumbnails
+public/thumbnails
 
 # Ignore all logfiles and tempfiles.
-/log/*.log
-/tmp
+log
+tmp
 
 # rails environment
-/config/database.yml
+config/database.yml
 
 # vim
 *.swp

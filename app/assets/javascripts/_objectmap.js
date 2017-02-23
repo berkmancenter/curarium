@@ -32,7 +32,6 @@ $( function() {
       success: function( result ) {
         workIds = result;
         if ( $.isArray( workIds ) && workIds.length > 0 ) {
-          console.log( workIds.length );
           workDimension = Math.ceil( Math.sqrt( workIds.length ) );
           loadMap();
         }
@@ -262,6 +261,8 @@ $( function() {
     miniScale = 1 / workDimension;
     miniSize = baseThumbSize * miniScale;
 
+    //console.log( '[minimap], workDimension: ' + workDimension + ', miniScale: ' + miniScale + ', miniSize: ' + miniSize + ', baseThumbSize:' + baseThumbSize );
+
     miniMap = $( '.vis-objectmap .minimap' ).geomap( {
       bbox: [ 0, 0, baseThumbSize, baseThumbSize ],
       bboxMax: [ 0, 0, baseThumbSize, baseThumbSize ],
@@ -288,7 +289,7 @@ $( function() {
     } );
 
     miniMap.click( function( e ) {
-      map.geomap( 'option', 'center', [ e.offsetX / miniSize * baseThumbSize, e.offsetY / miniSize * baseThumbSize ] );
+      map.geomap( 'option', 'center', [ e.offsetX / miniSize / 2 * baseThumbSize, e.offsetY / miniSize / 2 * baseThumbSize ] );
       updateMiniBbox();
     } );
 
@@ -296,13 +297,12 @@ $( function() {
 
     $( '.commands .btn' ).click( function( ) {
       map.geomap( 'zoom', $( this ).data( 'zoom' ) );
+      updateMiniBbox();
     } );
 
     function imageLoad( ) {
       var $this = $( this );
       bigContext.drawImage( this, 0, 0, this.width, this.height, $this.data( 'x' ) * baseThumbSize, $this.data( 'y' ) * baseThumbSize, baseThumbSize * (this.width/150), baseThumbSize * (this.height/150));
-
-     //console.log( 'PAINT x: ' + $this.data( 'x' ) + ', y: ' + $this.data( 'y' ) + ', index: ' + $this.data( 'workIdIndex' ) + ', workId: ' + workIds[ $this.data( 'workIdIndex' ) ] );
 
       paintedIndexes[ $this.data( 'workIdIndex' ) ] = true;
 

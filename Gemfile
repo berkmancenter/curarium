@@ -19,6 +19,8 @@ gem 'factory_girl_rails' #breaks rake if its only in test group
 
 gem 'devise'
 
+gem 'therubyracer'
+
 # Use Twitter Bootstrap
 gem 'bootstrap-sass', '3.3.5'
 

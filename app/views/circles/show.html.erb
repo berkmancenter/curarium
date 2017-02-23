@@ -8,12 +8,12 @@
 
       <%= render partial: 'circles/thumbnail', object: @circle %>
 
-      <% if @circle.admin == @current_user %>
+      <% if @circle.admin == current_user %>
         <%= form_for @circle, method: 'delete' do |f| %>
           <%= f.button render( partial: 'shared/mini_icon', object: 'close', locals: { icon_title: 'Delete Circle' } ), type: 'submit', class: 'delete-circle btn btn-danger' %>
         <% end %>
-      <% elsif authenticated? %>
-            <% if @circle.users.include? @current_user %>
+      <% elsif current_user.present? %>
+            <% if @circle.users.include? current_user %>
               <%= form_for( @circle, url: leave_circle_path( @circle ), html: { method: :put } ) { |f| %>
                 <%= f.button render( partial: 'shared/mini_icon', object: 'circle', locals: { icon_title: 'Leave Circle' } ), type: 'submit', class: 'leave-circle btn btn-warning' %>
               <% } %>
@@ -25,7 +25,7 @@
       <% end %>
 
       <div class="list-group">
-        <% if @circle.has_user? @current_user %>
+        <% if @circle.has_user? current_user %>
           <%= render partial: 'shared/mini_icon_item', object: 'annotate', locals: { url: edit_circle_path( @circle ), icon_title: 'Edit' } %>
         <% end %>
 
@@ -58,7 +58,7 @@
         <%= render partial: 'shared/gallery', object: @circle.trays, locals: { newnail: Tray, newnail_path: new_circle_tray_path( @circle ) } %>
       </div>
 
-      <% if @circle.has_user?( @current_user ) %>
+      <% if @circle.has_user?( current_user ) %>
         <div id="circle-collections">
           <h2 class="h4 page-header">Collections</h2>
 
@@ -96,7 +96,7 @@
 
       <h2 class="h4 page-header">Activity</h2>
 
-      <% if authenticated? %>
+      <% if current_user.present? %>
         <%= semantic_form_for [ @circle, Activity.new ], url: circle_activities_path( @circle ), method: :post, html: { class: 'form-inline' } do |f| %>
           <%= f.hidden_field :activitiable_id, value: @circle.id %>
           <%= f.hidden_field :activitiable_type, value: 'Circle' %>
@@ -137,7 +137,7 @@
 
     <%= render @circle.activities %>
 
-    <% if authenticated? %>
+    <% if current_user.present? %>
     <%= form_for [ @circle, Activity.new ], url: circle_activities_path( @circle ), method: :post do |f| %>
       <%= f.hidden_field :activitiable_id, value: @circle.id %>
       <%= f.hidden_field :activitiable_type, value: 'Circle' %>

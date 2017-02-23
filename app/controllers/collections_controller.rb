@@ -57,7 +57,7 @@ class CollectionsController < ApplicationController
   # POST /collections.json
   def create
     @collection = Collection.new collection_params
-    @collection.admins << @current_user
+    @collection.admins << current_user
 
     if @collection.save
       Zip::File.open( params[:collection][:file].path ) { |zip_file|

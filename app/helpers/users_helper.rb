@@ -6,6 +6,6 @@ module UsersHelper
   end
 
   def is_current?( user )
-    authenticated? && user == @current_user
+    current_user.present? && user == current_user
   end
 end

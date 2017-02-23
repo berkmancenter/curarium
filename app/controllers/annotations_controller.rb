@@ -31,7 +31,7 @@ class AnnotationsController < ApplicationController
   def create
     @work = Work.find(params[:work_id])
     @annotation = @work.annotations.new(annotation_params)
-    @annotation.user_id = @current_user.id
+    @annotation.user_id = current_user.id
     respond_to do |format|
       if @annotation.save
         if params[ :annotation ][ :thumbnail_url ].present?

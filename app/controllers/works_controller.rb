@@ -211,7 +211,7 @@ class WorksController < ApplicationController
     response.headers[ 'Access-Control-Allow-Origin' ] = Waku::CORS_URL
 
     # for add to tray popout, will have to include cirlce trays later
-    @owner = @current_user
+    @owner = current_user
     @trays = @owner.all_trays unless @owner.nil?
     @popup_action = 'add'
     @popup_action_type = 'Image'
@@ -311,7 +311,7 @@ class WorksController < ApplicationController
     end
     
     @amendment = @work.amendments.new
-    @amendment.user_id = @current_user.id
+    @amendment.user_id = current_user.id
     @amendment.previous = last_amendment
     @amendment.amended = amended
     @amendment.save
@@ -324,7 +324,7 @@ class WorksController < ApplicationController
 
   # POST /works/1/set_cover
   def set_cover
-    if authenticated?
+    if current_user.present?
       if params[ :cover_type ] == 'Collection'
         if @work.collection.admins.include?( current_user )
           @work.collection.update cover_id: @work.id

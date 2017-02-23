@@ -14,7 +14,7 @@
           <div class="col-sm-6">
             <ul class="work-commands nav navbar-nav">
               <li><%= link_to render( partial: 'shared/mini_icon', object: 'record', locals: { side: :right } ), @work, class: 'show' %></li>
-              <% if authenticated? %>
+              <% if current_user.present? %>
                 <li><%= link_to render( partial: 'shared/mini_icon', object: 'tray', locals: { side: :right } ), '#', class: 'tray' %></li>
               <% end %>
             </ul>

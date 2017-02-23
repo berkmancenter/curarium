@@ -14,7 +14,7 @@
         <li><a href="#" data-panel="trays"><%= render partial: 'shared/mini_icon', object: 'tray', locals: { icon_title: nil } %></a></li>
         <li><a href="#" data-panel="annotations"><%= render partial: 'shared/mini_icon', object: 'annotate', locals: { icon_title: nil } %></a></li>
 
-        <% if authenticated? && @work.collection.admins.include?( @current_user ) %>
+        <% if current_user.present? && @work.collection.admins.include?( current_user ) %>
         <li><a href="#" data-panel="admin"><%= render partial: 'shared/mini_icon', object: 'user', locals: { icon_title: nil } %></a></li>
         <% end %>
       </ul>
@@ -39,7 +39,7 @@
 
       <div id="panel-trays" class="panel-work">
         <div class="trays-container">
-          <% if authenticated? %>
+          <% if current_user.present? %>
             <%= render template: 'trays/popup', layout: false %>
           <% else %>
             <div class="panel panel-default">
@@ -55,7 +55,7 @@
       <div id="panel-annotations" class="panel panel-default panel-work">
         <div class="panel-heading">Annotations</div>
         <div class="panel-body">
-          <% if authenticated? %>
+          <% if current_user.present? %>
             <h3 class="h5">Annotate image</h3>
             <%= render partial: 'annotations/form' %>
           <% else %>
@@ -74,8 +74,8 @@
         </div>
       </div>
 
-      <% if authenticated? && @work.collection.admins.include?( @current_user ) %>
-        <% if @work.collection.admins.include?( @current_user ) %>
+      <% if current_user.present? && @work.collection.admins.include?( current_user ) %>
+        <% if @work.collection.admins.include?( current_user ) %>
           <div id="panel-admin" class="panel panel-default panel-work">
             <div class="panel-heading">Admin</div>
             <div class="panel-body">
@@ -109,7 +109,7 @@
         <div class="expand_anno">
           <div id='annotations'>
 
-            <% if authenticated? %>
+            <% if current_user.present? %>
               <h4 class='window_header'>ANNOTATE IMAGE</h4>
               <div class='window_body'>
                 <div id='preview_window'></div>

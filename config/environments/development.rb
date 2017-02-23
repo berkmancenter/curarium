@@ -38,7 +38,4 @@ Curarium::Application.configure do
 
   config.action_mailer.delivery_method = :test
   config.action_mailer.perform_deliveries = false
-
-  # Setup browserid-rails
-  config.browserid.audience = 'curarium.dev.berkmancenter.org'
 end

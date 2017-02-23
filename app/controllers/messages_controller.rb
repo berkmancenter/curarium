@@ -12,7 +12,7 @@ class MessagesController < ApplicationController
   def create
     @section = Section.find(params[:section_id])
     @message = Message.new(message_params)
-    @message.user_id = @current_user.id
+    @message.user_id = current_user.id
     @message.section_id = @section.id
     respond_to do |format|
       if @message.save

@@ -13,7 +13,7 @@
     </div>
   <% end %>
 
-  <% if defined?( newnail ) && authenticated? %>
+  <% if defined?( newnail ) && current_user.present? %>
     <div class="<%= col_classes %>">
       <% partial_locals = { newnail_path: newnail_path } unless !defined?( newnail_path ) %>
       <%= render partial: 'shared/newnail', object: newnail, locals: partial_locals %>

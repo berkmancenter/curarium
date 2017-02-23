@@ -23,7 +23,7 @@ class ActivitiesController < ApplicationController
   # POST /activities
   def create
     @activity = Activity.new(activity_params)
-    @activity.creator = @current_user
+    @activity.creator = current_user
 
     if @activity.save
       redirect_to @activity.activitiable, notice: 'Activity was successfully created.'
@@ -54,7 +54,7 @@ class ActivitiesController < ApplicationController
       elsif params[ :circle_id ].present?
         @activitiable = Circle.find( params[ :circle_id ] )
       else
-        @activitiable = @current_user
+        @activitiable = current_user
       end
     end
 

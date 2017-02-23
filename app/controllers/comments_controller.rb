@@ -4,7 +4,7 @@ class CommentsController < ApplicationController
   def create
     @comment = Comment.new(comment_params)
     @section = Section.find(params[:section_id])
-    @comment.user_id = @current_user.id
+    @comment.user_id = current_user.id
     respond_to do |format|
       if @comment.save
         format.html { redirect_to @section, notice: 'Message was successfully created.' }

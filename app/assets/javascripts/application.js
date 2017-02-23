@@ -18,6 +18,5 @@
 //= require jquery.magnific-popup.min
 //= require d3
 //= require kinetic-v5.0.1.min
-//= require browserid
 //= require introjs
 //= require_tree 

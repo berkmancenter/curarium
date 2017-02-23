@@ -39,7 +39,7 @@ class TrayItemsController < ApplicationController
       end
     end
 
-    @owner = @current_user
+    @owner = current_user
     @trays = @owner.all_trays unless @owner.nil?
     @popup_action = 'add'
     render template: 'trays/popup', layout: false

@@ -2,14 +2,14 @@ class UsersController < ApplicationController
   before_action :set_user, only: [:show, :edit, :update, :destroy]
 
   def welcome
-    @name = authenticated? ? @current_user.name : 'anonymous'
+    @name = current_user.present? ? current_user.name : 'anonymous'
     render template: 'user_mailer/welcome', layout: false
   end
 
   # GET /users
   # GET /users.json
   def index
-    redirect_to( root_path ) unless authenticated? && @current_user.super
+    redirect_to( root_path ) unless current_user.present? && current_user.super
     @users = User.all
   end
 
@@ -18,7 +18,7 @@ class UsersController < ApplicationController
   def show
     response.headers[ 'Access-Control-Allow-Origin' ] = Waku::CORS_URL
 
-    if @user == @current_user
+    if @user == current_user
       @spotlights = @user.spotlights.user_only
     else
       @spotlights = @user.spotlights.user_only.where( privacy: 'public' )
@@ -66,8 +66,8 @@ class UsersController < ApplicationController
   # Use callbacks to share common setup or constraints between actions.
   def set_user
     @user = User.friendly.find(params[:id])
-    if authenticated?
-      @circles = Circle.for_user_by_current @user, @current_user
+    if current_user.present?
+      @circles = Circle.for_user_by_current @user, current_user
     else
       @circles = Circle.for_user_by_anon @user
     end

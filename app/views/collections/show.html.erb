@@ -15,7 +15,7 @@
 
       <%= render partial: 'collections/thumbnail', object: @collection %>
 
-      <% if authenticated? && @collection.admins.include?( @current_user ) %>
+      <% if current_user.present? && @collection.admins.include?( current_user ) %>
         <%= form_for @collection, method: 'delete' do |f| %>
           <%= f.button render( partial: 'shared/mini_icon', object: 'close', locals: { icon_title: 'Delete Collection' } ), type: 'submit', class: 'btn btn-danger delete-collection' %>
         <% end %>
@@ -23,7 +23,7 @@
       <% end %>
 
       <div class="list-group">
-        <% if authenticated? && @collection.admins.include?( @current_user ) %>
+        <% if current_user.present? && @collection.admins.include?( current_user ) %>
           <%= render partial: 'shared/mini_icon_item', object: 'annotate', locals: { icon_title: 'Edit/Privacy', url: edit_collection_path( @collection ) } %>
           <%= render partial: 'shared/mini_icon_item', object: 'admin', locals: { icon_title: 'Reconfigure', url: configure_collection_path( @collection ) } %>
         <% end %>

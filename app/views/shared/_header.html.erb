@@ -25,14 +25,14 @@
         </li>
       </ul>
       <ul class="nav navbar-nav navbar-right">
-        <% if authenticated? %>
+        <% if current_user.present? %>
           <li class="dropdown">
 
-            <%= link_to render( partial: 'users/mini_icon', object: @current_user ), '#', class: 'dropdown-toggle', role: 'button', 'aria-haspopup' => 'true', 'aria-expanded' => 'false', data: { toggle: 'dropdown' } %>
+            <%= link_to render( partial: 'users/mini_icon', object: current_user ), '#', class: 'dropdown-toggle', role: 'button', 'aria-haspopup' => 'true', 'aria-expanded' => 'false', data: { toggle: 'dropdown' } %>
 
             <ul class="dropdown-menu">
-              <li><%= link_to 'View Profile', @current_user %></li>
-              <li><%= link_to 'Edit Profile', edit_user_path( @current_user ) %></li>
+              <li><%= link_to 'View Profile', current_user %></li>
+              <li><%= link_to 'Edit Profile', edit_user_path( current_user ) %></li>
               <li><%= link_to 'Sign Out', logout_path %></li>
             </ul>
 

@@ -7,8 +7,8 @@ class TraysController < ApplicationController
 
   def index
     response.headers[ 'Access-Control-Allow-Origin' ] = Waku::CORS_URL
-    if authenticated?
-      if @owner.is_a?( Circle ) ? @owner.has_user?( @current_user ) : @current_user == @owner
+    if current_user.present?
+      if @owner.is_a?( Circle ) ? @owner.has_user?( current_user ) : current_user == @owner
         respond_to { |format|
           format.html {
             if request.xhr?
@@ -73,7 +73,7 @@ class TraysController < ApplicationController
     elsif params[ :circle_id ].present?
       @owner = Circle.find( params[ :circle_id ] )
     else
-      @owner = @current_user
+      @owner = current_user
     end
     @owner_type = @owner.class.to_s
   end

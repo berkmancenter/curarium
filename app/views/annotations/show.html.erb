@@ -16,8 +16,8 @@
       <div class="stalking_menu">
         <%= link_to 'View Record', work_path( @work ), class: 'show-annotation-work' unless @xhr %>
 
-        <% if authenticated? %>
-          <% if @annotation.user == @current_user %>
+        <% if current_user.present? %>
+          <% if @annotation.user == current_user %>
             <%= link_to 'Edit Annotation', edit_work_annotation_path( @work, @annotation ), class: 'edit-annotation' %>
 
             <%= form_for( [ @work, @annotation ], html: { method: :delete } ) { |f| %>
@@ -35,7 +35,7 @@
   <h1 class="collection-header"><%= @annotation.title %></h1>
 
   <ul class="annotation-commands">
-    <% if authenticated? %>
+    <% if current_user.present? %>
       <li><%= link_to render( partial: 'shared/mini_icon', object: 'tray' ), '#', class: 'tray' %></li>
     <% end %>
   </ul>

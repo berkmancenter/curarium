@@ -14,8 +14,8 @@ node_modules
 # seed data
 db/collection_data
 
-# collection tiles
-app/assets/images/collection_tiles
+# production precompiled assets
+public/assets
 
 # work thumbnails
 public/thumbnails

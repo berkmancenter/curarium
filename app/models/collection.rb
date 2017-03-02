@@ -61,44 +61,45 @@ class Collection < ActiveRecord::Base
   end
 
   def self.follow_json( structure, path )
-    Rails.logger.debug "[reconfigure] path: #{path}"
-
-    if structure.is_a? String
-      structure = JSON.parse structure
-    end
-
-    cpath = path[0]
-    cpath = cpath.to_i if is_i?( cpath )
-
-    field = nil
-
-    if path.count > 0 && structure.present? && structure[cpath].present?
-      current = structure[cpath]
-
-      if path.length == 1
-        field = [ current ]
-      else
-        if current.class == Array && path[1] == '*'
-          field = []
-          limit = current.length
-          for c in 0..limit
-            npath = path.slice 1, path.length
-            npath[0] = c
-            partial = follow_json current, npath
-            if partial.present?
-              field.push partial[ 0 ]
-            end
-          end
-        else
-          field = follow_json current, path.slice( 1, path.length )
-        end
-
-        field.compact unless field.nil?
+    begin
+      if structure.is_a? String
+        structure = JSON.parse structure
       end
-    end
 
-    Rails.logger.debug "[reconfigure] field value: #{field}"
-    field
+      cpath = path[0]
+      cpath = cpath.to_i if is_i?( cpath )
+
+      field = nil
+
+      if path.count > 0 && structure.present? && structure[cpath].present?
+        current = structure[cpath]
+
+        if path.length == 1
+          field = [ current ]
+        else
+          if current.class == Array && path[1] == '*'
+            field = []
+            limit = current.length
+            for c in 0..limit
+              npath = path.slice 1, path.length
+              npath[0] = c
+              partial = follow_json current, npath
+              if partial.present?
+                field.push partial[ 0 ]
+              end
+            end
+          else
+            field = follow_json current, path.slice( 1, path.length )
+          end
+
+          field.compact unless field.nil?
+        end
+      end
+      field
+    rescue Exception => e
+      Rails.logger.info "[reconfigure] structure: #{structure}, path: #{path}, error: #{e.inspect}"
+      nil
+    end
   end
 
   def self.follow_json_single( structure, path )

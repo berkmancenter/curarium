@@ -45,7 +45,7 @@
             <div class="panel panel-default">
               <div class="panel-heading">Your Trays</div>
               <div class="panel-body">
-                <%= login_link 'Log in' %>
+                <%= link_to 'Log in', new_user_session_path %>
               </div>
             </div>
           <% end %>
@@ -59,7 +59,7 @@
             <h3 class="h5">Annotate image</h3>
             <%= render partial: 'annotations/form' %>
           <% else %>
-            <div><%= login_link 'Log in' %> to annotate this image</div>
+            <div><%= link_to 'Log in', new_user_session_path %> to annotate this image</div>
           <% end %>
 
           <hr>
@@ -144,7 +144,7 @@
               </div>
 
             <% else %>
-              <%= login_link 'Log in' %>
+              <%= link_to 'Log in', new_user_session_path %>
             <% end %>
           </div> 
         </div>

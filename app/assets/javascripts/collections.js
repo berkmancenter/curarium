@@ -12,6 +12,10 @@ $( function() {
       // array in path, single object in original, ignore the array index
       path.splice( 0, 1 );
       return extractExample( original, path );
+    } else if ( typeof( original ) === 'object' && !path[ 0 ].match( /^\d+$/ ) && $.isArray( original ) ) {
+      // single property in path, object in original is an array, keep property in path but dive into original[0]
+      var subObj = original[ 0 ];
+      return extractExample( subObj, path );
     } else if ( !original.hasOwnProperty( path[ 0 ] ) ) {
       return '';
     } else if ( path.length === 1 ) {

@@ -163,13 +163,13 @@ class WorksController < ApplicationController
       @page = (params[:page].to_i<=0 || params[:page].to_i > (@num.to_f/@perpage).ceil) ? 1 : params[:page].to_i
 
       if @vis == 'list'
-        @works = Work.where(where_clause).limit(@perpage).offset((@page-1)*@perpage)
+        @works = Work.where(where_clause).order(:id).limit(@perpage).offset((@page-1)*@perpage)
       else
-        @works = Work.with_thumb.where(where_clause).limit(@perpage).offset((@page-1)*@perpage)
+        @works = Work.with_thumb.where(where_clause).order(:id).limit(@perpage).offset((@page-1)*@perpage)
       end
     elsif @vis == 'objectmap'
       # objectmap should only get thumbnails
-      @works = Work.with_thumb.where where_clause
+      @works = Work.with_thumb.where( where_clause ).order( :id )
       ids_only = false
 
       if @collection.present? && !have_query
@@ -186,7 +186,7 @@ class WorksController < ApplicationController
 
       Work.write_montage @works, montage_path, false, ids_only
     elsif @vis == 'geochrono'
-      @works = Work.with_thumb.where(where_clause)
+      @works = Work.with_thumb.where(where_clause).order( :id )
       ids_only = false
 
       if @collection.present? && !have_query
@@ -201,7 +201,7 @@ class WorksController < ApplicationController
       Work.write_geochrono @works, Rails.public_path.join( 'thumbnails', @query_type, @query_id.to_s ), false, ids_only
       
     else
-      @works = Work.where(where_clause)
+      @works = Work.where( where_clause ).order( :id )
     end
   end
 
